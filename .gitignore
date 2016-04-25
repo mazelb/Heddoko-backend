@@ -1,0 +1,13 @@
+/Heddoko/.vs
+/Heddoko/packages
+/Heddoko/Heddoko/obj
+/Heddoko/Heddoko/bin
+/Heddoko/Services/obj
+/Heddoko/Services/bin
+/Heddoko/DAL/obj
+/Heddoko/DAL/bin
+/Heddoko/i18n/obj
+/Heddoko/i18n/bin
+/Heddoko/Heddoko.Tests/obj
+/Heddoko/Heddoko.Tests/bin
+/Heddoko/Heddoko/Heddoko.csproj.user
