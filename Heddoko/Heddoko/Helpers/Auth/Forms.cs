@@ -1,6 +1,5 @@
 ﻿using DAL;
 using DAL.Models;
-using DAL.Repository;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,10 +12,9 @@ namespace Heddoko.Helpers.Auth
     public class Forms
     {
         const int Version = 1;
-        public static User SignIn(HDContext db, string email, string password)
+        public static User SignIn(UnitOfWork uow, string email, string password)
         {
-            UserRepository userRepository = new UserRepository(db);
-            User user = userRepository.GetByEmailCached(email);
+            User user = uow.UserRepository.GetByEmailCached(email);
 
             if (user != null
              && PasswordHasher.Equals(password?.Trim(), user.Salt, user.Password))
@@ -53,7 +51,7 @@ namespace Heddoko.Helpers.Auth
             return user;
         }
 
-        public static User ValidateSession(HDContext db, bool isForce = false)
+        public static User ValidateSession(UnitOfWork uow, bool isForce = false)
         {
             User user = ContextSession.User;
             if ((user == null || isForce)
@@ -62,8 +60,7 @@ namespace Heddoko.Helpers.Auth
              && HttpContext.Current.User.Identity.IsAuthenticated
              )
             {
-                UserRepository userRepository = new UserRepository(db);
-                user = userRepository.GetIDCached(int.Parse(HttpContext.Current.User.Identity.Name));
+                user = uow.UserRepository.GetIDCached(int.Parse(HttpContext.Current.User.Identity.Name));
                 ContextSession.User = user;
 
                 if (user != null

@@ -8,6 +8,8 @@ namespace DAL.Migrations
     using System.Collections.Generic;
     internal sealed class Configuration : DbMigrationsConfiguration<DAL.HDContext>
     {
+        private UnitOfWork UoW { get; set; }
+
         public Configuration()
         {
             //TODO Disable it
@@ -21,7 +23,7 @@ namespace DAL.Migrations
         {
             if (Config.AllowInitData)
             {
-                //TODO add seed
+                UoW = new UnitOfWork(context);
                 Tags(context);
                 Users(context);
                 Groups(context);

@@ -11,12 +11,12 @@ namespace Heddoko.Controllers
 {
     public class BaseController : Controller
     {
-        protected HDContext db { get; set; }
+        protected UnitOfWork UoW { get; set; }
 
         public BaseController()
         {
-            db = new HDContext();
-            CurrentUser = Forms.ValidateSession(db);
+            UoW = new UnitOfWork();
+            CurrentUser = Forms.ValidateSession(UoW);
             ContextTempData = new ContextTempData(TempData);
         }
 

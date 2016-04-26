@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class BaseRepository<T> : CacheRepository<T>, IBaseRepository<T> where T : BaseModel
+    public class BaseRepository<T> : ICacheRepository<T>, IBaseRepository<T> where T : BaseModel
     {
         protected HDContext db { get; private set; }
         protected IDbSet<T> DbSet;
@@ -176,7 +176,7 @@ namespace DAL
         }
         #endregion
 
-        #region Dispose
+        #region IDisposable
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

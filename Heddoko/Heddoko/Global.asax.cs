@@ -8,7 +8,6 @@ using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
 using System.Web.Optimization;
-using DAL.Repository;
 using DAL;
 using DAL.Models;
 using System.Security.Principal;
@@ -45,9 +44,8 @@ namespace Heddoko
 
             if (!string.IsNullOrEmpty(token))
             {
-                HDContext db = new HDContext();
-                UserRepository userRepo = new UserRepository(db);
-                User user = userRepo.GetByEmail(token);
+                UnitOfWork uow = new UnitOfWork();
+                User user = uow.AccessTokenRepository.GetByToken(token)?.User;
                 if (user != null)
                 {
                     if (user.IsActive)
