@@ -1,6 +1,7 @@
 ﻿using DAL.Models;
 using System.Linq;
 using System.Data.Entity;
+using System;
 
 namespace DAL
 {
@@ -8,6 +9,11 @@ namespace DAL
     {
         public AssetRepository(HDContext sb) : base(sb)
         {
+        }
+
+        public Asset GetByImage(string name)
+        {
+            return DbSet.Where(c => c.Image == name).FirstOrDefault();
         }
     }
 }

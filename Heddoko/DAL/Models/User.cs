@@ -65,10 +65,10 @@ namespace DAL.Models
         public virtual Asset Asset { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<GroupManager> Groups { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<ProfileManager> Profiles { get; set; }
+        public virtual ICollection<Profile> Profiles { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<AccessToken> Tokens { get; set; }

@@ -21,6 +21,7 @@ namespace DAL.Models
         public int? TagID { get; set; }
 
         [JsonIgnore]
+        [ForeignKey("TagID")]
         public virtual Tag Tag { get; set; }
 
         public int? AssetID { get; set; }
@@ -29,13 +30,13 @@ namespace DAL.Models
         public virtual Asset Asset { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<GroupTag> Tags { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<GroupProfile> Profiles { get; set; }
+        public virtual ICollection<Profile> Profiles { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<GroupManager> Managers { get; set; }
+        public virtual ICollection<User> Managers { get; set; }
         #endregion
     }
 }

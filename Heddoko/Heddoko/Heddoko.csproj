@@ -224,6 +224,21 @@
     <Content Include="Content\kendo\textures\stripe6.png" />
     <Content Include="Content\kendo\textures\transparency.png" />
     <Content Include="Content\kendo\textures\transtexture.png" />
+    <Content Include="Content\seed\baba-war.png" />
+    <Content Include="Content\seed\bull.png" />
+    <Content Include="Content\seed\carl-war.png" />
+    <Content Include="Content\seed\colin-war.png" />
+    <Content Include="Content\seed\dima-war.png" />
+    <Content Include="Content\seed\jamal-war.png" />
+    <Content Include="Content\seed\james-war.png" />
+    <Content Include="Content\seed\john-war.png" />
+    <Content Include="Content\seed\kara-dummy.jpg" />
+    <Content Include="Content\seed\kevin-war.png" />
+    <Content Include="Content\seed\lion.png" />
+    <Content Include="Content\seed\lion2.png" />
+    <Content Include="Content\seed\peter-war.png" />
+    <Content Include="Content\seed\war.png" />
+    <Content Include="Content\seed\wolf.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1364,6 +1379,7 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-TW.min.js.map" />
     <Content Include="Views\Shared\_TranslateJS.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Views\Default\SeedUpload.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -15,13 +15,13 @@ namespace DAL.Models
 
         #region Relations
         [JsonIgnore]
-        public virtual ICollection<ProfileTag> Profiles { get; set; }
+        public virtual ICollection<Profile> Profiles { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<MovementTag> Movements { get; set; }
+        public virtual ICollection<Movement> Movements { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<GroupTag> Groups { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
         #endregion
     }
 }

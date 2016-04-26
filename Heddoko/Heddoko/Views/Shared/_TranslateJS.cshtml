@@ -8,15 +8,15 @@
     Enums.userStatus = {};
     Enums.userStatus.enum = {};
     Enums.userStatus.array = {};
-    @foreach (DAL.Models.UserStatus type in (DAL.Models.UserStatus[])Enum.GetValues(typeof(DAL.Models.UserStatus)))
+    @foreach (DAL.Models.UserStatusType type in (DAL.Models.UserStatusType[])Enum.GetValues(typeof(DAL.Models.UserStatusType)))
     {
         <text>
 
-    Enums.userStatus.enum["@Enum.GetName(typeof(DAL.Models.UserStatus), type)"] = @((int)type);
+    Enums.userStatus.enum["@type.GetDisplayName()"] = @((int)type);
 
     Enums.userStatus.array[@((int)type)] = {
         "value": @((int)type),
-        "text": Chars.convert('@Enum.GetName(typeof(DAL.Models.UserStatus), type)')
+        "text": Chars.convert("@type.GetDisplayName()")
     };
     </text>
     }
@@ -24,15 +24,15 @@
     Enums.userRoles = {};
     Enums.userRoles.enum = {};
     Enums.userRoles.array = {};
-    @foreach (DAL.Models.UserRole type in (DAL.Models.UserRole[])Enum.GetValues(typeof(DAL.Models.UserRole)))
+    @foreach (DAL.Models.UserRoleType type in (DAL.Models.UserRoleType[])Enum.GetValues(typeof(DAL.Models.UserRoleType)))
     {
         <text>
 
-    Enums.userRoles.enum["@Enum.GetName(typeof(DAL.Models.UserRole), type)"] = @((int)type);
+    Enums.userRoles.enum["@type.GetDisplayName()"] = @((int)type);
 
     Enums.userRoles.array[@((int)type)] = {
         "value": @((int)type),
-        "text": Chars.convert('@Enum.GetName(typeof(DAL.Models.UserRole), type)')
+        "text": Chars.convert("@type.GetDisplayName()")
     };
     </text>
     }

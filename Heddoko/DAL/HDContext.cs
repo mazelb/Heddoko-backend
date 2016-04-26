@@ -40,12 +40,6 @@ namespace DAL
 
         public DbSet<Group> Groups { get; set; }
 
-        public DbSet<GroupManager> GroupManagers { get; set; }
-
-        public DbSet<GroupProfile> GroupProfiles { get; set; }
-
-        public DbSet<GroupTag> GroupTags { get; set; }
-
         public DbSet<Asset> Assets { get; set; }
 
         public DbSet<Material> Materials { get; set; }
@@ -60,13 +54,7 @@ namespace DAL
 
         public DbSet<MovementMarker> MovementMarkers { get; set; }
 
-        public DbSet<MovementTag> MovementTags { get; set; }
-
         public DbSet<Profile> Profiles { get; set; }
-
-        public DbSet<ProfileManager> ProfileManagers { get; set; }
-
-        public DbSet<ProfileTag> ProfileTags { get; set; }
 
         public DbSet<Screening> Screenings { get; set; }
 
@@ -78,35 +66,13 @@ namespace DAL
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
-            modelBuilder.Entity<GroupManager>()
-                        .HasRequired(t => t.Manager)
-                        .WithMany(t => t.Groups)
-                        .WillCascadeOnDelete(true);
+            modelBuilder.Entity<Profile>()
+               .HasMany<Tag>(s => s.Tags)
+               .WithMany(c => c.Profiles);
 
-            modelBuilder.Entity<GroupProfile>()
-                        .HasRequired(t => t.Group)
-                        .WithMany(t => t.Profiles)
-                        .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<GroupTag>()
-                        .HasRequired(t => t.Group)
-                        .WithMany(t => t.Tags)
-                        .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<ProfileManager>()
-                        .HasRequired(t => t.Manager)
-                        .WithMany(t => t.Profiles)
-                        .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<ProfileTag>()
-                        .HasRequired(t => t.Profile)
-                        .WithMany(t => t.Tags)
-                        .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<MovementTag>()
-                        .HasRequired(t => t.Movement)
-                        .WithMany(t => t.Tags)
-                        .WillCascadeOnDelete(true);
+            modelBuilder.Entity<Group>()
+               .HasMany<Tag>(s => s.Tags)
+               .WithMany(c => c.Groups);
 
             base.OnModelCreating(modelBuilder);
         }

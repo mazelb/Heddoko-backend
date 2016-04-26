@@ -56,6 +56,8 @@ namespace DAL.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Image = c.String(maxLength: 255),
+                        Type = c.Int(nullable: false),
+                        Status = c.Int(nullable: false),
                         Updated = c.DateTime(),
                         Created = c.DateTime(nullable: false),
                     })
@@ -68,7 +70,7 @@ namespace DAL.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Status = c.Int(nullable: false),
-                        AnatomicalPosition = c.Int(nullable: false),
+                        AnatomicalPosition = c.Int(),
                         Prototype = c.Int(nullable: false),
                         Condition = c.Int(nullable: false),
                         Numbers = c.Int(nullable: false),
@@ -216,7 +218,7 @@ namespace DAL.Migrations
                         Phone = c.String(maxLength: 255),
                         Height = c.Double(),
                         Weight = c.Double(),
-                        Birthdate = c.DateTime(),
+                        BirthDay = c.DateTime(),
                         Gender = c.Int(nullable: false),
                         Data = c.String(storeType: "ntext"),
                         TagID = c.Int(),
@@ -229,22 +231,6 @@ namespace DAL.Migrations
                 .ForeignKey("dbo.Tags", t => t.TagID)
                 .Index(t => t.TagID)
                 .Index(t => t.AssetID);
-            
-            CreateTable(
-                "dbo.GroupProfiles",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        GroupID = c.Int(nullable: false),
-                        ProfileID = c.Int(nullable: false),
-                        Updated = c.DateTime(),
-                        Created = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Groups", t => t.GroupID, cascadeDelete: true)
-                .ForeignKey("dbo.Profiles", t => t.ProfileID)
-                .Index(t => t.GroupID)
-                .Index(t => t.ProfileID);
             
             CreateTable(
                 "dbo.Groups",
@@ -265,22 +251,6 @@ namespace DAL.Migrations
                 .Index(t => t.AssetID);
             
             CreateTable(
-                "dbo.GroupManagers",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        GroupID = c.Int(nullable: false),
-                        ManagerID = c.Int(nullable: false),
-                        Updated = c.DateTime(),
-                        Created = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Groups", t => t.GroupID)
-                .ForeignKey("dbo.Users", t => t.ManagerID, cascadeDelete: true)
-                .Index(t => t.GroupID)
-                .Index(t => t.ManagerID);
-            
-            CreateTable(
                 "dbo.Tags",
                 c => new
                     {
@@ -290,70 +260,6 @@ namespace DAL.Migrations
                         Created = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
-            
-            CreateTable(
-                "dbo.GroupTags",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        GroupID = c.Int(nullable: false),
-                        TagID = c.Int(nullable: false),
-                        Updated = c.DateTime(),
-                        Created = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Groups", t => t.GroupID, cascadeDelete: true)
-                .ForeignKey("dbo.Tags", t => t.TagID)
-                .Index(t => t.GroupID)
-                .Index(t => t.TagID);
-            
-            CreateTable(
-                "dbo.MovementTags",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        MovementID = c.Int(nullable: false),
-                        TagID = c.Int(nullable: false),
-                        Updated = c.DateTime(),
-                        Created = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Movements", t => t.MovementID, cascadeDelete: true)
-                .ForeignKey("dbo.Tags", t => t.TagID)
-                .Index(t => t.MovementID)
-                .Index(t => t.TagID);
-            
-            CreateTable(
-                "dbo.ProfileTags",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        ProfileID = c.Int(nullable: false),
-                        TagID = c.Int(nullable: false),
-                        Updated = c.DateTime(),
-                        Created = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Profiles", t => t.ProfileID, cascadeDelete: true)
-                .ForeignKey("dbo.Tags", t => t.TagID)
-                .Index(t => t.ProfileID)
-                .Index(t => t.TagID);
-            
-            CreateTable(
-                "dbo.ProfileManagers",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        ProfileID = c.Int(nullable: false),
-                        ManagerID = c.Int(nullable: false),
-                        Updated = c.DateTime(),
-                        Created = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Users", t => t.ManagerID, cascadeDelete: true)
-                .ForeignKey("dbo.Profiles", t => t.ProfileID)
-                .Index(t => t.ProfileID)
-                .Index(t => t.ManagerID);
             
             CreateTable(
                 "dbo.Screenings",
@@ -420,6 +326,84 @@ namespace DAL.Migrations
                     })
                 .PrimaryKey(t => t.ID);
             
+            CreateTable(
+                "dbo.GroupUsers",
+                c => new
+                    {
+                        Group_ID = c.Int(nullable: false),
+                        User_ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Group_ID, t.User_ID })
+                .ForeignKey("dbo.Groups", t => t.Group_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.User_ID, cascadeDelete: true)
+                .Index(t => t.Group_ID)
+                .Index(t => t.User_ID);
+            
+            CreateTable(
+                "dbo.GroupProfiles",
+                c => new
+                    {
+                        Group_ID = c.Int(nullable: false),
+                        Profile_ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Group_ID, t.Profile_ID })
+                .ForeignKey("dbo.Groups", t => t.Group_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Profiles", t => t.Profile_ID, cascadeDelete: true)
+                .Index(t => t.Group_ID)
+                .Index(t => t.Profile_ID);
+            
+            CreateTable(
+                "dbo.TagMovements",
+                c => new
+                    {
+                        Tag_ID = c.Int(nullable: false),
+                        Movement_ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Tag_ID, t.Movement_ID })
+                .ForeignKey("dbo.Tags", t => t.Tag_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Movements", t => t.Movement_ID, cascadeDelete: true)
+                .Index(t => t.Tag_ID)
+                .Index(t => t.Movement_ID);
+            
+            CreateTable(
+                "dbo.GroupTags",
+                c => new
+                    {
+                        Group_ID = c.Int(nullable: false),
+                        Tag_ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Group_ID, t.Tag_ID })
+                .ForeignKey("dbo.Groups", t => t.Group_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Tags", t => t.Tag_ID, cascadeDelete: true)
+                .Index(t => t.Group_ID)
+                .Index(t => t.Tag_ID);
+            
+            CreateTable(
+                "dbo.ProfileUsers",
+                c => new
+                    {
+                        Profile_ID = c.Int(nullable: false),
+                        User_ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Profile_ID, t.User_ID })
+                .ForeignKey("dbo.Profiles", t => t.Profile_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.User_ID, cascadeDelete: true)
+                .Index(t => t.Profile_ID)
+                .Index(t => t.User_ID);
+            
+            CreateTable(
+                "dbo.ProfileTags",
+                c => new
+                    {
+                        Profile_ID = c.Int(nullable: false),
+                        Tag_ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Profile_ID, t.Tag_ID })
+                .ForeignKey("dbo.Profiles", t => t.Profile_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Tags", t => t.Tag_ID, cascadeDelete: true)
+                .Index(t => t.Profile_ID)
+                .Index(t => t.Tag_ID);
+            
         }
         
         public override void Down()
@@ -434,23 +418,23 @@ namespace DAL.Migrations
             DropForeignKey("dbo.MovementMarkers", "StartFrameID", "dbo.MovementFrames");
             DropForeignKey("dbo.MovementMarkers", "EndFrameID", "dbo.MovementFrames");
             DropForeignKey("dbo.MovementFrames", "Movement_ID", "dbo.Movements");
+            DropForeignKey("dbo.ProfileTags", "Tag_ID", "dbo.Tags");
+            DropForeignKey("dbo.ProfileTags", "Profile_ID", "dbo.Profiles");
             DropForeignKey("dbo.Profiles", "TagID", "dbo.Tags");
             DropForeignKey("dbo.Screenings", "ProfileID", "dbo.Profiles");
             DropForeignKey("dbo.Movements", "ScreeningID", "dbo.Screenings");
             DropForeignKey("dbo.Movements", "ProfileID", "dbo.Profiles");
-            DropForeignKey("dbo.ProfileManagers", "ProfileID", "dbo.Profiles");
-            DropForeignKey("dbo.ProfileManagers", "ManagerID", "dbo.Users");
-            DropForeignKey("dbo.GroupProfiles", "ProfileID", "dbo.Profiles");
-            DropForeignKey("dbo.GroupProfiles", "GroupID", "dbo.Groups");
+            DropForeignKey("dbo.ProfileUsers", "User_ID", "dbo.Users");
+            DropForeignKey("dbo.ProfileUsers", "Profile_ID", "dbo.Profiles");
+            DropForeignKey("dbo.GroupTags", "Tag_ID", "dbo.Tags");
+            DropForeignKey("dbo.GroupTags", "Group_ID", "dbo.Groups");
             DropForeignKey("dbo.Groups", "TagID", "dbo.Tags");
-            DropForeignKey("dbo.ProfileTags", "TagID", "dbo.Tags");
-            DropForeignKey("dbo.ProfileTags", "ProfileID", "dbo.Profiles");
-            DropForeignKey("dbo.MovementTags", "TagID", "dbo.Tags");
-            DropForeignKey("dbo.MovementTags", "MovementID", "dbo.Movements");
-            DropForeignKey("dbo.GroupTags", "TagID", "dbo.Tags");
-            DropForeignKey("dbo.GroupTags", "GroupID", "dbo.Groups");
-            DropForeignKey("dbo.GroupManagers", "ManagerID", "dbo.Users");
-            DropForeignKey("dbo.GroupManagers", "GroupID", "dbo.Groups");
+            DropForeignKey("dbo.TagMovements", "Movement_ID", "dbo.Movements");
+            DropForeignKey("dbo.TagMovements", "Tag_ID", "dbo.Tags");
+            DropForeignKey("dbo.GroupProfiles", "Profile_ID", "dbo.Profiles");
+            DropForeignKey("dbo.GroupProfiles", "Group_ID", "dbo.Groups");
+            DropForeignKey("dbo.GroupUsers", "User_ID", "dbo.Users");
+            DropForeignKey("dbo.GroupUsers", "Group_ID", "dbo.Groups");
             DropForeignKey("dbo.Groups", "AssetID", "dbo.Assets");
             DropForeignKey("dbo.Folders", "ProfileID", "dbo.Profiles");
             DropForeignKey("dbo.Profiles", "AssetID", "dbo.Assets");
@@ -464,25 +448,25 @@ namespace DAL.Migrations
             DropForeignKey("dbo.Movements", "ComplexEquipmentID", "dbo.ComplexEquipments");
             DropForeignKey("dbo.Equipments", "ComplexEquipmentID", "dbo.ComplexEquipments");
             DropForeignKey("dbo.Users", "AssetID", "dbo.Assets");
+            DropIndex("dbo.ProfileTags", new[] { "Tag_ID" });
+            DropIndex("dbo.ProfileTags", new[] { "Profile_ID" });
+            DropIndex("dbo.ProfileUsers", new[] { "User_ID" });
+            DropIndex("dbo.ProfileUsers", new[] { "Profile_ID" });
+            DropIndex("dbo.GroupTags", new[] { "Tag_ID" });
+            DropIndex("dbo.GroupTags", new[] { "Group_ID" });
+            DropIndex("dbo.TagMovements", new[] { "Movement_ID" });
+            DropIndex("dbo.TagMovements", new[] { "Tag_ID" });
+            DropIndex("dbo.GroupProfiles", new[] { "Profile_ID" });
+            DropIndex("dbo.GroupProfiles", new[] { "Group_ID" });
+            DropIndex("dbo.GroupUsers", new[] { "User_ID" });
+            DropIndex("dbo.GroupUsers", new[] { "Group_ID" });
             DropIndex("dbo.Materials", new[] { "MaterialTypeID" });
             DropIndex("dbo.MovementMarkers", new[] { "Movement_ID" });
             DropIndex("dbo.MovementMarkers", new[] { "EndFrameID" });
             DropIndex("dbo.MovementMarkers", new[] { "StartFrameID" });
             DropIndex("dbo.Screenings", new[] { "ProfileID" });
-            DropIndex("dbo.ProfileManagers", new[] { "ManagerID" });
-            DropIndex("dbo.ProfileManagers", new[] { "ProfileID" });
-            DropIndex("dbo.ProfileTags", new[] { "TagID" });
-            DropIndex("dbo.ProfileTags", new[] { "ProfileID" });
-            DropIndex("dbo.MovementTags", new[] { "TagID" });
-            DropIndex("dbo.MovementTags", new[] { "MovementID" });
-            DropIndex("dbo.GroupTags", new[] { "TagID" });
-            DropIndex("dbo.GroupTags", new[] { "GroupID" });
-            DropIndex("dbo.GroupManagers", new[] { "ManagerID" });
-            DropIndex("dbo.GroupManagers", new[] { "GroupID" });
             DropIndex("dbo.Groups", new[] { "AssetID" });
             DropIndex("dbo.Groups", new[] { "TagID" });
-            DropIndex("dbo.GroupProfiles", new[] { "ProfileID" });
-            DropIndex("dbo.GroupProfiles", new[] { "GroupID" });
             DropIndex("dbo.Profiles", new[] { "AssetID" });
             DropIndex("dbo.Profiles", new[] { "TagID" });
             DropIndex("dbo.Folders", new[] { "ProfileID" });
@@ -511,18 +495,18 @@ namespace DAL.Migrations
             DropIndex("dbo.Users", new[] { "Username" });
             DropIndex("dbo.Users", new[] { "Email" });
             DropIndex("dbo.AccessTokens", new[] { "UserID" });
+            DropTable("dbo.ProfileTags");
+            DropTable("dbo.ProfileUsers");
+            DropTable("dbo.GroupTags");
+            DropTable("dbo.TagMovements");
+            DropTable("dbo.GroupProfiles");
+            DropTable("dbo.GroupUsers");
             DropTable("dbo.MaterialTypes");
             DropTable("dbo.Materials");
             DropTable("dbo.MovementMarkers");
             DropTable("dbo.Screenings");
-            DropTable("dbo.ProfileManagers");
-            DropTable("dbo.ProfileTags");
-            DropTable("dbo.MovementTags");
-            DropTable("dbo.GroupTags");
             DropTable("dbo.Tags");
-            DropTable("dbo.GroupManagers");
             DropTable("dbo.Groups");
-            DropTable("dbo.GroupProfiles");
             DropTable("dbo.Profiles");
             DropTable("dbo.Folders");
             DropTable("dbo.MovementEvents");

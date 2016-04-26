@@ -76,5 +76,42 @@ namespace DAL
             }
         }
         #endregion
+
+        #region Azure
+
+
+        public static string StorageConnectionString
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["StorageConnectionString"];
+
+            }
+        }
+
+        public static string AssetsContainer
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["AssetsContainer"];
+            }
+        }
+
+        public static int AssetsEndpoint
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["AssetsEndpoint"]);
+            }
+        }
+
+        public static string AssetsServer
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["AWSUserAccessKey"];
+            }
+        }
+        #endregion
     }
 }

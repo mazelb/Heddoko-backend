@@ -24,7 +24,7 @@ namespace DAL.Models
 
         public EquipmentStatusType Status { get; set; }
 
-        public AnatomicalPositionType AnatomicalPosition { get; set; }
+        public AnatomicalPositionType? AnatomicalPosition { get; set; }
 
         public PrototypeType Prototype { get; set; }
 

@@ -62,7 +62,7 @@ namespace Heddoko
 
                         _applicationPath = HttpContext.Current.Server.MapPath("~/").TrimEnd('\\');
 
-                        DAL.Models.BaseModel.AssetsServer = string.Empty;
+                        DAL.Models.BaseModel.AssetsServer = Config.AssetsServer;
 
                         Trace.TraceInformation(string.Format("Host: {0}", Host));
                         Trace.TraceInformation(string.Format("ApplicationPath : {0}", ApplicationPath));

@@ -19,6 +19,46 @@ namespace DAL.Migrations
             SetSqlGenerator("System.Data.SqlClient", new CustomSqlServerMigrationSqlGenerator());
         }
 
+        #region Get
+        private User GetUser(string email)
+        {
+            return UoW.UserRepository.GetByEmail(email);
+        }
+
+        private Group GetGroup(string name)
+        {
+            return UoW.GroupRepository.GetByName(name);
+        }
+
+        private Material GetMaterial(string name)
+        {
+            return UoW.MaterialRepository.GetByName(name);
+        }
+
+        private MaterialType GetMaterialType(string name)
+        {
+            return UoW.MaterialTypeRepository.GetByName(name);
+        }
+
+        private int AddAsset(HDContext context, string image, AssetType type)
+        {
+            context.Assets.AddOrUpdate(
+                p => p.Image,
+                new Asset
+                {
+                    Image = image,
+                    Type = type,
+                    Status = UploadStatusType.Uploaded
+                }
+            );
+            context.SaveChanges();
+
+            Asset asset = UoW.AssetRepository.GetByImage(image);
+
+            return asset.ID;
+        }
+        #endregion
+
         protected override void Seed(DAL.HDContext context)
         {
             if (Config.AllowInitData)
@@ -51,6 +91,17 @@ namespace DAL.Migrations
                    },
                    new User
                    {
+                       Email = "support@heddoko.co",
+                       Username = "heddoko.support",
+                       Status = UserStatusType.Active,
+                       Password = pwd.Hash,
+                       Salt = pwd.Salt,
+                       FirstName = "Support",
+                       LastName = "",
+                       Role = UserRoleType.Admin
+                   },
+                   new User
+                   {
                        Email = "awesomeathlete111@heddoko.co",
                        Username = "awesomeathlete111",
                        Status = UserStatusType.Active,
@@ -70,6 +121,28 @@ namespace DAL.Migrations
                       FirstName = "Awesome",
                       LastName = "Coach",
                       Role = UserRoleType.Analyst
+                  },
+                  new User
+                  {
+                      Email = "footballdemo@heddoko.co",
+                      Username = "footballdemo",
+                      Status = UserStatusType.Active,
+                      Password = pwd.Hash,
+                      Salt = pwd.Salt,
+                      FirstName = "Brian",
+                      LastName = "Demo",
+                      Role = UserRoleType.Analyst
+                  },
+                  new User
+                  {
+                      Email = "lzane@rogers.com",
+                      Username = "lzane",
+                      Status = UserStatusType.Active,
+                      Password = pwd.Hash,
+                      Salt = pwd.Salt,
+                      FirstName = "Lzane",
+                      LastName = "Demo",
+                      Role = UserRoleType.Analyst
                   }
               );
             context.SaveChanges();
@@ -77,12 +150,304 @@ namespace DAL.Migrations
 
         private void Groups(HDContext context)
         {
+            List<string> groups = new List<string>();
+            groups.AddRange(new List<string>(){
+                "Dummy Team",
+                "Chargers",
+                "Falcons",
+                "The Stampeders",
+                "Vikings",
+                "Volleyball Team Supreme",
+                "capop",
+                "Olympians",
+                "Heddoko",
+                "Bulls",
+                "Lions",
+                "Oilers",
+                "MTC"
+            });
 
+            context.Groups.AddOrUpdate(
+                p => p.Name,
+                groups.Select(c => new Group()
+                {
+                    Name = c,
+                    Managers = new List<User>(){
+                        GetUser("awesomecoach111@heddoko.co")
+                    }
+                }).ToArray()
+            );
+
+            context.Groups.AddOrUpdate(
+              p => p.Name,
+              new Group()
+              {
+                  Name = "Warriors",
+                  AssetID = AddAsset(context, "/seed/war.png", AssetType.Seed),
+                  Managers = new List<User>(){
+                    GetUser("footballdemo@heddoko.co")
+                  }
+              },
+              new Group()
+              {
+                  Name = "Lions",
+                  AssetID = AddAsset(context, "/seed/lion.png", AssetType.Seed),
+                  Managers = new List<User>(){
+                    GetUser("footballdemo@heddoko.co")
+                  }
+              },
+              new Group()
+              {
+                  Name = "Wolves",
+                  AssetID = AddAsset(context, "/seed/wolf.png", AssetType.Seed),
+                  Managers = new List<User>(){
+                    GetUser("footballdemo@heddoko.co")
+                  }
+              },
+              new Group()
+              {
+                  Name = "Bulls",
+                  AssetID = AddAsset(context, "/seed/bull.png", AssetType.Seed),
+                  Managers = new List<User>(){
+                    GetUser("footballdemo@heddoko.co")
+                  }
+              }
+            );
+
+            context.Groups.AddOrUpdate(
+              p => p.Name,
+              new Group()
+              {
+                  Name = "Lions",
+                  AssetID = AddAsset(context, "/seed/lion2.png", AssetType.Seed),
+                  Managers = new List<User>(){
+                    GetUser("lzane@rogers.com")
+                  }
+              }
+            );
+            context.SaveChanges();
         }
 
         private void Profiles(HDContext context)
         {
-
+            context.Profiles.AddOrUpdate(
+                p => p.FirstName,
+                new Profile()
+                {
+                    FirstName = "Kara",
+                    LastName = "Romanu",
+                    Height = 1.63,
+                    Email = "kara@example.com",
+                    Groups = new List<Group>()
+                    {
+                        GetGroup("Dummy Team")
+                    },
+                    Managers = new List<User>(){
+                        GetUser("awesomecoach111@heddoko.co")
+                    }
+                },
+                new Profile()
+                {
+                    FirstName = "Mike",
+                    LastName = "Watts",
+                    Height = 1.88,
+                    Email = "mike@example.com",
+                    Groups = new List<Group>()
+                    {
+                        GetGroup("Dummy Team")
+                    },
+                    Managers = new List<User>(){
+                        GetUser("awesomecoach111@heddoko.co")
+                    }
+                },
+                new Profile()
+                {
+                    FirstName = "Svetlana",
+                    LastName = "Vladsky",
+                    Height = 1.75,
+                    Email = "svetlana@example.com",
+                    Gender = UserGenderType.Female,
+                    Groups = new List<Group>()
+                    {
+                        GetGroup("Dummy Team")
+                    },
+                    Managers = new List<User>(){
+                        GetUser("awesomecoach111@heddoko.co")
+                    }
+                },
+                new Profile()
+                {
+                    FirstName = "Colin",
+                    LastName = "Marechal",
+                    Height = 1.93,
+                    Weight = 104.33,
+                    BirthDay = new DateTime(1987, 11, 3),
+                    Gender = UserGenderType.Male,
+                    Phone = "555-123-4321",
+                    Email = "colin@example.com",
+                    AssetID = AddAsset(context, "/seed/colin-war.png", AssetType.Seed),
+                    Groups = new List<Group>()
+                    {
+                        GetGroup("Warriors")
+                    },
+                    Managers = new List<User>(){
+                        GetUser("footballdemo@heddoko.co")
+                    }
+                },
+                new Profile()
+                {
+                    FirstName = "Jonathan",
+                    LastName = "Jackson",
+                    Height = 1.88,
+                    Weight = 99.79,
+                    BirthDay = null,
+                    Gender = UserGenderType.Male,
+                    Phone = null,
+                    Email = "jonathan@example.com",
+                    AssetID = AddAsset(context, "/seed/john-war.png", AssetType.Seed),
+                    Groups = new List<Group>()
+                    {
+                        GetGroup("Warriors")
+                    },
+                    Managers = new List<User>(){
+                        GetUser("footballdemo@heddoko.co")
+                    }
+                },
+                new Profile()
+                {
+                    FirstName = "Peter",
+                    LastName = "Groulx",
+                    Height = 1.8,
+                    Weight = 104.33,
+                    BirthDay = new DateTime(1983, 4, 14),
+                    Gender = UserGenderType.Male,
+                    Phone = null,
+                    Email = "peter@example.com",
+                    AssetID = AddAsset(context, "/seed/peter-war.png", AssetType.Seed),
+                    Groups = new List<Group>()
+                    {
+                        GetGroup("Warriors")
+                    },
+                    Managers = new List<User>(){
+                        GetUser("footballdemo@heddoko.co")
+                    }
+                },
+                new Profile()
+                {
+                    FirstName = "Babacar",
+                    LastName = "Conte",
+                    Height = 1.96,
+                    Weight = 93.89,
+                    BirthDay = new DateTime(1988, 9, 7),
+                    Gender = UserGenderType.Male,
+                    Phone = null,
+                    Email = null,
+                    AssetID = AddAsset(context, "/seed/baba-war.png", AssetType.Seed),
+                    Groups = new List<Group>()
+                    {
+                        GetGroup("Warriors")
+                    },
+                    Managers = new List<User>(){
+                        GetUser("footballdemo@heddoko.co")
+                    }
+                },
+                new Profile()
+                {
+                    FirstName = "Petrov",
+                    LastName = "Dimitru",
+                    Height = 1.78,
+                    Weight = 84.82,
+                    BirthDay = new DateTime(1993, 7, 10),
+                    Gender = UserGenderType.Male,
+                    Phone = null,
+                    Email = null,
+                    AssetID = AddAsset(context, "/seed/dima-war.png", AssetType.Seed),
+                    Groups = new List<Group>()
+                    {
+                        GetGroup("Warriors")
+                    },
+                    Managers = new List<User>(){
+                        GetUser("footballdemo@heddoko.co")
+                    }
+                },
+                new Profile()
+                {
+                    FirstName = "Jamal",
+                    LastName = "Brown",
+                    Height = 1.9,
+                    Weight = 111.13,
+                    BirthDay = new DateTime(1990, 3, 25),
+                    Gender = UserGenderType.Male,
+                    Phone = null,
+                    Email = null,
+                    AssetID = AddAsset(context, "/seed/jamal-war.png", AssetType.Seed),
+                    Groups = new List<Group>()
+                    {
+                        GetGroup("Warriors")
+                    },
+                    Managers = new List<User>(){
+                        GetUser("footballdemo@heddoko.co")
+                    }
+                },
+                new Profile()
+                {
+                    FirstName = "Carl",
+                    LastName = "Woods",
+                    Height = 2.01,
+                    Weight = 90.26,
+                    BirthDay = new DateTime(1990, 5, 8),
+                    Gender = UserGenderType.Male,
+                    Phone = null,
+                    Email = "carl.woods@example.com",
+                    AssetID = AddAsset(context, "/seed/carl-war.png", AssetType.Seed),
+                    Groups = new List<Group>()
+                    {
+                        GetGroup("Warriors")
+                    },
+                    Managers = new List<User>(){
+                        GetUser("footballdemo@heddoko.co")
+                    }
+                },
+                new Profile()
+                {
+                    FirstName = "James",
+                    LastName = "Rosling",
+                    Height = 1.75,
+                    Weight = 79.83,
+                    BirthDay = new DateTime(1988, 8, 5),
+                    Gender = UserGenderType.Male,
+                    Phone = null,
+                    Email = null,
+                    AssetID = AddAsset(context, "/seed/james-war.png", AssetType.Seed),
+                    Groups = new List<Group>()
+                    {
+                        GetGroup("Warriors")
+                    },
+                    Managers = new List<User>(){
+                        GetUser("footballdemo@heddoko.co")
+                    }
+                },
+                new Profile()
+                {
+                    FirstName = "Kevin",
+                    LastName = "Reese",
+                    Height = 1.98,
+                    Weight = 91.17,
+                    BirthDay = new DateTime(1993, 1, 19),
+                    Gender = UserGenderType.Male,
+                    Phone = null,
+                    Email = null,
+                    AssetID = AddAsset(context, "/seed/kevin-war.png", AssetType.Seed),
+                    Groups = new List<Group>()
+                    {
+                        GetGroup("Warriors")
+                    },
+                    Managers = new List<User>(){
+                        GetUser("footballdemo@heddoko.co")
+                    }
+                }
+            );
+            context.SaveChanges();
         }
 
         private void Tags(HDContext context)
@@ -144,7 +509,125 @@ namespace DAL.Migrations
 
         private void Suits(HDContext context)
         {
+            context.MaterialTypes.AddOrUpdate(
+                p => p.Identifier,
+                new MaterialType()
+                {
+                    Identifier = "Battery"
+                }, new MaterialType()
+                {
+                    Identifier = "Sensor"
+                }
+            );
+            context.SaveChanges();
 
+            context.Materials.AddOrUpdate(
+                p => p.Name,
+                new Material()
+                {
+                    Name = "Sample Nod",
+                    PartNo = "12345",
+                    MaterialTypeID = GetMaterialType("Sensor").ID
+                },
+                new Material()
+                {
+                    Name = "Sample StretchSense sensor",
+                    PartNo = "54334",
+                    MaterialTypeID = GetMaterialType("Sensor").ID
+                },
+                new Material()
+                {
+                    Name = "Sample Battery Pack",
+                    PartNo = "32432",
+                    MaterialTypeID = GetMaterialType("Battery").ID
+                }
+            );
+            context.SaveChanges();
+
+            context.Equipments.RemoveRange(context.Equipments.ToList());
+            context.ComplexEquipments.RemoveRange(context.ComplexEquipments.ToList());
+
+            context.SaveChanges();
+            for (int i = 0; i < 10; i++)
+            {
+                context.ComplexEquipments.AddOrUpdate(
+                    p => p.MacAddress,
+                    new ComplexEquipment()
+                    {
+                        MacAddress = PasswordHasher.Md5((DateTime.Now.Ticks * 2).ToString()).Substring(0, 5),
+                        SerialNo = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(0, 5),
+                        PhysicalLocation = "Warehouse",
+                        Status = EquipmentStatusType.Unavailable,
+                        Equipments = new List<Equipment>()
+                        {
+                            new Equipment()
+                            {
+                                MacAddress = PasswordHasher.Md5((DateTime.Now.Ticks * 2).ToString()).Substring(0, 5),
+                                SerialNo = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(0, 5),
+                                PhysicalLocation = "Box 2",
+                                Status = EquipmentStatusType.Unavailable,
+                                AnatomicalPosition = AnatomicalPositionType.LeftTibia,
+                                Condition = ConditionType.New,
+                                HeatsShrink = HeatsShrinkType.No,
+                                Material = GetMaterial("Sample Nod"),
+                                Numbers = NumbersType.No,
+                                Prototype = PrototypeType.Yes,
+                                Ship = ShipType.No,
+                                VerifiedBy = GetUser("support@heddoko.co")
+                            },
+                            new Equipment()
+                            {
+                                MacAddress = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(0, 5),
+                                SerialNo = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(0, 5),
+                                PhysicalLocation = "Box 2",
+                                Status = EquipmentStatusType.Unavailable,
+                                AnatomicalPosition = AnatomicalPositionType.RightForeArm,
+                                Condition = ConditionType.Used,
+                                HeatsShrink = HeatsShrinkType.No,
+                                Material = GetMaterial("Sample StretchSense sensor"),
+                                Numbers = NumbersType.Yes,
+                                Prototype = PrototypeType.Yes,
+                                Ship = ShipType.Gone,
+                                VerifiedBy = GetUser("support@heddoko.co")
+                            },
+                            new Equipment()
+                            {
+                                MacAddress = PasswordHasher.Md5((DateTime.Now.Ticks * 3).ToString()).Substring(0, 5),
+                                SerialNo = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(5, 10),
+                                PhysicalLocation = "Box 2",
+                                Status = EquipmentStatusType.Unavailable,
+                                AnatomicalPosition = null,
+                                Condition = ConditionType.New,
+                                HeatsShrink = HeatsShrinkType.No,
+                                Material = GetMaterial("Sample Battery Pack"),
+                                Numbers = NumbersType.Yes,
+                                Prototype = PrototypeType.Yes,
+                                Ship = ShipType.No,
+                                VerifiedBy = GetUser("support@heddoko.co")
+                            }
+                        }
+                    }
+                );
+
+                context.Equipments.AddOrUpdate(
+                p => p.MacAddress,
+                    new Equipment()
+                    {
+                        MacAddress = PasswordHasher.Md5((DateTime.Now.Ticks * 4).ToString()).Substring(0, 5),
+                        SerialNo = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(5, 10),
+                        PhysicalLocation = "Box 1",
+                        Status = EquipmentStatusType.Available,
+                        AnatomicalPosition = null,
+                        Condition = ConditionType.Used,
+                        HeatsShrink = HeatsShrinkType.No,
+                        Material = GetMaterial("Sample StretchSense sensor"),
+                        Numbers = NumbersType.Yes,
+                        Prototype = PrototypeType.Yes,
+                        Ship = ShipType.No,
+                        VerifiedBy = GetUser("support@heddoko.co")
+                    }
+                );
+            }
         }
     }
 }

@@ -72,6 +72,7 @@
     <Compile Include="Diagnostics\ColoredConsoleTraceListener.cs" />
     <Compile Include="Diagnostics\SplittedTraceListener.cs" />
     <Compile Include="HDContext.cs" />
+    <Compile Include="Helpers\AssetManager.cs" />
     <Compile Include="Helpers\CustomSqlServerMigrationSqlGenerator.cs" />
     <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Helpers\PasswordHasher.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Models\AccessToken.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Enum\AnatomicalPositionType.cs" />
+    <Compile Include="Models\Enum\AssetType.cs" />
     <Compile Include="Models\Enum\ConditionType.cs" />
     <Compile Include="Models\Enum\EquipmentStatusType.cs" />
     <Compile Include="Models\Enum\FlashMessageType.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Models\Enum\NumbersType.cs" />
     <Compile Include="Models\Enum\PrototypeType.cs" />
     <Compile Include="Models\Enum\ShipType.cs" />
+    <Compile Include="Models\Enum\UploadStatusType.cs" />
     <Compile Include="Models\Enum\UserRoleType.cs" />
     <Compile Include="Models\Enum\UserStatusType.cs" />
     <Compile Include="Models\ComplexEquipment.cs" />
@@ -105,16 +108,10 @@
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Movement.cs" />
     <Compile Include="Models\MovementMarker.cs" />
-    <Compile Include="Models\ProfileManager.cs" />
-    <Compile Include="Models\GroupManager.cs" />
-    <Compile Include="Models\GroupProfile.cs" />
     <Compile Include="Models\Asset.cs" />
     <Compile Include="Models\Material.cs" />
     <Compile Include="Models\MaterialType.cs" />
     <Compile Include="Models\Profile.cs" />
-    <Compile Include="Models\GroupTag.cs" />
-    <Compile Include="Models\MovementTag.cs" />
-    <Compile Include="Models\ProfileTag.cs" />
     <Compile Include="Models\Screening.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\User.cs" />

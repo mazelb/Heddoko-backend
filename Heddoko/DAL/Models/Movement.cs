@@ -63,7 +63,7 @@ namespace DAL.Models
         public virtual Folder Folder { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<MovementTag> Tags { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<MovementEvent> Events { get; set; }
