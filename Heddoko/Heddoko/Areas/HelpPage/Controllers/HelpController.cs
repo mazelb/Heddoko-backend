@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Heddoko.Areas.HelpPage.ModelDescriptions;
 using Heddoko.Areas.HelpPage.Models;
+using Snapbook.Areas.HelpPage.ModelDescriptions;
 
 namespace Heddoko.Areas.HelpPage.Controllers
 {

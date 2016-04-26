@@ -61,11 +61,371 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Left Fore Arm.
+        /// </summary>
+        public static string AnatomicalPositionType_LeftForeArm {
+            get {
+                return ResourceManager.GetString("AnatomicalPositionType_LeftForeArm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left Thigh.
+        /// </summary>
+        public static string AnatomicalPositionType_LeftThigh {
+            get {
+                return ResourceManager.GetString("AnatomicalPositionType_LeftThigh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left Tibia.
+        /// </summary>
+        public static string AnatomicalPositionType_LeftTibia {
+            get {
+                return ResourceManager.GetString("AnatomicalPositionType_LeftTibia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left Upper Arm.
+        /// </summary>
+        public static string AnatomicalPositionType_LeftUpperArm {
+            get {
+                return ResourceManager.GetString("AnatomicalPositionType_LeftUpperArm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right Fore Arm.
+        /// </summary>
+        public static string AnatomicalPositionType_RightForeArm {
+            get {
+                return ResourceManager.GetString("AnatomicalPositionType_RightForeArm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right Thigh.
+        /// </summary>
+        public static string AnatomicalPositionType_RightThigh {
+            get {
+                return ResourceManager.GetString("AnatomicalPositionType_RightThigh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right Tibia.
+        /// </summary>
+        public static string AnatomicalPositionType_RightTibia {
+            get {
+                return ResourceManager.GetString("AnatomicalPositionType_RightTibia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right Upper Arm.
+        /// </summary>
+        public static string AnatomicalPositionType_RightUpperArm {
+            get {
+                return ResourceManager.GetString("AnatomicalPositionType_RightUpperArm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upper Spine.
+        /// </summary>
+        public static string AnatomicalPositionType_UpperSpine {
+            get {
+                return ResourceManager.GetString("AnatomicalPositionType_UpperSpine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string ConditionType_New {
+            get {
+                return ResourceManager.GetString("ConditionType_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Used.
+        /// </summary>
+        public static string ConditionType_Used {
+            get {
+                return ResourceManager.GetString("ConditionType_Used", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available.
+        /// </summary>
+        public static string EquipmentStatusType_Available {
+            get {
+                return ResourceManager.GetString("EquipmentStatusType_Available", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In transit.
+        /// </summary>
+        public static string EquipmentStatusType_InTransit {
+            get {
+                return ResourceManager.GetString("EquipmentStatusType_InTransit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On loan.
+        /// </summary>
+        public static string EquipmentStatusType_OnLoan {
+            get {
+                return ResourceManager.GetString("EquipmentStatusType_OnLoan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unavailable.
+        /// </summary>
+        public static string EquipmentStatusType_Unavailable {
+            get {
+                return ResourceManager.GetString("EquipmentStatusType_Unavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string HeatsShrinkType_No {
+            get {
+                return ResourceManager.GetString("HeatsShrinkType_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string HeatsShrinkType_Yes {
+            get {
+                return ResourceManager.GetString("HeatsShrinkType_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Heddoko.
         /// </summary>
         public static string Heddoko {
             get {
                 return ResourceManager.GetString("Heddoko", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Battery.
+        /// </summary>
+        public static string MaterialType_Battery {
+            get {
+                return ResourceManager.GetString("MaterialType_Battery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor.
+        /// </summary>
+        public static string MaterialType_Sensor {
+            get {
+                return ResourceManager.GetString("MaterialType_Sensor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jump.
+        /// </summary>
+        public static string MovementEventType_Jump {
+            get {
+                return ResourceManager.GetString("MovementEventType_Jump", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standing.
+        /// </summary>
+        public static string MovementEventType_Standing {
+            get {
+                return ResourceManager.GetString("MovementEventType_Standing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string NumbersType_No {
+            get {
+                return ResourceManager.GetString("NumbersType_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string NumbersType_Yes {
+            get {
+                return ResourceManager.GetString("NumbersType_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string PrototypeType_No {
+            get {
+                return ResourceManager.GetString("PrototypeType_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string PrototypeType_Yes {
+            get {
+                return ResourceManager.GetString("PrototypeType_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gone.
+        /// </summary>
+        public static string ShipType_Gone {
+            get {
+                return ResourceManager.GetString("ShipType_Gone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string ShipType_No {
+            get {
+                return ResourceManager.GetString("ShipType_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string ShipType_Yes {
+            get {
+                return ResourceManager.GetString("ShipType_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heddoko | Track your movement in 3D.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        public static string UserGenderType_Female {
+            get {
+                return ResourceManager.GetString("UserGenderType_Female", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        public static string UserGenderType_Male {
+            get {
+                return ResourceManager.GetString("UserGenderType_Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NotSpecified.
+        /// </summary>
+        public static string UserGenderType_NotSpecified {
+            get {
+                return ResourceManager.GetString("UserGenderType_NotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin.
+        /// </summary>
+        public static string UserRoleType_Admin {
+            get {
+                return ResourceManager.GetString("UserRoleType_Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analyst.
+        /// </summary>
+        public static string UserRoleType_Analyst {
+            get {
+                return ResourceManager.GetString("UserRoleType_Analyst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        public static string UserRoleType_User {
+            get {
+                return ResourceManager.GetString("UserRoleType_User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string UserStatusType_Active {
+            get {
+                return ResourceManager.GetString("UserStatusType_Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Banned.
+        /// </summary>
+        public static string UserStatusType_Banned {
+            get {
+                return ResourceManager.GetString("UserStatusType_Banned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inactive.
+        /// </summary>
+        public static string UserStatusType_NotActive {
+            get {
+                return ResourceManager.GetString("UserStatusType_NotActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not allowed.
+        /// </summary>
+        public static string YouAreNotAllowed {
+            get {
+                return ResourceManager.GetString("YouAreNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not authorized.
+        /// </summary>
+        public static string YouAreNotAuthorized {
+            get {
+                return ResourceManager.GetString("YouAreNotAuthorized", resourceCulture);
             }
         }
     }

@@ -1,7 +1,47 @@
 var i18n = i18n||{};
 i18n.Resources = (function () { 
 	var strings = {
-  "Heddoko": "Heddoko"
+  "AnatomicalPositionType_LeftForeArm": "Left Fore Arm",
+  "AnatomicalPositionType_LeftThigh": "Left Thigh",
+  "AnatomicalPositionType_LeftTibia": "Left Tibia",
+  "AnatomicalPositionType_LeftUpperArm": "Left Upper Arm",
+  "AnatomicalPositionType_RightForeArm": "Right Fore Arm",
+  "AnatomicalPositionType_RightThigh": "Right Thigh",
+  "AnatomicalPositionType_RightTibia": "Right Tibia",
+  "AnatomicalPositionType_RightUpperArm": "Right Upper Arm",
+  "AnatomicalPositionType_UpperSpine": "Upper Spine",
+  "ConditionType_New": "New",
+  "ConditionType_Used": "Used",
+  "EquipmentStatusType_Available": "Available",
+  "EquipmentStatusType_InTransit": "In transit",
+  "EquipmentStatusType_OnLoan": "On loan",
+  "EquipmentStatusType_Unavailable": "Unavailable",
+  "HeatsShrinkType_No": "No",
+  "HeatsShrinkType_Yes": "Yes",
+  "Heddoko": "Heddoko",
+  "MaterialType_Battery": "Battery",
+  "MaterialType_Sensor": "Sensor",
+  "MovementEventType_Jump": "Jump",
+  "MovementEventType_Standing": "Standing",
+  "NumbersType_No": "No",
+  "NumbersType_Yes": "Yes",
+  "PrototypeType_No": "No",
+  "PrototypeType_Yes": "Yes",
+  "ShipType_Gone": "Gone",
+  "ShipType_No": "No",
+  "ShipType_Yes": "Yes",
+  "Title": "Heddoko | Track your movement in 3D",
+  "UserGenderType_Female": "Female",
+  "UserGenderType_Male": "Male",
+  "UserGenderType_NotSpecified": "NotSpecified",
+  "UserRoleType_Admin": "Admin",
+  "UserRoleType_Analyst": "Analyst",
+  "UserRoleType_User": "User",
+  "UserStatusType_Active": "Active",
+  "UserStatusType_Banned": "Banned",
+  "UserStatusType_NotActive": "Inactive",
+  "YouAreNotAllowed": "You are not allowed",
+  "YouAreNotAuthorized": "You are not authorized"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

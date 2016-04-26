@@ -10,8 +10,9 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Heddoko.Areas.HelpPage.ModelDescriptions;
 
-namespace Heddoko.Areas.HelpPage.ModelDescriptions
+namespace Snapbook.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Generates model descriptions for given types.
@@ -82,6 +83,23 @@ namespace Heddoko.Areas.HelpPage.ModelDescriptions
             { typeof(DateTime), "date" },
             { typeof(DateTimeOffset), "date" },
             { typeof(Boolean), "boolean" },
+            { typeof(Int16?), "optional integer" },
+            { typeof(Int32?), "optional integer" },
+            { typeof(Int64?), "optional integer" },
+            { typeof(UInt16?), "optional unsigned integer" },
+            { typeof(UInt32?), "optional unsigned integer" },
+            { typeof(UInt64?), "optional unsigned integer" },
+            { typeof(Byte?), "optional byte" },
+            { typeof(Char?), "optional character" },
+            { typeof(SByte?), "optional signed byte" },
+            { typeof(Single?), "optional decimal number" },
+            { typeof(Double?), "optional decimal number" },
+            { typeof(Decimal?), "optional decimal number" },
+            { typeof(Guid?), "optional globally unique identifier" },
+            { typeof(TimeSpan?), "optional time interval" },
+            { typeof(DateTime?), "optional date" },
+            { typeof(DateTimeOffset?), "optional date" },
+            { typeof(Boolean?), "optional boolean" },
         };
 
         private Lazy<IModelDocumentationProvider> _documentationProvider;
@@ -109,6 +127,22 @@ namespace Heddoko.Areas.HelpPage.ModelDescriptions
 
         public ModelDescription GetOrCreateModelDescription(Type modelType)
         {
+            ModelDescription modelDescription = GetOrCreateModelDescriptionOriginal(modelType);
+            if (modelType.IsNullable())
+            {
+                //if (!modelDescription.Name.Contains("optional"))
+                //{
+                //    modelDescription.Name = "optional " + modelDescription.Name;
+
+                //    modelDescription.Documentation = "optional " + modelDescription.Documentation;
+                //}
+            }
+
+            return modelDescription;
+        }
+
+        public ModelDescription GetOrCreateModelDescriptionOriginal(Type modelType)
+        {
             if (modelType == null)
             {
                 throw new ArgumentNullException("modelType");
@@ -117,7 +151,7 @@ namespace Heddoko.Areas.HelpPage.ModelDescriptions
             Type underlyingType = Nullable.GetUnderlyingType(modelType);
             if (underlyingType != null)
             {
-                modelType = underlyingType;
+                //modelType = underlyingType;
             }
 
             ModelDescription modelDescription;
@@ -446,6 +480,21 @@ namespace Heddoko.Areas.HelpPage.ModelDescriptions
             GeneratedModels.Add(simpleModelDescription.Name, simpleModelDescription);
 
             return simpleModelDescription;
+        }
+    }
+
+    public static class Extensions
+    {
+        public static bool IsNullableEnum(this Type t)
+        {
+            Type u = Nullable.GetUnderlyingType(t);
+            return (u != null) && u.IsEnum;
+        }
+
+        public static bool IsNullable(this Type t)
+        {
+            Type u = Nullable.GetUnderlyingType(t);
+            return u != null;
         }
     }
 }

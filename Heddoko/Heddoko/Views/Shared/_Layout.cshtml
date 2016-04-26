@@ -1,0 +1,40 @@
+﻿@model Heddoko.Models.BaseViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@Model.Title</title>
+    @Html.Partial("_Favicons", Model)
+
+    @if (Model.EnableKendo)
+    {
+        @Styles.Render("~/Bundles/KendoCss")
+    }
+    else
+    {
+        @Styles.Render("~/Bundles/CommonCss")
+    }
+
+    @RenderSection("css", required: false)
+</head>
+<body>
+    @RenderSection("Body", required: false)
+    @RenderBody()
+
+    @Scripts.Render("~/Bundles/jQuery")
+    @Scripts.Render("~/Bundles/i18nEn")
+    @Scripts.Render("~/Bundles/CommonJs")
+
+    @Html.Partial("_TranslateJS", Model)
+
+    @if (Model.EnableKendo)
+    {
+        @Scripts.Render("~/Bundles/KendoJs")
+    }
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
