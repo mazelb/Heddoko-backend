@@ -48,7 +48,7 @@ namespace Heddoko
                "~/Content/kendo/kendo.common.min.css",
                "~/Content/kendo/kendo.default.min.css",
                "~/Content/kendo/kendo.default.mobile.min.css",
-               "~/Content/css/admin.css"
+               "~/Content/css/kendo.css"
             );
 
             bundles.Add(kendoStylesBundle);

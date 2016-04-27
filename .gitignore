@@ -4,6 +4,7 @@
 /Heddoko/Heddoko/bin
 /Heddoko/Heddoko/bower_components
 /Heddoko/Heddoko/node_modules
+/Heddoko/Heddoko/.sass-cache
 /Heddoko/Services/obj
 /Heddoko/Services/bin
 /Heddoko/DAL/obj

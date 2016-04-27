@@ -39,7 +39,7 @@ module.exports = function(grunt) {
                         dot: true,
                         cwd: 'bower_components/bootstrap/dist',
                         src: ['fonts/*.*'],
-                        dest: 'fonts'
+                        dest: ''
                     },
 
                     // Font-Awesome.
@@ -48,23 +48,23 @@ module.exports = function(grunt) {
                         dot: true,
                         cwd: 'bower_components/fontawesome',
                         src: ['fonts/*.*'],
-                        dest: 'fonts'
+                        dest: ''
                     },
 
                     // App fonts.
                     {
                         expand: true,
                         dot: true,
-                        cwd: 'resources/assets',
+                        cwd: 'DashboardUI',
                         src: ['fonts/*.*'],
-                        dest: 'fonts'
+                        dest: ''
                     },
 
                     // App images.
                     {
                         expand: true,
                         dot: true,
-                        cwd: 'resources/assets/images',
+                        cwd: 'DashboardUI/images',
                         src: ['*.*','**/*.*'],
                         dest: 'Content/images'
                     }
@@ -171,7 +171,7 @@ module.exports = function(grunt) {
 
                     // TODO: determine which of these dependencies are still needed.
                     'bower_components/slimScroll/jquery.slimscroll.min.js',
-                    'angular-app/scripts/gmap.js',
+                    'DashboardUI/angular-app/scripts/gmap.js',
                     // 'bower_components/jquery.sparkline.build/dist/jquery.sparkline.min.js',
                     // 'bower_components/angular-wizard/dist/angular-wizard.js',
                     'bower_components/rangy/rangy-core.min.js',
@@ -179,8 +179,8 @@ module.exports = function(grunt) {
                     'bower_components/angular-ui-tree/dist/angular-ui-tree.js',
                     'bower_components/jqvmap/jqvmap/jquery.vmap.min.js',
                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                    'angular-app/scripts/other_charts.js',
-                    'angular-app/scripts/extras.js',
+                    'DashboardUI/angular-app/scripts/other_charts.js',
+                    'DashboardUI/angular-app/scripts/extras.js',
                     // 'bower_components/chartist/dist/chartist.js',
                     // 'bower_components/angular-chartist.js/dist/angular-chartist.min.js',
 
@@ -244,13 +244,13 @@ module.exports = function(grunt) {
                         // Application styles
                         'DashboardUI/build/styles.css'
                     ],
-                    'Content/css/admin.css': [
+                    /*'Content/css/admin.css': [
 
                         'DashboardUI/css/admin/selectize.css',
                         'DashboardUI/css/admin/suits-editor.css',
 
                         'DashboardUI/build/admin.css'
-                    ]
+                    ]*/
                 }
             },
             add_banner: {
@@ -259,7 +259,7 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'Content/css/styles.css': ['Content/css/styles.css'],
-                    'Content/css/admin.css': ['Content/css/admin.css']
+                    //'Content/css/admin.css': ['Content/css/admin.css']
                 }
             }
         },

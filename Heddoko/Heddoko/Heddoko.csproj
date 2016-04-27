@@ -153,9 +153,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\css\admin.css" />
+    <Content Include="Content\css\kendo.css" />
     <Content Include="Content\css\admin.min.css">
-      <DependentUpon>admin.css</DependentUpon>
+      <DependentUpon>kendo.css</DependentUpon>
     </Content>
     <Content Include="Content\css\app.css" />
     <Content Include="Content\css\styles.css" />
@@ -166,6 +166,20 @@
     <Content Include="Content\demo\aslr\summary\heat_map_left.png" />
     <Content Include="Content\demo\aslr\summary\heat_map_right.png" />
     <Content Include="Content\demo\avatars\.gitignore" />
+    <Content Include="Content\favicons\android-icon-192x192.png" />
+    <Content Include="Content\favicons\apple-icon-114x114.png" />
+    <Content Include="Content\favicons\apple-icon-120x120.png" />
+    <Content Include="Content\favicons\apple-icon-144x144.png" />
+    <Content Include="Content\favicons\apple-icon-152x152.png" />
+    <Content Include="Content\favicons\apple-icon-180x180.png" />
+    <Content Include="Content\favicons\apple-icon-57x57.png" />
+    <Content Include="Content\favicons\apple-icon-60x60.png" />
+    <Content Include="Content\favicons\apple-icon-72x72.png" />
+    <Content Include="Content\favicons\apple-icon-76x76.png" />
+    <Content Include="Content\favicons\favicon-16x16.png" />
+    <Content Include="Content\favicons\favicon-32x32.png" />
+    <Content Include="Content\favicons\favicon-96x96.png" />
+    <Content Include="Content\favicons\ms-icon-144x144.png" />
     <Content Include="Content\images\backgrounds\gradient1000.png" />
     <Content Include="Content\images\backgrounds\gradient1600.png" />
     <Content Include="Content\images\backgrounds\gradient2900.png" />
@@ -178,20 +192,6 @@
     <Content Include="Content\images\demo\trends-session-legend.png" />
     <Content Include="Content\images\demo\trends-session.png" />
     <Content Include="Content\images\demo\warning.png" />
-    <Content Include="Content\images\favicons\android-icon-192x192.png" />
-    <Content Include="Content\images\favicons\apple-icon-114x114.png" />
-    <Content Include="Content\images\favicons\apple-icon-120x120.png" />
-    <Content Include="Content\images\favicons\apple-icon-144x144.png" />
-    <Content Include="Content\images\favicons\apple-icon-152x152.png" />
-    <Content Include="Content\images\favicons\apple-icon-180x180.png" />
-    <Content Include="Content\images\favicons\apple-icon-57x57.png" />
-    <Content Include="Content\images\favicons\apple-icon-60x60.png" />
-    <Content Include="Content\images\favicons\apple-icon-72x72.png" />
-    <Content Include="Content\images\favicons\apple-icon-76x76.png" />
-    <Content Include="Content\images\favicons\favicon-16x16.png" />
-    <Content Include="Content\images\favicons\favicon-32x32.png" />
-    <Content Include="Content\images\favicons\favicon-96x96.png" />
-    <Content Include="Content\images\favicons\ms-icon-144x144.png" />
     <Content Include="Content\images\logos\favicon-16x16.png" />
     <Content Include="Content\images\logos\favicon-32x32.png" />
     <Content Include="Content\images\logos\favicon-96x96.png" />
@@ -364,7 +364,6 @@
     <Content Include="Content\demo\aslr\left\coronal.webm" />
     <Content Include="Content\demo\aslr\left\sagittal.webm" />
     <Content Include="Content\demo\aslr\left\transverse.webm" />
-    <Content Include="Content\images\favicons\manifest.json" />
     <Content Include="Content\video\active_straight_leg_raise\analysis\analysis.webm" />
     <Content Include="Content\video\active_straight_leg_raise\Left\front_good.webm" />
     <Content Include="Content\video\active_straight_leg_raise\Left\front_wrong.webm" />
@@ -414,6 +413,7 @@
     <Content Include="fonts\ProximaNovaCond-RegularIt.otf" />
     <Content Include="fonts\ProximaNovaCond-Semibold.otf" />
     <Content Include="fonts\ProximaNovaCond-SemiboldIt.otf" />
+    <Content Include="Content\favicons\manifest.json" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
