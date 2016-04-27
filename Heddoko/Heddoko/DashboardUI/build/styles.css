@@ -19,26 +19,26 @@
   font-family: 'Proxima Nova';
   font-style: normal;
   font-weight: 400;
-  src: url(/fonts/ProximaNova-Regular.eot);
-  src: local("Proxima Nova Regular"), local("ProximaNova-Regular"), url(/fonts/ProximaNova-Regular.eot?#iefix) format("embedded-opentype"), url(/fonts/ProximaNova-Regular.woff) format("woff"), url(/fonts/ProximaNova-Regular.ttf) format("truetype"), url(/fonts/ProximaNova-Regular.svg) format("svg"); }
+  src: url(../fonts/ProximaNova-Regular.eot);
+  src: local("Proxima Nova Regular"), local("ProximaNova-Regular"), url(../fonts/ProximaNova-Regular.eot?#iefix) format("embedded-opentype"), url(../fonts/ProximaNova-Regular.woff) format("woff"), url(../fonts/ProximaNova-Regular.ttf) format("truetype"), url(../fonts/ProximaNova-Regular.svg) format("svg"); }
 @font-face {
   font-family: 'Proxima Nova Light';
   font-style: normal;
   font-weight: 300;
-  src: url(/fonts/ProximaNova-Light.eot);
-  src: local("Proxima Nova Light"), local("ProximaNova-Light"), url(/fonts/ProximaNova-Light.eot?#iefix) format("embedded-opentype"), url(/fonts/ProximaNova-Light.woff) format("woff"), url(/fonts/ProximaNova-Light.ttf) format("truetype"), url(/fonts/ProximaNova-Light.svg) format("svg"); }
+  src: url(../fonts/ProximaNova-Light.eot);
+  src: local("Proxima Nova Light"), local("ProximaNova-Light"), url(../fonts/ProximaNova-Light.eot?#iefix) format("embedded-opentype"), url(../fonts/ProximaNova-Light.woff) format("woff"), url(../fonts/ProximaNova-Light.ttf) format("truetype"), url(../fonts/ProximaNova-Light.svg) format("svg"); }
 @font-face {
   font-family: 'Proxima Nova Bold';
   font-style: normal;
   font-weight: 700;
-  src: url(/fonts/ProximaNova-Bold.eot);
-  src: local("Proxima Nova Bold"), local("ProximaNova-Bold"), url(/fonts/ProximaNova-Bold.eot?#iefix) format("embedded-opentype"), url(/fonts/ProximaNova-Bold.woff2) format("woff2"), url(/fonts/ProximaNova-Bold.woff) format("woff"), url(/fonts/ProximaNova-Bold.ttf) format("truetype"), url(/fonts/ProximaNova-Bold.svg#proxima_novabold) format("svg"); }
+  src: url(../fonts/ProximaNova-Bold.eot);
+  src: local("Proxima Nova Bold"), local("ProximaNova-Bold"), url(../fonts/ProximaNova-Bold.eot?#iefix) format("embedded-opentype"), url(../fonts/ProximaNova-Bold.woff2) format("woff2"), url(../fonts/ProximaNova-Bold.woff) format("woff"), url(../fonts/ProximaNova-Bold.ttf) format("truetype"), url(../fonts/ProximaNova-Bold.svg#proxima_novabold) format("svg"); }
 @font-face {
   font-family: 'Proxima Nova Condensed';
   font-style: normal;
   font-weight: normal;
-  src: url(/fonts/ProximaNovaCond-Regular.eot);
-  src: local("Proxima Nova Condensed"), local("ProximaNova-Condensed"), url(/fonts/ProximaNovaCond-Regular.eot?#iefix) format("embedded-opentype"), url(/fonts/ProximaNovaCond-Regular.woff2) format("woff2"), url(/fonts/ProximaNovaCond-Regular.woff) format("woff"), url(/fonts/ProximaNovaCond-Regular.ttf) format("truetype"), url(/fonts/ProximaNovaCond-Regular.svg#proxima_nova_cn_rgregular) format("svg"); }
+  src: url(../fonts/ProximaNovaCond-Regular.eot);
+  src: local("Proxima Nova Condensed"), local("ProximaNova-Condensed"), url(../fonts/ProximaNovaCond-Regular.eot?#iefix) format("embedded-opentype"), url(../fonts/ProximaNovaCond-Regular.woff2) format("woff2"), url(../fonts/ProximaNovaCond-Regular.woff) format("woff"), url(../fonts/ProximaNovaCond-Regular.ttf) format("truetype"), url(../fonts/ProximaNovaCond-Regular.svg#proxima_nova_cn_rgregular) format("svg"); }
 /**
  * Copyright Heddoko(TM) 2015, all rights reserved.
  *
@@ -65,7 +65,7 @@ body {
   font-size: 18px;
   line-height: 1.42857;
   color: #ddd;
-  background: #1c242c url(../../images/backgrounds/gradient800.png) top left no-repeat;
+  background: #1c242c url(../images/backgrounds/gradient800.png) top left no-repeat;
   background-size: cover;
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
@@ -73,13 +73,13 @@ body {
 
 @media (min-width: 768px) {
   body {
-    background-image: url(../../images/backgrounds/gradient1000.png); } }
+    background-image: url(../images/backgrounds/gradient1000.png); } }
 @media (min-width: 992px) {
   body {
-    background-image: url(../../images/backgrounds/gradient1600.png); } }
+    background-image: url(../images/backgrounds/gradient1600.png); } }
 @media (min-width: 1440px) {
   body {
-    background-image: url(../../images/backgrounds/gradient2900.png); } }
+    background-image: url(../images/backgrounds/gradient2900.png); } }
 ::selection {
   background: #3bd6b2;
   color: #fff; }
@@ -4187,7 +4187,7 @@ h1.title, h2.title, h3.title, h4.title {
   margin: 20px auto; }
 
 .movement-playback-container {
-  background: #1c242c url(../../images/backgrounds/radial-blue-800.png) center center no-repeat;
+  background: #1c242c url(../images/backgrounds/radial-blue-800.png) center center no-repeat;
   background-size: cover; }
 
 .movement-meta-row {
@@ -5355,19 +5355,19 @@ button.toast-close-button {
 .demo-trends-section .demo-trends-session-plot {
   display: block;
   height: 400px;
-  background: transparent url("../../images/demo/trends-session.png") center center no-repeat;
+  background: transparent url("../images/demo/trends-session.png") center center no-repeat;
   background-size: contain; }
 .demo-trends-section .demo-trends-session-legend {
   display: block;
   margin: 25px 0;
-  background: transparent url("../../images/demo/trends-session-legend.png") center center no-repeat;
+  background: transparent url("../images/demo/trends-session-legend.png") center center no-repeat;
   background-size: contain; }
 .demo-trends-section .qb-icon {
   height: 400px;
-  background: transparent url("../../images/demo/qb throw.png") center center no-repeat;
+  background: transparent url("../images/demo/qb throw.png") center center no-repeat;
   background-size: 60%; }
 .demo-trends-section .demo-warning {
-  background: transparent url("../../images/demo/warning.png") center center no-repeat;
+  background: transparent url("../images/demo/warning.png") center center no-repeat;
   background-size: contain; }
 .demo-trends-section .demo-trendline .legend .legendLabel {
   color: #fff; }
@@ -9002,7 +9002,7 @@ svg {
   font-weight: bold; }
 .ui-filesystem-contents.ui-filesystem-large-tiles .file, .ui-filesystem-contents.ui-filesystem-large-tiles .folder, .ui-filesystem-contents.ui-filesystem-large-tiles .parent-folder {
   margin: 0 0 20px;
-  background: #1c242c url(../../images/backgrounds/radial-blue-800.png) center center no-repeat;
+  background: #1c242c url(../images/backgrounds/radial-blue-800.png) center center no-repeat;
   background-size: cover; }
   .ui-filesystem-contents.ui-filesystem-large-tiles .file > div, .ui-filesystem-contents.ui-filesystem-large-tiles .folder > div, .ui-filesystem-contents.ui-filesystem-large-tiles .parent-folder > div {
     background: transparent center center no-repeat;
@@ -9030,7 +9030,7 @@ svg {
   height: 230px; }
 .ui-filesystem-contents.ui-filesystem-small-tiles .file, .ui-filesystem-contents.ui-filesystem-small-tiles .folder, .ui-filesystem-contents.ui-filesystem-small-tiles .parent-folder {
   margin: 0 0 10px;
-  background: #1c242c url(../../images/backgrounds/radial-blue-400.png) center center no-repeat;
+  background: #1c242c url(../images/backgrounds/radial-blue-400.png) center center no-repeat;
   background-size: cover; }
   .ui-filesystem-contents.ui-filesystem-small-tiles .file > div, .ui-filesystem-contents.ui-filesystem-small-tiles .folder > div, .ui-filesystem-contents.ui-filesystem-small-tiles .parent-folder > div {
     background: transparent center center no-repeat;

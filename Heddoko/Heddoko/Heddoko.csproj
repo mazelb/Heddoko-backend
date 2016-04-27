@@ -294,6 +294,35 @@
     <Content Include="Content\video\active_straight_leg_raise\Right\top_wrong.mp4" />
     <Content Include="Content\video\active_straight_leg_raise\summary\heat_map_left.png" />
     <Content Include="Content\video\active_straight_leg_raise\summary\heat_map_right.png" />
+    <Content Include="DashboardUI\sass\admin.scss" />
+    <Content Include="DashboardUI\sass\directives\ui-avatar.scss" />
+    <Content Include="DashboardUI\sass\directives\ui-editable-fields.scss" />
+    <Content Include="DashboardUI\sass\directives\ui-filesystem.scss" />
+    <Content Include="DashboardUI\sass\directives\ui-movement.scss" />
+    <Content Include="DashboardUI\sass\directives\ui-page-title.scss" />
+    <Content Include="DashboardUI\sass\directives\ui-taggable.scss" />
+    <Content Include="DashboardUI\sass\fonts\proxima-nova.scss" />
+    <Content Include="DashboardUI\sass\main.scss" />
+    <Content Include="DashboardUI\sass\partials\_animations.scss" />
+    <Content Include="DashboardUI\sass\partials\_buttons.scss" />
+    <Content Include="DashboardUI\sass\partials\_charts.scss" />
+    <Content Include="DashboardUI\sass\partials\_containers.scss" />
+    <Content Include="DashboardUI\sass\partials\_demo.scss" />
+    <Content Include="DashboardUI\sass\partials\_forms.scss" />
+    <Content Include="DashboardUI\sass\partials\_general.scss" />
+    <Content Include="DashboardUI\sass\partials\_header.scss" />
+    <Content Include="DashboardUI\sass\partials\_labels-alerts-progress.scss" />
+    <Content Include="DashboardUI\sass\partials\_loading-animations.scss" />
+    <Content Include="DashboardUI\sass\partials\_messages.scss" />
+    <Content Include="DashboardUI\sass\partials\_navigation.scss" />
+    <Content Include="DashboardUI\sass\partials\_overlays.scss" />
+    <Content Include="DashboardUI\sass\partials\_pages.scss" />
+    <Content Include="DashboardUI\sass\partials\_panels-modal-tooltips.scss" />
+    <Content Include="DashboardUI\sass\partials\_pie-charts.scss" />
+    <Content Include="DashboardUI\sass\partials\_port-from-old-stylesheet.scss" />
+    <Content Include="DashboardUI\sass\partials\_ribbons.scss" />
+    <Content Include="DashboardUI\sass\partials\_selectize.scss" />
+    <Content Include="DashboardUI\sass\partials\_variables.scss" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1525,6 +1554,7 @@
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Shared\_LayoutAngular.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

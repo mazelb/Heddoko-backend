@@ -39,7 +39,7 @@ module.exports = function(grunt) {
                         dot: true,
                         cwd: 'bower_components/bootstrap/dist',
                         src: ['fonts/*.*'],
-                        dest: ''
+                        dest: 'Content'
                     },
 
                     // Font-Awesome.
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
                         dot: true,
                         cwd: 'bower_components/fontawesome',
                         src: ['fonts/*.*'],
-                        dest: ''
+                        dest: 'Content'
                     },
 
                     // App fonts.
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
                         dot: true,
                         cwd: 'DashboardUI',
                         src: ['fonts/*.*'],
-                        dest: ''
+                        dest: 'Content'
                     },
 
                     // App images.

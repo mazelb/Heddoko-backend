@@ -1,0 +1,72 @@
+﻿@model Heddoko.Models.BaseViewModel
+<!DOCTYPE html>
+<html class="no-js" data-ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="user-hash" content="@(Model.CurrentUser?.ID)">
+    <meta name="user-role" content="@(Model.CurrentUser?.Role)">
+    <meta name="version" content="1">
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,700,600,400" rel="stylesheet" type="text/css">
+
+    <title>@Model.Title</title>
+    @Html.Partial("_Favicons", Model)
+
+    @Styles.Render("~/Bundles/AngularCss")
+   
+    @RenderSection("css", required: false)
+</head>
+<body id="app" data-ng-controller="MainController">
+    @RenderSection("Body", required: false)
+
+    <div>
+        <div data-ng-cloak="" class="no-print">
+            <aside data-ng-include="'partials/navigation.html'" id="nav-container"></aside>
+        </div>
+
+        <div class="view-container">
+            <div class="no-print">
+                <section data-ng-include="'partials/header.html'"
+                         id="header"
+                         class="top-header"></section>
+            </div>
+
+            <section data-ng-view="" id="content" class="animate-fade-up"></section>
+        </div>
+    </div>
+
+    <!-- Loading overlay -->
+    <div class="page-loading-overlay">
+        <a href="/logout" title="Exit application" class="page-loading-escape">
+            <i class="fa fa-times-circle fa-2x"></i>
+        </a>
+
+        <div class="loader-2"></div>
+    </div>
+    <div class="load_circle_wrapper">
+        <div class="loading_spinner">
+            <!-- <div id="wrap_spinner">
+                <div class="loading outer">
+                    <div class="loading inner"></div>
+                </div>
+            </div> -->
+            <i class="fa fa-spinner fa-spin fa-4x"></i>
+        </div>
+    </div>
+
+    <!-- Overlayed screens (all overlayed screens are shown through this modal) -->
+    <div data-ng-include="'partials/overlay.html'"></div>
+
+
+    @RenderBody()
+
+ 
+    @Scripts.Render("~/Bundles/AngularJs")
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

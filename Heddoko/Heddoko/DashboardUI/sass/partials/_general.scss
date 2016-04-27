@@ -27,7 +27,7 @@ body {
     font-size: 18px;
     line-height: 1.42857;
     color: $text-color;
-    background: $background-color url(../../images/backgrounds/gradient800.png) top left no-repeat;
+    background: $background-color url(../images/backgrounds/gradient800.png) top left no-repeat;
     background-size: cover;
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
@@ -36,19 +36,19 @@ body {
 
 @media (min-width: 768px) {
     body {
-        background-image: url(../../images/backgrounds/gradient1000.png);
+        background-image: url(../images/backgrounds/gradient1000.png);
     }
 }
 
 @media (min-width: 992px) {
     body {
-        background-image: url(../../images/backgrounds/gradient1600.png);
+        background-image: url(../images/backgrounds/gradient1600.png);
     }
 }
 
 @media (min-width: 1440px) {
     body {
-        background-image: url(../../images/backgrounds/gradient2900.png);
+        background-image: url(../images/backgrounds/gradient2900.png);
     }
 }
 

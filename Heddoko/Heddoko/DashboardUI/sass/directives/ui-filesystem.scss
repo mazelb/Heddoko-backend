@@ -41,7 +41,7 @@
     &.ui-filesystem-large-tiles {
         .file, .folder, .parent-folder {
             margin: 0 0 20px;
-            background: $dark-blue url(../../images/backgrounds/radial-blue-800.png) center center no-repeat;
+            background: $dark-blue url(../images/backgrounds/radial-blue-800.png) center center no-repeat;
             background-size: cover;
 
             > div {
@@ -96,7 +96,7 @@
     &.ui-filesystem-small-tiles {
         .file, .folder, .parent-folder {
             margin: 0 0 10px;
-            background: $dark-blue url(../../images/backgrounds/radial-blue-400.png) center center no-repeat;
+            background: $dark-blue url(../images/backgrounds/radial-blue-400.png) center center no-repeat;
             background-size: cover;
 
             > div {

@@ -9897,8 +9897,8 @@ angular.module("capture-demo/index.html", []).run(["$templateCache", function($t
     "\n" +
     "                    <div class=\"panel-body\">\n" +
     "                        <video id=\"sagittalVideoCapture\" class=\"demo-analysis\">\n" +
-    "                            <source ng-src=\"../../../../demo/aslr/left/sagittal.webm\" type=\"video/webm\" />\n" +
-    "                            <source src=\"../../../../demo/aslr/left/sagittal.mp4\" type=\"video/mp4\" />\n" +
+    "                            <source ng-src=\"Content/demo/aslr/left/sagittal.webm\" type=\"video/webm\" />\n" +
+    "                            <source src=\"Content/demo/aslr/left/sagittal.mp4\" type=\"video/mp4\" />\n" +
     "                            Sorry, your browser doesn't support HTML5 video.\n" +
     "                        </video>\n" +
     "                    </div>\n" +
@@ -9916,8 +9916,8 @@ angular.module("capture-demo/index.html", []).run(["$templateCache", function($t
     "\n" +
     "                    <div class=\"panel-body\">\n" +
     "                        <video id=\"coronalVideoCapture\" class=\"demo-analysis\">\n" +
-    "                            <source ng-src=\"{{'../../../../demo/aslr/left/coronal.webm'}}\" type=\"video/webm\" />\n" +
-    "                            <source src=\"{{'../../../../demo/aslr/left/coronal.mp4'}}\" type=\"video/mp4\" />\n" +
+    "                            <source ng-src=\"{{'Content/demo/aslr/left/coronal.webm'}}\" type=\"video/webm\" />\n" +
+    "                            <source src=\"{{'Content/demo/aslr/left/coronal.mp4'}}\" type=\"video/mp4\" />\n" +
     "                            Sorry, your browser doesn't support HTML5 video.\n" +
     "                        </video>\n" +
     "                    </div>\n" +
@@ -9931,8 +9931,8 @@ angular.module("capture-demo/index.html", []).run(["$templateCache", function($t
     "\n" +
     "                    <div class=\"panel-body\">\n" +
     "                        <video id=\"transverseVideoCapture\" class=\"demo-analysis\">\n" +
-    "                            <source ng-src=\"{{'../../../../demo/aslr/left/transverse.webm'}}\" type=\"video/webm\" />\n" +
-    "                            <source src=\"{{'../../../../demo/aslr/left/transverse.mp4'}}\" type=\"video/mp4\" />\n" +
+    "                            <source ng-src=\"{{'Content/demo/aslr/left/transverse.webm'}}\" type=\"video/webm\" />\n" +
+    "                            <source src=\"{{'Content/demo/aslr/left/transverse.mp4'}}\" type=\"video/mp4\" />\n" +
     "                            Sorry, your browser doesn't support HTML5 video.\n" +
     "                        </video>\n" +
     "                    </div>\n" +
@@ -10344,8 +10344,8 @@ angular.module("fms-bak/demo/partials/analysis-coronal.html", []).run(["$templat
     "\n" +
     "<div class=\"panel-body\">\n" +
     "    <video class=\"demo-analysis\" style=\"width: 100%;\">\n" +
-    "        <source ng-src=\"{{'../../../../demo/aslr/left/coronal.webm'}}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{'../../../../demo/aslr/left/coronal.mp4'}}\" type=\"video/mp4\"/>\n" +
+    "        <source ng-src=\"{{'Content/demo/aslr/left/coronal.webm'}}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{'Content/demo/aslr/left/coronal.mp4'}}\" type=\"video/mp4\"/>\n" +
     "        Sorry, your browser doesn't support HTML5 video.\n" +
     "    </video>\n" +
     "</div>\n" +
@@ -10388,8 +10388,8 @@ angular.module("fms-bak/demo/partials/analysis-sagittal.html", []).run(["$templa
     "\n" +
     "<div class=\"panel-body\">\n" +
     "    <video class=\"demo-analysis\" style=\"margin: 0 20%; width: 60%;\">\n" +
-    "        <source ng-src=\"../../../../demo/aslr/analysis/sagittal.webm\" type=\"video/webm\"/>\n" +
-    "        <source src=\"../../../../demo/aslr/analysis/sagittal.mp4\" type=\"video/mp4\"/>\n" +
+    "        <source ng-src=\"Content/demo/aslr/analysis/sagittal.webm\" type=\"video/webm\"/>\n" +
+    "        <source src=\"Content/demo/aslr/analysis/sagittal.mp4\" type=\"video/mp4\"/>\n" +
     "        Sorry, your browser doesn't support HTML5 video.\n" +
     "    </video>\n" +
     "</div>\n" +
@@ -10404,8 +10404,8 @@ angular.module("fms-bak/demo/partials/analysis-transverse.html", []).run(["$temp
     "\n" +
     "<div class=\"panel-body\">\n" +
     "    <video class=\"demo-analysis\" style=\"width: 100%;\">\n" +
-    "        <source ng-src=\"{{'../../../../demo/aslr/left/transverse.webm'}}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{'../../../../demo/aslr/left/transverse.mp4'}}\" type=\"video/mp4\"/>\n" +
+    "        <source ng-src=\"{{'Content/demo/aslr/left/transverse.webm'}}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{'Content/demo/aslr/left/transverse.mp4'}}\" type=\"video/mp4\"/>\n" +
     "        Sorry, your browser doesn't support HTML5 video.\n" +
     "    </video>\n" +
     "</div>\n" +
@@ -10682,7 +10682,7 @@ angular.module("fms-bak/demo/partials/summary-movement-overview.html", []).run([
     "    </div>\n" +
     "    <div class=\"panel-body col-sm-12\">\n" +
     "        <img\n" +
-    "            ng-src=\"{{ '../../../../demo/aslr/summary/heat_map_left.png' }}\"\n" +
+    "            ng-src=\"{{ 'Content/demo/aslr/summary/heat_map_left.png' }}\"\n" +
     "            style=\"height:100%;display:block;margin:auto;\">\n" +
     "    </div>\n" +
     "    <div>\n" +
@@ -10694,7 +10694,7 @@ angular.module("fms-bak/demo/partials/summary-movement-overview.html", []).run([
     "    </div>\n" +
     "    <div class=\"panel-body col-sm-12\">\n" +
     "        <img\n" +
-    "            ng-src=\"{{ '../../../../demo/aslr/summary/heat_map_left.png' }}\"\n" +
+    "            ng-src=\"{{ 'Content/demo/aslr/summary/heat_map_left.png' }}\"\n" +
     "            style=\"height:100%;display:block;margin:auto;\">\n" +
     "    </div>\n" +
     "</div>\n" +
@@ -10766,8 +10766,8 @@ angular.module("fms-bak/demo/partials/test-coronal.html", []).run(["$templateCac
     "\n" +
     "<div class=\"panel-body\">\n" +
     "    <video class=\"demo-test\" style=\"width: 100%;\">\n" +
-    "        <source ng-src=\"{{'../../../../demo/aslr/left/coronal.webm'}}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{'../../../../demo/aslr/left/coronal.mp4'}}\" type=\"video/mp4\"/>\n" +
+    "        <source ng-src=\"{{'Content/demo/aslr/left/coronal.webm'}}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{'Content/demo/aslr/left/coronal.mp4'}}\" type=\"video/mp4\"/>\n" +
     "        Sorry, your browser doesn't support HTML5 video.\n" +
     "    </video>\n" +
     "</div>\n" +
@@ -10810,12 +10810,12 @@ angular.module("fms-bak/demo/partials/test-sagittal.html", []).run(["$templateCa
     "\n" +
     "<div class=\"panel-body\">\n" +
     "    <video class=\"demo-test\" style=\"margin: 0 20%; width: 60%;\">\n" +
-    "        <!-- <source ng-src=\"{{ '../../../../demo/aslr/analysis/sagittal.webm?1' }}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{ '../../../../demo/aslr/analysis/sagittal.mp4?1' }}\" type=\"video/mp4\"/>\n" +
-    "        <source ng-src=\"{{'../../../../demo/aslr/analysis/sagittal.webm'}}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{'../../../../demo/aslr/analysis/sagittal.mp4'}}\" type=\"video/mp4\"/> -->\n" +
-    "        <source ng-src=\"{{'../../../../demo/aslr/left/sagittal.webm'}}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{'../../../../demo/aslr/left/sagittal.mp4'}}\" type=\"video/mp4\"/>\n" +
+    "        <!-- <source ng-src=\"{{ 'Content/demo/aslr/analysis/sagittal.webm?1' }}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{ 'Content/demo/aslr/analysis/sagittal.mp4?1' }}\" type=\"video/mp4\"/>\n" +
+    "        <source ng-src=\"{{'Content/demo/aslr/analysis/sagittal.webm'}}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{'Content/demo/aslr/analysis/sagittal.mp4'}}\" type=\"video/mp4\"/> -->\n" +
+    "        <source ng-src=\"{{'Content/demo/aslr/left/sagittal.webm'}}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{'Content/demo/aslr/left/sagittal.mp4'}}\" type=\"video/mp4\"/>\n" +
     "        Sorry, your browser doesn't support HTML5 video.\n" +
     "    </video>\n" +
     "</div>\n" +
@@ -10830,8 +10830,8 @@ angular.module("fms-bak/demo/partials/test-transverse.html", []).run(["$template
     "\n" +
     "<div class=\"panel-body\">\n" +
     "    <video class=\"demo-test\" style=\"width: 100%;\">\n" +
-    "        <source ng-src=\"{{'../../../../demo/aslr/left/transverse.webm'}}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{'../../../../demo/aslr/left/transverse.mp4'}}\" type=\"video/mp4\"/>\n" +
+    "        <source ng-src=\"{{'Content/demo/aslr/left/transverse.webm'}}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{'Content/demo/aslr/left/transverse.mp4'}}\" type=\"video/mp4\"/>\n" +
     "        Sorry, your browser doesn't support HTML5 video.\n" +
     "    </video>\n" +
     "</div>\n" +
@@ -11967,8 +11967,8 @@ angular.module("movements/analysis-demo/index.html", []).run(["$templateCache", 
     "\n" +
     "                <div class=\"panel-body\">\n" +
     "                    <video id=\"sagittalVideo\" class=\"demo-analysis\">\n" +
-    "                        <source ng-src=\"../../../../demo/aslr/analysis/sagittal.webm\" type=\"video/webm\" />\n" +
-    "                        <source src=\"../../../../demo/aslr/analysis/sagittal.mp4\" type=\"video/mp4\" />\n" +
+    "                        <source ng-src=\"Content/demo/aslr/analysis/sagittal.webm\" type=\"video/webm\" />\n" +
+    "                        <source src=\"Content/demo/aslr/analysis/sagittal.mp4\" type=\"video/mp4\" />\n" +
     "                        Sorry, your browser doesn't support HTML5 video.\n" +
     "                    </video>\n" +
     "                </div>\n" +
@@ -12003,8 +12003,8 @@ angular.module("movements/analysis-demo/index.html", []).run(["$templateCache", 
     "\n" +
     "                    <div class=\"panel-body\">\n" +
     "                        <video id=\"coronalVideo\" class=\"demo-analysis\">\n" +
-    "                            <source ng-src=\"{{'../../../../demo/aslr/left/coronal.webm'}}\" type=\"video/webm\" />\n" +
-    "                            <source src=\"{{'../../../../demo/aslr/left/coronal.mp4'}}\" type=\"video/mp4\" />\n" +
+    "                            <source ng-src=\"{{'Content/demo/aslr/left/coronal.webm'}}\" type=\"video/webm\" />\n" +
+    "                            <source src=\"{{'Content/demo/aslr/left/coronal.mp4'}}\" type=\"video/mp4\" />\n" +
     "                            Sorry, your browser doesn't support HTML5 video.\n" +
     "                        </video>\n" +
     "                    </div>\n" +
@@ -12018,8 +12018,8 @@ angular.module("movements/analysis-demo/index.html", []).run(["$templateCache", 
     "\n" +
     "                    <div class=\"panel-body\">\n" +
     "                        <video id=\"transverseVideo\" class=\"demo-analysis\">\n" +
-    "                            <source ng-src=\"{{'../../../../demo/aslr/left/transverse.webm'}}\" type=\"video/webm\" />\n" +
-    "                            <source src=\"{{'../../../../demo/aslr/left/transverse.mp4'}}\" type=\"video/mp4\" />\n" +
+    "                            <source ng-src=\"{{'Content/demo/aslr/left/transverse.webm'}}\" type=\"video/webm\" />\n" +
+    "                            <source src=\"{{'Content/demo/aslr/left/transverse.mp4'}}\" type=\"video/mp4\" />\n" +
     "                            Sorry, your browser doesn't support HTML5 video.\n" +
     "                        </video>\n" +
     "                    </div>\n" +
@@ -14094,8 +14094,8 @@ angular.module("partials/navigation.html", []).run(["$templateCache", function($
     "\n" +
     "<div class=\"logo\">\n" +
     "    <div class=\"logo-container\">\n" +
-    "        <img src=\"../../images/logos/heddoko_logo_1.svg\" alt=\"Heddoko\" class=\"logo1\">\n" +
-    "        <img src=\"../../images/logos/heddoko_logo_2.svg\" alt=\"Heddoko\" class=\"logo2\">\n" +
+    "        <img src=\"Content/images/logos/heddoko_logo_1.svg\" alt=\"Heddoko\" class=\"logo1\">\n" +
+    "        <img src=\"Content/images/logos/heddoko_logo_2.svg\" alt=\"Heddoko\" class=\"logo2\">\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
