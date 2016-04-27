@@ -17,17 +17,5 @@ namespace Heddoko.Controllers
         {
             return View(new BaseViewModel());
         }
-
-        [AllowAnonymous]
-        public ActionResult SeedUpload()
-        {
-            List<string> files = new List<string>();
-            files.AddRange(Directory.GetFiles(Server.MapPath("~/Content/seed")));
-            foreach (string file in files)
-            {
-                Azure.Upload($"seed/{Path.GetFileName(file)}", Config.AssetsContainer, file);
-            }
-            return View(new BaseViewModel());
-        }
     }
 }

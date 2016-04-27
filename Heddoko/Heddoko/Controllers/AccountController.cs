@@ -135,7 +135,7 @@ namespace Heddoko.Controllers
         public ActionResult SignOut()
         {
             Forms.SignOut();
-            return RedirectToAction("SignIn", "Admin");
+            return RedirectToAction("SignIn", "Account");
         }
 
         private ActionResult RedirectToLocal(string returnUrl = null)
@@ -151,7 +151,7 @@ namespace Heddoko.Controllers
                     switch (CurrentUser.Role)
                     {
                         case UserRoleType.Admin:
-                            return RedirectToAction("Index", "Admin", new { area = "Admin" });
+                            return RedirectToAction("Index", "Default");
                         case UserRoleType.Analyst:
                         case UserRoleType.User:
                         default:

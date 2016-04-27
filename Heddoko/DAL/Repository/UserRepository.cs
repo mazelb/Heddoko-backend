@@ -41,6 +41,13 @@ namespace DAL
             }
         }
 
+        public override User Get(int id)
+        {
+            return DbSet.Include(c => c.Asset)
+                        .FirstOrDefault(c => c.ID == id);
+        }
+
+
         public User GetByEmailCached(string email)
         {
             User user = GetCached(email);
@@ -58,12 +65,14 @@ namespace DAL
 
         public User GetByEmail(string email)
         {
-            return DbSet.Where(c => c.Email == email).FirstOrDefault();
+            return DbSet.Include(c => c.Asset)
+                        .Where(c => c.Email == email).FirstOrDefault();
         }
 
         public User GetByUsername(string username)
         {
-            return DbSet.Where(c => c.Username == username).FirstOrDefault();
+            return DbSet.Include(c => c.Asset)
+                        .Where(c => c.Username == username).FirstOrDefault();
         }
 
         public User GetByConfirmToken(string confirmToken)

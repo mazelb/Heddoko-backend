@@ -249,6 +249,7 @@ namespace DAL.Migrations
                     LastName = "Romanu",
                     Height = 1.63,
                     Email = "kara@example.com",
+                    AssetID = AddAsset(context, "/seed/kara-dummy.jpg", AssetType.Seed),
                     Groups = new List<Group>()
                     {
                         GetGroup("Dummy Team")
@@ -559,22 +560,22 @@ namespace DAL.Migrations
             context.ComplexEquipments.RemoveRange(context.ComplexEquipments.ToList());
 
             context.SaveChanges();
-            for (int i = 0; i < 10; i++)
+            for (int i = 1; i <= 10; i++)
             {
                 context.ComplexEquipments.AddOrUpdate(
                     p => p.MacAddress,
                     new ComplexEquipment()
                     {
-                        MacAddress = PasswordHasher.Md5((DateTime.Now.Ticks * 2).ToString()).Substring(0, 5),
-                        SerialNo = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(0, 5),
+                        MacAddress = PasswordHasher.GenerateRandomSalt(10),
+                        SerialNo = PasswordHasher.GenerateRandomSalt(10),
                         PhysicalLocation = "Warehouse",
                         Status = EquipmentStatusType.Unavailable,
                         Equipments = new List<Equipment>()
                         {
                             new Equipment()
                             {
-                                MacAddress = PasswordHasher.Md5((DateTime.Now.Ticks * 2).ToString()).Substring(0, 5),
-                                SerialNo = PasswordHasher.Md5((DateTime.Now.Ticks * 9).ToString()).Substring(0, 5),
+                                MacAddress = PasswordHasher.GenerateRandomSalt(10),
+                                SerialNo = PasswordHasher.GenerateRandomSalt(10),
                                 PhysicalLocation = "Box 2",
                                 Status = EquipmentStatusType.Unavailable,
                                 AnatomicalPosition = AnatomicalPositionType.LeftTibia,
@@ -588,8 +589,8 @@ namespace DAL.Migrations
                             },
                             new Equipment()
                             {
-                                MacAddress = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(0, 5),
-                                SerialNo = PasswordHasher.Md5((DateTime.Now.Ticks * 7).ToString()).Substring(0, 5),
+                                MacAddress = PasswordHasher.GenerateRandomSalt(10),
+                                SerialNo = PasswordHasher.GenerateRandomSalt(10),
                                 PhysicalLocation = "Box 2",
                                 Status = EquipmentStatusType.Unavailable,
                                 AnatomicalPosition = AnatomicalPositionType.RightForeArm,
@@ -603,8 +604,8 @@ namespace DAL.Migrations
                             },
                             new Equipment()
                             {
-                                MacAddress = PasswordHasher.Md5((DateTime.Now.Ticks * 3).ToString()).Substring(0, 5),
-                                SerialNo = PasswordHasher.Md5((DateTime.Now.Ticks * 6).ToString()).Substring(5, 10),
+                                MacAddress = PasswordHasher.GenerateRandomSalt(10),
+                                SerialNo = PasswordHasher.GenerateRandomSalt(10),
                                 PhysicalLocation = "Box 2",
                                 Status = EquipmentStatusType.Unavailable,
                                 AnatomicalPosition = null,
@@ -624,8 +625,8 @@ namespace DAL.Migrations
                 p => p.MacAddress,
                     new Equipment()
                     {
-                        MacAddress = PasswordHasher.Md5((DateTime.Now.Ticks * 4).ToString()).Substring(0, 5),
-                        SerialNo = PasswordHasher.Md5((DateTime.Now.Ticks * 5).ToString()).Substring(5, 10),
+                        MacAddress = PasswordHasher.GenerateRandomSalt(10),
+                        SerialNo = PasswordHasher.GenerateRandomSalt(10),
                         PhysicalLocation = "Box 1",
                         Status = EquipmentStatusType.Available,
                         AnatomicalPosition = null,

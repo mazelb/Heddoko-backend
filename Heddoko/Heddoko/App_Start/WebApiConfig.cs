@@ -1,4 +1,5 @@
 ﻿using Heddoko.Helpers.Error;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,8 @@ namespace Heddoko
             JsonMediaTypeFormatter json = config.Formatters.JsonFormatter;
             json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
             json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            json.SerializerSettings.DateFormatString = "yyyy-MM-dd";
+            json.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
 

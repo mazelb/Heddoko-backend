@@ -40,12 +40,14 @@ namespace DAL.Models
         public string Data { get; set; }
 
         #region Relations
+        [JsonIgnore]
         public int? TagID { get; set; }
 
         [JsonIgnore]
         [ForeignKey("TagID")]
         public virtual Tag Tag { get; set; }
 
+        [JsonIgnore]
         public int? AssetID { get; set; }
 
         [JsonIgnore]
@@ -54,7 +56,6 @@ namespace DAL.Models
         [JsonIgnore]
         public virtual ICollection<Tag> Tags { get; set; }
 
-        [JsonIgnore]
         public virtual ICollection<Group> Groups { get; set; }
 
         [JsonIgnore]
@@ -71,6 +72,30 @@ namespace DAL.Models
         #endregion
 
         #region NotMapped
+        public object Meta
+        {
+            get
+            {
+                return new
+                {
+                    Height = Height,
+                    Mass = Weight,
+                    Dob = BirthDay,
+                    Gender = Gender,
+                    Phone = Phone,
+                    Email = Email,
+                    Data = Data
+                };
+            }
+        }
+        public string AvatarSrc
+        {
+            get
+            {
+                return Asset == null? string.Empty : Asset.Url;
+            }
+        }
+
         public string Name
         {
             get

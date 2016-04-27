@@ -13,11 +13,11 @@ namespace DAL.Models
     {
         public int ID { get; set; }
 
-        [JsonIgnore]
+        [JsonProperty("createdAt")]
         public DateTime? Updated { get; set; }
 
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        [JsonIgnore]
+        [JsonProperty("updatedAt")]
         public DateTime Created { get; set; }
 
         //inject site URL

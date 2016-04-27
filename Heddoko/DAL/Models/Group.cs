@@ -18,18 +18,19 @@ namespace DAL.Models
         public string Meta { get; set; }
 
         #region Relations
+        [JsonProperty("mainTagId")]
         public int? TagID { get; set; }
 
         [JsonIgnore]
         [ForeignKey("TagID")]
         public virtual Tag Tag { get; set; }
 
+        [JsonIgnore]
         public int? AssetID { get; set; }
 
         [JsonIgnore]
         public virtual Asset Asset { get; set; }
 
-        [JsonIgnore]
         public virtual ICollection<Tag> Tags { get; set; }
 
         [JsonIgnore]
@@ -37,6 +38,16 @@ namespace DAL.Models
 
         [JsonIgnore]
         public virtual ICollection<User> Managers { get; set; }
+        #endregion
+
+        #region NotMapped 
+        public string AvatarSrc
+        {
+            get
+            {
+                return Asset == null ? string.Empty : Asset.Url;
+            }
+        }
         #endregion
     }
 }

@@ -28,7 +28,7 @@ namespace DAL.Models
             {
                 if (!string.IsNullOrEmpty(Image))
                 {
-                    return Image.StartsWith("http") ? Image : $"{AssetsServer}/{Image}";
+                    return Image.StartsWith("http") ? Image : $"{AssetsServer}{Image}";
                 }
                 return null;
             }

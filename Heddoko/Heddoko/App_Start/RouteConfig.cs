@@ -17,7 +17,13 @@ namespace Heddoko
             routes.MapRoute(
                 name: "Login",
                 url: "login",
-                defaults: new { controller = "Account", action = "Signin", token = UrlParameter.Optional }
+                defaults: new { controller = "Account", action = "SignIn", token = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Logout",
+                url: "logout",
+                defaults: new { controller = "Account", action = "SignOut", token = UrlParameter.Optional }
             );
 
             routes.MapRoute(

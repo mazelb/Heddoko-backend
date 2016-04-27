@@ -109,7 +109,7 @@ namespace DAL
         {
             get
             {
-                return ConfigurationManager.AppSettings["AWSUserAccessKey"];
+                return ConfigurationManager.AppSettings["AssetsServer"];
             }
         }
         #endregion

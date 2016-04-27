@@ -294,35 +294,6 @@
     <Content Include="Content\video\active_straight_leg_raise\Right\top_wrong.mp4" />
     <Content Include="Content\video\active_straight_leg_raise\summary\heat_map_left.png" />
     <Content Include="Content\video\active_straight_leg_raise\summary\heat_map_right.png" />
-    <Content Include="DashboardUI\sass\admin.scss" />
-    <Content Include="DashboardUI\sass\directives\ui-avatar.scss" />
-    <Content Include="DashboardUI\sass\directives\ui-editable-fields.scss" />
-    <Content Include="DashboardUI\sass\directives\ui-filesystem.scss" />
-    <Content Include="DashboardUI\sass\directives\ui-movement.scss" />
-    <Content Include="DashboardUI\sass\directives\ui-page-title.scss" />
-    <Content Include="DashboardUI\sass\directives\ui-taggable.scss" />
-    <Content Include="DashboardUI\sass\fonts\proxima-nova.scss" />
-    <Content Include="DashboardUI\sass\main.scss" />
-    <Content Include="DashboardUI\sass\partials\_animations.scss" />
-    <Content Include="DashboardUI\sass\partials\_buttons.scss" />
-    <Content Include="DashboardUI\sass\partials\_charts.scss" />
-    <Content Include="DashboardUI\sass\partials\_containers.scss" />
-    <Content Include="DashboardUI\sass\partials\_demo.scss" />
-    <Content Include="DashboardUI\sass\partials\_forms.scss" />
-    <Content Include="DashboardUI\sass\partials\_general.scss" />
-    <Content Include="DashboardUI\sass\partials\_header.scss" />
-    <Content Include="DashboardUI\sass\partials\_labels-alerts-progress.scss" />
-    <Content Include="DashboardUI\sass\partials\_loading-animations.scss" />
-    <Content Include="DashboardUI\sass\partials\_messages.scss" />
-    <Content Include="DashboardUI\sass\partials\_navigation.scss" />
-    <Content Include="DashboardUI\sass\partials\_overlays.scss" />
-    <Content Include="DashboardUI\sass\partials\_pages.scss" />
-    <Content Include="DashboardUI\sass\partials\_panels-modal-tooltips.scss" />
-    <Content Include="DashboardUI\sass\partials\_pie-charts.scss" />
-    <Content Include="DashboardUI\sass\partials\_port-from-old-stylesheet.scss" />
-    <Content Include="DashboardUI\sass\partials\_ribbons.scss" />
-    <Content Include="DashboardUI\sass\partials\_selectize.scss" />
-    <Content Include="DashboardUI\sass\partials\_variables.scss" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -982,6 +953,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\API\BaseAPIController.cs" />
+    <Compile Include="Controllers\API\DevController.cs" />
+    <Compile Include="Controllers\API\GroupsAPIController.cs" />
+    <Compile Include="Controllers\API\ProfilesAPIController.cs" />
+    <Compile Include="Controllers\API\UsersAPIController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -1030,7 +1006,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Admin\" />
-    <Folder Include="Controllers\API\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\dev.pubxml" />
@@ -1533,7 +1508,6 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-TW.min.js.map" />
     <Content Include="Views\Shared\_TranslateJS.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
-    <Content Include="Views\Default\SeedUpload.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Shared\_FlashMessages.cshtml" />
     <Content Include="Views\Shared\_LayoutEmail.cshtml" />

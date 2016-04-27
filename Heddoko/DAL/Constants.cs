@@ -11,6 +11,14 @@ namespace DAL
         public const string ConnectionStringName = "HDContext";
         public const string HeaderToken = "token";
 
+        public class Embed
+        {
+            public const string Groups = "groups";
+            public const string Profiles = "profiles";
+            public const string Tags = "tags";
+            public const string AvatarSrc = "avatarSrc";
+        }
+
         public class Environments
         {
             public const string Dev = "dev";

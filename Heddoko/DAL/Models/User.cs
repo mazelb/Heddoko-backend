@@ -61,6 +61,7 @@ namespace DAL.Models
         public DateTime? ForgotExpiration { get; set; }
 
         #region Relations
+        [JsonIgnore]
         public int? AssetID { get; set; }
 
         [JsonIgnore]
@@ -85,6 +86,14 @@ namespace DAL.Models
             get
             {
                 return $"{FirstName} {LastName}";
+            }
+        }
+
+        public string AvatarSrc
+        {
+            get
+            {
+                return Asset == null ? string.Empty : Asset.Url;
             }
         }
 
