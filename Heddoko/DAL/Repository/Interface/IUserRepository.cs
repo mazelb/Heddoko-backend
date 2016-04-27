@@ -8,6 +8,10 @@ namespace DAL
 
         User GetByEmailCached(string email);
 
+        User GetByUsernameCached(string username);
+
+        User GetByUsername(string username);
+
         User GetByEmail(string email);
 
         User GetByConfirmToken(string confirmToken);

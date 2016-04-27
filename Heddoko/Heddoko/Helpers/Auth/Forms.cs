@@ -12,9 +12,9 @@ namespace Heddoko.Helpers.Auth
     public class Forms
     {
         const int Version = 1;
-        public static User SignIn(UnitOfWork uow, string email, string password)
+        public static User SignIn(UnitOfWork uow, string username, string password)
         {
-            User user = uow.UserRepository.GetByEmailCached(email);
+            User user = uow.UserRepository.GetByUsernameCached(username?.Trim());
 
             if (user != null
              && PasswordHasher.Equals(password?.Trim(), user.Salt, user.Password))

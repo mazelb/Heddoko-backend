@@ -36,8 +36,10 @@ namespace DAL.Models
         [StringLength(255)]
         public string Phone { get; set; }
 
-        [StringLength(2)]
+        [StringLength(20)]
         public string Country { get; set; }
+
+        public DateTime? BirthDay { get; set; }
 
         public UserRoleType Role { get; set; }
 

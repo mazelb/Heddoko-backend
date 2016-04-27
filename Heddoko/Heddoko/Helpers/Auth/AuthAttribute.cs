@@ -61,7 +61,7 @@ namespace Heddoko
                 {
                     returnUrl = string.Format("?returnUrl={0}", HttpUtility.UrlEncode(requestUrl));
                 }
-                filterContext.Result = new RedirectResult(string.Format("~/signin{0}", returnUrl));
+                filterContext.Result = new RedirectResult(string.Format("~/login{0}", returnUrl));
             }
             else
             {

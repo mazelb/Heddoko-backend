@@ -1,0 +1,11 @@
+﻿@model Heddoko.Models.ActivationUserEmailViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutEmail.cshtml";
+}
+
+Welcome @Model.FirstName,
+<br />
+Click here to activate your account: @(Heddoko.Config.DashboardSite + $"/confirm/{Model.Token}")
+<br />
+- The Heddoko Team

@@ -1,6 +1,7 @@
 ﻿using DAL.Models;
 using System.Linq;
 using System.Data.Entity;
+using System;
 
 namespace DAL
 {
@@ -18,20 +19,25 @@ namespace DAL
 
         public override void SetCache(string id, User user)
         {
-            if (!string.IsNullOrEmpty(user.Email))
-            {
-                base.SetCache(user.Email, user);
-            }
-
 
             if (user.ID > 0)
             {
                 base.SetCache(user.ID.ToString(), user);
-            }
 
-            if (!string.IsNullOrEmpty(user.Token))
-            {
-                base.SetCache(user.Token, user);
+                if (!string.IsNullOrEmpty(user.Email))
+                {
+                    base.SetCache(user.Email, user);
+                }
+
+                if (!string.IsNullOrEmpty(user.Token))
+                {
+                    base.SetCache(user.Token, user);
+                }
+
+                if (!string.IsNullOrEmpty(user.Username))
+                {
+                    base.SetCache(user.Username, user);
+                }
             }
         }
 
@@ -55,6 +61,11 @@ namespace DAL
             return DbSet.Where(c => c.Email == email).FirstOrDefault();
         }
 
+        public User GetByUsername(string username)
+        {
+            return DbSet.Where(c => c.Username == username).FirstOrDefault();
+        }
+
         public User GetByConfirmToken(string confirmToken)
         {
             return DbSet.Where(c => c.ConfirmToken == confirmToken).FirstOrDefault();
@@ -63,6 +74,21 @@ namespace DAL
         public User GetByForgetToken(string forgetToken)
         {
             return DbSet.Where(c => c.ForgotToken == forgetToken).FirstOrDefault();
+        }
+
+        public User GetByUsernameCached(string username)
+        {
+            User user = GetCached(username);
+            if (user == null)
+            {
+                user = GetByUsername(username);
+                if (user != null)
+                {
+                    SetCache(username, user);
+                }
+            }
+
+            return user;
         }
     }
 }

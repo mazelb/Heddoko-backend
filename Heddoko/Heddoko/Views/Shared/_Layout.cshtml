@@ -1,11 +1,14 @@
 ﻿@model Heddoko.Models.BaseViewModel
 <!DOCTYPE html>
-<html>
+<html class="no-js web-layout @ViewBag.HtmlClass">
 <head>
     <meta charset="utf-8" />
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,700,600,400" rel="stylesheet" type="text/css">
+
     <title>@Model.Title</title>
     @Html.Partial("_Favicons", Model)
 
@@ -20,15 +23,46 @@
 
     @RenderSection("css", required: false)
 </head>
-<body>
+<body class="@ViewBag.BodyClass">
     @RenderSection("Body", required: false)
+
+    <header>
+        <a class="nav-logo" href="/">
+            <img src="@Url.Content("~/Content/images/logos/heddoko_logo.svg")" alt="Heddoko">
+        </a>
+
+        <div class="social">
+            <p>
+                <a href="https://www.facebook.com/heddoko" target="_blank">
+                    <i class="fa fa-2x fa-facebook"></i>
+                </a>
+                <a href="https://twitter.com/heddoko" target="_blank">
+                    <i class="fa fa-2x fa-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/heddoko" target="_blank">
+                    <i class="fa fa-2x fa-linkedin"></i>
+                </a>
+                <a href="https://instagram.com/heddoko/" target="_blank">
+                    <i class="fa fa-2x fa-instagram"></i>
+                </a>
+            </p>
+        </div>
+    </header>
+
+
     @RenderBody()
 
+    <div id="footer" class="navbar-fixed-bottom text-center">
+        &copy; Copyright Heddoko
+    </div>
     @Scripts.Render("~/Bundles/jQuery")
     @Scripts.Render("~/Bundles/i18nEn")
     @Scripts.Render("~/Bundles/CommonJs")
 
+    @if (Model.IsAuth)
+    {
     @Html.Partial("_TranslateJS", Model)
+    }
 
     @if (Model.EnableKendo)
     {

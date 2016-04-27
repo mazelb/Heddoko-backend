@@ -15,10 +15,22 @@ namespace Heddoko
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
-             name: "Confirm",
-             url: "confirm/{token}",
-             defaults: new { controller = "Account", action = "Confirm", token = UrlParameter.Optional }
-           );
+                name: "Login",
+                url: "login",
+                defaults: new { controller = "Account", action = "Signin", token = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "SignUp",
+                url: "register",
+                defaults: new { controller = "Account", action = "SignUp", token = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Confirm",
+                url: "confirm/{token}",
+                defaults: new { controller = "Account", action = "Confirm", token = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                name: "Forgot",

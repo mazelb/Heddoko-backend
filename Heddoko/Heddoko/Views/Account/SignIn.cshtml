@@ -1,0 +1,59 @@
+﻿@model Heddoko.Models.SignInAccountViewModel
+
+@{
+    ViewBag.HtmlClass = "auth-login";
+    ViewBag.BodyClass = "auth-login";
+}
+
+<h1 class="inspiring-quote">
+    @i18n.Resources.SignInInspiring
+</h1>
+
+<section>
+    <div class="main-body">
+        <div class="container" style="margin-bottom:50px;">
+            @using (Html.BeginForm("SignIn", "Account", FormMethod.Post, new { @class = "auth-form", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.ReturnUrl)
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-1">
+                        @Html.TextBoxFor(m => m.Username, new { autofocus = "autofocus", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Username).ToString()) })
+                        @Html.ValidationMessageFor(m => m.Username, string.Empty, new { @class = "text-danger" })
+                        <a href="@Url.Action("ForgotUsername", "Account")">@i18n.Resources.ForgotYourUsername</a>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                        @Html.PasswordFor(m => m.Password, new { placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Password).ToString()) })
+                        @Html.ValidationMessageFor(m => m.Password, string.Empty, new { @class = "text-danger" })
+                        <a href="@Url.Action("ForgotPassword", "Account")">@i18n.Resources.ForgotYourPassword</a>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-2">
+                        <input type="submit"
+                               class="btn btn-default"
+                               name="name"
+                               value="@i18n.Resources.Login">
+
+                        <a href="@Url.Action("SignUp", "Account")" class="emphasize">@i18n.Resources.CreateNewAccount</a>
+                    </div>
+                </div>
+            }
+            @if (!ViewData.ModelState.IsValid)
+            {
+            <div class="alert alert-danger">
+                @Html.Raw(i18n.Resources.Oops)
+                <ul>
+                    @Html.ValidationSummary(true, string.Empty, new { @class = "" })
+                </ul>
+            </div>
+            }
+            @Html.Partial("_FlashMessages", Model.Flash)
+        </div>
+
+    </div>
+
+</section>
+@section Scripts {
+    @Scripts.Render("~/Bundles/ValidateJs")
+}

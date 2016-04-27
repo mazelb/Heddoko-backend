@@ -80,6 +80,17 @@ namespace DAL.Migrations
                   p => p.Email,
                    new User
                    {
+                       Email = "ss@a2a.co",
+                       Username = "ss",
+                       Status = UserStatusType.Active,
+                       Password = pwd.Hash,
+                       Salt = pwd.Salt,
+                       FirstName = "S",
+                       LastName = "S",
+                       Role = UserRoleType.Admin
+                   },
+                   new User
+                   {
                        Email = "admin@heddoko.co",
                        Username = "heddoko.admin",
                        Status = UserStatusType.Active,
@@ -563,7 +574,7 @@ namespace DAL.Migrations
                             new Equipment()
                             {
                                 MacAddress = PasswordHasher.Md5((DateTime.Now.Ticks * 2).ToString()).Substring(0, 5),
-                                SerialNo = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(0, 5),
+                                SerialNo = PasswordHasher.Md5((DateTime.Now.Ticks * 9).ToString()).Substring(0, 5),
                                 PhysicalLocation = "Box 2",
                                 Status = EquipmentStatusType.Unavailable,
                                 AnatomicalPosition = AnatomicalPositionType.LeftTibia,
@@ -578,7 +589,7 @@ namespace DAL.Migrations
                             new Equipment()
                             {
                                 MacAddress = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(0, 5),
-                                SerialNo = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(0, 5),
+                                SerialNo = PasswordHasher.Md5((DateTime.Now.Ticks * 7).ToString()).Substring(0, 5),
                                 PhysicalLocation = "Box 2",
                                 Status = EquipmentStatusType.Unavailable,
                                 AnatomicalPosition = AnatomicalPositionType.RightForeArm,
@@ -593,7 +604,7 @@ namespace DAL.Migrations
                             new Equipment()
                             {
                                 MacAddress = PasswordHasher.Md5((DateTime.Now.Ticks * 3).ToString()).Substring(0, 5),
-                                SerialNo = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(5, 10),
+                                SerialNo = PasswordHasher.Md5((DateTime.Now.Ticks * 6).ToString()).Substring(5, 10),
                                 PhysicalLocation = "Box 2",
                                 Status = EquipmentStatusType.Unavailable,
                                 AnatomicalPosition = null,
@@ -614,7 +625,7 @@ namespace DAL.Migrations
                     new Equipment()
                     {
                         MacAddress = PasswordHasher.Md5((DateTime.Now.Ticks * 4).ToString()).Substring(0, 5),
-                        SerialNo = PasswordHasher.Md5(DateTime.Now.Ticks.ToString()).Substring(5, 10),
+                        SerialNo = PasswordHasher.Md5((DateTime.Now.Ticks * 5).ToString()).Substring(5, 10),
                         PhysicalLocation = "Box 1",
                         Status = EquipmentStatusType.Available,
                         AnatomicalPosition = null,

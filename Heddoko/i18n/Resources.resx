@@ -150,6 +150,45 @@
   <data name="ConditionType_Used" xml:space="preserve">
     <value>Used</value>
   </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>Confirmed</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="ConfirmPasswordValidateMessage" xml:space="preserve">
+    <value>The passwords do not match</value>
+  </data>
+  <data name="ConfirmToken" xml:space="preserve">
+    <value>Confirm token</value>
+  </data>
+  <data name="CreateNewAccount" xml:space="preserve">
+    <value>Create a new account</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailActivatedBody" xml:space="preserve">
+    <value>You have been activated</value>
+  </data>
+  <data name="EmailActivatedSubject" xml:space="preserve">
+    <value>Activated!</value>
+  </data>
+  <data name="EmailActivationUserSubject" xml:space="preserve">
+    <value>Welcome!</value>
+  </data>
+  <data name="EmailForgotPasswordSubject" xml:space="preserve">
+    <value>Forgot password</value>
+  </data>
+  <data name="EmailForgotUsernameSubject" xml:space="preserve">
+    <value>Remind username</value>
+  </data>
+  <data name="EmptyConfirmationToken" xml:space="preserve">
+    <value>Empty confirmation token</value>
+  </data>
+  <data name="EmptyForgotToken" xml:space="preserve">
+    <value>Empty forgot token</value>
+  </data>
   <data name="EquipmentStatusType_Available" xml:space="preserve">
     <value>Available</value>
   </data>
@@ -162,6 +201,15 @@
   <data name="EquipmentStatusType_Unavailable" xml:space="preserve">
     <value>Unavailable</value>
   </data>
+  <data name="ExpiredForgotToken" xml:space="preserve">
+    <value>Forgot token is expired</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
+  <data name="ForgotYourUsername" xml:space="preserve">
+    <value>Forgot your username?</value>
+  </data>
   <data name="HeatsShrinkType_No" xml:space="preserve">
     <value>No</value>
   </data>
@@ -170,6 +218,9 @@
   </data>
   <data name="Heddoko" xml:space="preserve">
     <value>Heddoko</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
   </data>
   <data name="MaterialType_Battery" xml:space="preserve">
     <value>Battery</value>
@@ -183,11 +234,20 @@
   <data name="MovementEventType_Standing" xml:space="preserve">
     <value>Standing</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
   <data name="NumbersType_No" xml:space="preserve">
     <value>No</value>
   </data>
   <data name="NumbersType_Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordSuccessufullyChanged" xml:space="preserve">
+    <value>Password Successfully Changed</value>
   </data>
   <data name="PrototypeType_No" xml:space="preserve">
     <value>No</value>
@@ -204,6 +264,9 @@
   <data name="ShipType_Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="SignInInspiring" xml:space="preserve">
+    <value>More Than Just a Coach</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Heddoko | Track your movement in 3D</value>
   </data>
@@ -215,6 +278,12 @@
   </data>
   <data name="UserGenderType_NotSpecified" xml:space="preserve">
     <value>NotSpecified</value>
+  </data>
+  <data name="UserIsBanned" xml:space="preserve">
+    <value>User is banned</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
   <data name="UserRoleType_Admin" xml:space="preserve">
     <value>Admin</value>
@@ -234,10 +303,121 @@
   <data name="UserStatusType_NotActive" xml:space="preserve">
     <value>Inactive</value>
   </data>
+  <data name="ValidateEmailMessage" xml:space="preserve">
+    <value>The E-mail field is not a valid e-mail address</value>
+  </data>
+  <data name="ValidateLengthMessage" xml:space="preserve">
+    <value>The {0} must be at least {2} characters long.</value>
+  </data>
+  <data name="ValidateLengthRangeMessage" xml:space="preserve">
+    <value>The {0} must be from {2} to {1} characters long</value>
+  </data>
+  <data name="ValidateMaxLengthMessage" xml:space="preserve">
+    <value>The {0} cannot be longer than {2} characters long.</value>
+  </data>
+  <data name="ValidateRequiredMessage" xml:space="preserve">
+    <value>The {0} field is required</value>
+  </data>
+  <data name="WrongConfirmationToken" xml:space="preserve">
+    <value>Wrong confirmation token</value>
+  </data>
+  <data name="WrongEmailForgotPassword" xml:space="preserve">
+    <value>No account found with that email address</value>
+  </data>
+  <data name="WrongForgotToken" xml:space="preserve">
+    <value>Invalid forgot token</value>
+  </data>
+  <data name="WrongUsernameOrPassword" xml:space="preserve">
+    <value>These credentials do not match our records.</value>
+  </data>
   <data name="YouAreNotAllowed" xml:space="preserve">
     <value>You are not allowed</value>
   </data>
   <data name="YouAreNotAuthorized" xml:space="preserve">
     <value>You are not authorized</value>
+  </data>
+  <data name="Oops" xml:space="preserve">
+    <value>&lt;strong&gt;Whoops!&lt;/strong&gt; There were some problems with your input.&lt;br&gt;&lt;br&gt;</value>
+  </data>
+  <data name="PasswordForgotMessage" xml:space="preserve">
+    <value>Enter the email address that you used to register. We'll send you an email with your username and a link to reset your password.</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Reset password</value>
+  </data>
+  <data name="RetrieveUsername" xml:space="preserve">
+    <value>Retrieve Username</value>
+  </data>
+  <data name="UsernameForgotMessage" xml:space="preserve">
+    <value>Enter the email address that you used to register. We'll send you an email with your username.</value>
+  </data>
+  <data name="AccountType" xml:space="preserve">
+    <value>Account Type</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Use this form to confirm your account</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="Firstname" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Lastname" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="PasswordSuccessufullySent" xml:space="preserve">
+    <value>We have sent an email with a link to reset a password</value>
+  </data>
+  <data name="ResetPasswordMessage" xml:space="preserve">
+    <value>Use this form to reset your password.</value>
+  </data>
+  <data name="UsernameSuccessufullySent" xml:space="preserve">
+    <value>We have sent an email with your username.</value>
+  </data>
+  <data name="EmailUsed" xml:space="preserve">
+    <value>Email already used</value>
+  </data>
+  <data name="UsernameUsed" xml:space="preserve">
+    <value>Username already used</value>
+  </data>
+  <data name="UserSignupMessage" xml:space="preserve">
+    <value>User have been created. We have sent email with activation link, please activate your account.</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>privacy policy</value>
+  </data>
+  <data name="SignInInviteMessage" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="SignInMessage" xml:space="preserve">
+    <value>Log in now</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="TermMessage" xml:space="preserve">
+    <value>By clicking on Sign up, you agree to &lt;br&gt; our</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>terms &amp; conditions</value>
+  </data>
+  <data name="UserIsNotActive" xml:space="preserve">
+    <value>User is not activated</value>
   </data>
 </root>

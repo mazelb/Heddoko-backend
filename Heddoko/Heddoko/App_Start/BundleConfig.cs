@@ -20,6 +20,8 @@ namespace Heddoko
 
             Bundle commonStylesBundle = new Bundle("~/Bundles/CommonCss");
             commonStylesBundle.Include(
+                 "~/Content/css/styles.css",
+                 "~/Content/css/app.css"
             );
 
             bundles.Add(commonStylesBundle);

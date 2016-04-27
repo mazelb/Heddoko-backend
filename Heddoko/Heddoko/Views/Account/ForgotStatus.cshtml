@@ -1,0 +1,18 @@
+﻿@model Heddoko.Models.BaseViewModel
+
+@{
+    ViewBag.BodyClass = "auth-reset-password";
+}
+
+<section>
+    <div class="main-body">
+        <div class="row">
+            <div class="main-body col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+                <h3 class="text-center" style="margin-bottom: 100px">
+                    @Html.Partial("_FlashMessages", Model.Flash)
+                </h3>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -31,7 +31,7 @@ namespace DAL
             public const string User = "User";
             public const string Analyst = "Analyst";
             public const string Admin = "Admin";
-            public const string AdminAndAnalystAndUser = "User,Analyst,Admin";
+            public const string All = "User,Analyst,Admin";
             public const string UserAndAdmin = "User,Admin";
             public const string AnalystAndAdmin = "Analyst,Admin";
         }
