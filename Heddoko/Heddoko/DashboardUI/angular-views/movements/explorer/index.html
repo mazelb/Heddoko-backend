@@ -1,0 +1,83 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<div class="page movements-page">
+    <header>
+        <h1>
+            Organize
+            <i class="fa fa-th"></i>
+            <span></span>
+        </h1>
+    </header>
+
+    <!-- Main container -->
+    <div
+        ng-if="global.getDataLength('profile') > 0 || global.data.isFetchingProfiles"
+        class="row file-explorer-container">
+
+        <ui-filesystem
+            data-id="movements-explorer"
+            data-files="files"
+            data-folders="folders"
+            data-parent-folder="parentFolder"
+            data-path="path"
+            data-config="uiFilesystemConfig"
+            data-default-layout="small-tiles"
+            data-is-loading="global.data.isFetchingMovementData || global.data.isFetchingProfiles"
+            class="col-sm-12">
+        </ui-filesystem>
+
+        <!-- New folder modal form -->
+        <div class="modal fade" id="createFolderForm">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        Create a Folder
+                    </div>
+
+                    <div class="modal-body">
+
+                        <!-- Name -->
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                ng-model="newFolder.name"
+                                placeholder="Folder Name"
+                                class="form-control"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer text-center">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button
+                            ng-click="createFolder(newFolder.name)"
+                            type="button"
+                            class="btn btn-primary"
+                            data-dismiss="modal">
+
+                            Create
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- No profile exists -->
+    <div
+        ng-show="!global.data.isFetchingProfiles && global.getDataLength('profile') === 0"
+        class="text-center">
+
+        <h3 class="text-center">You do not have any profiles yet.</h3>
+        <br>
+
+        Once you create a profile, you'll be able to upload and organize your movements here.
+        <br>
+        <br>
+
+        Take this opportunity to <a href="#/profiles/create">create one</a>.
+    </div>
+</div>

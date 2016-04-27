@@ -1,0 +1,48 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Avatar
+    </div>
+
+    <div class="panel-body">
+
+        <!-- Avatar preview -->
+        <div class="row">
+            <div class="col-sm-12">
+                <img
+                    ng-show="avatar || group.photo_src"
+                    ngf-src="avatar || group.photo_src"
+                    style="width: 100%">
+            </div>
+        </div>
+        <br>
+
+        <!-- Action buttons -->
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <span ng-show="group.id < 1">
+                    Please create the team <br>
+                    before uploading a photo. <br><br>
+                </span>
+
+                <span ng-show="group.id >= 1">
+                    Temporarily disabled. <br><br>
+                </span>
+
+                <button
+                    ngf-select="uploadPhoto($file)"
+                    ngf-drop
+                    ng-model="avatar"
+                    accept="image/*"
+                    ngf-pattern="'image/*'"
+                    ngf-capture="'camera'"
+                    ngf-min-height="100"
+                    ngf-max-size="2MB"
+                    ng-class="{'btn btn-default': true, 'disabled': group.id < 1 || true}">
+
+                    Select or drag &amp; drop a photo
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

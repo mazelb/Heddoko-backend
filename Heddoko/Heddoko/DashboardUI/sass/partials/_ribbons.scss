@@ -1,0 +1,183 @@
+/**
+ *
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ *
+ *    - Pricing / Ribbons
+ */
+
+.pricing-table {
+  margin-bottom: 20px;
+  text-align: center;
+  background-color: #ccc;
+  color: #fff;
+}
+
+.pricing-table>header {
+  display: block;
+  margin: 0;
+  padding: 25px 10px;
+  background-color: rgba(0, 0, 0, 0.05);
+  font-size: 22px;
+  line-height: 1;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.pricing-table .pricing-price {
+  position: relative;
+  padding: 35px 10px;
+  font-size: 60px;
+  line-height: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pricing-table .pricing-price em {
+  font-size: .6em;
+  font-weight: 300;
+  font-style: normal;
+  vertical-align: 10px;
+}
+
+.pricing-table .pricing-price sup {
+  font-size: .45em;
+}
+
+.pricing-table .pricing-price sub {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: .25em;
+  margin-left: -50px;
+}
+
+.pricing-table .pricing-body>ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 24px;
+}
+
+.pricing-table .pricing-body>ul>li {
+  padding: 22px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pricing-table>footer>a {
+  display: block;
+  margin: 0;
+  padding: 22px 10px;
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.pricing-table>footer>a>i {
+  margin-right: 10px;
+}
+
+.pricing-table-success {
+  background-color: $orange;
+}
+
+.pricing-table-info {
+  background-color: $blue;
+}
+
+.pricing-table-warning {
+  background-color: $warning;
+}
+
+.pricing-table-danger {
+  background-color: $danger;
+}
+
+.ribbon-wrapper {
+  position: relative;
+}
+
+.ribbon-wrapper .ribbon-wrapper {
+  position: absolute;
+  overflow: hidden;
+  width: 85px;
+  height: 88px;
+  top: -3px;
+  right: -3px;
+}
+
+.ribbon-wrapper .ribbon {
+  position: relative;
+  display: block;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  color: #fff;
+  @include transform(rotate(45deg));
+  padding: 7px 0;
+  left: -5px;
+  top: 15px;
+  width: 120px;
+  line-height: 20px;
+  background-color: #3F4245;
+  @include box-shadow(0 0 3px rgba(0, 0, 0, 0.3));
+}
+
+.ribbon-wrapper .ribbon:before, .ribbon-wrapper .ribbon:after {
+  position: absolute;
+  content: " ";
+  line-height: 0;
+  border-top: 2px solid #3F4245;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  bottom: -2px;
+}
+
+.ribbon-wrapper .ribbon:before {
+  left: 0;
+  bottom: -1px;
+}
+
+.ribbon-wrapper .ribbon:after {
+  right: 0;
+}
+
+.ribbon-wrapper.ribbon-primary .ribbon {
+  background-color: $orange;
+}
+
+.ribbon-wrapper.ribbon-primary .ribbon:before, .ribbon-wrapper.ribbon-primary .ribbon:after {
+  border-top: 2px solid $orange;
+}
+
+.ribbon-wrapper.ribbon-success .ribbon {
+  background-color: $orange;
+}
+
+.ribbon-wrapper.ribbon-success .ribbon:before, .ribbon-wrapper.ribbon-success .ribbon:after {
+  border-top: 2px solid $orange;
+}
+
+.ribbon-wrapper.ribbon-info .ribbon {
+  background-color: $blue;
+}
+
+.ribbon-wrapper.ribbon-info .ribbon:before, .ribbon-wrapper.ribbon-info .ribbon:after {
+  border-top: 2px solid $blue;
+}
+
+.ribbon-wrapper.ribbon-warning .ribbon {
+  background-color: $warning;
+}
+
+.ribbon-wrapper.ribbon-warning .ribbon:before, .ribbon-wrapper.ribbon-warning .ribbon:after {
+  border-top: 2px solid $warning;
+}
+
+.ribbon-wrapper.ribbon-danger .ribbon {
+  background-color: $danger;
+}
+
+.ribbon-wrapper.ribbon-danger .ribbon:before, .ribbon-wrapper.ribbon-danger .ribbon:after {
+  border-top: 2px solid $danger;
+}

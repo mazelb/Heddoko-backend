@@ -1,0 +1,31 @@
+
+<div class="movement-left-column non-test-pages" style="height: 100%">
+
+    <!-- Select trial -->
+    <div
+        ng-hide="analysis.playbackRatePane || analysis.planePane"
+        ng-click="analysis.trialPane = !analysis.trialPane; analysis.playbackRatePane = false;"
+        class="row"
+        style="padding:0;">
+        <div class="col-sm-8" style="height:56px;">
+            {{ fms.current.trial.name }}
+        </div>
+        <div class="col-sm-4" style="height:56px;">
+            <i ng-show="analysis.trialPane" style="line-height:inherit;transform:scale(1, 1.5);" class="fa fa-2x fa-caret-up" />
+            <i ng-hide="analysis.trialPane" style="line-height:inherit;transform:scale(1, 1.5);" class="fa fa-2x fa-caret-down" />
+        </div>
+    </div>
+    <div
+        ng-if="analysis.trialPane"
+        ng-repeat="trial in fms.current.trials"
+        ng-click="fms.current.trial = trial; analysis.trialPane = false;"
+        class="row hierarchy-2">
+
+        <div class="col-sm-8">
+            {{trial.name}}
+        </div>
+        <div class="col-sm-4" ng-click="joint.selected = !joint.selected">
+            <i ng-show="fms.current.trial == trial" style="line-height:inherit;" class="fa fa-2x fa-check" />
+        </div>
+    </div>
+</div>

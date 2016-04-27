@@ -1,0 +1,114 @@
+
+<div class="page demo-analysis-page">
+    <header>
+        <h1>
+            Capture <i class="fa fa-video-camera"></i>
+            <span></span>
+        </h1>
+    </header>
+
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+            <h3>
+                <small>Current Movement:</small> {{ movements[currentMovementIndex].name }}
+            </h3>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <!-- FMS List -->
+            <div class="col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Movements To Test
+                    </div>
+
+                    <div class="panel-body">
+                        <div
+                            ng-repeat="movement in movements"
+                            class="demo-movement-li"
+                            ng-class="{live: movement.current, done: movement.done}">
+
+                            {{ $index }}. {{ movement.name }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emphasized view -->
+            <div class="col-sm-6" id="emphasizedViewContainer">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-right">
+                        Side/Sagittal
+                    </div>
+
+                    <div class="panel-body">
+                        <video id="sagittalVideoCapture" class="demo-analysis">
+                            <source ng-src="../../../../demo/aslr/left/sagittal.webm" type="video/webm" />
+                            <source src="../../../../demo/aslr/left/sagittal.mp4" type="video/mp4" />
+                            Sorry, your browser doesn't support HTML5 video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Secondary views -->
+            <div class="col-sm-3" id="secondaryViewsContainer">
+
+                <!-- Coronal view -->
+                <div class="panel panel-default">
+                    <div class="panel-heading text-right">
+                        Front/Coronal
+                    </div>
+
+                    <div class="panel-body">
+                        <video id="coronalVideoCapture" class="demo-analysis">
+                            <source ng-src="{{'../../../../demo/aslr/left/coronal.webm'}}" type="video/webm" />
+                            <source src="{{'../../../../demo/aslr/left/coronal.mp4'}}" type="video/mp4" />
+                            Sorry, your browser doesn't support HTML5 video.
+                        </video>
+                    </div>
+                </div>
+
+                <!-- Transverse view -->
+                <div class="panel panel-default">
+                    <div class="panel-heading text-right">
+                        Horizontal/Transverse
+                    </div>
+
+                    <div class="panel-body">
+                        <video id="transverseVideoCapture" class="demo-analysis">
+                            <source ng-src="{{'../../../../demo/aslr/left/transverse.webm'}}" type="video/webm" />
+                            <source src="{{'../../../../demo/aslr/left/transverse.mp4'}}" type="video/mp4" />
+                            Sorry, your browser doesn't support HTML5 video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Record controls -->
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <button
+                ng-hide="isPlaying"
+                ng-click="start()"
+                class="btn btn-danger btn-circle btn-lg">
+
+                <i class="fa fa-circle"></i>
+            </button>
+            <button
+                ng-show="isPlaying"
+                ng-click="done()"
+                class="btn btn-default btn-circle btn-lg">
+
+                <i class="fa fa-stop"></i>
+            </button>
+        </div>
+    </div>
+</div>

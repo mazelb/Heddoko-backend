@@ -1,0 +1,402 @@
+/**
+ *
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ *
+ *    Labels / Alerts / Progress Bars / Tags
+ */
+
+.label-default {
+  background-color: #999;
+}
+
+.label-default[href]:hover, .label-default[href]:focus {
+  background-color: gray;
+}
+
+.label-primary {
+  background-color: $orange;
+}
+
+.label-primary[href]:hover, .label-primary[href]:focus {
+  background-color: $green;
+}
+
+.label-success {
+  background-color: $green;
+}
+
+.label-success[href]:hover, .label-success[href]:focus {
+  background-color: $green;
+}
+
+.label-info {
+  background-color: $blue;
+}
+
+.label-info[href]:hover, .label-info[href]:focus {
+  background-color: $blue;
+}
+
+.label-warning {
+  background-color: $warning;
+}
+
+.label-warning[href]:hover, .label-warning[href]:focus {
+  background-color: $warning;
+}
+
+.label-danger {
+  background-color: $danger;
+}
+
+.label-danger[href]:hover, .label-danger[href]:focus {
+  background-color: #e24f25;
+}
+
+
+.label {
+  padding: .5em .8em;
+}
+
+.label-info-alt {
+  background: $info-alt;
+}
+
+
+a.list-group-item.active>.badge, .nav-pills>.active>a>.badge {
+  color: #333;
+  background-color: #fff;
+}
+
+
+.container .jumbotron {
+  @include border-radius(0px);
+}
+
+
+.thumbnail {
+  @include border-radius(0px);
+  background-color: #f3f3f3;
+  border: 1px solid #ddd;
+}
+
+.thumbnail>img, .thumbnail a>img {
+  display: block;
+  width: 100%  \9;
+  max-width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.thumbnail .caption {
+  padding: 9px;
+  color: #767676;
+}
+
+a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
+  border-color: #333;
+}
+
+
+.alert {
+  @include border-radius(0px);
+}
+
+
+.alert-success {
+  background-color: #eefff6;
+  border-color: #d5ffe1;
+  color: #4c9c77;
+}
+
+.alert-success hr {
+  border-top-color: #bbffd0;
+}
+
+.alert-success .alert-link {
+  color: #3b7a5d;
+}
+
+.alert-info {
+  background-color: #eff6ff;
+  border-color: #cbebff;
+  color: $blue;
+}
+
+.alert-info hr {
+  border-top-color: #b2e0ff;
+}
+
+.alert-info .alert-link {
+  color: #427085;
+}
+
+.alert-warning {
+  background-color: #fffbef;
+  border-color: #ffeed6;
+  color: #bfa34c;
+}
+
+.alert-warning hr {
+  border-top-color: #ffe3bc;
+}
+
+.alert-warning .alert-link {
+  color: #9f8639;
+}
+
+.alert-danger {
+  background-color: #fff1ed;
+  border-color: #ffd6d4;
+  color: $danger;
+}
+
+.alert-danger hr {
+  border-top-color: #ffbeba;
+}
+
+.alert-danger .alert-link {
+  color: $danger;
+}
+
+
+
+.progress {
+  @include border-radius(0px);
+}
+
+.progress-bar {
+  background-color: $orange;
+  background-image:none;
+}
+
+
+.progress-bar[aria-valuenow="0"] {
+  color: #999;
+}
+
+.progress-bar-success {
+  background-color: $green;
+  background-image:none;
+}
+
+.progress-striped .progress-bar-success {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.progress-bar-info {
+  background-color: $blue;
+  background-image:none;
+}
+
+.progress-striped .progress-bar-info {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.progress-bar-warning {
+  background-color: $warning;
+  background-image:none;
+}
+
+.progress-striped .progress-bar-warning {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.progress-bar-danger {
+  background-color: $danger;
+  background-image:none;
+}
+
+.progress-striped .progress-bar-danger {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+
+.list-group-item {
+  border: 1px solid #eff2f7;
+}
+
+.list-group-item:first-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.list-group-item:last-child {
+  margin-bottom: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+
+.list-group-item.disabled, .list-group-item.disabled:hover, .list-group-item.disabled:focus {
+  color: #999;
+}
+
+.list-group-item.disabled .list-group-item-text, .list-group-item.disabled:hover .list-group-item-text, .list-group-item.disabled:focus .list-group-item-text {
+  color: #999;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #fff;
+  background-color: $orange;
+  border-color: #eff2f7;
+}
+
+
+
+.list-group-item.active .list-group-item-text, .list-group-item.active:hover .list-group-item-text, .list-group-item.active:focus .list-group-item-text {
+  color: #cbf2f1;
+}
+
+.list-group-item-success {
+  color: #4c9c77;
+  background-color: #eefff6;
+}
+
+a.list-group-item-success {
+  color: #4c9c77;
+}
+
+a.list-group-item-success .list-group-item-heading {
+  color: inherit;
+}
+
+a.list-group-item-success:hover, a.list-group-item-success:focus {
+  color: #4c9c77;
+  background-color: #d5ffe9;
+}
+
+a.list-group-item-success.active, a.list-group-item-success.active:hover, a.list-group-item-success.active:focus {
+  color: #fff;
+  background-color: #4c9c77;
+  border-color: #4c9c77;
+}
+
+.list-group-item-info {
+  color: $blue;
+  background-color: #eff6ff;
+}
+
+a.list-group-item-info {
+  color: $blue;
+}
+
+a.list-group-item-info .list-group-item-heading {
+  color: inherit;
+}
+
+a.list-group-item-info:hover, a.list-group-item-info:focus {
+  color: $blue;
+  background-color: #d6e8ff;
+}
+
+a.list-group-item-info.active, a.list-group-item-info.active:hover, a.list-group-item-info.active:focus {
+  color: #fff;
+  background-color: $blue;
+  border-color: $blue;
+}
+
+.list-group-item-warning {
+  color: #bfa34c;
+  background-color: #fffbef;
+}
+
+a.list-group-item-warning {
+  color: #bfa34c;
+}
+
+a.list-group-item-warning .list-group-item-heading {
+  color: inherit;
+}
+
+a.list-group-item-warning:hover, a.list-group-item-warning:focus {
+  color: #bfa34c;
+  background-color: #fff5d6;
+}
+
+a.list-group-item-warning.active, a.list-group-item-warning.active:hover, a.list-group-item-warning.active:focus {
+  color: #fff;
+  background-color: #bfa34c;
+  border-color: #bfa34c;
+}
+
+.list-group-item-danger {
+  color: $danger;
+  background-color: #fff1ed;
+}
+
+a.list-group-item-danger {
+  color: $danger;
+}
+
+a.list-group-item-danger .list-group-item-heading {
+  color: inherit;
+}
+
+a.list-group-item-danger:hover, a.list-group-item-danger:focus {
+  color: $danger;
+  background-color: #ffddd4;
+}
+
+a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
+  color: #fff;
+  background-color: $danger;
+  border-color: $danger;
+}
+
+
+.list-group-item {
+  padding: 15px;
+  border: 1px solid #f3f3f3;
+}
+
+.list-info li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.list-info li:last-child {
+  border-bottom: none;
+}
+
+.list-info li .icon {
+  margin-right: 10px;
+  color: $orange;
+}
+
+.list-info li label {
+  width: 100px;
+}
+
+
+.progress {
+  @include box-shadow(none);
+  background-color: #f6f6f6;
+}
+
+.progress-rounded {
+  @include border-radius(50px);
+}
+
+.progress-bar {
+  @include box-shadow(none);
+}
+
+.progressbar-xs {
+  height: 10px;
+  @include border-radius(5px);
+}
+
+.progressbar-sm {
+  height: 15px;
+}

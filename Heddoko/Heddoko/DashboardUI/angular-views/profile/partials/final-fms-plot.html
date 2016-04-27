@@ -1,0 +1,22 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Total FMS Score Graph
+    </div>
+
+    <div class="panel-body">
+        <div class="panel-body ng-scope" data-ng-controller="morrisChartCtrl">
+
+            <div
+                morris-chart
+                data-type="line"
+                data-data="fmsForms"
+                data-xkey="created_at"
+                data-ykeys='["totalscore"]'
+                data-labels='["total score"]'
+                data-line-colors='["#383d43"]'
+                data-line-width="3">
+            </div>
+        </div>
+    </div>
+</div>

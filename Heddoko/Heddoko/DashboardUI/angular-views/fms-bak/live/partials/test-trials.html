@@ -1,0 +1,53 @@
+
+<div class="row">
+	<div class="col-sm-4">
+		<div class="panel panel-default">
+			<div class="panel-body" style="padding:0px;">
+				<div class="col-sm-12 ng-scope movement-trial-list" style="padding:0px;">
+					<div
+                        ng-repeat="trial in fms.current.trials"
+                        ng-click="fms.current.trial = trial;run.name = null"
+                        ng-class="{'active': trial == fms.current.trial}">
+
+						<div class="trial-label">
+							{{ trial.name }}
+                            <span
+                                ng-show="run.getRunByTrial(trial) && run.getRunByTrial(trial).numFaults > 0"
+                                style="font-size:.7em;color:#999;font-weight:normal;margin-left: 5px;position:absolute;">
+
+                                Faults: {{ run.getRunByTrial(trial).numFaults }}
+                            </span>
+						</div>
+
+						<div class="trial-status">
+
+                            <!-- Status text -->
+							<div class="col-sm-8">
+								<div ng-if="run.getStatus(trial) == 'saved' && run.getRunByTrial(trial).numFaults == 0">
+								    No Fault
+								</div>
+								<div ng-if="run.getStatus(trial) == 'saved' && run.getRunByTrial(trial).numFaults > 0">
+								    Faults: {{ run.getRunByTrial(trial).numFaults }}
+								</div>
+								<div ng-if="run.getStatus(trial) == 'pain'">
+                                    Pain
+                                </div>
+							</div>
+
+							<div class="col-sm-4">
+								<img ng-if="run.getStatus(trial) == 'live'" class="pull-right" src="../../images/ui/lock_open.png" alt="unsaved" style="height:40px;margin-top:5px;" />
+								<img ng-if="run.getStatus(trial) == 'saved' || run.getStatus(trial) =='pain'" class="pull-right" src="../../images/ui/lock_closed.png" alt="saved" style="height:40px;margin-top:5px;" />
+							</div>
+						</div>
+					</div>
+					<div ng-click="run.submit()" ng-hide="fms.current.isTestSubmitted" class="movement-submit-button">
+						Submit Results
+					</div>
+					<div ng-show="fms.current.isTestSubmitted" class="movement-submit-button">
+						Results Successfully Submitted
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

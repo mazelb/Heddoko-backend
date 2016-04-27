@@ -1,0 +1,386 @@
+<header class="page-main-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>Submit FMS Results</h4>
+            <p ng-if="data.member.selected">
+                Submit FMS results for
+                <b>
+                    {{ global.state.profile.selected.first_name }} {{ global.state.profile.selected.last_name }}
+                </b>
+            </p>
+        </div>
+    </div>
+</header>
+
+<div class="page page-dashboard" data-ng-controller="FMSFormController">
+
+	<section>
+		<div class="row">
+
+			<div class="col-sm-12" ng-hide="waiting_server_response">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="text-left col-sm-6">
+							<h3>
+								Add FMS Test Scores
+							</h3>
+						</div>
+
+						<div class="panel-body col-sm-12 ng-scope">
+							<form ng-submit="submitFMSForm()" ng-hide="data.member.selected.id < 1">
+								<div class="row">
+									<div class="col-sm-3">
+										Deep Squat
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.fms_form_data.deepsquat"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.fms_form_data.deepsquat"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.fms_form_data.deepsquat"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.fms_form_data.deepsquat"><span>3</span></label>
+									</div>
+									<div class="col-sm-3">
+										<input placeholder="Comments" type="text" ng-model="data.fms_form_data.deepsquatcomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.ds == null, 'btn-success': files.ds != null}">
+                                            Select Movement File <input type="file" file-model="files.ds">
+                                        </span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Hurdle step (L)
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.fms_form_data.Lhurdle"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.fms_form_data.Lhurdle"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.fms_form_data.Lhurdle"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.fms_form_data.Lhurdle"><span>3</span></label>
+									</div>
+									<div class="col-sm-3">
+                                        <input placeholder="Comments" type="text" ng-model="data.fms_form_data.Lhurdlecomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.hsl == null, 'btn-success': files.hsl != null}">
+                                            Select Movement File <input type="file" file-model="files.hsl">
+                                        </span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Hurdle step (R)
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.fms_form_data.Rhurdle"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.fms_form_data.Rhurdle"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.fms_form_data.Rhurdle"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.fms_form_data.Rhurdle"><span>3</span></label>
+									</div>
+									<div class="col-sm-3">
+										<input placeholder="Comments" type="text" ng-model="data.fms_form_data.Rhurdlecomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.hsr == null, 'btn-success': files.hsr != null}">
+                                            Select Movement File <input type="file" file-model="files.hsr">
+                                        </span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Inline lunge (L)
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.fms_form_data.Llunge"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.fms_form_data.Llunge"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.fms_form_data.Llunge"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.fms_form_data.Llunge"><span>3</span></label>
+									</div>
+									<div class="col-sm-3">
+                                        <input placeholder="Comments" type="text" ng-model="data.fms_form_data.Llungecomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.ill == null, 'btn-success': files.ill != null}">
+                                            Select Movement File <input type="file" file-model="files.ill">
+                                        </span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Inline lunge (R)
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.fms_form_data.Rlunge"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.fms_form_data.Rlunge"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.fms_form_data.Rlunge"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.fms_form_data.Rlunge"><span>3</span></label>
+									</div>
+									<div class="col-sm-3">
+										<input placeholder="Comments" type="text" ng-model="data.fms_form_data.Rlungecomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.ilr == null, 'btn-success': files.ilr != null}">
+                                            Select Movement File <input type="file" file-model="files.ilr">
+                                        </span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Shoulder Mobility (L)
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.fms_form_data.Lshoulder"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.fms_form_data.Lshoulder"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.fms_form_data.Lshoulder"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.fms_form_data.Lshoulder"><span>3</span></label>
+									</div>
+									<div class="col-sm-3">
+                                        <input placeholder="Comments" type="text" ng-model="data.fms_form_data.Lshouldercomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.sml == null, 'btn-success': files.sml != null}">
+    Select Movement File <input type="file" file-model="files.sml">
+</span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Shoulder Mobility (R)
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.fms_form_data.Rshoulder"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.fms_form_data.Rshoulder"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.fms_form_data.Rshoulder"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.fms_form_data.Rshoulder"><span>3</span></label>
+									</div>
+									<div class="col-sm-3">
+										<input placeholder="Comments" type="text" ng-model="data.fms_form_data.Rshouldercomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.smr == null, 'btn-success': files.smr != null}">
+    Select Movement File <input type="file" file-model="files.smr">
+</span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Impingement clearing test (L)
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-checkbox"><input ng-model="data.fms_form_data.Limpingement" type="checkbox"><span>pain</span></label>
+									</div>
+									<div class="col-sm-3">
+                                        <input placeholder="Comments" type="text" ng-model="data.fms_form_data.Limpingementcomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.ictl == null, 'btn-success': files.ictl != null}">
+    Select Movement File <input type="file" file-model="files.ictl">
+</span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Impingement clearing test (R)
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-checkbox"><input ng-model="data.fms_form_data.Rimpingement" type="checkbox"><span>pain</span></label>
+									</div>
+									<div class="col-sm-3">
+										<input placeholder="Comments" type="text" ng-model="data.fms_form_data.impingementcomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.ictr == null, 'btn-success': files.ictr != null}">
+    Select Movement File <input type="file" file-model="files.ictr">
+</span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Active straight-leg raise (L)
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.fms_form_data.Lactive"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.fms_form_data.Lactive"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.fms_form_data.Lactive"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.fms_form_data.Lactive"><span>3</span></label>
+									</div>
+									<div class="col-sm-3">
+                                        <input placeholder="Comments" type="text" ng-model="data.fms_form_data.Lactivecomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.aslrl == null, 'btn-success': files.aslrl != null}">
+    Select Movement File <input type="file" file-model="files.aslrl">
+</span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Active straight-leg raise (R)
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.fms_form_data.Ractive"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.fms_form_data.Ractive"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.fms_form_data.Ractive"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.fms_form_data.Ractive"><span>3</span></label>
+									</div>
+									<div class="col-sm-3">
+										<input placeholder="Comments" type="text" ng-model="data.fms_form_data.Ractivecomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.aslrr == null, 'btn-success': files.aslrr != null}">
+                                            Select Movement File <input type="file" file-model="files.aslrr">
+                                        </span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Trunk stability push-up
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.fms_form_data.trunk"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.fms_form_data.trunk"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.fms_form_data.trunk"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.fms_form_data.trunk"><span>3</span></label>
+									</div>
+									<div class="col-sm-3">
+										<input placeholder="Comments" type="text" ng-model="data.fms_form_data.trunkcomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.tspu == null, 'btn-success': files.tspu != null}">
+                                            Select Movement File <input type="file" file-model="files.tspu">
+                                        </span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Press-up clearing test
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-checkbox"><input ng-model="data.fms_form_data.press" type="checkbox"><span>pain</span></label>
+									</div>
+									<div class="col-sm-3">
+										<input placeholder="Comments" type="text" ng-model="data.fms_form_data.presscomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.puct == null, 'btn-success': files.puct != null}">
+                                            Select Movement File <input type="file" file-model="files.puct">
+                                        </span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Rotary stability (L)
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.fms_form_data.Lrotary"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.fms_form_data.Lrotary"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.fms_form_data.Lrotary"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.fms_form_data.Lrotary"><span>3</span></label>
+									</div>
+									<div class="col-sm-3">
+                                        <input placeholder="Comments" type="text" ng-model="data.fms_form_data.Lrotarycomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.rsl == null, 'btn-success': files.rsl != null}">
+                                            Select Movement File <input type="file" file-model="files.rsl">
+                                        </span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Rotary stability (R)
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.fms_form_data.Rrotary"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.fms_form_data.Rrotary"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.fms_form_data.Rrotary"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.fms_form_data.Rrotary"><span>3</span></label>
+									</div>
+									<div class="col-sm-3">
+										<input placeholder="Comments" type="text" ng-model="data.fms_form_data.Rrotarycomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.rsr == null, 'btn-success': files.rsr != null}">
+    Select Movement File <input type="file" file-model="files.rsr">
+</span>
+									</div>
+								</div>
+
+                                <br>
+
+								<div class="row">
+									<div class="col-sm-3">
+										Posterior rocking clearing test
+									</div>
+									<div class="col-sm-3">
+										<label class="ui-checkbox"><input ng-model="data.fms_form_data.posterior" type="checkbox"><span>pain</span></label>
+									</div>
+									<div class="col-sm-3">
+										<input placeholder="Comments" type="text" ng-model="data.fms_form_data.posteriorcomments">
+									</div>
+									<div class="col-sm-3">
+										<span ng-class="{btn: true, 'btn-file': true, 'btn-default': files.prct == null, 'btn-success': files.prct != null}">
+                                            Select Movement File <input type="file" file-model="files.prct">
+                                        </span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<h3>Other Comments</h3>
+										<textarea name="" id="" class="form-control" ng-model="data.fms_form_data.comment"></textarea>
+										<br>
+
+										<div class="text-center">
+											<button type="submit" class="btn btn-primary">Submit Results and Movement Files</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

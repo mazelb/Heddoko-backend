@@ -1,0 +1,313 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<div class="page">
+    <header>
+        <h1>
+            Rehabilitation <i class="fa fa-medkit"></i>
+            <span></span>
+        </h1>
+    </header>
+
+    <!-- Bar chart -->
+    <div class="row demo-trends-section">
+        <div class="col-xs-12 col-md-7 col-md-offset-5 col-lg-9 col-lg-offset-3">
+            <h3 ng-show="metric" class="text-center">
+                <span ng-show="metric.title == 'Shoulder Range of Motion'">
+                    {{ selectizeRomModel == 1 ? 'Passive ' : 'Active ' }}
+                </span>
+                {{ metric.title }} / Dec 19 - Feb 6 2016
+            </h3>
+        </div>
+
+
+        <!-- DEMO: Left Panel -->
+        <div class="col-xs-12 col-md-5 col-lg-3 demo-trends-info-2">
+
+            <!-- Athlete details -->
+            <div class="row">
+                <div class="col-md-4">
+                    <a
+                        ng-style="{'background-image': 'url('+ profile.avatarSrc +')'}"
+                        style="display: block; background: transparent center center no-repeat; background-size: contain;"
+                        href="#/profiles/{{ profile.id }}"
+                        class="aspect-ratio aspect-square">
+                    </a>
+                </div>
+
+                <div class="col-md-8">
+                    <small>Date:</small>
+                    <b>Feb 6, 2016</b>
+                    <br>
+
+                    <small>Rehab Start:</small>
+                    <b>Dec 19, 2016</b>
+                    <br>
+
+                    <small>Athlete: </small>
+                    <b>
+                        <a href="#/profiles/{{ profile.id }}">
+                            {{ profile.firstName + ' ' + profile.lastName }}
+                        </a>
+                    </b>
+                    <br>
+
+                    <small>Team: </small>
+                    <b>
+                        {{ global.getSelectedGroup().name }}
+                    </b>
+                    <br>
+
+                    <!-- Metric -->
+                    <div ng-show="metric">
+                        <selectize
+                            ng-model="selectizeMetricModel"
+                            class="form-control text-center"
+                            config="selectizeMetricConfig"
+                            options="selectizeMetricOptions"
+                            placeholder="Select a metric.">
+                        </selectize>
+                    </div>
+
+                    <!-- Active/Passive selector -->
+                    <div ng-show="metric.title == 'Shoulder Range of Motion'">
+                        <selectize
+                            ng-model="selectizeRomModel"
+                            class="form-control text-center"
+                            data-config="selectizeRomConfig"
+                            data-options="selectizeRomOptions">
+                        </selectize>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <!-- Recovery percent for Peak Elbow Angular Velocity -->
+            <div
+                ng-show="metric.title == 'Peak Elbow Angular Velocity' && !isFetchingData"
+                class="row text-center"
+                style="color: #ddd;">
+
+                <br>
+                <h3>
+                    Percent Recovery
+                </h3>
+
+                <div easypiechart options="easypie.options" percent="easypie.percent" class="easypiechart">
+                    <span class="pie-percent" ng-bind="easypie.percent"></span>
+                </div>
+                <br>
+            </div>
+
+            <!-- Threshold input for Peak Elbow Angular Velocity -->
+            <div
+                ng-show="metric.title == 'Peak Elbow Angular Velocity' && !isFetchingData"
+                class="row">
+
+                <br>
+                <h3 class="text-center" style="color: #ddd;">
+                    Threshold for Return To Play
+                </h3>
+                <br>
+
+                <div class="col-md-12 col-lg-8 col-lg-offset-2">
+                    <div class="input-group">
+
+                        <!-- Decrease -->
+                        <span class="input-group-btn">
+                            <button ng-click="decreaseThreshold()" class="btn btn-default" type="button">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </span>
+
+                        <!-- Edit -->
+                        <input ng-model="thresholdValue" type="text" class="form-control text-center" style="font-size: 1.2em">
+
+                        <!-- Increase -->
+                        <span class="input-group-btn">
+                            <button ng-click="increaseThreshold()" class="btn btn-default" type="button">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROM percent -->
+            <div
+                ng-show="false && metric.title == 'Shoulder Range of Motion' && !isFetchingData"
+                class="row">
+
+                <div class="col-md-12 text-center">
+                    <span id="romPercent"></span>
+                </div>
+            </div>
+
+            <!-- ROM gauge -->
+            <div
+                ng-show="metric.title == 'Shoulder Range of Motion' && !isFetchingData"
+                class="row">
+
+                <br>
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <canvas
+                        data-theme-gauge-chart
+                        data-gauge-data="romGauge.data"
+                        data-live-gauge-value="romGaugeValue"
+                        data-gauge-options="romGauge.options"
+                        style="width: 100%;">
+                    </canvas>
+
+                    <div style="position: absolute; left: 42%; bottom: 15px; font-size: 1.2em">
+                        {{ romGaugeValuePercent }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Peak Elbow Angular Velocity -->
+        <div
+            ng-show="metric.title == 'Peak Elbow Angular Velocity' && !isFetchingData"
+            class="col-xs-12 col-md-7 col-lg-9">
+
+            <div
+                data-theme-flot-chart
+                data-data="flotData"
+                data-options="flotOptions"
+                data-plot-hover="flotPlotHover"
+                data-threshold="thresholdValue"
+                data-threshold-label="'Return To Play'"
+                style="width: 100%; height: 600px;">
+            </div>
+        </div>
+
+
+        <!-- Passive Shoulder Range of Motion -->
+        <div
+            ng-show="metric.title == 'Shoulder Range of Motion' && selectizeRomModel == 1 && !isFetchingData"
+            class="col-xs-12 col-md-7 col-lg-9">
+
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-md-2 col-md-offset-3 text-center">
+                    <div class="demo-legend-color" ng-style="{'background-color': colors.extRot}"></div>
+                    External Rot. <br>
+                    <span class="text-muted" style="display: inline-block; margin-top: 5px">100% = 90&deg;</span>
+                </div>
+                <div class="col-md-2 text-center">
+                    <div class="demo-legend-color" ng-style="{'background-color': colors.flexion}"></div>
+                    Flexion <br>
+                    <span class="text-muted" style="display: inline-block; margin-top: 5px">100% = 175&deg;</span>
+                </div>
+                <div class="col-md-2 text-center">
+                    <div class="demo-legend-color" ng-style="{'background-color': colors.abduction}"></div>
+                    Abduction <br>
+                    <span class="text-muted" style="display: inline-block; margin-top: 5px">100% = 180&deg;</span>
+                </div>
+            </div>
+
+            <div
+                data-theme-flot-chart
+                data-data="flotRomData"
+                data-options="flotRomOptions"
+                data-plot-hover="flotRomHover"
+                data-plot-labels="flotRomLabels"
+                style="width: 100%; height: 450px;">
+            </div>
+
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-md-2 col-md-offset-3 text-center">
+                    <div class="demo-legend-color" ng-style="{'background-color': colors.intRot}"></div>
+                    Internal Rot. <br>
+                    <span class="text-muted" style="display: inline-block; margin-top: 5px">100% = -80&deg;</span>
+                </div>
+                <div class="col-md-2 text-center">
+                    <div class="demo-legend-color" ng-style="{'background-color': colors.extension}"></div>
+                    Extension <br>
+                    <span class="text-muted" style="display: inline-block; margin-top: 5px">100% = -60&deg;</span>
+                </div>
+                <div class="col-md-2 text-center">
+                    <div class="demo-legend-color" ng-style="{'background-color': colors.adduction}"></div>
+                    Adduction <br>
+                    <span class="text-muted" style="display: inline-block; margin-top: 5px">100% = -40&deg;</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Active Shoulder Range of Motion -->
+        <div
+            ng-show="metric.title == 'Shoulder Range of Motion' && selectizeRomModel == 2 && !isFetchingData"
+            class="col-xs-12 col-md-7 col-lg-9">
+
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-md-2 col-md-offset-3 text-center">
+                    <div class="demo-legend-color" ng-style="{'background-color': colors.extRot}"></div>
+                    External Rot. <br>
+                    <span class="text-muted" style="display: inline-block; margin-top: 5px">100% = 90&deg;</span>
+                </div>
+                <div class="col-md-2 text-center">
+                    <div class="demo-legend-color" ng-style="{'background-color': colors.flexion}"></div>
+                    Flexion <br>
+                    <span class="text-muted" style="display: inline-block; margin-top: 5px">100% = 175&deg;</span>
+                </div>
+                <div class="col-md-2 text-center">
+                    <div class="demo-legend-color" ng-style="{'background-color': colors.abduction}"></div>
+                    Abduction <br>
+                    <span class="text-muted" style="display: inline-block; margin-top: 5px">100% = 180&deg;</span>
+                </div>
+            </div>
+
+            <div
+                data-theme-flot-chart
+                data-data="flotActiveRomData"
+                data-options="flotActiveRomOptions"
+                data-plot-hover="flotRomHover"
+                data-plot-labels="flotActiveRomLabels"
+                style="width: 100%; height: 450px;">
+            </div>
+
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-md-2 col-md-offset-3 text-center">
+                    <div class="demo-legend-color" ng-style="{'background-color': colors.intRot}"></div>
+                    Internal Rot. <br>
+                    <span class="text-muted" style="display: inline-block; margin-top: 5px">100% = -80&deg;</span>
+                </div>
+                <div class="col-md-2 text-center">
+                    <div class="demo-legend-color" ng-style="{'background-color': colors.extension}"></div>
+                    Extension <br>
+                    <span class="text-muted" style="display: inline-block; margin-top: 5px">100% = -60&deg;</span>
+                </div>
+                <div class="col-md-2 text-center">
+                    <div class="demo-legend-color" ng-style="{'background-color': colors.adduction}"></div>
+                    Adduction <br>
+                    <span class="text-muted" style="display: inline-block; margin-top: 5px">100% = -40&deg;</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- No metric selected -->
+        <div ng-show="!metric && !isFetchingData" class="col-xs-12 col-md-7 col-lg-9 text-center">
+            Select a metric to get started.
+            <br>
+            <br>
+
+            <div class="col-md-4 col-md-offset-4">
+                <selectize
+                    ng-model="selectizeMetricModel"
+                    class="form-control text-center"
+                    config="selectizeMetricConfig"
+                    options="selectizeMetricOptions"
+                    placeholder="Select a metric.">
+                </selectize>
+            </div>
+        </div>
+
+
+        <!-- Loading data -->
+        <div ng-show="isFetchingData" class="col-xs-12 col-md-7 col-lg-9 text-center text-muted">
+            <i class="fa fa-spinner fa-spin fa-3x" style="display: block; margin: 100px 0 0"></i>
+        </div>
+    </div>
+</div>

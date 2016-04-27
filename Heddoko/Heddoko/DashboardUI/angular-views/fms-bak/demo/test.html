@@ -1,0 +1,32 @@
+
+<!-- Header -->
+<div ng-include src="'fms-bak/live/partials/header.html'"></div>
+
+<div class="page page-dashboard movement-pages">
+	<div>
+
+        <!-- Breadcrumbs -->
+        <ng-include src="'fms-bak/live/partials/breadcrumbs.html'"></ng-include>
+
+        <!-- Selected side -->
+		<ng-include
+            ng-show="fms.current.iterations.length > 0"
+            src="'fms-bak/live/partials/iterations.html'">
+        </ng-include>
+
+        <!-- Test run summary -->
+        <div class="row">
+            <div
+                class="col-sm-12 text-center"
+                style="margin: 10px auto 20px; font-weight: normal; color: #aaa;">
+                Current test run: <b>{{ fms.current.trial.name }}</b> / <b>{{ fms.current.iteration }}</b>
+            </div>
+        </div>
+
+        <!-- Demo videos -->
+        <ng-include src="'fms-bak/demo/partials/test-layout-emphasized.html'"></ng-include>
+
+        <!-- Trials -->
+        <ng-include src="'fms-bak/live/partials/test-trials.html'"></ng-include>
+	</div>
+</div>

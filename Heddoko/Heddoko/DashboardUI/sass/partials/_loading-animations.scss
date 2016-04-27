@@ -1,0 +1,143 @@
+/**
+ *
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ *
+ *    - Loading animations
+ */
+
+.loading_spinner {
+  width:100%;
+  text-align:center;
+  margin-top:60px;
+}
+
+$size: 0.5em;
+
+.loading{
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  padding: $size;
+  vertical-align: middle;
+  text-align: center;
+  background-color: transparent;
+  border: 5px solid transparent;
+  border-top-color: $orange;
+  border-bottom-color: $orange;
+  border-radius: 50%;
+}
+
+.outer{
+  @include animation(spin 1s infinite);
+}
+
+.inner{
+
+  @include animation(spin 1s infinite);
+}
+
+
+@-webkit-keyframes spin {
+  100% { -webkit-transform: rotateZ(360deg); }
+}
+
+@-moz-keyframes spin {
+  100% { -moz-transform: rotateZ(360deg); }
+}
+
+@-o-keyframes spin {
+  100% { -moz-transform: rotateZ(360deg); }
+}
+
+@keyframes spin {
+  100% {  transform: rotateZ(360deg); }
+}
+
+
+// teams page
+
+// TODO: This is no longer used.. If used in the future, can be renamed or made more specific
+// so that it doesn't clash with other styles.
+
+// .card-container {
+//   max-width:1210px;
+//   margin-left: auto;
+//   margin-right: auto;
+// }
+//
+// .card{
+//   height: 400px;
+//   width: 220px;
+//   background-color: black;
+//   margin-left: auto;
+//   margin-right: auto;
+//   margin-bottom: 36px;
+//   position: relative;
+//   text-shadow:1px 1px 0 rgba(0,0,0,1);
+//   font-weight:normal;
+//   font-variant:small-caps;
+//   color:#FFFFFF;
+//   background-color:black;
+//   letter-spacing:1pt;
+//   font-size:16px;
+//   text-align:left;
+//   font-family:arial black, sans-serif;
+//   line-height:1;
+// }
+
+.picture {
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+}
+
+.picture img {
+  width: 100%;
+}
+
+.stat1 {
+  background-color: orange;
+}
+
+.stat2 {
+  background-color: gray;
+}
+
+.stat1, .stat2{
+  height: 60px;
+}
+
+// TODO: This is no longer used.. If used in the future, can be renamed or made more specific
+// so that it doesn't clash with other styles.
+
+// .cardtitle, .playername{
+//   margin-left: 10px;
+// }
+//
+// .cardpercentage{
+//   margin-right: 16px;
+//   z-index: 1;
+// }
+//
+// .card .stat1 span, .card .stat2 span {
+//   position: relative;
+//   top: 50%;
+//   -webkit-transform: translateY(-50%);
+//   -ms-transform: translateY(-50%);
+//   transform: translateY(-50%);
+// }
+
+.bodyoverlay{
+  position: absolute;
+  bottom:5px;
+  right: 5px;
+  z-index: 0;
+}
+
+.playername{
+  vertical-align: bottom;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 10px;
+}

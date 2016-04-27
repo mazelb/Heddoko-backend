@@ -1,0 +1,29 @@
+
+<ol class="breadcrumb-movement">
+
+    <!-- Movement title -->
+    <li>
+        <div>
+            <a>{{ fms.current.name }}</a>
+        </div>
+    </li>
+
+    <!-- Movement tabs -->
+    <li
+        ng-click="global.browseTo.path('/fms/'+ (isDemo ? 'demo' : 'live') +'/'+ fms.current.id +'/test')"
+        ng-class="{'active': params.step == 'test'}">
+
+        <a>Test</a>
+    </li>
+    <li
+        ng-click="global.browseTo.path('/fms/'+ (isDemo ? 'demo' : 'live') +'/'+ fms.current.id +'/analysis')"
+        ng-class="{'active': params.step == 'analysis'}">
+        <a>Analysis</a>
+    </li>
+    <li
+        ng-click="global.browseTo.path('/fms/'+ (isDemo ? 'demo' : 'live') +'/'+ fms.current.id +'/summary')"
+        ng-class="{'active': params.step == 'summary'}">
+
+        <a>Summary</a>
+    </li>
+</ol>

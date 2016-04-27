@@ -1,0 +1,65 @@
+/**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ *    Styles for Selectize.js (https://brianreavis.github.io/selectize.js)
+ */
+
+.selectize-control {
+    display: inline-block;
+    height: 34px;
+}
+.selectize-control::before {
+    content: ' ';
+    z-index: 2;
+    position: absolute;
+    display: block;
+    top: 10px;
+    right: 16px;
+    width: 16px;
+    height: 16px;
+    background: url(../images/ui/spinner.gif);
+    background-size: 16px 16px;
+    opacity: 0;
+}
+
+.selectize-control.loading {
+    text-align: left;
+}
+
+.selectize-control.loading::before {
+    opacity: 0.4;
+}
+
+.selectize-control .selectize-input,
+.selectize-control .selectize-input.focus,
+.selectize-control .selectize-input.input-active {
+    display: block;
+    border: none;
+    background-color: $blue !important;
+    outline: none;
+    @include box-shadow(none);
+    @include border-radius(0);
+}
+.selectize-control .selectize-input input,
+.selectize-control .selectize-input.focus input,
+.selectize-control .selectize-input.input-active input {
+    color: #fff !important;
+}
+
+.selectize-control.single .selectize-input::after {
+    display: none;
+}
+
+.selectize-control .selectize-input .item {
+    color: #fff;
+}
+
+.selectize-dropdown-content .highlight {
+    padding: 1px;
+    background-color: $heddokogreen !important;
+    color: #333;
+}
+
+.selectize-dropdown, .selectize-dropdown.form-control {
+    background-color: $blue;
+}

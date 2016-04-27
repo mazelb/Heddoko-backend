@@ -1,0 +1,47 @@
+
+<div class="page page-dashboard">
+
+    <!-- Breadcrumbs -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div data-ng-include="'partials/breadcrumbs.html'"></div>
+        </div>
+    </div>
+
+    <h1>Edit {{ group.name }}</h1>
+    <br>
+
+    <form ng-submit="submitGroupForm()">
+        <div class="row">
+
+            <!-- Edit form -->
+            <div class="col-sm-12 col-md-8">
+                <div data-ng-include="'group/partials/form.html'"></div>
+            </div>
+
+            <!-- Team picture -->
+        	<div class="col-sm-12 col-md-4">
+                <div data-ng-include src="'group/partials/upload-photo.html'"></div>
+        	</div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-default">Save Changes</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Debug -->
+    <div ng-show="global.isLocal">
+        <br><br>
+        <div class="panel panel-default">
+            <div class="panel-heading">Debug</div>
+            <div class="panel-body">
+                Group data: {{ group }} <br><br>
+                File data: {{ avatar }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+
+<div class="movement-left-column test-page">
+    <div
+        ng-click="run.start()"
+        ng-show="isTestLive == false && !run.exists()"
+        style="background-color: #89c443; color: #fff;">
+        Start
+    </div>
+    <div
+        ng-click="run.end()"
+        ng-show="isTestLive == true"
+        style="background-color: #ed3941; color: #fff;">
+        Stop
+    </div>
+    <div
+        ng-click="run.pain()"
+        ng-show="isTestLive == true"
+        style="background-color: #f48b4a; color: #fff;">
+        Pain
+    </div>
+    <div
+        ng-click="run.fault()"
+        ng-show="isTestLive == true"
+        style="background-color: #f48b4a; color: #fff;">
+        Fault
+    </div>
+    <div
+        ng-click="run.reset()"
+        ng-show="isTestLive == false && run.exists()"
+        style="color:#f48b4a;">
+        Rerun the test
+    </div>
+</div>

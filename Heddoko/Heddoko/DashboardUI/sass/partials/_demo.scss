@@ -1,0 +1,116 @@
+/**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ */
+
+#romPercent {
+    font-size: 3.5em;
+    margin: 40px auto 0;
+    display: block;
+}
+
+.demo-legend-color {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.demo-trends-section {
+
+    .demo-trends-info-2 {
+        font-family: 'Proxima Nova Condensed', 'Proxima Nova', sans-serif;
+        color: $text-color-blue;
+        text-transform: uppercase;
+    }
+
+    .demo-trends-session-plot {
+        display: block;
+        height: 400px;
+        background: transparent url("../../images/demo/trends-session.png") center center no-repeat;
+        background-size: contain;
+    }
+
+    .demo-trends-session-legend {
+        display: block;
+        margin: 25px 0;
+        background: transparent url("../../images/demo/trends-session-legend.png") center center no-repeat;
+        background-size: contain;
+    }
+
+    .qb-icon {
+        height: 400px;
+        background: transparent url("../../images/demo/qb throw.png") center center no-repeat;
+        background-size: 60%;
+    }
+
+    .demo-warning {
+        background: transparent url("../../images/demo/warning.png") center center no-repeat;
+        background-size: contain;
+    }
+
+    .demo-trendline {
+        .legend {
+            .legendLabel {
+                color: #fff;
+            }
+        }
+    }
+
+    .demo-chartjs {
+        canvas {
+            margin: 0 auto;
+        }
+    }
+}
+
+.demo-analysis-page {
+
+    #emphasizedViewContainer {
+        @transition(height .5s);
+
+        video {
+            margin: 0 auto;
+            display: block;
+            @transition(height .5s);
+        }
+    }
+
+    #secondaryViewsContainer video {
+        width: 100%;
+    }
+
+    .panel-body {
+        background-color: #fff;
+        @box-shadow(1px 1px #aaa);
+    }
+
+    .demo-movement-li {
+        color: $dark-blue;
+
+        &.live {
+            background-color: $heddokogreen;
+        }
+
+        &.done {
+            color: #aaa;
+            text-decoration: line-through;
+        }
+    }
+
+    .demo-controls {
+        position: absolute;
+        bottom: 20px;
+
+        a {
+            color: $dark-blue;
+            margin: 0 10px;
+            display: inline-block;
+
+            &:hover {
+                color: $heddokogreen;
+            }
+        }
+    }
+}

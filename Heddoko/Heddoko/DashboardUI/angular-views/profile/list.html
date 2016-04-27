@@ -1,0 +1,31 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<div class="page profile-page">
+    <header>
+        <h1>
+            Athletes <i class="fa fa-user"></i>
+            <span></span>
+        </h1>
+    </header>
+
+    <div ng-if="global.data.isFetchingProfiles === false" class="row">
+        <ui-filesystem
+            data-id="profiles-explorer"
+            data-files="profileList"
+            data-default-layout="large-tiles"
+            data-hide-location="true"
+            data-config="uiFilesystemConfig"
+            data-is-loading="isLoading"
+            class="col-sm-12">
+        </ui-filesystem>
+
+        <!-- New profile modal form -->
+        <ng-include src="'profile/partials/new-profile-modal.html'"></ng-include>
+    </div>
+
+    <div ng-if="global.data.isFetchingProfiles === true" class="loading-notice">
+        <h3>Retrieving Athletes</h3>
+        <i class="fa fa-spinner fa-spin fa-2x"></i>
+    </div>
+</div>

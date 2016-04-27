@@ -1,0 +1,151 @@
+/**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ * @brief       Styles for uiFilesystem
+ * @author      Francis Amankrah (frank@heddoko.com)
+ * @data        February 2016
+ */
+
+.ui-filesystem-container {
+
+    .ui-filesystem-toolbar {
+        margin: 0 0 25px;
+
+        .ui-filesystem-toolbar-group {
+            display: inline-block;
+            margin: 0 4px;
+        }
+
+        .ui-filesystem-toolbar-btn {
+            color: $text-color-blue;
+
+            &:hover, &:active, &.ui-filesystem-active {
+                color: $heddokogreen;
+            }
+        }
+    }
+
+    .ui-filesystem-location {
+        margin: 15px auto 0;
+        padding: 10px;
+        color: #999;
+        border-top: 1px solid #444;
+    }
+}
+
+.ui-filesystem-contents {
+    table thead {
+        font-weight: bold;
+    }
+
+    &.ui-filesystem-large-tiles {
+        .file, .folder, .parent-folder {
+            margin: 0 0 20px;
+            background: $dark-blue url(../../images/backgrounds/radial-blue-800.png) center center no-repeat;
+            background-size: cover;
+
+            > div {
+                background: transparent center center no-repeat;
+                background-size: cover;
+            }
+        }
+
+        .parent-folder {
+            text-align: center;
+
+            > div {
+                padding: 80px 0;
+            }
+
+            .title {
+                display: block;
+                margin: 25px 0 0;
+            }
+        }
+
+        .folder-icon {
+            display: block;
+            margin-top: 35px;
+            text-align: center;
+            font-size: 10em;
+        }
+
+        // Card styles.
+        .card {
+            .data section:nth-child(2) {
+                height: 165px;
+            }
+
+            .data-btn {
+                width: 65px;
+                z-index: 1;
+
+                span {
+                    font-size: 0.9em;
+                }
+            }
+
+            &:hover {
+                .data {
+                    height: 230px;
+                }
+            }
+        }
+    }
+
+    &.ui-filesystem-small-tiles {
+        .file, .folder, .parent-folder {
+            margin: 0 0 10px;
+            background: $dark-blue url(../../images/backgrounds/radial-blue-400.png) center center no-repeat;
+            background-size: cover;
+
+            > div {
+                background: transparent center center no-repeat;
+                background-size: cover;
+            }
+        }
+
+        .parent-folder {
+            text-align: center;
+
+            > div {
+                padding: 75px 0;
+            }
+
+            .title {
+                display: block;
+                margin: 15px 0 0;
+                font-size: .7em;
+            }
+        }
+
+        .folder-icon {
+            display: block;
+            margin-top: 35px;
+            text-align: center;
+            font-size: 4em;
+        }
+
+        // Card styles.
+        .card {
+            .data section:nth-child(2) {
+                height: 115px;
+            }
+
+            .data-btn {
+                margin: 0 auto 8px;
+                z-index: 1;
+
+                span {
+                    font-size: 0.5em;
+                }
+            }
+
+            &:hover {
+                .data {
+                    height: 180px;
+                }
+            }
+        }
+    }
+}

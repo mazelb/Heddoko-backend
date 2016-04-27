@@ -1,0 +1,38 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<div ng-show="state == 'idle'" class="row no-gutter ui-editable-field-value">
+
+    <!-- Unit selector -->
+    <div class="col-xs-2 text-center">
+        <div class="dropdown">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+                <i class="fa fa-cog" style="color: #ccc;"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li ng-repeat="unit in units">
+                    <a ng-click="updateUnit(unit)" href="javascript:;">
+                        {{ unit }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-xs-10">
+
+        <!-- Displayed data -->
+        <a ng-click="edit()" href="javascript:;" class="edit-text">
+            {{ data.displayStr }}
+        </a>
+
+        <!-- Edit icons -->
+        <a ng-if="!isDisabled" ng-click="edit()" href="javascript:;" class="edit-icon fa fa-pencil"></a>
+        <i ng-if="isDisabled" class="edit-icon fa fa-ban"></i>
+    </div>
+</div>
+
+<div ng-show="state == 'saving'" class="ui-editable-field-value ui-editable-fields-muted">
+    {{ data.displayStr }}
+    <i class="fa fa-spinner fa-spin fa-fw"></i>
+</div>

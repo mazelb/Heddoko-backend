@@ -1,0 +1,102 @@
+/**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ * @brief       Styles for uiEditableFields
+ * @author      Francis Amankrah (frank@heddoko.com)
+ */
+
+$muted-color: #777;
+$font-size-smaller: 0.7em;
+
+.ui-editable-fields {
+
+    .ui-editable-field-vertical {
+        margin: 15px auto;
+
+        .title .pull-right {
+            font-size: 0.5em;
+        }
+    }
+
+    .ui-editable-field-value {
+        color: $text-color;
+
+        .edit-icon {
+            margin: 0 10px;
+            color: $muted-color;
+            @include opacity(0);
+            @include transition(opacity .2s);
+        }
+
+        .edit-text {
+            color: $text-color;
+
+            &:hover, &:focus {
+                text-decoration: none;
+                background-color: $muted-color;
+            }
+        }
+
+        &:hover .edit-icon,
+        &:focus .edit-icon {
+            color: $muted-color;
+            text-decoration: none;
+            @include opacity(1);
+        }
+    }
+
+    .ui-editable-field-label {
+        font-size: $font-size-smaller;
+        text-transform: uppercase;
+        color: $muted-color;
+    }
+
+    .input-type-textarea {
+        display: block;
+        padding: 10px;
+        font-weight: bold;
+        background-color: $light-blue;
+
+        .form-control {
+            display: inline-block;
+            vertical-align: top;
+            width: 90%;
+            font-weight: normal;
+            background-color: transparent;
+            resize: vertical;
+        }
+
+        .buttons {
+            position: absolute;
+            top: 0;
+            right: 20px;
+            width: 20px;
+            text-align: center;
+
+            a {
+                display: inline-block;
+                margin: 2px;
+                text-align: center;
+            }
+        }
+    }
+    .ui-editable-field-value .input-type-textarea {
+        .edit-text:hover, .edit-text:focus {
+            background-color: transparent;
+        }
+    }
+    .ui-editable-field-value:hover .input-type-textarea {
+        .edit-icon, .edit-icon {
+            color: $text-color;
+        }
+    }
+}
+
+.ui-editable-fields-actions {
+    color: $muted-color;
+    font-size: $font-size-smaller;
+}
+
+.ui-editable-fields-muted {
+    color: $muted-color !important;
+}

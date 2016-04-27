@@ -1,0 +1,35 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<ol class="breadcrumb-alt">
+    <li>
+        <a class="active" href="#/dashboard">
+            Dashboard
+        </a>
+    </li>
+    <li ng-show="global.store.groupId > 0">
+        <a class="active" href="#/groups/list">
+            Teams
+        </a>
+    </li>
+    <li ng-show="isProfilePage && global.store.groupId > 0">
+        <a class="active" href="javascript:;" ng-click="global.browseTo.group()">
+            {{ global.state.group.list[global.store.groupId].name }}
+        </a>
+    </li>
+    <li ng-show="currentPath == '/profiles/view' && global.store.profileId > 0">
+        <a class="active" href="javascript:;" ng-click="global.browseTo.profile()">
+            {{ global.state.profile.list[global.store.profileId].firstName }}
+        </a>
+    </li>
+    <li ng-show="currentPath == '/groups/create'">
+        <a class="active" href="javascript:;" ng-click="">
+            Create a Team
+        </a>
+    </li>
+    <li ng-show="currentPath == '/profiles/create'">
+        <a class="active" href="javascript:;" ng-click="">
+            Add an athlete
+        </a>
+    </li>
+</ol>

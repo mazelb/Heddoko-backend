@@ -1,0 +1,80 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<!-- User details -->
+<div class="page">
+    <header>
+        <h1>
+            Account <i class="fa fa-user"></i>
+            <span></span>
+        </h1>
+    </header>
+
+    <div ng-hide="user.id === 0" class="row">
+
+        <!-- Avatar -->
+        <div class="col-md-5 text-center">
+            <ui-avatar
+                data-upload-endpoint="uploadAvatarEndpoint"
+                data-success-callback="uploadAvatarCallback"
+                data-src="user.avatarSrc"
+                data-match-width="{{ calculateAvatarHeight() }}">
+            </ui-avatar>
+        </div>
+
+        <!-- User details -->
+        <div class="col-md-7">
+            <ui-editable-fields
+                data-id="userDetails"
+                data-model="user"
+                data-save="saveUserDetails"
+                data-save-callback="saveUserDetailsCallback"
+                data-heading="Your Details">
+
+                <!-- Username -->
+                <ui-editable-field
+                    data-label="Username"
+                    data-key="username"
+                    data-disabled="true">
+                </ui-editable-field>
+
+                <!-- First name -->
+                <ui-editable-field
+                    data-label="First Name"
+                    data-key="firstName"
+                    data-required="true">
+                </ui-editable-field>
+
+                <!-- Last name -->
+                <ui-editable-field
+                    data-label="Last Name"
+                    data-key="lastName">
+                </ui-editable-field>
+
+                <!-- Phone -->
+                <ui-editable-field
+                    data-label="Phone #"
+                    data-key="phone">
+                </ui-editable-field>
+
+                <!-- Email -->
+                <ui-editable-field
+                    data-label="Email"
+                    data-key="email"
+                    data-required="true">
+                </ui-editable-field>
+
+            </ui-editable-fields>
+        </div>
+    </div>
+
+    <!-- Retrieving user data -->
+    <div ng-show="user.id === 0" class="text-center">
+        <h3>Retrieving your details</h3>
+        <br>
+        <br>
+        <br>
+        <br>
+        <i class="fa fa-spinner fa-spin fa-3x"></i>
+    </div>
+</div>

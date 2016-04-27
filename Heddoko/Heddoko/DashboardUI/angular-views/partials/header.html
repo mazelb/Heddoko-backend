@@ -1,0 +1,198 @@
+<header class="clearfix">
+	<div class="top-nav">
+		<ul class="nav-left list-unstyled">
+
+            <!-- Menu button (shows up in mobile views) -->
+			<li>
+				<div class="menu-button" toggle-off-canvas>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</div>
+			</li>
+
+            <!-- Menu button (shows up on desktop views) -->
+			<li>
+				<a href="#/" data-toggle-min-nav class="toggle-min">
+                    <i class="fa fa-bars"></i>
+                </a>
+			</li>
+
+            <!-- Account -->
+            <!-- <li ng-show="global.isLocal" class="dropdown text-normal nav-profile">
+                <a
+                    href="javascript:;"
+                    class="dropdown-toggle"
+                    id="menuAccountDropdown"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="true">
+
+                    <i class="fa fa-user"></i>
+                </a>
+
+                <div
+                    class="dropdown-menu with-arrow pull-left panel panel-default"
+                    aria-labelledby="menuAccountDropdown">
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="#/account">
+                                <i class="fa fa-user color-info"></i>
+                                <span>My Account</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a ng-click="global.endSession()" href="javascript:;">
+                                <i class="fa fa-sign-out fa-fw"></i>
+                                <span>Log out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li> -->
+		</ul>
+
+        <ul class="nav-right list-unstyled">
+
+            <!-- Search input -->
+            <li>
+                <div ng-controller="SearchController" class="search-input">
+                    <selectize
+                        ng-model="model"
+                        class="form-control"
+                        config="config"
+                        options="options">
+                    </selectize>
+                </div>
+            </li>
+
+            <!-- Notifications -->
+            <!-- <li ng-show="global.isLocal" class="dropdown">
+                <a
+                    href="javascript:;"
+                    class="dropdown-toggle onboarding-general"
+                    id="menuAccountDropdown"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="true"
+                    data-intro="Whenever you do something in the app, it will show up as a notification here">
+
+                    <i class="fa fa-bell fa-fw"></i>
+                    <span>Notifications</span>
+                </a>
+
+                <div
+                    class="dropdown-menu with-arrow pull-right panel panel-default"
+                    aria-labelledby="menuNotificationsDropdown">
+
+                    <div class="panel-heading">
+                        You have 2 notifications.
+                    </div>
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="javascript:;" class="media">
+                                <span class="pull-left media-icon">
+                                    <span class="circle-icon sm bg-success">
+                                        <i class="fa fa-bell-o"></i>
+                                    </span>
+                                </span>
+
+                                <div class="media-body">
+                                    <span class="block">New tasks needs to be done</span>
+                                    <span class="text-muted block">2min ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="javascript:;" class="media">
+                                <span class="pull-left media-icon">
+                                    <span class="circle-icon sm bg-info">
+                                        <i class="fa fa-bell-o"></i>
+                                    </span>
+                                </span>
+
+                                <div class="media-body">
+                                    <span class="block">Change your password</span>
+                                    <span class="text-muted">3 hours ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="javascript:;" class="media">
+                                <span class="pull-left media-icon">
+                                    <span class="circle-icon sm bg-danger">
+                                        <i class="fa fa-bell-o"></i>
+                                    </span>
+                                </span>
+
+                                <div class="media-body">
+                                    <span class="block">New feature added</span>
+                                    <span class="text-muted">9 hours ago</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="panel-footer">
+                        <a href="javascript:;">
+                            Show all notifications.
+                        </a>
+                    </div>
+                </div>
+            </li> -->
+
+            <!-- App settings -->
+            <li>
+                <a
+                    href="#/config"
+                    class="onboarding-general"
+                    data-step="4"
+                    data-intro="Click this button to modify your app settings">
+
+                    <i class="fa fa-cogs fa-fw"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+
+            <li ng-if="global.isAdmin">
+                <a
+                    href="/admin"
+                    class="onboarding-general">
+                    <i class="fa fa-users fa-fw"></i>
+                    <span>Admin</span>
+                </a>
+            </li>
+
+            <!-- Onboarding -->
+            <li>
+                <a
+                    ng-click="global.onboarding.general()"
+                    href="javascript:;"
+                    class="onboarding-general"
+                    data-step="6"
+                    data-intro="Click here whenever you want to see this again">
+
+                    <i class="fa fa-question fa-fw"></i>
+                    <span>Help</span>
+                </a>
+            </li>
+
+            <!-- Sign out -->
+            <li>
+                <a
+                    ng-click="global.endSession()"
+                    href="javascript:;"
+                    class="onboarding-general"
+                    data-step="5"
+                    data-intro="Use this button when you're ready to log out">
+
+                    <i class="fa fa-sign-out fa-fw"></i>
+                    <span>Log out</span>
+                </a>
+            </li>
+        </ul>
+
+	</div>
+</header>

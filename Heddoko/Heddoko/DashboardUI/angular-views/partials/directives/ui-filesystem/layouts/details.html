@@ -1,0 +1,90 @@
+
+<!-- Copyright Heddoko(TM) 2016, all rights reserved. -->
+
+<table class="table table-striped">
+
+    <!-- Heading -->
+    <thead>
+        <tr>
+
+            <!-- Checkbox -->
+            <td ng-if="config.onSelect" class="text-right">
+                <a ng-click="toggleAll()" href="javascript:;">
+                    <i class="fa fa-square-o fa-fw"></i>
+                </a>
+            </td>
+
+            <td ng-repeat="title in config.detailsLayoutTitles track by title.key" class="text-center">
+                {{ ::title.title }}
+            </td>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <!-- Parent folder -->
+        <tr ng-if="parentFolder">
+
+            <!-- Checkbox -->
+            <td ng-if="config.onSelect">&nbsp;</td>
+
+            <td colspan="{{ ::config.detailsLayoutTitles.length }}">
+                <a href="{{ ::parentFolder.href }}">
+                    <i class="fa fa-fw fa-level-up"></i> {{ ::parentFolder.title || 'Back' }}
+                </a>
+            </td>
+
+        </tr>
+
+        <!-- Folders -->
+        <tr ng-repeat="folder in folders track by $index">
+
+            <!-- Checkbox -->
+            <td ng-if="config.onSelect" class="text-right">
+                <a ng-click="toggleFolder(folder)" href="javascript:;">
+                    <i
+                        ng-class="{'fa-square-o': !folder.selected, 'fa-check-square-o': folder.selected}"
+                        class="fa fa-fw">
+                    </i>
+                </a>
+            </td>
+
+            <td
+                ng-repeat="title in config.detailsLayoutTitles track by title.key"
+                ng-class="{'text-center': !config.onSelect || title.key !== 'title'}">
+
+                <a ng-if="title.key == 'title'" href="{{ ::folder.href }}">
+                    <i class="fa fa-folder-open fa-fw"></i> {{ ::folder.title }}
+                </a>
+
+                <span ng-if="title.key != 'title'">{{ ::folder[title.key] }}</span>
+            </td>
+
+        </tr>
+
+        <!-- Files -->
+        <tr ng-repeat="file in files track by $index">
+
+            <!-- Checkbox -->
+            <td ng-if="config.onSelect" class="text-right">
+                <a ng-click="toggleFile(file)" href="javascript:;">
+                    <i
+                        ng-class="{'fa-square-o': !file.selected, 'fa-check-square-o': file.selected}"
+                        class="fa fa-fw">
+                    </i>
+                </a>
+            </td>
+
+            <td
+                ng-repeat="title in config.detailsLayoutTitles track by title.key"
+                ng-class="{'text-center': !config.onSelect || title.key !== 'title'}">
+
+                <a ng-if="title.key == 'title'" href="{{ ::file.href }}">
+                    {{ ::file.title }}
+                </a>
+
+                <span ng-if="title.key != 'title'">{{ ::file[title.key] }}</span>
+            </td>
+        </tr>
+    </tbody>
+</table>

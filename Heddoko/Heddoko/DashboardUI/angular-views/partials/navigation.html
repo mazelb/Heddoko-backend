@@ -1,0 +1,219 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<div class="logo">
+    <div class="logo-container">
+        <img src="../../images/logos/heddoko_logo_1.svg" alt="Heddoko" class="logo1">
+        <img src="../../images/logos/heddoko_logo_2.svg" alt="Heddoko" class="logo2">
+    </div>
+</div>
+
+<div id="nav-wrapper">
+    <ul id="nav" data-slim-scroll data-collapse-nav data-highlight-active>
+
+        <!-- Landing page -->
+        <li
+            class="onboarding-general"
+            data-step="1"
+            data-intro="This is a shortcut to your dashboard."
+            data-position="right">
+
+            <a href="#/dashboard">
+                <i class="fa fa-dashboard"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <!-- Groups -->
+		<li>
+            <!-- List of groups -->
+            <a ng-if="global.data.group && global.data.group.length > 0" href="#/group">
+                <i class="fa fa-users"></i>
+                <span>Teams</span>
+            </a>
+
+            <ul ng-if="global.data.group && global.data.group.length > 0" style="display: block">
+                <li>
+                    <a href="#/groups/{{ global.getSelectedGroup().id }}">
+                        <i class="fa fa-angle-right"></i>
+                        <span>{{ global.getSelectedGroup().name }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/group">
+                        <i class="fa fa-angle-right"></i>
+                        <span>View All Teams</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Fetching groups -->
+            <a ng-if="global.data.isFetchingGroups === true" href="javascript:;">
+                <i class="fa fa-spinner fa-spin"></i>
+                <span>Teams</span>
+            </a>
+
+            <!-- No groups available -->
+            <a
+                ng-if="global.data.isFetchingGroups === false &&
+                    global.data.group.length === 0"
+                href="javascript:;">
+
+                <i class="fa fa-users"></i>
+                <span>Create a Team</span>
+            </a>
+        </li>
+
+        <!-- Profiles -->
+		<li>
+            <!-- List of profiles -->
+            <a ng-if="global.data.profile && global.data.profile.length > 0" href="#/profiles">
+                <i class="fa fa-user"></i>
+                <span>Athletes</span>
+                <span class="pull-right">
+                    <small>
+                        ( {{ global.data.profile.length }} )
+                    </small>
+                </span>
+            </a>
+
+            <!-- Fetching profiles -->
+            <a ng-if="global.data.isFetchingProfiles === true" href="javascript:;">
+                <i class="fa fa-spinner fa-spin"></i>
+                <span>Athletes</span>
+            </a>
+
+            <!-- No profiles available -->
+            <a
+                ng-if="global.data.isFetchingProfiles === false && global.data.profile.length === 0"
+                href="#/profiles/create">
+
+                <i class="fa fa-user"></i>
+                <span>Create a Profile</span>
+            </a>
+        </li>
+
+        <!-- Movements -->
+		<li>
+            <a href="#/movements">
+                <i class="fa fa-th"></i>
+                <span>Movements</span>
+            </a>
+
+            <ul style="display: block">
+                <li>
+                    <a href="#/movements">
+                        <i class="fa fa-angle-right"></i>
+                        <span>Organize</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/capture/demo">
+                        <i class="fa fa-angle-right"></i>
+                        <span>Record</span>
+                    </a>
+                </li>
+                <!-- <li>
+                    <a href="#/capture">
+                        <i class="fa fa-angle-right"></i>
+                        <span>Record</span>
+                    </a>
+                </li> -->
+                <li>
+                    <a href="#/movements/upload">
+                        <i class="fa fa-angle-right"></i>
+                        <span>Upload</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/movements/analyze/demo">
+                        <i class="fa fa-angle-right"></i>
+                        <span>Analyze (demo)</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/movements/compare">
+                        <i class="fa fa-angle-right"></i>
+                        <span>Compare</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Screenings -->
+		<li>
+            <a href="#/screenings">
+                <i class="fa fa-pencil-square-o"></i>
+                <span>Movement Tests</span>
+            </a>
+
+            <ul style="display: block">
+                <li>
+                    <a href="#/screenings/live">
+                        <i class="fa fa-angle-right"></i>
+                        <span ng-if="global.store.liveScreeningId">Live Test</span>
+                        <span ng-if="!global.store.liveScreeningId">New Test</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/screenings">
+                        <i class="fa fa-angle-right"></i>
+                        <span>View Results</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Live FMS pages. -->
+        <li ng-show="false">
+            <!-- TODO: Call this Live FMS? -->
+            <a href="#/fms/live"> <i class="fa fa-pencil-square-o"></i> Movement Screen</a>
+
+            <!-- TODO: Use ng-repeat when ready -->
+            <ul style="display: block">
+                <li>
+                    <a href="#/fms/live/ds"><span>Deep Squat</span></a>
+                </li>
+                <li>
+                    <a href="#/fms/live/hs"><span>Hurdle Step</span></a>
+                </li>
+                <li>
+                    <a href="#/fms/live/il"><span>Inline Lunge</span></a>
+                </li>
+                <li>
+                    <a href="#/fms/live/sm"><span>Shoulder Mobility</span></a>
+                </li>
+                <li>
+                    <a href="#/fms/live/sm"><span>Impingement (C. Test)</span></a>
+                </li>
+                <li>
+                    <a href="#/fms/demo/aslr"><span>Active Straight-Leg Raise</span></a>
+                </li>
+                <li>
+                    <a href="#/fms/live/tspu"><span>Trunk Stability Push-Up</span></a>
+                </li>
+                <li>
+                    <a href="#/fms/live/pu"><span>Press-Up (C. Test)</span></a>
+                </li>
+                <li>
+                    <a href="#/fms/live/rs"><span>Rotary Stability</span></a>
+                </li>
+                <li>
+                    <a href="#/fms/live/ps"><span>Posterior Rocking (C. Test)</span></a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Account page -->
+		<li>
+            <a href="#/account">
+                <i class="fa fa-user"></i>
+                <span>My Account</span>
+            </a>
+        </li>
+
+        <li class="app-version">
+            {{ global.appVersion }}
+		</li>
+    </ul>
+</div>

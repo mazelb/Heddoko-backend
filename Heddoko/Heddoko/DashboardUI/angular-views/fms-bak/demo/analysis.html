@@ -1,0 +1,21 @@
+
+<!-- Header -->
+<div ng-include src="'fms-bak/live/partials/header.html'"></div>
+
+<div class="page page-dashboard movement-pages">
+	<div>
+
+        <!-- Breadcrumbs -->
+        <div ng-include src="'fms-bak/live/partials/breadcrumbs.html'"></div>
+
+        <!-- Selected side -->
+		<div
+            ng-show="fms.current.iterations.length > 0"
+            ng-include src="'fms-bak/live/partials/iterations.html'">
+        </div>
+
+        <!-- Demo videos -->
+        <div ng-include src="'fms-bak/demo/partials/analysis-layout-emphasized.html'"></div>
+
+	</div>
+</div>

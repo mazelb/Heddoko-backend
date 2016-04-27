@@ -1,0 +1,24 @@
+
+<div class="col-sm-12 panel-group panel-layout-emphasized">
+
+    <!-- Emphasized view -->
+    <div class="col-sm-9 no-gutter panel panel-default panel-emphasized">
+            <div class="col-sm-3">
+                <ng-include src="'fms-bak/live/partials/test-menu.html'"></ng-include>
+            </div>
+
+            <div class="col-sm-9">
+                <ng-include src="'fms-bak/demo/partials/test-'+ fms.views[0] +'.html'"></ng-include>
+            </div>
+    </div>
+
+    <!-- Secondary views -->
+    <div class="col-sm-3">
+        <div class="col-sm-12 panel panel-default">
+            <ng-include src="'fms-bak/demo/partials/test-'+ fms.views[1] +'.html'"></ng-include>
+        </div>
+        <div class="col-sm-12 panel panel-default">
+            <ng-include src="'fms-bak/demo/partials/test-'+ fms.views[2] +'.html'"></ng-include>
+        </div>
+    </div>
+</div>

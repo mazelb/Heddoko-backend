@@ -1,0 +1,80 @@
+/**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ * @brief       Styles for uiMovement
+ * @author      Francis Amankrah (frank@heddoko.com)
+ */
+
+.ui-movement-card {
+    background-color: $blue;
+    @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+
+    &.four-three-aspect-ratio {
+        position: relative;
+        width: 100%;
+        padding-bottom: 75%;
+    }
+
+    > div {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .ui-movement-placeholder {
+        margin: 20%;
+        text-align: center;
+    }
+}
+
+.ui-movement-container {
+    position: relative;
+    display: block;
+    padding-bottom: 75px;
+
+    h1 {
+        margin: 0;
+        padding: 20px;
+        font-size: 1.2em;
+        text-transform: uppercase;
+        color: $text-color;
+        text-align: left;
+    }
+
+    .controls {
+        display: block;
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        height: 60px;
+        width: 60px;
+
+        a {
+            position: absolute;
+        }
+
+        .controls-up, .controls-down {
+            left: 50%;
+            @include transform(translateX(-50%));
+        }
+        .controls-up {
+            top: 0;
+        }
+        .controls-down {
+            bottom: 0;
+        }
+
+        .controls-left, .controls-right {
+            top: 50%;
+            @include transform(translateY(-50%));
+        }
+        .controls-left {
+            left: 0;
+        }
+        .controls-right {
+            right: 0;
+        }
+    }
+}

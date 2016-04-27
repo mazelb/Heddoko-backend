@@ -1,0 +1,87 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<div class="ui-editable-fields">
+
+    <h3 ng-if="heading" class="title">
+        {{ heading }}
+        <span></span>
+    </h3>
+
+    <div class="row" ng-switch="state">
+
+        <!-- Editable field -->
+        <div ng-switch-when="editing" class="col-sm-12">
+
+            <!-- Type: tag -->
+            <div ng-if="inputType == 'tag-title'" class="input-type-tag">
+
+                <div class="buttons">
+                    <a ng-click="cancel()" title="Cancel" href="javascript:;">
+                        <i class="fa fa-times"></i>
+                    </a>
+                    <a ng-click="save()" title="Save" href="javascript:;">
+                        <i class="fa fa-floppy-o"></i>
+                    </a>
+                </div>
+
+                <selectize
+                    ng-model="model[key]"
+                    class="form-control text-left"
+                    config="selectizeConfig"
+                    options="options">
+                </selectize>
+            </div>
+
+            <!-- Type: text -->
+            <div ng-if="inputType == 'text'" class="input-group">
+                <span class="input-group-btn">
+                    <button ng-click="cancel()" title="Cancel" class="btn btn-danger" type="button">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <button ng-click="save()" title="Save" class="btn btn-default" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                    </button>
+                </span>
+
+                <input
+                    ng-model="model[key]"
+                    type="text"
+                    class="form-control">
+            </div>
+
+            <!-- Type: textarea -->
+            <div ng-if="inputType == 'textarea'" class="input-type-textarea">
+
+                <textarea ng-model="model[key]" class="form-control"></textarea>
+
+                <div class="buttons">
+                    <a ng-click="cancel()" title="Cancel" href="javascript:;">
+                        <i class="fa fa-times"></i>
+                    </a>
+                    <a ng-click="save()" title="Save" href="javascript:;">
+                        <i class="fa fa-floppy-o"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Saving notice -->
+        <div ng-switch-when="saving" class="col-sm-12">
+            <span class="input-type-{{ inputType }}">
+                {{ display || model[key] || empty }}
+                <i class="fa fa-spinner fa-spin fa-fw"></i>
+            </span>
+        </div>
+
+        <!-- Displayed field -->
+        <div ng-switch-default class="col-sm-12 ui-editable-field-value">
+            <a ng-click="edit()" href="javascript:;" class="input-type-{{ inputType }}">
+                <span class="edit-text">
+                    {{ display || model[key] || empty }}
+                </span>
+                <i class="edit-icon fa fa-pencil"></i>
+            </a>
+        </div>
+    </div>
+</div>

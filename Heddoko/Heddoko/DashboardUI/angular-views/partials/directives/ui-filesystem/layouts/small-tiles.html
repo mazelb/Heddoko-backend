@@ -1,0 +1,216 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<div class="row">
+
+    <!-- Parent folder -->
+    <div ng-if="parentFolder" class="col-sm-6 col-md-4 col-lg-2">
+        <a href="{{ ::parentFolder.href }}" class="aspect-ratio aspect-square card parent-folder">
+            <div>
+                <i class="fa fa-hand-o-left fa-2x"></i>
+                <span class="title">
+                    {{ ::parentFolder.title || 'Back' }}
+                </span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Other folders -->
+    <div ng-repeat="folder in folders track by $index" class="col-sm-6 col-md-4 col-lg-2">
+        <a
+            href="{{ ::folder.href }}"
+            title="{{ ::folder.title }}"
+            class="aspect-ratio aspect-square card folder">
+            <div>
+
+                <i class="fa fa-folder-open-o folder-icon"></i>
+
+                <!-- Folder actions -->
+                <div class="data">
+                    <section>
+
+                        <!-- Favourite (demo) -->
+                        <i class="fa fa-star-o pull-right"></i>
+
+                        <!-- Title -->
+                        <span class="title">
+                            {{ ::folder.title | characters:12 }}
+                        </span>
+
+                        <!-- Sub title -->
+                        <span class="sub-title" ng-if="folder.updatedAt">
+                            Last updated {{ ::folder.updatedAt | mysqlDate:'MMM d, yyyy' }}
+                        </span>
+                    </section>
+
+                    <section>
+
+                        <!-- Analyze -->
+                        <button
+                            ng-if="config.onAnalyzeFolder"
+                            ng-click="call($event, config.onAnalyzeFolder, [folder])"
+                            type="button"
+                            class="data-btn">
+
+                            <i class="fa fa-line-chart fa-fw"></i>
+                            <span>
+                                Analyze
+                            </span>
+                        </button>
+
+                        <!-- Compare -->
+                        <button
+                            ng-if="config.onCompareFolder"
+                            ng-click="call($event, config.onCompareFolder, [folder])"
+                            type="button"
+                            class="data-btn">
+
+                            <i class="fa fa-random fa-fw"></i>
+                            <span>
+                                Compare
+                            </span>
+                        </button>
+
+                        <!-- Share -->
+                        <button
+                            ng-if="config.onShareFolder"
+                            ng-click="call($event, config.onShareFolder, [folder])"
+                            type="button"
+                            class="data-btn">
+
+                            <i class="fa fa-share-alt fa-fw"></i>
+                            <span>
+                                Share
+                            </span>
+                        </button>
+
+                        <!-- Edit -->
+                        <button
+                            ng-if="config.onEditFolder"
+                            ng-click="call($event, config.onEditFolder, [folder])"
+                            type="button"
+                            class="data-btn">
+
+                            <i class="fa fa-pencil fa-fw"></i>
+                            <span>
+                                Edit
+                            </span>
+                        </button>
+
+                        <!-- Delete -->
+                        <button
+                            ng-if="config.onDeleteFolder"
+                            ng-click="call($event, config.onDeleteFolder, [folder.id])"
+                            type="button"
+                            href="javascript:;"
+                            class="data-btn">
+
+                            <i class="fa fa-trash fa-fw"></i>
+                            <span>
+                                Delete
+                            </span>
+                        </button>
+                    </section>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Files -->
+    <div ng-repeat="file in files track by $index" class="col-sm-6 col-md-4 col-lg-2">
+        <a
+            href="{{ ::file.href }}"
+            title="{{ ::file.title }}"
+            class="aspect-ratio aspect-square card file">
+            <div style="background-image: url({{ ::file.image || '' }})">
+
+                <!-- File actions -->
+                <div class="data">
+                    <section>
+
+                        <!-- Favourite (demo) -->
+                        <i class="fa fa-star-o pull-right"></i>
+
+                        <!-- Title -->
+                        <span class="title">
+                            {{ ::file.title | characters:12 }}
+                        </span>
+
+                        <!-- Sub title -->
+                        <span class="sub-title" ng-if="file.subTitle">
+                            {{ ::file.subTitle | characters:25 }}
+                        </span>
+                    </section>
+
+                    <section>
+
+                        <!-- Analyze -->
+                        <button
+                            ng-if="config.onAnalyzeFile"
+                            ng-click="call($event, config.onAnalyzeFile, [file])"
+                            type="button"
+                            class="data-btn">
+
+                            <i class="fa fa-line-chart fa-fw"></i>
+                            <span>
+                                Analyze
+                            </span>
+                        </button>
+
+                        <!-- Compare -->
+                        <button
+                            ng-if="config.onCompareFile"
+                            ng-click="call($event, config.onCompareFile, [file])"
+                            type="button"
+                            class="data-btn">
+
+                            <i class="fa fa-random fa-fw"></i>
+                            <span>
+                                Compare
+                            </span>
+                        </button>
+
+                        <!-- Share -->
+                        <button
+                            ng-if="config.onShareFile"
+                            ng-click="call($event, config.onShareFile, [file])"
+                            type="button"
+                            class="data-btn">
+
+                            <i class="fa fa-share-alt fa-fw"></i>
+                            <span>
+                                Share
+                            </span>
+                        </button>
+
+                        <!-- Edit -->
+                        <button
+                            ng-if="config.onEditFile"
+                            ng-click="call($event, config.onEditFile, [file])"
+                            type="button"
+                            class="data-btn">
+
+                            <i class="fa fa-pencil fa-fw"></i>
+                            <span>
+                                Edit
+                            </span>
+                        </button>
+
+                        <!-- Delete -->
+                        <button
+                            ng-if="config.onDeleteFile"
+                            ng-click="call($event, config.onDeleteFile, [file.id])"
+                            type="button"
+                            class="data-btn">
+
+                            <i class="fa fa-trash fa-fw"></i>
+                            <span>
+                                Delete
+                            </span>
+                        </button>
+                    </section>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

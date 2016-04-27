@@ -1,0 +1,256 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<div class="row ui-editable-field ui-editable-field-vertical">
+
+    <div ng-switch="inputType" class="col-xs-12">
+
+        <!-- Date -->
+        <div ng-switch-when="date">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-timestamp.html'"></ng-include>
+
+            <!-- Edit field -->
+            <div
+                ng-show="state == 'editing'"
+                class="input-group">
+
+                <span class="input-group-btn">
+                    <button ng-click="cancel()" title="Cancel" class="btn btn-danger" type="button">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <button ng-click="save()" title="Save" class="btn btn-default" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                    </button>
+                </span>
+
+                <input
+                    ng-show="state == 'editing'"
+                    ng-disabled="isDisabled"
+                    ng-required="isRequired"
+                    type="datetime"
+                    class="form-control">
+            </div>
+        </div>
+
+        <!-- Date & time -->
+        <div ng-switch-when="datetime">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-timestamp.html'"></ng-include>
+
+            <!-- Edit field -->
+            <div
+                ng-show="state == 'editing'"
+                class="input-group">
+
+                <span class="input-group-btn">
+                    <button ng-click="cancel()" title="Cancel" class="btn btn-danger" type="button">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <button ng-click="save()" title="Save" class="btn btn-default" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                    </button>
+                </span>
+
+                <input
+                    ng-disabled="isDisabled"
+                    ng-required="isRequired"
+                    type="datetime"
+                    class="form-control">
+            </div>
+        </div>
+
+        <!-- Length -->
+        <div ng-switch-when="length">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-with-units.html'"></ng-include>
+
+            <!-- Feet & inches -->
+            <div class="row" ng-show="state == 'editing' && config.unitForLength == 'ft/in'">
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <input
+                            ng-model="data.lengthFeet"
+                            ng-disabled="isDisabled"
+                            ng-required="isRequired"
+                            ng-blur="updateModel()"
+                            ng-change="updateModel()"
+                            type="number" min="1" max="10"
+                            class="form-control">
+                        <span class="input-group-addon">&apos;</span>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <input
+                            ng-model="data.lengthInches"
+                            ng-disabled="isDisabled"
+                            ng-required="isRequired"
+                            ng-blur="updateModel()"
+                            ng-change="updateModel()"
+                            type="number" min="0" max="11"
+                            class="form-control">
+                        <span class="input-group-addon">&quot;</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All other supported units -->
+            <div class="input-group" ng-show="state == 'editing' && config.unitForLength != 'ft/in'">
+                <span class="input-group-addon">{{ config.unitForLength }}</span>
+                <input
+                    ng-model="data.lengthVal"
+                    ng-disabled="isDisabled"
+                    ng-required="isRequired"
+                    ng-blur="updateModel()"
+                    type="number" step="0.01"
+                    class="form-control">
+            </div>
+        </div>
+
+        <!-- Gender -->
+        <div ng-switch-when="gender">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-generic.html'"></ng-include>
+
+            <!-- Edit field -->
+            <div
+                ng-show="state == 'editing'"
+                class="input-group">
+
+                <span class="input-group-btn">
+                    <button ng-click="cancel()" title="Cancel" class="btn btn-danger" type="button">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <button ng-click="save()" title="Save" class="btn btn-default" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                    </button>
+                </span>
+
+                <select
+                    ng-model="model[key]"
+                    ng-selected="model[key]"
+                    ng-disabled="isDisabled"
+                    ng-required="isRequired"
+                    class="form-control">
+
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Mass -->
+        <div ng-switch-when="mass">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-with-units.html'"></ng-include>
+
+            <!-- Edit field -->
+            <div
+                ng-show="state == 'editing'"
+                class="input-group">
+
+                <!-- Buttons -->
+                <span class="input-group-btn">
+                    <button ng-click="cancel()" title="Cancel" class="btn btn-danger" type="button">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <button ng-click="save()" title="Save" class="btn btn-default" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                    </button>
+                </span>
+
+                <!-- Unit -->
+                <span class="input-group-addon">{{ config.unitForMass }}</span>
+
+                <input
+                    ng-model="data.massVal"
+                    ng-disabled="isDisabled"
+                    ng-required="isRequired"
+                    ng-blur="updateModel()"
+                    type="number" step="0.01"
+                    class="form-control">
+            </div>
+        </div>
+
+        <!-- Tag -->
+        <div ng-switch-when="tag">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-generic.html'"></ng-include>
+
+            <div
+                ng-show="state == 'editing'"
+                class="input-group">
+
+                <span class="input-group-btn">
+                    <button ng-click="cancel()" title="Cancel" class="btn btn-danger" type="button">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <button ng-click="save()" title="Save" class="btn btn-default" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                    </button>
+                </span>
+
+                <selectize
+                    ng-model="data"
+                    class="form-control text-left"
+                    config="config"
+                    options="options">
+                </selectize>
+            </div>
+        </div>
+
+        <!-- Placeholder -->
+        <div ng-switch-when="placeholder">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-generic.html'"></ng-include>
+
+            <div
+                ng-show="state == 'editing'"
+                class="input-group">
+
+                <span class="input-group-btn">
+                    <button ng-click="cancel()" title="Cancel" class="btn btn-danger" type="button">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <button ng-click="save()" title="Save" class="btn btn-default" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                    </button>
+                </span>
+
+                <input
+                    ng-model="display"
+                    ng-disabled="isDisabled"
+                    ng-required="isRequired"
+                    type="text"
+                    class="form-control">
+            </div>
+        </div>
+
+        <!-- Default -->
+        <div ng-switch-default>
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-generic.html'"></ng-include>
+
+            <!-- Edit field -->
+            <div
+                ng-show="state == 'editing'"
+                class="input-group">
+
+                <span class="input-group-btn">
+                    <button ng-click="cancel()" title="Cancel" class="btn btn-danger" type="button">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <button ng-click="save()" title="Save" class="btn btn-default" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                    </button>
+                </span>
+
+                <input
+                    ng-model="model[key]"
+                    ng-disabled="isDisabled"
+                    ng-required="isRequired"
+                    type="text"
+                    class="form-control">
+            </div>
+        </div>
+    </div>
+
+    <!-- Field label -->
+    <div class="col-xs-12 ui-editable-field-label">
+        {{ label }} <span ng-show="isRequired && state == 'editing'">*</span>
+    </div>
+</div>

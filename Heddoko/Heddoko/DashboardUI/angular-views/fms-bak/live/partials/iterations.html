@@ -1,0 +1,12 @@
+
+<ol class="breadcrumb-movement-sm">
+    <li
+        ng-click="fms.current.iteration = iteration"
+        ng-class="{'active': iteration == fms.current.iteration}"
+        ng-repeat="iteration in fms.current.iterations">
+        
+        <a>
+            {{ iteration }}
+        </a>
+    </li>
+</ol>

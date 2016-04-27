@@ -1,0 +1,82 @@
+
+<div class="page demo-analysis-page">
+    <header>
+        <h1>
+            Analyze <i class="fa fa-line-chart"></i>
+            <span></span>
+        </h1>
+    </header>
+
+    <div class="row">
+
+        <div class="col-sm-10 col-sm-offset-1">
+
+            <!-- Emphasized view -->
+            <div class="col-sm-8 panel panel-default" id="emphasizedViewContainer">
+                <div class="panel-heading text-right">
+                    Side/Sagittal
+                </div>
+
+                <div class="panel-body">
+                    <video id="sagittalVideo" class="demo-analysis">
+                        <source ng-src="../../../../demo/aslr/analysis/sagittal.webm" type="video/webm" />
+                        <source src="../../../../demo/aslr/analysis/sagittal.mp4" type="video/mp4" />
+                        Sorry, your browser doesn't support HTML5 video.
+                    </video>
+                </div>
+
+                <div class="demo-controls">
+                    <a ng-hide="isPlaying" ng-click="play()" href="javascript:;">
+                        <i class="fa fa-lg fa-play"></i>
+                    </a>
+                    <a ng-show="isPlaying" ng-click="pause()" href="javascript:;">
+                        <i class="fa fa-lg fa-pause"></i>
+                    </a>
+                    <a ng-click="backward()" href="javascript:;">
+                        <i class="fa fa-lg fa-backward"></i>
+                    </a>
+                    <a ng-click="forward()" href="javascript:;">
+                        <i class="fa fa-lg fa-forward"></i>
+                    </a>
+                    <a ng-click="reset()" href="javascript:;">
+                        <i class="fa fa-lg fa-refresh"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Secondary views -->
+            <div class="col-sm-4" id="secondaryViewsContainer">
+
+                <!-- Coronal view -->
+                <div class="col-sm-12 panel panel-default">
+                    <div class="panel-heading text-right">
+                        Front/Coronal
+                    </div>
+
+                    <div class="panel-body">
+                        <video id="coronalVideo" class="demo-analysis">
+                            <source ng-src="{{'../../../../demo/aslr/left/coronal.webm'}}" type="video/webm" />
+                            <source src="{{'../../../../demo/aslr/left/coronal.mp4'}}" type="video/mp4" />
+                            Sorry, your browser doesn't support HTML5 video.
+                        </video>
+                    </div>
+                </div>
+
+                <!-- Transverse view -->
+                <div class="col-sm-12 panel panel-default">
+                    <div class="panel-heading text-right">
+                        Horizontal/Transverse
+                    </div>
+
+                    <div class="panel-body">
+                        <video id="transverseVideo" class="demo-analysis">
+                            <source ng-src="{{'../../../../demo/aslr/left/transverse.webm'}}" type="video/webm" />
+                            <source src="{{'../../../../demo/aslr/left/transverse.mp4'}}" type="video/mp4" />
+                            Sorry, your browser doesn't support HTML5 video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

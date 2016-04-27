@@ -1,0 +1,229 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<div ng-if="global.data.isFetchingGroups === false && group.id" class="page group-page">
+    <header>
+        <h1>
+            {{ group.name }} <i class="fa fa-users"></i>
+            <span></span>
+        </h1>
+    </header>
+
+    <section>
+    	<div class="row">
+
+            <!-- Avatar -->
+    		<div class="col-xs-12 col-md-5 col-lg-3">
+                <div class="text-center">
+                    <ui-avatar
+                        data-upload-endpoint="uploadAvatarEndpoint"
+                        data-success-callback="uploadAvatarCallback"
+                        data-src="group.avatarSrc">
+                    </ui-avatar>
+                </div>
+
+                <div class="text-right profile-shortcuts">
+
+                    <!-- Delete group button -->
+                    <a
+                        ng-show="group.id > 0"
+                        data-toggle="modal"
+                        data-target="#deleteGroupConfirmation"
+                        href="javascript:;">
+
+                        <button class="btn btn-danger btn-circle btn-lg">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </a>
+
+                    <!-- Delete confirmation -->
+                    <div class="modal fade" id="deleteGroupConfirmation">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <p ng-show="global.state.profile.filtered.length > 0">
+                                        Are you sure you want to delete <b>{{ group.name }}</b>
+                                        and the {{ global.state.profile.filtered.length }}
+                                        associated athletes?
+                                    </p>
+                                    <p ng-show="global.state.profile.filtered.length === 0">
+                                        Are you sure you want to delete <b>{{ group.name }}</b>?
+                                    </p>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancel
+                                    </button>
+                                    <button ng-click="deleteGroup()" type="button" class="btn btn-danger" data-dismiss="modal">
+                                        Yes, delete {{ group.name }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    		</div>
+
+            <!-- Group details -->
+            <div class="col-xs-12 col-md-7 col-lg-5">
+                <ui-editable-fields
+                    data-id="groupDetails"
+                    data-model="group"
+                    data-save="saveGroupDetails"
+                    data-save-callback="saveGroupDetailsCallback"
+                    data-heading="Team Details">
+
+                    <div class="row">
+
+                        <!-- Group name -->
+                        <div class="col-xs-6">
+                            <ui-editable-field
+                                data-label="Name"
+                                data-key="name"
+                                data-required="true">
+                            </ui-editable-field>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="col-xs-6">
+                            <ui-editable-field
+                                data-label="Sport"
+                                data-key="mainTag"
+                                data-type="tag"
+                                data-empty="Select a Sport">
+                            </ui-editable-field>
+                        </div>
+
+                        <!-- Placeholder for Tags (NFL TechCrunch demo) -->
+                        <div ng-if="false" class="col-xs-6">
+                            <ui-editable-field
+                                data-label="Sport"
+                                data-type="placeholder"
+                                data-display="Football">
+                            </ui-editable-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Managers -->
+                        <div class="col-xs-6">
+                            <ui-editable-field
+                                data-label="Head Coach"
+                                data-type="placeholder"
+                                data-display="Rick Springfield">
+                            </ui-editable-field>
+                        </div>
+
+                        <!-- Profiles count -->
+                        <div class="col-xs-6">
+                            <ui-editable-field
+                                data-label="Number of athletes"
+                                data-type="placeholder"
+                                data-display="{{ global.data.filteredProfiles.length }}">
+                            </ui-editable-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Date created -->
+                        <div class="col-xs-6">
+                            <ui-editable-field
+                                data-label="Date Created"
+                                data-key="createdAt"
+                                data-type="date"
+                                data-required="true">
+                            </ui-editable-field>
+                        </div>
+
+                        <!-- Date modified -->
+                        <div class="col-xs-6">
+                            <ui-editable-field
+                                data-label="Date Modified"
+                                data-key="updatedAt"
+                                data-type="date"
+                                data-required="true">
+                            </ui-editable-field>
+                        </div>
+                    </div>
+                </ui-editable-fields>
+            </div>
+
+            <!-- Notes -->
+            <div class="col-xs-12 col-lg-4">
+                <ui-editable-standalone-field
+                    data-heading="Notes"
+                    data-model="group"
+                    data-key="notes"
+                    data-empty="..."
+                    data-disabled="true"
+                    data-save="saveGroupDetails"
+                    data-save-callback="saveGroupDetailsCallback">
+                </ui-editable-standalone-field>
+            </div>
+
+            <!-- Placeholder for Notes (NFL TechCrunch demo) -->
+            <div ng-if="false" class="col-xs-12 col-lg-4">
+                <div class="ui-editable-list-container">
+                    <h3 class="title">
+                        Notes
+                        <span></span>
+                    </h3>
+                    <br>
+
+                    Wins: 12 / Losses: 4 / Ties: 0
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile list -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="title">
+                Team Members
+                <span></span>
+            </h3>
+            <br>
+
+            <!-- New profile button -->
+            <!-- TODO: figure out why the right margin is needed -->
+            <a
+                href="#/profiles/create"
+                class="btn btn-info btn-metro"
+                style="margin-right: 0">
+
+                <i class="fa fa-plus"></i>
+            </a>
+
+            <a
+                ng-repeat="profile in global.data.filteredProfiles | limitTo:global.data.filteredProfiles.length track by profile.id"
+                href="#/profiles/{{ profile.id }}"
+                class="btn btn-info btn-metro"
+                style="background-image: url({{ ::profile.avatarSrc || '' }});">
+
+                <span style="background-color: rgba(0, 0, 0, 0.4)">{{ ::profile.lastName.toUpperCase() }}</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Fetching group data -->
+<div ng-if="global.data.isFetchingGroups === true" class="page">
+    <ng-include src="'partials/loading.html'"></ng-include>
+</div>
+
+<!-- No group selected -->
+<div ng-if="global.data.isFetchingGroups === false && group.id === 0" class="page">
+    <h1 class="text-center">No group selected</h1>
+    <br>
+
+    <div class="text-center">
+        Please select a group to view its details.
+        <br>
+
+        You can also take this opportunity to
+        <a href="#/groups/create">create one</a>.
+    </div>
+</div>

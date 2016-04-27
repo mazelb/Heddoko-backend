@@ -1,0 +1,38 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<div class="ui-avatar-container" ng-style="{width: containerWidth}">
+
+    <!-- Avatar container -->
+    <a
+        href="javascript:;"
+        ngf-select="upload($file)"
+        ngf-drop
+        accept="image/*"
+        ngf-pattern="'image/*'"
+        ngf-capture="'camera'"
+        ngf-min-height="100"
+        ngf-max-size="2MB"
+        class="aspect-ratio aspect-square ui-avatar-button"
+        ng-style="{'background-image': 'url(' + avatarSrc + ')'}">
+        <div>
+
+            <!-- Loading animation -->
+            <div ng-show="status == 'uploading'" class="ui-avatar-placeholder uploading">
+                <i class="fa fa-spinner fa-spin"></i>
+            </div>
+
+            <!-- Avatar placeholder -->
+            <div ng-show="status == 'none'" class="ui-avatar-placeholder">
+                <i class="fa fa-user fa-2x"></i>
+            </div>
+
+            <!-- Avatar actions -->
+            <div class="ui-avatar-actions">
+                <i class="fa fa-camera fa-fw ui-avatar-icon"></i>
+                <span class="ui-avatar-text">Update Avatar</span>
+            </div>
+
+        </div>
+    </a>
+</div>

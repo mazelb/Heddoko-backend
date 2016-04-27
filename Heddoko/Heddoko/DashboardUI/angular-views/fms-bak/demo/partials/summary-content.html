@@ -1,0 +1,134 @@
+
+<div class="panel-body">
+
+    <!-- Total score -->
+    <div class="col-sm-4"
+         style="height: 40px; line-height: 40px; background-color: #89c443; color: #333;">
+
+        <div class="col-sm-9">Total Score</div>
+        <div class="col-sm-3">3</div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!-- Hip results -->
+    <table class="table table-striped" ng-show="summary.joints.hip">
+
+        <!-- Dummy heading -->
+        <thead style="background-color: #d1d2d4; font-weight: bold; color: #333;">
+            <tr>
+                <td>Hip</td>
+                <td class="text-center">Left</td>
+                <td class="text-center">Right</td>
+                <td class="text-center">Difference</td>
+            </tr>
+        </thead>
+
+        <!-- Dummy results -->
+        <tbody style="font-weight: normal; color: #333;">
+            <tr>
+                <td>Flexion/Extension</td>
+                <td class="text-center">92</td>
+                <td class="text-center">110</td>
+                <td class="text-center" style="background-color: #ed3941;">18</td>
+            </tr>
+            <tr>
+                <td>Abduction/Adduction</td>
+                <td class="text-center">19</td>
+                <td class="text-center">20</td>
+                <td class="text-center" style="background-color: #89c443;">1</td>
+            </tr>
+            <tr>
+                <td>Internal/External Rot.</td>
+                <td class="text-center">11</td>
+                <td class="text-center">18</td>
+                <td class="text-center" style="background-color: #f48b4a;">7</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div
+        ng-show="summary.joints.hip"
+        class="col-sm-6 col-sm-offset-3"
+        style="margin-top: 10px; margin-bottom: 60px;">
+
+        <div class="row">
+            <span class="pull-left">
+                <b>Left</b>
+            </span>
+            <span class="pull-right">
+                <b>Right</b>
+            </span>
+        </div>
+        <div class="row linear-heat-gradient">
+            <div style="
+                position: absolute;
+                bottom: -5%;
+                left: 60%;
+                display: block;
+                height: 75%;
+                width: 2px;
+                background-color: #000;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Knee results -->
+    <table class="table table-striped" ng-show="summary.joints.knee">
+
+        <!-- Dummy heading -->
+        <thead style="background-color: #d1d2d4; font-weight: bold; color: #333;">
+            <tr>
+                <td>Knee</td>
+                <td class="text-center">Left</td>
+                <td class="text-center">Right</td>
+                <td class="text-center">Difference</td>
+            </tr>
+        </thead>
+
+        <!-- Dummy results -->
+        <tbody style="font-weight: normal; color: #333;">
+            <tr>
+                <td>Flexion/Extension</td>
+                <td class="text-center">120</td>
+                <td class="text-center">109</td>
+                <td class="text-center" style="background-color: #f48b4a;">11</td>
+            </tr>
+            <tr>
+                <td>Internal/External Rot.</td>
+                <td class="text-center">2</td>
+                <td class="text-center">18</td>
+                <td class="text-center" style="background-color: #ed3941;">16</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div
+        ng-show="summary.joints.knee"
+        class="col-sm-6 col-sm-offset-3"
+        style="margin-top: 10px; margin-bottom: 60px;">
+        <div class="row">
+            <span class="pull-left">
+                <b>Left</b>
+            </span>
+            <span class="pull-right">
+                <b>Right</b>
+            </span>
+        </div>
+        <div class="row linear-heat-gradient">
+            <div style="
+                position: absolute;
+                bottom: -5%;
+                left: 52%;
+                display: block;
+                height: 75%;
+                width: 2px;
+                background-color: #000;">
+            </div>
+        </div>
+    </div>
+
+</div>

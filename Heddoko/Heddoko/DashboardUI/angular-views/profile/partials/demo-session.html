@@ -1,0 +1,409 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<section class="demo-trends-section" style="margin: 50px auto">
+    <h2 class="title">
+        Training Session Review
+        <span></span>
+    </h2>
+    <br>
+    <br>
+
+    <!-- Demo data -->
+    <div ng-show="session && metric && isFetchingSessionData === false" class="animate-fade-up">
+
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3">
+                <h3 class="text-center" style="margin-bottom: 35px">
+                    {{ metric.title }}
+
+                    <small ng-show="metric.title == 'Shoulder External Rotation'" style="display: block; margin-top: 5px">
+                        100% = 90&deg;
+                    </small>
+                </h3>
+            </div>
+
+
+
+            <!-- Left Panel -->
+            <div class="col-md-3 demo-trends-info-2">
+                <div class="row">
+
+                    <div class="col-sm-4 text-right" style="line-height: 35px">
+                        Session:
+                    </div>
+                    <div class="col-sm-8">
+                        <selectize
+                            ng-model="selectizeSessionModel"
+                            class="form-control text-center"
+                            config="selectizeSessionConfig"
+                            options="selectizeSessionOptions">
+                        </selectize>
+                    </div>
+
+                    <div class="col-sm-4 text-right" style="line-height: 35px">
+                        Conditions:
+                    </div>
+                    <div class="col-sm-8" style="line-height: 35px">
+                        <b>Sunny, Light Drizzle</b>
+                    </div>
+
+                    <div class="col-sm-4 text-right" style="line-height: 35px">
+                        Wind:
+                    </div>
+                    <div class="col-sm-8" style="line-height: 35px">
+                        <b>8 km/h</b>
+                    </div>
+
+                    <div class="col-sm-4 text-right" style="line-height: 35px">
+                        Metric:
+                    </div>
+                    <div class="col-sm-8">
+                        <selectize
+                            ng-model="selectizeMetricModel"
+                            class="form-control text-center"
+                            config="selectizeMetricConfig"
+                            options="selectizeMetricOptions">
+                        </selectize>
+                    </div>
+                </div>
+
+                <!-- Extra Info -->
+                <div ng-hide="isFetchingSelectedMetricData || isFetchingSessionData">
+
+                    <div
+                        ng-show="metric.title == 'Peak Elbow Angular Velocity'"
+                        class="row text-center"
+                        style="color: #ddd; margin-top: 10px">
+
+                        <div class="col-xs-12">
+                            <div style="margin: 25px 0 0">
+                                <img src="/images/demo/qb throw.png" style="height: 65px; margin-right: 15px; vertical-align: top">
+                                <span style="font-size: 3.5em; vertical-align: bottom;">
+                                    {{ flotElbowDrops[session.id - 1].num }}
+                                </span>
+                            </div>
+
+                            <span style="font-size: 1.3em">
+                                Throw Count <br>
+                                Before Degradation
+                            </span>
+                        </div>
+                    </div>
+
+                    <div ng-show="metric.title == 'Peak Forearm Snap Velocity'" class="row text-center">
+                        <div class="col-xs-12">
+                            The snapping of the wrist from supinated to pronated is what gives the ball its
+                            spin. The faster this happens, the tighter the spin will be, and the higher the
+                            chances the ball will travel faster and further.
+                        </div>
+                    </div>
+
+                    <!-- <div ng-show="false && metric.title == 'Stride Length'" class="row text-center">
+                        <div class="col-xs-12">
+                            The proper stride length is approximately the athlete’s tibial
+                            tuberosity X 1.5, or about 26-30 inches in most quarterbacks.
+                        </div>
+                    </div> -->
+
+                    <div ng-show="metric.title == 'Shoulder External Rotation'" class="col-xs-12">
+
+                        <br>
+                        <br>
+                        <canvas
+                            data-theme-gauge-chart
+                            data-gauge-data="demoGaugeOne.data"
+                            data-live-gauge-value="demoGaugeOneValue"
+                            data-gauge-options="demoGaugeOne.options"
+                            style="width: 100%;">
+                        </canvas>
+
+                        <div style="position: absolute; left: 45%; bottom: 15px; font-size: 1.2em">
+                            {{ demoGaugeOneValuePercent }}
+                        </div>
+                    </div>
+
+                    <div ng-show="metric.title == 'Stride Length'" class="col-xs-12">
+
+                        <br>
+                        <br>
+                        <canvas
+                            data-theme-gauge-chart
+                            data-gauge-data="demoGaugeTwo.data"
+                            data-live-gauge-value="demoGaugeTwoValue"
+                            data-gauge-options="demoGaugeTwo.options"
+                            style="width: 100%;">
+                        </canvas>
+
+                        <div style="position: absolute; left: 46%; bottom: 15px; font-size: 1.2em">
+                            {{ demoGaugeTwoValuePercent }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Metric plots -->
+            <div ng-show="isFetchingSelectedMetricData === false">
+
+
+                <!-- Peak Elbow Angular Velocity -->
+                <div ng-show="metric.title == 'Peak Elbow Angular Velocity'" class="col-md-9">
+                    <div ng-show="session.id === 5">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotElbowData[4]"
+                            data-options="flotElbowOptions[4]"
+                            data-plot-hover="flotElbowHover"
+                            data-plot-labels="flotElbowLabels[4]"
+                            data-threshold-label="'Pause Training'"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                    <div ng-show="session.id === 4">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotElbowData[3]"
+                            data-options="flotElbowOptions[3]"
+                            data-plot-hover="flotElbowHover"
+                            data-plot-labels="flotElbowLabels[3]"
+                            data-threshold-label="'Pause Training'"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                    <div ng-show="session.id === 3">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotElbowData[2]"
+                            data-options="flotElbowOptions[2]"
+                            data-plot-hover="flotElbowHover"
+                            data-plot-labels="flotElbowLabels[2]"
+                            data-threshold-label="'Pause Training'"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                    <div ng-show="session.id === 2">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotElbowData[1]"
+                            data-options="flotElbowOptions[1]"
+                            data-plot-hover="flotElbowHover"
+                            data-plot-labels="flotElbowLabels[1]"
+                            data-threshold-label="'Pause Training'"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                    <div ng-show="session.id === 1">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotElbowData[0]"
+                            data-options="flotElbowOptions[0]"
+                            data-plot-hover="flotElbowHover"
+                            data-plot-labels="flotElbowLabels[0]"
+                            data-threshold-label="'Pause Training'"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+
+
+                    <div class="row text-center">
+                        <div class="col-md-4" style="margin-top: 30px">
+                            <div class="col-md-10 col-md-offset-2">
+                                <h4 style="display: inline-block">
+                                    Fastest Throw
+                                </h4>
+                                <canvas
+                                    data-gauge-chart
+                                    data-gauge-data="elbowMaxGauge.data"
+                                    data-gauge-options="elbowMaxGauge.options"
+                                    style="width: 100%; vertical-align: bottom">
+                                </canvas>
+
+                                <div style="position: absolute; left: 39%; bottom: 15px;">
+                                    {{ elbowMaxVel | number:0 }} &deg;/s
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" style="margin-top: 30px">
+                            <div class="col-md-10 col-md-offset-1">
+                                <h4 style="display: inline-block">
+                                    Average
+                                </h4>
+                                <canvas
+                                    data-gauge-chart
+                                    data-gauge-data="elbowAvgGauge.data"
+                                    data-gauge-options="elbowAvgGauge.options"
+                                    style="width: 100%; vertical-align: bottom">
+                                </canvas>
+
+                                <div style="position: absolute; left: 39%; bottom: 15px;">
+                                    {{ elbowAvgVel | number:0 }} &deg;/s
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" style="margin-top: 30px">
+                            <div class="col-md-10">
+                                <h4 style="display: inline-block">
+                                    Slowest Throw
+                                </h4>
+                                <canvas
+                                    data-gauge-chart
+                                    data-gauge-data="elbowMinGauge.data"
+                                    data-gauge-options="elbowMinGauge.options"
+                                    style="width: 100%; vertical-align: bottom">
+                                </canvas>
+
+                                <div style="position: absolute; left: 39%; bottom: 15px;">
+                                    {{ elbowMinVel | number:0 }} &deg;/s
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shoulder External Rotation -->
+                <div ng-show="metric.title == 'Shoulder External Rotation'" class="col-md-9">
+                    <div ng-show="session.id === 5">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotShoulderData[4]"
+                            data-options="flotShoulderOptions[4]"
+                            data-plot-hover="flotShoulderRotHover"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                    <div ng-show="session.id === 4">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotShoulderData[3]"
+                            data-options="flotShoulderOptions[3]"
+                            data-plot-hover="flotShoulderRotHover"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                    <div ng-show="session.id === 3">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotShoulderData[2]"
+                            data-options="flotShoulderOptions[2]"
+                            data-plot-hover="flotShoulderRotHover"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                    <div ng-show="session.id === 2">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotShoulderData[1]"
+                            data-options="flotShoulderOptions[1]"
+                            data-plot-hover="flotShoulderRotHover"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                    <div ng-show="session.id === 1">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotShoulderData[0]"
+                            data-options="flotShoulderOptions[0]"
+                            data-plot-hover="flotShoulderRotHover"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stride Length -->
+                <div ng-show="metric.title == 'Stride Length'" class="col-md-9">
+                    <div ng-show="session.id === 5">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotStrideData[4]"
+                            data-options="flotStrideOptions[4]"
+                            data-plot-hover="flotStrideHover"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                    <div ng-show="session.id === 4">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotStrideData[3]"
+                            data-options="flotStrideOptions[3]"
+                            data-plot-hover="flotStrideHover"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                    <div ng-show="session.id === 3">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotStrideData[2]"
+                            data-options="flotStrideOptions[2]"
+                            data-plot-hover="flotStrideHover"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                    <div ng-show="session.id === 2">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotStrideData[1]"
+                            data-options="flotStrideOptions[1]"
+                            data-plot-hover="flotStrideHover"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                    <div ng-show="session.id === 1">
+                        <div
+                            data-theme-flot-chart
+                            data-data="flotStrideData[0]"
+                            data-options="flotStrideOptions[0]"
+                            data-plot-hover="flotStrideHover"
+                            style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Loading metric plots -->
+            <div ng-show="isFetchingSelectedMetricData === true" class="col-md-9 text-center text-muted">
+                <i class="fa fa-spinner fa-spin fa-3x" style="margin: 200px auto"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading data -->
+    <div ng-show="isFetchingSessionData === true" class="row text-center text-muted">
+        <i class="fa fa-spinner fa-spin fa-3x" style="display: block; margin: 200px 0 300px"></i>
+    </div>
+
+    <!-- No data selected -->
+    <div ng-show="(!session || !metric) && isFetchingSessionData === false" class="row" style="margin: 0 auto 250px;">
+
+        <div class="col-md-12">
+            Select a training session and metric to get started.
+        </div>
+        <br>
+        <br>
+
+        <div class="col-md-4 col-md-offset-2">
+            <selectize
+                ng-model="selectizeSessionModel"
+                class="form-control text-center"
+                config="selectizeSessionConfig"
+                options="selectizeSessionOptions"
+                placeholder="Select a training session.">
+            </selectize>
+        </div>
+
+        <div class="col-md-4">
+            <selectize
+                ng-model="selectizeMetricModel"
+                class="form-control text-center"
+                config="selectizeMetricConfig"
+                options="selectizeMetricOptions"
+                placeholder="Select a metric.">
+            </selectize>
+        </div>
+    </div>
+
+</section>

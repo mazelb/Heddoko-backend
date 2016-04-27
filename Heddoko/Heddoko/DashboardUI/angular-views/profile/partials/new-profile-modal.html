@@ -1,0 +1,187 @@
+
+<!-- Copyright Heddoko(TM) 2016, all rights reserved. -->
+
+<div class="modal fade" id="createProfileForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Add an Athlete
+            </div>
+
+            <div class="modal-body">
+
+                <!-- First & last name -->
+                <div class="row">
+                    <div class="col-sm-4 col-md-3 text-right">
+                        First &amp; Last Name *
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                ng-model="newProfile.firstName"
+                                placeholder="First Name"
+                                class="form-control"
+                                required>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-5">
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                ng-model="newProfile.lastName"
+                                placeholder="Last Name"
+                                class="form-control"
+                                required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Height -->
+                <div class="row form-group">
+                    <div class="col-sm-4 col-md-3 text-right">
+                        Height (ft / in) *
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <input
+                            type="number"
+                            min="1" max="10"
+                            ng-model="newProfile.feet"
+                            placeholder="Feet"
+                            class="form-control"
+                            required>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <input
+                            type="number"
+                            min="0" max="11"
+                            ng-model="newProfile.inches"
+                            placeholder="Inches"
+                            class="form-control">
+                    </div>
+                </div>
+
+                <!-- Weight -->
+                <div class="row form-group">
+                    <div class="col-sm-4 col-md-3 text-right">
+                        Weight (lbs) *
+                    </div>
+                    <div class="col-sm-8 col-md-2">
+                        <input
+                            class="form-control"
+                            ng-model="newProfile.weightInPounds"
+                            placeholder="Weight"
+                            type="number"
+                            min="1" max="1000" step="0.01"
+                            required>
+                    </div>
+                </div>
+
+                <!-- Date of birth -->
+                <div class="row form-group">
+                    <div class="col-sm-4 col-md-3 text-right">
+                        Date of Birth
+                    </div>
+                    <div class="col-sm-8 col-md-4">
+                        <input
+                            class="form-control"
+                            ng-model="newProfile.dob"
+                            placeholder="DOB"
+                            type="text"
+                            disabled>
+                    </div>
+                </div>
+
+                <!-- Gender -->
+                <div class="row form-group">
+                    <div class="col-sm-4 col-md-3 text-right">
+                        Gender
+                    </div>
+                    <div class="col-sm-8 col-md-4">
+                        <select ng-model="newProfile.gender" class="form-control">
+                            <option value="" ng-selected="newProfile.gender == ''">(not specified)</option>
+                            <option value="female" ng-selected="newProfile.gender == 'female'">Female</option>
+                            <option value="male" ng-selected="newProfile.gender == 'male'">Male</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="row form-group">
+                    <div class="col-sm-4 col-md-3 text-right">
+                        Email
+                    </div>
+                    <div class="col-sm-8 col-md-6">
+                        <input
+                            class="form-control"
+                            ng-model="newProfile.email"
+                            placeholder="email@example.com"
+                            type="email">
+                    </div>
+                </div>
+
+                <!-- Phone number -->
+                <div class="row form-group">
+                    <div class="col-sm-4 col-md-3 text-right">
+                        Phone
+                    </div>
+                    <div class="col-sm-8 col-md-4">
+                        <input
+                            class="form-control"
+                            ng-model="newProfile.phone"
+                            placeholder="555-555-5555"
+                            type="tel">
+                    </div>
+                </div>
+
+                <!-- Medical history -->
+                <div class="row form-group">
+                    <div class="col-sm-4 col-md-3 text-right">
+                        Medical History
+                    </div>
+                    <div class="col-sm-8 col-md-9">
+                        <textarea
+                            ng-model="newProfile.medicalHistory"
+                            class="form-control"
+                            placeholder="..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Previous injuries -->
+                <div class="row form-group">
+                    <div class="col-sm-4 col-md-3 text-right">
+                        Previous Injuries
+                    </div>
+                    <div class="col-sm-8 col-md-9">
+                        <textarea
+                            ng-model="newProfile.injuries"
+                            class="form-control"
+                            placeholder="..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div class="row form-group">
+                    <div class="col-sm-4 col-md-3 text-right">
+                        Other Notes
+                    </div>
+                    <div class="col-sm-8 col-md-9">
+                        <textarea
+                            ng-model="newProfile.notes"
+                            class="form-control"
+                            placeholder="..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button ng-click="createProfile()" type="button" class="btn btn-primary" data-dismiss="modal">
+                    Create
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,159 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<div class="row ui-editable-field">
+
+    <!-- Field label -->
+    <div class="col-sm-4 col-lg-3 text-right">
+        {{ label }} <span ng-show="isRequired && state == 'editing'">*</span>
+    </div>
+
+    <div class="col-sm-8 col-lg-9" ng-switch="inputType">
+
+        <!-- Date -->
+        <div ng-switch-when="date">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-timestamp.html'"></ng-include>
+
+            <input
+                ng-show="state == 'editing'"
+                ng-disabled="isDisabled"
+                ng-required="isRequired"
+                type="datetime"
+                class="form-control">
+        </div>
+
+        <!-- Date & time -->
+        <div ng-switch-when="datetime">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-timestamp.html'"></ng-include>
+
+            <input
+                ng-show="state == 'editing'"
+                ng-disabled="isDisabled"
+                ng-required="isRequired"
+                type="datetime"
+                class="form-control">
+        </div>
+
+        <!-- Length -->
+        <div ng-switch-when="length">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-with-units.html'"></ng-include>
+
+            <!-- Feet & inches -->
+            <div class="row" ng-show="state == 'editing' && config.unitForLength == 'ft/in'">
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <input
+                            ng-model="data.lengthFeet"
+                            ng-disabled="isDisabled"
+                            ng-required="isRequired"
+                            ng-blur="updateModel()"
+                            ng-change="updateModel()"
+                            type="number" min="1" max="10"
+                            class="form-control">
+                        <span class="input-group-addon">&apos;</span>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <input
+                            ng-model="data.lengthInches"
+                            ng-disabled="isDisabled"
+                            ng-required="isRequired"
+                            ng-blur="updateModel()"
+                            ng-change="updateModel()"
+                            type="number" min="0" max="11"
+                            class="form-control">
+                        <span class="input-group-addon">&quot;</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All other supported units -->
+            <div class="input-group" ng-show="state == 'editing' && config.unitForLength != 'ft/in'">
+                <span class="input-group-addon">{{ config.unitForLength }}</span>
+                <input
+                    ng-model="data.lengthVal"
+                    ng-disabled="isDisabled"
+                    ng-required="isRequired"
+                    ng-blur="updateModel()"
+                    type="number" step="0.01"
+                    class="form-control">
+            </div>
+        </div>
+
+        <!-- Gender -->
+        <div ng-switch-when="gender">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-generic.html'"></ng-include>
+
+            <select
+                ng-show="state == 'editing'"
+                ng-model="model[key]"
+                ng-selected="model[key]"
+                ng-disabled="isDisabled"
+                ng-required="isRequired"
+                class="form-control">
+
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+            </select>
+        </div>
+
+        <!-- Mass -->
+        <div ng-switch-when="mass">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-with-units.html'"></ng-include>
+
+            <!-- Edit field -->
+            <div class="input-group" ng-show="state == 'editing'">
+                <span class="input-group-addon">{{ config.unitForMass }}</span>
+                <input
+                    ng-model="data.massVal"
+                    ng-disabled="isDisabled"
+                    ng-required="isRequired"
+                    ng-blur="updateModel()"
+                    type="number" step="0.01"
+                    class="form-control">
+            </div>
+        </div>
+
+        <!-- Tag -->
+        <div ng-switch-when="tag">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-generic.html'"></ng-include>
+
+            <div ng-show="state == 'editing'">
+                <selectize
+                    ng-model="data"
+                    class="form-control text-left"
+                    config="config"
+                    options="options">
+                </selectize>
+            </div>
+        </div>
+
+        <!-- Placeholder -->
+        <div ng-switch-when="placeholder">
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-generic.html'"></ng-include>
+
+            <input
+                ng-show="state == 'editing'"
+                ng-model="display"
+                ng-disabled="isDisabled"
+                ng-required="isRequired"
+                type="text"
+                class="form-control">
+        </div>
+
+        <!-- Default -->
+        <div ng-switch-default>
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-generic.html'"></ng-include>
+
+            <input
+                ng-show="state == 'editing'"
+                ng-model="model[key]"
+                ng-disabled="isDisabled"
+                ng-required="isRequired"
+                type="text"
+                class="form-control">
+        </div>
+    </div>
+</div>

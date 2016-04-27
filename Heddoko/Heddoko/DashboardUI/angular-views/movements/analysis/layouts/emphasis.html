@@ -1,0 +1,179 @@
+
+<!-- Copyright Heddoko(TM) 2016, all rights reserved. -->
+
+<div class="emphasis-layout">
+
+    <!-- Main container -->
+    <div class="main-container">
+
+        <!-- Secondary views -->
+        <div class="secondary-views">
+            <div class="movement-playback-container">
+                <ui-movement-playback
+                    data-title="'Side / Sagittal'"
+                    data-height="'300px'"
+                    data-previous-movement="false"
+                    data-next-movement="false">
+                </ui-movement-playback>
+            </div>
+
+            <div class="movement-playback-container">
+                <ui-movement-playback
+                    data-title="'Horizontal / Transverse'"
+                    data-height="'300px'"
+                    data-previous-movement="false"
+                    data-next-movement="false">
+                </ui-movement-playback>
+            </div>
+        </div>
+
+        <!-- Primary view -->
+        <div class="primary-view">
+            <div class="movement-playback-container">
+                <ui-movement-playback
+                    data-title="'Front / Coronal'"
+                    data-height="'605px'"
+                    data-previous-movement="false"
+                    data-next-movement="false">
+                </ui-movement-playback>
+            </div>
+        </div>
+
+        <!-- Menu -->
+        <div class="menu-container">
+            <a href="javascript:;" class="btn btn-flat">
+                <i class="fa fa-desktop"></i>
+                <span>
+                    Screen <br>
+                    Recording
+                </span>
+            </a>
+
+            <a href="javascript:;" class="btn btn-flat">
+                <i class="fa fa-camera"></i>
+                <span>Screenshot</span>
+            </a>
+
+            <a href="javascript:;" class="btn btn-flat">
+                <i class="fa fa-microphone"></i>
+                <span>Voice</span>
+            </a>
+
+            <a href="javascript:;" class="btn btn-flat">
+                <i class="fa fa-comment"></i>
+                <span>Comment</span>
+            </a>
+
+            <a href="javascript:;" class="btn btn-flat">
+                <i class="fa fa-search-plus"></i>
+                <span>Zoom In</span>
+            </a>
+
+            <a href="javascript:;" class="btn btn-flat">
+                <i class="fa fa-search-minus"></i>
+                <span>Zoom Out</span>
+            </a>
+
+            <a href="javascript:;" class="btn btn-flat">
+                <i class="fa fa-hand-paper-o"></i>
+                <span>Rotate</span>
+            </a>
+
+            <a href="javascript:;" class="btn btn-flat">
+                <i class="fa fa-pencil"></i>
+                <span>Edit</span>
+            </a>
+
+            <a href="javascript:;" class="btn btn-flat">
+                <i class="fa fa-random"></i>
+                <span>Compare</span>
+            </a>
+
+            <a href="javascript:;" class="btn btn-flat">
+                <i class="fa fa-share-alt"></i>
+                <span>Share</span>
+            </a>
+
+            <a href="javascript:;" class="btn btn-flat">
+                <i class="fa fa-trash"></i>
+                <span>Delete</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Movement details -->
+    <div class="row movement-meta-row">
+
+        <!-- Profile details -->
+        <div class="col-lg-4">
+            <div class="row no-gutter">
+                <div class="col-md-5">
+                    <a
+                        href="#/profiles/{{ profile.id }}"
+                        class="aspect-ratio aspect-4-3 card profile-avatar"
+                        style="background-image: url({{ profile.avatarSrc || '' }})">
+                    </a>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="profile-details">
+                        <div>
+                            <a href="#/profiles/{{ profile.id }}">
+                                {{ profile.lastName.toUpperCase() }}
+                            </a>
+                        </div>
+
+                        <!-- Main group -->
+                        <div ng-if="profile.groups.length > 0">
+                            <a href="#/groups/{{ profile.groups[0].id }}">
+                                {{ profile.groups[0].name }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 movement-details">
+            <div class="row">
+
+                <div class="col-sm-3">
+
+                    <!-- Date -->
+                    <span style="font-size: 0.8em">
+                        {{ movement.createdAt | mysqlDate:'MMM d yyyy, h:mm a' }}
+                    </span>
+
+                    <!-- Tags -->
+                    <ui-editable-standalone-field
+                        data-model="movement"
+                        data-key="tags"
+                        data-empty="Tags:"
+                        data-input-type="tag-title"
+                        data-max-tags="20"
+                        data-save="saveMovementDetails"
+                        data-save-callback="saveMovementDetailsCallback">
+                    </ui-editable-standalone-field>
+
+                </div>
+
+                <!-- Notes -->
+                <div class="col-sm-6">
+                    <ui-editable-standalone-field
+                        data-model="movement.meta"
+                        data-key="notes"
+                        data-empty="Notes:"
+                        data-input-type="textarea"
+                        data-save="saveMovementDetails"
+                        data-save-callback="saveMovementDetailsCallback">
+                    </ui-editable-standalone-field>
+                </div>
+
+                <!-- Buttons -->
+                <div class="col-sm-3">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

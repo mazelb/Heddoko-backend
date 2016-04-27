@@ -1,0 +1,85 @@
+/**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ */
+
+/* Base */
+// @import '../../../bower_components/compass-mixins/lib/compass/css3/images';
+@import 'partials/_variables.scss';
+@import 'fonts/proxima-nova.scss';
+@import 'partials/_general.scss';
+@import 'partials/_selectize.scss';
+@import 'partials/_header.scss';
+@import 'partials/_containers.scss';
+@import 'partials/_forms.scss';
+@import 'partials/_buttons.scss';
+@import 'partials/_pages.scss';
+@import 'partials/_loading-animations.scss';
+@import 'partials/_messages.scss';
+
+/* Specific */
+@import 'partials/_demo.scss';
+@import 'partials/_overlays.scss';
+@import 'partials/_navigation.scss';
+@import 'partials/_port-from-old-stylesheet.scss';
+@import 'partials/_labels-alerts-progress.scss';
+@import 'partials/_panels-modal-tooltips.scss';
+@import 'partials/_ribbons.scss';
+@import 'partials/_charts.scss';
+@import 'partials/_pie-charts.scss';
+
+/* Directives */
+@import 'directives/ui-avatar.scss';
+@import 'directives/ui-editable-fields.scss';
+@import 'directives/ui-filesystem.scss';
+@import 'directives/ui-movement.scss';
+@import 'directives/ui-page-title.scss';
+@import 'directives/ui-taggable.scss';
+
+
+
+
+/**
+ * Backed up notes from previous stylesheet.
+ */
+
+ /*------------------------------------------------------------------
+ [Master Stylesheet]
+
+ Project:	Admin theme
+ Version:	1.1
+ Ownership:  Joao Garin
+
+ Table of contents :
+
+ To go directly to one of these categories simply search for the topic as it is
+ displayed here
+
+ 1 - General CSS
+ 2 - Typography
+ 3 - Containers / Tables / Lists
+ 4 - Forms / Form Elements
+ 5 - Buttons and Links
+ 6 - Dropdowns / Toolbars / Navigation
+ 7 - Labels / Alerts / Progress Bars
+ 8 - Panels / Modals / Tooltips
+ 9 - Dividers / Spacings
+ 10 - Animations
+ 11 - Icons / Images
+ 12 - Mail
+ 13 - Profile
+ 14 - Pricing / Ribbons
+ 15 - Charts / Charting widgets
+ 16 - Messages
+ 17 - Custom Pages
+ 18 - Pie Charts
+
+ Color paletter :
+
+ Green - #383d43
+ Orange - #db5031
+ Light gray - #c1bfc0
+ Yellow - #fef9d9
+ Dark brown - #302624
+
+ -------------------------------------------------------------------*/
