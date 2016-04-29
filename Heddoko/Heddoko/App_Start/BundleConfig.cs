@@ -71,8 +71,12 @@ namespace Heddoko
             Bundle kendoScriptsBundle = new Bundle("~/Bundles/KendoJs");
             kendoScriptsBundle.Include(
                 "~/Scripts/kendo/kendo.all.min.js",
-                "~/Scripts/js/format.js",
-                "~/Scripts/js/admin.js"
+                "~/Scripts/js/admin/format.js",
+                "~/Scripts/js/admin/notification.js",
+                "~/Scripts/js/admin/kendo.js",
+                "~/Scripts/js/admin/ajax.js",
+                "~/Scripts/js/admin/validator.js",
+                "~/Scripts/js/admin/grid/materialTypes.js"
             );
 
             bundles.Add(kendoScriptsBundle);

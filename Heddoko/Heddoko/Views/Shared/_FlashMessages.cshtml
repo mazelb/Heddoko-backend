@@ -1,6 +1,39 @@
 ﻿@model Heddoko.Models.FlashMessagesViewModel
 
+<script id="notification-warning" type="text/x-kendo-template">
+    <div class="notification-info">
+        <img src="@Url.Content("~/Content/img/notification/envelope.png")" />
+        <h3>#= Key #</h3>
+        <p>#= Message #</p>
+    </div>
+</script>
+
+<script id="notification-info" type="text/x-kendo-template">
+    <div class="notification-info">
+        <img src="@Url.Content("Content/img/notification/envelope.png")" />
+        <h3>#= Key #</h3>
+        <p>#= Message #</p>
+    </div>
+</script>
+
+<script id="notification-error" type="text/x-kendo-template">
+    <div class="notification-info">
+        <img src="@Url.Content("Content/img/notification/error-icon.png")" />
+        <h3>#= Key #</h3>
+        <p>#= Message #</p>
+    </div>
+</script>
+
+<script id="notification-success" type="text/x-kendo-template">
+    <div class="upload-success">
+        <img src="@Url.Content("Content/img/notification/success-icon.png")" />
+        <h3>#= Message #</h3>
+    </div>
+</script>
+
 <div class="col-md-12">
+    <span id="staticNotification"></span>
+    <span id="notification" style="display:none;"></span>
     <div class="alerts clearfix notifications">
         @foreach (DAL.Models.FlashMessage message in Model.FlashMessages)
         {

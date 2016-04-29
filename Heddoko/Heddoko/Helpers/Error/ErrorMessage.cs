@@ -13,6 +13,10 @@ namespace Heddoko.Helpers.Error
     {
         public static string Get(string message)
         {
+            if (message.Contains("IX_Identifier", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return $"{i18n.Resources.CannotAddDuplicate} {i18n.Resources.Identifier}";
+            }
             return message;
 
         }

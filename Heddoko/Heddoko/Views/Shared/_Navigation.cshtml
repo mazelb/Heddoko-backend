@@ -1,0 +1,10 @@
+﻿@model Heddoko.Models.BaseViewModel
+
+<nav>
+    <ul class="nav nav-pills pull-right">
+        <li role="presentation"><a href="@Url.Action("Index", "Default")">@i18n.Resources.Home</a></li>
+        <li role="presentation"><a href="@Url.Action("Index", "Analyst")">@i18n.Resources.Dashboard</a></li>
+        <li role="presentation"><a href="@Url.Action("Index", "License")">@i18n.Resources.LicenseTitle</a></li>
+        <li role="presentation"><a href="@Url.Action("Account", "Signout")">@i18n.Resources.SignOut</a></li>
+    </ul>
+</nav>

@@ -151,8 +151,11 @@ namespace Heddoko.Controllers
                     switch (CurrentUser.Role)
                     {
                         case UserRoleType.Admin:
-                            return RedirectToAction("Index", "Default");
+                            return RedirectToAction("Index", "Admin");
                         case UserRoleType.Analyst:
+                            return RedirectToAction("Index", "Analyst");
+                        case UserRoleType.LicenseAdmin:
+                            return RedirectToAction("Index", "License");
                         case UserRoleType.User:
                         default:
                             return RedirectToAction("Index", "Default");

@@ -1,0 +1,23 @@
+﻿@model Heddoko.Models.BaseViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="header clearfix">
+        @Html.Partial("_Navigation", Model)
+        <h3 class="text-muted">@Html.Raw(i18n.Resources.LicenseTitle)</h3>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#suits">License</a></li>
+    </ul>
+    @Html.Partial("_FlashMessages", Model.Flash)
+    <div class="tab-content">
+        <div id="suits" class="tab-pane fade in active">
+            license
+        </div>
+    </div>
+</div>
+

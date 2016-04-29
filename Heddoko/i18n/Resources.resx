@@ -420,4 +420,97 @@
   <data name="UserIsNotActive" xml:space="preserve">
     <value>User is not activated</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="AdminTitle" xml:space="preserve">
+    <value>Heddoko Inventory v0.4</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EmptyItems" xml:space="preserve">
+    <value>No item to display</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Identifier" xml:space="preserve">
+    <value>Identifier</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>SignOut</value>
+  </data>
+  <data name="WrongObjectAccess" xml:space="preserve">
+    <value>You don't access to that object</value>
+  </data>
+  <data name="AddANew" xml:space="preserve">
+    <value>Add a new</value>
+  </data>
+  <data name="AnatomicalPosition" xml:space="preserve">
+    <value>Anatomical position</value>
+  </data>
+  <data name="AnatomicalPositions" xml:space="preserve">
+    <value>Anatomical positions</value>
+  </data>
+  <data name="Equipment" xml:space="preserve">
+    <value>Equipment</value>
+  </data>
+  <data name="Equipments" xml:space="preserve">
+    <value>Equipments</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Find</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="LicenseTitle" xml:space="preserve">
+    <value>License dashboard</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Materials" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="MaterialType" xml:space="preserve">
+    <value>Material type</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Suit" xml:space="preserve">
+    <value>Suit</value>
+  </data>
+  <data name="Suits" xml:space="preserve">
+    <value>Suits</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="MaterialTypes" xml:space="preserve">
+    <value>Material Types</value>
+  </data>
+  <data name="CannotAddDuplicate" xml:space="preserve">
+    <value>Cannont instert duplicate</value>
+  </data>
 </root>

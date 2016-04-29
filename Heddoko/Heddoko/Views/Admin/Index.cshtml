@@ -1,0 +1,89 @@
+﻿@model Heddoko.Models.BaseViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="header clearfix">
+        @Html.Partial("_Navigation", Model)
+        <h3 class="text-muted">@Html.Raw(i18n.Resources.AdminTitle)</h3>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#suits">@i18n.Resources.Suits</a></li>
+        <li><a data-toggle="tab" href="#equipment">@i18n.Resources.Equipments</a></li>
+        <li><a data-toggle="tab" href="#materials">@i18n.Resources.Materials</a></li>
+        <li><a data-toggle="tab" href="#material_types">@i18n.Resources.MaterialTypes</a></li>
+    </ul>
+    @Html.Partial("_FlashMessages", Model.Flash)
+    <div class="tab-content">
+        <div id="suits" class="tab-pane fade in active">
+            deom
+        </div>
+
+        <div id="equipment" class="tab-pane fade">
+            deom
+        </div>
+
+        <div id="materials" class="tab-pane fade">
+            deom
+        </div>
+
+        <div id="material_types" class="tab-pane fade">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="filters matrialTypesFilter">
+                        <div>
+                            <label for="search" class="control-label">@i18n.Resources.Search</label>
+                            <input id="search"
+                                   class="form-control"
+                                   type="text"
+                                   data-bind="value: search, events:{ keyup: keyup }" />
+                        </div>
+                        <div class="margin010">
+                            <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-success matrialTypesForm">
+                        <div class="panel-heading clearfix">
+                            <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.MaterialType</h3>
+                            <div class="btn-group pull-right" role="group">
+                                <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
+                                <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <input type="text" 
+                                           placeholder="@i18n.Resources.Identifier" 
+                                           class="form-control"
+                                           required
+                                           data-bind="value: identifier"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="materialTypes">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="anatomical_positions" class="tab-pane fade">
+            deom
+        </div>
+    </div>
+</div>
+

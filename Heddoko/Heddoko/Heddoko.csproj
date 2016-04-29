@@ -158,6 +158,9 @@
       <DependentUpon>kendo.css</DependentUpon>
     </Content>
     <Content Include="Content\css\app.css" />
+    <Content Include="Content\css\kendo.min.css">
+      <DependentUpon>kendo.css</DependentUpon>
+    </Content>
     <Content Include="Content\css\styles.css" />
     <Content Include="Content\demo\aslr\analysis\sagittal.mp4" />
     <Content Include="Content\demo\aslr\left\coronal.mp4" />
@@ -211,6 +214,9 @@
     <Content Include="Content\images\ui\lock_closed.png" />
     <Content Include="Content\images\ui\lock_open.png" />
     <Content Include="Content\images\ui\spinner.gif" />
+    <Content Include="Content\img\notification\envelope.png" />
+    <Content Include="Content\img\notification\error-icon.png" />
+    <Content Include="Content\img\notification\success-icon.png" />
     <Content Include="Content\kendo\Default\editor.png" />
     <Content Include="Content\kendo\Default\imagebrowser.png" />
     <Content Include="Content\kendo\Default\indeterminate.gif" />
@@ -368,6 +374,7 @@
     <Content Include="Content\video\active_straight_leg_raise\Right\top_good.webm" />
     <Content Include="Content\video\active_straight_leg_raise\Right\top_wrong.webm" />
     <Content Include="Content\favicons\manifest.json" />
+    <Content Include="Content\scss\nodes\notification.scss" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
@@ -378,6 +385,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\admin\ajax.js" />
+    <Content Include="Scripts\js\admin\format.js" />
+    <Content Include="Scripts\js\admin\kendo.js" />
+    <Content Include="Scripts\js\admin\grid\materialTypes.js" />
+    <Content Include="Scripts\js\admin\notification.js" />
+    <Content Include="Scripts\js\admin\validator.js" />
     <Content Include="Scripts\js\app.js" />
     <Content Include="Scripts\js\scripts.js" />
     <Content Include="Scripts\kendo\angular.min.js" />
@@ -907,6 +920,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\LicenseController.cs" />
+    <Compile Include="Controllers\AnalystContoller.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Admin\BaseAdminController.cs" />
+    <Compile Include="Controllers\Admin\MaterialTypesController.cs" />
     <Compile Include="Controllers\API\BaseAPIController.cs" />
     <Compile Include="Controllers\API\DevController.cs" />
     <Compile Include="Controllers\API\GroupsAPIController.cs" />
@@ -932,6 +950,10 @@
     <Compile Include="Helpers\Error\ExceptionAPIHandler.cs" />
     <Compile Include="Helpers\Error\ModelStateException.cs" />
     <Compile Include="Helpers\Error\TraceErrorAttribute.cs" />
+    <Compile Include="Helpers\Kendo\AggregateLogic.cs" />
+    <Compile Include="Helpers\Kendo\FilterLogic.cs" />
+    <Compile Include="Helpers\Kendo\FilterOperator.cs" />
+    <Compile Include="Helpers\Kendo\SortDirection.cs" />
     <Compile Include="Helpers\Mail\Mail.cs" />
     <Compile Include="Helpers\Mail\Mailer.cs" />
     <Compile Include="Helpers\Mail\RazorView.cs" />
@@ -944,6 +966,17 @@
     <Compile Include="Models\Account\ForgotViewModel.cs" />
     <Compile Include="Models\Account\SignUpAccountViewModel.cs" />
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
+    <Compile Include="Models\Admin\BaseAPIModel.cs" />
+    <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
+    <Compile Include="Models\Admin\ErrorAPIModel.cs" />
+    <Compile Include="Models\Admin\Kendo\KendoAggregateItem.cs" />
+    <Compile Include="Models\Admin\Kendo\KendoFilter.cs" />
+    <Compile Include="Models\Admin\Kendo\KendoFilterItem.cs" />
+    <Compile Include="Models\Admin\Kendo\KendoModelsRequest.cs" />
+    <Compile Include="Models\Admin\Kendo\KendoRequest.cs" />
+    <Compile Include="Models\Admin\Kendo\KendoResponse.cs" />
+    <Compile Include="Models\Admin\Kendo\KendoSort.cs" />
+    <Compile Include="Models\Admin\MaterialTypeAPIModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\Email\ActivationUserEmailViewModel.cs" />
     <Compile Include="Models\Email\EmailViewModel.cs" />
@@ -958,9 +991,7 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\Admin\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Properties\PublishProfiles\dev.pubxml" />
     <None Include="Properties\PublishProfiles\prod.pubxml" />
@@ -968,7 +999,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Favicons.cshtml" />
-    <Content Include="Content\scss\admin.scss" />
+    <Content Include="Content\scss\kendo.scss" />
     <Content Include="Content\scss\core\helpers.scss" />
     <Content Include="Content\scss\core\mixin.scss" />
     <Content Include="Content\scss\core\variables.scss" />
@@ -1483,6 +1514,11 @@
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_LayoutAngular.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Analyst\Index.cshtml" />
+    <Content Include="Views\License\Index.cshtml" />
+    <Content Include="Views\Shared\_Navigation.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201604261253470_Init.Designer.cs">
       <DependentUpon>201604261253470_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604291530269_UniqueMaterials.cs" />
+    <Compile Include="Migrations\201604291530269_UniqueMaterials.Designer.cs">
+      <DependentUpon>201604291530269_UniqueMaterials.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\AccessToken.cs" />
@@ -167,6 +171,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201604261253470_Init.resx">
       <DependentUpon>201604261253470_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604291530269_UniqueMaterials.resx">
+      <DependentUpon>201604291530269_UniqueMaterials.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
