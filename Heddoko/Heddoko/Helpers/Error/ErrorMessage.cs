@@ -17,9 +17,13 @@ namespace Heddoko.Helpers.Error
             {
                 return $"{i18n.Resources.CannotAddDuplicate} {i18n.Resources.Identifier}";
             }
-            if(message.Contains("FK_dbo.Equipments_dbo.Materials_MaterialID", StringComparison.InvariantCultureIgnoreCase))
+            if (message.Contains("FK_dbo.Equipments_dbo.Materials_MaterialID", StringComparison.InvariantCultureIgnoreCase))
             {
                 return $"{i18n.Resources.CannotRemove} {i18n.Resources.Equipment} {i18n.Resources.Use} {i18n.Resources.Material}";
+            }
+            if (message.Contains("FK_dbo.Materials_dbo.MaterialTypes_MaterialTypeID", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return $"{i18n.Resources.CannotRemove} {i18n.Resources.Material} {i18n.Resources.Use} {i18n.Resources.MaterialType}";
             }
             if (message.Contains("IX_Name", StringComparison.InvariantCultureIgnoreCase))
             {

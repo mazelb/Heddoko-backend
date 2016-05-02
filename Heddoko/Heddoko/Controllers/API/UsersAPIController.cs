@@ -64,7 +64,7 @@ namespace Heddoko.Controllers.API
         {
             if (ModelState.IsValid)
             {
-                User user = UoW.UserRepository.GetByUsername(model.Username?.Trim());
+                User user = UoW.UserRepository.GetByUsernameFull(model.Username?.Trim());
                 if (user != null)
                 {
                     if (user.IsActive)
@@ -79,6 +79,9 @@ namespace Heddoko.Controllers.API
                                 });
                                 UoW.UserRepository.Update();
                                 user.AllowToken();
+                                //TODO remove that - fixed issue with stackoverflow referencies
+                                user.Tokens = null;
+                                UoW.UserRepository.SetCache(user);
                             }
                             return user;
                         }

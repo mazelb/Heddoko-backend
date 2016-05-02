@@ -8,5 +8,9 @@ namespace DAL
         IEnumerable<Equipment> Search(string value);
         void RemoveComplexEquipment(int complextEquipmentID);
         IEnumerable<Equipment> GetByComplexEquipment(int complexEquipmentID);
+        Equipment GetFull(int id);
+        IEnumerable<Equipment> GetEmpty();
+        IEnumerable<Equipment> GetBySerialSearch(string value);
+        Equipment GetBySerialNo(string serialNo);
     }
 }

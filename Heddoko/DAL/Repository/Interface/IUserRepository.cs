@@ -5,6 +5,8 @@ namespace DAL
 {
     public interface IUserRepository : IBaseRepository<User>
     {
+        User GetFull(int id);
+
         void SetCache(User user);
 
         User GetByEmailCached(string email);
@@ -12,6 +14,8 @@ namespace DAL
         User GetByUsernameCached(string username);
 
         User GetByUsername(string username);
+
+        User GetByUsernameFull(string username);
 
         User GetByEmail(string email);
 

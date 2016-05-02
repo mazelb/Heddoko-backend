@@ -727,6 +727,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Link.
+        /// </summary>
+        public static string Link {
+            get {
+                return ResourceManager.GetString("Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string Login {
@@ -840,6 +849,15 @@ namespace i18n {
         public static string NewPassword {
             get {
                 return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
             }
         }
         
@@ -979,6 +997,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to required.
+        /// </summary>
+        public static string Required {
+            get {
+                return ResourceManager.GetString("Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
         public static string Reset {
@@ -1015,6 +1042,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
@@ -1038,6 +1074,15 @@ namespace i18n {
         public static string SelectCondition {
             get {
                 return ResourceManager.GetString("SelectCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a equipments.
+        /// </summary>
+        public static string SelectEquipment {
+            get {
+                return ResourceManager.GetString("SelectEquipment", resourceCulture);
             }
         }
         
@@ -1263,6 +1308,15 @@ namespace i18n {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unlink.
+        /// </summary>
+        public static string Unlink {
+            get {
+                return ResourceManager.GetString("Unlink", resourceCulture);
             }
         }
         

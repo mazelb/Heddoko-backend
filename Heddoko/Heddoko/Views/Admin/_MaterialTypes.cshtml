@@ -29,9 +29,11 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <input type="text"
+                               required
+                               name="materialType-identifier"
+                               validationMessage="@i18n.Resources.Required"
                                placeholder="@i18n.Resources.Identifier"
                                class="form-control"
-                               required
                                data-bind="value: model.identifier" />
                     </div>
                 </div>

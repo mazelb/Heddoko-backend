@@ -27,6 +27,6 @@ namespace Heddoko.Models
         [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(i18n.Resources))]
         public EquipmentStatusType Status { get; set; }
 
-        public List<Equipment> Equipments { get; set; }
+        public string Equipments { get; set; }
     }
 }

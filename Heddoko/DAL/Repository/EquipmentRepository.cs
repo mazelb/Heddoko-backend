@@ -40,5 +40,31 @@ namespace DAL
         {
             return All().Where(c => c.ComplexEquipmentID == complexEquipmentID);
         }
+
+        public Equipment GetFull(int id)
+        {
+           return  DbSet.Include(c => c.Material)
+                        .Include(c => c.VerifiedBy)
+                        .Include(c => c.ComplexEquipment)
+                        .FirstOrDefault(c => c.ID == id);
+        }
+
+        public IEnumerable<Equipment> GetEmpty()
+        {
+            return DbSet.Where(c => c.ComplexEquipmentID == null)
+                        .OrderBy(c => c.SerialNo);
+        }
+
+        public IEnumerable<Equipment> GetBySerialSearch(string value)
+        {
+            return DbSet.Where(c => c.ComplexEquipmentID == null
+                                 && c.SerialNo.Contains(value));
+        }
+
+        public Equipment GetBySerialNo(string serialNo)
+        {
+            return DbSet.Where(c => c.SerialNo == serialNo)
+                        .FirstOrDefault();
+        }
     }
 }

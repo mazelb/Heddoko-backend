@@ -17,6 +17,8 @@ namespace Heddoko.Controllers
     {
         const string Search = "Search";
         const string ComplexEquipmentID = "ComplexEquipmentID";
+        const string LinkComplexEquipmentID = "LinkComplexEquipmentID";
+        const string SerialNo = "serialNo";
 
         public override KendoResponse<IEnumerable<EquipmentAPIModel>> Get([FromUri]KendoRequest request)
         {
@@ -30,23 +32,37 @@ namespace Heddoko.Controllers
                     {
 
                         case 1:
-                            KendoFilterItem searchFilter = request.Filter.Get(Search);
-                            if (searchFilter != null
-                            && !string.IsNullOrEmpty(searchFilter.Value))
+                            foreach (KendoFilterItem filter in request.Filter.Filters)
                             {
-                                items = UoW.EquipmentRepository.Search(searchFilter.Value);
-                            }
-                            else
-                            {
-                                KendoFilterItem complextEquipmentFilter = request.Filter.Get(ComplexEquipmentID);
-
-                                if (complextEquipmentFilter != null
-                                 && !string.IsNullOrEmpty(complextEquipmentFilter.Value))
+                                switch (filter.Field)
                                 {
-                                    items = UoW.EquipmentRepository.GetByComplexEquipment(int.Parse(complextEquipmentFilter.Value));
+                                    case Search:
+                                        if (!string.IsNullOrEmpty(filter.Value))
+                                        {
+                                            items = UoW.EquipmentRepository.Search(filter.Value);
+                                        }
+
+                                        if (items == null)
+                                        {
+                                            items = UoW.EquipmentRepository.All();
+                                        }
+
+                                        break;
+                                    case ComplexEquipmentID:
+                                        if (!string.IsNullOrEmpty(filter.Value))
+                                        {
+                                            items = UoW.EquipmentRepository.GetByComplexEquipment(int.Parse(filter.Value));
+                                        }
+                                        break;
+
+                                    case SerialNo:
+                                        if (!string.IsNullOrEmpty(filter.Value))
+                                        {
+                                            items = UoW.EquipmentRepository.GetBySerialSearch(filter.Value);
+                                        }
+                                        break;
                                 }
                             }
-
                             break;
                     }
                 }
@@ -54,7 +70,7 @@ namespace Heddoko.Controllers
 
             if (items == null)
             {
-                items = UoW.EquipmentRepository.All();
+                items = new List<Equipment>();
             }
 
             count = items.Count();
@@ -146,6 +162,21 @@ namespace Heddoko.Controllers
             };
         }
 
+        [Route("{id:int}/unlink")]
+        public KendoResponse<EquipmentAPIModel> Unlink(int id)
+        {
+            Equipment item = UoW.EquipmentRepository.GetFull(id);
+            if (item != null)
+            {
+                item.ComplexEquipment = null;
+                UoW.EquipmentRepository.Update();
+            }
+
+            return new KendoResponse<EquipmentAPIModel>()
+            {
+                Response = Convert(item)
+            };
+        }
 
         public override KendoResponse<EquipmentAPIModel> Delete(int id)
         {
@@ -227,9 +258,9 @@ namespace Heddoko.Controllers
                 Ship = item.Ship,
                 Status = item.Status,
                 MaterialID = item.MaterialID,
-                MaterialName = item.Material.Name,
+                MaterialName = item.Material?.Name,
                 VerifiedByID = item.VerifiedByID,
-                VerifiedByName = item.VerifiedBy.Name,
+                VerifiedByName = item.VerifiedBy?.Name,
                 ComplexEquipmentID = item.ComplexEquipmentID
             };
         }

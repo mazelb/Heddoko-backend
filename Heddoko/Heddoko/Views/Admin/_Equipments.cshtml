@@ -30,6 +30,8 @@
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
+                                name="equipment-materialID"
+                                validationMessage="@i18n.Resources.Required"
                                 data-role="dropdownlist"
                                 data-filter="startswith"
                                 data-value-primitive="true"
@@ -38,10 +40,9 @@
                                 data-value-field="id"
                                 data-bind="value: model.materialID, source: materials"></select>
                     </div>
-                    
+
                     <div class="col-sm-2">
                         <select class="form-control"
-                                required
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
                                 data-text-field="text"
@@ -54,6 +55,8 @@
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
+                                name="equipment-verifiedByID"
+                                validationMessage="@i18n.Resources.Required"
                                 data-role="dropdownlist"
                                 data-filter="startswith"
                                 data-value-primitive="true"
@@ -66,6 +69,8 @@
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
+                                name="equipment-status"
+                                validationMessage="@i18n.Resources.Required"
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
                                 data-text-field="text"
@@ -78,6 +83,8 @@
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
+                                name="equipment-prototype"
+                                validationMessage="@i18n.Resources.Required"
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
                                 data-text-field="text"
@@ -88,6 +95,8 @@
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
+                                name="equipment-condition"
+                                validationMessage="@i18n.Resources.Required"
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
                                 data-text-field="text"
@@ -98,6 +107,8 @@
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
+                                name="equipment-numbers"
+                                validationMessage="@i18n.Resources.Required"
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
                                 data-text-field="text"
@@ -108,6 +119,8 @@
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
+                                name="equipment-heatsShrink"
+                                validationMessage="@i18n.Resources.Required"
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
                                 data-text-field="text"
@@ -118,6 +131,8 @@
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
+                                name="equipment-ship"
+                                validationMessage="@i18n.Resources.Required"
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
                                 data-text-field="text"
@@ -129,34 +144,39 @@
                 <div class="row margin010">
                     <div class="col-sm-3">
                         <input type="text"
+                               required
+                               name="equipment-serialNo"
+                               validationMessage="@i18n.Resources.Required"
                                placeholder="@i18n.Resources.SerialNo"
                                class="form-control"
-                               required
                                data-bind="value: model.serialNo" />
                     </div>
 
                     <div class="col-sm-3">
                         <input type="text"
+                               required
+                               name="equipment-macAddress"
+                               validationMessage="@i18n.Resources.Required"
                                placeholder="@i18n.Resources.MacAddress"
                                class="form-control"
-                               required
                                data-bind="value: model.macAddress" />
                     </div>
 
                     <div class="col-sm-6">
                         <input type="text"
+                               required
+                               name="equipment-physicalLocation"
+                               validationMessage="@i18n.Resources.Required"
                                placeholder="@i18n.Resources.PhysicalLocation"
                                class="form-control"
-                               required
                                data-bind="value: model.physicalLocation" />
                     </div>
                 </div>
                 <div class="row margin010">
                     <div class="col-sm-12">
-                        <textarea data-bind="value: model.notes" 
-                                  class="form-control" 
-                                  placeholder="@i18n.Resources.Notes">
-                        </textarea>
+                        <textarea data-bind="value: model.notes"
+                                  class="form-control"
+                                  placeholder="@i18n.Resources.Notes"></textarea>
                     </div>
                 </div>
             </div>

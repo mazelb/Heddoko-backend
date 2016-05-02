@@ -160,26 +160,18 @@ namespace Heddoko.Controllers
             item.PhysicalLocation = model.PhysicalLocation;
             item.Status = model.Status;
 
-            if (item.Equipments != null)
-            {
-                foreach (Equipment equipment in item.Equipments)
-                {
-                    if (!model.Equipments.Any(c => c.ID == equipment.ID))
-                    {
-                        item.Equipments.Remove(equipment);
-                    }
-                }
-            }
+            List<string> equipments = model.Equipments.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim()).Where(c => c != "").ToList();
 
             if (model.Equipments != null)
             {
-                foreach (Equipment equipment in model.Equipments)
+                foreach (string equipment in equipments)
                 {
                     if (item.Equipments != null
-                    && !item.Equipments.Any(c => c.ID == equipment.ID))
+                    && !item.Equipments.Any(c => c.SerialNo == equipment))
                     {
-                        Equipment equip = UoW.EquipmentRepository.Get(equipment.ID);
-                        if (equip != null)
+                        Equipment equip = UoW.EquipmentRepository.GetBySerialNo(equipment);
+                        if (equip != null
+                        && !equip.ComplexEquipmentID.HasValue)
                         {
                             item.Equipments.Add(equip);
                         }

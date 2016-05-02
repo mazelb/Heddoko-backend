@@ -36,3 +36,25 @@
     </div>
 </div>
 
+
+@section Body {
+    <div id="ComplexEquipmentPopup" style="display:none;">
+        <div class="ComplexEquipmentLinkForm">
+            <div>
+                <input  class="form-control"
+                        required
+                        name="complexEquipment-equipments"
+                        validationMessage="@i18n.Resources.Required"
+                        data-role="autocomplete"
+                        data-value-primitive="true"
+                        data-text-field="serialNo"
+                        data-option-label="@i18n.Resources.SelectEquipment"
+                        data-value-field="id"
+                        data-separator=", "
+                        data-bind="value: model.equipments, source: equipments"/>
+            </div>
+            <br />
+            <button class="btn btn-primary" data-bind="events: { click: link }">@i18n.Resources.Save</button>
+        </div>
+    </div>
+}

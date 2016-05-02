@@ -45,10 +45,15 @@ namespace DAL
         public override User Get(int id)
         {
             return DbSet.Include(c => c.Asset)
-                        .Include( c=> c.Tokens)
                         .FirstOrDefault(c => c.ID == id);
         }
 
+        public User GetFull(int id)
+        {
+            return DbSet.Include(c => c.Asset)
+                        .Include(c => c.Tokens)
+                        .FirstOrDefault(c => c.ID == id);
+        }
 
         public User GetByEmailCached(string email)
         {
@@ -68,15 +73,21 @@ namespace DAL
         public User GetByEmail(string email)
         {
             return DbSet.Include(c => c.Asset)
-                        .Include(c => c.Tokens)
                         .Where(c => c.Email == email).FirstOrDefault();
         }
 
         public User GetByUsername(string username)
         {
             return DbSet.Include(c => c.Asset)
-                        .Include(c => c.Tokens)
                         .Where(c => c.Username == username).FirstOrDefault();
+        }
+
+        public User GetByUsernameFull(string username)
+        {
+            return DbSet.Include(c => c.Asset)
+                        .Include(c => c.Tokens)
+                        .Where(c => c.Username == username)
+                        .FirstOrDefault();
         }
 
         public User GetByConfirmToken(string confirmToken)
