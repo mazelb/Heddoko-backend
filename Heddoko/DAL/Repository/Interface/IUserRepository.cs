@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using System.Collections.Generic;
+using DAL.Models;
 
 namespace DAL
 {
@@ -17,5 +18,6 @@ namespace DAL
         User GetByConfirmToken(string confirmToken);
 
         User GetByForgetToken(string forgetToken);
+        IEnumerable<User> Admins();
     }
 }

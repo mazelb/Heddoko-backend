@@ -1,8 +1,9 @@
 ﻿$(function () {
-    MaterialTypes.init();
+   
+    Materials.init();
 });
 
-var MaterialTypes = {
+var Materials = {
     controls: {
         grid: null,
         filterModel: null,
@@ -13,12 +14,12 @@ var MaterialTypes = {
     },
     datasources: function () {
         //Datasources context
-        this.materialTypes = new kendo.data.DataSource({
+        this.materials = new kendo.data.DataSource({
             pageSize: KendoDS.pageSize,
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/materialTypes'),
+            transport: KendoDS.buildTransport('/admin/api/materials'),
             schema: {
                 data: "response",
                 total: "total",
@@ -30,12 +31,29 @@ var MaterialTypes = {
                             editable: false,
                             nullable: true
                         },
-                        identifier: {
+                        name: {
                             nullable: false,
                             type: "string",
                             validation: {
                                 required: true,
-                                maxLengthValidation: Validator.materialType.maxLengthValidation
+                                maxLengthValidation: Validator.material.name.maxLengthValidation
+                            }
+                        },
+                        partNo: {
+                            nullable: false,
+                            type: "string",
+                            validation: {
+                                required: true,
+                                maxLengthValidation: Validator.material.partNo.maxLengthValidation
+                            }
+                        },
+                        materialTypeID: {
+                            nullable: false,
+                            type: "number",
+                            validation: {
+                                required: true,
+                                min: 1,
+                                max: KendoDS.maxInt
                             }
                         }
                     }
@@ -43,11 +61,11 @@ var MaterialTypes = {
             }
         });
 
-        this.materialTypesDD = new kendo.data.DataSource({
+        this.materialsDD = new kendo.data.DataSource({
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/materialTypes'),
+            transport: KendoDS.buildTransport('/admin/api/materials'),
             schema: {
                 data: "response",
                 total: "total",
@@ -59,13 +77,13 @@ var MaterialTypes = {
         });
     },
     init: function () {
-        var control = $("#gridMaterialTypes");
-        var filter = $('.matrialTypesFilter');
-        var model = $('.matrialTypesForm');
+        var control = $("#gridMaterials");
+        var filter = $('.materialsFilter');
+        var model = $('.materialsForm');
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                dataSource: Datasources.materialTypes,
+                dataSource: Datasources.materials,
                 sortable: false,
                 editable: "popup",
                 selectable: false,
@@ -77,8 +95,18 @@ var MaterialTypes = {
                     pageSizes: [10, 50, 100]
                 },
                 columns: [{
-                    field: 'identifier',
-                    title: i18n.Resources.Identifier
+                    field: 'name',
+                    title: i18n.Resources.Name
+                }, {
+                    field: 'partNo',
+                    title: i18n.Resources.PartNo
+                }, {
+                    field: 'materialTypeId',
+                    title: i18n.Resources.MaterialType,
+                    template: function (e) {
+                        return e.materialTypeName
+                    },
+                    editor: MaterialTypes.ddEditor
                 }, {
                     command: [{
                         name: "edit",
@@ -110,6 +138,7 @@ var MaterialTypes = {
             this.controls.addModel = kendo.observable({
                 reset: this.onReset.bind(this),
                 submit: this.onAdd.bind(this),
+                materialTypes: Datasources.materialTypesDD,
                 model: this.getEmptyModel()
             });
 
@@ -118,28 +147,31 @@ var MaterialTypes = {
             this.validators.addModel = model.kendoValidator({
                 validateOnBlur: true,
                 rules: {
-                    maxLengthValidation: Validator.materialType.maxLengthValidation
+                    maxLengthValidationName: Validator.material.name.maxLengthValidation,
+                    maxLengthValidationPartNo: Validator.material.partNo.maxLengthValidation,
                 }
             }).data("kendoValidator");
         }
     },
     ddEditor: function (container, options) {
-        $('<input required data-text-field="identifier" data-value-field="id"  data-value-primitive="true" data-bind="value:' + options.field + '"/>')
+        $('<input required data-text-field="name" data-value-field="id"  data-value-primitive="true" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             autoBind: true,
-            dataSource: Datasources.materialTypesDD
+            dataSource: Datasources.materialsDD
         });
     },
-    getEmptyModel: function() {
+    getEmptyModel: function () {
         return {
-            identifier: null
+            name: null,
+            partNo: null,
+            materialTypeId: null
         };
     },
-    onReset: function(e) {
+    onReset: function (e) {
         this.controls.addModel.set('model', this.getEmptyModel());
     },
-    onAdd: function(e) {
+    onAdd: function (e) {
         Notifications.clear();
         if (this.validators.addModel.validate()) {
             var obj = this.controls.addModel.get('model');
@@ -185,4 +217,5 @@ var MaterialTypes = {
         return filters.length == 0 ? {} : filters;
     }
 };
-Datasources.bind(MaterialTypes.datasources);
+
+Datasources.bind(Materials.datasources);

@@ -67,3 +67,9 @@ html, body {
 .filters {
   padding: 10px 0px; }
 
+.panel-body .k-dropdown.k-header {
+  background-color: transparent; }
+
+.grid-notes {
+  width: 100px; }
+

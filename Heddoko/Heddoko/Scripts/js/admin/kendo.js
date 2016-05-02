@@ -206,6 +206,9 @@ var KendoDS = {
         container.prev().hide();
         container.hide();
     },
+    textAreaDDEditor: function (container, options) {
+        $('<textarea data-bind="value: ' + options.field + '"></textarea>').appendTo(container);
+    },
     onDataBound: function (e) {
         var grid = e.sender;
         if (grid.dataSource.total() == 0) {

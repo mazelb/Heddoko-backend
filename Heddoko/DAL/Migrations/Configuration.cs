@@ -154,6 +154,17 @@ namespace DAL.Migrations
                       FirstName = "Lzane",
                       LastName = "Demo",
                       Role = UserRoleType.Analyst
+                  },
+                  new User
+                  {
+                      Email = "license@heddoko.co",
+                      Username = "license",
+                      Status = UserStatusType.Active,
+                      Password = pwd.Hash,
+                      Salt = pwd.Salt,
+                      FirstName = "License",
+                      LastName = "Demo",
+                      Role = UserRoleType.LicenseAdmin
                   }
               );
             context.SaveChanges();
@@ -533,6 +544,10 @@ namespace DAL.Migrations
             );
             context.SaveChanges();
 
+            context.Equipments.RemoveRange(context.Equipments.ToList());
+            context.ComplexEquipments.RemoveRange(context.ComplexEquipments.ToList());
+            context.SaveChanges();
+
             context.Materials.AddOrUpdate(
                 p => p.Name,
                 new Material()
@@ -556,26 +571,22 @@ namespace DAL.Migrations
             );
             context.SaveChanges();
 
-            context.Equipments.RemoveRange(context.Equipments.ToList());
-            context.ComplexEquipments.RemoveRange(context.ComplexEquipments.ToList());
-
-            context.SaveChanges();
             for (int i = 1; i <= 10; i++)
             {
                 context.ComplexEquipments.AddOrUpdate(
                     p => p.MacAddress,
                     new ComplexEquipment()
                     {
-                        MacAddress = PasswordHasher.GenerateRandomSalt(10),
-                        SerialNo = PasswordHasher.GenerateRandomSalt(10),
+                        MacAddress = PasswordHasher.GenerateRandomSalt(6).Replace("==", ""),
+                        SerialNo = PasswordHasher.GenerateRandomSalt(6).Replace("==", ""),
                         PhysicalLocation = "Warehouse",
                         Status = EquipmentStatusType.Unavailable,
                         Equipments = new List<Equipment>()
                         {
                             new Equipment()
                             {
-                                MacAddress = PasswordHasher.GenerateRandomSalt(10),
-                                SerialNo = PasswordHasher.GenerateRandomSalt(10),
+                                MacAddress = PasswordHasher.GenerateRandomSalt(6).Replace("==", ""),
+                                SerialNo = PasswordHasher.GenerateRandomSalt(6).Replace("==", ""),
                                 PhysicalLocation = "Box 2",
                                 Status = EquipmentStatusType.Unavailable,
                                 AnatomicalPosition = AnatomicalPositionType.LeftTibia,
@@ -589,8 +600,8 @@ namespace DAL.Migrations
                             },
                             new Equipment()
                             {
-                                MacAddress = PasswordHasher.GenerateRandomSalt(10),
-                                SerialNo = PasswordHasher.GenerateRandomSalt(10),
+                                MacAddress = PasswordHasher.GenerateRandomSalt(6).Replace("==", ""),
+                                SerialNo = PasswordHasher.GenerateRandomSalt(6).Replace("==", ""),
                                 PhysicalLocation = "Box 2",
                                 Status = EquipmentStatusType.Unavailable,
                                 AnatomicalPosition = AnatomicalPositionType.RightForeArm,
@@ -604,8 +615,8 @@ namespace DAL.Migrations
                             },
                             new Equipment()
                             {
-                                MacAddress = PasswordHasher.GenerateRandomSalt(10),
-                                SerialNo = PasswordHasher.GenerateRandomSalt(10),
+                                MacAddress = PasswordHasher.GenerateRandomSalt(6).Replace("==", ""),
+                                SerialNo = PasswordHasher.GenerateRandomSalt(6).Replace("==", ""),
                                 PhysicalLocation = "Box 2",
                                 Status = EquipmentStatusType.Unavailable,
                                 AnatomicalPosition = null,
@@ -625,8 +636,8 @@ namespace DAL.Migrations
                 p => p.MacAddress,
                     new Equipment()
                     {
-                        MacAddress = PasswordHasher.GenerateRandomSalt(10),
-                        SerialNo = PasswordHasher.GenerateRandomSalt(10),
+                        MacAddress = PasswordHasher.GenerateRandomSalt(6).Replace("==", ""),
+                        SerialNo = PasswordHasher.GenerateRandomSalt(6).Replace("==", ""),
                         PhysicalLocation = "Box 1",
                         Status = EquipmentStatusType.Available,
                         AnatomicalPosition = null,

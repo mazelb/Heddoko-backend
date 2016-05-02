@@ -445,7 +445,7 @@
     <value>Identifier</value>
   </data>
   <data name="SignOut" xml:space="preserve">
-    <value>SignOut</value>
+    <value>Sign out</value>
   </data>
   <data name="WrongObjectAccess" xml:space="preserve">
     <value>You don't access to that object</value>
@@ -511,6 +511,93 @@
     <value>Material Types</value>
   </data>
   <data name="CannotAddDuplicate" xml:space="preserve">
-    <value>Cannont instert duplicate</value>
+    <value>Can't add duplicate</value>
+  </data>
+  <data name="EnterIdentifier" xml:space="preserve">
+    <value>Enter an identifier</value>
+  </data>
+  <data name="EnterMaterial" xml:space="preserve">
+    <value>Enter the name or part # of a material</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PartNo" xml:space="preserve">
+    <value>Part #</value>
+  </data>
+  <data name="CannotRemove" xml:space="preserve">
+    <value>Can't delete, because</value>
+  </data>
+  <data name="Use" xml:space="preserve">
+    <value>use</value>
+  </data>
+  <data name="EnterEquipment" xml:space="preserve">
+    <value>Enter the serial # or location or mac address of an equipment</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="Condition" xml:space="preserve">
+    <value>Condition</value>
+  </data>
+  <data name="HeatsShrink" xml:space="preserve">
+    <value>Heats shrink</value>
+  </data>
+  <data name="MacAddress" xml:space="preserve">
+    <value>MAC Address</value>
+  </data>
+  <data name="Numbers" xml:space="preserve">
+    <value>Numbers</value>
+  </data>
+  <data name="PhysicalLocation" xml:space="preserve">
+    <value>Physical location</value>
+  </data>
+  <data name="Prototype" xml:space="preserve">
+    <value>Prototype</value>
+  </data>
+  <data name="SelectAnatomicalPosition" xml:space="preserve">
+    <value>Select an anatomical position</value>
+  </data>
+  <data name="SelectCondition" xml:space="preserve">
+    <value>Select a condition</value>
+  </data>
+  <data name="SelectHeatsShrink" xml:space="preserve">
+    <value>Select a heats shrink</value>
+  </data>
+  <data name="SelectMaterial" xml:space="preserve">
+    <value>Select a material</value>
+  </data>
+  <data name="SelectMaterialType" xml:space="preserve">
+    <value>Select a material type</value>
+  </data>
+  <data name="SelectNumber" xml:space="preserve">
+    <value>Select a number</value>
+  </data>
+  <data name="SelectPrototype" xml:space="preserve">
+    <value>Select a prototype</value>
+  </data>
+  <data name="SelectShip" xml:space="preserve">
+    <value>Select a ready ship</value>
+  </data>
+  <data name="SelectStatus" xml:space="preserve">
+    <value>Select a status</value>
+  </data>
+  <data name="SelectVerifiedBy" xml:space="preserve">
+    <value>Select verified by</value>
+  </data>
+  <data name="SerialNo" xml:space="preserve">
+    <value>Serial #</value>
+  </data>
+  <data name="Ship" xml:space="preserve">
+    <value>Ship</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="UserRoleType_LicenseAdmin" xml:space="preserve">
+    <value>License manager</value>
+  </data>
+  <data name="VerifiedBy" xml:space="preserve">
+    <value>Verified by</value>
   </data>
 </root>

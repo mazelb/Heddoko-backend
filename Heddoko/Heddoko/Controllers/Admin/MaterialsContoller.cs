@@ -11,15 +11,15 @@ using System.Web.Http.Description;
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [RoutePrefix("admin/api/materialTypes")]
+    [RoutePrefix("admin/api/materials")]
     [Auth(Roles = DAL.Constants.Roles.Admin)]
-    public class MaterialTypesController : BaseAdminController<MaterialType, MaterialTypeAPIModel>
+    public class MaterialsController : BaseAdminController<Material, MaterialAPIModel>
     {
         const string Search = "Search";
 
-        public override KendoResponse<IEnumerable<MaterialTypeAPIModel>> Get([FromUri]KendoRequest request)
+        public override KendoResponse<IEnumerable<MaterialAPIModel>> Get([FromUri]KendoRequest request)
         {
-            IEnumerable<MaterialType> items = null;
+            IEnumerable<Material> items = null;
             int count = 0;
             if (request != null)
             {
@@ -33,7 +33,7 @@ namespace Heddoko.Controllers
                             if(searchFilter != null
                             && !string.IsNullOrEmpty(searchFilter.Value))
                             {
-                                items = UoW.MaterialTypeRepository.Search(searchFilter.Value);
+                                items = UoW.MaterialRepository.Search(searchFilter.Value);
                             }
                             break;
                     }
@@ -42,7 +42,7 @@ namespace Heddoko.Controllers
 
             if (items == null)
             {
-                items = UoW.MaterialTypeRepository.All();
+                items = UoW.MaterialRepository.All();
             }
 
             count = items.Count();
@@ -60,32 +60,32 @@ namespace Heddoko.Controllers
             var result = items.ToList()
                               .Select(c => Convert(c));
 
-            return new KendoResponse<IEnumerable<MaterialTypeAPIModel>>()
+            return new KendoResponse<IEnumerable<MaterialAPIModel>>()
             {
                 Response = result,
                 Total = count
             };
         }
 
-        public override KendoResponse<MaterialTypeAPIModel> Get(int id)
+        public override KendoResponse<MaterialAPIModel> Get(int id)
         {
-            MaterialType item = UoW.MaterialTypeRepository.Get(id);
+            Material item = UoW.MaterialRepository.Get(id);
 
-            return new KendoResponse<MaterialTypeAPIModel>()
+            return new KendoResponse<MaterialAPIModel>()
             {
                 Response = Convert(item)
             };
         }
 
-        public override KendoResponse<MaterialTypeAPIModel> Post(MaterialTypeAPIModel model)
+        public override KendoResponse<MaterialAPIModel> Post(MaterialAPIModel model)
         {
-            MaterialTypeAPIModel response = new MaterialTypeAPIModel();
+            MaterialAPIModel response = new MaterialAPIModel();
 
             if (ModelState.IsValid)
             {
-                MaterialType item = new MaterialType();
+                Material item = new Material();
                 Bind(item, model);
-                UoW.MaterialTypeRepository.Create(item);
+                UoW.MaterialRepository.Create(item);
                 response = Convert(item);
             }
             else
@@ -96,25 +96,25 @@ namespace Heddoko.Controllers
                 };
             }
 
-            return new KendoResponse<MaterialTypeAPIModel>()
+            return new KendoResponse<MaterialAPIModel>()
             {
                 Response = response
             };
         }
 
-        public override KendoResponse<MaterialTypeAPIModel> Put(MaterialTypeAPIModel model)
+        public override KendoResponse<MaterialAPIModel> Put(MaterialAPIModel model)
         {
-            MaterialTypeAPIModel response = new MaterialTypeAPIModel();
+            MaterialAPIModel response = new MaterialAPIModel();
 
             if (model.ID.HasValue)
             {
-                MaterialType item = UoW.MaterialTypeRepository.Get(model.ID.Value);
+                Material item = UoW.MaterialRepository.Get(model.ID.Value);
                 if (item != null)
                 {
                     if (ModelState.IsValid)
                     {
                         Bind(item, model);
-                        UoW.MaterialTypeRepository.Update();
+                        UoW.MaterialRepository.Update();
 
                         response = Convert(item);
                     }
@@ -128,47 +128,58 @@ namespace Heddoko.Controllers
                 }
             }
 
-            return new KendoResponse<MaterialTypeAPIModel>()
+            return new KendoResponse<MaterialAPIModel>()
             {
                 Response = response
             };
         }
 
 
-        public override KendoResponse<MaterialTypeAPIModel> Delete(int id)
+        public override KendoResponse<MaterialAPIModel> Delete(int id)
         {
-            MaterialType item = UoW.MaterialTypeRepository.Get(id);
-            UoW.MaterialTypeRepository.Delete(item);
+            Material item = UoW.MaterialRepository.Get(id);
+            UoW.MaterialRepository.Delete(item);
 
-            return new KendoResponse<MaterialTypeAPIModel>()
+            return new KendoResponse<MaterialAPIModel>()
             {
                 Response = Convert(item)
             };
         }
 
-        protected override MaterialType Bind(MaterialType item, MaterialTypeAPIModel model)
+        protected override Material Bind(Material item, MaterialAPIModel model)
         {
             if (model == null)
             {
                 return null;
             }
 
-            item.Identifier = model.Identifier;
+            item.Name = model.Name;
+            item.PartNo = model.PartNo;
+
+            MaterialType type = UoW.MaterialTypeRepository.Get(model.MaterialTypeID);
+            if(type != null)
+            {
+                item.MaterialType = type;
+            }
 
             return item;
         }
 
-        protected override MaterialTypeAPIModel Convert(MaterialType item)
+        protected override MaterialAPIModel Convert(Material item)
         {
             if (item == null)
             {
                 return null;
             }
 
-            return new MaterialTypeAPIModel()
+            return new MaterialAPIModel()
             {
                 ID = item.ID,
-                Identifier = item.Identifier
+                Name = item.Name,
+                PartNo = item.PartNo,
+                MaterialTypeID = item.MaterialTypeID,
+                MaterialTypeName = item.MaterialType.Identifier,
+                NamePart = $"{item.Name} {item.PartNo}"
             };
         }
     }

@@ -5,32 +5,144 @@
 <script type="text/javascript">
     var Enums = {};
 
-    Enums.userStatus = {};
-    Enums.userStatus.enum = {};
-    Enums.userStatus.array = {};
+    Enums.UserStatusType = {};
+    Enums.UserStatusType.enum = {};
+    Enums.UserStatusType.array = {};
     @foreach (DAL.Models.UserStatusType type in (DAL.Models.UserStatusType[])Enum.GetValues(typeof(DAL.Models.UserStatusType)))
     {
         <text>
 
-    Enums.userStatus.enum["@type.GetDisplayName()"] = @((int)type);
+    Enums.UserStatusType.enum["@type.GetDisplayName()"] = @((int)type);
 
-    Enums.userStatus.array[@((int)type)] = {
+    Enums.UserStatusType.array[@((int)type)] = {
         "value": @((int)type),
         "text": "@type.GetDisplayName()"
     };
     </text>
     }
 
-    Enums.userRoles = {};
-    Enums.userRoles.enum = {};
-    Enums.userRoles.array = {};
+    Enums.UserRoleType = {};
+    Enums.UserRoleType.enum = {};
+    Enums.UserRoleType.array = {};
     @foreach (DAL.Models.UserRoleType type in (DAL.Models.UserRoleType[])Enum.GetValues(typeof(DAL.Models.UserRoleType)))
     {
         <text>
 
-    Enums.userRoles.enum["@type.GetDisplayName()"] = @((int)type);
+    Enums.UserRoleType.enum["@type.GetDisplayName()"] = @((int)type);
 
-    Enums.userRoles.array[@((int)type)] = {
+    Enums.UserRoleType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.EquipmentStatusType = {};
+    Enums.EquipmentStatusType.enum = {};
+    Enums.EquipmentStatusType.array = {};
+    @foreach (DAL.Models.EquipmentStatusType type in (DAL.Models.EquipmentStatusType[])Enum.GetValues(typeof(DAL.Models.EquipmentStatusType)))
+    {
+        <text>
+
+    Enums.EquipmentStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.EquipmentStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.AnatomicalPositionType = {};
+    Enums.AnatomicalPositionType.enum = {};
+    Enums.AnatomicalPositionType.array = {};
+    @foreach (DAL.Models.AnatomicalPositionType type in (DAL.Models.AnatomicalPositionType[])Enum.GetValues(typeof(DAL.Models.AnatomicalPositionType)))
+    {
+        <text>
+
+    Enums.AnatomicalPositionType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.AnatomicalPositionType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.PrototypeType = {};
+    Enums.PrototypeType.enum = {};
+    Enums.PrototypeType.array = {};
+    @foreach (DAL.Models.PrototypeType type in (DAL.Models.PrototypeType[])Enum.GetValues(typeof(DAL.Models.PrototypeType)))
+    {
+        <text>
+
+    Enums.PrototypeType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.PrototypeType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.ConditionType = {};
+    Enums.ConditionType.enum = {};
+    Enums.ConditionType.array = {};
+    @foreach (DAL.Models.ConditionType type in (DAL.Models.ConditionType[])Enum.GetValues(typeof(DAL.Models.ConditionType)))
+    {
+        <text>
+
+    Enums.ConditionType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.ConditionType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.NumbersType = {};
+    Enums.NumbersType.enum = {};
+    Enums.NumbersType.array = {};
+    @foreach (DAL.Models.NumbersType type in (DAL.Models.NumbersType[])Enum.GetValues(typeof(DAL.Models.NumbersType)))
+    {
+        <text>
+
+    Enums.NumbersType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.NumbersType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.HeatsShrinkType = {};
+    Enums.HeatsShrinkType.enum = {};
+    Enums.HeatsShrinkType.array = {};
+    @foreach (DAL.Models.HeatsShrinkType type in (DAL.Models.HeatsShrinkType[])Enum.GetValues(typeof(DAL.Models.HeatsShrinkType)))
+    {
+        <text>
+
+    Enums.HeatsShrinkType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.HeatsShrinkType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.ShipType = {};
+    Enums.ShipType.enum = {};
+    Enums.ShipType.array = {};
+    @foreach (DAL.Models.ShipType type in (DAL.Models.ShipType[])Enum.GetValues(typeof(DAL.Models.ShipType)))
+    {
+        <text>
+
+    Enums.ShipType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.ShipType.array[@((int)type)] = {
         "value": @((int)type),
         "text": "@type.GetDisplayName()"
     };

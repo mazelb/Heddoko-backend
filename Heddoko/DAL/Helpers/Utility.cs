@@ -67,6 +67,22 @@ namespace DAL
         {
             return Regex.Replace(value.Replace("UUID", "Uuid").Replace("ID", "Id"), "(?<=.)([A-Z])", "_$0", RegexOptions.Compiled).ToLower();
         }
+        public static string ToCamelCase(this String value)
+        {
+            if (value == null || value.Length < 2)
+                return value;
+
+            string[] words = value.Split( new char[] { }, StringSplitOptions.RemoveEmptyEntries);
+
+            string result = words.FirstOrDefault().ToLower();
+            foreach (string word in words)
+            {
+                result += word.Substring(0, 1).ToUpper();
+                result += word.Substring(1);
+            }
+
+            return result;
+        }
         public static bool Contains(this string source, string toCheck, StringComparison comp)
         {
             return source.IndexOf(toCheck, comp) >= 0;
@@ -78,7 +94,7 @@ namespace DAL
             var rm = new ResourceManager(typeof(i18n.Resources));
             var resourceDisplayName = rm.GetString(e.GetType().Name + "_" + e);
 
-            return string.IsNullOrWhiteSpace(resourceDisplayName) ? string.Format("[[{0}]]", e) : e.GetType().Name;
+            return string.IsNullOrWhiteSpace(resourceDisplayName) ? e.ToString() : resourceDisplayName;
         }
         public static string GetStringValue(this Enum value)
         {

@@ -17,8 +17,27 @@ namespace Heddoko.Helpers.Error
             {
                 return $"{i18n.Resources.CannotAddDuplicate} {i18n.Resources.Identifier}";
             }
+            if(message.Contains("FK_dbo.Equipments_dbo.Materials_MaterialID", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return $"{i18n.Resources.CannotRemove} {i18n.Resources.Equipment} {i18n.Resources.Use} {i18n.Resources.Material}";
+            }
+            if (message.Contains("IX_Name", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return $"{i18n.Resources.CannotAddDuplicate} {i18n.Resources.Name}";
+            }
+            if (message.Contains("IX_PartNo", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return $"{i18n.Resources.CannotAddDuplicate} {i18n.Resources.PartNo}";
+            }
+            if (message.Contains("IX_MacAddress", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return $"{i18n.Resources.CannotAddDuplicate} {i18n.Resources.MacAddress}";
+            }
+            if (message.Contains("IX_SerialNo", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return $"{i18n.Resources.CannotAddDuplicate} {i18n.Resources.SerialNo}";
+            }
             return message;
-
         }
 
         public static List<ErrorAPIViewModel> Get(Exception exception, Guid guid, bool isOriginal = true, string key = null)

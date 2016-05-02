@@ -1,0 +1,66 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="filters materialsFilter">
+            <div>
+                <label for="searchMaterial" class="control-label">@i18n.Resources.Search</label>
+                <input id="searchMaterial"
+                       class="form-control"
+                       type="text"
+                       placeholder="@i18n.Resources.EnterMaterial"
+                       data-bind="value: search, events:{ keyup: keyup }" />
+            </div>
+            <div class="margin010">
+                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success materialsForm">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.Material</h3>
+                <div class="btn-group pull-right" role="group">
+                    <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
+                    <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <input type="text"
+                               placeholder="@i18n.Resources.Name"
+                               class="form-control"
+                               required
+                               data-bind="value: model.name" />
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text"
+                               placeholder="@i18n.Resources.PartNo"
+                               class="form-control"
+                               required
+                               data-bind="value: model.partNo" />
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control"
+                                required
+                                data-role="dropdownlist"
+                                data-filter="startswith"
+                                data-value-primitive="true"
+                                data-text-field="identifier"
+                                data-option-label="Select a material type"
+                                data-value-field="id"
+                                data-bind="value: model.materialTypeId, source: materialTypes"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="gridMaterials">
+
+        </div>
+    </div>
+</div>

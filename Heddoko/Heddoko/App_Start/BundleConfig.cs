@@ -76,7 +76,10 @@ namespace Heddoko
                 "~/Scripts/js/admin/kendo.js",
                 "~/Scripts/js/admin/ajax.js",
                 "~/Scripts/js/admin/validator.js",
-                "~/Scripts/js/admin/grid/materialTypes.js"
+                "~/Scripts/js/admin/grid/materialTypes.js",
+                "~/Scripts/js/admin/grid/materials.js",
+                "~/Scripts/js/admin/grid/equipments.js",
+                "~/Scripts/js/admin/grid/users.js"
             );
 
             bundles.Add(kendoScriptsBundle);

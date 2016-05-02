@@ -387,6 +387,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
+    <Content Include="Scripts\js\admin\grid\equipments.js" />
+    <Content Include="Scripts\js\admin\grid\users.js" />
+    <Content Include="Scripts\js\admin\grid\materials.js" />
     <Content Include="Scripts\js\admin\kendo.js" />
     <Content Include="Scripts\js\admin\grid\materialTypes.js" />
     <Content Include="Scripts\js\admin\notification.js" />
@@ -920,6 +923,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Admin\EquipmentsController.cs" />
+    <Compile Include="Controllers\Admin\UsersController.cs" />
+    <Compile Include="Controllers\Admin\MaterialsContoller.cs" />
     <Compile Include="Controllers\LicenseController.cs" />
     <Compile Include="Controllers\AnalystContoller.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -976,6 +982,9 @@
     <Compile Include="Models\Admin\Kendo\KendoRequest.cs" />
     <Compile Include="Models\Admin\Kendo\KendoResponse.cs" />
     <Compile Include="Models\Admin\Kendo\KendoSort.cs" />
+    <Compile Include="Models\Admin\EquipmentAPIModel.cs" />
+    <Compile Include="Models\Admin\UserAPIModel.cs" />
+    <Compile Include="Models\Admin\MaterialAPIModel.cs" />
     <Compile Include="Models\Admin\MaterialTypeAPIModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\Email\ActivationUserEmailViewModel.cs" />
@@ -1519,6 +1528,9 @@
     <Content Include="Views\Analyst\Index.cshtml" />
     <Content Include="Views\License\Index.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
+    <Content Include="Views\Admin\_MaterialTypes.cshtml" />
+    <Content Include="Views\Admin\_Materials.cshtml" />
+    <Content Include="Views\Admin\_Equipments.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

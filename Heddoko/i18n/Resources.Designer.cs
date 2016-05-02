@@ -214,11 +214,29 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannont instert duplicate.
+        ///   Looks up a localized string similar to Can&apos;t add duplicate.
         /// </summary>
         public static string CannotAddDuplicate {
             get {
                 return ResourceManager.GetString("CannotAddDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t delete, because.
+        /// </summary>
+        public static string CannotRemove {
+            get {
+                return ResourceManager.GetString("CannotRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Condition.
+        /// </summary>
+        public static string Condition {
+            get {
+                return ResourceManager.GetString("Condition", resourceCulture);
             }
         }
         
@@ -439,6 +457,33 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the serial # or location or mac address of an equipment.
+        /// </summary>
+        public static string EnterEquipment {
+            get {
+                return ResourceManager.GetString("EnterEquipment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter an identifier.
+        /// </summary>
+        public static string EnterIdentifier {
+            get {
+                return ResourceManager.GetString("EnterIdentifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the name or part # of a material.
+        /// </summary>
+        public static string EnterMaterial {
+            get {
+                return ResourceManager.GetString("EnterMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Equipment.
         /// </summary>
         public static string Equipment {
@@ -547,6 +592,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Heats shrink.
+        /// </summary>
+        public static string HeatsShrink {
+            get {
+                return ResourceManager.GetString("HeatsShrink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string HeatsShrinkType_No {
@@ -637,6 +691,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MAC Address.
+        /// </summary>
+        public static string MacAddress {
+            get {
+                return ResourceManager.GetString("MacAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Material.
         /// </summary>
         public static string Material {
@@ -718,11 +781,38 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New password.
         /// </summary>
         public static string NewPassword {
             get {
                 return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notes.
+        /// </summary>
+        public static string Notes {
+            get {
+                return ResourceManager.GetString("Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Numbers.
+        /// </summary>
+        public static string Numbers {
+            get {
+                return ResourceManager.GetString("Numbers", resourceCulture);
             }
         }
         
@@ -750,6 +840,15 @@ namespace i18n {
         public static string Oops {
             get {
                 return ResourceManager.GetString("Oops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Part #.
+        /// </summary>
+        public static string PartNo {
+            get {
+                return ResourceManager.GetString("PartNo", resourceCulture);
             }
         }
         
@@ -790,11 +889,29 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Physical location.
+        /// </summary>
+        public static string PhysicalLocation {
+            get {
+                return ResourceManager.GetString("PhysicalLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to privacy policy.
         /// </summary>
         public static string Privacy {
             get {
                 return ResourceManager.GetString("Privacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prototype.
+        /// </summary>
+        public static string Prototype {
+            get {
+                return ResourceManager.GetString("Prototype", resourceCulture);
             }
         }
         
@@ -862,6 +979,114 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select an anatomical position.
+        /// </summary>
+        public static string SelectAnatomicalPosition {
+            get {
+                return ResourceManager.GetString("SelectAnatomicalPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a condition.
+        /// </summary>
+        public static string SelectCondition {
+            get {
+                return ResourceManager.GetString("SelectCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a heats shrink.
+        /// </summary>
+        public static string SelectHeatsShrink {
+            get {
+                return ResourceManager.GetString("SelectHeatsShrink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a material.
+        /// </summary>
+        public static string SelectMaterial {
+            get {
+                return ResourceManager.GetString("SelectMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a material type.
+        /// </summary>
+        public static string SelectMaterialType {
+            get {
+                return ResourceManager.GetString("SelectMaterialType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a number.
+        /// </summary>
+        public static string SelectNumber {
+            get {
+                return ResourceManager.GetString("SelectNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a prototype.
+        /// </summary>
+        public static string SelectPrototype {
+            get {
+                return ResourceManager.GetString("SelectPrototype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a ready ship.
+        /// </summary>
+        public static string SelectShip {
+            get {
+                return ResourceManager.GetString("SelectShip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a status.
+        /// </summary>
+        public static string SelectStatus {
+            get {
+                return ResourceManager.GetString("SelectStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select verified by.
+        /// </summary>
+        public static string SelectVerifiedBy {
+            get {
+                return ResourceManager.GetString("SelectVerifiedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serial #.
+        /// </summary>
+        public static string SerialNo {
+            get {
+                return ResourceManager.GetString("SerialNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ship.
+        /// </summary>
+        public static string Ship {
+            get {
+                return ResourceManager.GetString("Ship", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gone.
         /// </summary>
         public static string ShipType_Gone {
@@ -916,7 +1141,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SignOut.
+        ///   Looks up a localized string similar to Sign out.
         /// </summary>
         public static string SignOut {
             get {
@@ -930,6 +1155,15 @@ namespace i18n {
         public static string SignUp {
             get {
                 return ResourceManager.GetString("SignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
         
@@ -984,6 +1218,15 @@ namespace i18n {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to use.
+        /// </summary>
+        public static string Use {
+            get {
+                return ResourceManager.GetString("Use", resourceCulture);
             }
         }
         
@@ -1087,6 +1330,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to License manager.
+        /// </summary>
+        public static string UserRoleType_LicenseAdmin {
+            get {
+                return ResourceManager.GetString("UserRoleType_LicenseAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User.
         /// </summary>
         public static string UserRoleType_User {
@@ -1173,6 +1425,15 @@ namespace i18n {
         public static string ValidateRequiredMessage {
             get {
                 return ResourceManager.GetString("ValidateRequiredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verified by.
+        /// </summary>
+        public static string VerifiedBy {
+            get {
+                return ResourceManager.GetString("VerifiedBy", resourceCulture);
             }
         }
         

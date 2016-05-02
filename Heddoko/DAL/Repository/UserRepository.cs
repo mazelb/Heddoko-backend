@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Data.Entity;
 using System;
+using System.Collections.Generic;
 
 namespace DAL
 {
@@ -98,6 +99,13 @@ namespace DAL
             }
 
             return user;
+        }
+
+        public IEnumerable<User> Admins()
+        {
+            return DbSet.Where(c => c.Role == UserRoleType.Admin)
+                        .OrderBy(c => c.FirstName)
+                        .OrderBy(c => c.LastName);
         }
     }
 }
