@@ -30,7 +30,12 @@ namespace Heddoko.Controllers
                 {
                     switch (request.Filter.Filters.Count())
                     {
-
+                        case 0:
+                            if (items == null)
+                            {
+                                items = UoW.EquipmentRepository.All();
+                            }
+                            break;
                         case 1:
                             foreach (KendoFilterItem filter in request.Filter.Filters)
                             {
@@ -64,6 +69,13 @@ namespace Heddoko.Controllers
                                 }
                             }
                             break;
+                    }
+                }
+                else
+                {
+                    if (items == null)
+                    {
+                        items = UoW.EquipmentRepository.All();
                     }
                 }
             }
