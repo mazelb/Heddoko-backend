@@ -79,7 +79,8 @@ namespace Heddoko
                 "~/Scripts/js/admin/grid/materialTypes.js",
                 "~/Scripts/js/admin/grid/materials.js",
                 "~/Scripts/js/admin/grid/equipments.js",
-                "~/Scripts/js/admin/grid/users.js"
+                "~/Scripts/js/admin/grid/users.js",
+                "~/Scripts/js/admin/grid/complexEquipments.js"
             );
 
             bundles.Add(kendoScriptsBundle);

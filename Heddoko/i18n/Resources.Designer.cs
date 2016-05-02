@@ -79,6 +79,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add a new.
         /// </summary>
         public static string AddANew {
@@ -228,6 +237,24 @@ namespace i18n {
         public static string CannotRemove {
             get {
                 return ResourceManager.GetString("CannotRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suit.
+        /// </summary>
+        public static string ComplexEquipment {
+            get {
+                return ResourceManager.GetString("ComplexEquipment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suits.
+        /// </summary>
+        public static string ComplexEquipments {
+            get {
+                return ResourceManager.GetString("ComplexEquipments", resourceCulture);
             }
         }
         
@@ -453,6 +480,15 @@ namespace i18n {
         public static string EmptyItems {
             get {
                 return ResourceManager.GetString("EmptyItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a MAC address, a physical location, or a serial #.
+        /// </summary>
+        public static string EnterComplexEquipment {
+            get {
+                return ResourceManager.GetString("EnterComplexEquipment", resourceCulture);
             }
         }
         

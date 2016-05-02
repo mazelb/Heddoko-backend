@@ -16,6 +16,7 @@ namespace Heddoko.Controllers
     public class EquipmentsController : BaseAdminController<Equipment, EquipmentAPIModel>
     {
         const string Search = "Search";
+        const string ComplexEquipmentID = "ComplexEquipmentID";
 
         public override KendoResponse<IEnumerable<EquipmentAPIModel>> Get([FromUri]KendoRequest request)
         {
@@ -35,6 +36,17 @@ namespace Heddoko.Controllers
                             {
                                 items = UoW.EquipmentRepository.Search(searchFilter.Value);
                             }
+                            else
+                            {
+                                KendoFilterItem complextEquipmentFilter = request.Filter.Get(ComplexEquipmentID);
+
+                                if (complextEquipmentFilter != null
+                                 && !string.IsNullOrEmpty(complextEquipmentFilter.Value))
+                                {
+                                    items = UoW.EquipmentRepository.GetByComplexEquipment(int.Parse(complextEquipmentFilter.Value));
+                                }
+                            }
+
                             break;
                     }
                 }
@@ -180,6 +192,16 @@ namespace Heddoko.Controllers
                 }
             }
 
+            if (model.ComplexEquipmentID.HasValue)
+            {
+                ComplexEquipment complexEquipment = UoW.ComplexEquipmentRepository.Get(model.ComplexEquipmentID.Value);
+
+                if (complexEquipment != null)
+                {
+                    item.ComplexEquipment = complexEquipment;
+                }
+            }
+
             return item;
         }
 
@@ -207,7 +229,8 @@ namespace Heddoko.Controllers
                 MaterialID = item.MaterialID,
                 MaterialName = item.Material.Name,
                 VerifiedByID = item.VerifiedByID,
-                VerifiedByName = item.VerifiedBy.Name
+                VerifiedByName = item.VerifiedBy.Name,
+                ComplexEquipmentID = item.ComplexEquipmentID
             };
         }
     }

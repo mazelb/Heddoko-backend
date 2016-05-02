@@ -161,7 +161,11 @@ i18n.Resources = (function () {
   "Ship": "Ship",
   "Status": "Status",
   "UserRoleType_LicenseAdmin": "License manager",
-  "VerifiedBy": "Verified by"
+  "VerifiedBy": "Verified by",
+  "Add": "Add",
+  "ComplexEquipment": "Suit",
+  "ComplexEquipments": "Suits",
+  "EnterComplexEquipment": "Enter a MAC address, a physical location, or a serial #"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

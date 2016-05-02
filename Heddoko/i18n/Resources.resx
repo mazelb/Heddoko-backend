@@ -600,4 +600,16 @@
   <data name="VerifiedBy" xml:space="preserve">
     <value>Verified by</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="ComplexEquipment" xml:space="preserve">
+    <value>Suit</value>
+  </data>
+  <data name="ComplexEquipments" xml:space="preserve">
+    <value>Suits</value>
+  </data>
+  <data name="EnterComplexEquipment" xml:space="preserve">
+    <value>Enter a MAC address, a physical location, or a serial #</value>
+  </data>
 </root>

@@ -29,6 +29,8 @@ namespace Heddoko.Models
 
         public AnatomicalPositionType? AnatomicalPosition { get; set; }
 
+        public int? ComplexEquipmentID { get; set; }
+
         [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(i18n.Resources))]
         public PrototypeType Prototype { get; set; }
 
