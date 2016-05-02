@@ -22,7 +22,9 @@
 			"name": "users",
 			"description": "",
 			"order": [
-				"d6384b78-e344-ff63-25fb-ba45c8db0ab1"
+				"d6384b78-e344-ff63-25fb-ba45c8db0ab1",
+				"9f14b50c-576d-91e2-d518-1bd856e22e00",
+				"398662f5-54a1-06b8-7c89-d9e2d640c08c"
 			],
 			"owner": 0
 		}
@@ -73,6 +75,26 @@
 			"folder": "e3e70ca1-f68f-f931-bd05-947c0aede857"
 		},
 		{
+			"id": "398662f5-54a1-06b8-7c89-d9e2d640c08c",
+			"headers": "Content-Type: application/json\ntoken: bd5a2295d0ff37b1138399504c36fe4f\n",
+			"url": "http://dev.heddoko.com/api/v1/users/check",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1462210766267,
+			"name": "User check token",
+			"description": "",
+			"collectionId": "b16f005d-588e-96b5-96ae-d8fa4743ba00",
+			"responses": [],
+			"rawModeData": "{\n    'username' : 'ss',\n    'password': 'p@ssword'\n}"
+		},
+		{
 			"id": "71a5729d-27e5-7f84-54b1-b738924b2af7",
 			"headers": "",
 			"url": "http://dev.heddoko.com/api/v1/development/pending-db",
@@ -111,25 +133,43 @@
 			"responses": []
 		},
 		{
-			"id": "d6384b78-e344-ff63-25fb-ba45c8db0ab1",
-			"headers": "",
-			"url": "http://dev.heddoko.com/api/v1/users/9",
-			"pathVariables": {},
+			"id": "9f14b50c-576d-91e2-d518-1bd856e22e00",
+			"headers": "Content-Type: application/json\n",
+			"url": "http://dev.heddoko.com/api/v1/users/signin",
 			"preRequestScript": null,
-			"method": "GET",
-			"collectionId": "b16f005d-588e-96b5-96ae-d8fa4743ba00",
-			"data": null,
-			"dataMode": "params",
-			"name": "Get User",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1461787805187,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
 			"version": 2,
-			"responses": [],
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"folder": "216f7cc1-b10d-b49a-1732-c011023ddb71"
+			"time": 1462210642101,
+			"name": "User sigin",
+			"description": "",
+			"collectionId": "b16f005d-588e-96b5-96ae-d8fa4743ba00",
+			"responses": [],
+			"rawModeData": "{\n    'username' : 'ss',\n    'password': 'p@ssword'\n}"
+		},
+		{
+			"id": "d6384b78-e344-ff63-25fb-ba45c8db0ab1",
+			"headers": "Content-Type: application/json\ntoken: bd5a2295d0ff37b1138399504c36fe4f\n",
+			"url": "http://dev.heddoko.com/api/v1/users/profile",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1462211014418,
+			"name": "Get Profile",
+			"description": "",
+			"collectionId": "b16f005d-588e-96b5-96ae-d8fa4743ba00",
+			"responses": []
 		},
 		{
 			"id": "ef3efdf0-6195-d194-2afc-34b2c3632f13",

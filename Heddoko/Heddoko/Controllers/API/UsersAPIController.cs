@@ -1,17 +1,20 @@
 ﻿using DAL;
 using DAL.Models;
+using Heddoko.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Heddoko.Controllers.API
 {
     [RoutePrefix("api/v1/users")]
     public class UsersAPIController : BaseAPIController
     {
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Route("{id:int?}")]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
@@ -24,8 +27,12 @@ namespace Heddoko.Controllers.API
                 {
                     if (CurrentUser.ID == id.Value)
                     {
+                        return user;
                     }
-                    return user;
+                    else
+                    {
+                        throw new APIException(ErrorAPIType.WrongObjectAccess, ErrorAPIType.WrongObjectAccess.GetDisplayName());
+                    }
                 }
                 else
                 {
@@ -33,6 +40,80 @@ namespace Heddoko.Controllers.API
                 }
             }
             return CurrentUser;
+        }
+
+        [Route("profile")]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.All)]
+        public User Profile()
+        {
+            return CurrentUser;
+        }
+
+        [Route("signin")]
+        [HttpPost]
+        public User Signin(SignInAPIViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = UoW.UserRepository.GetByUsername(model.Username?.Trim());
+                if (user != null)
+                {
+                    if (user.IsActive)
+                    {
+                        if (PasswordHasher.Equals(model.Password?.Trim(), user.Salt, user.Password))
+                        {
+                            if (!user.AllowToken())
+                            {
+                                user.Tokens.Add(new AccessToken()
+                                {
+                                    Token = user.GenerateToken()
+                                });
+                                UoW.UserRepository.Update();
+                                user.AllowToken();
+                            }
+                            return user;
+                        }
+                        else
+                        {
+                            throw new APIException(ErrorAPIType.EmailOrPassword, i18n.Resources.WrongUsernameOrPassword);
+                        }
+                    }
+                    else
+                    {
+                        if (user.IsBanned)
+                        {
+                            throw new APIException(ErrorAPIType.UserIsBanned, i18n.Resources.UserIsBanned);
+                        }
+                        else
+                        {
+                            throw new APIException(ErrorAPIType.UserIsNotActive, i18n.Resources.UserIsNotActive);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new APIException(ErrorAPIType.EmailOrPassword, i18n.Resources.WrongUsernameOrPassword);
+                }
+            }
+            else
+            {
+                throw new ModelStateException()
+                {
+                    ModelState = ModelState
+                };
+            }
+        }
+
+        [Route("check")]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.All)]
+        public object Check()
+        {
+            return new
+            {
+                result = true
+            };
         }
     }
 }

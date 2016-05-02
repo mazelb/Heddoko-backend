@@ -990,6 +990,7 @@
     <Compile Include="Models\Admin\UserAPIModel.cs" />
     <Compile Include="Models\Admin\MaterialAPIModel.cs" />
     <Compile Include="Models\Admin\MaterialTypeAPIModel.cs" />
+    <Compile Include="Models\API\SignInAccountViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\Email\ActivationUserEmailViewModel.cs" />
     <Compile Include="Models\Email\EmailViewModel.cs" />

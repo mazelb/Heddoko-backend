@@ -6,9 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Heddoko.Controllers.API
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("api/v1/profiles")]
     public class ProfilesAPIController : BaseAPIController
     {

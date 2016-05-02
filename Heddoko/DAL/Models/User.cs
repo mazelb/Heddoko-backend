@@ -81,6 +81,23 @@ namespace DAL.Models
         #endregion
 
         #region NotMapped
+        public bool AllowToken()
+        {
+            if (Tokens != null
+             && Tokens.Count() > 0)
+            {
+                Token = Tokens.FirstOrDefault()?.Token;
+                return true;
+            }
+
+            return false;
+        }
+
+        public string GenerateToken()
+        {
+            return PasswordHasher.Md5(Email + DateTime.UtcNow.Ticks.ToString());
+        }
+
         public string Name
         {
             get
