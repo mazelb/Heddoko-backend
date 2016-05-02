@@ -612,4 +612,7 @@
   <data name="EnterComplexEquipment" xml:space="preserve">
     <value>Enter a MAC address, a physical location, or a serial #</value>
   </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
 </root>

@@ -8,7 +8,7 @@
             switch (Model.CurrentUser.Role)
             {
                 case DAL.Models.UserRoleType.Admin:
-
+                    <li role="presentation"><a href="@Url.Action("Index", "Admin")">@i18n.Resources.Admin</a></li>
                     <li role="presentation"><a href="@Url.Action("Index", "Analyst")">@i18n.Resources.Dashboard</a></li>
                     <li role="presentation"><a href="@Url.Action("Index", "License")">@i18n.Resources.LicenseTitle</a></li>
                     break;

@@ -97,6 +97,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin.
+        /// </summary>
+        public static string Admin {
+            get {
+                return ResourceManager.GetString("Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Heddoko Inventory v0.4.
         /// </summary>
         public static string AdminTitle {
