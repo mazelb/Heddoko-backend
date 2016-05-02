@@ -42,6 +42,9 @@ namespace Heddoko.Controllers.API
             return CurrentUser;
         }
 
+        /// <summary>
+        /// Get profile of current user
+        /// </summary>
         [Route("profile")]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
@@ -50,6 +53,11 @@ namespace Heddoko.Controllers.API
             return CurrentUser;
         }
 
+        /// <summary>
+        /// Sign in user
+        /// </summary>
+        /// <param name="username">The username of user.</param>
+        /// <param name="password">The password of user.</param>
         [Route("signin")]
         [HttpPost]
         public User Signin(SignInAPIViewModel model)
@@ -105,6 +113,9 @@ namespace Heddoko.Controllers.API
             }
         }
 
+        /// <summary>
+        /// Check if token is valid
+        /// </summary>
         [Route("check")]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
