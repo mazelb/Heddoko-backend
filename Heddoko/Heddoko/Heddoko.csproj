@@ -214,6 +214,7 @@
     <Content Include="Content\images\ui\lock_closed.png" />
     <Content Include="Content\images\ui\lock_open.png" />
     <Content Include="Content\images\ui\spinner.gif" />
+    <Content Include="Content\img\body.png" />
     <Content Include="Content\img\notification\envelope.png" />
     <Content Include="Content\img\notification\error-icon.png" />
     <Content Include="Content\img\notification\success-icon.png" />

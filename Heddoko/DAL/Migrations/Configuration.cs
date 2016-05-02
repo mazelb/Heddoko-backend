@@ -548,6 +548,9 @@ namespace DAL.Migrations
             context.ComplexEquipments.RemoveRange(context.ComplexEquipments.ToList());
             context.SaveChanges();
 
+            context.Materials.RemoveRange(context.Materials.ToList());
+            context.SaveChanges();
+
             context.Materials.AddOrUpdate(
                 p => p.Name,
                 new Material()

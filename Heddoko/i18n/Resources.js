@@ -110,7 +110,7 @@ i18n.Resources = (function () {
   "EmptyItems": "No item to display",
   "ID": "ID",
   "Identifier": "Identifier",
-  "SignOut": "SignOut",
+  "SignOut": "Sign out",
   "WrongObjectAccess": "You don't access to that object",
   "AddANew": "Add a new",
   "AnatomicalPosition": "Anatomical position",
