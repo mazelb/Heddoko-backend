@@ -58,7 +58,9 @@ namespace DAL
         public IEnumerable<Equipment> GetBySerialSearch(string value)
         {
             return DbSet.Where(c => c.ComplexEquipmentID == null
-                                 && c.SerialNo.Contains(value));
+                                 && (c.SerialNo.Contains(value)
+                                 || c.PhysicalLocation.Contains(value)
+                                 || c.MacAddress.Contains(value)));
         }
 
         public Equipment GetBySerialNo(string serialNo)
