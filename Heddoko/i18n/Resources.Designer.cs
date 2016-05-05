@@ -637,7 +637,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heats shrink.
+        ///   Looks up a localized string similar to Heatshrink good.
         /// </summary>
         public static string HeatsShrink {
             get {

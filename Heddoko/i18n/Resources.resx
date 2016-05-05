@@ -541,7 +541,7 @@
     <value>Condition</value>
   </data>
   <data name="HeatsShrink" xml:space="preserve">
-    <value>Heats shrink</value>
+    <value>Heatshrink good</value>
   </data>
   <data name="MacAddress" xml:space="preserve">
     <value>MAC Address</value>
