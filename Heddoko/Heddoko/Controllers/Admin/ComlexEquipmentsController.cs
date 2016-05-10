@@ -160,10 +160,11 @@ namespace Heddoko.Controllers
             item.PhysicalLocation = model.PhysicalLocation;
             item.Status = model.Status;
 
-            List<string> equipments = model.Equipments.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim()).Where(c => c != "").ToList();
 
             if (model.Equipments != null)
             {
+                List<string> equipments = model.Equipments.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim()).Where(c => c != "").ToList();
+
                 foreach (string equipment in equipments)
                 {
                     if (item.Equipments != null
