@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Jil;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -54,16 +55,19 @@ namespace DAL.Models
         public int? ComplexEquipmentID { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual ComplexEquipment ComplexEquipment { get; set; }
 
         public int MaterialID { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual Material Material { get; set; }
 
         public int? VerifiedByID { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual User VerifiedBy { get; set; }
         #endregion
     }

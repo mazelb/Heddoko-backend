@@ -1,0 +1,24 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="filters licensesFilter">
+            <div>
+                <label for="licensesSearch" class="control-label">@i18n.Resources.Search</label>
+                <input id="licensesSearch"
+                       class="form-control"
+                       type="text"
+                       placeholder="@i18n.Resources.EnterLicense"
+                       data-bind="value: search, events:{ keyup: keyup }" />
+            </div>
+            <div class="margin010">
+                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="licensesGrid">
+
+        </div>
+    </div>
+</div>

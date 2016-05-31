@@ -22,9 +22,9 @@ namespace DAL
 
         public IEnumerable<Equipment> Search(string value)
         {
-            return All().Where(c => c.SerialNo.Contains(value)
-                                 || c.PhysicalLocation.Contains(value)
-                                 || c.MacAddress.Contains(value));
+            return All().Where(c => c.SerialNo.Contains(value, StringComparison.OrdinalIgnoreCase)
+                                 || c.PhysicalLocation.Contains(value, StringComparison.OrdinalIgnoreCase)
+                                 || c.MacAddress.Contains(value, StringComparison.OrdinalIgnoreCase));
         }
 
         public void RemoveComplexEquipment(int complexEquipmentID)
@@ -58,14 +58,14 @@ namespace DAL
         public IEnumerable<Equipment> GetBySerialSearch(string value)
         {
             return DbSet.Where(c => c.ComplexEquipmentID == null
-                                 && (c.SerialNo.Contains(value)
-                                 || c.PhysicalLocation.Contains(value)
-                                 || c.MacAddress.Contains(value)));
+                                 && (c.SerialNo.Contains(value, StringComparison.OrdinalIgnoreCase)
+                                 || c.PhysicalLocation.Contains(value, StringComparison.OrdinalIgnoreCase)
+                                 || c.MacAddress.Contains(value, StringComparison.OrdinalIgnoreCase)));
         }
 
         public Equipment GetBySerialNo(string serialNo)
         {
-            return DbSet.Where(c => c.SerialNo == serialNo)
+            return DbSet.Where(c => c.SerialNo.Equals(serialNo, StringComparison.OrdinalIgnoreCase))
                         .FirstOrDefault();
         }
     }

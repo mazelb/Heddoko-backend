@@ -21,7 +21,14 @@ namespace DAL
 
         User GetByConfirmToken(string confirmToken);
 
+        User GetByInviteToken(string inviteToken);
+
         User GetByForgetToken(string forgetToken);
+
         IEnumerable<User> Admins();
+
+        IEnumerable<User> GetByOrganization(int value);
+
+        IEnumerable<User> Search(string search, int? organizationID = null);
     }
 }

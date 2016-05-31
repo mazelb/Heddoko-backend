@@ -26,9 +26,9 @@ namespace DAL
 
         public IEnumerable<ComplexEquipment> Search(string value)
         {
-            return All().Where(c => c.MacAddress.Contains(value)
-                                 || c.SerialNo.Contains(value)
-                                 || c.PhysicalLocation.Contains(value));
+            return All().Where(c => c.MacAddress.Contains(value, StringComparison.OrdinalIgnoreCase)
+                                 || c.SerialNo.Contains(value, StringComparison.OrdinalIgnoreCase)
+                                 || c.PhysicalLocation.Contains(value, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

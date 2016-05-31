@@ -10,6 +10,8 @@ namespace DAL.Models
     {
         NotActive = 0,
         Active = 1,
-        Banned = 2
+        Banned = 2,
+        Deleted = 3,
+        Invited = 4
     }
 }

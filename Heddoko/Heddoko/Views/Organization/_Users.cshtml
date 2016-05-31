@@ -1,0 +1,77 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="filters usersFilter">
+            <div>
+                <label for="usersSearch" class="control-label">@i18n.Resources.Search</label>
+                <input id="usersSearch"
+                       class="form-control"
+                       type="text"
+                       placeholder="@i18n.Resources.EnterUser"
+                       data-bind="value: search, events:{ keyup: keyup }" />
+            </div>
+            <div class="margin010">
+                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success usersForm">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.User</h3>
+                <div class="btn-group pull-right" role="group">
+                    <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
+                    <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row margin010">
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="user-email"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Email"
+                               class="form-control"
+                               data-bind="value: model.email" />
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="user-email"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Username"
+                               class="form-control"
+                               data-bind="value: model.username" />
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="user-firtsname"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Firstname"
+                               class="form-control"
+                               data-bind="value: model.firstname" />
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="user-lastname"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Lastname"
+                               class="form-control"
+                               data-bind="value: model.lastname" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="usersGrid">
+
+        </div>
+    </div>
+</div>

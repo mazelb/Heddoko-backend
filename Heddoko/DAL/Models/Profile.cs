@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Jil;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -54,20 +55,26 @@ namespace DAL.Models
         public virtual Asset Asset { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual ICollection<Tag> Tags { get; set; }
 
+        [JilDirective(Ignore = true)]
         public virtual ICollection<Group> Groups { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual ICollection<User> Managers { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual ICollection<Movement> Movements { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual ICollection<Folder> Folders { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual ICollection<Screening> Screenings { get; set; }
         #endregion
 

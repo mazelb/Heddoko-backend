@@ -147,12 +147,12 @@ namespace DAL
             DbSet.Remove(entity);
         }
 
-        public virtual void Save()
+        private void Save()
         {
             db.SaveChanges();
         }
 
-        public void Update()
+        private void Update()
         {
             Save();
         }

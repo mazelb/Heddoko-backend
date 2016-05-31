@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Heddoko.Controllers
 {
-    [Auth(Roles = DAL.Constants.Roles.LicenseAdminAndAdmin)]
+    [Auth(Roles = DAL.Constants.Roles.Admin)]
     public class LicenseController : BaseController
     {
         public ActionResult Index()

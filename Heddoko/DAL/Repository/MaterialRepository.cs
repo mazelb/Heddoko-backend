@@ -21,13 +21,13 @@ namespace DAL
 
         public Material GetByName(string name)
         {
-            return DbSet.Where(c => c.Name == name).FirstOrDefault();
+            return DbSet.Where(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
         }
 
         public IEnumerable<Material> Search(string value)
         {
-            return All().Where(c => c.Name.Contains(value)
-                                 || c.PartNo.Contains(value));
+            return All().Where(c => c.Name.Contains(value, StringComparison.OrdinalIgnoreCase)
+                                 || c.PartNo.Contains(value, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

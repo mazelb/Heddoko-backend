@@ -63,6 +63,141 @@ namespace Heddoko.Controllers
             return View(model);
         }
 
+        public ActionResult SignUpOrganization(string token)
+        {
+            BaseViewModel model = new BaseViewModel();
+
+            if (!string.IsNullOrEmpty(token?.Trim()))
+            {
+                User user = UoW.UserRepository.GetByInviteToken(token?.Trim());
+                if (user != null)
+                {
+                    bool isNew = string.IsNullOrEmpty(user.Password);
+
+                    if (isNew)
+                    {
+                        SignUpAccountViewModel signup = new SignUpAccountViewModel();
+
+                        signup.Organization = user.Organization;
+                        signup.InviteToken = user.InviteToken;
+                        signup.Email = user.Email;
+                        signup.Username = user.Username;
+                        signup.FirstName = user.FirstName;
+                        signup.LastName = user.LastName;
+                        signup.Phone = user.Phone;
+                        signup.Country = user.Country;
+                        signup.Birthday = user.BirthDay;
+                        signup.OrganizationName = user.Organization.Name;
+                        signup.Address = user.Organization.Address;
+
+                        return View(signup);
+                    }
+                    else
+                    {
+                        user.Status = UserStatusType.Active;
+                        user.InviteToken = null;
+                        UoW.Save();
+                        UoW.UserRepository.SetCache(user);
+                    }
+
+                    if (user.Organization.UserID == user.ID)
+                    {
+                        return RedirectToAction("Index", "Organization");
+                    }
+                }
+                else
+                {
+                    model.Flash.Add(new FlashMessage()
+                    {
+                        Type = FlashMessageType.Error,
+                        Message = i18n.Resources.WrongConfirmationToken
+                    });
+                }
+            }
+            else
+            {
+                model.Flash.Add(new FlashMessage()
+                {
+                    Type = FlashMessageType.Error,
+                    Message = i18n.Resources.EmptyConfirmationToken
+                });
+            }
+
+            return View("ConfirmStatus", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignUpOrganization(SignUpAccountViewModel model)
+        {
+            Forms.SignOut();
+
+            User user = UoW.UserRepository.GetByInviteToken(model.InviteToken?.Trim());
+
+            if (ModelState.IsValid)
+            {
+
+                if (user != null)
+                {
+                    User userUsed = UoW.UserRepository.GetByUsernameCached(model.Username?.Trim());
+
+                    if (userUsed != null
+                     && user.ID != userUsed.ID)
+                    {
+                        ModelState.AddModelError(string.Empty, i18n.Resources.UsernameUsed);
+                    }
+                    else
+                    {
+                        user.FirstName = model.FirstName?.Trim();
+                        user.LastName = model.LastName?.Trim();
+                        user.Country = model.Country?.Trim();
+                        user.BirthDay = model.Birthday;
+                        user.Phone = model.Phone;
+                        user.Status = UserStatusType.Active;
+                        user.InviteToken = null;
+                        Passphrase pwd = PasswordHasher.Hash(model.Password?.Trim());
+
+                        user.Password = pwd.Hash;
+                        user.Salt = pwd.Salt;
+
+                        UoW.Save();
+                        UoW.UserRepository.SetCache(user);
+
+                        BaseViewModel modelStatus = new BaseViewModel();
+
+                        string message = null;
+
+                        if (user.Role == UserRoleType.LicenseAdmin)
+                        {
+                            message = i18n.Resources.UserSignupOrganizationMessage;
+                        }
+                        else
+                        {
+                            if (user.LicenseID.HasValue)
+                            {
+                                message = i18n.Resources.UserSignupUserOrganizationMessage;
+                            }
+                            else
+                            {
+                                message = i18n.Resources.UserSignupUserNonLicenseOrganizationMessage;
+                            }
+                        }
+
+                        modelStatus.Flash.Add(new FlashMessage()
+                        {
+                            Type = FlashMessageType.Success,
+                            Message = message
+                        });
+                        return View("SignUpStatus", modelStatus);
+                    }
+                }
+            }
+
+            model.Organization = user.Organization;
+            return View(model);
+        }
+
+
         public ActionResult SignUp()
         {
             Forms.SignOut();
@@ -77,56 +212,77 @@ namespace Heddoko.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = UoW.UserRepository.GetByEmailCached(model.Email?.Trim());
-                if (user != null)
-                {
-                    ModelState.AddModelError(string.Empty, i18n.Resources.EmailUsed);
-                }
+                Organization organization = UoW.OrganizationRepository.GetByName(model.OrganizationName?.Trim());
 
-                user = UoW.UserRepository.GetByUsernameCached(model.Username?.Trim());
-
-                if (user != null)
+                if (organization != null)
                 {
-                    ModelState.AddModelError(string.Empty, i18n.Resources.UsernameUsed);
-                }
-
-                user = new User();
-                user.Email = model.Email.Trim();
-                user.Username = model.Username.Trim();
-                if (model.Role == UserRoleType.User
-                 || model.Role == UserRoleType.Analyst)
-                {
-                    user.Role = model.Role;
+                    ModelState.AddModelError(string.Empty, i18n.Resources.OrganizationNameUsed);
                 }
                 else
                 {
-                    user.Role = UserRoleType.User;
+
+                    User user = UoW.UserRepository.GetByEmailCached(model.Email?.Trim());
+                    if (user != null)
+                    {
+                        ModelState.AddModelError(string.Empty, i18n.Resources.EmailUsed);
+                    }
+                    else
+                    {
+
+                        user = UoW.UserRepository.GetByUsernameCached(model.Username?.Trim());
+
+                        if (user != null)
+                        {
+                            ModelState.AddModelError(string.Empty, i18n.Resources.UsernameUsed);
+                        }
+                        else
+                        {
+
+                            organization = new Organization();
+                            organization.Name = model.OrganizationName.Trim();
+                            organization.Phone = model.Phone.Trim();
+                            organization.Address = model.Address.Trim();
+                            organization.Status = OrganizationStatusType.Active;
+
+
+                            user = new User();
+                            user.Email = model.Email.Trim();
+                            user.Username = model.Username.Trim();
+                            user.Role = UserRoleType.LicenseAdmin;
+                            user.FirstName = model.FirstName.Trim(); ;
+                            user.LastName = model.LastName.Trim(); ;
+                            user.Country = model.Country;
+                            user.BirthDay = model.Birthday;
+                            user.Phone = model.Phone.Trim(); ;
+                            user.Status = UserStatusType.NotActive;
+
+                            Passphrase pwd = PasswordHasher.Hash(model.Password);
+
+                            user.Password = pwd.Hash;
+                            user.Salt = pwd.Salt;
+
+                            user.ConfirmToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString());
+
+                            UoW.UserRepository.Create(user);
+
+                            organization.User = user;
+                            UoW.OrganizationRepository.Create(organization);
+
+                            user.Organization = organization;
+                            UoW.Save();
+
+                            Task.Run(() => Mailer.SendActivationEmail(user));
+                            BaseViewModel modelStatus = new BaseViewModel();
+
+                            modelStatus.Flash.Add(new FlashMessage()
+                            {
+                                Type = FlashMessageType.Success,
+                                Message = i18n.Resources.UserSignupMessage
+                            });
+                            return View("SignUpStatus", modelStatus);
+                        }
+                    }
                 }
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.Country = model.Country;
-                user.BirthDay = model.Birthday;
-                user.Phone = model.Phone;
-                user.Status = UserStatusType.NotActive;
-                Passphrase pwd = PasswordHasher.Hash(model.Password);
-
-                user.Password = pwd.Hash;
-                user.Salt = pwd.Salt;
-
-                user.ConfirmToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString());
-
-                UoW.UserRepository.Create(user);
-
-                Task.Run(() => Mailer.SendActivationEmail(user));
-                BaseViewModel modelStatus = new BaseViewModel();
-
-                modelStatus.Flash.Add(new FlashMessage()
-                {
-                    Type = FlashMessageType.Success,
-                    Message = i18n.Resources.UserSignupMessage
-                });
-                return View("SignUpStatus", modelStatus);
-
             }
             return View(model);
         }
@@ -155,7 +311,7 @@ namespace Heddoko.Controllers
                         case UserRoleType.Analyst:
                             return RedirectToAction("Index", "Analyst");
                         case UserRoleType.LicenseAdmin:
-                            return RedirectToAction("Index", "License");
+                            return RedirectToAction("Index", "Organization");
                         case UserRoleType.User:
                         default:
                             return RedirectToAction("Index", "Default");
@@ -177,7 +333,7 @@ namespace Heddoko.Controllers
                     user.Status = UserStatusType.Active;
                     user.ConfirmToken = null;
 
-                    UoW.UserRepository.Update();
+                    UoW.Save();
                     UoW.UserRepository.SetCache(user);
 
                     Task.Run(() => Mailer.SendActivatedEmail(user));
@@ -279,7 +435,7 @@ namespace Heddoko.Controllers
                         user.ForgotToken = null;
                         user.ForgotExpiration = null;
 
-                        UoW.UserRepository.Update();
+                        UoW.Save();
                         UoW.UserRepository.SetCache(user);
 
                         baseModel.Flash.Add(new FlashMessage()
@@ -334,7 +490,7 @@ namespace Heddoko.Controllers
                     user.ForgotExpiration = DateTime.Now.AddHours(Config.EmailForgotTokenExpiration);
                     user.ForgotToken = PasswordHasher.Md5(user.ForgotExpiration.Value.Ticks.ToString());
 
-                    UoW.UserRepository.Update();
+                    UoW.Save();
                     UoW.UserRepository.SetCache(user);
 
                     Task.Run(() => Mailer.SendForgotPasswordEmail(user));

@@ -23,14 +23,16 @@
             @Html.Partial("_FlashMessages", Model.Flash)
 
 
+
             <div style="margin:20px 0 25px 0;">
                 <div class="form-group">
-                    <label for="role">@i18n.Resources.AccountType:</label>
-                    <select class="form-control" id="@Html.IdFor(m => m.Role)" name="@Html.NameFor(m => m.Role)">
-                        <option value="@((int)DAL.Models.UserRoleType.User)" selected>@i18n.Resources.UserRoleType_User</option>
-                        <option value="@((int)DAL.Models.UserRoleType.Analyst)">@i18n.Resources.UserRoleType_Analyst</option>
-                    </select>
-
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-home"></span>
+                        </span>
+                        @Html.TextBoxFor(m => m.OrganizationName, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.OrganizationName).ToString()) })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.OrganizationName, string.Empty, new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -112,6 +114,16 @@
                     @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Phone).ToString()) })
                 </div>
                 @Html.ValidationMessageFor(m => m.Phone, string.Empty, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-home"></span>
+                    </span>
+                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Address).ToString()) })
+                </div>
+                @Html.ValidationMessageFor(m => m.Address, string.Empty, new { @class = "text-danger" })
             </div>
 
             <div class="form-group">

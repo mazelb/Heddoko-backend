@@ -12,7 +12,7 @@ namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("admin/api/complexEquipments")]
-    [Auth(Roles = DAL.Constants.Roles.Admin)]
+    [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
     public class ComplexEquipmentsController : BaseAdminController<ComplexEquipment, ComplexEquipmentAPIModel>
     {
         const string Search = "Search";
@@ -114,7 +114,7 @@ namespace Heddoko.Controllers
                     if (ModelState.IsValid)
                     {
                         Bind(item, model);
-                        UoW.ComplexEquipmentRepository.Update();
+                        UoW.Save();
 
                         response = Convert(item);
                     }

@@ -22,6 +22,34 @@ namespace Heddoko
             Mail.Send(subject, body, user.Email);
         }
 
+        public async static Task SendInviteAdminEmail(Organization organization)
+        {
+            InviteAdminUserEmailViewModel mailModel = new InviteAdminUserEmailViewModel();
+            mailModel.Token = organization.User.InviteToken;
+            mailModel.FirstName = organization.User.Name;
+            mailModel.OrganizationName = organization.Name;
+
+            string subject = i18n.Resources.EmailInviteAdminUserSubject;
+
+            string body = await Task.Run(() => RazorView.RenderViewToString("InviteAdminUserEmail", mailModel));
+
+            Mail.Send(subject, body, organization.User.Email);
+        }
+
+        public async static Task SendInviteEmail(User user)
+        {
+            InviteAdminUserEmailViewModel mailModel = new InviteAdminUserEmailViewModel();
+            mailModel.Token = user.InviteToken;
+            mailModel.FirstName = user.Name;
+            mailModel.OrganizationName = user.Organization.Name;
+
+            string subject = i18n.Resources.EmailInviteUserSubject;
+
+            string body = await Task.Run(() => RazorView.RenderViewToString("InviteUserEmail", mailModel));
+
+            Mail.Send(subject, body, user.Email);
+        }
+
         public async static Task SendForgotPasswordEmail(User user)
         {
             ForgotPasswordEmailViewModel mailModel = new ForgotPasswordEmailViewModel();

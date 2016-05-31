@@ -12,7 +12,7 @@ namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("admin/api/equipments")]
-    [Auth(Roles = DAL.Constants.Roles.Admin)]
+    [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
     public class EquipmentsController : BaseAdminController<Equipment, EquipmentAPIModel>
     {
         const string Search = "Search";
@@ -154,7 +154,7 @@ namespace Heddoko.Controllers
                     if (ModelState.IsValid)
                     {
                         Bind(item, model);
-                        UoW.EquipmentRepository.Update();
+                        UoW.Save();
 
                         response = Convert(item);
                     }
@@ -181,7 +181,7 @@ namespace Heddoko.Controllers
             if (item != null)
             {
                 item.ComplexEquipment = null;
-                UoW.EquipmentRepository.Update();
+                UoW.Save();
             }
 
             return new KendoResponse<EquipmentAPIModel>()

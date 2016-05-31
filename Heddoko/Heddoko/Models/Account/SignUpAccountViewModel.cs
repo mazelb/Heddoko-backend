@@ -51,7 +51,22 @@ namespace Heddoko.Models
         public DateTime? Birthday { get; set; }
 
         [MaxLength(50)]
+        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(i18n.Resources))]
         [Display(Name = "Mobile", ResourceType = typeof(i18n.Resources))]
         public string Phone { get; set; }
+
+        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(i18n.Resources))]
+        [Display(Name = "OrganizationName", ResourceType = typeof(i18n.Resources))]
+        [MaxLength(50)]
+        public string OrganizationName { get; set; }
+
+        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(i18n.Resources))]
+        [Display(Name = "Address", ResourceType = typeof(i18n.Resources))]
+        [MaxLength(255)]
+        public string Address { get; set; }
+
+        public string InviteToken { get; set; }
+
+        public Organization Organization { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("admin/api/materials")]
-    [Auth(Roles = DAL.Constants.Roles.Admin)]
+    [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
     public class MaterialsController : BaseAdminController<Material, MaterialAPIModel>
     {
         const string Search = "Search";
@@ -114,7 +114,7 @@ namespace Heddoko.Controllers
                     if (ModelState.IsValid)
                     {
                         Bind(item, model);
-                        UoW.MaterialRepository.Update();
+                        UoW.Save();
 
                         response = Convert(item);
                     }
