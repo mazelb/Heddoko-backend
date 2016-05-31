@@ -93,6 +93,7 @@ namespace DAL
             return DbSet.Include(c => c.Asset)
                         .Include(c => c.Organization)
                         .Include(c => c.Tokens)
+                        .Include(c => c.License)
                         .Where(c => c.Username.Equals(username, StringComparison.OrdinalIgnoreCase))
                         .FirstOrDefault();
         }

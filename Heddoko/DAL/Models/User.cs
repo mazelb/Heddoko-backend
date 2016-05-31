@@ -78,6 +78,27 @@ namespace DAL.Models
         [JsonIgnore]
         public virtual License License { get; set; }
 
+        public LicenseInfo LicenseInfo
+        {
+            get
+            {
+                if (License != null)
+                {
+                    return new LicenseInfo()
+                    {
+                        ID = License.ID,
+                        ExpiredAt = License.ExpirationAt,
+                        Name = License.Name,
+                        Status = License.Status,
+                        Type = License.Type,
+                        ViewID = License.ViewID
+                    };
+                }
+
+                return null;
+            }
+        }
+
         [JsonIgnore]
         public int? AssetID { get; set; }
 
