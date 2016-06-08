@@ -18,6 +18,7 @@ namespace Heddoko.Controllers
     public class UsersController : BaseAdminController<User, UserAPIModel>
     {
         const string Search = "Search";
+        const string Admin = "Admin";
         const int NoLicense = 0;
 
         public override KendoResponse<IEnumerable<UserAPIModel>> Get([FromUri]KendoRequest request)
@@ -50,7 +51,18 @@ namespace Heddoko.Controllers
                             && !string.IsNullOrEmpty(searchFilter.Value))
                             {
                                 items = UoW.UserRepository.Search(searchFilter.Value, forceOrganization ? CurrentUser.OrganizationID : null);
+                                break;
                             }
+
+                            KendoFilterItem adminFilter = request.Filter.Get(Search);
+                            if (adminFilter != null)
+                            {
+                                if (CurrentUser.Role == UserRoleType.Admin)
+                                {
+                                    items = UoW.UserRepository.Admins();
+                                }
+                            }
+
                             break;
                     }
                 }
@@ -60,7 +72,7 @@ namespace Heddoko.Controllers
             {
                 if (CurrentUser.Role == UserRoleType.Admin)
                 {
-                    items = UoW.UserRepository.Admins();
+                    items = UoW.UserRepository.All();
                 }
                 else
                 {
@@ -310,7 +322,8 @@ namespace Heddoko.Controllers
                 Status = item.Status,
                 LicenseID = item.LicenseID,
                 Phone = item.Phone,
-                LicenseName = item.License?.Name
+                LicenseName = item.License?.Name,
+                OrganizationName = item.Organization?.Name
             };
         }
     }

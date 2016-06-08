@@ -136,6 +136,7 @@ namespace Heddoko.Controllers
             };
         }
 
+        [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
         public override KendoResponse<LicenseAPIModel> Post(LicenseAPIModel model)
         {
             LicenseAPIModel response = new LicenseAPIModel();
@@ -164,6 +165,7 @@ namespace Heddoko.Controllers
             };
         }
 
+        [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
         public override KendoResponse<LicenseAPIModel> Put(LicenseAPIModel model)
         {
             LicenseAPIModel response = new LicenseAPIModel();
@@ -197,6 +199,7 @@ namespace Heddoko.Controllers
             };
         }
 
+        [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
         public override KendoResponse<LicenseAPIModel> Delete(int id)
         {
             License item = UoW.LicenseRepository.Get(id);

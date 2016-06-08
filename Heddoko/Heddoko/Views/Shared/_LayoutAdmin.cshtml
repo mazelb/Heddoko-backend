@@ -36,6 +36,10 @@
     @if (Model.EnableKendo)
     {
         @Scripts.Render("~/Bundles/KendoJs")
+        if (Model.IsAdmin)
+        {
+            @Scripts.Render("~/Bundles/AdminJs")
+        }
     }
 
     @RenderSection("Scripts", required: false)

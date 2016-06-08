@@ -197,7 +197,6 @@ namespace Heddoko.Controllers
             return View(model);
         }
 
-
         public ActionResult SignUp()
         {
             Forms.SignOut();
@@ -292,6 +291,83 @@ namespace Heddoko.Controllers
         {
             Forms.SignOut();
             return RedirectToAction("SignIn", "Account");
+        }
+
+        [Auth]
+        public ActionResult Me()
+        {
+            ProfileAccountViewModel model = new ProfileAccountViewModel();
+
+            model.Organization = CurrentUser.Organization;
+            model.Email = CurrentUser.Email;
+            model.Username = CurrentUser.Username;
+            model.FirstName = CurrentUser.FirstName;
+            model.LastName = CurrentUser.LastName;
+            model.Phone = CurrentUser.Phone;
+            model.Country = CurrentUser.Country;
+            model.Birthday = CurrentUser.BirthDay;
+            model.OrganizationName = CurrentUser.Organization?.Name;
+            model.Address = CurrentUser.Organization?.Address;
+
+            return View(model);
+        }
+
+        [Auth]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Me(ProfileAccountViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User userUsed = UoW.UserRepository.GetByUsernameCached(model.Username?.Trim());
+
+                if (userUsed != null
+                 && CurrentUser.ID != userUsed.ID)
+                {
+                    ModelState.AddModelError(string.Empty, i18n.Resources.UsernameUsed);
+                }
+                else
+                {
+
+                    CurrentUser.FirstName = model.FirstName;
+                    CurrentUser.Username = model.Username;
+                    CurrentUser.LastName = model.LastName;
+                    CurrentUser.Phone = model.Phone;
+                    CurrentUser.Country = model.Country;
+                    CurrentUser.BirthDay = model.Birthday;
+
+                    if (!string.IsNullOrEmpty(model.NewPassord))
+                    {
+
+                        if (!PasswordHasher.Equals(model.OldPassword?.Trim(), CurrentUser.Salt, CurrentUser.Password))
+                        {
+                            Passphrase pwd = PasswordHasher.Hash(model.NewPassord);
+
+                            CurrentUser.Password = pwd.Hash;
+                            CurrentUser.Salt = pwd.Salt;
+                        }
+
+                    }
+
+
+                    if (CurrentUser.Role == UserRoleType.LicenseAdmin)
+                    {
+                        CurrentUser.Organization.Address = model.Address;
+                    }
+                    UoW.Save();
+                    UoW.UserRepository.SetCache(CurrentUser);
+
+                    model.Flash.Add(new FlashMessage()
+                    {
+                        Type = FlashMessageType.Success,
+                        Message = i18n.Resources.ProfileSaveMessage
+                    });
+                }
+            }
+
+            model.Organization = CurrentUser.Organization;
+
+            return View(model);
         }
 
         private ActionResult RedirectToLocal(string returnUrl = null)

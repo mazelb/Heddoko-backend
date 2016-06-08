@@ -9,6 +9,8 @@ namespace Heddoko.Models
 {
     public class UserAPIModel : BaseAPIModel
     {
+        public string OrganizationName { get; set; }
+
         public string Name { get; set; }
 
         [DataType(DataType.EmailAddress)]
@@ -29,6 +31,6 @@ namespace Heddoko.Models
 
         public string LicenseName { get; set; }
 
-        public string Phone { get; set;}
+        public string Phone { get; set; }
     }
 }

@@ -21,6 +21,7 @@
                 case DAL.Models.UserRoleType.User:
                     break;
             }
+            <li role="presentation"><a href="@Url.Action("Me", "Account")">@i18n.Resources.Profile</a></li>
             <li role="presentation"><a href="@Url.Action("Signout", "Account")">@i18n.Resources.SignOut</a></li>
         }
     </ul>

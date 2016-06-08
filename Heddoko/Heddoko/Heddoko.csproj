@@ -49,16 +49,16 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Hangfire.Core, Version=1.5.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hangfire.Core.1.5.6\lib\net45\Hangfire.Core.dll</HintPath>
+    <Reference Include="Hangfire.Core, Version=1.5.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.Core.1.5.7\lib\net45\Hangfire.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Hangfire.Dashboard.Authorization, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hangfire.Dashboard.Authorization.2.1.0\lib\net45\Hangfire.Dashboard.Authorization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Hangfire.SqlServer, Version=1.5.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hangfire.SqlServer.1.5.6\lib\net45\Hangfire.SqlServer.dll</HintPath>
+    <Reference Include="Hangfire.SqlServer, Version=1.5.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.SqlServer.1.5.7\lib\net45\Hangfire.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -444,6 +444,7 @@
     <Content Include="Scripts\js\admin\grid\complexEquipments.js" />
     <Content Include="Scripts\js\admin\grid\equipments.js" />
     <Content Include="Scripts\js\admin\grid\licenses.js" />
+    <Content Include="Scripts\js\admin\grid\usersAdmin.js" />
     <Content Include="Scripts\js\admin\grid\users.js" />
     <Content Include="Scripts\js\admin\grid\materials.js" />
     <Content Include="Scripts\js\admin\kendo.js" />
@@ -1031,6 +1032,7 @@
     <Compile Include="Models\Account\ConfirmViewModel.cs" />
     <Compile Include="Models\Account\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\Account\ForgotViewModel.cs" />
+    <Compile Include="Models\Account\ProfileAccountViewModel.cs" />
     <Compile Include="Models\Account\SignUpAccountViewModel.cs" />
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
@@ -1067,7 +1069,9 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Helpers\JWT\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\dev.pubxml" />
     <None Include="Properties\PublishProfiles\prod.pubxml" />
@@ -1607,6 +1611,8 @@
     <Content Include="Views\Organization\_Users.cshtml" />
     <Content Include="Views\Organization\_Licenses.cshtml" />
     <Content Include="Views\Email\InviteUserEmail.cshtml" />
+    <Content Include="Views\License\_Users.cshtml" />
+    <Content Include="Views\Account\Me.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
