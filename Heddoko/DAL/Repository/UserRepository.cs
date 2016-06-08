@@ -50,6 +50,15 @@ namespace DAL
                         .FirstOrDefault(c => c.ID == id);
         }
 
+        public override IEnumerable<User> All()
+        {
+            return DbSet.Include(c => c.Asset)
+                        .Include(c => c.Organization)
+                        .Include(c => c.License)
+                        .OrderBy(c => c.FirstName)
+                        .OrderBy(c => c.LastName);
+        }
+
         public User GetFull(int id)
         {
             return DbSet.Include(c => c.Asset)
@@ -152,9 +161,10 @@ namespace DAL
                         .Include(c => c.Organization)
                         .Where(c => organizationID.HasValue ? c.OrganizationID.Value == organizationID : true)
                         .AsEnumerable()
-                        .Where(c => c.FirstName.Contains(search, StringComparison.OrdinalIgnoreCase)
-                                 || c.LastName.Contains(search, StringComparison.OrdinalIgnoreCase)
-                                 || c.Email.Contains(search, StringComparison.OrdinalIgnoreCase))
+                        .Where(c => (!string.IsNullOrEmpty(c.FirstName) && c.FirstName.ToLower().Contains(search.ToLower()))
+                                 || (!string.IsNullOrEmpty(c.LastName) && c.LastName.ToLower().Contains(search.ToLower()))
+                                 || (!string.IsNullOrEmpty(c.Username) && c.Username.ToLower().Contains(search.ToLower()))
+                                 || (!string.IsNullOrEmpty(c.Email) && c.Email.ToLower().Contains(search.ToLower())))
                         .OrderBy(c => c.FirstName)
                         .OrderBy(c => c.LastName);
         }

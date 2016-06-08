@@ -1069,6 +1069,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Old password.
+        /// </summary>
+        public static string OldPassword {
+            get {
+                return ResourceManager.GetString("OldPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;strong&gt;Whoops!&lt;/strong&gt; There were some problems with your input.&lt;br&gt;&lt;br&gt;.
         /// </summary>
         public static string Oops {
@@ -1182,6 +1191,24 @@ namespace i18n {
         public static string Privacy {
             get {
                 return ResourceManager.GetString("Privacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string Profile {
+            get {
+                return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You profile have been updated.
+        /// </summary>
+        public static string ProfileSaveMessage {
+            get {
+                return ResourceManager.GetString("ProfileSaveMessage", resourceCulture);
             }
         }
         

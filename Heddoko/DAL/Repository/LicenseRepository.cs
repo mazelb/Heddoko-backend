@@ -34,7 +34,7 @@ namespace DAL
         public IEnumerable<License> Search(string search, int? organizationID = null)
         {
             return All().Where(c => organizationID.HasValue ? c.OrganizationID.HasValue && c.OrganizationID.Value == organizationID : true)
-                        .Where(c => (c.OrganizationID + "-" + c.ID).Contains(search, StringComparison.OrdinalIgnoreCase));
+                        .Where(c => (c.OrganizationID + "-" + c.ID).ToLower().Contains(search.ToLower()));
         }
 
         public IEnumerable<License> GetAvailableByOrganization(int organizationID)
@@ -42,8 +42,9 @@ namespace DAL
             DateTime today = DateTime.Now.StartOfDay();
 
             return DbSet.Include(c => c.Organization)
-                        .Where(c => c.Users.Count() < c.Amount)
-                        .Where(c => c.ExpirationAt > today)
+                        .Where(c => c.OrganizationID.Value == organizationID
+                                 && c.Users.Count() < c.Amount
+                                 && c.ExpirationAt > today)
                         .OrderByDescending(c => c.ExpirationAt);
         }
     }

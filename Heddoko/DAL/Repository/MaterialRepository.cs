@@ -26,8 +26,8 @@ namespace DAL
 
         public IEnumerable<Material> Search(string value)
         {
-            return All().Where(c => c.Name.Contains(value, StringComparison.OrdinalIgnoreCase)
-                                 || c.PartNo.Contains(value, StringComparison.OrdinalIgnoreCase));
+            return All().Where(c => c.Name.ToLower().Contains(value.ToLower())
+                                 || c.PartNo.ToLower().Contains(value.ToLower()));
         }
     }
 }

@@ -31,10 +31,10 @@ namespace DAL
 
         public IEnumerable<Organization> Search(string value)
         {
-            return All().Where(c => c.ID.ToString().Contains(value, StringComparison.OrdinalIgnoreCase)
-                                 || c.Name.Contains(value, StringComparison.OrdinalIgnoreCase)
-                                 || c.Address.Contains(value, StringComparison.OrdinalIgnoreCase)
-                                 || c.Phone.Contains(value, StringComparison.OrdinalIgnoreCase));
+            return All().Where(c => c.ID.ToString().ToLower().Contains(value.ToLower())
+                                 || c.Name.ToLower().Contains(value.ToLower())
+                                 || c.Address.ToLower().Contains(value.ToLower())
+                                 || c.Phone.ToLower().Contains(value.ToLower()));
         }
     }
 }

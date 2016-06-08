@@ -735,4 +735,13 @@
   <data name="EmptyLicense" xml:space="preserve">
     <value>No license</value>
   </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Old password</value>
+  </data>
+  <data name="ProfileSaveMessage" xml:space="preserve">
+    <value>You profile have been updated</value>
+  </data>
 </root>

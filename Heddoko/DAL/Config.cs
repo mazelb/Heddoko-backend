@@ -113,5 +113,15 @@ namespace DAL
             }
         }
         #endregion
+
+        #region JWT
+        public static string JWTSecret
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["JWTSecret"];
+            }
+        }
+        #endregion
     }
 }

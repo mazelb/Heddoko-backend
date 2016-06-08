@@ -1,4 +1,5 @@
-﻿using Jil;
+﻿using DAL.Helpers;
+using Jil;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,27 @@ namespace DAL.Models
 
         public DateTime? BirthDay { get; set; }
 
+        [JsonIgnore]
         public UserRoleType Role { get; set; }
+
+        public UserRoleType RoleType
+        {
+            get
+            {
+                if (License != null
+                && License.IsActive)
+                {
+                    switch (License.Type)
+                    {
+                        case LicenseType.DataAnalysis:
+                            return UserRoleType.Analyst;
+                        case LicenseType.DataCollection:
+                            return UserRoleType.Worker;
+                    }
+                }
+                return Role;
+            }
+        }
 
         public UserStatusType Status { get; set; }
 
@@ -78,21 +99,26 @@ namespace DAL.Models
         [JsonIgnore]
         public virtual License License { get; set; }
 
-        public LicenseInfo LicenseInfo
+        public string LicenseInfoToken
         {
             get
             {
                 if (License != null)
                 {
-                    return new LicenseInfo()
+                    LicenseInfo info = new LicenseInfo()
                     {
                         ID = License.ID,
                         ExpiredAt = License.ExpirationAt,
                         Name = License.Name,
                         Status = License.Status,
                         Type = License.Type,
-                        ViewID = License.ViewID
+                        ViewID = License.ViewID,
+                        IsActive = License.IsActive
                     };
+
+                    string json = JsonConvert.SerializeObject(info);
+
+                    return JWTHelper.Create(json);
                 }
 
                 return null;

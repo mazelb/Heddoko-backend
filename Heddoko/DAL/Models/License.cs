@@ -46,5 +46,17 @@ namespace DAL.Models
         [JilDirective(Ignore = true)]
         public virtual ICollection<User> Users { get; set; }
         #endregion
+
+        #region NotMapped
+        public bool IsActive
+        {
+            get
+            {
+                return (Type == LicenseType.DataAnalysis || Type == LicenseType.DataCollection)
+                    && Status == LicenseStatusType.Active
+                    && ExpirationAt > DateTime.Now;
+            }
+        }
+        #endregion
     }
 }

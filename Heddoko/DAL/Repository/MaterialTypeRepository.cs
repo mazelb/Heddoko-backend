@@ -24,7 +24,7 @@ namespace DAL
 
         public IEnumerable<MaterialType> Search(string value)
         {
-            return DbSet.Where(c => c.Identifier.Contains(value, StringComparison.OrdinalIgnoreCase)).OrderBy(c => c.Identifier);
+            return DbSet.Where(c => c.Identifier.ToLower().Contains(value.ToLower())).OrderBy(c => c.Identifier);
         }
     }
 }
