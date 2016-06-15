@@ -11,12 +11,17 @@
     </div>
 
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#suits">License</a></li>
+        <li class="active"><a data-toggle="tab" href="#organizations">@i18n.Resources.Organizations</a></li>
+        <li><a data-toggle="tab" href="#users">@i18n.Resources.Users</a></li>
     </ul>
     @Html.Partial("_FlashMessages", Model.Flash)
     <div class="tab-content">
-        <div id="suits" class="tab-pane fade in active">
-            license
+        <div id="organizations" class="tab-pane fade in active">
+            @Html.Partial("_Organizations")
+        </div>
+
+        <div id="users" class="tab-pane fade">
+            @Html.Partial("_Users")
         </div>
     </div>
 </div>

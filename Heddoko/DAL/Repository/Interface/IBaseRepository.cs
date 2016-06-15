@@ -47,10 +47,6 @@ namespace DAL
 
         void Remove(T entity);
 
-        void Save();
-
-        void Update();
-
         void AttachAndUpdate(T item);
 
         void Create(T item);

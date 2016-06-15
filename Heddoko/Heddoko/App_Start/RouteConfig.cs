@@ -39,6 +39,18 @@ namespace Heddoko
             );
 
             routes.MapRoute(
+                name: "SignUpOrganization",
+                url: "register/{organizationID}",
+                defaults: new { controller = "Account", action = "SignUpOrganization", token = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Invite",
+                url: "invite/{token}",
+                defaults: new { controller = "Account", action = "SignUpOrganization", token = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Confirm",
                 url: "confirm/{token}",
                 defaults: new { controller = "Account", action = "Confirm", token = UrlParameter.Optional }

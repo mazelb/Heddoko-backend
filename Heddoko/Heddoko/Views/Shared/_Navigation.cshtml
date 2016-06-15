@@ -16,11 +16,12 @@
                     <li role="presentation"><a href="@Url.Action("Index", "Analyst")">@i18n.Resources.Dashboard</a></li>
                     break;
                 case DAL.Models.UserRoleType.LicenseAdmin:
-                    <li role="presentation"><a href="@Url.Action("Index", "License")">@i18n.Resources.LicenseTitle</a></li>
+                    <li role="presentation"><a href="@Url.Action("Index", "Organization")">@i18n.Resources.LicenseTitle</a></li>
                     break;
                 case DAL.Models.UserRoleType.User:
                     break;
             }
+            <li role="presentation"><a href="@Url.Action("Me", "Account")">@i18n.Resources.Profile</a></li>
             <li role="presentation"><a href="@Url.Action("Signout", "Account")">@i18n.Resources.SignOut</a></li>
         }
     </ul>

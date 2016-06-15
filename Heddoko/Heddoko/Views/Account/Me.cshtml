@@ -1,0 +1,157 @@
+﻿@model Heddoko.Models.ProfileAccountViewModel
+
+@{
+    ViewBag.HtmlClass = "auth-register";
+    ViewBag.BodyClass = "auth-register";
+}
+
+
+<div class="row">
+    <div class="main-body col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+        @using (Html.BeginForm("Me", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    @Html.Raw(i18n.Resources.Oops)
+                    <ul>
+                        @Html.ValidationSummary(true, string.Empty, new { @class = "" })
+                    </ul>
+                </div>
+            }
+            @Html.Partial("_FlashMessages", Model.Flash)
+
+            if (Model.Organization != null)
+            {
+                <div style="margin:20px 0 25px 0;">
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-home"></span>
+                            </span>
+                            @Html.TextBoxFor(m => m.Organization.Name, new { @class = "form-control", disabled = "disabled", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Organization.Name).ToString()) })
+                            @Html.HiddenFor(m => m.OrganizationName)
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Organization.Name, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </span>
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.FirstName).ToString()) })
+                </div>
+                @Html.ValidationMessageFor(m => m.FirstName, string.Empty, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </span>
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.LastName).ToString()) })
+                </div>
+                @Html.ValidationMessageFor(m => m.LastName, string.Empty, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                    </span>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", disabled = "disabled", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Email).ToString()) })
+                    @Html.HiddenFor(m => m.Email)
+                </div>
+                @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        @@
+                    </span>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Username).ToString()) })
+                </div>
+                @Html.ValidationMessageFor(m => m.Username, string.Empty, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-lock"></span>
+                    </span>
+                    @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.OldPassword).ToString()) })
+                </div>
+                @Html.ValidationMessageFor(m => m.OldPassword, string.Empty, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-lock"></span>
+                    </span>
+                    @Html.PasswordFor(m => m.NewPassord, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.NewPassord).ToString()) })
+                </div>
+                @Html.ValidationMessageFor(m => m.NewPassord, string.Empty, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-globe"></span>
+                    </span>
+                    @Html.TextBoxFor(m => m.Country, new { @class = "form-control", disabled = "disabled", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Country).ToString()) })
+                </div>
+                @Html.ValidationMessageFor(m => m.Country, string.Empty, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    @Html.TextBoxFor(m => m.Birthday, new { disabled = "disabled", @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Birthday).ToString() + " e.g. 1977-02-24") })
+                </div>
+                @Html.ValidationMessageFor(m => m.Birthday, string.Empty, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-phone-alt"></span>
+                    </span>
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Phone).ToString()) })
+                </div>
+                @Html.ValidationMessageFor(m => m.Phone, string.Empty, new { @class = "text-danger" })
+            </div>
+
+            if (Model.CurrentUser.Role == DAL.Models.UserRoleType.LicenseAdmin)
+            {
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-home"></span>
+                        </span>
+                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Address).ToString()) })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Address, string.Empty, new { @class = "text-danger" })
+                </div>
+            }
+
+            <div class="form-group">
+                <input type="submit"
+                       class="btn btn-default"
+                       name="name"
+                       value="@i18n.Resources.Save">
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/Bundles/ValidateJs")
+}

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.2.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.2.1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -24,7 +24,6 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,20 +45,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Hangfire.Core, Version=1.5.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hangfire.Core.1.5.6\lib\net45\Hangfire.Core.dll</HintPath>
+    <Reference Include="Hangfire.Core, Version=1.5.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.Core.1.5.7\lib\net45\Hangfire.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Hangfire.Dashboard.Authorization, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hangfire.Dashboard.Authorization.2.1.0\lib\net45\Hangfire.Dashboard.Authorization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Hangfire.SqlServer, Version=1.5.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hangfire.SqlServer.1.5.6\lib\net45\Hangfire.SqlServer.dll</HintPath>
+    <Reference Include="Hangfire.SqlServer, Version=1.5.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.SqlServer.1.5.7\lib\net45\Hangfire.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -109,8 +108,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -183,6 +182,12 @@
     <Content Include="Content\favicons\favicon-32x32.png" />
     <Content Include="Content\favicons\favicon-96x96.png" />
     <Content Include="Content\favicons\ms-icon-144x144.png" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\ProximaNova-Bold.svg" />
+    <Content Include="Content\fonts\ProximaNova-Light.svg" />
+    <Content Include="Content\fonts\ProximaNova-Regular.svg" />
+    <Content Include="Content\fonts\ProximaNovaCond-Regular.svg" />
     <Content Include="Content\images\backgrounds\gradient1000.png" />
     <Content Include="Content\images\backgrounds\gradient1600.png" />
     <Content Include="Content\images\backgrounds\gradient2900.png" />
@@ -302,6 +307,7 @@
     <Content Include="Content\video\active_straight_leg_raise\summary\heat_map_left.png" />
     <Content Include="Content\video\active_straight_leg_raise\summary\heat_map_right.png" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap.js" />
@@ -328,10 +334,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="redis.flush.cmd" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.bindings">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -377,6 +379,54 @@
     <Content Include="Content\favicons\manifest.json" />
     <Content Include="Content\scss\nodes\notification.scss" />
     <Content Include="Content\scss\nodes\body.scss" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\ProximaNova-Black.otf" />
+    <Content Include="Content\fonts\ProximaNova-Bold.eot" />
+    <Content Include="Content\fonts\ProximaNova-Bold.otf" />
+    <Content Include="Content\fonts\ProximaNova-Bold.ttf" />
+    <Content Include="Content\fonts\ProximaNova-Bold.woff" />
+    <Content Include="Content\fonts\ProximaNova-Bold.woff2" />
+    <Content Include="Content\fonts\ProximaNova-BoldIt.otf" />
+    <Content Include="Content\fonts\ProximaNova-Extrabold.otf" />
+    <Content Include="Content\fonts\ProximaNova-Light.eot" />
+    <Content Include="Content\fonts\ProximaNova-Light.otf" />
+    <Content Include="Content\fonts\ProximaNova-Light.ttf" />
+    <Content Include="Content\fonts\ProximaNova-Light.woff" />
+    <Content Include="Content\fonts\ProximaNova-LightItalic.otf" />
+    <Content Include="Content\fonts\ProximaNova-RegItalic.otf" />
+    <Content Include="Content\fonts\ProximaNova-Regular.eot" />
+    <Content Include="Content\fonts\ProximaNova-Regular.otf" />
+    <Content Include="Content\fonts\ProximaNova-Regular.ttf" />
+    <Content Include="Content\fonts\ProximaNova-Regular.woff" />
+    <Content Include="Content\fonts\ProximaNova-RegularItalic.otf" />
+    <Content Include="Content\fonts\ProximaNova-Semibold.otf" />
+    <Content Include="Content\fonts\ProximaNova-SemiboldItalic.otf" />
+    <Content Include="Content\fonts\ProximaNovaCond-Light.otf" />
+    <Content Include="Content\fonts\ProximaNovaCond-LightIt.otf" />
+    <Content Include="Content\fonts\ProximaNovaCond-Regular.eot" />
+    <Content Include="Content\fonts\ProximaNovaCond-Regular.otf" />
+    <Content Include="Content\fonts\ProximaNovaCond-Regular.ttf" />
+    <Content Include="Content\fonts\ProximaNovaCond-Regular.woff" />
+    <Content Include="Content\fonts\ProximaNovaCond-Regular.woff2" />
+    <Content Include="Content\fonts\ProximaNovaCond-RegularIt.otf" />
+    <Content Include="Content\fonts\ProximaNovaCond-Semibold.otf" />
+    <Content Include="Content\fonts\ProximaNovaCond-SemiboldIt.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
@@ -389,8 +439,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
+    <Content Include="Scripts\js\admin\grid\organization.js" />
+    <Content Include="Scripts\js\admin\grid\organizations.js" />
     <Content Include="Scripts\js\admin\grid\complexEquipments.js" />
     <Content Include="Scripts\js\admin\grid\equipments.js" />
+    <Content Include="Scripts\js\admin\grid\licenses.js" />
+    <Content Include="Scripts\js\admin\grid\usersAdmin.js" />
     <Content Include="Scripts\js\admin\grid\users.js" />
     <Content Include="Scripts\js\admin\grid\materials.js" />
     <Content Include="Scripts\js\admin\kendo.js" />
@@ -927,9 +981,12 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\ComlexEquipmentsController.cs" />
+    <Compile Include="Controllers\Admin\LicensesController.cs" />
+    <Compile Include="Controllers\Admin\OrganizationsController.cs" />
     <Compile Include="Controllers\Admin\EquipmentsController.cs" />
     <Compile Include="Controllers\Admin\UsersController.cs" />
     <Compile Include="Controllers\Admin\MaterialsContoller.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\LicenseController.cs" />
     <Compile Include="Controllers\AnalystContoller.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -971,14 +1028,18 @@
     <Compile Include="Helpers\MVC\CustomDirectRouteProvider.cs" />
     <Compile Include="Helpers\MVC\IsCurrentAction.cs" />
     <Compile Include="Helpers\Utility.cs" />
+    <Compile Include="Models\Account\InviteViewModel.cs" />
     <Compile Include="Models\Account\ConfirmViewModel.cs" />
     <Compile Include="Models\Account\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\Account\ForgotViewModel.cs" />
+    <Compile Include="Models\Account\ProfileAccountViewModel.cs" />
     <Compile Include="Models\Account\SignUpAccountViewModel.cs" />
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
     <Compile Include="Models\Admin\ComplexEquipmentAPIModel.cs" />
+    <Compile Include="Models\Admin\LicenseAPIModel.cs" />
+    <Compile Include="Models\Admin\OrganizationAPIModel.cs" />
     <Compile Include="Models\Admin\ErrorAPIModel.cs" />
     <Compile Include="Models\Admin\Kendo\KendoAggregateItem.cs" />
     <Compile Include="Models\Admin\Kendo\KendoFilter.cs" />
@@ -993,12 +1054,14 @@
     <Compile Include="Models\Admin\MaterialTypeAPIModel.cs" />
     <Compile Include="Models\API\SignInAccountViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\Email\InviteAdminUserEmailViewModel.cs" />
     <Compile Include="Models\Email\ActivationUserEmailViewModel.cs" />
     <Compile Include="Models\Email\EmailViewModel.cs" />
     <Compile Include="Models\Email\ForgotPasswordEmailViewModel.cs" />
     <Compile Include="Models\Error\API\ErrorAPIViewModel.cs" />
     <Compile Include="Models\Error\ErrorViewModel.cs" />
     <Compile Include="Models\FlashMessagesViewModel.cs" />
+    <Compile Include="Models\Organization\OrganizationIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -1006,7 +1069,9 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Helpers\JWT\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\dev.pubxml" />
     <None Include="Properties\PublishProfiles\prod.pubxml" />
@@ -1538,6 +1603,16 @@
     <Content Include="Views\Admin\_Materials.cshtml" />
     <Content Include="Views\Admin\_Equipments.cshtml" />
     <Content Include="Views\Admin\_ComplexEquipments.cshtml" />
+    <Content Include="Views\License\_Organizations.cshtml" />
+    <Content Include="Views\Email\InviteAdminUserEmail.cshtml" />
+    <Content Include="Views\Organization\Index.cshtml" />
+    <Content Include="Views\Account\Invite.cshtml" />
+    <Content Include="Views\Account\SignUpOrganization.cshtml" />
+    <Content Include="Views\Organization\_Users.cshtml" />
+    <Content Include="Views\Organization\_Licenses.cshtml" />
+    <Content Include="Views\Email\InviteUserEmail.cshtml" />
+    <Content Include="Views\License\_Users.cshtml" />
+    <Content Include="Views\Account\Me.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1588,8 +1663,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.2.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.2.1\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

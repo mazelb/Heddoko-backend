@@ -77,10 +77,8 @@ namespace Heddoko.Controllers.API
                                 {
                                     Token = user.GenerateToken()
                                 });
-                                UoW.UserRepository.Update();
+                                UoW.Save();
                                 user.AllowToken();
-                                //TODO remove that - fixed issue with stackoverflow referencies
-                                user.Tokens = null;
                                 UoW.UserRepository.SetCache(user);
                             }
                             return user;

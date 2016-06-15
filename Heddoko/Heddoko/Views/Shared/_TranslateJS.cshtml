@@ -148,4 +148,38 @@
     };
     </text>
     }
+
+
+    Enums.LicenseType = {};
+    Enums.LicenseType.enum = {};
+    Enums.LicenseType.array = {};
+    @foreach (DAL.Models.LicenseType type in (DAL.Models.LicenseType[])Enum.GetValues(typeof(DAL.Models.LicenseType)))
+    {
+        <text>
+
+    Enums.LicenseType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.LicenseType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+
+    Enums.LicenseStatusType = {};
+    Enums.LicenseStatusType.enum = {};
+    Enums.LicenseStatusType.array = {};
+    @foreach (DAL.Models.LicenseStatusType type in (DAL.Models.LicenseStatusType[])Enum.GetValues(typeof(DAL.Models.LicenseStatusType)))
+    {
+        <text>
+
+    Enums.LicenseStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.LicenseStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
 </script>

@@ -13,7 +13,7 @@ using System.Web.Http.Description;
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [Auth(Roles = DAL.Constants.Roles.Admin)]
+    [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
     public abstract class BaseAdminController<T, M> : ApiController
         where T : BaseModel
         where M : class

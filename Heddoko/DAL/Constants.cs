@@ -39,11 +39,15 @@ namespace DAL
             public const string User = "User";
             public const string Analyst = "Analyst";
             public const string LicenseAdmin = "LicenseAdmin";
+            public const string Worker = "Worker";
             public const string Admin = "Admin";
-            public const string All = "User,Analyst,Admin,LicenseAdmin";
+            public const string All = "User,Analyst,Admin,LicenseAdmin,Worker";
             public const string UserAndAdmin = "User,Admin";
             public const string AnalystAndAdmin = "Analyst,Admin";
             public const string LicenseAdminAndAdmin = "LicenseAdmin,Admin";
+            public const string LicenseAdminAndWorkerAndAnalyst = "LicenseAdmin,Analyst,Worker";
+            public const string LicenseAdminAndWorkerAndAnalystAndAdmin = "LicenseAdmin,Analyst,Worker,Admin";
+            public const string WorkerAndAdmin = "Worker,Admin";
         }
 
         public class Languages

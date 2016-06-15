@@ -13,7 +13,7 @@ namespace DAL
 
         public Asset GetByImage(string name)
         {
-            return DbSet.Where(c => c.Image == name).FirstOrDefault();
+            return DbSet.Where(c => c.Image.Equals(name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
         }
     }
 }

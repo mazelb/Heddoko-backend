@@ -74,6 +74,10 @@ namespace DAL
                .HasMany<Tag>(s => s.Tags)
                .WithMany(c => c.Groups);
 
+            //modelBuilder.Entity<Organization>()
+            // .HasMany<User>(s => s.Users)
+            // .WithOptional(c => c.Organization);
+
             base.OnModelCreating(modelBuilder);
         }
 

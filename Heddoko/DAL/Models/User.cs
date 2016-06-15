@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using DAL.Helpers;
+using Jil;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -41,7 +43,27 @@ namespace DAL.Models
 
         public DateTime? BirthDay { get; set; }
 
+        [JsonIgnore]
         public UserRoleType Role { get; set; }
+
+        public UserRoleType RoleType
+        {
+            get
+            {
+                if (License != null
+                && License.IsActive)
+                {
+                    switch (License.Type)
+                    {
+                        case LicenseType.DataAnalysis:
+                            return UserRoleType.Analyst;
+                        case LicenseType.DataCollection:
+                            return UserRoleType.Worker;
+                    }
+                }
+                return Role;
+            }
+        }
 
         public UserStatusType Status { get; set; }
 
@@ -57,10 +79,52 @@ namespace DAL.Models
         [JsonIgnore]
         public string ForgotToken { get; set; }
 
+        [StringLength(100)]
+        [JsonIgnore]
+        public string InviteToken { get; set; }
+
         [JsonIgnore]
         public DateTime? ForgotExpiration { get; set; }
 
         #region Relations
+        [JsonIgnore]
+        public int? OrganizationID { get; set; }
+
+        [JsonIgnore]
+        public virtual Organization Organization { get; set; }
+
+        [JsonIgnore]
+        public int? LicenseID { get; set; }
+
+        [JsonIgnore]
+        public virtual License License { get; set; }
+
+        public string LicenseInfoToken
+        {
+            get
+            {
+                if (License != null)
+                {
+                    LicenseInfo info = new LicenseInfo()
+                    {
+                        ID = License.ID,
+                        ExpiredAt = License.ExpirationAt,
+                        Name = License.Name,
+                        Status = License.Status,
+                        Type = License.Type,
+                        ViewID = License.ViewID,
+                        IsActive = License.IsActive
+                    };
+
+                    string json = JsonConvert.SerializeObject(info);
+
+                    return JWTHelper.Create(json);
+                }
+
+                return null;
+            }
+        }
+
         [JsonIgnore]
         public int? AssetID { get; set; }
 
@@ -68,15 +132,19 @@ namespace DAL.Models
         public virtual Asset Asset { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual ICollection<Group> Groups { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual ICollection<Profile> Profiles { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual ICollection<AccessToken> Tokens { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual ICollection<Equipment> Equipments { get; set; }
         #endregion
 

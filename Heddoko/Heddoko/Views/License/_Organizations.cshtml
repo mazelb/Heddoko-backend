@@ -1,0 +1,114 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="filters organizationsFilter">
+            <div>
+                <label for="organizationsSearch" class="control-label">@i18n.Resources.Search</label>
+                <input id="organizationsSearch"
+                       class="form-control"
+                       type="text"
+                       placeholder="@i18n.Resources.EnterOrganization"
+                       data-bind="value: search, events:{ keyup: keyup }" />
+            </div>
+            <div class="margin010">
+                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success organizationsForm">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.Organization</h3>
+                <div class="btn-group pull-right" role="group">
+                    <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
+                    <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="organization-name"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Name"
+                               class="form-control"
+                               data-bind="value: model.name" />
+                    </div>
+
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="organization-phone"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Phone"
+                               class="form-control"
+                               data-bind="value: model.phone" />
+                    </div>
+                    <div class="col-sm-6">
+                        <textarea type="text"
+                                  required
+                                  name="organization-address"
+                                  validationMessage="@i18n.Resources.Required"
+                                  placeholder="@i18n.Resources.Address"
+                                  class="form-control"
+                                  data-bind="value: model.address" ></textarea>
+                    </div>
+                </div>
+                <div class="row margin010">
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="organization-email"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Email"
+                               class="form-control"
+                               data-bind="value: model.user.email" />
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="organization-email"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Username"
+                               class="form-control"
+                               data-bind="value: model.user.username" />
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="organization-firtsname"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Firstname"
+                               class="form-control"
+                               data-bind="value: model.user.firstname" />
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="organization-lastname"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Lastname"
+                               class="form-control"
+                               data-bind="value: model.user.lastname" />
+                    </div>
+                </div>
+                <div class="row margin010">
+                    <div class="col-sm-12">
+                        <textarea data-bind="value: model.notes"
+                                  class="form-control"
+                                  placeholder="@i18n.Resources.Notes"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="organizationsGrid">
+
+        </div>
+    </div>
+</div>

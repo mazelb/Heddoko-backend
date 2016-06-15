@@ -1,0 +1,21 @@
+﻿@model Heddoko.Models.InviteAdminUserEmailViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutEmail.cshtml";
+}
+
+Welcome @Model.FirstName, you became admin of organization @Model.OrganizationName
+<br />
+@if (!string.IsNullOrEmpty(Model.Token)) {
+    <text>
+    Click here to activate your account: @(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")
+    </text>
+}
+else
+{
+    <text>
+        Click here to manage your organization: @(Heddoko.Config.DashboardSite + $"/organization")
+    </text>
+}
+<br />
+- The Heddoko Team

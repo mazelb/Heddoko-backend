@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Data.Entity;
 using System.Collections.Generic;
+using System;
 
 namespace DAL
 {
@@ -13,7 +14,7 @@ namespace DAL
 
         public Group GetByName(string name)
         {
-            return DbSet.Where(c => c.Name == name).FirstOrDefault();
+            return DbSet.Where(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
         }
 
         public IEnumerable<Group> GetByUser(int id, List<string> embed = null)

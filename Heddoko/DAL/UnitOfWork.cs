@@ -47,6 +47,10 @@ namespace DAL
         private IScreeningRepository screeningRepository { get; set; }
 
         private ITagRepository tagRepository { get; set; }
+
+        private IOrganizationRepository organizationRepository { get; set; }
+
+        private ILicenseRepository licenseRepository { get; set; }
         #endregion
 
         #region PublicRepository
@@ -175,6 +179,22 @@ namespace DAL
             get
             {
                 return tagRepository ?? (tagRepository = new TagRepository(db));
+            }
+        }
+
+        public IOrganizationRepository OrganizationRepository
+        {
+            get
+            {
+                return organizationRepository ?? (organizationRepository = new OrganizationRepository(db));
+            }
+        }
+
+        public ILicenseRepository LicenseRepository
+        {
+            get
+            {
+                return licenseRepository ?? (licenseRepository = new LicenseRepository(db));
             }
         }
         #endregion

@@ -424,7 +424,7 @@
     <value>Actions</value>
   </data>
   <data name="AdminTitle" xml:space="preserve">
-    <value>Heddoko Inventory v0.4</value>
+    <value>Heddoko Admin</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
@@ -541,7 +541,7 @@
     <value>Condition</value>
   </data>
   <data name="HeatsShrink" xml:space="preserve">
-    <value>Heats shrink</value>
+    <value>Heatshrink good</value>
   </data>
   <data name="MacAddress" xml:space="preserve">
     <value>MAC Address</value>
@@ -632,5 +632,116 @@
   </data>
   <data name="SelectEquipment" xml:space="preserve">
     <value>Select a equipments</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>Organizations</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="EnterOrganization" xml:space="preserve">
+    <value>Enter the name or id or phone of organization</value>
+  </data>
+  <data name="UserIsExists" xml:space="preserve">
+    <value>User already exists</value>
+  </data>
+  <data name="EmailInviteAdminUserSubject" xml:space="preserve">
+    <value>You become as admin of organization</value>
+  </data>
+  <data name="UserAlreadyInOrganizations" xml:space="preserve">
+    <value>User used in another Organization</value>
+  </data>
+  <data name="InviteMessage" xml:space="preserve">
+    <value>Use this form to apply you invite</value>
+  </data>
+  <data name="InviteToken" xml:space="preserve">
+    <value>Invite token</value>
+  </data>
+  <data name="UserSignupOrganizationMessage" xml:space="preserve">
+    <value>You have been updated. Now you can use your organization</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="ExpirationAt" xml:space="preserve">
+    <value>Expiration at</value>
+  </data>
+  <data name="License" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="LicenseUsed" xml:space="preserve">
+    <value>License already used</value>
+  </data>
+  <data name="LiceseAmountUsed" xml:space="preserve">
+    <value>License amount can't be less than used</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="UserSignupUserNonLicenseOrganizationMessage" xml:space="preserve">
+    <value>You have been updated. Ask admin of your organization for license.</value>
+  </data>
+  <data name="UserSignupUserOrganizationMessage" xml:space="preserve">
+    <value>You have been updated. Now you can use your account in application.</value>
+  </data>
+  <data name="LicenseType_DataAnalysis" xml:space="preserve">
+    <value>Data analysis</value>
+  </data>
+  <data name="LicenseType_DataCollection" xml:space="preserve">
+    <value>Data collection</value>
+  </data>
+  <data name="DataAnalysisAmount" xml:space="preserve">
+    <value>Data anaylysis amount</value>
+  </data>
+  <data name="DataCollectorAmount" xml:space="preserve">
+    <value>Data collectors amount</value>
+  </data>
+  <data name="OrganizationName" xml:space="preserve">
+    <value>Name of organization</value>
+  </data>
+  <data name="Used" xml:space="preserve">
+    <value>Used</value>
+  </data>
+  <data name="OrganizationNameUsed" xml:space="preserve">
+    <value>The name of organization in use.</value>
+  </data>
+  <data name="Licenses" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="EnterLicense" xml:space="preserve">
+    <value>Enter the id of license</value>
+  </data>
+  <data name="EnterUser" xml:space="preserve">
+    <value>Enter the firstname or lastname or email of user</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="EmailInviteUserSubject" xml:space="preserve">
+    <value>You invited to organization</value>
+  </data>
+  <data name="EmptyLicense" xml:space="preserve">
+    <value>No license</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Old password</value>
+  </data>
+  <data name="ProfileSaveMessage" xml:space="preserve">
+    <value>You profile have been updated</value>
   </data>
 </root>

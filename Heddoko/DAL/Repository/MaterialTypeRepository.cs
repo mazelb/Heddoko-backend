@@ -19,12 +19,12 @@ namespace DAL
 
         public MaterialType GetByName(string name)
         {
-            return DbSet.Where(c => c.Identifier == name).FirstOrDefault();
+            return DbSet.Where(c => c.Identifier.Equals(name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
         }
 
         public IEnumerable<MaterialType> Search(string value)
         {
-            return DbSet.Where(c => c.Identifier.Contains(value)).OrderBy(c => c.Identifier);
+            return DbSet.Where(c => c.Identifier.ToLower().Contains(value.ToLower())).OrderBy(c => c.Identifier);
         }
     }
 }

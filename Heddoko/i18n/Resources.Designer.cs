@@ -97,6 +97,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string Admin {
@@ -106,11 +115,20 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heddoko Inventory v0.4.
+        ///   Looks up a localized string similar to Heddoko Admin.
         /// </summary>
         public static string AdminTitle {
             get {
                 return ResourceManager.GetString("AdminTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
             }
         }
         
@@ -376,6 +394,24 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data anaylysis amount.
+        /// </summary>
+        public static string DataAnalysisAmount {
+            get {
+                return ResourceManager.GetString("DataAnalysisAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data collectors amount.
+        /// </summary>
+        public static string DataCollectorAmount {
+            get {
+                return ResourceManager.GetString("DataCollectorAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -457,6 +493,24 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You become as admin of organization.
+        /// </summary>
+        public static string EmailInviteAdminUserSubject {
+            get {
+                return ResourceManager.GetString("EmailInviteAdminUserSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You invited to organization.
+        /// </summary>
+        public static string EmailInviteUserSubject {
+            get {
+                return ResourceManager.GetString("EmailInviteUserSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email already used.
         /// </summary>
         public static string EmailUsed {
@@ -493,6 +547,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No license.
+        /// </summary>
+        public static string EmptyLicense {
+            get {
+                return ResourceManager.GetString("EmptyLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter a MAC address, a physical location, or a serial #.
         /// </summary>
         public static string EnterComplexEquipment {
@@ -520,11 +583,38 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the id of license.
+        /// </summary>
+        public static string EnterLicense {
+            get {
+                return ResourceManager.GetString("EnterLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the name or part # of a material.
         /// </summary>
         public static string EnterMaterial {
             get {
                 return ResourceManager.GetString("EnterMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the name or id or phone of organization.
+        /// </summary>
+        public static string EnterOrganization {
+            get {
+                return ResourceManager.GetString("EnterOrganization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the firstname or lastname or email of user.
+        /// </summary>
+        public static string EnterUser {
+            get {
+                return ResourceManager.GetString("EnterUser", resourceCulture);
             }
         }
         
@@ -592,6 +682,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expiration at.
+        /// </summary>
+        public static string ExpirationAt {
+            get {
+                return ResourceManager.GetString("ExpirationAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forgot token is expired.
         /// </summary>
         public static string ExpiredForgotToken {
@@ -637,7 +736,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heats shrink.
+        ///   Looks up a localized string similar to Heatshrink good.
         /// </summary>
         public static string HeatsShrink {
             get {
@@ -709,6 +808,24 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use this form to apply you invite.
+        /// </summary>
+        public static string InviteMessage {
+            get {
+                return ResourceManager.GetString("InviteMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invite token.
+        /// </summary>
+        public static string InviteToken {
+            get {
+                return ResourceManager.GetString("InviteToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Name.
         /// </summary>
         public static string Lastname {
@@ -718,11 +835,65 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to License.
+        /// </summary>
+        public static string License {
+            get {
+                return ResourceManager.GetString("License", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licenses.
+        /// </summary>
+        public static string Licenses {
+            get {
+                return ResourceManager.GetString("Licenses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License dashboard.
         /// </summary>
         public static string LicenseTitle {
             get {
                 return ResourceManager.GetString("LicenseTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data analysis.
+        /// </summary>
+        public static string LicenseType_DataAnalysis {
+            get {
+                return ResourceManager.GetString("LicenseType_DataAnalysis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data collection.
+        /// </summary>
+        public static string LicenseType_DataCollection {
+            get {
+                return ResourceManager.GetString("LicenseType_DataCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License already used.
+        /// </summary>
+        public static string LicenseUsed {
+            get {
+                return ResourceManager.GetString("LicenseUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License amount can&apos;t be less than used.
+        /// </summary>
+        public static string LiceseAmountUsed {
+            get {
+                return ResourceManager.GetString("LiceseAmountUsed", resourceCulture);
             }
         }
         
@@ -898,11 +1069,56 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Old password.
+        /// </summary>
+        public static string OldPassword {
+            get {
+                return ResourceManager.GetString("OldPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;strong&gt;Whoops!&lt;/strong&gt; There were some problems with your input.&lt;br&gt;&lt;br&gt;.
         /// </summary>
         public static string Oops {
             get {
                 return ResourceManager.GetString("Oops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization.
+        /// </summary>
+        public static string Organization {
+            get {
+                return ResourceManager.GetString("Organization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of organization.
+        /// </summary>
+        public static string OrganizationName {
+            get {
+                return ResourceManager.GetString("OrganizationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of organization in use..
+        /// </summary>
+        public static string OrganizationNameUsed {
+            get {
+                return ResourceManager.GetString("OrganizationNameUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organizations.
+        /// </summary>
+        public static string Organizations {
+            get {
+                return ResourceManager.GetString("Organizations", resourceCulture);
             }
         }
         
@@ -952,6 +1168,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string Phone {
+            get {
+                return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Physical location.
         /// </summary>
         public static string PhysicalLocation {
@@ -966,6 +1191,24 @@ namespace i18n {
         public static string Privacy {
             get {
                 return ResourceManager.GetString("Privacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string Profile {
+            get {
+                return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You profile have been updated.
+        /// </summary>
+        public static string ProfileSaveMessage {
+            get {
+                return ResourceManager.GetString("ProfileSaveMessage", resourceCulture);
             }
         }
         
@@ -1038,6 +1281,15 @@ namespace i18n {
         public static string RetrieveUsername {
             get {
                 return ResourceManager.GetString("RetrieveUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
             }
         }
         
@@ -1312,6 +1564,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unlink.
         /// </summary>
         public static string Unlink {
@@ -1326,6 +1587,33 @@ namespace i18n {
         public static string Use {
             get {
                 return ResourceManager.GetString("Use", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Used.
+        /// </summary>
+        public static string Used {
+            get {
+                return ResourceManager.GetString("Used", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        public static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User used in another Organization.
+        /// </summary>
+        public static string UserAlreadyInOrganizations {
+            get {
+                return ResourceManager.GetString("UserAlreadyInOrganizations", resourceCulture);
             }
         }
         
@@ -1362,6 +1650,15 @@ namespace i18n {
         public static string UserIsBanned {
             get {
                 return ResourceManager.GetString("UserIsBanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User already exists.
+        /// </summary>
+        public static string UserIsExists {
+            get {
+                return ResourceManager.GetString("UserIsExists", resourceCulture);
             }
         }
         
@@ -1447,11 +1744,47 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User have been created. We have sent email with activation link, please activate your account..
         /// </summary>
         public static string UserSignupMessage {
             get {
                 return ResourceManager.GetString("UserSignupMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been updated. Now you can use your organization.
+        /// </summary>
+        public static string UserSignupOrganizationMessage {
+            get {
+                return ResourceManager.GetString("UserSignupOrganizationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been updated. Ask admin of your organization for license..
+        /// </summary>
+        public static string UserSignupUserNonLicenseOrganizationMessage {
+            get {
+                return ResourceManager.GetString("UserSignupUserNonLicenseOrganizationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been updated. Now you can use your account in application..
+        /// </summary>
+        public static string UserSignupUserOrganizationMessage {
+            get {
+                return ResourceManager.GetString("UserSignupUserOrganizationMessage", resourceCulture);
             }
         }
         

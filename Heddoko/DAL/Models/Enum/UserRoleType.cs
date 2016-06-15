@@ -15,6 +15,8 @@ namespace DAL.Models
         [StringValue(Constants.Roles.User)]
         User = 2,
         [StringValue(Constants.Roles.LicenseAdmin)]
-        LicenseAdmin = 3
+        LicenseAdmin = 3,
+        [StringValue(Constants.Roles.Worker)]
+        Worker = 4
     }
 }
