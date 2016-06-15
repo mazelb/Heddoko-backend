@@ -92,6 +92,22 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
+    <Compile Include="Models\Component.cs" />
+    <Compile Include="Models\Enum\SuitsQAStatusType.cs" />
+    <Compile Include="Models\Pants.cs" />
+    <Compile Include="Models\PantsOctopi.cs" />
+    <Compile Include="Models\ShirtOctopi.cs" />
+    <Compile Include="Models\Shirt.cs" />
+    <Compile Include="Models\Enum\SensorType.cs" />
+    <Compile Include="Models\Sensor.cs" />
+    <Compile Include="Models\SensorSet.cs" />
+    <Compile Include="Models\Databoard.cs" />
+    <Compile Include="Models\Powerboard.cs" />
+    <Compile Include="Models\Enum\SensorsQAStatusType.cs" />
+    <Compile Include="Models\Enum\BrainpacksQAStatusType.cs" />
+    <Compile Include="Models\Enum\KitCompositionType.cs" />
+    <Compile Include="Models\Brainpack.cs" />
+    <Compile Include="Models\Kit.cs" />
     <Compile Include="Models\AccessToken.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Enum\AnatomicalPositionType.cs" />
@@ -122,6 +138,7 @@
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Screening.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\Company.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Enum\UserGenderType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
