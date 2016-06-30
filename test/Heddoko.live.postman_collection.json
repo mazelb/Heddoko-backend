@@ -1,0 +1,177 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Heddoko.live",
+		"_postman_id": "71ce7d49-db88-1623-7001-ed323f77e5e5",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "dev",
+			"description": "",
+			"item": [
+				{
+					"name": "DB Migrate",
+					"request": {
+						"url": "http://app.heddoko.com/api/v1/development/migrate-db",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DB Init",
+					"request": {
+						"url": "http://app.heddoko.com/api/v1/development/init-db",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DB Check Pending",
+					"request": {
+						"url": "http://app.heddoko.com/api/v1/development/flush",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DB Migrate Version",
+					"request": {
+						"url": "http://app.heddoko.com/api/v1/development/version-db?version=201604261253470_Init",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Seed Images",
+					"request": {
+						"url": "http://app.heddoko.com/api/v1/development/seed-images",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "flush redis",
+					"request": {
+						"url": "http://app.heddoko.com/api/v1/development/pending-db",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"url": "http://dev.app.heddoko.com/api/v1/users/profile",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "token",
+								"value": "2124dceeb69ba80e858ec58125a513b6",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "User sigin",
+					"request": {
+						"url": "https://app.heddoko.com/api/v1/users/signin",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    'username' : 'ss',\n    'password' : 'p@ssword'\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "User check token",
+					"request": {
+						"url": "http://dev.app.heddoko.com/api/v1/users/check",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "token",
+								"value": "2124dceeb69ba80e858ec58125a513b6",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    'username' : 'ss',\n    'password': 'p@ssword'\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
