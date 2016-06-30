@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using DAL;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,6 +46,13 @@ namespace Heddoko.Controllers.API
             return Ok(DAL.Migrator.GetPending());
         }
 
+        [Route("flush")]
+        [HttpGet]
+        public IHttpActionResult Flush()
+        {
+            RedisManager.Flush();
+            return Ok();
+        }
 
         [Route("seed-images")]
         [HttpPost]

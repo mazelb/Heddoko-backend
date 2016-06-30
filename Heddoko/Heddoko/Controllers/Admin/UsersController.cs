@@ -163,6 +163,8 @@ namespace Heddoko.Controllers
                         Bind(item, model);
                         UoW.Save();
 
+                        UoW.UserRepository.SetCache(item);
+
                         response = Convert(item);
                     }
                     else
@@ -191,6 +193,8 @@ namespace Heddoko.Controllers
                 item.License = null;
 
                 UoW.Save();
+
+                UoW.UserRepository.SetCache(item);
             }
 
             return new KendoResponse<UserAPIModel>()
