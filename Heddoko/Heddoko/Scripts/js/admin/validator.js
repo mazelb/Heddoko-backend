@@ -77,6 +77,25 @@
             }
         }
     },
+    license: {
+        expirationAt: {
+            expirationAtValidation: function (input) {
+                if (!input.is('[name="expirationAt"]')) {
+                    return true;
+                }
+
+                input.attr("data-expirationAtValidation-msg", i18n.Resources.WrongExpirationAtDate);
+
+                var val = input.val();
+                var result = KendoDS.validateDate(val)
+                if (result) {
+                    return result >= kendo.date.today();
+                } 
+
+                return false;
+            }
+        }
+    },
     maxLengthValidation: function (input, name, maxLength) {
         if (!input.is('[name="' + name + '"]')) {
             return true;

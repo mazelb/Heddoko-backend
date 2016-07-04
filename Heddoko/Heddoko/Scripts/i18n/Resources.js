@@ -212,7 +212,8 @@ i18n.Resources = (function () {
   "ProfileSaveMessage": "You profile have been updated",
   "WrongLicenseActive": "License is not active",
   "WrongLicenseDeleted": "License is removed",
-  "WrongLicenseExpiration": "License is expired"
+  "WrongLicenseExpiration": "License is expired",
+  "WrongExpirationAtDate": "Expiration date should be more than today"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

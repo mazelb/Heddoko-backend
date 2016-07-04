@@ -1126,9 +1126,11 @@
     <Compile Include="Helpers\Mail\Mailer.cs" />
     <Compile Include="Helpers\Mail\RazorView.cs" />
     <Compile Include="Helpers\Mail\SendGridMail.cs" />
+    <Compile Include="Helpers\MVC\CompareTodayAttribute.cs" />
     <Compile Include="Helpers\MVC\ContextTempData.cs" />
     <Compile Include="Helpers\MVC\CustomDirectRouteProvider.cs" />
     <Compile Include="Helpers\MVC\IsCurrentAction.cs" />
+    <Compile Include="Helpers\MVC\PosivitiveNumberAttribute.cs" />
     <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Models\Account\InviteViewModel.cs" />
     <Compile Include="Models\Account\ConfirmViewModel.cs" />

@@ -204,6 +204,10 @@ var KendoDS = {
         if (result) {
             return result;
         }
+        result = kendo.parseDate(date, 'yyyy-MM-dd');
+        if (result) {
+            return result;
+        }
         return false;
     },
     emptyEditor: function (container, options) {
@@ -214,7 +218,7 @@ var KendoDS = {
         $('<textarea data-bind="value: ' + options.field + '"></textarea>').appendTo(container);
     },
     dateEditor: function (container, options) {
-        $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+        $('<input name="' + options.field + '" data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
             .appendTo(container)
             .kendoDatePicker({
                 autoBind: true

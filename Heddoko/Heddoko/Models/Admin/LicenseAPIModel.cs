@@ -15,6 +15,8 @@ namespace Heddoko.Models
 
         public LicenseType Type { get; set; }
 
+        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(i18n.Resources))]
+        [CompareToday(CompareEquality.Greater, ErrorMessageResourceName = "WrongExpirationAtDate", ErrorMessageResourceType = typeof(i18n.Resources))]
         public DateTime ExpirationAt { get; set; }
 
         public LicenseStatusType Status { get; set; }

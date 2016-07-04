@@ -1897,6 +1897,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expiration date should be more than today.
+        /// </summary>
+        public static string WrongExpirationAtDate {
+            get {
+                return ResourceManager.GetString("WrongExpirationAtDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid forgot token.
         /// </summary>
         public static string WrongForgotToken {

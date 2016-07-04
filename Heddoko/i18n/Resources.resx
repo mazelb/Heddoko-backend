@@ -753,4 +753,7 @@
   <data name="WrongLicenseExpiration" xml:space="preserve">
     <value>License is expired</value>
   </data>
+  <data name="WrongExpirationAtDate" xml:space="preserve">
+    <value>Expiration date should be more than today</value>
+  </data>
 </root>

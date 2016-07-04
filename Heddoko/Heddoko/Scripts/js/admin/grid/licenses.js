@@ -89,7 +89,8 @@ var Licenses = {
                             nullable: false,
                             type: "date",
                             validation: {
-                                required: true
+                                required: true,
+                                expirationAtValidation: Validator.license.expirationAt.expirationAtValidation
                             }
                         }
                     }
