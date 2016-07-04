@@ -319,7 +319,7 @@ namespace Heddoko.Controllers
         {
             if (ModelState.IsValid)
             {
-                User userUsed = UoW.UserRepository.GetByUsernameCached(model.Username?.Trim());
+                User userUsed = UoW.UserRepository.GetByUsernameFull(model.Username?.Trim());
 
                 if (userUsed != null
                  && CurrentUser.ID != userUsed.ID)
