@@ -127,7 +127,7 @@ namespace Heddoko.Controllers
                 else
                 {
                     UoW.Save();
-                    UoW.UserRepository.SetCache(item);
+                    UoW.UserRepository.ClearCache(item);
                 }
 
                 Task.Run(() => Mailer.SendInviteEmail(item));
@@ -163,7 +163,7 @@ namespace Heddoko.Controllers
                         Bind(item, model);
                         UoW.Save();
 
-                        UoW.UserRepository.SetCache(item);
+                        UoW.UserRepository.ClearCache(item);
 
                         response = Convert(item);
                     }
