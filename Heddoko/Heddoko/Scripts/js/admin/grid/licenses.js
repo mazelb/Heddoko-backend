@@ -16,7 +16,7 @@ var Licenses = {
         });
 
         this.licenseTypes = new kendo.data.DataSource({
-            data: _.values(_.filter(Enums.LicenseType.array, function (u) { return u.value != 0 }))
+            data: _.values(_.filter(Enums.LicenseType.array, function (u) { return u.value != Enums.LicenseType.enum.No }))
         });
 
         this.licenses = Licenses.getDatasource();

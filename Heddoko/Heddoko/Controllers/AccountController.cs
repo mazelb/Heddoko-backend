@@ -383,7 +383,7 @@ namespace Heddoko.Controllers
                     switch (CurrentUser.Role)
                     {
                         case UserRoleType.Admin:
-                            return RedirectToAction("Admin", "License");
+                            return RedirectToAction("Index", "License");
                         case UserRoleType.Analyst:
                             return RedirectToAction("Index", "Analyst");
                         case UserRoleType.LicenseAdmin:

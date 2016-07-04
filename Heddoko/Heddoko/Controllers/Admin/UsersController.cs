@@ -192,6 +192,12 @@ namespace Heddoko.Controllers
                 item.Status = UserStatusType.Deleted;
                 item.License = null;
 
+                if (item.Role == UserRoleType.Worker
+                 || item.Role == UserRoleType.Analyst)
+                {
+                    item.Role = UserRoleType.User;
+                }
+
                 UoW.Save();
 
                 UoW.UserRepository.ClearCache(item);
@@ -256,10 +262,24 @@ namespace Heddoko.Controllers
             }
             else
             {
-                if (item.OrganizationID == null
-                || CurrentUser.OrganizationID.Value != item.OrganizationID.Value)
+                if (CurrentUser.Role != UserRoleType.Admin)
                 {
-                    throw new Exception(i18n.Resources.WrongObjectAccess);
+                    if (item.OrganizationID == null
+                    || CurrentUser.OrganizationID.Value != item.OrganizationID.Value)
+                    {
+                        throw new Exception(i18n.Resources.WrongObjectAccess);
+                    }
+                }
+            }
+
+            if (model.Status.HasValue)
+            {
+                if (item.Status != UserStatusType.Invited)
+                {
+                    if (model.Status.Value != UserStatusType.Invited)
+                    {
+                        item.Status = model.Status.Value;
+                    }
                 }
             }
 

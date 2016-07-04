@@ -34,7 +34,7 @@ var Users = {
         });
 
         this.userStatusTypes = new kendo.data.DataSource({
-            data: _.values(Enums.UserStatusType.array)
+            data: _.values(_.filter(Enums.UserStatusType.array, function (u) { return u.value != Enums.UserStatusType.enum.Banned && u.value != Enums.UserStatusType.enum.Deleted }))
         });
 
         this.users = Users.getDatasource();
@@ -174,7 +174,7 @@ var Users = {
                 }, {
                     field: 'status',
                     title: i18n.Resources.Status,
-                    editor: KendoDS.emptyEditor,
+                    editor: Users.statusDDEditor,
                     template: function (e) {
                         return Format.user.status(e.status);
                     }

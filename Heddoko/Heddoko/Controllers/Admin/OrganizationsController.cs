@@ -175,6 +175,11 @@ namespace Heddoko.Controllers
             {
                 user.Status = UserStatusType.Deleted;
                 user.License = null;
+                if (user.Role == UserRoleType.Worker 
+                 || user.Role == UserRoleType.Analyst)
+                {
+                    user.Role = UserRoleType.User;
+                }
                 UoW.UserRepository.ClearCache(user);
             }
 
