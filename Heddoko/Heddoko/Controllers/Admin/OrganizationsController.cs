@@ -18,6 +18,7 @@ namespace Heddoko.Controllers
     public class OrganizationsController : BaseAdminController<Organization, OrganizationAPIModel>
     {
         const string Search = "Search";
+        const string IsDeleted = "IsDeleted";
 
         public override KendoResponse<IEnumerable<OrganizationAPIModel>> Get([FromUri]KendoRequest request)
         {
@@ -52,7 +53,32 @@ namespace Heddoko.Controllers
                                         }
 
                                         break;
+                                    case IsDeleted:
+                                        items = UoW.OrganizationRepository.All(true);
+                                        break;
                                 }
+                            }
+                            break;
+                        case 2:
+                            bool isDeleted = false;
+
+                            KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
+
+                            if (isDeletedFilter != null)
+                            {
+                                isDeleted = true;
+                            }
+
+                            KendoFilterItem searchFilter = request.Filter.Get(Search);
+                            if (searchFilter != null
+                            && !string.IsNullOrEmpty(searchFilter.Value))
+                            {
+                                items = UoW.OrganizationRepository.Search(searchFilter.Value, isDeleted);
+                            }
+
+                            if (items == null)
+                            {
+                                items = UoW.OrganizationRepository.All(isDeleted);
                             }
                             break;
                     }
@@ -175,7 +201,7 @@ namespace Heddoko.Controllers
             {
                 user.Status = UserStatusType.Deleted;
                 user.License = null;
-                if (user.Role == UserRoleType.Worker 
+                if (user.Role == UserRoleType.Worker
                  || user.Role == UserRoleType.Analyst)
                 {
                     user.Role = UserRoleType.User;
@@ -237,6 +263,11 @@ namespace Heddoko.Controllers
                     }
                     else
                     {
+                        if (user.Role == UserRoleType.Admin)
+                        {
+                            throw new Exception(i18n.Resources.WrongLicenseAdmin);
+                        }
+
                         user.Role = UserRoleType.LicenseAdmin;
                         user.Status = UserStatusType.Active;
                         UoW.UserRepository.SetCache(user);
@@ -251,6 +282,15 @@ namespace Heddoko.Controllers
             item.Phone = model.Phone;
             item.Address = model.Address;
             item.Notes = model.Notes;
+            item.Status = model.Status;
+
+            if (item.Status == OrganizationStatusType.Active)
+            {
+                if (item.User.Status != UserStatusType.Invited)
+                {
+                    item.User.Status = UserStatusType.Active;
+                }
+            }
 
             return item;
         }
@@ -270,6 +310,7 @@ namespace Heddoko.Controllers
                 Address = item.Address,
                 UserID = item.UserID,
                 Notes = item.Notes,
+                Status = item.Status,
                 User = new UserAPIModel()
                 {
                     Email = item.User.Email,

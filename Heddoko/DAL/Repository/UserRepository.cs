@@ -80,11 +80,12 @@ namespace DAL
                         .FirstOrDefault(c => c.ID == id);
         }
 
-        public override IEnumerable<User> All()
+        public IEnumerable<User> All(bool isDeleted = false)
         {
             return DbSet.Include(c => c.Asset)
                         .Include(c => c.Organization)
                         .Include(c => c.License)
+                        .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .OrderBy(c => c.FirstName)
                         .OrderBy(c => c.LastName);
         }
@@ -176,21 +177,22 @@ namespace DAL
                         .FirstOrDefault();
         }
 
-        public IEnumerable<User> GetByOrganization(int organizationID)
+        public IEnumerable<User> GetByOrganization(int organizationID, bool isDeleted = false)
         {
             return DbSet.Include(c => c.License)
                         .Include(c => c.Organization)
+                        .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => c.OrganizationID.Value == organizationID)
                         .OrderBy(c => c.FirstName)
                         .OrderBy(c => c.LastName);
         }
 
-        public IEnumerable<User> Search(string search, int? organizationID = null)
+        public IEnumerable<User> Search(string search, int? organizationID = null, bool isDeleted = false)
         {
             return DbSet.Include(c => c.License)
                         .Include(c => c.Organization)
+                        .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => organizationID.HasValue ? c.OrganizationID.Value == organizationID : true)
-                        .AsEnumerable()
                         .Where(c => (!string.IsNullOrEmpty(c.FirstName) && c.FirstName.ToLower().Contains(search.ToLower()))
                                  || (!string.IsNullOrEmpty(c.LastName) && c.LastName.ToLower().Contains(search.ToLower()))
                                  || (!string.IsNullOrEmpty(c.Username) && c.Username.ToLower().Contains(search.ToLower()))

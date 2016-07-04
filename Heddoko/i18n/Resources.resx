@@ -756,4 +756,13 @@
   <data name="WrongExpirationAtDate" xml:space="preserve">
     <value>Expiration date should be more than today</value>
   </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="ShowDeleted" xml:space="preserve">
+    <value>Show deleted</value>
+  </data>
+  <data name="WrongLicenseAdmin" xml:space="preserve">
+    <value>Admin can't be a license admin</value>
+  </data>
 </root>

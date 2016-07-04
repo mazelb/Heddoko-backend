@@ -213,7 +213,10 @@ i18n.Resources = (function () {
   "WrongLicenseActive": "License is not active",
   "WrongLicenseDeleted": "License is removed",
   "WrongLicenseExpiration": "License is expired",
-  "WrongExpirationAtDate": "Expiration date should be more than today"
+  "WrongExpirationAtDate": "Expiration date should be more than today",
+  "Restore": "Restore",
+  "ShowDeleted": "Show deleted",
+  "WrongLicenseAdmin": "Admin can't be a license admin"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

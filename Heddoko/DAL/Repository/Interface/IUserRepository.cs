@@ -29,8 +29,10 @@ namespace DAL
 
         IEnumerable<User> Admins();
 
-        IEnumerable<User> GetByOrganization(int value);
+        IEnumerable<User> All(bool isDeleted = false);
 
-        IEnumerable<User> Search(string search, int? organizationID = null);
+        IEnumerable<User> GetByOrganization(int value, bool isDeleted = false);
+
+        IEnumerable<User> Search(string search, int? organizationID = null, bool isDeleted = false);
     }
 }

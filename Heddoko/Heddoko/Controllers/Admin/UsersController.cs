@@ -20,6 +20,7 @@ namespace Heddoko.Controllers
         const string Search = "Search";
         const string Admin = "Admin";
         const int NoLicense = 0;
+        const string IsDeleted = "IsDeleted";
 
         public override KendoResponse<IEnumerable<UserAPIModel>> Get([FromUri]KendoRequest request)
         {
@@ -27,6 +28,8 @@ namespace Heddoko.Controllers
             int count = 0;
 
             bool forceOrganization = false;
+            bool isDeleted = false;
+
             if (CurrentUser.Role == UserRoleType.LicenseAdmin)
             {
                 forceOrganization = true;
@@ -63,7 +66,27 @@ namespace Heddoko.Controllers
                                 }
                             }
 
+                            KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
+                            if (isDeletedFilter != null)
+                            {
+                                isDeleted = true;
+                            }
                             break;
+                        case 2:
+                            KendoFilterItem isDeletedFilter2 = request.Filter.Get(IsDeleted);
+                            if (isDeletedFilter2 != null)
+                            {
+                                isDeleted = true;
+                            }
+
+                            KendoFilterItem searchFilter2 = request.Filter.Get(Search);
+                            if (searchFilter2 != null
+                            && !string.IsNullOrEmpty(searchFilter2.Value))
+                            {
+                                items = UoW.UserRepository.Search(searchFilter2.Value, forceOrganization ? CurrentUser.OrganizationID : null, isDeleted);
+                            }
+                            break;
+
                     }
                 }
             }
@@ -72,11 +95,11 @@ namespace Heddoko.Controllers
             {
                 if (CurrentUser.Role == UserRoleType.Admin)
                 {
-                    items = UoW.UserRepository.All();
+                    items = UoW.UserRepository.All(isDeleted);
                 }
                 else
                 {
-                    items = UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value);
+                    items = UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value, isDeleted);
                 }
             }
 

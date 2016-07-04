@@ -182,4 +182,20 @@
     };
     </text>
     }
+
+    Enums.OrganizationStatusType = {};
+    Enums.OrganizationStatusType.enum = {};
+    Enums.OrganizationStatusType.array = {};
+    @foreach (DAL.Models.OrganizationStatusType type in (DAL.Models.OrganizationStatusType[])Enum.GetValues(typeof(DAL.Models.OrganizationStatusType)))
+    {
+        <text>
+
+    Enums.OrganizationStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.OrganizationStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
 </script>

@@ -1276,6 +1276,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restore.
+        /// </summary>
+        public static string Restore {
+            get {
+                return ResourceManager.GetString("Restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Retrieve Username.
         /// </summary>
         public static string RetrieveUsername {
@@ -1452,6 +1461,15 @@ namespace i18n {
         public static string ShipType_Yes {
             get {
                 return ResourceManager.GetString("ShipType_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show deleted.
+        /// </summary>
+        public static string ShowDeleted {
+            get {
+                return ResourceManager.GetString("ShowDeleted", resourceCulture);
             }
         }
         
@@ -1920,6 +1938,15 @@ namespace i18n {
         public static string WrongLicenseActive {
             get {
                 return ResourceManager.GetString("WrongLicenseActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin can&apos;t be a license admin.
+        /// </summary>
+        public static string WrongLicenseAdmin {
+            get {
+                return ResourceManager.GetString("WrongLicenseAdmin", resourceCulture);
             }
         }
         

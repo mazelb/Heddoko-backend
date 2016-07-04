@@ -9,6 +9,8 @@ namespace DAL
 
         Organization GetFull(int id);
 
-        IEnumerable<Organization> Search(string search);
+        IEnumerable<Organization> All(bool isDeleted = false);
+
+        IEnumerable<Organization> Search(string search, bool isDeleted = false);
     }
 }
