@@ -78,6 +78,12 @@ namespace Heddoko.Controllers.API
                                     throw new APIException(ErrorAPIType.LicenseIsNotReady, i18n.Resources.UserIsBanned);
                                 }
 
+                                if (user.License.Validate())
+                                {
+                                    UoW.Save();
+                                    UoW.UserRepository.ClearCache(user);
+                                }
+
                                 if (!user.License.IsActive)
                                 {
                                     if (user.License.Status == LicenseStatusType.Expired)
@@ -95,11 +101,12 @@ namespace Heddoko.Controllers.API
                                         throw new APIException(ErrorAPIType.LicenseIsNotReady, i18n.Resources.WrongLicenseDeleted);
                                     }
 
-                                    if (user.License.ExpirationAt > DateTime.Now)
+                                    if (user.License.ExpirationAt < DateTime.Now)
                                     {
                                         throw new APIException(ErrorAPIType.LicenseIsNotReady, i18n.Resources.WrongLicenseExpiration);
                                     }
                                 }
+
 
                                 user.Tokens.Add(new AccessToken()
                                 {

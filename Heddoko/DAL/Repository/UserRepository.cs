@@ -18,6 +18,36 @@ namespace DAL
             SetCache(user.Email, user);
         }
 
+        public void ClearCache(User user)
+        {
+            ClearCache(user.Email, user);
+        }
+
+        public void ClearCache(string id, User user)
+        {
+
+            if (user.ID > 0)
+            {
+                base.ClearCache(user.ID.ToString());
+
+                if (!string.IsNullOrEmpty(user.Email))
+                {
+                    base.ClearCache(user.Email.ToLower());
+                }
+
+                if (!string.IsNullOrEmpty(user.Token))
+                {
+                    base.ClearCache(user.Token.ToLower());
+                }
+
+                if (!string.IsNullOrEmpty(user.Username))
+                {
+                    base.ClearCache(user.Username.ToLower());
+                }
+            }
+        }
+
+
         public override void SetCache(string id, User user)
         {
 
@@ -27,17 +57,17 @@ namespace DAL
 
                 if (!string.IsNullOrEmpty(user.Email))
                 {
-                    base.SetCache(user.Email, user);
+                    base.SetCache(user.Email.ToLower(), user);
                 }
 
                 if (!string.IsNullOrEmpty(user.Token))
                 {
-                    base.SetCache(user.Token, user);
+                    base.SetCache(user.Token.ToLower(), user);
                 }
 
                 if (!string.IsNullOrEmpty(user.Username))
                 {
-                    base.SetCache(user.Username, user);
+                    base.SetCache(user.Username.ToLower(), user);
                 }
             }
         }

@@ -9,6 +9,8 @@ namespace DAL
 
         void SetCache(User user);
 
+        void ClearCache(User user);
+
         User GetByEmailCached(string email);
 
         User GetByUsernameCached(string username);

@@ -30,7 +30,7 @@ namespace DAL
 
         public T GetCached(string id)
         {
-            T item = RedisManager.Get<T>(GetCacheKey(id));
+            T item = RedisManager.Get<T>(GetCacheKey(id?.ToLower()));
             if (item != null
              && item.ID > 0)
             {
@@ -43,6 +43,11 @@ namespace DAL
         public virtual void SetCache(string id, T item)
         {
             RedisManager.Set(GetCacheKey(id), item);
+        }
+
+        public virtual void ClearCache(string id)
+        {
+            RedisManager.Clear(GetCacheKey(id));
         }
 
         public virtual T GetIDCached(int id)

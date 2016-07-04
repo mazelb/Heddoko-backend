@@ -175,7 +175,7 @@ namespace Heddoko.Controllers
             {
                 user.Status = UserStatusType.Deleted;
                 user.License = null;
-                UoW.UserRepository.SetCache(user);
+                UoW.UserRepository.ClearCache(user);
             }
 
             UoW.Save();

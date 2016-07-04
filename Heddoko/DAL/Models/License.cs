@@ -54,9 +54,25 @@ namespace DAL.Models
             {
                 return (Type == LicenseType.DataAnalysis || Type == LicenseType.DataCollection)
                     && Status == LicenseStatusType.Active
-                    && ExpirationAt > DateTime.Now;
+                    && ExpirationAt >= DateTime.Now;
             }
         }
+
+        public bool Validate()
+        {
+            if (ExpirationAt <= DateTime.Now)
+            {
+                if (Status == LicenseStatusType.Active
+                 || Status == LicenseStatusType.Inactive)
+                {
+                    Status = LicenseStatusType.Expired;
+
+                    return true;
+                }
+            }
+            return false;
+        }
         #endregion
+
     }
 }

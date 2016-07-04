@@ -1906,6 +1906,33 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to License is not active.
+        /// </summary>
+        public static string WrongLicenseActive {
+            get {
+                return ResourceManager.GetString("WrongLicenseActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License is removed.
+        /// </summary>
+        public static string WrongLicenseDeleted {
+            get {
+                return ResourceManager.GetString("WrongLicenseDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License is expired.
+        /// </summary>
+        public static string WrongLicenseExpiration {
+            get {
+                return ResourceManager.GetString("WrongLicenseExpiration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You don&apos;t access to that object.
         /// </summary>
         public static string WrongObjectAccess {

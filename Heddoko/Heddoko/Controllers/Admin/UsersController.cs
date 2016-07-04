@@ -194,7 +194,7 @@ namespace Heddoko.Controllers
 
                 UoW.Save();
 
-                UoW.UserRepository.SetCache(item);
+                UoW.UserRepository.ClearCache(item);
             }
 
             return new KendoResponse<UserAPIModel>()

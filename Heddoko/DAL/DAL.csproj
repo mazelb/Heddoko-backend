@@ -107,6 +107,7 @@
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\AccessToken.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Enum\CountryType.cs" />
     <Compile Include="Models\Enum\LicenseStatusType.cs" />
     <Compile Include="Models\Enum\OrganizationStatusType.cs" />
     <Compile Include="Models\License.cs" />

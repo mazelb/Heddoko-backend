@@ -744,4 +744,13 @@
   <data name="ProfileSaveMessage" xml:space="preserve">
     <value>You profile have been updated</value>
   </data>
+  <data name="WrongLicenseActive" xml:space="preserve">
+    <value>License is not active</value>
+  </data>
+  <data name="WrongLicenseDeleted" xml:space="preserve">
+    <value>License is removed</value>
+  </data>
+  <data name="WrongLicenseExpiration" xml:space="preserve">
+    <value>License is expired</value>
+  </data>
 </root>
