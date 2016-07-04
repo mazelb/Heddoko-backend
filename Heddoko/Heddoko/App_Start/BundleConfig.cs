@@ -21,7 +21,8 @@ namespace Heddoko
             Bundle commonStylesBundle = new Bundle("~/Bundles/CommonCss");
             commonStylesBundle.Include(
                  "~/Content/css/styles.css",
-                 "~/Content/css/app.css"
+                 "~/Content/css/app.css",
+                 "~/Content/css/general.css"
             );
 
             bundles.Add(commonStylesBundle);

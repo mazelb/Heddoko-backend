@@ -160,6 +160,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\general.css" />
+    <Content Include="Content\css\general.min.css">
+      <DependentUpon>general.css</DependentUpon>
+    </Content>
     <Content Include="Content\css\kendo.css" />
     <Content Include="Content\css\admin.min.css">
       <DependentUpon>kendo.css</DependentUpon>
@@ -433,6 +437,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\scss\nodes\login.scss" />
+    <Content Include="Content\scss\general.scss" />
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
