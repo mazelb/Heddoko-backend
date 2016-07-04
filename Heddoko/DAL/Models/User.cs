@@ -112,8 +112,7 @@ namespace DAL.Models
                         Name = License.Name,
                         Status = License.Status,
                         Type = License.Type,
-                        ViewID = License.ViewID,
-                        IsActive = License.IsActive
+                        ViewID = License.ViewID
                     };
 
                     string json = JsonConvert.SerializeObject(info);
