@@ -115,9 +115,13 @@ var KendoDS = {
         var fieldName = e.Code.replace('model.', '');
         if (grid) {
             for (var i = 0; i < grid.options.columns.length; i++) {
-                if (grid.options.columns[i].field.toLowerCase() === fieldName.toLowerCase()) {
-                    e.Key = grid.options.columns[i].title;
-                    break;
+                if (grid.options.columns[i].field) {
+                    if (grid.options.columns[i].field.toLowerCase() === fieldName.toLowerCase()) {
+                        e.Key = grid.options.columns[i].title;
+                        break;
+                    }
+                } else {
+                    e.Key = e.Code.replace('model.', '');
                 }
             }
         }

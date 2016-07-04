@@ -166,6 +166,7 @@ var Organizations = {
             this.validators.addModel = model.kendoValidator({
                 validateOnBlur: true,
                 rules: {
+                    maxLengthValidationEmail: Validator.organization.email.maxLengthValidation,
                     maxLengthValidationName: Validator.organization.name.maxLengthValidation,
                     maxLengthValidationPhone: Validator.organization.phone.maxLengthValidation,
                     maxLengthValidationAddress: Validator.organization.address.maxLengthValidation,

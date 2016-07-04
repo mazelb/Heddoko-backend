@@ -64,6 +64,12 @@
                 return Validator.maxLengthValidation(input, 'phone', Validator.organization.phone.maxSize);
             }
         },
+        email: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'email', Validator.organization.email.maxSize);
+            }
+        },
         name: {
             maxSize: 255,
             maxLengthValidation: function (input) {

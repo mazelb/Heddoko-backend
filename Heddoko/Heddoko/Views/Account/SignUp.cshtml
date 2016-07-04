@@ -71,7 +71,7 @@
                     <span class="input-group-addon">
                         @@
                     </span>
-                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Username).ToString()) })
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control form-username", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Username).ToString()) })
                 </div>
                 @Html.ValidationMessageFor(m => m.Username, string.Empty, new { @class = "text-danger" })
             </div>
@@ -142,7 +142,7 @@
             <div class="form-group">
                 <p class="text-center">
                     @i18n.Resources.SignInInviteMessage
-                    <a href="@Url.Action("Login", "Account")" class="emphasize">@i18n.Resources.SignInMessage</a>
+                    <a href="@Url.Action("Signin", "Account")" class="emphasize">@i18n.Resources.SignInMessage</a>
                 </p>
             </div>
         }

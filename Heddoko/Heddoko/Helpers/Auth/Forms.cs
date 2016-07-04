@@ -14,7 +14,7 @@ namespace Heddoko.Helpers.Auth
         const int Version = 1;
         public static User SignIn(UnitOfWork uow, string username, string password)
         {
-            User user = uow.UserRepository.GetByUsernameCached(username?.Trim());
+            User user = uow.UserRepository.GetByUsernameCached(username?.ToLower().Trim());
 
             if (user != null
              && PasswordHasher.Equals(password?.Trim(), user.Salt, user.Password))

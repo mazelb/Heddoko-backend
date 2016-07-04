@@ -166,8 +166,17 @@ namespace Heddoko.Controllers
 
         public override KendoResponse<OrganizationAPIModel> Delete(int id)
         {
-            Organization item = UoW.OrganizationRepository.Get(id);
+            Organization item = UoW.OrganizationRepository.GetFull(id);
             item.Status = OrganizationStatusType.Deleted;
+
+            List<User> users = UoW.UserRepository.GetByOrganization(item.ID).ToList();
+
+            foreach (User user in users)
+            {
+                user.Status = UserStatusType.Deleted;
+                user.License = null;
+                UoW.UserRepository.SetCache(user);
+            }
 
             UoW.Save();
 
@@ -199,7 +208,7 @@ namespace Heddoko.Controllers
 
                     if (user == null)
                     {
-                        user = UoW.UserRepository.GetByUsername(model.User.Username?.Trim());
+                        user = UoW.UserRepository.GetByUsername(model.User.Username?.ToLower().Trim());
                     }
 
                     if (user != null
@@ -214,7 +223,7 @@ namespace Heddoko.Controllers
                         user.FirstName = model.User.Firstname?.Trim();
                         user.LastName = model.User.Lastname?.Trim();
                         user.Email = model.User.Email?.Trim();
-                        user.Username = model.User.Username?.Trim();
+                        user.Username = model.User.Username?.ToLower().Trim();
                         user.Status = UserStatusType.Invited;
                         user.Role = UserRoleType.LicenseAdmin;
                         user.Phone = model.Phone;
@@ -260,11 +269,12 @@ namespace Heddoko.Controllers
                 {
                     Email = item.User.Email,
                     Name = item.User.Name,
+                    Username = item.User.Username
                 },
-                DataAnalysisAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataAnalysis 
+                DataAnalysisAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataAnalysis
                                                             && c.ExpirationAt >= DateTime.Now
                                                             && c.Status == LicenseStatusType.Active).Sum(c => c.Amount),
-                DataCollectorAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataCollection 
+                DataCollectorAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataCollection
                                                              && c.ExpirationAt >= DateTime.Now
                                                              && c.Status == LicenseStatusType.Active).Sum(c => c.Amount)
             };

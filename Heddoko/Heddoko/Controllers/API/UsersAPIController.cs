@@ -73,6 +73,34 @@ namespace Heddoko.Controllers.API
                         {
                             if (!user.AllowToken())
                             {
+                                if (user.License == null)
+                                {
+                                    throw new APIException(ErrorAPIType.LicenseIsNotReady, i18n.Resources.UserIsBanned);
+                                }
+
+                                if (!user.License.IsActive)
+                                {
+                                    if (user.License.Status == LicenseStatusType.Expired)
+                                    {
+                                        throw new APIException(ErrorAPIType.LicenseIsNotReady, i18n.Resources.WrongLicenseExpiration);
+                                    }
+
+                                    if (user.License.Status == LicenseStatusType.Inactive)
+                                    {
+                                        throw new APIException(ErrorAPIType.LicenseIsNotReady, i18n.Resources.WrongLicenseActive);
+                                    }
+
+                                    if (user.License.Status == LicenseStatusType.Deleted)
+                                    {
+                                        throw new APIException(ErrorAPIType.LicenseIsNotReady, i18n.Resources.WrongLicenseDeleted);
+                                    }
+
+                                    if (user.License.ExpirationAt > DateTime.Now)
+                                    {
+                                        throw new APIException(ErrorAPIType.LicenseIsNotReady, i18n.Resources.WrongLicenseExpiration);
+                                    }
+                                }
+
                                 user.Tokens.Add(new AccessToken()
                                 {
                                     Token = user.GenerateToken()

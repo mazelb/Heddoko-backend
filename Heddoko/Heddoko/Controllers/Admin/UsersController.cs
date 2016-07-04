@@ -221,11 +221,11 @@ namespace Heddoko.Controllers
                 }
                 else
                 {
-                    user = UoW.UserRepository.GetByEmail(model.Email?.Trim());
+                    user = UoW.UserRepository.GetByEmail(model.Email?.ToLower().Trim());
 
                     if (user == null)
                     {
-                        user = UoW.UserRepository.GetByUsername(model.Username?.Trim());
+                        user = UoW.UserRepository.GetByUsername(model.Username?.ToLower().Trim());
                     }
 
                     if (user != null
@@ -236,8 +236,8 @@ namespace Heddoko.Controllers
 
                     if (user == null)
                     {
-                        item.Email = model.Email?.Trim();
-                        item.Username = model.Username?.Trim();
+                        item.Email = model.Email?.ToLower().Trim();
+                        item.Username = model.Username?.ToLower().Trim();
                         item.Status = UserStatusType.Invited;
                         item.Role = UserRoleType.User;
                         item.Phone = model.Phone;

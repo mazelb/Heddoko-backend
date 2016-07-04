@@ -20,6 +20,7 @@ namespace Heddoko
         UserNotFound,
         WrongObjectAccess,
         ObjectNotFound,
-        ObjectWasDeleted
+        ObjectWasDeleted,
+        LicenseIsNotReady
     }
 }
