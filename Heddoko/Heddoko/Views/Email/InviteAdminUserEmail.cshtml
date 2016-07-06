@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutEmail.cshtml";
 }
 
-Welcome @Model.FirstName. You're are invited to become admin of the organization @Model.OrganizationName
+Welcome @Model.FirstName. You're invited to become admin of the organization @Model.OrganizationName
 <br />
 @if (!string.IsNullOrEmpty(Model.Token)) {
     <text>
