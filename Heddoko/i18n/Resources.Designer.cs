@@ -241,6 +241,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attachments.
+        /// </summary>
+        public static string Attachments {
+            get {
+                return ResourceManager.GetString("Attachments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date of Birth.
         /// </summary>
         public static string Birthday {
@@ -417,6 +426,15 @@ namespace i18n {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detailed Description.
+        /// </summary>
+        public static string DetailedDescription {
+            get {
+                return ResourceManager.GetString("DetailedDescription", resourceCulture);
             }
         }
         
@@ -736,6 +754,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Full name.
+        /// </summary>
+        public static string FullName {
+            get {
+                return ResourceManager.GetString("FullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Heatshrink good.
         /// </summary>
         public static string HeatsShrink {
@@ -799,6 +826,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Issue Importance.
+        /// </summary>
+        public static string Importance {
+            get {
+                return ResourceManager.GetString("Importance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information.
         /// </summary>
         public static string Information {
@@ -822,6 +858,69 @@ namespace i18n {
         public static string InviteToken {
             get {
                 return ResourceManager.GetString("InviteToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show stopper.
+        /// </summary>
+        public static string IssueImportance_High {
+            get {
+                return ResourceManager.GetString("IssueImportance_High", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can live with it now.
+        /// </summary>
+        public static string IssueImportance_Low {
+            get {
+                return ResourceManager.GetString("IssueImportance_Low", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doesn&apos;t prevent me from working.
+        /// </summary>
+        public static string IssueImportance_Medium {
+            get {
+                return ResourceManager.GetString("IssueImportance_Medium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Issue type.
+        /// </summary>
+        public static string IssueType {
+            get {
+                return ResourceManager.GetString("IssueType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hardware Issue.
+        /// </summary>
+        public static string IssueType_Hardware {
+            get {
+                return ResourceManager.GetString("IssueType_Hardware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Feature Request.
+        /// </summary>
+        public static string IssueType_NewFeature {
+            get {
+                return ResourceManager.GetString("IssueType_NewFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Software Issue.
+        /// </summary>
+        public static string IssueType_Software {
+            get {
+                return ResourceManager.GetString("IssueType_Software", resourceCulture);
             }
         }
         
@@ -1420,6 +1519,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Serial #.
         /// </summary>
         public static string SerialNo {
@@ -1461,6 +1569,15 @@ namespace i18n {
         public static string ShipType_Yes {
             get {
                 return ResourceManager.GetString("ShipType_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Short Description.
+        /// </summary>
+        public static string ShortDescription {
+            get {
+                return ResourceManager.GetString("ShortDescription", resourceCulture);
             }
         }
         
@@ -1551,6 +1668,24 @@ namespace i18n {
         public static string Suits {
             get {
                 return ResourceManager.GetString("Suits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support.
+        /// </summary>
+        public static string Support {
+            get {
+                return ResourceManager.GetString("Support", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We have sent an email with your support request. Soon we will contact with you..
+        /// </summary>
+        public static string SupportSent {
+            get {
+                return ResourceManager.GetString("SupportSent", resourceCulture);
             }
         }
         
@@ -1893,6 +2028,15 @@ namespace i18n {
         public static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total size can&apos;t be more than 20 mb..
+        /// </summary>
+        public static string WrongAttachmentSize {
+            get {
+                return ResourceManager.GetString("WrongAttachmentSize", resourceCulture);
             }
         }
         
