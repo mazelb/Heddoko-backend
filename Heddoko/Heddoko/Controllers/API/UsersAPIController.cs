@@ -107,7 +107,6 @@ namespace Heddoko.Controllers.API
                                     }
                                 }
 
-
                                 user.Tokens.Add(new AccessToken()
                                 {
                                     Token = user.GenerateToken()

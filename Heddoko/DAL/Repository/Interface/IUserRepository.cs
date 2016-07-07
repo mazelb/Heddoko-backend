@@ -31,8 +31,8 @@ namespace DAL
 
         IEnumerable<User> All(bool isDeleted = false);
 
-        IEnumerable<User> GetByOrganization(int value, bool isDeleted = false);
+        IEnumerable<User> GetByOrganization(int value, bool isDeleted = false, int? licenseID = null);
 
-        IEnumerable<User> Search(string search, int? organizationID = null, bool isDeleted = false);
+        IEnumerable<User> Search(string search, int? organizationID = null, bool isDeleted = false, int? licenseID = null);
     }
 }

@@ -124,6 +124,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amount.
         /// </summary>
         public static string Amount {
@@ -718,6 +727,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to License will be expired soon.
+        /// </summary>
+        public static string ExpiredSoon {
+            get {
+                return ResourceManager.GetString("ExpiredSoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find.
         /// </summary>
         public static string Find {
@@ -948,6 +966,42 @@ namespace i18n {
         public static string Licenses {
             get {
                 return ResourceManager.GetString("Licenses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string LicenseStatusType_Active {
+            get {
+                return ResourceManager.GetString("LicenseStatusType_Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted.
+        /// </summary>
+        public static string LicenseStatusType_Deleted {
+            get {
+                return ResourceManager.GetString("LicenseStatusType_Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expired.
+        /// </summary>
+        public static string LicenseStatusType_Expired {
+            get {
+                return ResourceManager.GetString("LicenseStatusType_Expired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inactive.
+        /// </summary>
+        public static string LicenseStatusType_Inactive {
+            get {
+                return ResourceManager.GetString("LicenseStatusType_Inactive", resourceCulture);
             }
         }
         
@@ -1578,6 +1632,15 @@ namespace i18n {
         public static string ShortDescription {
             get {
                 return ResourceManager.GetString("ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show users by license.
+        /// </summary>
+        public static string ShowByLicenses {
+            get {
+                return ResourceManager.GetString("ShowByLicenses", resourceCulture);
             }
         }
         

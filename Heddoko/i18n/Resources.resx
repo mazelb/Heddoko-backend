@@ -813,4 +813,25 @@
   <data name="WrongAttachmentSize" xml:space="preserve">
     <value>Total size can't be more than 20 mb.</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ExpiredSoon" xml:space="preserve">
+    <value>License will be expired soon</value>
+  </data>
+  <data name="LicenseStatusType_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="LicenseStatusType_Deleted" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="LicenseStatusType_Expired" xml:space="preserve">
+    <value>Expired</value>
+  </data>
+  <data name="LicenseStatusType_Inactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="ShowByLicenses" xml:space="preserve">
+    <value>Show users by license</value>
+  </data>
 </root>
