@@ -9,6 +9,18 @@
                        placeholder="@i18n.Resources.EnterUser"
                        data-bind="value: search, events:{ keyup: keyup }" />
             </div>
+            <div>
+                <label for="usersLicenses" class="control-label">@i18n.Resources.ShowByLicenses</label>
+                <br/>
+                <select id="usersLicenses"
+                        class="campaign-dd"
+                        data-role="dropdownlist"
+                        data-value-primitive="true"
+                        data-text-field="name"
+                        data-value-field="id"
+                        data-option-label="@i18n.Resources.All"
+                        data-bind="value: license, source: licenses"></select>
+            </div>
             <div class="margin010">
                 <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
             </div>
@@ -28,7 +40,7 @@
             <div class="panel-body">
                 <div class="row margin010">
                     <div class="col-sm-3">
-                        <input type="text"
+                        <input type="email"
                                required
                                name="user-email"
                                validationMessage="@i18n.Resources.Required"
@@ -39,7 +51,7 @@
                     <div class="col-sm-3">
                         <input type="text"
                                required
-                               name="user-email"
+                               name="user-username"
                                validationMessage="@i18n.Resources.Required"
                                placeholder="@i18n.Resources.Username"
                                class="form-control"

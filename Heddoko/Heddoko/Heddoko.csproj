@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -49,16 +49,16 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Hangfire.Core, Version=1.5.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hangfire.Core.1.5.7\lib\net45\Hangfire.Core.dll</HintPath>
+    <Reference Include="Hangfire.Core, Version=1.5.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.Core.1.5.8\lib\net45\Hangfire.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Hangfire.Dashboard.Authorization, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hangfire.Dashboard.Authorization.2.1.0\lib\net45\Hangfire.Dashboard.Authorization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Hangfire.SqlServer, Version=1.5.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hangfire.SqlServer.1.5.7\lib\net45\Hangfire.SqlServer.dll</HintPath>
+    <Reference Include="Hangfire.SqlServer, Version=1.5.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.SqlServer.1.5.8\lib\net45\Hangfire.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -74,8 +74,8 @@
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
@@ -84,6 +84,14 @@
     </Reference>
     <Reference Include="RazorEngine, Version=3.8.2.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <HintPath>..\packages\RazorEngine.3.8.2\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid, Version=7.0.3.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.7.0.3\lib\SendGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid.CSharp.HTTP.Client, Version=2.0.4.0, Culture=neutral, PublicKeyToken=79219bf4e5ecaaca, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.CSharp.HTTP.Client.2.0.4\lib\SendGrid.CSharp.HTTP.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http" />
@@ -148,10 +156,22 @@
   <ItemGroup>
     <Content Include="App_Data\Heddoko.XML" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker.min.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
+    <Content Include="Content\bootstrap-datepicker3.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\general.css" />
+    <Content Include="Content\css\general.min.css">
+      <DependentUpon>general.css</DependentUpon>
+    </Content>
     <Content Include="Content\css\kendo.css" />
     <Content Include="Content\css\admin.min.css">
       <DependentUpon>kendo.css</DependentUpon>
@@ -310,8 +330,76 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.ar.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.az.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.bg.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.bs.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.ca.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.cs.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.cy.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.da.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.de.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.el.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.en-AU.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.en-GB.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.eo.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.es.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.et.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.eu.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.fa.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.fi.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.fo.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.fr-CH.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.fr.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.gl.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.he.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.hr.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.hu.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.hy.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.id.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.is.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.it-CH.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.it.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.ja.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.ka.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.kh.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.kk.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.ko.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.kr.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.lt.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.lv.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.me.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.mk.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.mn.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.ms.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.nb.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.nl-BE.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.nl.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.no.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.pl.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.pt-BR.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.pt.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.ro.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.rs-latin.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.rs.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.ru.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.sk.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.sl.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.sq.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.sr-latin.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.sr.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.sv.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.sw.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.th.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.tr.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.uk.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.vi.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.zh-CN.min.js" />
+    <Content Include="Scripts\datepicker-locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\i18n\Resources.js" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -423,13 +511,26 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="Scripts\jquery-2.2.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.2.3.js" />
-    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Content\scss\nodes\login.scss" />
+    <Content Include="Content\scss\general.scss" />
+    <Content Include="Content\bootstrap-datepicker.css.map" />
+    <Content Include="Content\bootstrap-datepicker.min.css.map" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
+    <Content Include="Content\bootstrap-datepicker.standalone.min.css.map" />
+    <Content Include="Content\bootstrap-datepicker3.css.map" />
+    <Content Include="Content\bootstrap-datepicker3.min.css.map" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.min.css.map" />
+    <Content Include="Content\scss\nodes\forms.scss" />
+    <None Include="Scripts\jquery-3.0.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.0.0.js" />
+    <Content Include="Scripts\jquery-3.0.0.min.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.0.0.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -452,6 +553,7 @@
     <Content Include="Scripts\js\admin\notification.js" />
     <Content Include="Scripts\js\admin\validator.js" />
     <Content Include="Scripts\js\app.js" />
+    <Content Include="Scripts\js\general.js" />
     <Content Include="Scripts\js\scripts.js" />
     <Content Include="Scripts\kendo\angular.min.js" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.af-ZA.min.js" />
@@ -944,7 +1046,9 @@
     <Content Include="Scripts\kendo\pako_deflate.min.js" />
     <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -1001,6 +1105,7 @@
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\StaticController.cs" />
+    <Compile Include="Controllers\SupportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1024,9 +1129,12 @@
     <Compile Include="Helpers\Mail\Mail.cs" />
     <Compile Include="Helpers\Mail\Mailer.cs" />
     <Compile Include="Helpers\Mail\RazorView.cs" />
+    <Compile Include="Helpers\Mail\SendGridMail.cs" />
+    <Compile Include="Helpers\MVC\CompareTodayAttribute.cs" />
     <Compile Include="Helpers\MVC\ContextTempData.cs" />
     <Compile Include="Helpers\MVC\CustomDirectRouteProvider.cs" />
     <Compile Include="Helpers\MVC\IsCurrentAction.cs" />
+    <Compile Include="Helpers\MVC\PosivitiveNumberAttribute.cs" />
     <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Models\Account\InviteViewModel.cs" />
     <Compile Include="Models\Account\ConfirmViewModel.cs" />
@@ -1058,10 +1166,12 @@
     <Compile Include="Models\Email\ActivationUserEmailViewModel.cs" />
     <Compile Include="Models\Email\EmailViewModel.cs" />
     <Compile Include="Models\Email\ForgotPasswordEmailViewModel.cs" />
+    <Compile Include="Models\Email\SupportEmailViewModel.cs" />
     <Compile Include="Models\Error\API\ErrorAPIViewModel.cs" />
     <Compile Include="Models\Error\ErrorViewModel.cs" />
     <Compile Include="Models\FlashMessagesViewModel.cs" />
     <Compile Include="Models\Organization\OrganizationIndexViewModel.cs" />
+    <Compile Include="Models\Support\SupportIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -1075,7 +1185,6 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\dev.pubxml" />
     <None Include="Properties\PublishProfiles\prod.pubxml" />
-    <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Favicons.cshtml" />
@@ -1613,11 +1722,15 @@
     <Content Include="Views\Email\InviteUserEmail.cshtml" />
     <Content Include="Views\License\_Users.cshtml" />
     <Content Include="Views\Account\Me.cshtml" />
+    <Content Include="Views\Support\Index.cshtml" />
+    <Content Include="Views\Support\IndexStatus.cshtml" />
+    <Content Include="Views\Email\SupportEmail.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.prod.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1664,7 +1777,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.0\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

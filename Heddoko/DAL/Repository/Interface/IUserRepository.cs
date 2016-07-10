@@ -9,6 +9,8 @@ namespace DAL
 
         void SetCache(User user);
 
+        void ClearCache(User user);
+
         User GetByEmailCached(string email);
 
         User GetByUsernameCached(string username);
@@ -27,8 +29,10 @@ namespace DAL
 
         IEnumerable<User> Admins();
 
-        IEnumerable<User> GetByOrganization(int value);
+        IEnumerable<User> All(bool isDeleted = false);
 
-        IEnumerable<User> Search(string search, int? organizationID = null);
+        IEnumerable<User> GetByOrganization(int value, bool isDeleted = false, int? licenseID = null);
+
+        IEnumerable<User> Search(string search, int? organizationID = null, bool isDeleted = false, int? licenseID = null);
     }
 }

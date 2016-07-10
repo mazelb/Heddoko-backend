@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,19 +35,42 @@ namespace DAL
         {
             try
             {
-                if (item != null)
+                if (!string.IsNullOrEmpty(key))
                 {
-                    IDatabase db = Cache;
+                    if (item != null)
+                    {
+                        IDatabase db = Cache;
 
-                    string value = JSON.Serialize(item, new Options(includeInherited: true));
+                        string value = JSON.Serialize(item, new Options(includeInherited: true));
 
-                    db.StringSet(key, value);
-                    db.KeyExpire(key, DateTime.Now.AddHours(Config.RedisCacheExpiration), flags: CommandFlags.FireAndForget);
+                        db.StringSet(key, value);
+                        db.KeyExpire(key, DateTime.Now.AddHours(Config.RedisCacheExpiration), flags: CommandFlags.FireAndForget);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Trace.TraceError("RedisManager.Set.Exception: key:{0} Error:{1}", key, ex.GetOriginalException());
+            }
+        }
+
+        public static void Clear(string key)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(key))
+                {
+                    IDatabase db = Cache;
+
+                    if (db.KeyExists(key))
+                    {
+                        db.KeyDelete(key);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError("RedisManager.Clear.Exception: key:{0} Error:{1}", key, ex.GetOriginalException());
             }
         }
 
@@ -70,6 +94,15 @@ namespace DAL
             }
 
             return value;
+        }
+
+        public static void Flush()
+        {
+            foreach (EndPoint endpoint in Connection.GetEndPoints())
+            {
+                IServer server = Connection.GetServer(endpoint);
+                server.FlushAllDatabases();
+            }
         }
     }
 }

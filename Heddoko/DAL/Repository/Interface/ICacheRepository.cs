@@ -7,5 +7,7 @@
         T GetCached(string id);
 
         void SetCache(string id, T item);
+
+        void ClearCache(string id);
     }
 }

@@ -21,11 +21,12 @@ namespace Heddoko
             Bundle commonStylesBundle = new Bundle("~/Bundles/CommonCss");
             commonStylesBundle.Include(
                  "~/Content/css/styles.css",
-                 "~/Content/css/app.css"
+                 "~/Content/bootstrap-datepicker3.min.css",
+                 "~/Content/css/app.css",
+                 "~/Content/css/general.css"
             );
 
             bundles.Add(commonStylesBundle);
-
 
             Bundle angularStylesBundle = new Bundle("~/Bundles/AngularCss");
             angularStylesBundle.Include(
@@ -37,7 +38,9 @@ namespace Heddoko
             ScriptBundle commonScriptsBundle = new ScriptBundle("~/Bundles/CommonJs");
             commonScriptsBundle.Include(
                "~/Scripts/lodash.min.js",
-               "~/Scripts/bootstrap.min.js"
+               "~/Scripts/bootstrap.min.js",
+               "~/Scripts/bootstrap-datepicker.min.js",
+               "~/Scripts/js/general.js"
             );
             bundles.Add(commonScriptsBundle);
 

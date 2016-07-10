@@ -11,6 +11,11 @@
                 <h3 class="text-center" style="margin-bottom: 100px">
                     @Html.Partial("_FlashMessages", Model.Flash)
                 </h3>
+                <div class="form-group">
+                    <p class="text-center">
+                        <a href="@Url.Action("Signin", "Account")" class="login">@i18n.Resources.SignInMessage</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>

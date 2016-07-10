@@ -17,6 +17,22 @@ namespace Heddoko
             }
         }
 
+        public static string SendgridKey
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SendgridKey"];
+            }
+        }
+
+        public static string MailFrom
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["MailFrom"];
+            }
+        }
+
         #region Host
         public static string Host
         {

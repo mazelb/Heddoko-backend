@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using DAL;
 
 namespace Heddoko
 {
     public class Mailer
     {
+        public const string WrikeEmail = "wrike@wrike.com";
         public async static Task SendActivationEmail(User user)
         {
             ActivationUserEmailViewModel mailModel = new ActivationUserEmailViewModel();
@@ -19,7 +21,7 @@ namespace Heddoko
 
             string body = await Task.Run(() => RazorView.RenderViewToString("ActivationUserEmail", mailModel));
 
-            Mail.Send(subject, body, user.Email);
+            SendGridMail.Send(subject, body, user.Email);
         }
 
         public async static Task SendInviteAdminEmail(Organization organization)
@@ -33,7 +35,7 @@ namespace Heddoko
 
             string body = await Task.Run(() => RazorView.RenderViewToString("InviteAdminUserEmail", mailModel));
 
-            Mail.Send(subject, body, organization.User.Email);
+            SendGridMail.Send(subject, body, organization.User.Email);
         }
 
         public async static Task SendInviteEmail(User user)
@@ -47,7 +49,7 @@ namespace Heddoko
 
             string body = await Task.Run(() => RazorView.RenderViewToString("InviteUserEmail", mailModel));
 
-            Mail.Send(subject, body, user.Email);
+            SendGridMail.Send(subject, body, user.Email);
         }
 
         public async static Task SendForgotPasswordEmail(User user)
@@ -61,7 +63,7 @@ namespace Heddoko
 
             string body = await Task.Run(() => RazorView.RenderViewToString("ForgotPasswordEmail", mailModel));
 
-            Mail.Send(subject, body, user.Email);
+            SendGridMail.Send(subject, body, user.Email);
         }
 
         public async static Task SendForgotUsernameEmail(User user)
@@ -75,7 +77,39 @@ namespace Heddoko
 
             string body = await Task.Run(() => RazorView.RenderViewToString("ForgotUsernameEmail", mailModel));
 
-            Mail.Send(subject, body, user.Email);
+            SendGridMail.Send(subject, body, user.Email);
+        }
+
+        public static void SendSupportEmail(SupportIndexViewModel model)
+        {
+            string env = Config.Environment == Constants.Environments.Prod ? string.Empty : Config.Environment;
+            string subject = $"{model.Type.GetStringValue()} {env} {model.ShortDescription}";
+
+            string from = string.Empty;
+            switch (model.Type)
+            {
+                case IssueType.NewFeature:
+                    from = "features@heddoko.com";
+                    break;
+                default:
+                    from = "support@heddoko.com";
+                    break;
+            }
+
+            SupportEmailViewModel mailModel = new SupportEmailViewModel()
+            {
+                Type = model.Type,
+                Importance = model.Importance,
+                Entered = DateTime.Now,
+                DetailedDescription = model.DetailedDescription,
+                Email = model.Email,
+                FullName = model.FullName,
+                ShortDescription = model.ShortDescription
+            };
+
+            string body = RazorView.RenderViewToString("SupportEmail", mailModel);
+
+            SendGridMail.Send(subject, body, WrikeEmail, model.Attachments, from, false);
         }
 
         public async static Task SendActivatedEmail(User user)
@@ -91,7 +125,7 @@ namespace Heddoko
 
             string renderedBody = await Task.Run(() => RazorView.RenderViewToString("Email", mailModel));
 
-            Mail.Send(subject, renderedBody, email);
+            SendGridMail.Send(subject, renderedBody, email);
 
             return renderedBody;
         }

@@ -16,7 +16,7 @@ var Licenses = {
         });
 
         this.licenseTypes = new kendo.data.DataSource({
-            data: _.values(_.filter(Enums.LicenseType.array, function (u) { return u.value != 0 }))
+            data: _.values(_.filter(Enums.LicenseType.array, function (u) { return u.value != Enums.LicenseType.enum.No }))
         });
 
         this.licenses = Licenses.getDatasource();
@@ -42,12 +42,32 @@ var Licenses = {
         });
     },
     getDatasource: function () {
+
+        var licensesTransport = $.extend(true, {}, KendoDS.buildTransport('/admin/api/licenses'), {
+            parameterMap: function (options, type) {
+                switch (type) {
+                    case 'read':
+                    case 'destroy':
+                        return options;
+                    case 'create':
+                    case 'update':
+                        if (options.expirationAt) {
+                            options.expirationAt = kendo.toString(options.expirationAt, "yyyy/MM/dd")
+                        }
+                        if (options.models) {
+                            return kendo.stringify(options.models);
+                        }
+                        return kendo.stringify(options);
+                }
+            }
+        });
+
         return new kendo.data.DataSource({
             pageSize: KendoDS.pageSize,
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/licenses'),
+            transport: licensesTransport,
             schema: {
                 data: "response",
                 total: "total",
@@ -89,7 +109,8 @@ var Licenses = {
                             nullable: false,
                             type: "date",
                             validation: {
-                                required: true
+                                required: true,
+                                expirationAtValidation: Validator.license.expirationAt.expirationAtValidation
                             }
                         }
                     }
@@ -158,7 +179,7 @@ var Licenses = {
                         field: 'status',
                         title: i18n.Resources.Status,
                         template: function (ed) {
-                            return Format.license.status(ed.status);
+                            return Format.license.status(ed.status, ed.expirationAt);
                         },
                         editor: Licenses.statusDDEditor
                     }, {

@@ -548,6 +548,10 @@ h1.title, h2.title, h3.title, h4.title {
         }
     }
 
+    .form-username {
+         text-transform: uppercase;
+    }
+
     // Register page.
     .auth-register {
         .main-body {

@@ -4,17 +4,17 @@
     Layout = "~/Views/Shared/_LayoutEmail.cshtml";
 }
 
-Welcome @Model.FirstName, you became admin of organization @Model.OrganizationName
+Welcome @Model.FirstName. You're invited to become admin of the organization @Model.OrganizationName
 <br />
 @if (!string.IsNullOrEmpty(Model.Token)) {
     <text>
-    Click here to activate your account: @(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")
+    Click here to activate your account: <a href="@(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")">@(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")</a>
     </text>
 }
 else
 {
     <text>
-        Click here to manage your organization: @(Heddoko.Config.DashboardSite + $"/organization")
+        Click here to manage your organization: <a href="@(Heddoko.Config.DashboardSite + $"/organization")">@(Heddoko.Config.DashboardSite + $"/organization")</a>
     </text>
 }
 <br />

@@ -18,8 +18,6 @@ namespace DAL.Models
 
         public string ViewID { get; set; }
 
-        public bool IsActive { get; set; }
-
         public int ID { get; set; }
     }
 }

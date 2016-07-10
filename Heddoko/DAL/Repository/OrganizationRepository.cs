@@ -12,26 +12,41 @@ namespace DAL
         {
         }
 
-        public override IEnumerable<Organization> All()
+        public IEnumerable<Organization> All(bool isDeleted = false)
         {
+            OrganizationStatusType status = isDeleted ? OrganizationStatusType.Deleted : OrganizationStatusType.Active;
+
             return DbSet.Include(c => c.User)
                         .Include(c => c.Licenses)
+                        .Where(c => c.Status == status)
                         .OrderBy(c => c.Name);
         }
 
         public Organization GetByName(string name)
         {
-            return All().Where(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+            return DbSet.Include(c => c.User)
+                        .Include(c => c.Licenses)
+                        .Where(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                        .Where(c => c.Status == OrganizationStatusType.Active)
+                        .FirstOrDefault();
         }
 
         public Organization GetFull(int id)
         {
-            return All().Where(c => c.ID == id).FirstOrDefault();
+            return DbSet.Include(c => c.User)
+                        .Include(c => c.Licenses)
+                        .Where(c => c.ID == id)
+                        .FirstOrDefault();
         }
 
-        public IEnumerable<Organization> Search(string value)
+        public IEnumerable<Organization> Search(string value, bool isDeleted = false)
         {
-            return All().Where(c => c.ID.ToString().ToLower().Contains(value.ToLower())
+            OrganizationStatusType status = isDeleted ? OrganizationStatusType.Deleted : OrganizationStatusType.Active;
+
+            return DbSet.Include(c => c.User)
+                        .Include(c => c.Licenses)
+                        .Where(c => c.Status == status)
+                        .Where(c => c.ID.ToString().ToLower().Contains(value.ToLower())
                                  || c.Name.ToLower().Contains(value.ToLower())
                                  || c.Address.ToLower().Contains(value.ToLower())
                                  || c.Phone.ToLower().Contains(value.ToLower()));

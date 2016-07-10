@@ -75,7 +75,7 @@
                     <span class="input-group-addon">
                         @@
                     </span>
-                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Username).ToString()) })
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control form-username", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Username).ToString()) })
                 </div>
                 @Html.ValidationMessageFor(m => m.Username, string.Empty, new { @class = "text-danger" })
             </div>
@@ -95,7 +95,7 @@
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-globe"></span>
                     </span>
-                    @Html.TextBoxFor(m => m.Country, new { @class = "form-control", disabled = "disabled", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Country).ToString()) })
+                    @Html.DropDownListFor(m => m.Country, Model.ListCountries, new { @class = "form-control" })
                 </div>
                 @Html.ValidationMessageFor(m => m.Country, string.Empty, new { @class = "text-danger" })
             </div>
@@ -105,7 +105,7 @@
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
-                    @Html.TextBoxFor(m => m.Birthday, new { disabled = "disabled", @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Birthday).ToString() + " e.g. 1977-02-24") })
+                    @Html.TextBoxFor(m => m.Birthday, "{0:MM/dd/yyyy}", new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Birthday).ToString() + " e.g. 1977-02-24") })
                 </div>
                 @Html.ValidationMessageFor(m => m.Birthday, string.Empty, new { @class = "text-danger" })
             </div>
@@ -136,7 +136,7 @@
             <div class="form-group">
                 <p class="text-center">
                     @i18n.Resources.SignInInviteMessage
-                    <a href="@Url.Action("Login", "Account")" class="emphasize">@i18n.Resources.SignInMessage</a>
+                    <a href="@Url.Action("Signin", "Account")" class="emphasize">@i18n.Resources.SignInMessage</a>
                 </p>
             </div>
         }

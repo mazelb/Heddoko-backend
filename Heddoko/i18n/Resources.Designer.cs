@@ -124,6 +124,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amount.
         /// </summary>
         public static string Amount {
@@ -237,6 +246,15 @@ namespace i18n {
         public static string And {
             get {
                 return ResourceManager.GetString("And", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attachments.
+        /// </summary>
+        public static string Attachments {
+            get {
+                return ResourceManager.GetString("Attachments", resourceCulture);
             }
         }
         
@@ -417,6 +435,15 @@ namespace i18n {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detailed Description.
+        /// </summary>
+        public static string DetailedDescription {
+            get {
+                return ResourceManager.GetString("DetailedDescription", resourceCulture);
             }
         }
         
@@ -700,6 +727,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to License will be expired soon.
+        /// </summary>
+        public static string ExpiredSoon {
+            get {
+                return ResourceManager.GetString("ExpiredSoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find.
         /// </summary>
         public static string Find {
@@ -732,6 +768,15 @@ namespace i18n {
         public static string ForgotYourUsername {
             get {
                 return ResourceManager.GetString("ForgotYourUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full name.
+        /// </summary>
+        public static string FullName {
+            get {
+                return ResourceManager.GetString("FullName", resourceCulture);
             }
         }
         
@@ -799,6 +844,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Issue Importance.
+        /// </summary>
+        public static string Importance {
+            get {
+                return ResourceManager.GetString("Importance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information.
         /// </summary>
         public static string Information {
@@ -826,6 +880,69 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show stopper.
+        /// </summary>
+        public static string IssueImportance_High {
+            get {
+                return ResourceManager.GetString("IssueImportance_High", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can live with it now.
+        /// </summary>
+        public static string IssueImportance_Low {
+            get {
+                return ResourceManager.GetString("IssueImportance_Low", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doesn&apos;t prevent me from working.
+        /// </summary>
+        public static string IssueImportance_Medium {
+            get {
+                return ResourceManager.GetString("IssueImportance_Medium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Issue type.
+        /// </summary>
+        public static string IssueType {
+            get {
+                return ResourceManager.GetString("IssueType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hardware Issue.
+        /// </summary>
+        public static string IssueType_Hardware {
+            get {
+                return ResourceManager.GetString("IssueType_Hardware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Feature Request.
+        /// </summary>
+        public static string IssueType_NewFeature {
+            get {
+                return ResourceManager.GetString("IssueType_NewFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Software Issue.
+        /// </summary>
+        public static string IssueType_Software {
+            get {
+                return ResourceManager.GetString("IssueType_Software", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Name.
         /// </summary>
         public static string Lastname {
@@ -849,6 +966,42 @@ namespace i18n {
         public static string Licenses {
             get {
                 return ResourceManager.GetString("Licenses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string LicenseStatusType_Active {
+            get {
+                return ResourceManager.GetString("LicenseStatusType_Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted.
+        /// </summary>
+        public static string LicenseStatusType_Deleted {
+            get {
+                return ResourceManager.GetString("LicenseStatusType_Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expired.
+        /// </summary>
+        public static string LicenseStatusType_Expired {
+            get {
+                return ResourceManager.GetString("LicenseStatusType_Expired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inactive.
+        /// </summary>
+        public static string LicenseStatusType_Inactive {
+            get {
+                return ResourceManager.GetString("LicenseStatusType_Inactive", resourceCulture);
             }
         }
         
@@ -1276,6 +1429,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restore.
+        /// </summary>
+        public static string Restore {
+            get {
+                return ResourceManager.GetString("Restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Retrieve Username.
         /// </summary>
         public static string RetrieveUsername {
@@ -1411,6 +1573,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Serial #.
         /// </summary>
         public static string SerialNo {
@@ -1452,6 +1623,33 @@ namespace i18n {
         public static string ShipType_Yes {
             get {
                 return ResourceManager.GetString("ShipType_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Short Description.
+        /// </summary>
+        public static string ShortDescription {
+            get {
+                return ResourceManager.GetString("ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show users by license.
+        /// </summary>
+        public static string ShowByLicenses {
+            get {
+                return ResourceManager.GetString("ShowByLicenses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show deleted.
+        /// </summary>
+        public static string ShowDeleted {
+            get {
+                return ResourceManager.GetString("ShowDeleted", resourceCulture);
             }
         }
         
@@ -1533,6 +1731,24 @@ namespace i18n {
         public static string Suits {
             get {
                 return ResourceManager.GetString("Suits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support.
+        /// </summary>
+        public static string Support {
+            get {
+                return ResourceManager.GetString("Support", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We have sent an email with your support request. Soon we will contact with you..
+        /// </summary>
+        public static string SupportSent {
+            get {
+                return ResourceManager.GetString("SupportSent", resourceCulture);
             }
         }
         
@@ -1879,6 +2095,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total size can&apos;t be more than 20 mb..
+        /// </summary>
+        public static string WrongAttachmentSize {
+            get {
+                return ResourceManager.GetString("WrongAttachmentSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wrong confirmation token.
         /// </summary>
         public static string WrongConfirmationToken {
@@ -1897,11 +2122,56 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expiration date should be more than today.
+        /// </summary>
+        public static string WrongExpirationAtDate {
+            get {
+                return ResourceManager.GetString("WrongExpirationAtDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid forgot token.
         /// </summary>
         public static string WrongForgotToken {
             get {
                 return ResourceManager.GetString("WrongForgotToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License is not active.
+        /// </summary>
+        public static string WrongLicenseActive {
+            get {
+                return ResourceManager.GetString("WrongLicenseActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin can&apos;t be a license admin.
+        /// </summary>
+        public static string WrongLicenseAdmin {
+            get {
+                return ResourceManager.GetString("WrongLicenseAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License is removed.
+        /// </summary>
+        public static string WrongLicenseDeleted {
+            get {
+                return ResourceManager.GetString("WrongLicenseDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License is expired.
+        /// </summary>
+        public static string WrongLicenseExpiration {
+            get {
+                return ResourceManager.GetString("WrongLicenseExpiration", resourceCulture);
             }
         }
         

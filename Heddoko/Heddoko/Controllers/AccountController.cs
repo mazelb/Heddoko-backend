@@ -80,8 +80,8 @@ namespace Heddoko.Controllers
 
                         signup.Organization = user.Organization;
                         signup.InviteToken = user.InviteToken;
-                        signup.Email = user.Email;
-                        signup.Username = user.Username;
+                        signup.Email = user.Email.ToLower();
+                        signup.Username = user.Username.ToLower();
                         signup.FirstName = user.FirstName;
                         signup.LastName = user.LastName;
                         signup.Phone = user.Phone;
@@ -193,7 +193,7 @@ namespace Heddoko.Controllers
                 }
             }
 
-            model.Organization = user.Organization;
+            model.Organization = user?.Organization;
             return View(model);
         }
 
@@ -245,8 +245,8 @@ namespace Heddoko.Controllers
 
 
                             user = new User();
-                            user.Email = model.Email.Trim();
-                            user.Username = model.Username.Trim();
+                            user.Email = model.Email.ToLower().Trim();
+                            user.Username = model.Username.ToLower().Trim();
                             user.Role = UserRoleType.LicenseAdmin;
                             user.FirstName = model.FirstName.Trim(); ;
                             user.LastName = model.LastName.Trim(); ;
@@ -300,7 +300,7 @@ namespace Heddoko.Controllers
 
             model.Organization = CurrentUser.Organization;
             model.Email = CurrentUser.Email;
-            model.Username = CurrentUser.Username;
+            model.Username = CurrentUser.Username.ToLower();
             model.FirstName = CurrentUser.FirstName;
             model.LastName = CurrentUser.LastName;
             model.Phone = CurrentUser.Phone;
@@ -319,7 +319,7 @@ namespace Heddoko.Controllers
         {
             if (ModelState.IsValid)
             {
-                User userUsed = UoW.UserRepository.GetByUsernameCached(model.Username?.Trim());
+                User userUsed = UoW.UserRepository.GetByUsernameFull(model.Username?.Trim());
 
                 if (userUsed != null
                  && CurrentUser.ID != userUsed.ID)
@@ -330,7 +330,7 @@ namespace Heddoko.Controllers
                 {
 
                     CurrentUser.FirstName = model.FirstName;
-                    CurrentUser.Username = model.Username;
+                    CurrentUser.Username = model.Username.ToLower();
                     CurrentUser.LastName = model.LastName;
                     CurrentUser.Phone = model.Phone;
                     CurrentUser.Country = model.Country;
@@ -383,7 +383,7 @@ namespace Heddoko.Controllers
                     switch (CurrentUser.Role)
                     {
                         case UserRoleType.Admin:
-                            return RedirectToAction("Index", "Admin");
+                            return RedirectToAction("Index", "License");
                         case UserRoleType.Analyst:
                             return RedirectToAction("Index", "Analyst");
                         case UserRoleType.LicenseAdmin:

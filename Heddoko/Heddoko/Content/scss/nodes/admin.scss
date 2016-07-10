@@ -40,3 +40,17 @@
 #ComplexEquipmentPopup  .k-autocomplete{
     width: 100%;
 }
+
+.grid-checkbox {
+    margin-left: 10px;
+    margin-right: 10px;
+    input {
+        margin-right: 5px;
+        margin-top: -1px;
+        vertical-align: middle;
+    }
+}
+
+#userLicensesDD {
+    width: 200px;
+}
