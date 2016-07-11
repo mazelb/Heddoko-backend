@@ -12,13 +12,19 @@ namespace Heddoko
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            //routes.MapMvcAttributeRoutes();
+            routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
                name: "Admin",
                url: "admin",
                defaults: new { controller = "Admin", action = "Index", token = UrlParameter.Optional }
            );
+
+            routes.MapRoute(
+              name: "Inventory",
+              url: "inventory",
+              defaults: new { controller = "Inventory", action = "Index", token = UrlParameter.Optional }
+          );
 
             routes.MapRoute(
                 name: "Login",

@@ -1079,6 +1079,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\Admin\LicensesController.cs" />
     <Compile Include="Controllers\Admin\UsersController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
@@ -1706,6 +1707,7 @@
     <Content Include="Views\Support\Index.cshtml" />
     <Content Include="Views\Support\IndexStatus.cshtml" />
     <Content Include="Views\Email\SupportEmail.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace Heddoko.Controllers
 {
     [Auth(Roles = DAL.Constants.Roles.Admin)]
-    public class AdminController : BaseController
+    public class InventoryController : BaseController
     {
         public ActionResult Index()
         {
