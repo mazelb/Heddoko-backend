@@ -239,7 +239,10 @@ i18n.Resources = (function () {
   "LicenseStatusType_Deleted": "Deleted",
   "LicenseStatusType_Expired": "Expired",
   "LicenseStatusType_Inactive": "Inactive",
-  "ShowByLicenses": "Show users by license"
+  "ShowByLicenses": "Show users by license",
+  "Size": "Size",
+  "QAStatus": "QA Status",
+  "PantsOctopi": "Pants Octopi"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

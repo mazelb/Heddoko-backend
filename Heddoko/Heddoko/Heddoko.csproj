@@ -542,6 +542,7 @@
     <Content Include="Scripts\js\admin\format.js" />
     <Content Include="Scripts\js\admin\grid\organizations.js" />
     <Content Include="Scripts\js\admin\grid\licenses.js" />
+    <Content Include="Scripts\js\admin\grid\pantsOctopi.js" />
     <Content Include="Scripts\js\admin\grid\usersAdmin.js" />
     <Content Include="Scripts\js\admin\grid\users.js" />
     <Content Include="Scripts\js\admin\kendo.js" />
@@ -1708,6 +1709,7 @@
     <Content Include="Views\Support\IndexStatus.cshtml" />
     <Content Include="Views\Email\SupportEmail.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
+    <Content Include="Views\Inventory\_PantsOctopi.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

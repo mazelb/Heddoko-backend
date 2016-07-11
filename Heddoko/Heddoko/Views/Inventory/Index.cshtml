@@ -14,7 +14,7 @@
         <li class="active"><a data-toggle="tab" href="#suits">@i18n.Resources.Suits</a></li>
         <li><a data-toggle="tab" href="#equipment">@i18n.Resources.Equipments</a></li>
         <li><a data-toggle="tab" href="#materials">@i18n.Resources.Materials</a></li>
-        <li><a data-toggle="tab" href="#material_types">@i18n.Resources.MaterialTypes</a></li>
+        <li><a data-toggle="tab" href="#pants_octopi">@i18n.Resources.PantsOctopi</a></li>
     </ul>
     @Html.Partial("_FlashMessages", Model.Flash)
     <div class="tab-content">
@@ -27,7 +27,8 @@
         <div id="materials" class="tab-pane fade">
         </div>
 
-        <div id="material_types" class="tab-pane fade">
+        <div id="pants_octopi" class="tab-pane fade">
+            @Html.Partial("_PantsOctopi")
         </div>
     </div>
 </div>
