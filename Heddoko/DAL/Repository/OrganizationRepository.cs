@@ -31,7 +31,7 @@ namespace DAL
                         .FirstOrDefault();
         }
 
-        public Organization GetFull(int id)
+        public override Organization GetFull(int id)
         {
             return DbSet.Include(c => c.User)
                         .Include(c => c.Licenses)

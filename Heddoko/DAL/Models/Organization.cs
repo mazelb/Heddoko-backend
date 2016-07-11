@@ -42,6 +42,10 @@ namespace DAL.Models
         [JsonIgnore]
         [JilDirective(Ignore = true)]
         public virtual ICollection<License> Licenses { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<Kit> Kits { get; set; }
         #endregion
     }
 }

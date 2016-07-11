@@ -24,15 +24,7 @@ namespace DAL
 
         private IAssetRepository assetRepository { get; set; }
 
-        private IComplexEquipmentRepository complextEquipmentRepository { get; set; }
-
-        private IEquipmentRepository equipmentRepository { get; set; }
-
         private IFolderRepository folderRepository { get; set; }
-
-        private IMaterialRepository materialRepository { get; set; }
-
-        private IMaterialTypeRepository materialTypeRepository { get; set; }
 
         private IMovementEventRepository movementEventRepository { get; set; }
 
@@ -51,6 +43,28 @@ namespace DAL
         private IOrganizationRepository organizationRepository { get; set; }
 
         private ILicenseRepository licenseRepository { get; set; }
+
+        private IBrainpackRepository brainpackRepository { get; set; }
+
+        private IComponentRepository componentRepository { get; set; }
+
+        private IDataboardRepository databoardRepository { get; set; }
+
+        private IKitRepository kitRepository { get; set; }
+
+        private IPantsOctopiRepository pantsOctopiRepository { get; set; }
+
+        private IPantsRepository pantsRepository { get; set; }
+
+        private IPowerboardRepository powerboardRepository { get; set; }
+
+        private ISensorRepository sensorRepository { get; set; }
+
+        private ISensorSetRepository sensorSetRepository { get; set; }
+
+        private IShirtOctopiRepository shirtOctopiRepository { get; set; }
+
+        private IShirtRepository shirtRepository { get; set; }
         #endregion
 
         #region PublicRepository
@@ -86,43 +100,11 @@ namespace DAL
             }
         }
 
-        public IComplexEquipmentRepository ComplexEquipmentRepository
-        {
-            get
-            {
-                return complextEquipmentRepository ?? (complextEquipmentRepository = new ComplexEquipmentRepository(db));
-            }
-        }
-
-        public IEquipmentRepository EquipmentRepository
-        {
-            get
-            {
-                return equipmentRepository ?? (equipmentRepository = new EquipmentRepository(db));
-            }
-        }
-
         public IFolderRepository FolderRepository
         {
             get
             {
                 return folderRepository ?? (folderRepository = new FolderRepository(db));
-            }
-        }
-
-        public IMaterialRepository MaterialRepository
-        {
-            get
-            {
-                return materialRepository ?? (materialRepository = new MaterialRepository(db));
-            }
-        }
-
-        public IMaterialTypeRepository MaterialTypeRepository
-        {
-            get
-            {
-                return materialTypeRepository ?? (materialTypeRepository = new MaterialTypeRepository(db));
             }
         }
 
@@ -195,6 +177,94 @@ namespace DAL
             get
             {
                 return licenseRepository ?? (licenseRepository = new LicenseRepository(db));
+            }
+        }
+
+        public IBrainpackRepository BrainpackRepository
+        {
+            get
+            {
+                return brainpackRepository ?? (brainpackRepository = new BrainpackRepository(db));
+            }
+        }
+
+        public IComponentRepository ComponentRepository
+        {
+            get
+            {
+                return componentRepository ?? (componentRepository = new ComponentRepository(db));
+            }
+        }
+
+        public IDataboardRepository DataboardRepository
+        {
+            get
+            {
+                return databoardRepository ?? (databoardRepository = new DataboardRepository(db));
+            }
+        }
+
+        public IKitRepository KitRepository
+        {
+            get
+            {
+                return kitRepository ?? (kitRepository = new KitRepository(db));
+            }
+        }
+
+        public IPantsOctopiRepository PantsOctopiRepository
+        {
+            get
+            {
+                return pantsOctopiRepository ?? (pantsOctopiRepository = new PantsOctopiRepository(db));
+            }
+        }
+
+        public IPantsRepository PantsRepository
+        {
+            get
+            {
+                return pantsRepository ?? (pantsRepository = new PantsRepository(db));
+            }
+        }
+
+        public IPowerboardRepository PowerboardRepository
+        {
+            get
+            {
+                return powerboardRepository ?? (powerboardRepository = new PowerboardRepository(db));
+            }
+        }
+
+        public ISensorRepository SensorRepository
+        {
+            get
+            {
+                return sensorRepository ?? (sensorRepository = new SensorRepository(db));
+            }
+        }
+
+        public ISensorSetRepository SensorSetRepository
+        {
+            get
+            {
+                return sensorSetRepository ?? (sensorSetRepository = new SensorSetRepository(db));
+            }
+        }
+
+        public IShirtOctopiRepository ShirtOctopiRepository
+        {
+            get
+            {
+                return shirtOctopiRepository ?? (shirtOctopiRepository = new ShirtOctopiRepository(db));
+            }
+        }
+
+        public IShirtRepository ShirtRepository
+        {
+            get
+            {
+                return shirtRepository ?? (shirtRepository = new ShirtRepository(db));
             }
         }
         #endregion

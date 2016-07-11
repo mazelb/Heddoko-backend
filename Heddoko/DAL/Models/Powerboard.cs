@@ -22,9 +22,9 @@ namespace DAL.Models
         public EquipmentStatusType Status { get; set; }
 
         #region Relations
-
         [JsonIgnore]
-        public virtual Brainpack Brainpack { get; set; }
+        //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
+        public virtual ICollection<Brainpack> Brainpack { get; set; }
         #endregion
     }
 }

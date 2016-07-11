@@ -37,11 +37,6 @@ namespace DAL.Models
         [JsonIgnore]
         public virtual MovementFrame EndFrame { get; set; }
 
-        public int? ComplexEquipmentID { get; set; }
-
-        [JsonIgnore]
-        public virtual ComplexEquipment ComplexEquipment { get; set; }
-
         public int? SubmittedByID { get; set; }
 
         [JsonIgnore]

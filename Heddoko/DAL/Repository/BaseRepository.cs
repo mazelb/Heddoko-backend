@@ -72,6 +72,11 @@ namespace DAL
             return DbSet.FirstOrDefault(c => c.ID == id);
         }
 
+        public virtual T GetFull(int id)
+        {
+            return Get(id);
+        }
+
         public virtual IEnumerable<T> All()
         {
             return this.DbSet;

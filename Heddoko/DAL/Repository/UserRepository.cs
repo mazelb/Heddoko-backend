@@ -90,7 +90,7 @@ namespace DAL
                         .OrderBy(c => c.LastName);
         }
 
-        public User GetFull(int id)
+        public override User GetFull(int id)
         {
             return DbSet.Include(c => c.Asset)
                         .Include(c => c.Tokens)

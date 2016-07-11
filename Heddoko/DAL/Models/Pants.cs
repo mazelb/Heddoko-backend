@@ -20,9 +20,11 @@ namespace DAL.Models
         public SuitsQAStatusType QAStatus { get; set; }
 
         #region Relations
-
         [JsonIgnore]
-        public virtual Kit Kit { get; set; }
+        //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
+        public virtual ICollection<Kit> Kit { get; set; }
+
+        public int? PantsOctopiID { get; set; }
 
         [JsonIgnore]
         public virtual PantsOctopi PantsOctopi { get; set; }

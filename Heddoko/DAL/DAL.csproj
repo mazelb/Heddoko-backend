@@ -103,9 +103,14 @@
     <Compile Include="Migrations\201605300933380_InviteToken.Designer.cs">
       <DependentUpon>201605300933380_InviteToken.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607110242531_NewInventory.cs" />
+    <Compile Include="Migrations\201607110242531_NewInventory.Designer.cs">
+      <DependentUpon>201607110242531_NewInventory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Component.cs" />
+    <Compile Include="Models\Enum\ComponentsType.cs" />
     <Compile Include="Models\Enum\SuitsQAStatusType.cs" />
     <Compile Include="Models\Pants.cs" />
     <Compile Include="Models\PantsOctopi.cs" />
@@ -131,7 +136,7 @@
     <Compile Include="Models\License.cs" />
     <Compile Include="Models\LicenseInfo.cs" />
     <Compile Include="Models\Organization.cs" />
-    <Compile Include="Models\Enum\AnatomicalPositionType.cs" />
+    <Compile Include="Models\Enum\AnatomicLocationType.cs" />
     <Compile Include="Models\Enum\AssetType.cs" />
     <Compile Include="Models\Enum\ConditionType.cs" />
     <Compile Include="Models\Enum\EquipmentStatusType.cs" />
@@ -145,8 +150,6 @@
     <Compile Include="Models\Enum\UserRoleType.cs" />
     <Compile Include="Models\Enum\LicenseType.cs" />
     <Compile Include="Models\Enum\UserStatusType.cs" />
-    <Compile Include="Models\ComplexEquipment.cs" />
-    <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\FlashMessage.cs" />
     <Compile Include="Models\Folder.cs" />
     <Compile Include="Models\MovementEvent.cs" />
@@ -155,31 +158,46 @@
     <Compile Include="Models\Movement.cs" />
     <Compile Include="Models\MovementMarker.cs" />
     <Compile Include="Models\Asset.cs" />
-    <Compile Include="Models\Material.cs" />
-    <Compile Include="Models\MaterialType.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Screening.cs" />
     <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\Company.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Enum\UserGenderType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AssetRepository.cs" />
-    <Compile Include="Repository\ComplexEquipmentRepository.cs" />
-    <Compile Include="Repository\EquipmentRepository.cs" />
     <Compile Include="Repository\FolderRepository.cs" />
     <Compile Include="Repository\Interface\ILicenseRepository.cs" />
+    <Compile Include="Repository\Interface\IShirtOctopiRepository.cs" />
+    <Compile Include="Repository\Interface\ISensorSetRepository.cs" />
+    <Compile Include="Repository\Interface\ISensorRepository.cs" />
+    <Compile Include="Repository\Interface\IPowerboardRepository.cs" />
+    <Compile Include="Repository\Interface\IPantsOctopiRepository.cs" />
+    <Compile Include="Repository\Interface\IPantsRepository.cs" />
+    <Compile Include="Repository\Interface\IKitRepository.cs" />
+    <Compile Include="Repository\Interface\IDataboardRepository.cs" />
+    <Compile Include="Repository\Interface\IComponentRepository.cs" />
+    <Compile Include="Repository\Interface\IBrainpackRepository.cs" />
+    <Compile Include="Repository\Interface\IShirtRepository.cs" />
     <Compile Include="Repository\LicenseRepository.cs" />
     <Compile Include="Repository\OrganizationRepository.cs" />
     <Compile Include="Repository\Interface\IOrganizationRepository.cs" />
-    <Compile Include="Repository\MaterialRepository.cs" />
-    <Compile Include="Repository\MaterialTypeRepository.cs" />
     <Compile Include="Repository\MovementMarkerRepository.cs" />
     <Compile Include="Repository\MovementFrameRepository.cs" />
     <Compile Include="Repository\MovementEventRepository.cs" />
     <Compile Include="Repository\MovementRepository.cs" />
     <Compile Include="Repository\ProfileRepository.cs" />
     <Compile Include="Repository\ScreeningRepository.cs" />
+    <Compile Include="Repository\ShirtOctopiRepository.cs" />
+    <Compile Include="Repository\SensorSetRepository.cs" />
+    <Compile Include="Repository\SensorRepository.cs" />
+    <Compile Include="Repository\PowerboardRepository.cs" />
+    <Compile Include="Repository\PantsRepository.cs" />
+    <Compile Include="Repository\PantsOctopiRepository.cs" />
+    <Compile Include="Repository\KitRepository.cs" />
+    <Compile Include="Repository\DataboardRepository.cs" />
+    <Compile Include="Repository\ShirtRepository.cs" />
+    <Compile Include="Repository\BrainpackRepository.cs" />
+    <Compile Include="Repository\ComponentRepository.cs" />
     <Compile Include="Repository\TagRepository.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\AccessTokenRepository.cs" />
@@ -190,17 +208,13 @@
     <Compile Include="Repository\Interface\IScreeningRepository.cs" />
     <Compile Include="Repository\Interface\IProfileRepository.cs" />
     <Compile Include="Repository\Interface\IMovementRepository.cs" />
-    <Compile Include="Repository\Interface\IMaterialTypeRepository.cs" />
-    <Compile Include="Repository\Interface\IMaterialRepository.cs" />
     <Compile Include="Repository\Interface\ICacheRepository.cs" />
     <Compile Include="Repository\GroupRepository.cs" />
     <Compile Include="Repository\Interface\IBaseRepository.cs" />
     <Compile Include="Repository\Interface\IAccessTokenRepository.cs" />
     <Compile Include="Repository\Interface\IAssetRepository.cs" />
     <Compile Include="Repository\Interface\IFolderRepository.cs" />
-    <Compile Include="Repository\Interface\IComplexEquipmentRepository.cs" />
     <Compile Include="Repository\Interface\IGroupRepository.cs" />
-    <Compile Include="Repository\Interface\IEquipmentRepository.cs" />
     <Compile Include="Repository\Interface\IUserRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
@@ -227,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605300933380_InviteToken.resx">
       <DependentUpon>201605300933380_InviteToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607110242531_NewInventory.resx">
+      <DependentUpon>201607110242531_NewInventory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

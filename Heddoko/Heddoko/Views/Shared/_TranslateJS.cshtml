@@ -53,16 +53,16 @@
     </text>
     }
 
-    Enums.AnatomicalPositionType = {};
-    Enums.AnatomicalPositionType.enum = {};
-    Enums.AnatomicalPositionType.array = {};
-    @foreach (DAL.Models.AnatomicalPositionType type in (DAL.Models.AnatomicalPositionType[])Enum.GetValues(typeof(DAL.Models.AnatomicalPositionType)))
+    Enums.AnatomicLocationType = {};
+    Enums.AnatomicLocationType.enum = {};
+    Enums.AnatomicLocationType.array = {};
+    @foreach (DAL.Models.AnatomicLocationType type in (DAL.Models.AnatomicLocationType[])Enum.GetValues(typeof(DAL.Models.AnatomicLocationType)))
     {
         <text>
 
-    Enums.AnatomicalPositionType.enum["@type.GetDisplayName()"] = @((int)type);
+    Enums.AnatomicLocationType.enum["@type.GetDisplayName()"] = @((int)type);
 
-    Enums.AnatomicalPositionType.array[@((int)type)] = {
+    Enums.AnatomicLocationType.array[@((int)type)] = {
         "value": @((int)type),
         "text": "@type.GetDisplayName()"
     };

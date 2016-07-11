@@ -10,11 +10,18 @@ namespace DAL.Models
     {
         FullTested = 0,
         ChargingCycleTested = 1,
-        ButtonsTested = 2,
-        LEDTested = 3,
-        SensorConnectionTested = 4,
-        SoftwareConnectionTested = 5,
-        CommandTested = 6,
-        StreamingTested = 7
+        ChargingCycleFailed = 2,
+        ButtonsTested = 3,
+        ButtonsFailed = 4,
+        LEDTested = 5,
+        LEDFailed = 6,
+        SensorConnectionTested = 7,
+        SensorConnectionFailed = 8,
+        SoftwareConnectionTested = 9,
+        SoftwareConnectionFailed = 10,
+        CommandTested = 11,
+        CommandFailed = 12,
+        StreamingTested = 13,
+        StreamingFailed = 14
     }
 }

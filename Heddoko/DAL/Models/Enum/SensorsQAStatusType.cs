@@ -10,10 +10,10 @@ namespace DAL.Models
     {
         FullTested = 0,
         FirmavareTested = 1,
-        PowerTested = 2,
-        OrientationTested = 3,
-        FirmavareFailed = 4,
-        PowerFailed = 5,
+        FirmavareFailed = 2,
+        PowerTested = 3,
+        PowerFailed = 4,
+        OrientationTested = 5,
         OrientationFailed = 6
     }
 }

@@ -141,10 +141,6 @@ namespace DAL.Models
         [JsonIgnore]
         [JilDirective(Ignore = true)]
         public virtual ICollection<AccessToken> Tokens { get; set; }
-
-        [JsonIgnore]
-        [JilDirective(Ignore = true)]
-        public virtual ICollection<Equipment> Equipments { get; set; }
         #endregion
 
         #region NotMapped

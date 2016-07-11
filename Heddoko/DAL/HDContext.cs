@@ -32,19 +32,11 @@ namespace DAL
 
         public DbSet<AccessToken> AccessTokens { get; set; }
 
-        public DbSet<ComplexEquipment> ComplexEquipments { get; set; }
-
-        public DbSet<Equipment> Equipments { get; set; }
-
         public DbSet<Folder> Folders { get; set; }
 
         public DbSet<Group> Groups { get; set; }
 
         public DbSet<Asset> Assets { get; set; }
-
-        public DbSet<Material> Materials { get; set; }
-
-        public DbSet<MaterialType> MaterialTypes { get; set; }
 
         public DbSet<Movement> Movements { get; set; }
 
@@ -61,6 +53,28 @@ namespace DAL
         public DbSet<Tag> Tags { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Brainpack> Brainpacks { get; set; }
+
+        public DbSet<Component> Components { get; set; }
+
+        public DbSet<Databoard> Databoards { get; set; }
+
+        public DbSet<Kit> Kits { get; set; }
+
+        public DbSet<PantsOctopi> PantsOctopuses { get; set; }
+
+        public DbSet<Pants> PantsPair { get; set; }
+
+        public DbSet<Powerboard> Powerboards { get; set; }
+
+        public DbSet<Sensor> Sensors { get; set; }
+
+        public DbSet<SensorSet> SensorSets { get; set; }
+
+        public DbSet<ShirtOctopi> ShirtOctopuses { get; set; }
+
+        public DbSet<Shirt> Shirts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

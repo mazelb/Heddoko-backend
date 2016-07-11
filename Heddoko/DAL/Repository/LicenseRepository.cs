@@ -19,7 +19,7 @@ namespace DAL
                         .OrderByDescending(c => c.ExpirationAt);
         }
 
-        public License GetFull(int id)
+        public override License GetFull(int id)
         {
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.Users)

@@ -19,6 +19,8 @@ namespace DAL
         #region Select
         T Get(int id);
 
+        T GetFull(int id);
+
         IEnumerable<T> All();
 
         IEnumerable<T> Where(Expression<Func<T, bool>> predicate);

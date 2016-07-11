@@ -10,8 +10,12 @@ namespace DAL.Models
     {
         FullTested = 0,
         BaseplateTested = 1,
-        WiringTested = 2,
-        ConnectorTested = 3,
-        PowerTested = 3
+        BaseplateFailed = 2,
+        WiringTested = 3,
+        WiringFailed = 4,
+        ConnectorTested = 5,
+        ConnectorFailed = 6,
+        PowerTested = 7,
+        PowerFailed = 7
     }
 }

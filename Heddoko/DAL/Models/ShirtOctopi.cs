@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,12 +21,9 @@ namespace DAL.Models
         public SuitsQAStatusType QAStatus { get; set; }
 
         #region Relations
-
         [JsonIgnore]
-        public virtual Kit Kit { get; set; }
-
-        [JsonIgnore]
-        public virtual Shirt Shirt { get; set; }
+        //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
+        public virtual ICollection<Shirt> Shirt { get; set; }
         #endregion
     }
 }

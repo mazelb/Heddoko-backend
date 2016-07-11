@@ -7,8 +7,6 @@ namespace DAL
     {
         Organization GetByName(string name);
 
-        Organization GetFull(int id);
-
         IEnumerable<Organization> All(bool isDeleted = false);
 
         IEnumerable<Organization> Search(string search, bool isDeleted = false);

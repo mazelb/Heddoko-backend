@@ -25,11 +25,12 @@ namespace DAL.Models
 
         public SensorsQAStatusType QAStatus { get; set; }
 
-        public AnatomicalPositionType AnatomicalPosition { get; set; }
+        public AnatomicLocationType AnatomicLocation { get; set; }
 
         #region Relations
-
         [JsonIgnore]
+        public int? SensorSetID { get; set; }
+
         public virtual SensorSet SensorSet { get; set; }
         #endregion
     }

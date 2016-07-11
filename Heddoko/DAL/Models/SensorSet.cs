@@ -13,9 +13,9 @@ namespace DAL.Models
         public SensorsQAStatusType QAStatus { get; set; }
 
         #region Relations
-
         [JsonIgnore]
-        public virtual Kit Kit { get; set; }
+        //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
+        public virtual ICollection<Kit> Kit { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<Sensor> Sensors { get; set; }
