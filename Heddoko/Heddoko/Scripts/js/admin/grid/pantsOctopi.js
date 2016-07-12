@@ -13,14 +13,14 @@ var PantsOctopi = {
         modelValidator: null
     },
 
-    datasouorces: function () {
+    datasources: function () {
         //Datasources context
         this.pantsOctopi = new kendo.data.DataSource({
             pageSize: KendoDS.pageSize,
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/pantsOctopi'),
+            transport: KendoDS.buildTransport('/admin/api/pantsoctopi'),
             schema: {
                 data: "response",
                 total: "total",
@@ -156,7 +156,7 @@ var PantsOctopi = {
         }).data("kendoGrid");
     },
 
-    ddEditor: function (container, options) {
+    sizeDDEditor: function (container, options) {
 
     },
 

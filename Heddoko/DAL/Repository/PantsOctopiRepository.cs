@@ -1,6 +1,7 @@
 ﻿using DAL.Models;
 using System.Linq;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace DAL
 {
@@ -8,6 +9,11 @@ namespace DAL
     {
         public PantsOctopiRepository(HDContext sb) : base(sb)
         {
+        }
+
+        public IEnumerable<PantsOctopi> GetByOrganization(int organizationID)
+        {
+            return All().Where(c => c.OrganizationID == organizationID);
         }
     }
 }

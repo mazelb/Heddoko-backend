@@ -25,5 +25,10 @@ namespace DAL.Models
         //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
         public virtual ICollection<Pants> Pants { get; set; }
         #endregion
+
+        [JsonIgnore]
+        public int? OrganizationID { get; set; }
+
+        public virtual Organization Organization { get; set; }
     }
 }
