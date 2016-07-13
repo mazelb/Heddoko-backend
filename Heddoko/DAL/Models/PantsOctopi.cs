@@ -28,7 +28,5 @@ namespace DAL.Models
 
         [JsonIgnore]
         public int? OrganizationID { get; set; }
-
-        public virtual Organization Organization { get; set; }
     }
 }

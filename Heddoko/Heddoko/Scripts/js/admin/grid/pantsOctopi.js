@@ -79,7 +79,7 @@ var PantsOctopi = {
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                dataSource: DataSources.organizations,
+                dataSource: this.datasources,
                 sortable: false,
                 editable: "popup",
                 selectable: false,
@@ -152,7 +152,7 @@ var PantsOctopi = {
     detailInit: function (e) {
         //TODO: BenB
         var grid = $("<div>").appendTo(e.detail.Cell).kendoGrid({
-
+            
         }).data("kendoGrid");
     },
 
