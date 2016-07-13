@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutEmail.cshtml";
 }
 
-Welcome @Model.FirstName. You're are invited to become admin of the organization @Model.OrganizationName
+Welcome @Model.FirstName, <br />,<br /> been invited to become an administrator of the organization @Model.OrganizationName<br />
 <br />
 @if (!string.IsNullOrEmpty(Model.Token)) {
     <text>
@@ -17,5 +17,5 @@ else
         Click here to manage your organization: <a href="@(Heddoko.Config.DashboardSite + $"/organization")">@(Heddoko.Config.DashboardSite + $"/organization")</a>
     </text>
 }
-<br />
+<br /><br />
 - The Heddoko Team
