@@ -1,35 +1,4 @@
-﻿.col-centered {
-  float: none;
-  margin: 0 auto; }
-
-.red {
-  cursor: pointer;
-  color: #9d2a27; }
-
-.yellow {
-  cursor: pointer;
-  color: yellow; }
-
-.green {
-  cursor: pointer;
-  color: #759632; }
-
-.black {
-  cursor: pointer;
-  color: black; }
-
-.orange {
-  cursor: pointer;
-  color: #ffc000; }
-
-.brown {
-  cursor: pointer;
-  color: #c36518; }
-
-html, body {
-  font-family: "arial"; }
-
-/* Info template */
+﻿/* Info template */
 .notification-info {
   width: 300px;
   height: 100px; }
@@ -113,6 +82,30 @@ html, body {
   .body-wrap .capsule-8 {
     left: 34px;
     top: 102px; }
+
+.red {
+  cursor: pointer;
+  color: #9d2a27; }
+
+.yellow {
+  cursor: pointer;
+  color: yellow; }
+
+.green {
+  cursor: pointer;
+  color: #759632; }
+
+.black {
+  cursor: pointer;
+  color: black; }
+
+.orange {
+  cursor: pointer;
+  color: #ffc000; }
+
+.brown {
+  cursor: pointer;
+  color: #c36518; }
 
 .margin010 {
   margin-top: 10px; }

@@ -20,13 +20,13 @@ namespace Heddoko
 
             Bundle commonStylesBundle = new Bundle("~/Bundles/CommonCss");
             commonStylesBundle.Include(
-                 "~/Content/css/styles.css",
+                "~/Content/bootstrap.min.css",
                  "~/Content/bootstrap-datepicker3.min.css",
-                 "~/Content/css/app.css",
                  "~/Content/css/general.css"
             );
 
             bundles.Add(commonStylesBundle);
+
 
             Bundle angularStylesBundle = new Bundle("~/Bundles/AngularCss");
             angularStylesBundle.Include(
@@ -62,7 +62,6 @@ namespace Heddoko
 
             Bundle kendoStylesBundle = new Bundle("~/Bundles/KendoCss");
             kendoStylesBundle.Include(
-               "~/Content/bootstrap.min.css",
                "~/Content/kendo/kendo.common.min.css",
                "~/Content/kendo/kendo.default.min.css",
                "~/Content/kendo/kendo.default.mobile.min.css",

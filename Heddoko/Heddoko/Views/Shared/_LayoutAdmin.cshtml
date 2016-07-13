@@ -1,6 +1,6 @@
 ﻿@model Heddoko.Models.BaseViewModel
 <!DOCTYPE html>
-<html class="no-js web-layout @ViewBag.HtmlClass">
+<html class="@ViewBag.HtmlClass">
 <head>
     <meta charset="utf-8" />
     <meta name="description" content="">
@@ -10,6 +10,8 @@
 
     <title>@Model.Title</title>
     @Html.Partial("_Favicons", Model)
+
+    @Styles.Render("~/Bundles/CommonCss")
 
     @if (Model.EnableKendo)
     {
