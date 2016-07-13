@@ -43,6 +43,7 @@ namespace DAL
 
             return DbSet.Include(c => c.Organization)
                         .Where(c => c.OrganizationID.Value == organizationID
+                                 && c.Status == LicenseStatusType.Active
                                  && c.Users.Count() < c.Amount
                                  && c.ExpirationAt > today)
                         .OrderByDescending(c => c.ExpirationAt);

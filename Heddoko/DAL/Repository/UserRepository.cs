@@ -177,21 +177,23 @@ namespace DAL
                         .FirstOrDefault();
         }
 
-        public IEnumerable<User> GetByOrganization(int organizationID, bool isDeleted = false)
+        public IEnumerable<User> GetByOrganization(int organizationID, bool isDeleted = false, int? licenseID = null)
         {
             return DbSet.Include(c => c.License)
                         .Include(c => c.Organization)
+                        .Where(c => licenseID.HasValue ? c.LicenseID == licenseID.Value : true)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => c.OrganizationID.Value == organizationID)
                         .OrderBy(c => c.FirstName)
                         .OrderBy(c => c.LastName);
         }
 
-        public IEnumerable<User> Search(string search, int? organizationID = null, bool isDeleted = false)
+        public IEnumerable<User> Search(string search, int? organizationID = null, bool isDeleted = false, int? licenseID = null)
         {
             return DbSet.Include(c => c.License)
                         .Include(c => c.Organization)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
+                        .Where(c => licenseID.HasValue ? c.LicenseID == licenseID.Value : true)
                         .Where(c => organizationID.HasValue ? c.OrganizationID.Value == organizationID : true)
                         .Where(c => (!string.IsNullOrEmpty(c.FirstName) && c.FirstName.ToLower().Contains(search.ToLower()))
                                  || (!string.IsNullOrEmpty(c.LastName) && c.LastName.ToLower().Contains(search.ToLower()))

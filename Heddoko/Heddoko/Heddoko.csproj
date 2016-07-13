@@ -523,6 +523,7 @@
     <Content Include="Content\bootstrap-datepicker3.min.css.map" />
     <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css.map" />
+    <Content Include="Content\scss\nodes\forms.scss" />
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -1045,7 +1046,9 @@
     <Content Include="Scripts\kendo\pako_deflate.min.js" />
     <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -1102,6 +1105,7 @@
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\StaticController.cs" />
+    <Compile Include="Controllers\SupportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1162,10 +1166,12 @@
     <Compile Include="Models\Email\ActivationUserEmailViewModel.cs" />
     <Compile Include="Models\Email\EmailViewModel.cs" />
     <Compile Include="Models\Email\ForgotPasswordEmailViewModel.cs" />
+    <Compile Include="Models\Email\SupportEmailViewModel.cs" />
     <Compile Include="Models\Error\API\ErrorAPIViewModel.cs" />
     <Compile Include="Models\Error\ErrorViewModel.cs" />
     <Compile Include="Models\FlashMessagesViewModel.cs" />
     <Compile Include="Models\Organization\OrganizationIndexViewModel.cs" />
+    <Compile Include="Models\Support\SupportIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -1716,6 +1722,9 @@
     <Content Include="Views\Email\InviteUserEmail.cshtml" />
     <Content Include="Views\License\_Users.cshtml" />
     <Content Include="Views\Account\Me.cshtml" />
+    <Content Include="Views\Support\Index.cshtml" />
+    <Content Include="Views\Support\IndexStatus.cshtml" />
+    <Content Include="Views\Email\SupportEmail.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

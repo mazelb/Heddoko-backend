@@ -765,4 +765,76 @@
   <data name="WrongLicenseAdmin" xml:space="preserve">
     <value>Admin can't be a license admin</value>
   </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+  <data name="DetailedDescription" xml:space="preserve">
+    <value>Detailed Description</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Full name</value>
+  </data>
+  <data name="Importance" xml:space="preserve">
+    <value>Issue Importance</value>
+  </data>
+  <data name="IssueImportance_High" xml:space="preserve">
+    <value>Show stopper</value>
+  </data>
+  <data name="IssueImportance_Low" xml:space="preserve">
+    <value>Can live with it now</value>
+  </data>
+  <data name="IssueImportance_Medium" xml:space="preserve">
+    <value>Doesn't prevent me from working</value>
+  </data>
+  <data name="IssueType" xml:space="preserve">
+    <value>Issue type</value>
+  </data>
+  <data name="IssueType_Hardware" xml:space="preserve">
+    <value>Hardware Issue</value>
+  </data>
+  <data name="IssueType_NewFeature" xml:space="preserve">
+    <value>New Feature Request</value>
+  </data>
+  <data name="IssueType_Software" xml:space="preserve">
+    <value>Software Issue</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="ShortDescription" xml:space="preserve">
+    <value>Short Description</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="SupportSent" xml:space="preserve">
+    <value>We have sent an email with your support request. Soon we will contact with you.</value>
+  </data>
+  <data name="WrongAttachmentSize" xml:space="preserve">
+    <value>Total size can't be more than 20 mb.</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ExpiredSoon" xml:space="preserve">
+    <value>License will be expired soon</value>
+  </data>
+  <data name="LicenseStatusType_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="LicenseStatusType_Deleted" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="LicenseStatusType_Expired" xml:space="preserve">
+    <value>Expired</value>
+  </data>
+  <data name="LicenseStatusType_Inactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="ShowByLicenses" xml:space="preserve">
+    <value>Show users by license</value>
+  </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
 </root>

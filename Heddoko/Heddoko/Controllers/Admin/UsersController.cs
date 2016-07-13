@@ -21,6 +21,7 @@ namespace Heddoko.Controllers
         const string Admin = "Admin";
         const int NoLicense = 0;
         const string IsDeleted = "IsDeleted";
+        const string License = "License";
 
         public override KendoResponse<IEnumerable<UserAPIModel>> Get([FromUri]KendoRequest request)
         {
@@ -29,6 +30,7 @@ namespace Heddoko.Controllers
 
             bool forceOrganization = false;
             bool isDeleted = false;
+            int? licenseID = null;
 
             if (CurrentUser.Role == UserRoleType.LicenseAdmin)
             {
@@ -45,48 +47,43 @@ namespace Heddoko.Controllers
             {
                 if (request.Filter != null)
                 {
-                    switch (request.Filter.Filters.Count())
+                    KendoFilterItem adminFilter = request.Filter.Get(Search);
+                    if (adminFilter != null)
                     {
+                        if (CurrentUser.Role == UserRoleType.Admin)
+                        {
+                            items = UoW.UserRepository.Admins();
+                        }
+                    }
 
-                        case 1:
-                            KendoFilterItem searchFilter = request.Filter.Get(Search);
-                            if (searchFilter != null
-                            && !string.IsNullOrEmpty(searchFilter.Value))
-                            {
-                                items = UoW.UserRepository.Search(searchFilter.Value, forceOrganization ? CurrentUser.OrganizationID : null);
-                                break;
-                            }
+                    if (items == null)
+                    {
+                        KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
+                        if (isDeletedFilter != null)
+                        {
+                            isDeleted = true;
+                        }
 
-                            KendoFilterItem adminFilter = request.Filter.Get(Search);
-                            if (adminFilter != null)
-                            {
-                                if (CurrentUser.Role == UserRoleType.Admin)
-                                {
-                                    items = UoW.UserRepository.Admins();
-                                }
-                            }
+                        KendoFilterItem licenseFilter = request.Filter.Get(License);
+                        if (licenseFilter != null
+                        && !string.IsNullOrEmpty(licenseFilter.Value))
+                        {
+                            licenseID = int.Parse(licenseFilter.Value);
+                        }
 
-                            KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
-                            if (isDeletedFilter != null)
-                            {
-                                isDeleted = true;
-                            }
-                            break;
-                        case 2:
-                            KendoFilterItem isDeletedFilter2 = request.Filter.Get(IsDeleted);
-                            if (isDeletedFilter2 != null)
-                            {
-                                isDeleted = true;
-                            }
+                        KendoFilterItem searchFilter = request.Filter.Get(Search);
+                        if (searchFilter != null
+                        && !string.IsNullOrEmpty(searchFilter.Value))
+                        {
+                            items = UoW.UserRepository.Search(searchFilter.Value, forceOrganization ? CurrentUser.OrganizationID : null, isDeleted, licenseID);
+                        }
 
-                            KendoFilterItem searchFilter2 = request.Filter.Get(Search);
-                            if (searchFilter2 != null
-                            && !string.IsNullOrEmpty(searchFilter2.Value))
-                            {
-                                items = UoW.UserRepository.Search(searchFilter2.Value, forceOrganization ? CurrentUser.OrganizationID : null, isDeleted);
-                            }
-                            break;
-
+                        if (items == null
+                        && licenseID.HasValue
+                        && CurrentUser.OrganizationID.HasValue)
+                        {
+                            items = UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value, isDeleted, licenseID);
+                        }
                     }
                 }
             }
@@ -99,7 +96,7 @@ namespace Heddoko.Controllers
                 }
                 else
                 {
-                    items = UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value, isDeleted);
+                    items = UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value, isDeleted, licenseID);
                 }
             }
 
@@ -267,6 +264,8 @@ namespace Heddoko.Controllers
                     {
                         item.Email = model.Email?.ToLower().Trim();
                         item.Username = model.Username?.ToLower().Trim();
+                        item.FirstName = model.Firstname?.Trim();
+                        item.LastName = model.Lastname?.Trim();
                         item.Status = UserStatusType.Invited;
                         item.Role = UserRoleType.User;
                         item.Phone = model.Phone;
@@ -370,7 +369,9 @@ namespace Heddoko.Controllers
                 LicenseID = item.LicenseID,
                 Phone = item.Phone,
                 LicenseName = item.License?.Name,
-                OrganizationName = item.Organization?.Name
+                OrganizationName = item.Organization?.Name,
+                LicenseStatus = item.License?.Status,
+                ExpirationAt = item.License?.ExpirationAt
             };
         }
     }

@@ -31,6 +31,10 @@ namespace Heddoko.Models
 
         public string LicenseName { get; set; }
 
+        public LicenseStatusType? LicenseStatus { get; set; }
+
+        public DateTime? ExpirationAt { get; set; }
+
         public string Phone { get; set; }
     }
 }

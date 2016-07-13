@@ -11,6 +11,8 @@ namespace DAL
         public const string ConnectionStringName = "HDContext";
         public const string HeaderToken = "token";
 
+        public const int EmailLimit = 20871520;
+
         public class Embed
         {
             public const string Groups = "groups";
