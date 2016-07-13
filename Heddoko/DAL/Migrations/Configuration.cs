@@ -14,7 +14,7 @@ namespace DAL.Migrations
         {
             //TODO Disable it
             AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = false;
+            AutomaticMigrationDataLossAllowed = true;
             CommandTimeout = 360000;
             SetSqlGenerator("System.Data.SqlClient", new CustomSqlServerMigrationSqlGenerator());
         }

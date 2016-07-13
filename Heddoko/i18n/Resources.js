@@ -240,6 +240,8 @@ i18n.Resources = (function () {
   "LicenseStatusType_Expired": "Expired",
   "LicenseStatusType_Inactive": "Inactive",
   "ShowByLicenses": "Show users by license",
+  "Inventory": "Inventory"
+
   "Size": "Size",
   "QAStatus": "QA Status",
   "PantsOctopi": "Pants Octopi"
