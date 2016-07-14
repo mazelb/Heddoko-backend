@@ -3,6 +3,7 @@
 });
 
 var PantsOctopi = {
+    isDeleted: false,
     controls: {
         grid: null,
         filterModel: null,
@@ -70,6 +71,18 @@ var PantsOctopi = {
                 }
             }
         });
+
+        this.sensorQAStatusTypes = new kendo.data.DataSource({
+            data: _.values(Enums.SensorQAStatusType.array)
+        });
+
+        this.statusTypes = new kendo.data.DataSource({
+            data: _.values(Enums.EquipmentStatusType.array)
+        });
+
+        this.sizeTypes = new kendo.data.DataSource({
+            data: _.values(Enums.SizeType.array)
+        });
     },
 
     init: function () {
@@ -79,7 +92,7 @@ var PantsOctopi = {
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                dataSource: this.datasources,
+                dataSource: Datasources.pantsOctopi,
                 sortable: false,
                 editable: "popup",
                 selectable: false,
@@ -169,26 +182,69 @@ var PantsOctopi = {
             qaStatus: null
         };
     },
+    onShowDeleted: function(e) {
+        this.isDeleted = $(e.currentTarget).pro('checked');
+        this.onFilter();
+    },
+
+    onRestore: function (e) {
+        var item = PantsOctopi.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        item.set('status', Enums.statusTypes.enum.Ready);
+        PantsOctopi.controls.grid.dataSource.sync();
+    },
 
     onReset: function (e) {
-
+        this.controls.addModel.set('model', this.getEmptyModel());
     },
 
     onAdd: function (e) {
+        Notifications.clear();
+        if (this.validators.addModel.validate()) {
+            var obj = this.controls.addModel.get('model');
 
+            this.controls.grid.dataSource.add(obj);
+            this.controls.grid.dataSource.sync();
+            this.controls.grid.dataSource.one('requestEnd', function (e) {
+                if (e.type === "create" && !e.response.Errors) {
+                    this.onReset();
+                }
+            }.bind(this));
+        }
     },
 
     onEnter: function (e) {
-
+        if (e.keycode === kendo.keys.ENTER) {
+            this.onFilter(e);
+        }
     },
 
     onFilter: function (e) {
-
+        var filters = this.buildFilter();
+        if (filters) {
+            this.controls.grid.dataSource.filter(filters);
+        }
     },
 
     buildFilter: function (search) {
+        Notifications.clear();
+        var search = this.controls.filterModel.search;
 
+        var filters = [];
+
+        if (typeof (search) !== "undefined"
+         && search !== ""
+         && search !== null) {
+            filters.push({
+                field: "Search",
+                operator: "eq",
+                value: search
+            });
+        }
+
+        if (this.isDeleted) {
+
+        }
     }
 };
 
-//Datasources.bind(PantsOctopi.datasources);
+Datasources.bind(PantsOctopi.datasources);

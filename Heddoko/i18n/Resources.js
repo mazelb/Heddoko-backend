@@ -240,11 +240,10 @@ i18n.Resources = (function () {
   "LicenseStatusType_Expired": "Expired",
   "LicenseStatusType_Inactive": "Inactive",
   "ShowByLicenses": "Show users by license",
-  "Inventory": "Inventory"
-
   "Size": "Size",
   "QAStatus": "QA Status",
-  "PantsOctopi": "Pants Octopi"
+  "PantsOctopi": "Pants Octopi",
+  "Inventory": "Inventory"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

@@ -843,4 +843,7 @@
   <data name="PantsOctopi" xml:space="preserve">
     <value>Pants Octopi</value>
   </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
 </root>
