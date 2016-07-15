@@ -5,6 +5,5 @@ namespace DAL
 {
     public interface IPantsOctopiRepository : IBaseRepository<PantsOctopi>
     {
-        IEnumerable<PantsOctopi> GetByOrganization(int organizationID);
     }
 }

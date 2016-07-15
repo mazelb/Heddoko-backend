@@ -36,14 +36,17 @@
                                class="form-control"
                                data-bind="value: model.id" />
                     </div>
-                    <div class="col-sm-4">
-                        <input type="number"
-                               required
-                               name="pantsoctopi-size"
-                               validationMessage="@i18n.Resources.Required"
-                               placeholder="@i18n.Resources.Size"
-                               class="form-control"
-                               data-bind="value: model.size" />
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                required
+                                name="pantsoctopi-size"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.Size"
+                                data-value-field="value"
+                                data-bind="value: model.size, source: sizes"></select>
                     </div>
                     <div class="col-sm-4">
                         <input type="text"
@@ -56,23 +59,29 @@
                     </div>
                   </div>
                 <div class="row margin010">
-                    <div class="col-sm-5">
-                        <input type="text"
-                               required
-                               name="pantsoctopi-status"
-                               validationMessage="@i18n.Resources.Required"
-                               placeholder="@i18n.Resources.Status"
-                               class="form-control"
-                               data-bind="value: model.status" />
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                required
+                                name="pantsoctopi-status"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.SelectStatus"
+                                data-value-field="value"
+                                data-bind="value: model.status, source: statuses"></select>
                     </div>
-                    <div class="col-sm-5">
-                        <input type="text"
-                               required
-                               name="pantsoctopi-qastatus"
-                               validationMessage="@i18n.Resources.Required"
-                               placeholder="@i18n.Resources.QAStatus"
-                               class="form-control"
-                               data-bind="value: model.qastatus" />
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                required
+                                name="pantsoctopi-qastatus"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.QAStatus"
+                                data-value-field="value"
+                                data-bind="value: model.qastatus, source: qastatuses"></select>
                     </div>
                 </div>
             </div>

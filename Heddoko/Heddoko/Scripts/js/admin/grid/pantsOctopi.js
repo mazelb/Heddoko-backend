@@ -76,13 +76,19 @@ var PantsOctopi = {
             data: _.values(Enums.SensorQAStatusType.array)
         });
 
+        this.sensorQAStatusTypes.read();
+
         this.statusTypes = new kendo.data.DataSource({
             data: _.values(Enums.EquipmentStatusType.array)
         });
 
+        this.statusTypes.read();
+
         this.sizeTypes = new kendo.data.DataSource({
             data: _.values(Enums.SizeType.array)
         });
+
+        this.sizeTypes.read();
     },
 
     init: function () {
@@ -113,7 +119,11 @@ var PantsOctopi = {
                 },
                 {
                     field: 'size',
-                    title: i18n.Resources.Size
+                    title: i18n.Resources.Size,
+                    template: function (e) {
+                        return Format.pantsOctopi.size(e.size);
+                    },
+                    editor: PantsOctopi.sizeDDEditor
                 },
                 {
                     field: 'location',
@@ -121,15 +131,22 @@ var PantsOctopi = {
                 },
                 {
                     field: 'status',
-                    title: i18n.Resources.Status
+                    title: i18n.Resources.Status,
+                    template: function (e) {
+                        return Format.pantsOctopi.status(e.status);
+                    },
+                    editor: PantsOctopi.statusDDEditor
                 },
                 {
                     field: 'qastatus',
-                    title: i18n.Resources.QAStatus
+                    title: i18n.Resources.QAStatus,
+                    template: function (e) {
+                        return Format.pantsOctopi.qaStatus(e.qaStatus);
+                    },
+                    editor: PantsOctopi.qaStatusDDEditor
                 }
                 ],
                 save: KendoDS.onSave,
-                detailInit: this.detailInit,
                 dataBound: this.onDataBound
             }).data("kendoGrid");
 
@@ -146,6 +163,9 @@ var PantsOctopi = {
             this.controls.addModel = kendo.observable({
                 reset: this.onReset.bind(this),
                 submit: this.onAdd.bind(this),
+                sizes: Datasources.sizeTypes,
+                statuses: Datasources.statusTypes,
+                qastatuses: Datasources.sensorQAStatusTypes,
                 model: this.getEmptyModel()
             });
 
@@ -162,15 +182,30 @@ var PantsOctopi = {
         }
     },
 
-    detailInit: function (e) {
-        //TODO: BenB
-        var grid = $("<div>").appendTo(e.detail.Cell).kendoGrid({
-            
-        }).data("kendoGrid");
+    sizeDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.sizeTypes
+        });
     },
 
-    sizeDDEditor: function (container, options) {
-
+    statusDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.statusTypes
+        });
+    },
+    qaStatusDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.sensorQAStatusTypes
+        });
     },
 
     getEmptyModel: function () {
