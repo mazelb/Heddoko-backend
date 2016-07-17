@@ -168,6 +168,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\backend.css" />
+    <Content Include="Content\css\backend.min.css">
+      <DependentUpon>backend.css</DependentUpon>
+    </Content>
     <Content Include="Content\css\general.css" />
     <Content Include="Content\css\general.min.css">
       <DependentUpon>general.css</DependentUpon>
@@ -176,7 +180,6 @@
     <Content Include="Content\css\admin.min.css">
       <DependentUpon>kendo.css</DependentUpon>
     </Content>
-    <Content Include="Content\css\app.css" />
     <Content Include="Content\css\kendo.min.css">
       <DependentUpon>kendo.css</DependentUpon>
     </Content>
@@ -202,6 +205,8 @@
     <Content Include="Content\favicons\favicon-32x32.png" />
     <Content Include="Content\favicons\favicon-96x96.png" />
     <Content Include="Content\favicons\ms-icon-144x144.png" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\ProximaNova-Bold.svg" />
@@ -327,6 +332,7 @@
     <Content Include="Content\video\active_straight_leg_raise\summary\heat_map_left.png" />
     <Content Include="Content\video\active_straight_leg_raise\summary\heat_map_right.png" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="robots.txt" />
@@ -466,7 +472,7 @@
     <Content Include="Content\video\active_straight_leg_raise\Right\top_wrong.webm" />
     <Content Include="Content\favicons\manifest.json" />
     <Content Include="Content\scss\nodes\notification.scss" />
-    <Content Include="Content\scss\nodes\body.scss" />
+    <Content Include="Content\scss\nodes\position.scss" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
@@ -524,6 +530,19 @@
     <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css.map" />
     <Content Include="Content\scss\nodes\forms.scss" />
+    <Content Include="Content\scss\nodes\status-color.scss" />
+    <Content Include="Content\scss\nodes\animation.scss" />
+    <Content Include="Content\scss\layout\landing.scss" />
+    <Content Include="Content\scss\layout\shared.scss" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\scss\fonts\proxima-nova.scss" />
+    <Content Include="Content\scss\nodes\buttons.scss" />
+    <Content Include="Content\scss\nodes\header.scss" />
+    <Content Include="Content\scss\nodes\navigation.scss" />
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -532,6 +551,7 @@
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.slimscroll.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -550,6 +570,7 @@
     <Content Include="Scripts\js\admin\grid\materials.js" />
     <Content Include="Scripts\js\admin\kendo.js" />
     <Content Include="Scripts\js\admin\grid\materialTypes.js" />
+    <Content Include="Scripts\js\menu.js" />
     <Content Include="Scripts\js\admin\notification.js" />
     <Content Include="Scripts\js\admin\validator.js" />
     <Content Include="Scripts\js\app.js" />
@@ -1180,6 +1201,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\scss\views\" />
     <Folder Include="Helpers\JWT\" />
   </ItemGroup>
   <ItemGroup>
@@ -1188,12 +1210,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Favicons.cshtml" />
-    <Content Include="Content\scss\kendo.scss" />
+    <Content Include="Content\scss\backend.scss" />
     <Content Include="Content\scss\core\helpers.scss" />
     <Content Include="Content\scss\core\mixin.scss" />
     <Content Include="Content\scss\core\variables.scss" />
-    <Content Include="Content\scss\views\shared.scss" />
-    <Content Include="Content\scss\nodes\admin.scss" />
+    <Content Include="Content\scss\layout\web.scss" />
+    <Content Include="Content\scss\nodes\kendo.scss" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.af-ZA.min.js.map" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.af.min.js.map" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.am-ET.min.js.map" />
@@ -1725,6 +1747,8 @@
     <Content Include="Views\Support\Index.cshtml" />
     <Content Include="Views\Support\IndexStatus.cshtml" />
     <Content Include="Views\Email\SupportEmail.cshtml" />
+    <Content Include="Views\Shared\_NavigationAdmin.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
