@@ -834,4 +834,7 @@
   <data name="ShowByLicenses" xml:space="preserve">
     <value>Show users by license</value>
   </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
 </root>
