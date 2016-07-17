@@ -1,6 +1,6 @@
 ﻿@model Heddoko.Models.BaseViewModel
 <!DOCTYPE html>
-<html class="@ViewBag.HtmlClass">
+<html class="@(string.IsNullOrEmpty((string)ViewBag.HtmlClass) ? "landing-page" : ViewBag.HtmlClass)">
 <head>
     <meta charset="utf-8" />
     <meta name="description" content="">
@@ -9,7 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,700,600,400" rel="stylesheet" type="text/css">
 
-    <title>@Model.Title</title>
+    <title>@(string.IsNullOrEmpty((string)ViewBag.Title) ? Model.Title : ViewBag.Title)</title>
+
     @Html.Partial("_Favicons", Model)
 
     @Styles.Render("~/Bundles/CommonCss")
@@ -24,7 +25,7 @@
 <body class="@ViewBag.BodyClass">
     @RenderSection("Body", required: false)
 
-    <header>
+    <header class="top">
         <a class="nav-logo" href="/">
             <img src="@Url.Content("~/Content/images/logos/heddoko_logo.svg")" alt="Heddoko">
         </a>

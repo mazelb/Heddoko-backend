@@ -20,7 +20,8 @@ namespace Heddoko
 
             Bundle commonStylesBundle = new Bundle("~/Bundles/CommonCss");
             commonStylesBundle.Include(
-                "~/Content/bootstrap.min.css",
+                 "~/Content/font-awesome.min.css",
+                 "~/Content/bootstrap.min.css",
                  "~/Content/bootstrap-datepicker3.min.css",
                  "~/Content/css/general.css"
             );
