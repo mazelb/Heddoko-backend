@@ -91,7 +91,8 @@ namespace Heddoko
             Bundle adminScriptsBundle = new Bundle("~/Bundles/AdminJs");
             adminScriptsBundle.Include(
              "~/Scripts/js/admin/grid/organizations.js",
-             "~/Scripts/js/admin/grid/usersAdmin.js"
+             "~/Scripts/js/admin/grid/usersAdmin.js",
+             "~/Scripts/js/admin/grid/pantsOctopi.js"
           );
 
             bundles.Add(adminScriptsBundle);

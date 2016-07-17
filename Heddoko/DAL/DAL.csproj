@@ -110,6 +110,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Component.cs" />
+    <Compile Include="Models\Enum\SizeType.cs" />
     <Compile Include="Models\Enum\ComponentsType.cs" />
     <Compile Include="Models\Enum\SuitsQAStatusType.cs" />
     <Compile Include="Models\Pants.cs" />

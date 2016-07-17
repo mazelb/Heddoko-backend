@@ -1321,6 +1321,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pants Octopi.
+        /// </summary>
+        public static string PantsOctopi {
+            get {
+                return ResourceManager.GetString("PantsOctopi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Part #.
         /// </summary>
         public static string PartNo {
@@ -1434,6 +1443,15 @@ namespace i18n {
         public static string PrototypeType_Yes {
             get {
                 return ResourceManager.GetString("PrototypeType_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to QA Status.
+        /// </summary>
+        public static string QAStatus {
+            get {
+                return ResourceManager.GetString("QAStatus", resourceCulture);
             }
         }
         
@@ -1740,6 +1758,15 @@ namespace i18n {
         public static string SignUp {
             get {
                 return ResourceManager.GetString("SignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string Size {
+            get {
+                return ResourceManager.GetString("Size", resourceCulture);
             }
         }
         

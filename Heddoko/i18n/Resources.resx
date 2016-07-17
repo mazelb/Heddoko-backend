@@ -834,6 +834,15 @@
   <data name="ShowByLicenses" xml:space="preserve">
     <value>Show users by license</value>
   </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="QAStatus" xml:space="preserve">
+    <value>QA Status</value>
+  </data>
+  <data name="PantsOctopi" xml:space="preserve">
+    <value>Pants Octopi</value>
+  </data>
   <data name="Inventory" xml:space="preserve">
     <value>Inventory</value>
   </data>
