@@ -1,0 +1,47 @@
+﻿@model Heddoko.Models.BaseViewModel
+<header class="clearfix">
+    <div class="top-nav">
+        <ul class="nav-left list-unstyled">
+
+            <!-- Menu button (shows up in mobile views) -->
+            <li>
+                <div class="menu-button" toggle-off-canvas>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </div>
+            </li>
+
+            <!-- Menu button (shows up on desktop views) -->
+            <li>
+                <a href="#" data-toggle-min-nav class="toggle-min">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="nav-right list-unstyled">
+            <li>
+                <a href="@Url.Action("Me", "Account")">
+                    <i class="fa fa-user"></i>
+                    <span>@i18n.Resources.Profile</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index", "Support")">
+                    <i class="fa fa-question fa-fw"></i>
+                    <span>@i18n.Resources.Support</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Signout", "Account")">
+                    <i class="fa fa-sign-out fa-fw"></i>
+                    <span>@i18n.Resources.SignOut</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</header>

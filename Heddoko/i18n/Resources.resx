@@ -837,4 +837,19 @@
   <data name="Inventory" xml:space="preserve">
     <value>Inventory</value>
   </data>
+  <data name="GoodAfternoon" xml:space="preserve">
+    <value>Good Afternoon</value>
+  </data>
+  <data name="GoodEvening" xml:space="preserve">
+    <value>Good Evening</value>
+  </data>
+  <data name="GoodMorning" xml:space="preserve">
+    <value>Good Morning</value>
+  </data>
+  <data name="WhatWouldYouLikeToDO" xml:space="preserve">
+    <value>What would you like to do?</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
 </root>

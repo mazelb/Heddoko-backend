@@ -781,6 +781,33 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Good Afternoon.
+        /// </summary>
+        public static string GoodAfternoon {
+            get {
+                return ResourceManager.GetString("GoodAfternoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Good Evening.
+        /// </summary>
+        public static string GoodEvening {
+            get {
+                return ResourceManager.GetString("GoodEvening", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Good Morning.
+        /// </summary>
+        public static string GoodMorning {
+            get {
+                return ResourceManager.GetString("GoodMorning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Heatshrink good.
         /// </summary>
         public static string HeatsShrink {
@@ -1083,6 +1110,15 @@ namespace i18n {
         public static string MacAddress {
             get {
                 return ResourceManager.GetString("MacAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage.
+        /// </summary>
+        public static string Manage {
+            get {
+                return ResourceManager.GetString("Manage", resourceCulture);
             }
         }
         
@@ -2100,6 +2136,15 @@ namespace i18n {
         public static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What would you like to do?.
+        /// </summary>
+        public static string WhatWouldYouLikeToDO {
+            get {
+                return ResourceManager.GetString("WhatWouldYouLikeToDO", resourceCulture);
             }
         }
         

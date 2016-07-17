@@ -57,5 +57,24 @@ namespace Heddoko.Models
                 return _countries;
             }
         }
+
+        public string Greeting
+        {
+            get
+            {
+                int hour = DateTime.Now.Hour;
+                string result = i18n.Resources.GoodMorning;
+                if (hour > 11 && hour < 17)
+                {
+                    result = i18n.Resources.GoodAfternoon;
+                }
+                else if (hour >= 17)
+                {
+                    result = i18n.Resources.GoodEvening;
+                }
+
+                return result;
+            }
+        }
     }
 }

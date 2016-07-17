@@ -1,27 +1,29 @@
 ﻿@model Heddoko.Models.BaseViewModel
 
-<nav>
-    <ul class="nav nav-pills pull-right">
-        @if (Model.IsAuth)
-        {
-            <li role="presentation"><a href="@Url.Action("Index", "Default")">@i18n.Resources.Home</a></li>
-            switch (Model.CurrentUser.Role)
-            {
-                case DAL.Models.UserRoleType.Admin:
-                    <li role="presentation"><a href="@Url.Action("Index", "Admin")">@i18n.Resources.Inventory</a></li>
-                    <li role="presentation"><a href="@Url.Action("Index", "Analyst")">@i18n.Resources.Dashboard</a></li>
-                    <li role="presentation"><a href="@Url.Action("Index", "License")">@i18n.Resources.LicenseTitle</a></li>
-                    break;
-                case DAL.Models.UserRoleType.Analyst:
-                    break;
-                case DAL.Models.UserRoleType.LicenseAdmin:
-                    <li role="presentation"><a href="@Url.Action("Index", "Organization")">@i18n.Resources.LicenseTitle</a></li>
-                    break;
-                case DAL.Models.UserRoleType.User:
-                    break;
-            }
-            <li role="presentation"><a href="@Url.Action("Me", "Account")">@i18n.Resources.Profile</a></li>
-            <li role="presentation"><a href="@Url.Action("Signout", "Account")">@i18n.Resources.SignOut</a></li>
-        }
-    </ul>
-</nav>
+@if (Model.IsAuth)
+{
+    <a href="@Url.Action("Index", "Default")">@i18n.Resources.Home</a>
+    switch (Model.CurrentUser.Role)
+    {
+        case DAL.Models.UserRoleType.Admin:
+            <a href="@Url.Action("Index", "Admin")">@i18n.Resources.Inventory</a>
+            <a href="@Url.Action("Index", "License")">@i18n.Resources.LicenseTitle</a>
+            break;
+        case DAL.Models.UserRoleType.Analyst:
+            break;
+        case DAL.Models.UserRoleType.LicenseAdmin:
+            <a href="@Url.Action("Index", "Organization")">@i18n.Resources.LicenseTitle</a>
+            break;
+        case DAL.Models.UserRoleType.User:
+            break;
+    }
+    <a href="@Url.Action("Me", "Account")">@i18n.Resources.Profile</a>
+    <a href="@Url.Action("Index", "Support")">@i18n.Resources.Support</a>
+    <a href="@Url.Action("Signout", "Account")">@i18n.Resources.SignOut</a>
+}
+else
+{
+    <a href="@Url.Action("Signin", "Account")">
+        @i18n.Resources.Login
+    </a>
+}

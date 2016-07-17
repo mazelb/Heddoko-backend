@@ -1,18 +1,13 @@
 ﻿@model Heddoko.Models.SignInAccountViewModel
 
-@{
-    ViewBag.HtmlClass = "auth-login";
-    ViewBag.BodyClass = "auth-login";
-}
-
 <h1 class="inspiring-quote">
     @i18n.Resources.SignInInspiring
 </h1>
 
 <section>
     <div class="main-body">
-        <div class="container" style="margin-bottom:50px;">
-            @using (Html.BeginForm("SignIn", "Account", FormMethod.Post, new { @class = "auth-form", role = "form" }))
+        <div class="container">
+            @using (Html.BeginForm("SignIn", "Account", FormMethod.Post, new { @class = "auth-form form-uppercase", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(m => m.ReturnUrl)
