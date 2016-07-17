@@ -1,10 +1,14 @@
 ﻿html {
-    font-family: sans-serif;
-    font-size: 10px;
 }
 
 body {
     text-rendering: optimizelegibility !important;
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
 }
 
 h1 {

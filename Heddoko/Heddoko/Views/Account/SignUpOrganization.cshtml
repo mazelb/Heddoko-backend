@@ -1,7 +1,7 @@
 ﻿@model Heddoko.Models.SignUpAccountViewModel
 
 <div class="row">
-    <div class="main-body col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+    <div class="main-body signup col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
         @using (Html.BeginForm("SignUpOrganization", "Account", FormMethod.Post, new { @class = "form-horizontal form-uppercase signup", role = "form" }))
         {
             @Html.AntiForgeryToken()

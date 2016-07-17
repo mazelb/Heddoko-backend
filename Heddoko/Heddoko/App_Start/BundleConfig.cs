@@ -41,6 +41,8 @@ namespace Heddoko
                "~/Scripts/lodash.min.js",
                "~/Scripts/bootstrap.min.js",
                "~/Scripts/bootstrap-datepicker.min.js",
+               "~/Scripts/jquery.slimscroll.min.js",
+               "~/Scripts/js/menu.js",
                "~/Scripts/js/general.js"
             );
             bundles.Add(commonScriptsBundle);
@@ -66,7 +68,7 @@ namespace Heddoko
                "~/Content/kendo/kendo.common.min.css",
                "~/Content/kendo/kendo.default.min.css",
                "~/Content/kendo/kendo.default.mobile.min.css",
-               "~/Content/css/kendo.css"
+               "~/Content/css/backend.css"
             );
 
             bundles.Add(kendoStylesBundle);
