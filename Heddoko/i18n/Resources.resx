@@ -843,6 +843,9 @@
   <data name="PantsOctopi" xml:space="preserve">
     <value>Pants Octopi</value>
   </data>
+  <data name="ShirtsOctopi" xml:space="preserve">
+    <value>Shirts Octopi</value>
+  </data>
   <data name="Inventory" xml:space="preserve">
     <value>Inventory</value>
   </data>
@@ -863,6 +866,9 @@
   </data>
   <data name="EnterPantsOctopi" xml:space="preserve">
     <value>Enter pants octopi id or size</value>
+  </data>
+  <data name="EnterShirtsOctopi" xml:space="preserve">
+    <value>Enter shirt octopi id or size</value>
   </data>
   <data name="SelectQAStatus" xml:space="preserve">
     <value>Select QA status</value>

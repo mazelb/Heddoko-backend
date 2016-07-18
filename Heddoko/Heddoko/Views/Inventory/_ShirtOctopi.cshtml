@@ -1,12 +1,12 @@
 ﻿<div class="row">
     <div class="col-md-4">
-        <div class="filters pantsOctopiFilter">
+        <div class="filters shirtsOctopiFilter">
             <div>
-                <label for="searchPantsOctopi" class="control-label">@i18n.Resources.Search</label>
-                <input id="searchPantsOctopi"
+                <label for="searchShirtOctopi" class="control-label">@i18n.Resources.Search</label>
+                <input id="searchShirtOctopi"
                        class="form-control"
                        type="text"
-                       placeholder="@i18n.Resources.EnterPantsOctopi"
+                       placeholder="@i18n.Resources.EnterShirtsOctopi"
                        data-bind="value: search, events:{ keyup: keyup }" />
             </div>
             <div class="margin010">
@@ -17,9 +17,9 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-success pantsOctopiForm">
-            <div class="panel-heading clearfix">
-                <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.PantsOctopi</h3>
+        <div class="panel panel-success shirtsOctopiForm">
+            <div class="panel panel-heading clearfix">
+                <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.ShirtsOctopi</h3>
                 <div class="btn-group pull-right" role="group">
                     <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
                     <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
@@ -30,7 +30,7 @@
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
-                                name="pantsoctopi-size"
+                                name="shirtsoctopi-size"
                                 validationMessage="@i18n.Resources.Required"
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
@@ -43,7 +43,7 @@
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
-                                name="pantsoctopi-status"
+                                name="shirtsoctopi-status"
                                 validationMessage="@i18n.Resources.Required"
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
@@ -55,7 +55,7 @@
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
-                                name="pantsoctopi-qastatus"
+                                name="shirtsoctopi-qastatus"
                                 validationMessage="@i18n.Resources.Required"
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
@@ -69,7 +69,7 @@
                     <div class="col-sm-3">
                         <input type="text"
                                required
-                               name="pantsoctopi-location"
+                               name="shirtsoctopi-location"
                                validationMessage="@i18n.Resources.Required"
                                placeholder="@i18n.Resources.PhysicalLocation"
                                class="form-control"
@@ -83,7 +83,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div id="pantsOctopiGrid">
+        <div id="shirtsOctopiGrid">
 
         </div>
     </div>

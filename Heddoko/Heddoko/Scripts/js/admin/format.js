@@ -138,5 +138,12 @@
 
             return '<span class="k-grid-showText">' + item + '</span>';
         }
+    },
+    shirtsOctopi: {
+        size: function (item) {
+            item = item != null ? Enums.SizeType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        }
     }
 };
