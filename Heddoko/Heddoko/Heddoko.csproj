@@ -49,6 +49,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=5.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Hangfire.Core, Version=1.5.8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hangfire.Core.1.5.8\lib\net45\Hangfire.Core.dll</HintPath>
       <Private>True</Private>
@@ -563,6 +567,7 @@
     <Content Include="Scripts\js\admin\grid\equipments.js" />
     <Content Include="Scripts\js\admin\grid\organizations.js" />
     <Content Include="Scripts\js\admin\grid\licenses.js" />
+    <Content Include="Scripts\js\admin\grid\pants.js" />
     <Content Include="Scripts\js\admin\grid\pantsOctopi.js" />
     <Content Include="Scripts\js\admin\grid\shirtsOctopi.js" />
     <Content Include="Scripts\js\admin\grid\usersAdmin.js" />
@@ -1104,6 +1109,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\OrganizationsController.cs" />
+    <Compile Include="Controllers\Admin\PantsController.cs" />
     <Compile Include="Controllers\Admin\PantsOctopiController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\Admin\LicensesController.cs" />
@@ -1163,6 +1169,7 @@
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
     <Compile Include="Models\Admin\OrganizationAPIModel.cs" />
+    <Compile Include="Models\Admin\PantsAPIModel.cs" />
     <Compile Include="Models\Admin\PantsOctopiAPIModel.cs" />
     <Compile Include="Models\Admin\LicenseAPIModel.cs" />
     <Compile Include="Models\Admin\ErrorAPIModel.cs" />
@@ -1740,6 +1747,7 @@
     <Content Include="Views\Inventory\_PantsOctopi.cshtml" />
     <Content Include="Views\Shared\_NavigationAdmin.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Inventory\_Pants.cshtml" />
     <Content Include="Views\Inventory\_ShirtOctopi.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>

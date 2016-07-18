@@ -876,4 +876,22 @@
   <data name="SelectSize" xml:space="preserve">
     <value>Select size</value>
   </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="Pants" xml:space="preserve">
+    <value>Pants</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Kits" xml:space="preserve">
+    <value>Kits</value>
+  </data>
+  <data name="AlreadyUsed" xml:space="preserve">
+    <value>already used</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
 </root>

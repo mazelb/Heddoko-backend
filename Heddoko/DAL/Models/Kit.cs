@@ -44,5 +44,15 @@ namespace DAL.Models
         [JsonIgnore]
         public virtual Pants Pants { get; set; }
         #endregion
+
+        #region NotMapped
+        public string IDView
+        {
+            get
+            {
+                return $"KI{ID.ToString(Constants.PadZero)}";
+            }
+        }
+        #endregion
     }
 }

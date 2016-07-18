@@ -33,5 +33,15 @@ namespace DAL.Models
 
         public virtual SensorSet SensorSet { get; set; }
         #endregion
+
+        #region NotMapped
+        public string IDView
+        {
+            get
+            {
+                return $"SE{ID.ToString(Constants.PadZero)}";
+            }
+        }
+        #endregion
     }
 }

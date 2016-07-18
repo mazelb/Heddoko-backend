@@ -29,5 +29,15 @@ namespace DAL.Models
         [JsonIgnore]
         public virtual PantsOctopi PantsOctopi { get; set; }
         #endregion
+
+        #region NotMapped
+        public string IDView
+        {
+            get
+            {
+                return $"PA{ID.ToString(Constants.PadZero)}";
+            }
+        }
+        #endregion
     }
 }

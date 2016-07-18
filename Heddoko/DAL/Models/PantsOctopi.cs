@@ -25,5 +25,15 @@ namespace DAL.Models
         //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
         public virtual ICollection<Pants> Pants { get; set; }
         #endregion
+
+        #region NotMapped
+        public string IDView
+        {
+            get
+            {
+                return $"PO{ID.ToString(Constants.PadZero)}";
+            }
+        }
+        #endregion
     }
 }

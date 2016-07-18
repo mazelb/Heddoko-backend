@@ -253,7 +253,13 @@ i18n.Resources = (function () {
   "EnterPantsOctopi": "Enter pants octopi id or size",
   "EnterShirtsOctopi": "Enter shirt octopi id or size",
   "SelectQAStatus": "Select QA status",
-  "SelectSize": "Select size"
+  "SelectSize": "Select size",
+  "Enter": "Enter",
+  "Pants": "Pants",
+  "Select": "Select",
+  "Kits": "Kits",
+  "AlreadyUsed": "already used",
+  "No": "No"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

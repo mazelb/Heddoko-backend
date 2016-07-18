@@ -26,5 +26,15 @@ namespace DAL.Models
         //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
         public virtual ICollection<Brainpack> Brainpack { get; set; }
         #endregion
+
+        #region NotMapped
+        public string IDView
+        {
+            get
+            {
+                return $"PB{ID.ToString(Constants.PadZero)}";
+            }
+        }
+        #endregion
     }
 }

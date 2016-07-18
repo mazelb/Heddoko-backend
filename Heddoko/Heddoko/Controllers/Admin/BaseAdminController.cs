@@ -1,4 +1,5 @@
-﻿using DAL;
+﻿using AutoMapper;
+using DAL;
 using DAL.Models;
 using Heddoko.Helpers.Auth;
 using Heddoko.Models;
@@ -25,6 +26,11 @@ namespace Heddoko.Controllers
         public BaseAdminController()
         {
             UoW = new UnitOfWork();
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<T, M>();
+            });
+
             CurrentUser = Forms.ValidateSession(UoW);
             if (CurrentUser == null)
             {
@@ -81,7 +87,7 @@ namespace Heddoko.Controllers
 
         protected virtual M Convert(T item)
         {
-            throw new NotSupportedException();
+            return Mapper.Map<M>(item);
         }
 
         protected void InvalidateCurrentUser()
