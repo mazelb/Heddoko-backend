@@ -11,6 +11,7 @@ namespace DAL.Models
 {
     public class Shirt : BaseModel
     {
+
         [StringLength(255)]
         public string Location { get; set; }
 
@@ -29,6 +30,16 @@ namespace DAL.Models
 
         [JsonIgnore]
         public virtual ShirtOctopi ShirtOctopi { get; set; }
+        #endregion
+
+        #region NotMapped
+        public string IDView
+        {
+            get
+            {
+                return $"SH{ID.ToString(Constants.PadZero)}";
+            }
+        }
         #endregion
     }
 }

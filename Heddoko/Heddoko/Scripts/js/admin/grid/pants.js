@@ -104,13 +104,13 @@ var Pants = {
                 }],
                 columns: [
                 {
-                    field: 'id',
+                    field: 'idView',
                     title: i18n.Resources.ID
                 },
                 {
                     field: 'pantsOctopiID',
                     title: i18n.Resources.PantsOctopi,
-                    template: function(e) {
+                    template: function (e) {
                         return Format.pants.pantsOctopi(e);
                     },
                     editor: PantsOctopi.ddEditor

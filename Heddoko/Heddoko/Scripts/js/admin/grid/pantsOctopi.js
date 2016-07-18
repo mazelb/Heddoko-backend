@@ -21,8 +21,8 @@ var PantsOctopi = {
         this.pantsOctopiDD = PantsOctopi.getDatasourceDD();
     },
 
-    getDatasourceDD: function(id) {
-       return new kendo.data.DataSource({
+    getDatasourceDD: function (id) {
+        return new kendo.data.DataSource({
             serverPaging: false,
             serverFiltering: true,
             serverSorting: false,
@@ -43,7 +43,7 @@ var PantsOctopi = {
         });
     },
 
-    getDatasource: function() {
+    getDatasource: function () {
         return new kendo.data.DataSource({
             pageSize: KendoDS.pageSize,
             serverPaging: true,
@@ -124,7 +124,7 @@ var PantsOctopi = {
                 }],
                 columns: [
                 {
-                    field: 'id',
+                    field: 'idView',
                     title: i18n.Resources.ID
                 },
                 {
@@ -257,7 +257,7 @@ var PantsOctopi = {
             qaStatus: null
         };
     },
-    onShowDeleted: function(e) {
+    onShowDeleted: function (e) {
         this.isDeleted = $(e.currentTarget).prop('checked');
         this.onFilter();
     },

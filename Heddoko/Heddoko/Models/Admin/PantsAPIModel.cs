@@ -22,5 +22,7 @@ namespace Heddoko.Models
         public int? PantsOctopiID { get; set; }
 
         public PantsOctopi PantsOctopi { get; set; }
+
+        public string IDView { get; set; }
     }
 }

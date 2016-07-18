@@ -217,6 +217,7 @@ namespace Heddoko.Controllers
             return new PantsOctopiAPIModel()
             {
                 ID = item.ID,
+                IDView = item.IDView,
                 Location = item.Location,
                 QAStatus = item.QAStatus,
                 Size = item.Size,

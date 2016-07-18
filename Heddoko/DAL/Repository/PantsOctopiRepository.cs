@@ -3,6 +3,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Collections.Generic;
 using System;
+using System.Text.RegularExpressions;
 
 namespace DAL
 {
@@ -33,9 +34,12 @@ namespace DAL
 
         public IEnumerable<PantsOctopi> Search(string search, bool isDeleted = false)
         {
+            string tmp = Regex.Replace(search, "[^0-9]+", string.Empty);
+            int id = 0;
+            int.TryParse(tmp, out id);
             return DbSet
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                        .Where(c => (c.ID.ToString().ToLower().Contains(search.ToLower()))
+                        .Where(c => (c.ID == id)
                                  || (c.Size.ToString().ToLower().Contains(search.ToLower()))
                                  || (c.Location.ToLower().Contains(search.ToLower())))
                         .OrderBy(c => c.ID);

@@ -12,6 +12,7 @@ namespace DAL
         public const string HeaderToken = "token";
 
         public const int EmailLimit = 20871520;
+        public const string PadZero = "D6";
 
         public class Embed
         {

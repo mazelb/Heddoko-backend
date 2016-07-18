@@ -31,11 +31,13 @@ namespace Heddoko.Models
 
         public EquipmentQAStatusType QAStatus { get; set; }
 
+        public string IDView { get; set; }
+
         public string Name
         {
             get
             {
-                return IsEmpty ? $"{i18n.Resources.No} {i18n.Resources.PantsOctopi}" : $"{ID} - {Size.GetDisplayName()} - {Location}";
+                return IsEmpty ? $"{i18n.Resources.No} {i18n.Resources.PantsOctopi}" : $"{IDView} - {Size.GetDisplayName()} - {Location}";
             }
         }
     }

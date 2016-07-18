@@ -36,5 +36,15 @@ namespace DAL.Models
         [JsonIgnore]
         public virtual Databoard Databoard { get; set; }
         #endregion
+
+        #region NotMapped
+        public string IDView
+        {
+            get
+            {
+                return $"BP{ID.ToString(Constants.PadZero)}";
+            }
+        }
+        #endregion
     }
 }

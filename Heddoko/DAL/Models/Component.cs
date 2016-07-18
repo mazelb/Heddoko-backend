@@ -19,5 +19,15 @@ namespace DAL.Models
         public EquipmentStatusType Status { get; set; }
 
         public int Quantity { get; set; }
+
+        #region NotMapped
+        public string IDView
+        {
+            get
+            {
+                return $"CO{ID.ToString(Constants.PadZero)}";
+            }
+        }
+        #endregion
     }
 }
