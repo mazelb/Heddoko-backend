@@ -12,6 +12,7 @@ namespace DAL.Models
         InUse = 1,
         Defective = 2,
         InProduction = 3,
-        Testing = 4
+        Testing = 4,
+        Trash = 5
     }
 }

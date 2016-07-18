@@ -248,7 +248,10 @@ i18n.Resources = (function () {
   "GoodEvening": "Good Evening",
   "GoodMorning": "Good Morning",
   "WhatWouldYouLikeToDO": "What would you like to do?",
-  "Manage": "Manage"
+  "Manage": "Manage",
+  "EnterPantsOctopi": "Enter pants octopi id or size",
+  "SelectQAStatus": "Select QA status",
+  "SelectSize": "Select size"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

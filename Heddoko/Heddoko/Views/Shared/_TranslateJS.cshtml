@@ -198,4 +198,38 @@
     };
     </text>
     }
+
+
+    Enums.EquipmentQAStatusType = {};
+    Enums.EquipmentQAStatusType.enum = {};
+    Enums.EquipmentQAStatusType.array = {};
+    @foreach (DAL.Models.EquipmentQAStatusType type in (DAL.Models.EquipmentQAStatusType[])Enum.GetValues(typeof(DAL.Models.EquipmentQAStatusType)))
+    {
+        <text>
+
+    Enums.EquipmentQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.EquipmentQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+
+    Enums.SizeType = {};
+    Enums.SizeType.enum = {};
+    Enums.SizeType.array = {};
+    @foreach (DAL.Models.SizeType type in (DAL.Models.SizeType[])Enum.GetValues(typeof(DAL.Models.SizeType)))
+    {
+        <text>
+
+    Enums.SizeType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.SizeType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
 </script>

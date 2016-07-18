@@ -18,7 +18,7 @@ namespace DAL.Models
 
         public EquipmentStatusType Status { get; set; }
 
-        public SuitsQAStatusType QAStatus { get; set; }
+        public EquipmentQAStatusType QAStatus { get; set; }
 
         #region Relations
         [JsonIgnore]

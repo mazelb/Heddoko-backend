@@ -14,6 +14,7 @@ namespace DAL.Models
         PowerTested = 3,
         PowerFailed = 4,
         OrientationTested = 5,
-        OrientationFailed = 6
+        OrientationFailed = 6,
+        Failed = 7
     }
 }

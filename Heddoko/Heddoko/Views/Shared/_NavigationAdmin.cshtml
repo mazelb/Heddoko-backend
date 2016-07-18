@@ -22,8 +22,8 @@
             switch (Model.CurrentUser.Role)
             {
                 case DAL.Models.UserRoleType.Admin:
-                    <li class="@Html.IsCurrentActionLink("Index", "Admin")" title="@i18n.Resources.Inventory">
-                        <a href="@Url.Action("Index", "Admin")">
+                    <li class="@Html.IsCurrentActionLink("Index", "Inventory")" title="@i18n.Resources.Inventory">
+                        <a href="@Url.Action("Index", "Inventory")">
                             <i class="fa fa-cogs"></i>
                             <span>  @i18n.Resources.Inventory</span>
                         </a>

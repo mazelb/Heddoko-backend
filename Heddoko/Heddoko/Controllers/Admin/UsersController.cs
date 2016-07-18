@@ -47,7 +47,7 @@ namespace Heddoko.Controllers
             {
                 if (request.Filter != null)
                 {
-                    KendoFilterItem adminFilter = request.Filter.Get(Search);
+                    KendoFilterItem adminFilter = request.Filter.Get(Admin);
                     if (adminFilter != null)
                     {
                         if (CurrentUser.Role == UserRoleType.Admin)

@@ -25,7 +25,7 @@ var PantsOctopi = {
             schema: {
                 data: "response",
                 total: "total",
-                errors: "errors",
+                errors: "Errors",
                 model: {
                     id: "id",
                     fields: {
@@ -46,7 +46,7 @@ var PantsOctopi = {
                             type: "string",
                             validation: {
                                 required: true,
-                                maxLengthValidation: Validator.organization.notes.maxLengthValidation
+                                maxLengthValidation: Validator.pantsOctopi.location.maxLengthValidation
                             }
                         },
                         status: {
@@ -55,7 +55,7 @@ var PantsOctopi = {
                             validation: {
                                 required: true,
                                 min: 0,
-                                max: kendoDS.maxInt
+                                max: KendoDS.maxInt
                             }
                         },
                         qaStatus: {
@@ -64,25 +64,13 @@ var PantsOctopi = {
                             validation: {
                                 required: true,
                                 min: 0,
-                                max: kendoDS.maxInt
+                                max: KendoDS.maxInt
                             }
                         }
                     }
                 }
             }
         });
-
-        this.sensorQAStatusTypes = new kendo.data.DataSource({
-            data: _.values(Enums.SensorQAStatusType.array)
-        });
-
-        this.sensorQAStatusTypes.read();
-
-        this.statusTypes = new kendo.data.DataSource({
-            data: _.values(Enums.EquipmentStatusType.array)
-        });
-
-        this.statusTypes.read();
 
         this.sizeTypes = new kendo.data.DataSource({
             data: _.values(Enums.SizeType.array)
@@ -92,9 +80,9 @@ var PantsOctopi = {
     },
 
     init: function () {
-        var control = $("#pantsoctopiGrid");
-        var filter = $('.pantsoctopiFilter');
-        var model = $('.pantsoctopiForm');
+        var control = $("#pantsOctopiGrid");
+        var filter = $('.pantsOctopiFilter');
+        var model = $('.pantsOctopiForm');
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
@@ -110,7 +98,7 @@ var PantsOctopi = {
                     pageSizes: [10, 50, 100]
                 },
                 toolbar: [{
-                    template: '<div class="grid-checkbox"><span><input id="chk-show-deleted" type="checkbox"/>' + i18n.Resources.ShowDeleted + '</span></div>'
+                    template: '<div class="grid-checkbox"><span><input class="chk-show-deleted" type="checkbox"/>' + i18n.Resources.ShowDeleted + '</span></div>'
                 }],
                 columns: [
                 {
@@ -133,17 +121,33 @@ var PantsOctopi = {
                     field: 'status',
                     title: i18n.Resources.Status,
                     template: function (e) {
-                        return Format.pantsOctopi.status(e.status);
+                        return Format.equipment.equipmentStatus(e.status);
                     },
-                    editor: PantsOctopi.statusDDEditor
+                    editor: Equpiments.equipmentStatusDDEditor
                 },
                 {
-                    field: 'qastatus',
+                    field: 'qaStatus',
                     title: i18n.Resources.QAStatus,
                     template: function (e) {
-                        return Format.pantsOctopi.qaStatus(e.qaStatus);
+                        return Format.equipment.equipmentQAStatus(e.qaStatus);
                     },
-                    editor: PantsOctopi.qaStatusDDEditor
+                    editor: Equpiments.equipmentQAStatusDDEditor
+                }, {
+                    command: [{
+                        name: "edit",
+                        text: i18n.Resources.Edit,
+                        className: "k-grid-edit"
+                    }, {
+                        name: "destroy",
+                        text: i18n.Resources.Delete,
+                        className: "k-grid-delete"
+                    }, {
+                        text: i18n.Resources.Restore,
+                        className: "k-grid-restore",
+                        click: this.onRestore
+                    }],
+                    title: i18n.Resources.Actions,
+                    width: '165px'
                 }
                 ],
                 save: KendoDS.onSave,
@@ -164,8 +168,8 @@ var PantsOctopi = {
                 reset: this.onReset.bind(this),
                 submit: this.onAdd.bind(this),
                 sizes: Datasources.sizeTypes,
-                statuses: Datasources.statusTypes,
-                qastatuses: Datasources.sensorQAStatusTypes,
+                statuses: Datasources.equipmentStatusTypes,
+                qaStatuses: Datasources.equipmentQAStatusTypes,
                 model: this.getEmptyModel()
             });
 
@@ -174,12 +178,44 @@ var PantsOctopi = {
             this.validators.addModel = model.kendoValidator({
                 validateOnBlur: true,
                 rules: {
-                    maxLengthValidationLocation: Validator.organization.location.maxLengthValidation
+                    maxLengthValidationLocation: Validator.pantsOctopi.location.maxLengthValidation
                 }
             }).data("kendoValidator");
 
-            $('$chk-show-deleted', Organizations.controls.grid.element).click(this.onShowDeleted.bind(this));
+            $('.chk-show-deleted', this.controls.grid.element).click(this.onShowDeleted.bind(this));
         }
+    },
+
+    onDataBound: function (e) {
+        KendoDS.onDataBound(e);
+
+        var grid = PantsOctopi.controls.grid;
+        var enumarable = Enums.EquipmentStatusType.enum;
+
+        $(".k-grid-delete", grid.element).each(function () {
+            var currentDataItem = grid.dataItem($(this).closest("tr"));
+
+            if (currentDataItem.status == enumarable.Trash) {
+                $(this).remove();
+            }
+        });
+
+        $(".k-grid-edit", grid.element).each(function () {
+            var currentDataItem = grid.dataItem($(this).closest("tr"));
+
+            if (currentDataItem.status == enumarable.Trash) {
+                $(this).remove();
+            }
+        });
+
+        $(".k-grid-restore", grid.element).each(function () {
+            var currentDataItem = grid.dataItem($(this).closest("tr"));
+
+            if (currentDataItem.status == enumarable.Ready) {
+                $(this).remove();
+            }
+        });
+
     },
 
     sizeDDEditor: function (container, options) {
@@ -191,26 +227,8 @@ var PantsOctopi = {
         });
     },
 
-    statusDDEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDropDownList({
-            autoBind: true,
-            dataSource: Datasources.statusTypes
-        });
-    },
-    qaStatusDDEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDropDownList({
-            autoBind: true,
-            dataSource: Datasources.sensorQAStatusTypes
-        });
-    },
-
     getEmptyModel: function () {
         return {
-            id: null,
             size: null,
             location: null,
             status: null,
@@ -218,13 +236,13 @@ var PantsOctopi = {
         };
     },
     onShowDeleted: function(e) {
-        this.isDeleted = $(e.currentTarget).pro('checked');
+        this.isDeleted = $(e.currentTarget).prop('checked');
         this.onFilter();
     },
 
     onRestore: function (e) {
         var item = PantsOctopi.controls.grid.dataItem($(e.currentTarget).closest("tr"));
-        item.set('status', Enums.statusTypes.enum.Ready);
+        item.set('status', Enums.EquipmentStatusType.enum.Ready);
         PantsOctopi.controls.grid.dataSource.sync();
     },
 
@@ -277,8 +295,14 @@ var PantsOctopi = {
         }
 
         if (this.isDeleted) {
-
+            filters.push({
+                field: "IsDeleted",
+                operator: "eq",
+                value: true
+            });
         }
+
+        return filters.length === 0 ? {} : filters;
     }
 };
 

@@ -1,0 +1,37 @@
+﻿var Equpiments = {
+    datasources: function () {
+        //Datasources context
+
+        this.equipmentQAStatusTypes = new kendo.data.DataSource({
+            data: _.values(Enums.EquipmentQAStatusType.array)
+        });
+
+        this.equipmentQAStatusTypes.read();
+
+        this.equipmentStatusTypes = new kendo.data.DataSource({
+            data: _.values(Enums.EquipmentStatusType.array)
+        });
+
+        this.equipmentStatusTypes.read();
+
+    },
+
+    equipmentStatusDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.equipmentStatusTypes
+        });
+    },
+    equipmentQAStatusDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.equipmentQAStatusTypes
+        });
+    }
+};
+
+Datasources.bind(Equpiments.datasources);

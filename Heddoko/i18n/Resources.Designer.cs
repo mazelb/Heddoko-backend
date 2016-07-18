@@ -637,6 +637,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter pants octopi id or size.
+        /// </summary>
+        public static string EnterPantsOctopi {
+            get {
+                return ResourceManager.GetString("EnterPantsOctopi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the firstname or lastname or email of user.
         /// </summary>
         public static string EnterUser {
@@ -1609,11 +1618,29 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select QA status.
+        /// </summary>
+        public static string SelectQAStatus {
+            get {
+                return ResourceManager.GetString("SelectQAStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select a ready ship.
         /// </summary>
         public static string SelectShip {
             get {
                 return ResourceManager.GetString("SelectShip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select size.
+        /// </summary>
+        public static string SelectSize {
+            get {
+                return ResourceManager.GetString("SelectSize", resourceCulture);
             }
         }
         

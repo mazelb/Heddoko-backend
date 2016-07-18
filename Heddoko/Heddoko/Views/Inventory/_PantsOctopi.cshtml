@@ -1,12 +1,12 @@
 ﻿<div class="row">
     <div class="col-md-4">
-        <div class="filters pantsoctopiFilter">
+        <div class="filters pantsOctopiFilter">
             <div>
-                <label for="searchMaterial" class="control-label">@i18n.Resources.Search</label>
-                <input id="searchMaterial"
+                <label for="searchPaintsOctopi" class="control-label">@i18n.Resources.Search</label>
+                <input id="searchPaintsOctopi"
                        class="form-control"
                        type="text"
-                       placeholder="@i18n.Resources.EnterMaterial"
+                       placeholder="@i18n.Resources.EnterPantsOctopi"
                        data-bind="value: search, events:{ keyup: keyup }" />
             </div>
             <div class="margin010">
@@ -17,7 +17,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-success pantsoctopiForm">
+        <div class="panel panel-success pantsOctopiForm">
             <div class="panel-heading clearfix">
                 <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.PantsOctopi</h3>
                 <div class="btn-group pull-right" role="group">
@@ -27,15 +27,6 @@
             </div>
             <div class="panel-body">
                 <div class="row margin010">
-                    <div class="col-sm-4">
-                        <input type="text"
-                               required
-                               name="pantsoctopi-id"
-                               validationMessage="@i18n.Resources.Required"
-                               placeholder="@i18n.Resources.ID"
-                               class="form-control"
-                               data-bind="value: model.id" />
-                    </div>
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
@@ -44,21 +35,11 @@
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
                                 data-text-field="text"
-                                data-option-label="@i18n.Resources.Size"
+                                data-option-label="@i18n.Resources.SelectSize"
                                 data-value-field="value"
                                 data-bind="value: model.size, source: sizes"></select>
                     </div>
-                    <div class="col-sm-4">
-                        <input type="text"
-                               required
-                               name="pantsoctopi-location"
-                               validationMessage="@i18n.Resources.Required"
-                               placeholder="@i18n.Resources.PhysicalLocation"
-                               class="form-control"
-                               data-bind="value: model.location" />
-                    </div>
-                  </div>
-                <div class="row margin010">
+
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
@@ -79,9 +60,20 @@
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
                                 data-text-field="text"
-                                data-option-label="@i18n.Resources.QAStatus"
+                                data-option-label="@i18n.Resources.SelectQAStatus"
                                 data-value-field="value"
-                                data-bind="value: model.qastatus, source: qastatuses"></select>
+                                data-bind="value: model.qaStatus, source: qaStatuses"></select>
+                    </div>
+                </div>
+                <div class="row margin010">
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="pantsoctopi-location"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.PhysicalLocation"
+                               class="form-control"
+                               data-bind="value: model.location" />
                     </div>
                 </div>
             </div>
@@ -91,7 +83,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div id="pantsoctopiGrid">
+        <div id="pantsOctopiGrid">
 
         </div>
     </div>

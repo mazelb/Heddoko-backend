@@ -13,11 +13,11 @@ namespace DAL.Models
         [StringLength(255)]
         public string Location { get; set; }
 
-        public int Size { get; set; }
+        public SizeType Size { get; set; }
 
         public EquipmentStatusType Status { get; set; }
 
-        public SuitsQAStatusType QAStatus { get; set; }
+        public EquipmentQAStatusType QAStatus { get; set; }
 
         #region Relations
         

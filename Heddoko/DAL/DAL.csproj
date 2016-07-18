@@ -112,7 +112,7 @@
     <Compile Include="Models\Component.cs" />
     <Compile Include="Models\Enum\SizeType.cs" />
     <Compile Include="Models\Enum\ComponentsType.cs" />
-    <Compile Include="Models\Enum\SuitsQAStatusType.cs" />
+    <Compile Include="Models\Enum\EquipmentQAStatusType.cs" />
     <Compile Include="Models\Pants.cs" />
     <Compile Include="Models\PantsOctopi.cs" />
     <Compile Include="Models\ShirtOctopi.cs" />

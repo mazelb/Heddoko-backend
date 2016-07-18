@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public enum SuitsQAStatusType
+    public enum EquipmentQAStatusType
     {
         FullTested = 0,
         BaseplateTested = 1,
@@ -16,6 +16,7 @@ namespace DAL.Models
         ConnectorTested = 5,
         ConnectorFailed = 6,
         PowerTested = 7,
-        PowerFailed = 7
+        PowerFailed = 7,
+        Failed = 7
     }
 }

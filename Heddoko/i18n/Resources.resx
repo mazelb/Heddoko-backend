@@ -861,4 +861,13 @@
   <data name="Manage" xml:space="preserve">
     <value>Manage</value>
   </data>
+  <data name="EnterPantsOctopi" xml:space="preserve">
+    <value>Enter pants octopi id or size</value>
+  </data>
+  <data name="SelectQAStatus" xml:space="preserve">
+    <value>Select QA status</value>
+  </data>
+  <data name="SelectSize" xml:space="preserve">
+    <value>Select size</value>
+  </data>
 </root>
