@@ -26,7 +26,7 @@ var ShirtsOctopi = {
 
     getDataSource: function () {
         return new kendo.data.DataSource({
-            pageSize: Kendo.pageSize,
+            pageSize: KendoDS.pageSize,
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
