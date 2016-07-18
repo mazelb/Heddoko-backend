@@ -1,6 +1,8 @@
 ﻿using DAL.Models;
 using System.Linq;
 using System.Data.Entity;
+using System.Collections.Generic;
+using EntityFramework.Extensions;
 
 namespace DAL
 {
@@ -8,6 +10,37 @@ namespace DAL
     {
         public PantsRepository(HDContext sb) : base(sb)
         {
+        }
+
+        public override Pants GetFull(int id)
+        {
+            return DbSet.Include(c => c.PantsOctopi)
+                        .FirstOrDefault(c => c.ID == id);
+        }
+
+        public IEnumerable<Pants> All(bool isDeleted)
+        {
+            return DbSet.Include(c => c.PantsOctopi)
+                        .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
+                        .OrderBy(c => c.ID);
+        }
+
+        public IEnumerable<Pants> Search(string search, bool isDeleted = false)
+        {
+            return DbSet.Include(c => c.PantsOctopi)
+                        .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
+                        .Where(c => (c.ID.ToString().ToLower().Contains(search.ToLower()))
+                                 || (c.Size.ToString().ToLower().Contains(search.ToLower()))
+                                 || (c.Location.ToLower().Contains(search.ToLower())))
+                        .OrderBy(c => c.ID);
+        }
+
+        public void RemovePantsOctopi(int pantsOctopiID)
+        {
+            DbSet.Where(c => c.PantsOctopiID.Value == pantsOctopiID).Update(c => new Pants()
+            {
+                PantsOctopiID = null
+            });
         }
     }
 }

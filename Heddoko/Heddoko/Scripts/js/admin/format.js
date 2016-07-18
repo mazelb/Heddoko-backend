@@ -138,5 +138,23 @@
 
             return '<span class="k-grid-showText">' + item + '</span>';
         }
+    },
+    pants: {
+        pantsOctopi: function (item) {
+            if (item.pantsOctopi != null) {
+                var div = '<div class="">'
+                div += i18n.Resources.ID + ': <b>' + item.pantsOctopi.id + '</b><br/>';
+                div += i18n.Resources.Size + ': <b>' + Format.pantsOctopi.size(item.pantsOctopi.size) + '</b><br/>';
+                div += i18n.Resources.PhysicalLocation + ': <b>' + item.pantsOctopi.location + '</b><br/>';
+                div += "</div>";
+                return div;
+            }
+            return '';
+        },
+        size: function (item) {
+            item = item != null ? Enums.SizeType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        }
     }
 };

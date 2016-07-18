@@ -133,6 +133,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to already used.
+        /// </summary>
+        public static string AlreadyUsed {
+            get {
+                return ResourceManager.GetString("AlreadyUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amount.
         /// </summary>
         public static string Amount {
@@ -583,6 +592,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter.
+        /// </summary>
+        public static string Enter {
+            get {
+                return ResourceManager.GetString("Enter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter a MAC address, a physical location, or a serial #.
         /// </summary>
         public static string EnterComplexEquipment {
@@ -988,6 +1006,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kits.
+        /// </summary>
+        public static string Kits {
+            get {
+                return ResourceManager.GetString("Kits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Name.
         /// </summary>
         public static string Lastname {
@@ -1231,6 +1258,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
         public static string None {
@@ -1326,6 +1362,15 @@ namespace i18n {
         public static string Organizations {
             get {
                 return ResourceManager.GetString("Organizations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pants.
+        /// </summary>
+        public static string Pants {
+            get {
+                return ResourceManager.GetString("Pants", resourceCulture);
             }
         }
         
@@ -1542,6 +1587,15 @@ namespace i18n {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
             }
         }
         

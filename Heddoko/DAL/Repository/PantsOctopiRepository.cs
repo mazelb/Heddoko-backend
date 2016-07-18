@@ -12,9 +12,22 @@ namespace DAL
         {
         }
 
+        public override PantsOctopi GetFull(int id)
+        {
+            return DbSet.Include(c => c.Pants)
+                        .FirstOrDefault(c => c.ID == id);
+        }
+
         public IEnumerable<PantsOctopi> All(bool isDeleted)
         {
             return DbSet.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
+                        .OrderBy(c => c.ID);
+        }
+
+        public IEnumerable<PantsOctopi> GetAvailable(int? id = null)
+        {
+            return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
+                        .Where(c => c.Pants.Count == 0 || c.Pants.Any(p => p.ID == id))
                         .OrderBy(c => c.ID);
         }
 
@@ -23,7 +36,8 @@ namespace DAL
             return DbSet
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                         .Where(c => (c.ID.ToString().ToLower().Contains(search.ToLower()))
-                                 || (c.Size.ToString().ToLower().Contains(search.ToLower())))
+                                 || (c.Size.ToString().ToLower().Contains(search.ToLower()))
+                                 || (c.Location.ToLower().Contains(search.ToLower())))
                         .OrderBy(c => c.ID);
         }
     }

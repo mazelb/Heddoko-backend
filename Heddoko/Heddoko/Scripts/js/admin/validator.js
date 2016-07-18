@@ -104,6 +104,14 @@
             }
         }
     },
+    pants: {
+        location: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'name', Validator.pants.location.maxSize);
+            }
+        }
+    },
     maxLengthValidation: function (input, name, maxLength) {
         if (!input.is('[name="' + name + '"]')) {
             return true;

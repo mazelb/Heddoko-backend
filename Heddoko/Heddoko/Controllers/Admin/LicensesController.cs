@@ -84,7 +84,8 @@ namespace Heddoko.Controllers
                 }
             }
 
-            if (items == null)
+            if (items == null 
+            && !isUsed)
             {
                 items = new List<License>();
 

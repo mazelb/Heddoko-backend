@@ -13,12 +13,14 @@ using System.Web.Http.Description;
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [RoutePrefix("admin/api/pantsoctopi")]
+    [RoutePrefix("admin/api/pantsOctopi")]
     [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
     public class PantsOctopiController : BaseAdminController<PantsOctopi, PantsOctopiAPIModel>
     {
         const string Search = "Search";
         const string IsDeleted = "IsDeleted";
+        const string Used = "Used";
+
 
         public override KendoResponse<IEnumerable<PantsOctopiAPIModel>> Get([FromUri]KendoRequest request)
         {
@@ -26,29 +28,47 @@ namespace Heddoko.Controllers
             int count = 0;
 
             bool isDeleted = false;
+            bool isUsed = false;
 
             if (request != null)
             {
                 if (request.Filter != null)
                 {
-                    KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
-                    if (isDeletedFilter != null)
-                    {
-                        isDeleted = true;
-                    }
+                    KendoFilterItem isUsedFilter = request.Filter.Get(Used);
 
-                    KendoFilterItem searchFilter = request.Filter.Get(Search);
-                    if (searchFilter != null
-                    && !string.IsNullOrEmpty(searchFilter.Value))
+                    if (isUsedFilter != null)
                     {
-                        items = UoW.PantsOctopiRepository.Search(searchFilter.Value, isDeleted);
+                        int tmp = 0;
+                        int? usedID = null;
+                        if (int.TryParse(isUsedFilter.Value, out tmp))
+                        {
+                            usedID = tmp;
+                        }
+
+                        items = UoW.PantsOctopiRepository.GetAvailable(usedID);
+                        isUsed = true;
+                    }
+                    else
+                    {
+                        KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
+                        if (isDeletedFilter != null)
+                        {
+                            isDeleted = true;
+                        }
+
+                        KendoFilterItem searchFilter = request.Filter.Get(Search);
+                        if (searchFilter != null
+                        && !string.IsNullOrEmpty(searchFilter.Value))
+                        {
+                            items = UoW.PantsOctopiRepository.Search(searchFilter.Value, isDeleted);
+                        }
                     }
                 }
             }
 
-            if (items == null)
+            if (items == null
+            && !isUsed)
             {
-
                 items = UoW.PantsOctopiRepository.All(isDeleted);
             }
 
@@ -62,12 +82,21 @@ namespace Heddoko.Controllers
 
             }
 
-            var result = items.ToList()
-                              .Select(c => Convert(c));
+            List<PantsOctopiAPIModel> itemsDefault = new List<PantsOctopiAPIModel>();
+
+            if (isUsed)
+            {
+                itemsDefault.Add(new PantsOctopiAPIModel(true)
+                {
+                    ID = 0
+                });
+            }
+
+            itemsDefault.AddRange(items.ToList().Select(c => Convert(c)));
 
             return new KendoResponse<IEnumerable<PantsOctopiAPIModel>>()
             {
-                Response = result,
+                Response = itemsDefault,
                 Total = count
             };
         }
@@ -150,6 +179,8 @@ namespace Heddoko.Controllers
             if (item.ID != CurrentUser.ID)
             {
                 item.Status = EquipmentStatusType.Trash;
+
+                UoW.PantsRepository.RemovePantsOctopi(item.ID);
 
                 UoW.Save();
             }
