@@ -16,7 +16,17 @@ var PantsOctopi = {
 
     datasources: function () {
         //Datasources context
-        this.pantsOctopi = new kendo.data.DataSource({
+        this.pantsOctopi = PantsOctopi.getDatasource();
+
+        this.sizeTypes = new kendo.data.DataSource({
+            data: _.values(Enums.SizeType.array)
+        });
+
+        this.sizeTypes.read();
+    },
+
+    getDatasource: function() {
+        return new kendo.data.DataSource({
             pageSize: KendoDS.pageSize,
             serverPaging: true,
             serverFiltering: true,
@@ -71,12 +81,6 @@ var PantsOctopi = {
                 }
             }
         });
-
-        this.sizeTypes = new kendo.data.DataSource({
-            data: _.values(Enums.SizeType.array)
-        });
-
-        this.sizeTypes.read();
     },
 
     init: function () {
