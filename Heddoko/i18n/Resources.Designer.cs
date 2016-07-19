@@ -1780,6 +1780,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shirts.
+        /// </summary>
+        public static string Shirts {
+            get {
+                return ResourceManager.GetString("Shirts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shirts Octopi.
         /// </summary>
         public static string ShirtsOctopi {

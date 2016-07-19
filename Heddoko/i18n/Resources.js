@@ -256,6 +256,7 @@ i18n.Resources = (function () {
   "SelectSize": "Select size",
   "Enter": "Enter",
   "Pants": "Pants",
+  "Shirts": "Shirts",
   "Select": "Select",
   "Kits": "Kits",
   "AlreadyUsed": "already used",

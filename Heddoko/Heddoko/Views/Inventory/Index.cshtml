@@ -11,21 +11,26 @@
 
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#suits">@i18n.Resources.Kits</a></li>
-        <li><a data-toggle="tab" href="#pants">@i18n.Resources.Pants</a></li>
+        <li><a data-toggle="tab" href="#shirts">@i18n.Resources.Shirts</a></li>
         <li><a data-toggle="tab" href="#shirt_octopi">@i18n.Resources.ShirtsOctopi</a></li>
+        <li><a data-toggle="tab" href="#pants">@i18n.Resources.Pants</a></li>
         <li><a data-toggle="tab" href="#pants_octopi">@i18n.Resources.PantsOctopi</a></li>
     </ul>
     @Html.Partial("_FlashMessages", Model.Flash)
     <div class="tab-content">
         <div id="kits" class="tab-pane fade in active">
         </div>
-
-        <div id="pants" class="tab-pane fade">
-            @Html.Partial("_Pants")
+        
+        <div id="shirts" class="tab-pane fade">
+            @Html.Partial("_Shirts")
         </div>
-
+        
         <div id="shirt_octopi" class="tab-pane fade">
             @Html.Partial("_ShirtOctopi")
+        </div>
+        
+        <div id="pants" class="tab-pane fade">
+            @Html.Partial("_Pants")
         </div>
 
         <div id="pants_octopi" class="tab-pane fade">

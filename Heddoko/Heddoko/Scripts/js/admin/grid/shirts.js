@@ -1,8 +1,8 @@
 ﻿$(function () {
-    ShirtsOctopi.init();
+    Shirts.init();
 });
 
-var ShirtsOctopi = {
+var Shirts = {
     isDeleted: false,
     controls: {
         grid: null,
@@ -16,31 +16,7 @@ var ShirtsOctopi = {
 
     datasources: function () {
         //Datasources context
-        this.shirtsOctopi = ShirtsOctopi.getDatasource();
-
-        this.shirtsOctopiDD = ShirtsOctopi.getDatasourceDD();
-    },
-
-    getDatasourceDD: function (id) {
-        return new kendo.data.DataSource({
-            serverPaging: false,
-            serverFiltering: true,
-            serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/shirtsoctopi'),
-            schema: {
-                data: "response",
-                total: "total",
-                errors: "Errors",
-                model: {
-                    id: "id"
-                }
-            },
-            filter: [{
-                field: 'Used',
-                operator: 'eq',
-                value: id
-            }]
-        });
+        this.shirts = Shirts.getDatasource();
     },
 
     getDatasource: function () {
@@ -49,7 +25,7 @@ var ShirtsOctopi = {
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/shirtsoctopi'),
+            transport: KendoDS.buildTransport('/admin/api/shirts'),
             schema: {
                 data: "response",
                 total: "total",
@@ -60,6 +36,10 @@ var ShirtsOctopi = {
                         id: {
                             editable: false,
                             nullable: true
+                        },
+                        shirtsOctopiID: {
+                            nullable: true,
+                            type: "number"
                         },
                         size: {
                             nullable: false,
@@ -74,7 +54,7 @@ var ShirtsOctopi = {
                             type: "string",
                             validation: {
                                 required: true,
-                                maxLengthValidation: Validator.shirtsOctopi.location.maxLengthValidation
+                                maxLengthValidation: Validator.shirts.location.maxLengthValidation
                             }
                         },
                         status: {
@@ -102,13 +82,13 @@ var ShirtsOctopi = {
     },
 
     init: function () {
-        var control = $('#shirtsOctopiGrid');
-        var filter = $('.shirtsOctopiFilter');
-        var model = $('.shirtsOctopiForm');
+        var control = $("#shirtsGrid");
+        var filter = $('.shirtsFilter');
+        var model = $('.shirtsForm');
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                dataSource: Datasources.shirtsOctopi,
+                dataSource: Datasources.shirts,
                 sortable: false,
                 editable: "popup",
                 selectable: false,
@@ -124,16 +104,24 @@ var ShirtsOctopi = {
                 }],
                 columns: [
                 {
-                    field: 'id',
+                    field: 'idView',
                     title: i18n.Resources.ID
+                },
+                {
+                    field: 'shirtsOctopiID',
+                    title: i18n.Resources.ShirtsOctopi,
+                    template: function (e) {
+                        return Format.shirts.shirtsOctopi(e);
+                    },
+                    editor: ShirtsOctopi.ddEditor
                 },
                 {
                     field: 'size',
                     title: i18n.Resources.Size,
                     template: function (e) {
-                        return Format.shirtsOctopi.size(e.size);
+                        return Format.shirts.size(e.size);
                     },
-                    editor: ShirtsOctopi.sizeDDEditor
+                    editor: Equipments.sizeDDEditor
                 },
                 {
                     field: 'location',
@@ -192,15 +180,16 @@ var ShirtsOctopi = {
                 sizes: Datasources.sizeTypes,
                 statuses: Datasources.equipmentStatusTypes,
                 qaStatuses: Datasources.equipmentQAStatusTypes,
+                shirtsOctopies: Datasources.shirtsOctopiDD,
                 model: this.getEmptyModel()
             });
 
             kendo.bind(model, this.controls.addModel);
 
             this.validators.addModel = model.kendoValidator({
-                validateonBlur: true,
+                validateOnBlur: true,
                 rules: {
-                    maxLengthValidationLocation: Validator.shirtsOctopi.location.maxLengthValidation
+                    maxLengthValidationLocation: Validator.shirts.location.maxLengthValidation
                 }
             }).data("kendoValidator");
 
@@ -211,7 +200,7 @@ var ShirtsOctopi = {
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
 
-        var grid = ShirtsOctopi.controls.grid;
+        var grid = Shirts.controls.grid;
         var enumarable = Enums.EquipmentStatusType.enum;
 
         $(".k-grid-delete", grid.element).each(function () {
@@ -233,18 +222,9 @@ var ShirtsOctopi = {
         $(".k-grid-restore", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status == enumarable.Ready) {
+            if (currentDataItem.status != enumarable.Trash) {
                 $(this).remove();
             }
-        });
-    },
-
-    ddEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDropDownList({
-            autoBind: true,
-            dataSource: ShirtsOctopi.getDatasourceDD(options.model.id)
         });
     },
 
@@ -253,7 +233,8 @@ var ShirtsOctopi = {
             size: null,
             location: null,
             status: null,
-            qaStatus: null
+            qaStatus: null,
+            shirtsOctopiID: null
         };
     },
 
@@ -263,9 +244,11 @@ var ShirtsOctopi = {
     },
 
     onRestore: function (e) {
-        var item = ShirtsOctopi.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        var grid = Shirts.controls.grid;
+
+        var item = grid.dataItem($(e.currentTarget).closest("tr"));
         item.set('status', Enums.EquipmentStatusType.enum.Ready);
-        ShirtsOctopi.controls.grid.dataSource.sync();
+        grid.dataSource.sync();
     },
 
     onReset: function (e) {
@@ -280,6 +263,7 @@ var ShirtsOctopi = {
             this.controls.grid.dataSource.add(obj);
             this.controls.grid.dataSource.sync();
             this.controls.grid.dataSource.one('requestEnd', function (e) {
+                Datasources.pantsOctopi.read();
                 if (e.type === "create" && !e.response.Errors) {
                     this.onReset();
                 }
@@ -328,4 +312,4 @@ var ShirtsOctopi = {
     }
 };
 
-Datasources.bind(ShirtsOctopi.datasources);
+Datasources.bind(Shirts.datasources);

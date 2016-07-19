@@ -176,7 +176,7 @@ namespace Heddoko.Controllers
             {
                 item.Status = EquipmentStatusType.Trash;
 
-                UoW.PantsRepository.RemovePantsOctopi(item.ID);
+                UoW.ShirtRepository.RemoveShirtOctopi(item.ID);
 
                 UoW.Save();
             }
