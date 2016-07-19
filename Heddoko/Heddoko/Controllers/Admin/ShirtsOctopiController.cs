@@ -35,30 +35,30 @@ namespace Heddoko.Controllers
 
                 if (isUsedFilter != null)
                 {
-                    //int tmp = 0;
-                    //int? usedID = null;
-                    //if (int.TryParse(isUsedFilter.Value, out tmp))
-                    //{
-                    //    usedID = tmp;
-                    //}
+                    int tmp = 0;
+                    int? usedID = null;
+                    if (int.TryParse(isUsedFilter.Value, out tmp))
+                    {
+                        usedID = tmp;
+                    }
 
-                    //items = UoW.ShirtOctopiRepository.GetAvailable(usedID);
-                    //isUsed = true;
+                    items = UoW.ShirtOctopiRepository.GetAvailable(usedID);
+                    isUsed = true;
                 }
                 else
                 {
-                    //KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
-                    //if (isDeletedFilter != null)
-                    //{
-                    //    isDeleted = true;
-                    //}
+                    KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
+                    if (isDeletedFilter != null)
+                    {
+                        isDeleted = true;
+                    }
 
-                    //KendoFilterItem searchFilter = request.Filter.Get(Search);
-                    //if (searchFilter != null
-                    //&& !string.IsNullOrEmpty(searchFilter.Value))
-                    //{
-                    //    items = UoW.ShirtOctopiRepository.Search(searchFilter.Value, isDeleted);
-                    //}
+                    KendoFilterItem searchFilter = request.Filter.Get(Search);
+                    if (searchFilter != null
+                    && !string.IsNullOrEmpty(searchFilter.Value))
+                    {
+                        items = UoW.ShirtOctopiRepository.Search(searchFilter.Value, isDeleted);
+                    }
                 }
             }
 

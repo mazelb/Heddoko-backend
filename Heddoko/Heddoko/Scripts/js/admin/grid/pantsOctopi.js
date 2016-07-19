@@ -133,7 +133,7 @@ var PantsOctopi = {
                     template: function (e) {
                         return Format.pantsOctopi.size(e.size);
                     },
-                    editor: Equpiments.sizeDDEditor
+                    editor: Equipments.sizeDDEditor
                 },
                 {
                     field: 'location',
@@ -145,7 +145,7 @@ var PantsOctopi = {
                     template: function (e) {
                         return Format.equipment.equipmentStatus(e.status);
                     },
-                    editor: Equpiments.equipmentStatusDDEditor
+                    editor: Equipments.equipmentStatusDDEditor
                 },
                 {
                     field: 'qaStatus',
@@ -153,7 +153,7 @@ var PantsOctopi = {
                     template: function (e) {
                         return Format.equipment.equipmentQAStatus(e.qaStatus);
                     },
-                    editor: Equpiments.equipmentQAStatusDDEditor
+                    editor: Equipments.equipmentQAStatusDDEditor
                 }, {
                     command: [{
                         name: "edit",

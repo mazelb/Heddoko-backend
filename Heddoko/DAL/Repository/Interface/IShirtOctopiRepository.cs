@@ -7,6 +7,6 @@ namespace DAL
     {
         IEnumerable<ShirtOctopi> All(bool isDeleted);
         IEnumerable<ShirtOctopi> Search(string value, bool isDeleted);
-        //IEnumerable<ShirtOctopi> GetAvailable(int? id = null);
+        IEnumerable<ShirtOctopi> GetAvailable(int? id = null);
     }
 }

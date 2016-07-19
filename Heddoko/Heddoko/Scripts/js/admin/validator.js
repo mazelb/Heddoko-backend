@@ -112,6 +112,22 @@
             }
         }
     },
+    shirts: {
+        location: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'name', Validator.shirts.maxSize);
+            }
+        }
+    },
+    shirtsOctopi: {
+        location: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'name', Validator.shirtsOctopi.maxSize);
+            }
+        }
+    },
     maxLengthValidation: function (input, name, maxLength) {
         if (!input.is('[name="' + name + '"]')) {
             return true;

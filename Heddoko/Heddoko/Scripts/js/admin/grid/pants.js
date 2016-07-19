@@ -121,7 +121,7 @@ var Pants = {
                     template: function (e) {
                         return Format.pants.size(e.size);
                     },
-                    editor: Equpiments.sizeDDEditor
+                    editor: Equipments.sizeDDEditor
                 },
                 {
                     field: 'location',
@@ -133,7 +133,7 @@ var Pants = {
                     template: function (e) {
                         return Format.equipment.equipmentStatus(e.status);
                     },
-                    editor: Equpiments.equipmentStatusDDEditor
+                    editor: Equipments.equipmentStatusDDEditor
                 },
                 {
                     field: 'qaStatus',
@@ -141,7 +141,7 @@ var Pants = {
                     template: function (e) {
                         return Format.equipment.equipmentQAStatus(e.qaStatus);
                     },
-                    editor: Equpiments.equipmentQAStatusDDEditor
+                    editor: Equipments.equipmentQAStatusDDEditor
                 }, {
                     command: [{
                         name: "edit",

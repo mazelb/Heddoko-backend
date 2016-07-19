@@ -1,4 +1,4 @@
-﻿var Equpiments = {
+﻿var Equipments = {
     datasources: function () {
         //Datasources context
 
@@ -49,4 +49,4 @@
     }
 };
 
-Datasources.bind(Equpiments.datasources);
+Datasources.bind(Equipments.datasources);

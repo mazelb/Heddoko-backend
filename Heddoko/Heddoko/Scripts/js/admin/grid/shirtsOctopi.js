@@ -15,16 +15,35 @@ var ShirtsOctopi = {
     },
 
     datasources: function () {
-        this.shirtsOctopi = ShirtsOctopi.getDataSource();
+        //Datasources context
+        this.shirtsOctopi = ShirtsOctopi.getDatasource();
 
-        this.sizeTypes = new kendo.data.DataSource({
-            data: _.values(Enums.SizeType.array)
-        });
-
-        this.sizeTypes.read();
+        this.shirtsOctopiDD = ShirtsOctopi.getDatasourceDD();
     },
 
-    getDataSource: function () {
+    getDatasourceDD: function (id) {
+        return new kendo.data.DataSource({
+            serverPaging: false,
+            serverFiltering: true,
+            serverSorting: false,
+            transport: KendoDS.buildTransport('/admin/api/shirtsoctopi'),
+            schema: {
+                data: "response",
+                total: "total",
+                errors: "Errors",
+                model: {
+                    id: "id"
+                }
+            },
+            filter: [{
+                field: 'Used',
+                operator: 'eq',
+                value: id
+            }]
+        });
+    },
+
+    getDatasource: function () {
         return new kendo.data.DataSource({
             pageSize: KendoDS.pageSize,
             serverPaging: true,
@@ -125,7 +144,7 @@ var ShirtsOctopi = {
                     template: function (e) {
                         return Format.equipment.equipmentStatus(e.status);
                     },
-                    editor: Equpiments.equipmentStatusDDEditor
+                    editor: Equipments.equipmentStatusDDEditor
                 },
                 {
                     field: 'qaStatus',
@@ -133,7 +152,7 @@ var ShirtsOctopi = {
                     template: function (e) {
                         return Format.equipment.equipmentQAStatus(e.qaStatus);
                     },
-                    editor: Equpiments.equipmentQAStatusDDEditor
+                    editor: Equipments.equipmentQAStatusDDEditor
                 }, {
                     command: [{
                         name: "edit",
@@ -156,9 +175,17 @@ var ShirtsOctopi = {
                 dataBound: this.onDataBound
             }).data("kendoGrid");
 
-            Kendo.bind(this.controls.grid, true);
+            KendoDS.bind(this.controls.grid, true);
 
             this.controls.filterModel = kendo.observable({
+                find: this.onFilter.bind(this),
+                search: null,
+                keyup: this.onEnter.bind(this)
+            });
+
+            kendo.bind(filter, this.controls.filterModel);
+
+            this.controls.addModel = kendo.observable({
                 reset: this.onReset.bind(this),
                 sumbit: this.onAdd.bind(this),
                 sizes: Datasources.sizeTypes,
@@ -167,7 +194,7 @@ var ShirtsOctopi = {
                 model: this.getEmptyModel()
             });
 
-            Kendo.bind(model, this.controls.addModel);
+            kendo.bind(model, this.controls.addModel);
 
             this.validators.addModel = model.kendoValidator({
                 validateonBlur: true,
@@ -211,12 +238,12 @@ var ShirtsOctopi = {
         });
     },
 
-    sizeDDEditor: function (container, options) {
+    ddEditor: function (container, options) {
         $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             autoBind: true,
-            dataSource: Datasources.sizeTypes
+            dataSource: ShirtsOctopi.getDatasourceDD(options.model.id)
         });
     },
 

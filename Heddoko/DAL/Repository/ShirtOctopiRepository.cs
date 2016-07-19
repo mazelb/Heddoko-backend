@@ -17,12 +17,12 @@ namespace DAL
                 .OrderBy(c => c.ID);
         }
 
-        /*public IEnumerable<PantsOctopi> GetAvailable(int? id = null)
+        public IEnumerable<ShirtOctopi> GetAvailable(int? id = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
                         .Where(c => c.Shirt.Count == 0 || c.Shirt.Any(p => p.ID == id))
                         .OrderBy(c => c.ID);
-        }*/
+        }
 
         public IEnumerable<ShirtOctopi> Search(string search, bool isDeleted = false)
         {
