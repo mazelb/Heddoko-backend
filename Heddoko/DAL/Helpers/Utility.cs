@@ -15,6 +15,8 @@ namespace DAL
     public static class Extensions
     {
         private static Regex ToUnderScoreRegex = new Regex(@"((?<=.)[A-Z][a-zA-Z]*)|((?<=[a-zA-Z])\d+)", RegexOptions.Compiled);
+
+        private static Regex DigitRegex = new Regex(@"[^0-9]+", RegexOptions.Compiled);
         #region Exception
         public static Exception GetOriginalException(this Exception ex)
         {
@@ -86,6 +88,14 @@ namespace DAL
         public static bool Contains(this string source, string toCheck, StringComparison comp)
         {
             return source.IndexOf(toCheck, comp) >= 0;
+        }
+        public static int? ParseID(this string IDView)
+        {
+            string tmp = DigitRegex.Replace(IDView, string.Empty);
+            int id;
+            int.TryParse(tmp, out id);
+
+            return id;
         }
         #endregion
         #region Enums

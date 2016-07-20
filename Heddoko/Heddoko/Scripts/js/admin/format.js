@@ -42,6 +42,11 @@
             div += text;
             div += "</div>";
             return div;
+        },
+        size: function (item) {
+            item = item != null ? Enums.SizeType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
         }
     },
     organization: {
@@ -132,13 +137,6 @@
             return '<span class="k-grid-showText">' + item + '</span>';
         }
     },
-    pantsOctopi: {
-        size: function (item) {
-            item = item != null ? Enums.SizeType.array[item].text : "";
-
-            return '<span class="k-grid-showText">' + item + '</span>';
-        }
-    },
     pants: {
         pantsOctopi: function (item) {
             if (item.pantsOctopi != null) {
@@ -150,11 +148,19 @@
                 return div;
             }
             return '';
-        },
-        size: function (item) {
-            item = item != null ? Enums.SizeType.array[item].text : "";
-
-            return '<span class="k-grid-showText">' + item + '</span>';
+        }
+    },
+    shirts: {
+        shirtsOctopi: function (item) {
+            if (item.shirtsOctopi != null) {
+                var div = '<div class=">'
+                div += i18n.Resources.ID + ': <b>' + item.shirtsOctopi.id + '</b><br/>';
+                div += i18n.Resources.Size + ': <b>' + Format.shirtsOctopi.size(item.shirtsOctopi.size) + '</b><br/>';
+                div += i18n.Resources.PhysicalLocation + ': <b>' + item.shirtsOctopi.location + '</b><br/>';
+                div += "</div>";
+                return div;
+            }
+            return '';
         }
     }
 };

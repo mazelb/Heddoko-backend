@@ -43,6 +43,12 @@
             maxLengthValidation: function (input) {
                 return Validator.maxLengthValidation(input, 'serialNo', Validator.equipment.serialNo.maxSize);
             }
+        },
+        location: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'name', Validator.equipment.location.maxSize);
+            }
         }
     },
     organization: {
@@ -93,22 +99,6 @@
                 }
 
                 return false;
-            }
-        }
-    },
-    pantsOctopi: {
-        location: {
-            maxSize: 255,
-            maxLengthValidation: function (input) {
-                return Validator.maxLengthValidation(input, 'name', Validator.pantsOctopi.location.maxSize);
-            }
-        }
-    },
-    pants: {
-        location: {
-            maxSize: 255,
-            maxLengthValidation: function (input) {
-                return Validator.maxLengthValidation(input, 'name', Validator.pants.location.maxSize);
             }
         }
     },

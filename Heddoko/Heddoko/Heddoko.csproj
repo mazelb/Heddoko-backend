@@ -565,10 +565,12 @@
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
     <Content Include="Scripts\js\admin\grid\equipments.js" />
+    <Content Include="Scripts\js\admin\grid\shirts.js" />
     <Content Include="Scripts\js\admin\grid\organizations.js" />
     <Content Include="Scripts\js\admin\grid\licenses.js" />
     <Content Include="Scripts\js\admin\grid\pants.js" />
     <Content Include="Scripts\js\admin\grid\pantsOctopi.js" />
+    <Content Include="Scripts\js\admin\grid\shirtsOctopi.js" />
     <Content Include="Scripts\js\admin\grid\usersAdmin.js" />
     <Content Include="Scripts\js\admin\grid\users.js" />
     <Content Include="Scripts\js\admin\kendo.js" />
@@ -1110,6 +1112,8 @@
     <Compile Include="Controllers\Admin\OrganizationsController.cs" />
     <Compile Include="Controllers\Admin\PantsController.cs" />
     <Compile Include="Controllers\Admin\PantsOctopiController.cs" />
+    <Compile Include="Controllers\Admin\ShirtsController.cs" />
+    <Compile Include="Controllers\Admin\ShirtsOctopiController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\Admin\LicensesController.cs" />
     <Compile Include="Controllers\Admin\UsersController.cs" />
@@ -1167,6 +1171,8 @@
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
+    <Compile Include="Models\Admin\ShirtAPIModel.cs" />
+    <Compile Include="Models\Admin\ShirtOctopiAPIModel.cs" />
     <Compile Include="Models\Admin\OrganizationAPIModel.cs" />
     <Compile Include="Models\Admin\PantsAPIModel.cs" />
     <Compile Include="Models\Admin\PantsOctopiAPIModel.cs" />
@@ -1202,6 +1208,8 @@
   <ItemGroup>
     <Folder Include="Content\scss\views\" />
     <Folder Include="Helpers\JWT\" />
+    <Folder Include="Views\ShirtsOctopi\" />
+    <Folder Include="Views\Shirts\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\dev.pubxml" />
@@ -1747,6 +1755,8 @@
     <Content Include="Views\Shared\_NavigationAdmin.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Inventory\_Pants.cshtml" />
+    <Content Include="Views\Inventory\_ShirtOctopi.cshtml" />
+    <Content Include="Views\Inventory\_Shirts.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

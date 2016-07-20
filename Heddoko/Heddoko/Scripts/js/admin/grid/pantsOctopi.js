@@ -74,7 +74,7 @@ var PantsOctopi = {
                             type: "string",
                             validation: {
                                 required: true,
-                                maxLengthValidation: Validator.pantsOctopi.location.maxLengthValidation
+                                maxLengthValidation: Validator.equipment.location.maxLengthValidation
                             }
                         },
                         status: {
@@ -131,9 +131,9 @@ var PantsOctopi = {
                     field: 'size',
                     title: i18n.Resources.Size,
                     template: function (e) {
-                        return Format.pantsOctopi.size(e.size);
+                        return Format.equipment.size(e.size);
                     },
-                    editor: Equpiments.sizeDDEditor
+                    editor: Equipments.sizeDDEditor
                 },
                 {
                     field: 'location',
@@ -145,7 +145,7 @@ var PantsOctopi = {
                     template: function (e) {
                         return Format.equipment.equipmentStatus(e.status);
                     },
-                    editor: Equpiments.equipmentStatusDDEditor
+                    editor: Equipments.equipmentStatusDDEditor
                 },
                 {
                     field: 'qaStatus',
@@ -153,7 +153,7 @@ var PantsOctopi = {
                     template: function (e) {
                         return Format.equipment.equipmentQAStatus(e.qaStatus);
                     },
-                    editor: Equpiments.equipmentQAStatusDDEditor
+                    editor: Equipments.equipmentQAStatusDDEditor
                 }, {
                     command: [{
                         name: "edit",
@@ -200,7 +200,7 @@ var PantsOctopi = {
             this.validators.addModel = model.kendoValidator({
                 validateOnBlur: true,
                 rules: {
-                    maxLengthValidationLocation: Validator.pantsOctopi.location.maxLengthValidation
+                    maxLengthValidationLocation: Validator.equipment.location.maxLengthValidation
                 }
             }).data("kendoValidator");
 

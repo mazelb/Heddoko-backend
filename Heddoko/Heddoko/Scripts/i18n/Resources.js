@@ -243,6 +243,7 @@ i18n.Resources = (function () {
   "Size": "Size",
   "QAStatus": "QA Status",
   "PantsOctopi": "Pants Octopi",
+  "ShirtsOctopi": "Shirts Octopi",
   "Inventory": "Inventory",
   "GoodAfternoon": "Good Afternoon",
   "GoodEvening": "Good Evening",
@@ -250,14 +251,17 @@ i18n.Resources = (function () {
   "WhatWouldYouLikeToDO": "What would you like to do?",
   "Manage": "Manage",
   "EnterPantsOctopi": "Enter pants octopi id or size",
+  "EnterShirtsOctopi": "Enter shirt octopi id or size",
   "SelectQAStatus": "Select QA status",
   "SelectSize": "Select size",
   "Enter": "Enter",
   "Pants": "Pants",
+  "Shirts": "Shirts",
   "Select": "Select",
   "Kits": "Kits",
   "AlreadyUsed": "already used",
-  "No": "No"
+  "No": "No",
+  "WrongSize": "is the wrong size"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

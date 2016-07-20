@@ -1,8 +1,8 @@
 ﻿$(function () {
-    Pants.init();
+    ShirtsOctopi.init();
 });
 
-var Pants = {
+var ShirtsOctopi = {
     isDeleted: false,
     controls: {
         grid: null,
@@ -16,7 +16,31 @@ var Pants = {
 
     datasources: function () {
         //Datasources context
-        this.pants = Pants.getDatasource();
+        this.shirtsOctopi = ShirtsOctopi.getDatasource();
+
+        this.shirtsOctopiDD = ShirtsOctopi.getDatasourceDD();
+    },
+
+    getDatasourceDD: function (id) {
+        return new kendo.data.DataSource({
+            serverPaging: false,
+            serverFiltering: true,
+            serverSorting: false,
+            transport: KendoDS.buildTransport('/admin/api/shirtsoctopi'),
+            schema: {
+                data: "response",
+                total: "total",
+                errors: "Errors",
+                model: {
+                    id: "id"
+                }
+            },
+            filter: [{
+                field: 'Used',
+                operator: 'eq',
+                value: id
+            }]
+        });
     },
 
     getDatasource: function () {
@@ -25,7 +49,7 @@ var Pants = {
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/pants'),
+            transport: KendoDS.buildTransport('/admin/api/shirtsoctopi'),
             schema: {
                 data: "response",
                 total: "total",
@@ -36,10 +60,6 @@ var Pants = {
                         id: {
                             editable: false,
                             nullable: true
-                        },
-                        pantsOctopiID: {
-                            nullable: true,
-                            type: "number"
                         },
                         size: {
                             nullable: false,
@@ -82,13 +102,13 @@ var Pants = {
     },
 
     init: function () {
-        var control = $("#pantsGrid");
-        var filter = $('.pantsFilter');
-        var model = $('.pantsForm');
+        var control = $('#shirtsOctopiGrid');
+        var filter = $('.shirtsOctopiFilter');
+        var model = $('.shirtsOctopiForm');
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                dataSource: Datasources.pants,
+                dataSource: Datasources.shirtsOctopi,
                 sortable: false,
                 editable: "popup",
                 selectable: false,
@@ -108,20 +128,12 @@ var Pants = {
                     title: i18n.Resources.ID
                 },
                 {
-                    field: 'pantsOctopiID',
-                    title: i18n.Resources.PantsOctopi,
-                    template: function (e) {
-                        return Format.equipment.pantsOctopi(e);
-                    },
-                    editor: PantsOctopi.ddEditor
-                },
-                {
                     field: 'size',
                     title: i18n.Resources.Size,
                     template: function (e) {
                         return Format.equipment.size(e.size);
                     },
-                    editor: Equipments.sizeDDEditor
+                    editor: ShirtsOctopi.sizeDDEditor
                 },
                 {
                     field: 'location',
@@ -180,14 +192,13 @@ var Pants = {
                 sizes: Datasources.sizeTypes,
                 statuses: Datasources.equipmentStatusTypes,
                 qaStatuses: Datasources.equipmentQAStatusTypes,
-                pantsOctopies: Datasources.pantsOctopiDD,
                 model: this.getEmptyModel()
             });
 
             kendo.bind(model, this.controls.addModel);
 
             this.validators.addModel = model.kendoValidator({
-                validateOnBlur: true,
+                validateonBlur: true,
                 rules: {
                     maxLengthValidationLocation: Validator.equipment.location.maxLengthValidation
                 }
@@ -200,7 +211,7 @@ var Pants = {
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
 
-        var grid = Pants.controls.grid;
+        var grid = ShirtsOctopi.controls.grid;
         var enumarable = Enums.EquipmentStatusType.enum;
 
         $(".k-grid-delete", grid.element).each(function () {
@@ -228,13 +239,21 @@ var Pants = {
         });
     },
 
+    ddEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: ShirtsOctopi.getDatasourceDD(options.model.id)
+        });
+    },
+
     getEmptyModel: function () {
         return {
             size: null,
             location: null,
             status: null,
-            qaStatus: null,
-            pantsOctopiID: null
+            qaStatus: null
         };
     },
 
@@ -244,11 +263,9 @@ var Pants = {
     },
 
     onRestore: function (e) {
-        var grid = Pants.controls.grid;
-
-        var item = grid.dataItem($(e.currentTarget).closest("tr"));
+        var item = ShirtsOctopi.controls.grid.dataItem($(e.currentTarget).closest("tr"));
         item.set('status', Enums.EquipmentStatusType.enum.Ready);
-        grid.dataSource.sync();
+        ShirtsOctopi.controls.grid.dataSource.sync();
     },
 
     onReset: function (e) {
@@ -263,7 +280,6 @@ var Pants = {
             this.controls.grid.dataSource.add(obj);
             this.controls.grid.dataSource.sync();
             this.controls.grid.dataSource.one('requestEnd', function (e) {
-                Datasources.pantsOctopi.read();
                 if (e.type === "create" && !e.response.Errors) {
                     this.onReset();
                 }
@@ -312,4 +328,4 @@ var Pants = {
     }
 };
 
-Datasources.bind(Pants.datasources);
+Datasources.bind(ShirtsOctopi.datasources);

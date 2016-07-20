@@ -843,6 +843,9 @@
   <data name="PantsOctopi" xml:space="preserve">
     <value>Pants Octopi</value>
   </data>
+  <data name="ShirtsOctopi" xml:space="preserve">
+    <value>Shirts Octopi</value>
+  </data>
   <data name="Inventory" xml:space="preserve">
     <value>Inventory</value>
   </data>
@@ -864,6 +867,9 @@
   <data name="EnterPantsOctopi" xml:space="preserve">
     <value>Enter pants octopi id or size</value>
   </data>
+  <data name="EnterShirtsOctopi" xml:space="preserve">
+    <value>Enter shirt octopi id or size</value>
+  </data>
   <data name="SelectQAStatus" xml:space="preserve">
     <value>Select QA status</value>
   </data>
@@ -876,6 +882,9 @@
   <data name="Pants" xml:space="preserve">
     <value>Pants</value>
   </data>
+  <data name="Shirts" xml:space="preserve">
+    <value>Shirts</value>
+  </data>
   <data name="Select" xml:space="preserve">
     <value>Select</value>
   </data>
@@ -887,5 +896,8 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="WrongSize" xml:space="preserve">
+    <value>is the wrong size</value>
   </data>
 </root>
