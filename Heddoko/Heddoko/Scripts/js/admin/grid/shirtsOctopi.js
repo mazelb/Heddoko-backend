@@ -74,7 +74,7 @@ var ShirtsOctopi = {
                             type: "string",
                             validation: {
                                 required: true,
-                                maxLengthValidation: Validator.shirtsOctopi.location.maxLengthValidation
+                                maxLengthValidation: Validator.equipment.location.maxLengthValidation
                             }
                         },
                         status: {
@@ -131,7 +131,7 @@ var ShirtsOctopi = {
                     field: 'size',
                     title: i18n.Resources.Size,
                     template: function (e) {
-                        return Format.shirtsOctopi.size(e.size);
+                        return Format.equipment.size(e.size);
                     },
                     editor: ShirtsOctopi.sizeDDEditor
                 },
@@ -200,7 +200,7 @@ var ShirtsOctopi = {
             this.validators.addModel = model.kendoValidator({
                 validateonBlur: true,
                 rules: {
-                    maxLengthValidationLocation: Validator.shirtsOctopi.location.maxLengthValidation
+                    maxLengthValidationLocation: Validator.equipment.location.maxLengthValidation
                 }
             }).data("kendoValidator");
 
@@ -233,7 +233,7 @@ var ShirtsOctopi = {
         $(".k-grid-restore", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status == enumarable.Ready) {
+            if (currentDataItem.status == enumarable.Trash) {
                 $(this).remove();
             }
         });

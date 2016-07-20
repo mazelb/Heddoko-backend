@@ -897,4 +897,7 @@
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="WrongSize" xml:space="preserve">
+    <value>is the wrong size</value>
+  </data>
 </root>

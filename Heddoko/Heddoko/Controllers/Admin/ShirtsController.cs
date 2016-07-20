@@ -190,9 +190,13 @@ namespace Heddoko.Controllers
                 else
                 {
                     ShirtOctopi shirtOctopi = UoW.ShirtOctopiRepository.GetFull(model.ShirtOctopiID.Value);
+                    if (shirtOctopi.Size != item.Size)
+                    {
+                        throw new Exception($"{i18n.Resources.ShirtsOctopi} {i18n.Resources.WrongSize}");
+                    }
                     if (shirtOctopi.Shirt.Count() > 0)
                     {
-                        throw new Exception($"{i18n.Resources.PantsOctopi} {i18n.Resources.AlreadyUsed}");
+                        throw new Exception($"{i18n.Resources.ShirtsOctopi} {i18n.Resources.AlreadyUsed}");
                     }
 
                     item.ShirtOctopi = shirtOctopi;

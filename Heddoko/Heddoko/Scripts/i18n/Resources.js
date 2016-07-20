@@ -260,7 +260,8 @@ i18n.Resources = (function () {
   "Select": "Select",
   "Kits": "Kits",
   "AlreadyUsed": "already used",
-  "No": "No"
+  "No": "No",
+  "WrongSize": "is the wrong size"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

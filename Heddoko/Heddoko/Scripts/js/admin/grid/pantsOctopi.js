@@ -74,7 +74,7 @@ var PantsOctopi = {
                             type: "string",
                             validation: {
                                 required: true,
-                                maxLengthValidation: Validator.pantsOctopi.location.maxLengthValidation
+                                maxLengthValidation: Validator.equipment.location.maxLengthValidation
                             }
                         },
                         status: {
@@ -131,7 +131,7 @@ var PantsOctopi = {
                     field: 'size',
                     title: i18n.Resources.Size,
                     template: function (e) {
-                        return Format.pantsOctopi.size(e.size);
+                        return Format.equipment.size(e.size);
                     },
                     editor: Equipments.sizeDDEditor
                 },
@@ -200,7 +200,7 @@ var PantsOctopi = {
             this.validators.addModel = model.kendoValidator({
                 validateOnBlur: true,
                 rules: {
-                    maxLengthValidationLocation: Validator.pantsOctopi.location.maxLengthValidation
+                    maxLengthValidationLocation: Validator.equipment.location.maxLengthValidation
                 }
             }).data("kendoValidator");
 

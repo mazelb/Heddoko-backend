@@ -54,7 +54,7 @@ var Pants = {
                             type: "string",
                             validation: {
                                 required: true,
-                                maxLengthValidation: Validator.pants.location.maxLengthValidation
+                                maxLengthValidation: Validator.equipment.location.maxLengthValidation
                             }
                         },
                         status: {
@@ -111,7 +111,7 @@ var Pants = {
                     field: 'pantsOctopiID',
                     title: i18n.Resources.PantsOctopi,
                     template: function (e) {
-                        return Format.pants.pantsOctopi(e);
+                        return Format.equipment.pantsOctopi(e);
                     },
                     editor: PantsOctopi.ddEditor
                 },
@@ -119,7 +119,7 @@ var Pants = {
                     field: 'size',
                     title: i18n.Resources.Size,
                     template: function (e) {
-                        return Format.pants.size(e.size);
+                        return Format.equipment.size(e.size);
                     },
                     editor: Equipments.sizeDDEditor
                 },
@@ -189,7 +189,7 @@ var Pants = {
             this.validators.addModel = model.kendoValidator({
                 validateOnBlur: true,
                 rules: {
-                    maxLengthValidationLocation: Validator.pants.location.maxLengthValidation
+                    maxLengthValidationLocation: Validator.equipment.location.maxLengthValidation
                 }
             }).data("kendoValidator");
 

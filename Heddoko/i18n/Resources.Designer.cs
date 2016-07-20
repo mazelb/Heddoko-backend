@@ -2374,6 +2374,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to is the wrong size.
+        /// </summary>
+        public static string WrongSize {
+            get {
+                return ResourceManager.GetString("WrongSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to These credentials do not match our records..
         /// </summary>
         public static string WrongUsernameOrPassword {

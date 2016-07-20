@@ -34,9 +34,7 @@ namespace DAL
 
         public IEnumerable<PantsOctopi> Search(string search, bool isDeleted = false)
         {
-            string tmp = Regex.Replace(search, "[^0-9]+", string.Empty);
-            int id = 0;
-            int.TryParse(tmp, out id);
+            int? id = search.ParseID();
             return DbSet
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                         .Where(c => (c.ID == id)

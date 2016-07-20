@@ -87,6 +87,14 @@ namespace DAL
         {
             return source.IndexOf(toCheck, comp) >= 0;
         }
+        public static int? ParseID(this string IDView)
+        {
+            string tmp = Regex.Replace(IDView, "[^0-9]+", string.Empty, RegexOptions.Compiled);
+            int id;
+            int.TryParse(tmp, out id);
+
+            return id;
+        }
         #endregion
         #region Enums
         public static string GetDisplayName(this Enum e)

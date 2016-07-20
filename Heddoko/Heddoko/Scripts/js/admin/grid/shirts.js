@@ -54,7 +54,7 @@ var Shirts = {
                             type: "string",
                             validation: {
                                 required: true,
-                                maxLengthValidation: Validator.shirts.location.maxLengthValidation
+                                maxLengthValidation: Validator.equipment.location.maxLengthValidation
                             }
                         },
                         status: {
@@ -119,7 +119,7 @@ var Shirts = {
                     field: 'size',
                     title: i18n.Resources.Size,
                     template: function (e) {
-                        return Format.shirts.size(e.size);
+                        return Format.equipment.size(e.size);
                     },
                     editor: Equipments.sizeDDEditor
                 },
@@ -189,7 +189,7 @@ var Shirts = {
             this.validators.addModel = model.kendoValidator({
                 validateOnBlur: true,
                 rules: {
-                    maxLengthValidationLocation: Validator.shirts.location.maxLengthValidation
+                    maxLengthValidationLocation: Validator.equipment.location.maxLengthValidation
                 }
             }).data("kendoValidator");
 
