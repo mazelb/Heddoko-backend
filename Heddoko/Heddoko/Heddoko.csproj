@@ -1128,6 +1128,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FirmwareController.cs" />
     <Compile Include="Controllers\LicenseController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\StaticController.cs" />
@@ -1757,6 +1758,7 @@
     <Content Include="Views\Inventory\_Pants.cshtml" />
     <Content Include="Views\Inventory\_ShirtOctopi.cshtml" />
     <Content Include="Views\Inventory\_Shirts.cshtml" />
+    <Content Include="Views\Firmware\Index.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

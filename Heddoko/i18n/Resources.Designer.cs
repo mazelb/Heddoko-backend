@@ -1879,6 +1879,24 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Software &amp; Firmware.
+        /// </summary>
+        public static string SoftwareAndFirmware {
+            get {
+                return ResourceManager.GetString("SoftwareAndFirmware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Software or Firmware.
+        /// </summary>
+        public static string SoftwareOrFirmware {
+            get {
+                return ResourceManager.GetString("SoftwareOrFirmware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {

@@ -141,7 +141,7 @@
         pantsOctopi: function (item) {
             if (item.pantsOctopi != null) {
                 var div = '<div class="">'
-                div += i18n.Resources.ID + ': <b>' + item.pantsOctopi.id + '</b><br/>';
+                div += i18n.Resources.ID + ': <b>' + item.pantsOctopi.idView + '</b><br/>';
                 div += i18n.Resources.Size + ': <b>' + Format.pantsOctopi.size(item.pantsOctopi.size) + '</b><br/>';
                 div += i18n.Resources.PhysicalLocation + ': <b>' + item.pantsOctopi.location + '</b><br/>';
                 div += "</div>";

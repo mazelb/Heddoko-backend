@@ -897,6 +897,12 @@
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="SoftwareAndFirmware" xml:space="preserve">
+    <value>Software &amp; Firmware</value>
+  </data>
+  <data name="SoftwareOrFirmware" xml:space="preserve">
+    <value>Software or Firmware</value>
+  </data>
   <data name="WrongSize" xml:space="preserve">
     <value>is the wrong size</value>
   </data>

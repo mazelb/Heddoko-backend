@@ -1,0 +1,110 @@
+﻿@model Heddoko.Models.BaseViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page">
+    <div class="header clearfix">
+        <h3>@Html.Raw(i18n.Resources.SoftwareAndFirmware)</h3>
+    </div>
+
+    @Html.Partial("_FlashMessages", Model.Flash)
+    <div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="filters firmwareFilter">
+                    <div>
+                        <label for="searchFirmware" class="control-label">@i18n.Resources.Search</label>
+                        <input id="searchFirmware"
+                               class="form-control"
+                               type="text"
+                               placeholder="@i18n.Resources.Enter @i18n.Resources.SoftwareOrFirmware"
+                               data-bind="value: search, events:{ keyup: keyup }" />
+                    </div>
+                    <div class="margin010">
+                        <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success firmwareForm">
+                    <div class="panel-heading clearfix">
+                        <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.SoftwareOrFirmware</h3>
+                        <div class="btn-group pull-right" role="group">
+                            <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
+                            <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row margin010">
+                            <div class="col-sm-2">
+                                <select class="form-control"
+                                        required
+                                        name="firmware-type"
+                                        validationMessage="@i18n.Resources.Required"
+                                        data-role="dropdownlist"
+                                        data-value-primitive="true"
+                                        data-text-field="text"
+                                        data-option-label="@i18n.Resources.Select @i18n.Resources.Type"
+                                        data-value-field="value"
+                                        data-bind="value: model.type, source: types"></select>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <select class="form-control"
+                                        required
+                                        name="firmware-status"
+                                        validationMessage="@i18n.Resources.Required"
+                                        data-role="dropdownlist"
+                                        data-value-primitive="true"
+                                        data-text-field="text"
+                                        data-option-label="@i18n.Resources.SelectStatus"
+                                        data-value-field="value"
+                                        data-bind="value: model.status, source: statuses"></select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control"
+                                        required
+                                        name="firmware-qastatus"
+                                        validationMessage="@i18n.Resources.Required"
+                                        data-role="dropdownlist"
+                                        data-value-primitive="true"
+                                        data-text-field="text"
+                                        data-option-label="@i18n.Resources.SelectQAStatus"
+                                        data-value-field="value"
+                                        data-bind="value: model.qaStatus, source: qaStatuses"></select>
+                            </div>
+                        </div>
+                        <div class="row margin010">
+                            <div class="col-sm-3">
+                                <input type="text"
+                                       required
+                                       name="firmware-location"
+                                       validationMessage="@i18n.Resources.Required"
+                                       placeholder="@i18n.Resources.PhysicalLocation"
+                                       class="form-control"
+                                       data-bind="value: model.location" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="firmwareGrid">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Body {
+}
