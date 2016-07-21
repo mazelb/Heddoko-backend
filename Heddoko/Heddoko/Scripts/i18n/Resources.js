@@ -261,6 +261,8 @@ i18n.Resources = (function () {
   "Kits": "Kits",
   "AlreadyUsed": "already used",
   "No": "No",
+  "SoftwareAndFirmware": "Software & Firmware",
+  "SoftwareOrFirmware": "Software or Firmware",
   "WrongSize": "is the wrong size"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
