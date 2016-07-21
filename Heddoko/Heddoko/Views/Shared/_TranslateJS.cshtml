@@ -232,4 +232,21 @@
     };
     </text>
     }
+
+
+    Enums.ComponentsType = {};
+    Enums.ComponentsType.enum = {};
+    Enums.ComponentsType.array = {};
+    @foreach (DAL.Models.ComponentsType type in (DAL.Models.ComponentsType[])Enum.GetValues(typeof(DAL.Models.ComponentsType)))
+    {
+        <text>
+
+    Enums.ComponentsType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.ComponentsType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
 </script>

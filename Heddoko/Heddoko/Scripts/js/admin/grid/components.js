@@ -1,8 +1,8 @@
 ﻿$(function () {
-    Pants.init();
+    Components.init();
 });
 
-var Pants = {
+var Components = {
     isDeleted: false,
     controls: {
         grid: null,
@@ -15,8 +15,44 @@ var Pants = {
     },
 
     datasources: function () {
-        //Datasources context
-        this.pants = Pants.getDatasource();
+        this.components = Components.getDatasource();
+
+        this.componentTypes = new kendo.data.DataSource({
+            data: _.values(Enums.ComponentsType.array)
+        });
+
+        this.componentTypes.read();
+    },
+
+    //getDatasourceDD: function (id) {
+    //    return new kendo.data.DataSource({
+    //        serverPaging: false,
+    //        serverFiltering: true,
+    //        serverSorting: false,
+    //        transport: KendoDS.buildTransport('/admin/api/components'),
+    //        schema: {
+    //            data: "response",
+    //            total: "total",
+    //            errors: "Errors",
+    //            model: {
+    //                id: "id"
+    //            }
+    //        },
+    //        filter: [{
+    //            field: 'Used',
+    //            operator: 'eq',
+    //            value: id
+    //        }]
+    //    });
+    //},
+
+    componentTypesDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSouce: Datasources.componentTypes
+        });
     },
 
     getDatasource: function () {
@@ -25,7 +61,7 @@ var Pants = {
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/pants'),
+            transport: KendoDS.buildTransport('/admin/api/components'),
             schema: {
                 data: "response",
                 total: "total",
@@ -33,28 +69,13 @@ var Pants = {
                 model: {
                     id: "id",
                     fields: {
-                        id: {
-                            editable: false,
-                            nullable: true
-                        },
-                        pantsOctopiID: {
+                        type: {
                             nullable: true,
-                            type: "number"
-                        },
-                        size: {
-                            nullable: false,
                             type: "number",
                             validation: {
                                 required: true,
+                                min: 0,
                                 max: KendoDS.maxInt
-                            }
-                        },
-                        location: {
-                            nullable: false,
-                            type: "string",
-                            validation: {
-                                required: true,
-                                maxLengthValidation: Validator.equipment.location.maxLengthValidation
                             }
                         },
                         status: {
@@ -66,7 +87,7 @@ var Pants = {
                                 max: KendoDS.maxInt
                             }
                         },
-                        qaStatus: {
+                        quantity: {
                             nullable: false,
                             type: "number",
                             validation: {
@@ -82,17 +103,16 @@ var Pants = {
     },
 
     init: function () {
-        var control = $("#pantsGrid");
-        var filter = $('.pantsFilter');
-        var model = $('.pantsForm');
+        var control = $("#componentsGrid");
+        var filter = $('.componentsFilter');
+        var model = $('.componentsForm');
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                dataSource: Datasources.pants,
+                dataSource: Datasources.components,
                 sortable: false,
                 editable: "popup",
                 selectable: false,
-                scrollable: false,
                 resizeable: true,
                 autoBind: true,
                 pageable: {
@@ -104,28 +124,12 @@ var Pants = {
                 }],
                 columns: [
                 {
-                    field: 'idView',
-                    title: i18n.Resources.ID
-                },
-                {
-                    field: 'pantsOctopiID',
-                    title: i18n.Resources.PantsOctopi,
+                    field: 'type',
+                    title: i18n.Resources.Type,
                     template: function (e) {
-                        return Format.pants.pantsOctopi(e);
+                        return Format.components.componentsType(e.type);
                     },
-                    editor: PantsOctopi.ddEditor
-                },
-                {
-                    field: 'size',
-                    title: i18n.Resources.Size,
-                    template: function (e) {
-                        return Format.equipment.size(e.size);
-                    },
-                    editor: Equipments.sizeDDEditor
-                },
-                {
-                    field: 'location',
-                    title: i18n.Resources.PhysicalLocation
+                    editor: Components.componentTypesDDEditor
                 },
                 {
                     field: 'status',
@@ -136,13 +140,10 @@ var Pants = {
                     editor: Equipments.equipmentStatusDDEditor
                 },
                 {
-                    field: 'qaStatus',
-                    title: i18n.Resources.QAStatus,
-                    template: function (e) {
-                        return Format.equipment.equipmentQAStatus(e.qaStatus);
-                    },
-                    editor: Equipments.equipmentQAStatusDDEditor
-                }, {
+                    field: 'quantity',
+                    title: i18n.Resources.Quantity
+                },
+                {
                     command: [{
                         name: "edit",
                         text: i18n.Resources.Edit,
@@ -177,21 +178,12 @@ var Pants = {
             this.controls.addModel = kendo.observable({
                 reset: this.onReset.bind(this),
                 submit: this.onAdd.bind(this),
-                sizes: Datasources.sizeTypes,
+                types: Datasources.componentTypes,
                 statuses: Datasources.equipmentStatusTypes,
-                qaStatuses: Datasources.equipmentQAStatusTypes,
-                pantsOctopies: Datasources.pantsOctopiDD,
                 model: this.getEmptyModel()
             });
 
             kendo.bind(model, this.controls.addModel);
-
-            this.validators.addModel = model.kendoValidator({
-                validateOnBlur: true,
-                rules: {
-                    maxLengthValidationLocation: Validator.equipment.location.maxLengthValidation
-                }
-            }).data("kendoValidator");
 
             $('.chk-show-deleted', this.controls.grid.element).click(this.onShowDeleted.bind(this));
         }
@@ -200,8 +192,8 @@ var Pants = {
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
 
-        var grid = Pants.controls.grid;
-        var enumarable = Enums.EquipmentStatusType.enum;
+        var grid = Components.controls.grid;
+        var enumerable = Enums.EquipmentStatusType.enum;
 
         $(".k-grid-delete", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
@@ -228,13 +220,13 @@ var Pants = {
         });
     },
 
-    getEmptyModel: function () {
+    
+
+    getEmptyModel: function (e) {
         return {
-            size: null,
-            location: null,
+            type: null,
             status: null,
-            qaStatus: null,
-            pantsOctopiID: null
+            quantity: null
         };
     },
 
@@ -244,11 +236,9 @@ var Pants = {
     },
 
     onRestore: function (e) {
-        var grid = Pants.controls.grid;
-
-        var item = grid.dataItem($(e.currentTarget).closest("tr"));
+        var item = Components.controls.grid.dataItem($(e.currentTarget).closest("tr"));
         item.set('status', Enums.EquipmentStatusType.enum.Ready);
-        grid.dataSource.sync();
+        Components.controls.grid.dataSource.sync();
     },
 
     onReset: function (e) {
@@ -261,9 +251,8 @@ var Pants = {
             var obj = this.controls.addModel.get('model');
 
             this.controls.grid.dataSource.add(obj);
-            this.controls.grid.dataSource.sync();
+            this.controls.grid.dataSouce.sync();
             this.controls.grid.dataSource.one('requestEnd', function (e) {
-                Datasources.pantsOctopi.read();
                 if (e.type === "create" && !e.response.Errors) {
                     this.onReset();
                 }
@@ -290,10 +279,10 @@ var Pants = {
 
         var filters = [];
 
-        if (typeof (search) !== "undefined"
-         && search !== ""
-         && search !== null) {
-            filters.push({
+        if (typeof (search) !== "undefinded"
+            && search !== ""
+            && search !== null) {
+            filter.push({
                 field: "Search",
                 operator: "eq",
                 value: search
@@ -312,4 +301,4 @@ var Pants = {
     }
 };
 
-Datasources.bind(Pants.datasources);
+Datasources.bind(Components.datasources);

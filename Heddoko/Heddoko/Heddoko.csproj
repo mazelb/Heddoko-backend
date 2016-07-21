@@ -565,6 +565,7 @@
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
     <Content Include="Scripts\js\admin\grid\equipments.js" />
+    <Content Include="Scripts\js\admin\grid\components.js" />
     <Content Include="Scripts\js\admin\grid\shirts.js" />
     <Content Include="Scripts\js\admin\grid\organizations.js" />
     <Content Include="Scripts\js\admin\grid\licenses.js" />
@@ -1109,6 +1110,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Admin\ComponentsController.cs" />
     <Compile Include="Controllers\Admin\OrganizationsController.cs" />
     <Compile Include="Controllers\Admin\PantsController.cs" />
     <Compile Include="Controllers\Admin\PantsOctopiController.cs" />
@@ -1171,6 +1173,7 @@
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
+    <Compile Include="Models\Admin\ComponentsAPIModel.cs" />
     <Compile Include="Models\Admin\ShirtAPIModel.cs" />
     <Compile Include="Models\Admin\ShirtOctopiAPIModel.cs" />
     <Compile Include="Models\Admin\OrganizationAPIModel.cs" />
@@ -1208,6 +1211,8 @@
   <ItemGroup>
     <Folder Include="Content\scss\views\" />
     <Folder Include="Helpers\JWT\" />
+    <Folder Include="Views\ComponentsAPI\" />
+    <Folder Include="Views\Components\" />
     <Folder Include="Views\ShirtsOctopi\" />
     <Folder Include="Views\Shirts\" />
   </ItemGroup>
@@ -1757,6 +1762,7 @@
     <Content Include="Views\Inventory\_Pants.cshtml" />
     <Content Include="Views\Inventory\_ShirtOctopi.cshtml" />
     <Content Include="Views\Inventory\_Shirts.cshtml" />
+    <Content Include="Views\Inventory\_Components.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

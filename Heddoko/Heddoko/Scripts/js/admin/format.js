@@ -48,6 +48,7 @@
 
             return '<span class="k-grid-showText">' + item + '</span>';
         }
+        
     },
     organization: {
         user: function (e) {
@@ -142,7 +143,7 @@
             if (item.pantsOctopi != null) {
                 var div = '<div class="">'
                 div += i18n.Resources.ID + ': <b>' + item.pantsOctopi.id + '</b><br/>';
-                div += i18n.Resources.Size + ': <b>' + Format.pantsOctopi.size(item.pantsOctopi.size) + '</b><br/>';
+                div += i18n.Resources.Size + ': <b>' + item.pantsOctopi.size + '</b><br/>';
                 div += i18n.Resources.PhysicalLocation + ': <b>' + item.pantsOctopi.location + '</b><br/>';
                 div += "</div>";
                 return div;
@@ -155,12 +156,19 @@
             if (item.shirtsOctopi != null) {
                 var div = '<div class=">'
                 div += i18n.Resources.ID + ': <b>' + item.shirtsOctopi.id + '</b><br/>';
-                div += i18n.Resources.Size + ': <b>' + Format.shirtsOctopi.size(item.shirtsOctopi.size) + '</b><br/>';
+                div += i18n.Resources.Size + ': <b>' + item.shirtsOctopi.size + '</b><br/>';
                 div += i18n.Resources.PhysicalLocation + ': <b>' + item.shirtsOctopi.location + '</b><br/>';
                 div += "</div>";
                 return div;
             }
             return '';
+        }
+    },
+    components: {
+        componentsType: function (item) {
+            item = item != null ? Enums.ComponentsType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
         }
     }
 };

@@ -900,4 +900,13 @@
   <data name="WrongSize" xml:space="preserve">
     <value>is the wrong size</value>
   </data>
+  <data name="Sensors" xml:space="default">
+    <value>Sensors</value>
+  </data>
+  <data name="Components" xml:space="default">
+    <value>Components</value>
+  </data>
+  <data name="Quantity" xml:space="default">
+    <value>Quantity</value>
+  </data>
 </root>

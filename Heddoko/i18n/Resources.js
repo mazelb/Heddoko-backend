@@ -261,7 +261,10 @@ i18n.Resources = (function () {
   "Kits": "Kits",
   "AlreadyUsed": "already used",
   "No": "No",
-  "WrongSize": "is the wrong size"
+  "WrongSize": "is the wrong size",
+  "Sensors": "Sensors",
+  "Components": "Components",
+  "Quantity": "Quantity"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());
