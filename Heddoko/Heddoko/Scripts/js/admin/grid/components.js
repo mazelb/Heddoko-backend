@@ -24,28 +24,6 @@ var Components = {
         this.componentTypes.read();
     },
 
-    //getDatasourceDD: function (id) {
-    //    return new kendo.data.DataSource({
-    //        serverPaging: false,
-    //        serverFiltering: true,
-    //        serverSorting: false,
-    //        transport: KendoDS.buildTransport('/admin/api/components'),
-    //        schema: {
-    //            data: "response",
-    //            total: "total",
-    //            errors: "Errors",
-    //            model: {
-    //                id: "id"
-    //            }
-    //        },
-    //        filter: [{
-    //            field: 'Used',
-    //            operator: 'eq',
-    //            value: id
-    //        }]
-    //    });
-    //},
-
     componentTypesDDEditor: function (container, options) {
         $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
