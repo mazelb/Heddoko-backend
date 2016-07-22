@@ -143,7 +143,7 @@
             if (item.pantsOctopi != null) {
                 var div = '<div class="">'
                 div += i18n.Resources.ID + ': <b>' + item.pantsOctopi.id + '</b><br/>';
-                div += i18n.Resources.Size + ': <b>' + item.pantsOctopi.size + '</b><br/>';
+                div += i18n.Resources.Size + ': <b>' + Format.equipment.size(item.pantsOctopi.size) + '</b><br/>';
                 div += i18n.Resources.PhysicalLocation + ': <b>' + item.pantsOctopi.location + '</b><br/>';
                 div += "</div>";
                 return div;
@@ -156,7 +156,7 @@
             if (item.shirtsOctopi != null) {
                 var div = '<div class=">'
                 div += i18n.Resources.ID + ': <b>' + item.shirtsOctopi.id + '</b><br/>';
-                div += i18n.Resources.Size + ': <b>' + item.shirtsOctopi.size + '</b><br/>';
+                div += i18n.Resources.Size + ': <b>' + Format.equipment.size(item.shirtsOctopi.size) + '</b><br/>';
                 div += i18n.Resources.PhysicalLocation + ': <b>' + item.shirtsOctopi.location + '</b><br/>';
                 div += "</div>";
                 return div;

@@ -55,13 +55,14 @@
                     </div>
 
                     <div class="col-sm-2">
-                        <input type="text"
+                        <input type="number"
                                required
                                name="components-quantity"
+                               min="0"
                                validationMessage="@i18n.Resources.Required"
                                placeholder="@i18n.Resources.Quantity"
                                class="form-control"
-                               data-bind="value: model.location" />
+                               data-bind="value: model.quantity" />
                     </div>
                 </div>
             </div>
