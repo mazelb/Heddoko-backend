@@ -97,7 +97,7 @@ var ComponentItems = {
                         template: function (e) {
                             return Format.components.componentsType(e.type);
                         },
-                        editor: this.type2DDEditor
+                        editor: this.typeDDEditor
                     },
                     {
                         field: 'status',
