@@ -97,7 +97,7 @@ var ComponentItems = {
                         template: function (e) {
                             return Format.components.componentsType(e.type);
                         },
-                        editor: this.typeDDEditor
+                        editor: this.type2DDEditor
                     },
                     {
                         field: 'status',
@@ -159,15 +159,6 @@ var ComponentItems = {
 
             $('.chk-show-deleted', this.controls.grid.element).click(this.onShowDeleted.bind(this));
         }
-    },
-
-    componentTypeDDEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDropDownList({
-            autoBind: true,
-            dataSouce: Datasources.componentTypes
-        });
     },
 
     typeDDEditor: function (container, options) {
