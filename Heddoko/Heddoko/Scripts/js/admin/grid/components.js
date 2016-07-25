@@ -97,7 +97,7 @@ var ComponentItems = {
                     template: function (e) {
                         return Format.components.componentsType(e.type);
                     },
-                    editor: this.componentTypesDDEditor
+                    editor: this.componentTypeDDEditor
                 },
                 {
                     field: 'status',
@@ -161,7 +161,7 @@ var ComponentItems = {
         }
     },
 
-    componentTypesDDEditor: function (container, options) {
+    componentTypeDDEditor: function (container, options) {
         $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({

@@ -1,46 +1,42 @@
-﻿using DAL;
-using DAL.Models;
-using Heddoko.Helpers.Auth;
-using Heddoko.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using DAL;
+using DAL.Models;
+using Heddoko.Models;
 
 namespace Heddoko.Controllers.Admin
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("admin/api/components")]
-    [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
+    [AuthAPI(Roles = Constants.Roles.Admin)]
     public class ComponentsController : BaseAdminController<Component, ComponentsAPIModel>
     {
-        const string Search = "Search";
-        const string IsDeleted = "IsDeleted";
-        const string Used = "Used";
+        private const string Search = "Search";
+        private const string IsDeleted = "IsDeleted";
 
-        public override KendoResponse<IEnumerable<ComponentsAPIModel>> Get([FromUri]KendoRequest request)
+        public override KendoResponse<IEnumerable<ComponentsAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<Component> items = null;
             int count = 0;
 
             bool isDeleted = false;
-            bool isUsed = false;
 
-            if(request != null && request.Filter != null)
+            if (request != null &&
+                request.Filter != null)
             {
                 KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
 
-                if(isDeletedFilter != null)
+                if (isDeletedFilter != null)
                 {
                     isDeleted = true;
                 }
 
                 KendoFilterItem searchFilter = request.Filter.Get(Search);
                 if (searchFilter != null
-                    && !string.IsNullOrEmpty(searchFilter.Value))
+                    &&
+                    !string.IsNullOrEmpty(searchFilter.Value))
                 {
                     items = UoW.ComponentRepository.Search(searchFilter.Value, isDeleted);
                 }
@@ -54,16 +50,17 @@ namespace Heddoko.Controllers.Admin
             count = items.Count();
 
             if (request != null
-                && request.Take.HasValue)
+                &&
+                request.Take.HasValue)
             {
                 items = items.Skip(request.Skip.Value)
                              .Take(request.Take.Value);
             }
 
-            var result = items.ToList()
-                              .Select(c => Convert(c));
+            IEnumerable<ComponentsAPIModel> result = items.ToList()
+                                                          .Select(Convert);
 
-            return new KendoResponse<IEnumerable<ComponentsAPIModel>>()
+            return new KendoResponse<IEnumerable<ComponentsAPIModel>>
             {
                 Response = result,
                 Total = count
@@ -74,7 +71,7 @@ namespace Heddoko.Controllers.Admin
         {
             Component item = UoW.ComponentRepository.Get(id);
 
-            return new KendoResponse<ComponentsAPIModel>()
+            return new KendoResponse<ComponentsAPIModel>
             {
                 Response = Convert(item)
             };
@@ -82,7 +79,7 @@ namespace Heddoko.Controllers.Admin
 
         public override KendoResponse<ComponentsAPIModel> Post(ComponentsAPIModel model)
         {
-            ComponentsAPIModel response = new ComponentsAPIModel();
+            ComponentsAPIModel response;
 
             if (ModelState.IsValid)
             {
@@ -96,13 +93,13 @@ namespace Heddoko.Controllers.Admin
             }
             else
             {
-                throw new ModelStateException()
+                throw new ModelStateException
                 {
                     ModelState = ModelState
                 };
             }
 
-            return new KendoResponse<ComponentsAPIModel>()
+            return new KendoResponse<ComponentsAPIModel>
             {
                 Response = response
             };
@@ -112,29 +109,39 @@ namespace Heddoko.Controllers.Admin
         {
             ComponentsAPIModel response = new ComponentsAPIModel();
 
-            if(model.ID.HasValue)
+            if (!model.ID.HasValue)
             {
-                Component item = UoW.ComponentRepository.GetFull(model.ID.Value);
-                if (item != null)
+                return new KendoResponse<ComponentsAPIModel>
                 {
-                    if(ModelState.IsValid)
-                    {
-                        Bind(item, model);
-                        UoW.Save();
-
-                        response = Convert(item);
-                    }
-                    else
-                    {
-                        throw new ModelStateException()
-                        {
-                            ModelState = ModelState
-                        };
-                    }
-                }
+                    Response = response
+                };
             }
 
-            return new KendoResponse<ComponentsAPIModel>()
+            Component item = UoW.ComponentRepository.GetFull(model.ID.Value);
+            if (item == null)
+            {
+                return new KendoResponse<ComponentsAPIModel>
+                {
+                    Response = response
+                };
+            }
+
+            if (ModelState.IsValid)
+            {
+                Bind(item, model);
+                UoW.Save();
+
+                response = Convert(item);
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+
+            return new KendoResponse<ComponentsAPIModel>
             {
                 Response = response
             };
@@ -144,14 +151,19 @@ namespace Heddoko.Controllers.Admin
         {
             Component item = UoW.ComponentRepository.GetFull(id);
 
-            if (item.ID != CurrentUser.ID)
+            if (item.ID == CurrentUser.ID)
             {
-                item.Status = EquipmentStatusType.Trash;
-
-                UoW.Save();
+                return new KendoResponse<ComponentsAPIModel>
+                {
+                    Response = Convert(item)
+                };
             }
 
-            return new KendoResponse<ComponentsAPIModel>()
+            item.Status = EquipmentStatusType.Trash;
+
+            UoW.Save();
+
+            return new KendoResponse<ComponentsAPIModel>
             {
                 Response = Convert(item)
             };
@@ -178,7 +190,7 @@ namespace Heddoko.Controllers.Admin
                 return null;
             }
 
-            return new ComponentsAPIModel()
+            return new ComponentsAPIModel
             {
                 ID = item.ID,
                 Status = item.Status,
