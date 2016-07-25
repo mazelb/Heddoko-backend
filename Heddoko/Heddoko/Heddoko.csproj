@@ -808,6 +808,7 @@
     <Content Include="Scripts\kendo\kendo.angular.min.js.map" />
     <Content Include="Scripts\kendo\kendo.angular2.min.js.map" />
     <Content Include="Views\Inventory\_Databoards.cshtml" />
+    <Content Include="Views\Inventory\_Powerboards.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

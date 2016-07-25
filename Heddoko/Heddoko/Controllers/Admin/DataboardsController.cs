@@ -235,6 +235,7 @@ namespace Heddoko.Controllers
                 ID = item.ID,
                 IDView = item.IDView,
                 Version = item.Version,
+                Location =  item.Location,
                 Status = item.Status,
                 FirmwareID = item.FirmwareID,
                 Firmware = item.Firmware

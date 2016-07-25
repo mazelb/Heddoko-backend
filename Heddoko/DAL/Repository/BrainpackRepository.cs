@@ -19,7 +19,7 @@ namespace DAL
             });
         }
 
-        public void RemovePowerBoard(int powerboardID)
+        public void RemovePowerboard(int powerboardID)
         {
             DbSet.Where(c => c.PowerboardID.Value == powerboardID).Update(c => new Brainpack()
             {

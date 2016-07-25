@@ -11,6 +11,7 @@
 
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#suits">@i18n.Resources.Kits</a></li>
+        <li><a data-toggle="tab" href="#powerboards">@i18n.Resources.Powerboards</a></li>
         <li><a data-toggle="tab" href="#databoards">@i18n.Resources.Databoards</a></li>
         <li><a data-toggle="tab" href="#shirts">@i18n.Resources.Shirts</a></li>
         <li><a data-toggle="tab" href="#shirt_octopi">@i18n.Resources.ShirtsOctopi</a></li>
@@ -20,6 +21,10 @@
     @Html.Partial("_FlashMessages", Model.Flash)
     <div class="tab-content">
         <div id="kits" class="tab-pane fade in active">
+        </div>
+
+        <div id="powerboards" class="tab-pane fade">
+            @Html.Partial("_Powerboards")
         </div>
 
         <div id="databoards" class="tab-pane fade">

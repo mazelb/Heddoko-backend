@@ -77,9 +77,9 @@ var Powerboards = {
     },
 
     init: function () {
-        var control = $("#databoardsGrid");
-        var filter = $(".databoardsFilter");
-        this.controls.form = $(".databoardsForm");
+        var control = $("#powerboardsGrid");
+        var filter = $(".powerboardsFilter");
+        this.controls.form = $(".powerboardsForm");
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
