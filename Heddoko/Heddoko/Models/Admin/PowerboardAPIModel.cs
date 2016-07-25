@@ -6,13 +6,13 @@ using i18n;
 
 namespace Heddoko.Models
 {
-    public class DataboardAPIModel : BaseAPIModel
+    public class PowerboardAPIModel : BaseAPIModel
     {
-        public DataboardAPIModel()
+        public PowerboardAPIModel()
         {
         }
 
-        public DataboardAPIModel(bool isEmpty)
+        public PowerboardAPIModel(bool isEmpty)
         {
             IsEmpty = isEmpty;
         }
@@ -33,6 +33,6 @@ namespace Heddoko.Models
 
         public string IDView { get; set; }
 
-        public string Name => IsEmpty ? $"{Resources.No} {Resources.Databoard}" : $"{IDView}";
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.Powerboard}" : $"{IDView}";
     }
 }

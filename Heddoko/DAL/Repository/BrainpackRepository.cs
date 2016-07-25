@@ -18,5 +18,13 @@ namespace DAL
                 DataboardID = null
             });
         }
+
+        public void RemovePowerBoard(int powerboardID)
+        {
+            DbSet.Where(c => c.PowerboardID.Value == powerboardID).Update(c => new Brainpack()
+            {
+                PowerboardID = null
+            });
+        }
     }
 }

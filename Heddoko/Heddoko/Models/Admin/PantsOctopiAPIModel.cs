@@ -29,9 +29,6 @@ namespace Heddoko.Models
 
         public string IDView { get; set; }
 
-        public string Name
-        {
-            get { return IsEmpty ? $"{Resources.No} {Resources.PantsOctopi}" : $"{IDView} - {Size.GetDisplayName()} - {Location}"; }
-        }
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.PantsOctopi}" : $"{IDView} - {Size.GetDisplayName()} - {Location}";
     }
 }

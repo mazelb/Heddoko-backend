@@ -134,7 +134,8 @@ var Firmwares = {
                 columns: [
                 {
                     field: 'idView',
-                    title: i18n.Resources.ID
+                    title: i18n.Resources.ID,
+                    editor: KendoDS.emptyEditor
                 },
                 {
                     field: 'type',
