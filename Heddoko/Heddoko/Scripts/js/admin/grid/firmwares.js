@@ -20,7 +20,11 @@ var Firmwares = {
         //Datasources context
         this.firmwares = Firmwares.getDatasource();
 
-        this.firmwaresDD = Firmwares.getDatasourceDD();
+        this.firmwaresBrainpacks = Firmwares.getDatasourceDD(Enums.FirmwareType.enum.Brainpack);
+
+        this.firmwaresDataboards= Firmwares.getDatasourceDD(Enums.FirmwareType.enum.Databoard);
+
+        this.firmwaresPowerboards = Firmwares.getDatasourceDD(Enums.FirmwareType.enum.Powerboard);
 
         this.firmwareTypes = new kendo.data.DataSource({
             data: _.values(Enums.FirmwareType.array)
@@ -246,12 +250,30 @@ var Firmwares = {
         });
     },
 
-    ddEditor: function (container, options) {
+    ddEditorBrainpack: function (container, options) {
         $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             autoBind: true,
-            dataSource: Firmwares.getDatasourceDD(options.model.id)
+            dataSource: Datasources.firmwaresBrainpacks
+        });
+    },
+
+    ddEditorDataboards: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.firmwaresDataboards
+        });
+    },
+
+    ddEditorPowerboards: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.firmwaresPowerboards
         });
     },
 
@@ -350,7 +372,7 @@ var Firmwares = {
 
     buildFilter: function (search) {
         Notifications.clear();
-        var search = this.controls.filterModel.search;
+        search = this.controls.filterModel.search;
 
         var filters = [];
 

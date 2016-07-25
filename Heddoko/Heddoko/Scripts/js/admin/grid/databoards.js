@@ -1,10 +1,11 @@
 ﻿$(function () {
-    ShirtsOctopi.init();
+    Databoards.init();
 });
 
-var ShirtsOctopi = {
+var Databoards = {
     isDeleted: false,
     controls: {
+        form: null,
         grid: null,
         filterModel: null,
         addModel: null
@@ -16,31 +17,7 @@ var ShirtsOctopi = {
 
     datasources: function () {
         //Datasources context
-        this.shirtsOctopi = ShirtsOctopi.getDatasource();
-
-        this.shirtsOctopiDD = ShirtsOctopi.getDatasourceDD();
-    },
-
-    getDatasourceDD: function (id) {
-        return new kendo.data.DataSource({
-            serverPaging: false,
-            serverFiltering: true,
-            serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/shirtsoctopi'),
-            schema: {
-                data: "response",
-                total: "total",
-                errors: "Errors",
-                model: {
-                    id: "id"
-                }
-            },
-            filter: [{
-                field: 'Used',
-                operator: 'eq',
-                value: id
-            }]
-        });
+        this.databoards = Databoards.getDatasource();
     },
 
     getDatasource: function () {
@@ -49,7 +26,7 @@ var ShirtsOctopi = {
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/shirtsoctopi'),
+            transport: KendoDS.buildTransport("/admin/api/databoards"),
             schema: {
                 data: "response",
                 total: "total",
@@ -61,11 +38,18 @@ var ShirtsOctopi = {
                             editable: false,
                             nullable: true
                         },
-                        size: {
+                        version: {
                             nullable: false,
-                            type: "number",
+                            type: "string",
                             validation: {
                                 required: true,
+                                maxLengthValidation: Validator.equipment.version.maxLengthValidation
+                            }
+                        },
+                        firmwareID: {
+                            nullable: true,
+                            type: "number",
+                            validation: {
                                 max: KendoDS.maxInt
                             }
                         },
@@ -85,15 +69,6 @@ var ShirtsOctopi = {
                                 min: 0,
                                 max: KendoDS.maxInt
                             }
-                        },
-                        qaStatus: {
-                            nullable: false,
-                            type: "number",
-                            validation: {
-                                required: true,
-                                min: 0,
-                                max: KendoDS.maxInt
-                            }
                         }
                     }
                 }
@@ -102,13 +77,13 @@ var ShirtsOctopi = {
     },
 
     init: function () {
-        var control = $('#shirtsOctopiGrid');
-        var filter = $('.shirtsOctopiFilter');
-        var model = $('.shirtsOctopiForm');
+        var control = $("#databoardsGrid");
+        var filter = $(".databoardsFilter");
+        this.controls.form = $(".databoardsForm");
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                dataSource: Datasources.shirtsOctopi,
+                dataSource: Datasources.databoards,
                 sortable: false,
                 editable: "popup",
                 selectable: false,
@@ -124,36 +99,32 @@ var ShirtsOctopi = {
                 }],
                 columns: [
                 {
-                    field: 'idView',
+                    field: "idView",
                     title: i18n.Resources.ID
                 },
                 {
-                    field: 'size',
-                    title: i18n.Resources.Size,
+                    field: "firmwareID",
+                    title: i18n.Resources.FirmwareVersion,
                     template: function (e) {
-                        return Format.equipment.size(e.size);
+                        return Format.firmware.version(e);
                     },
-                    editor: ShirtsOctopi.sizeDDEditor
+                    editor: Firmwares.ddEditorDataboards
                 },
                 {
-                    field: 'location',
+                    field: "version",
+                    title: i18n.Resources.Version
+                },
+                {
+                    field: "location",
                     title: i18n.Resources.PhysicalLocation
                 },
                 {
-                    field: 'status',
+                    field: "status",
                     title: i18n.Resources.Status,
                     template: function (e) {
                         return Format.equipment.equipmentStatus(e.status);
                     },
                     editor: Equipments.equipmentStatusDDEditor
-                },
-                {
-                    field: 'qaStatus',
-                    title: i18n.Resources.QAStatus,
-                    template: function (e) {
-                        return Format.equipment.equipmentQAStatus(e.qaStatus);
-                    },
-                    editor: Equipments.equipmentQAStatusDDEditor
                 }, {
                     command: [{
                         name: "edit",
@@ -191,14 +162,14 @@ var ShirtsOctopi = {
                 submit: this.onAdd.bind(this),
                 sizes: Datasources.sizeTypes,
                 statuses: Datasources.equipmentStatusTypes,
-                qaStatuses: Datasources.equipmentQAStatusTypes,
+                firmwares: Datasources.firmwaresDataboards,
                 model: this.getEmptyModel()
             });
 
-            kendo.bind(model, this.controls.addModel);
+            kendo.bind(this.controls.form, this.controls.addModel);
 
-            this.validators.addModel = model.kendoValidator({
-                validateonBlur: true,
+            this.validators.addModel = this.controls.form.kendoValidator({
+                validateOnBlur: true,
                 rules: {
                     maxLengthValidationLocation: Validator.equipment.location.maxLengthValidation
                 }
@@ -211,13 +182,13 @@ var ShirtsOctopi = {
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
 
-        var grid = ShirtsOctopi.controls.grid;
+        var grid = Databoards.controls.grid;
         var enumarable = Enums.EquipmentStatusType.enum;
 
         $(".k-grid-delete", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status == enumarable.Trash) {
+            if (currentDataItem.status === enumarable.Trash) {
                 $(this).remove();
             }
         });
@@ -225,7 +196,7 @@ var ShirtsOctopi = {
         $(".k-grid-edit", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status == enumarable.Trash) {
+            if (currentDataItem.status === enumarable.Trash) {
                 $(this).remove();
             }
         });
@@ -233,54 +204,48 @@ var ShirtsOctopi = {
         $(".k-grid-restore", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status != enumarable.Trash) {
+            if (currentDataItem.status !== enumarable.Trash) {
                 $(this).remove();
             }
         });
     },
 
-    ddEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDropDownList({
-            autoBind: true,
-            dataSource: ShirtsOctopi.getDatasourceDD(options.model.id)
-        });
-    },
-
     getEmptyModel: function () {
         return {
-            size: null,
+            version: null,
+            firmwareID: null,
             location: null,
-            status: null,
-            qaStatus: null
+            status: null
         };
     },
 
     onShowDeleted: function (e) {
-        this.isDeleted = $(e.currentTarget).prop('checked');
+        this.isDeleted = $(e.currentTarget).prop("checked");
         this.onFilter();
     },
 
     onRestore: function (e) {
-        var item = ShirtsOctopi.controls.grid.dataItem($(e.currentTarget).closest("tr"));
-        item.set('status', Enums.EquipmentStatusType.enum.Ready);
-        ShirtsOctopi.controls.grid.dataSource.sync();
+        var grid = Databoards.controls.grid;
+
+        var item = grid.dataItem($(e.currentTarget).closest("tr"));
+        item.set("status", Enums.EquipmentStatusType.enum.Ready);
+        grid.dataSource.sync();
     },
 
     onReset: function (e) {
-        this.controls.addModel.set('model', this.getEmptyModel());
+        this.controls.addModel.set("model", this.getEmptyModel());
     },
 
     onAdd: function (e) {
         Notifications.clear();
         if (this.validators.addModel.validate()) {
-            var obj = this.controls.addModel.get('model');
+            var obj = this.controls.addModel.get("model");
 
             this.controls.grid.dataSource.add(obj);
             this.controls.grid.dataSource.sync();
-            this.controls.grid.dataSource.one('requestEnd', function (e) {
-                if (e.type === "create" && !e.response.Errors) {
+            this.controls.grid.dataSource.one("requestEnd", function (ev) {
+                if (ev.type === "create"
+                && !ev.response.Errors) {
                     this.onReset();
                 }
             }.bind(this));
@@ -328,4 +293,4 @@ var ShirtsOctopi = {
     }
 };
 
-Datasources.bind(ShirtsOctopi.datasources);
+Datasources.bind(Databoards.datasources);

@@ -115,6 +115,10 @@
     <Compile Include="Migrations\201607222340125_RemoveOld.Designer.cs">
       <DependentUpon>201607222340125_RemoveOld.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607251134294_RemoveUnused.cs" />
+    <Compile Include="Migrations\201607251134294_RemoveUnused.Designer.cs">
+      <DependentUpon>201607251134294_RemoveUnused.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Enum\FirmwareStatusType.cs" />
@@ -237,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607222340125_RemoveOld.resx">
       <DependentUpon>201607222340125_RemoveOld.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607251134294_RemoveUnused.resx">
+      <DependentUpon>201607251134294_RemoveUnused.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

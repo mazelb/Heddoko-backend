@@ -1,4 +1,6 @@
-﻿using DAL.Models;
+﻿using System.Linq;
+using DAL.Models;
+using EntityFramework.Extensions;
 
 namespace DAL
 {
@@ -7,6 +9,14 @@ namespace DAL
         public BrainpackRepository(HDContext sb)
             : base(sb)
         {
+        }
+
+        public void RemoveDataboard(int databoardID)
+        {
+            DbSet.Where(c => c.DataboardID.Value == databoardID).Update(c => new Brainpack()
+            {
+                DataboardID = null
+            });
         }
     }
 }

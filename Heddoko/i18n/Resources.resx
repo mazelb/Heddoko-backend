@@ -918,4 +918,25 @@
   <data name="Url" xml:space="preserve">
     <value>Url</value>
   </data>
+  <data name="FirmwareVersion" xml:space="preserve">
+    <value>Firmware version</value>
+  </data>
+  <data name="Brainpack" xml:space="preserve">
+    <value>Brainpack</value>
+  </data>
+  <data name="Brainpacks" xml:space="preserve">
+    <value>Brainpacks</value>
+  </data>
+  <data name="Databoard" xml:space="preserve">
+    <value>Databoard</value>
+  </data>
+  <data name="Databoards" xml:space="preserve">
+    <value>Databoards</value>
+  </data>
+  <data name="Powerboard" xml:space="preserve">
+    <value>Powerboard</value>
+  </data>
+  <data name="Powerboards" xml:space="preserve">
+    <value>Powerboards</value>
+  </data>
 </root>

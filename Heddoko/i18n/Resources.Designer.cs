@@ -277,6 +277,24 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brainpack.
+        /// </summary>
+        public static string Brainpack {
+            get {
+                return ResourceManager.GetString("Brainpack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brainpacks.
+        /// </summary>
+        public static string Brainpacks {
+            get {
+                return ResourceManager.GetString("Brainpacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t add duplicate.
         /// </summary>
         public static string CannotAddDuplicate {
@@ -426,6 +444,24 @@ namespace i18n {
         public static string DataAnalysisAmount {
             get {
                 return ResourceManager.GetString("DataAnalysisAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Databoard.
+        /// </summary>
+        public static string Databoard {
+            get {
+                return ResourceManager.GetString("Databoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Databoards.
+        /// </summary>
+        public static string Databoards {
+            get {
+                return ResourceManager.GetString("Databoards", resourceCulture);
             }
         }
         
@@ -786,6 +822,15 @@ namespace i18n {
         public static string Find {
             get {
                 return ResourceManager.GetString("Find", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firmware version.
+        /// </summary>
+        public static string FirmwareVersion {
+            get {
+                return ResourceManager.GetString("FirmwareVersion", resourceCulture);
             }
         }
         
@@ -1470,6 +1515,24 @@ namespace i18n {
         public static string PleaseChooseFileForUpload {
             get {
                 return ResourceManager.GetString("PleaseChooseFileForUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powerboard.
+        /// </summary>
+        public static string Powerboard {
+            get {
+                return ResourceManager.GetString("Powerboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powerboards.
+        /// </summary>
+        public static string Powerboards {
+            get {
+                return ResourceManager.GetString("Powerboards", resourceCulture);
             }
         }
         

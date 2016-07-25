@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -42,7 +41,7 @@ namespace Heddoko.Controllers
                     FirmwareType type = FirmwareType.Brainpack;
                     if (int.TryParse(isUsedFilter.Value, out tmp))
                     {
-                        type = (FirmwareType)tmp;
+                        type = (FirmwareType) tmp;
                     }
 
                     items = UoW.FirmwareRepository.GetByType(type);
@@ -74,7 +73,8 @@ namespace Heddoko.Controllers
             int count = items.Count();
 
             if (request?.Take != null
-             && request.Skip != null)
+                &&
+                request.Skip != null)
             {
                 items = items.Skip(request.Skip.Value)
                              .Take(request.Take.Value);
@@ -140,15 +140,14 @@ namespace Heddoko.Controllers
                             model.Version = val;
                             break;
                         case "type":
-                            model.Type = (FirmwareType)int.Parse(val);
+                            model.Type = (FirmwareType) int.Parse(val);
                             break;
                         case "status":
-                            model.Status = (FirmwareStatusType)int.Parse(val);
+                            model.Status = (FirmwareStatusType) int.Parse(val);
                             break;
                     }
                 }
             }
-
 
 
             Firmware item = new Firmware();
@@ -173,7 +172,7 @@ namespace Heddoko.Controllers
                 break;
             }
 
-            UoW.AssetRepository.Add((asset));
+            UoW.AssetRepository.Add(asset);
             item.Asset = asset;
 
             UoW.Save();

@@ -267,7 +267,14 @@ i18n.Resources = (function () {
   "Version": "Version",
   "PleaseChooseFileForUpload": "Please choose file for upload",
   "Download": "Download",
-  "Url": "Url"
+  "Url": "Url",
+  "FirmwareVersion": "Firmware version",
+  "Brainpack": "Brainpack",
+  "Brainpacks": "Brainpacks",
+  "Databoard": "Databoard",
+  "Databoards": "Databoards",
+  "Powerboard": "Powerboard",
+  "Powerboards": "Powerboards"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

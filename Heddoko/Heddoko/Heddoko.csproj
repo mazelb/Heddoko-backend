@@ -567,6 +567,7 @@
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
     <Content Include="Scripts\js\admin\grid\equipments.js" />
+    <Content Include="Scripts\js\admin\grid\databoards.js" />
     <Content Include="Scripts\js\admin\grid\shirts.js" />
     <Content Include="Scripts\js\admin\grid\organizations.js" />
     <Content Include="Scripts\js\admin\grid\licenses.js" />
@@ -634,6 +635,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Admin\DataboardsController.cs" />
     <Compile Include="Controllers\Admin\OrganizationsController.cs" />
     <Compile Include="Controllers\Admin\PantsController.cs" />
     <Compile Include="Controllers\Admin\PantsOctopiController.cs" />
@@ -697,6 +699,7 @@
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
+    <Compile Include="Models\Admin\DataboardAPIModel.cs" />
     <Compile Include="Models\Admin\ShirtAPIModel.cs" />
     <Compile Include="Models\Admin\FirmwareAPIModel.cs" />
     <Compile Include="Models\Admin\ShirtOctopiAPIModel.cs" />
@@ -801,6 +804,7 @@
     <Content Include="Views\Firmware\Index.cshtml" />
     <Content Include="Scripts\kendo\kendo.angular.min.js.map" />
     <Content Include="Scripts\kendo\kendo.angular2.min.js.map" />
+    <Content Include="Views\Inventory\_Databoards.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

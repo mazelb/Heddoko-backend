@@ -1,24 +1,4 @@
 ﻿var Validator = {
-    materialType: {
-        maxSize: 50,
-        maxLengthValidation: function (input) {
-            return Validator.maxLengthValidation(input, 'identifier', Validator.materialType.maxSize);
-        }
-    },
-    material: {
-        name: {
-            maxSize: 255,
-            maxLengthValidation: function (input) {
-                return Validator.maxLengthValidation(input, 'name', Validator.material.name.maxSize);
-            }
-        },
-        partNo: {
-            maxSize: 255,
-            maxLengthValidation: function (input) {
-                return Validator.maxLengthValidation(input, 'partNo', Validator.material.partNo.maxSize);
-            }
-        }
-    },
     equipment: {
         notes: {
             maxSize: 1024,

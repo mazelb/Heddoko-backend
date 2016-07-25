@@ -111,7 +111,7 @@ var Pants = {
                     field: 'pantsOctopiID',
                     title: i18n.Resources.PantsOctopi,
                     template: function (e) {
-                        return Format.equipment.pantsOctopi(e);
+                        return Format.pants.pantsOctopi(e);
                     },
                     editor: PantsOctopi.ddEditor
                 },

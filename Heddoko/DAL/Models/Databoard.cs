@@ -12,9 +12,6 @@ namespace DAL.Models
         [StringLength(255)]
         public string Version { get; set; }
 
-        [StringLength(255)]
-        public string FirmwareVersion { get; set; }
-
         public EquipmentStatusType Status { get; set; }
 
         #region NotMapped
