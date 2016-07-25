@@ -1,14 +1,15 @@
-﻿using DAL.Models;
-using System.Linq;
-using System.Data.Entity;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.Data.Entity;
+using System.Linq;
+using DAL.Models;
 
 namespace DAL
 {
     public class LicenseRepository : BaseRepository<License>, ILicenseRepository
     {
-        public LicenseRepository(HDContext sb) : base(sb)
+        public LicenseRepository(HDContext sb)
+            : base(sb)
         {
         }
 
@@ -23,7 +24,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.Users)
-                        .Where(c => c.ID == id).FirstOrDefault();
+                        .FirstOrDefault(c => c.ID == id);
         }
 
         public IEnumerable<License> GetByOrganization(int organizationID)
@@ -33,7 +34,7 @@ namespace DAL
 
         public IEnumerable<License> Search(string search, int? organizationID = null)
         {
-            return All().Where(c => organizationID.HasValue ? c.OrganizationID.HasValue && c.OrganizationID.Value == organizationID : true)
+            return All().Where(c => !organizationID.HasValue || c.OrganizationID.HasValue && c.OrganizationID.Value == organizationID)
                         .Where(c => (c.OrganizationID + "-" + c.ID).ToLower().Contains(search.ToLower()));
         }
 
@@ -43,9 +44,9 @@ namespace DAL
 
             return DbSet.Include(c => c.Organization)
                         .Where(c => c.OrganizationID.Value == organizationID
-                                 && c.Status == LicenseStatusType.Active
-                                 && c.Users.Count() < c.Amount
-                                 && c.ExpirationAt > today)
+                                    && c.Status == LicenseStatusType.Active
+                                    && c.Users.Count() < c.Amount
+                                    && c.ExpirationAt > today)
                         .OrderByDescending(c => c.ExpirationAt);
         }
     }

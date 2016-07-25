@@ -82,7 +82,7 @@
     <Compile Include="HDContext.cs" />
     <Compile Include="Helpers\AssetManager.cs" />
     <Compile Include="Helpers\CustomSqlServerMigrationSqlGenerator.cs" />
-    <Compile Include="Helpers\JWTHelper.cs" />
+    <Compile Include="Helpers\JwtHelper.cs" />
     <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Helpers\PasswordHasher.cs" />
     <Compile Include="Helpers\RedisManager.cs" />
@@ -107,9 +107,24 @@
     <Compile Include="Migrations\201607110242531_NewInventory.Designer.cs">
       <DependentUpon>201607110242531_NewInventory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607221948075_Firmware.cs" />
+    <Compile Include="Migrations\201607221948075_Firmware.Designer.cs">
+      <DependentUpon>201607221948075_Firmware.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607222340125_RemoveOld.cs" />
+    <Compile Include="Migrations\201607222340125_RemoveOld.Designer.cs">
+      <DependentUpon>201607222340125_RemoveOld.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607251134294_RemoveUnused.cs" />
+    <Compile Include="Migrations\201607251134294_RemoveUnused.Designer.cs">
+      <DependentUpon>201607251134294_RemoveUnused.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
+    <Compile Include="Models\Enum\FirmwareStatusType.cs" />
+    <Compile Include="Models\Firmware.cs" />
     <Compile Include="Models\Component.cs" />
+    <Compile Include="Models\Enum\FirmwareType.cs" />
     <Compile Include="Models\Enum\SizeType.cs" />
     <Compile Include="Models\Enum\ComponentsType.cs" />
     <Compile Include="Models\Enum\EquipmentQAStatusType.cs" />
@@ -152,22 +167,13 @@
     <Compile Include="Models\Enum\LicenseType.cs" />
     <Compile Include="Models\Enum\UserStatusType.cs" />
     <Compile Include="Models\FlashMessage.cs" />
-    <Compile Include="Models\Folder.cs" />
-    <Compile Include="Models\MovementEvent.cs" />
-    <Compile Include="Models\MovementFrame.cs" />
-    <Compile Include="Models\Group.cs" />
-    <Compile Include="Models\Movement.cs" />
-    <Compile Include="Models\MovementMarker.cs" />
     <Compile Include="Models\Asset.cs" />
-    <Compile Include="Models\Profile.cs" />
-    <Compile Include="Models\Screening.cs" />
-    <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Enum\UserGenderType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AssetRepository.cs" />
-    <Compile Include="Repository\FolderRepository.cs" />
     <Compile Include="Repository\Interface\ILicenseRepository.cs" />
+    <Compile Include="Repository\Interface\IFirmwareRepository.cs" />
     <Compile Include="Repository\Interface\IShirtOctopiRepository.cs" />
     <Compile Include="Repository\Interface\ISensorSetRepository.cs" />
     <Compile Include="Repository\Interface\ISensorRepository.cs" />
@@ -182,12 +188,7 @@
     <Compile Include="Repository\LicenseRepository.cs" />
     <Compile Include="Repository\OrganizationRepository.cs" />
     <Compile Include="Repository\Interface\IOrganizationRepository.cs" />
-    <Compile Include="Repository\MovementMarkerRepository.cs" />
-    <Compile Include="Repository\MovementFrameRepository.cs" />
-    <Compile Include="Repository\MovementEventRepository.cs" />
-    <Compile Include="Repository\MovementRepository.cs" />
-    <Compile Include="Repository\ProfileRepository.cs" />
-    <Compile Include="Repository\ScreeningRepository.cs" />
+    <Compile Include="Repository\FirmwareRepository.cs" />
     <Compile Include="Repository\ShirtOctopiRepository.cs" />
     <Compile Include="Repository\SensorSetRepository.cs" />
     <Compile Include="Repository\SensorRepository.cs" />
@@ -199,23 +200,12 @@
     <Compile Include="Repository\ShirtRepository.cs" />
     <Compile Include="Repository\BrainpackRepository.cs" />
     <Compile Include="Repository\ComponentRepository.cs" />
-    <Compile Include="Repository\TagRepository.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\AccessTokenRepository.cs" />
-    <Compile Include="Repository\Interface\IMovementMarkerRepository.cs" />
-    <Compile Include="Repository\Interface\IMovementFrameRepository.cs" />
-    <Compile Include="Repository\Interface\IMovementEventRepository.cs" />
-    <Compile Include="Repository\Interface\ITagRepository.cs" />
-    <Compile Include="Repository\Interface\IScreeningRepository.cs" />
-    <Compile Include="Repository\Interface\IProfileRepository.cs" />
-    <Compile Include="Repository\Interface\IMovementRepository.cs" />
     <Compile Include="Repository\Interface\ICacheRepository.cs" />
-    <Compile Include="Repository\GroupRepository.cs" />
     <Compile Include="Repository\Interface\IBaseRepository.cs" />
     <Compile Include="Repository\Interface\IAccessTokenRepository.cs" />
     <Compile Include="Repository\Interface\IAssetRepository.cs" />
-    <Compile Include="Repository\Interface\IFolderRepository.cs" />
-    <Compile Include="Repository\Interface\IGroupRepository.cs" />
     <Compile Include="Repository\Interface\IUserRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
@@ -245,6 +235,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607110242531_NewInventory.resx">
       <DependentUpon>201607110242531_NewInventory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607221948075_Firmware.resx">
+      <DependentUpon>201607221948075_Firmware.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607222340125_RemoveOld.resx">
+      <DependentUpon>201607222340125_RemoveOld.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607251134294_RemoveUnused.resx">
+      <DependentUpon>201607251134294_RemoveUnused.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

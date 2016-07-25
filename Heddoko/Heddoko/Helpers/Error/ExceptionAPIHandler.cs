@@ -1,5 +1,4 @@
-﻿using Heddoko.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,9 +7,10 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
+using Heddoko.Models;
+using Newtonsoft.Json;
 
 namespace Heddoko.Helpers.Error
 {
@@ -26,13 +26,9 @@ namespace Heddoko.Helpers.Error
             }
 
             Guid guid = Guid.NewGuid();
-            Trace.TraceError("ExceptionAPIHandler.{0}: Unhandled exception caught in API '{1}'  Body: '{2}' Error: {3}",
-                guid,
-                context.Request.RequestUri,
-                context.Request.Content.ReadAsStringAsync().Result,
-                context.Exception.ToString());
+            Trace.TraceError($"ExceptionAPIHandler.{guid}: Unhandled exception caught in API '{context.Request.RequestUri}'  Body: '{context.Request.Content.ReadAsStringAsync().Result}' Error: {context.Exception}");
 
-            context.Result = new ErrorResult()
+            context.Result = new ErrorResult
             {
                 Guid = guid,
                 Request = context.Request,
@@ -42,28 +38,30 @@ namespace Heddoko.Helpers.Error
 
         private class ErrorResult : IHttpActionResult
         {
-            public HttpRequestMessage Request { get; set; }
+            public HttpRequestMessage Request { private get; set; }
 
-            public Guid Guid { get; set; }
+            public Guid Guid { private get; set; }
 
-            public List<ErrorAPIViewModel> Errors { get; set; }
+            public List<ErrorAPIViewModel> Errors { private get; set; }
 
             public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
             {
-                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-
-                response.Content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(new
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK)
                 {
-                    Errors = new
+                    Content = new StringContent(JsonConvert.SerializeObject(new
                     {
-                        Guid = Guid,
-                        Errors = Errors,
-                        Method = Request.Method.ToString(),
-                        ID = Request.GetRouteData().Values.FirstOrDefault(c => c.Key == "id").Value
-                    }
-                }));
+                        Errors = new
+                        {
+                            Guid,
+                            Errors,
+                            Method = Request.Method.ToString(),
+                            ID = Request.GetRouteData().Values.FirstOrDefault(c => c.Key == "id").Value
+                        }
+                    })),
+                    RequestMessage = Request
+                };
 
-                response.RequestMessage = Request;
+
                 return Task.FromResult(response);
             }
         }

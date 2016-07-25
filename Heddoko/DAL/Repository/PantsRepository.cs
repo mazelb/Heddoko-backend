@@ -1,15 +1,15 @@
-﻿using DAL.Models;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Collections.Generic;
+using System.Linq;
+using DAL.Models;
 using EntityFramework.Extensions;
-using System.Text.RegularExpressions;
 
 namespace DAL
 {
     public class PantsRepository : BaseRepository<Pants>, IPantsRepository
     {
-        public PantsRepository(HDContext sb) : base(sb)
+        public PantsRepository(HDContext sb)
+            : base(sb)
         {
         }
 
@@ -32,17 +32,17 @@ namespace DAL
             return DbSet.Include(c => c.PantsOctopi)
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                         .Where(c => (c.ID == id)
-                                 || (c.Size.ToString().ToLower().Contains(search.ToLower()))
-                                 || (c.Location.ToLower().Contains(search.ToLower())))
+                                    || c.Size.ToString().ToLower().Contains(search.ToLower())
+                                    || c.Location.ToLower().Contains(search.ToLower()))
                         .OrderBy(c => c.ID);
         }
 
         public void RemovePantsOctopi(int pantsOctopiID)
         {
-            DbSet.Where(c => c.PantsOctopiID.Value == pantsOctopiID).Update(c => new Pants()
-            {
-                PantsOctopiID = null
-            });
+            DbSet.Where(c => c.PantsOctopiID.Value == pantsOctopiID).Update(c => new Pants
+                                                                                 {
+                                                                                     PantsOctopiID = null
+                                                                                 });
         }
     }
 }

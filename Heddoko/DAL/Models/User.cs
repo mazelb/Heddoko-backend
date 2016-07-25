@@ -1,17 +1,15 @@
-﻿using DAL.Helpers;
-using Jil;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DAL.Helpers;
+using Jil;
+using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class User : BaseModel
+    public sealed class User : BaseModel
     {
         [Index(IsUnique = true)]
         [StringLength(255)]
@@ -51,7 +49,8 @@ namespace DAL.Models
             get
             {
                 if (License != null
-                && License.IsActive)
+                    &&
+                    License.IsActive)
                 {
                     switch (License.Type)
                     {
@@ -87,17 +86,18 @@ namespace DAL.Models
         public DateTime? ForgotExpiration { get; set; }
 
         #region Relations
+
         [JsonIgnore]
         public int? OrganizationID { get; set; }
 
         [JsonIgnore]
-        public virtual Organization Organization { get; set; }
+        public Organization Organization { get; set; }
 
         [JsonIgnore]
         public int? LicenseID { get; set; }
 
         [JsonIgnore]
-        public virtual License License { get; set; }
+        public License License { get; set; }
 
         public string LicenseInfoToken
         {
@@ -105,19 +105,19 @@ namespace DAL.Models
             {
                 if (License != null)
                 {
-                    LicenseInfo info = new LicenseInfo()
-                    {
-                        ID = License.ID,
-                        ExpiredAt = License.ExpirationAt,
-                        Name = License.Name,
-                        Status = License.Status,
-                        Type = License.Type,
-                        ViewID = License.ViewID
-                    };
+                    LicenseInfo info = new LicenseInfo
+                                       {
+                                           ID = License.ID,
+                                           ExpiredAt = License.ExpirationAt,
+                                           Name = License.Name,
+                                           Status = License.Status,
+                                           Type = License.Type,
+                                           ViewID = License.ViewID
+                                       };
 
                     string json = JsonConvert.SerializeObject(info);
 
-                    return JWTHelper.Create(json);
+                    return JwtHelper.Create(json);
                 }
 
                 return null;
@@ -128,93 +128,56 @@ namespace DAL.Models
         public int? AssetID { get; set; }
 
         [JsonIgnore]
-        public virtual Asset Asset { get; set; }
+        public Asset Asset { get; set; }
 
         [JsonIgnore]
         [JilDirective(Ignore = true)]
-        public virtual ICollection<Group> Groups { get; set; }
+        public ICollection<AccessToken> Tokens { get; set; }
 
-        [JsonIgnore]
-        [JilDirective(Ignore = true)]
-        public virtual ICollection<Profile> Profiles { get; set; }
-
-        [JsonIgnore]
-        [JilDirective(Ignore = true)]
-        public virtual ICollection<AccessToken> Tokens { get; set; }
         #endregion
 
         #region NotMapped
+
         public bool AllowToken()
         {
-            if (Tokens != null
-             && Tokens.Count() > 0)
+            if (Tokens == null ||
+                !Tokens.Any())
             {
-                Token = Tokens.FirstOrDefault()?.Token;
-                return true;
+                return false;
             }
 
-            return false;
+            Token = Tokens.FirstOrDefault()?.Token;
+
+            return true;
         }
 
         public string GenerateToken()
         {
-            return PasswordHasher.Md5(Email + DateTime.UtcNow.Ticks.ToString());
+            return PasswordHasher.Md5(Email + DateTime.UtcNow.Ticks);
         }
 
-        public string Name
-        {
-            get
-            {
-                return $"{FirstName} {LastName}";
-            }
-        }
+        public string Name => $"{FirstName} {LastName}";
 
-        public string AvatarSrc
-        {
-            get
-            {
-                return Asset == null ? string.Empty : Asset.Url;
-            }
-        }
+        public string AvatarSrc => Asset == null ? string.Empty : Asset.Url;
 
         [NotMapped]
         public string Token { get; set; }
 
         [JsonIgnore]
-        public List<string> Roles
-        {
-            get
-            {
-                return new List<string>() { Role.GetStringValue() };
-            }
-        }
+        public List<string> Roles => new List<string>
+                                     {
+                                         Role.GetStringValue()
+                                     };
 
         [JsonIgnore]
-        public bool IsActive
-        {
-            get
-            {
-                return Status == UserStatusType.Active;
-            }
-        }
+        public bool IsActive => Status == UserStatusType.Active;
 
         [JsonIgnore]
-        public bool IsAdmin
-        {
-            get
-            {
-                return Role == UserRoleType.Admin;
-            }
-        }
+        public bool IsAdmin => Role == UserRoleType.Admin;
 
         [JsonIgnore]
-        public bool IsBanned
-        {
-            get
-            {
-                return Status == UserStatusType.Banned;
-            }
-        }
+        public bool IsBanned => Status == UserStatusType.Banned;
+
         #endregion
     }
 }

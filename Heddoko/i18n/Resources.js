@@ -264,7 +264,21 @@ i18n.Resources = (function () {
   "WrongSize": "is the wrong size",
   "Sensors": "Sensors",
   "Components": "Components",
-  "Quantity": "Quantity"
+  "Quantity": "Quantity",
+  "SoftwareAndFirmware": "Software & Firmware",
+  "SoftwareOrFirmware": "Software or Firmware",
+  "WrongSize": "is the wrong size",
+  "Version": "Version",
+  "PleaseChooseFileForUpload": "Please choose file for upload",
+  "Download": "Download",
+  "Url": "Url",
+  "FirmwareVersion": "Firmware version",
+  "Brainpack": "Brainpack",
+  "Brainpacks": "Brainpacks",
+  "Databoard": "Databoard",
+  "Databoards": "Databoards",
+  "Powerboard": "Powerboard",
+  "Powerboards": "Powerboards"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

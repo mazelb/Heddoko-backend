@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
+using i18n;
 
 namespace Heddoko
 {
@@ -17,7 +16,7 @@ namespace Heddoko
             }
 
             bool skipAuthorization = filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true)
-            || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true);
+                                     || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true);
             if (skipAuthorization)
             {
                 return;
@@ -52,20 +51,22 @@ namespace Heddoko
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             if (filterContext.HttpContext.User == null
-            || filterContext.HttpContext.User.Identity == null
-            || !filterContext.HttpContext.User.Identity.IsAuthenticated)
+                ||
+                filterContext.HttpContext.User.Identity == null
+                ||
+                !filterContext.HttpContext.User.Identity.IsAuthenticated)
             {
                 string returnUrl = string.Empty;
                 string requestUrl = filterContext.HttpContext.Request.RawUrl;
                 if (!requestUrl.Equals("/"))
                 {
-                    returnUrl = string.Format("?returnUrl={0}", HttpUtility.UrlEncode(requestUrl));
+                    returnUrl = $"?returnUrl={HttpUtility.UrlEncode(requestUrl)}";
                 }
-                filterContext.Result = new RedirectResult(string.Format("~/login{0}", returnUrl));
+                filterContext.Result = new RedirectResult($"~/login{returnUrl}");
             }
             else
             {
-                throw new HttpException(403, i18n.Resources.YouAreNotAuthorized);
+                throw new HttpException(403, Resources.YouAreNotAuthorized);
             }
         }
     }

@@ -1,87 +1,78 @@
-﻿using DAL;
-using DAL.Models;
-using Heddoko.Helpers.Auth;
-using Heddoko.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using DAL;
+using DAL.Models;
+using Heddoko.Models;
+using i18n;
 
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("admin/api/pants")]
-    [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
+    [AuthAPI(Roles = Constants.Roles.Admin)]
     public class PantsController : BaseAdminController<Pants, PantsAPIModel>
     {
-        const string Search = "Search";
-        const string IsDeleted = "IsDeleted";
-        const string Used = "Used";
-        const int NoPantsOctopiID = 0;
+        private const string Search = "Search";
+        private const string IsDeleted = "IsDeleted";
+        private const string Used = "Used";
+        private const int NoPantsOctopiID = 0;
 
-        public override KendoResponse<IEnumerable<PantsAPIModel>> Get([FromUri]KendoRequest request)
+        public override KendoResponse<IEnumerable<PantsAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<Pants> items = null;
             int count = 0;
 
             bool isDeleted = false;
 
-            if (request != null)
+            if (request?.Filter != null)
             {
-                if (request.Filter != null)
+                KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
+                if (isDeletedFilter != null)
                 {
-                    KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
-                    if (isDeletedFilter != null)
-                    {
-                        isDeleted = true;
-                    }
+                    isDeleted = true;
+                }
 
-                    KendoFilterItem searchFilter = request.Filter.Get(Search);
-                    if (searchFilter != null
-                    && !string.IsNullOrEmpty(searchFilter.Value))
-                    {
-                        items = UoW.PantsRepository.Search(searchFilter.Value, isDeleted);
-                    }
+                KendoFilterItem searchFilter = request.Filter.Get(Search);
+                if (!string.IsNullOrEmpty(searchFilter?.Value))
+                {
+                    items = UoW.PantsRepository.Search(searchFilter.Value, isDeleted);
                 }
             }
 
             if (items == null)
             {
-
                 items = UoW.PantsRepository.All(isDeleted);
             }
 
             count = items.Count();
 
-            if (request != null
-             && request.Take.HasValue)
+            if (request?.Take != null)
             {
                 items = items.Skip(request.Skip.Value)
                              .Take(request.Take.Value);
-
             }
 
-            var result = items.ToList()
-                              .Select(c => Convert(c));
+            IEnumerable<PantsAPIModel> result = items.ToList()
+                                                     .Select(Convert);
 
-            return new KendoResponse<IEnumerable<PantsAPIModel>>()
-            {
-                Response = result,
-                Total = count
-            };
+            return new KendoResponse<IEnumerable<PantsAPIModel>>
+                   {
+                       Response = result,
+                       Total = count
+                   };
         }
 
         public override KendoResponse<PantsAPIModel> Get(int id)
         {
             Pants item = UoW.PantsRepository.Get(id);
 
-            return new KendoResponse<PantsAPIModel>()
-            {
-                Response = Convert(item)
-            };
+            return new KendoResponse<PantsAPIModel>
+                   {
+                       Response = Convert(item)
+                   };
         }
 
         public override KendoResponse<PantsAPIModel> Post(PantsAPIModel model)
@@ -100,73 +91,87 @@ namespace Heddoko.Controllers
             }
             else
             {
-                throw new ModelStateException()
-                {
-                    ModelState = ModelState
-                };
+                throw new ModelStateException
+                      {
+                          ModelState = ModelState
+                      };
             }
 
-            return new KendoResponse<PantsAPIModel>()
-            {
-                Response = response
-            };
+            return new KendoResponse<PantsAPIModel>
+                   {
+                       Response = response
+                   };
         }
 
         public override KendoResponse<PantsAPIModel> Put(PantsAPIModel model)
         {
             PantsAPIModel response = new PantsAPIModel();
 
-            if (model.ID.HasValue)
+            if (!model.ID.HasValue)
             {
-                Pants item = UoW.PantsRepository.GetFull(model.ID.Value);
-                if (item != null)
-                {
-                    if (ModelState.IsValid)
-                    {
-
-                        Bind(item, model);
-                        UoW.Save();
-
-                        response = Convert(item);
-                    }
-                    else
-                    {
-                        throw new ModelStateException()
-                        {
-                            ModelState = ModelState
-                        };
-                    }
-                }
+                return new KendoResponse<PantsAPIModel>
+                       {
+                           Response = response
+                       };
             }
 
-            return new KendoResponse<PantsAPIModel>()
+            Pants item = UoW.PantsRepository.GetFull(model.ID.Value);
+            if (item == null)
             {
-                Response = response
-            };
+                return new KendoResponse<PantsAPIModel>
+                       {
+                           Response = response
+                       };
+            }
+
+            if (ModelState.IsValid)
+            {
+                Bind(item, model);
+                UoW.Save();
+
+                response = Convert(item);
+            }
+            else
+            {
+                throw new ModelStateException
+                      {
+                          ModelState = ModelState
+                      };
+            }
+
+            return new KendoResponse<PantsAPIModel>
+                   {
+                       Response = response
+                   };
         }
 
         public override KendoResponse<PantsAPIModel> Delete(int id)
         {
             Pants item = UoW.PantsRepository.GetFull(id);
 
-            if (item.ID != CurrentUser.ID)
+            if (item.ID == CurrentUser.ID)
             {
-
-                if (item.PantsOctopi != null
-                && item.PantsOctopi.Status == EquipmentStatusType.InUse)
-                {
-                    item.PantsOctopi.Status = EquipmentStatusType.Ready;
-                }
-
-                item.Status = EquipmentStatusType.Trash;
-                item.PantsOctopi = null;
-                UoW.Save();
+                return new KendoResponse<PantsAPIModel>
+                       {
+                           Response = Convert(item)
+                       };
             }
 
-            return new KendoResponse<PantsAPIModel>()
+            if (item.PantsOctopi != null
+                &&
+                item.PantsOctopi.Status == EquipmentStatusType.InUse)
             {
-                Response = Convert(item)
-            };
+                item.PantsOctopi.Status = EquipmentStatusType.Ready;
+            }
+
+            item.Status = EquipmentStatusType.Trash;
+            item.PantsOctopi = null;
+            UoW.Save();
+
+            return new KendoResponse<PantsAPIModel>
+                   {
+                       Response = Convert(item)
+                   };
         }
 
 
@@ -178,12 +183,14 @@ namespace Heddoko.Controllers
             }
 
             if (model.PantsOctopiID.HasValue
-            && (!item.PantsOctopiID.HasValue || (item.PantsOctopiID.HasValue && model.PantsOctopiID.Value != item.PantsOctopiID.Value)))
+                &&
+                (!item.PantsOctopiID.HasValue || (model.PantsOctopiID.Value != item.PantsOctopiID.Value)))
             {
                 if (model.PantsOctopiID.Value == NoPantsOctopiID)
                 {
                     if (item.PantsOctopi != null
-                     && item.PantsOctopi.Status == EquipmentStatusType.InUse)
+                        &&
+                        item.PantsOctopi.Status == EquipmentStatusType.InUse)
                     {
                         item.PantsOctopi.Status = EquipmentStatusType.Ready;
                     }
@@ -192,9 +199,9 @@ namespace Heddoko.Controllers
                 else
                 {
                     PantsOctopi pantsOctopi = UoW.PantsOctopiRepository.GetFull(model.PantsOctopiID.Value);
-                    if (pantsOctopi.Pants.Count() > 0)
+                    if (pantsOctopi.Pants.Any())
                     {
-                        throw new Exception($"{i18n.Resources.PantsOctopi} {i18n.Resources.AlreadyUsed}");
+                        throw new Exception($"{Resources.PantsOctopi} {Resources.AlreadyUsed}");
                     }
 
                     item.PantsOctopi = pantsOctopi;
@@ -217,17 +224,17 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            return new PantsAPIModel()
-            {
-                ID = item.ID,
-                IDView = item.IDView,
-                Location = item.Location,
-                QAStatus = item.QAStatus,
-                Size = item.Size,
-                Status = item.Status,
-                PantsOctopi = item.PantsOctopi,
-                PantsOctopiID = item.PantsOctopiID
-            };
+            return new PantsAPIModel
+                   {
+                       ID = item.ID,
+                       IDView = item.IDView,
+                       Location = item.Location,
+                       QAStatus = item.QAStatus,
+                       Size = item.Size,
+                       Status = item.Status,
+                       PantsOctopi = item.PantsOctopi,
+                       PantsOctopiID = item.PantsOctopiID
+                   };
         }
     }
 }

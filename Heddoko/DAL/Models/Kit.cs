@@ -1,11 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace DAL.Models
 {
@@ -18,7 +12,14 @@ namespace DAL.Models
 
         public EquipmentStatusType Status { get; set; }
 
+        #region NotMapped
+
+        public string IDView => $"KI{ID.ToString(Constants.PadZero)}";
+
+        #endregion
+
         #region Relations
+
         public int? OrganizationID { get; set; }
 
         [JsonIgnore]
@@ -43,16 +44,7 @@ namespace DAL.Models
 
         [JsonIgnore]
         public virtual Pants Pants { get; set; }
-        #endregion
 
-        #region NotMapped
-        public string IDView
-        {
-            get
-            {
-                return $"KI{ID.ToString(Constants.PadZero)}";
-            }
-        }
         #endregion
     }
 }

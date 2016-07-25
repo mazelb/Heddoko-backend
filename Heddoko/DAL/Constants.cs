@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAL
+﻿namespace DAL
 {
-    public class Constants
+    public static class Constants
     {
         public const string ConnectionStringName = "HDContext";
         public const string HeaderToken = "token";
@@ -14,7 +8,7 @@ namespace DAL
         public const int EmailLimit = 20871520;
         public const string PadZero = "D6";
 
-        public class Embed
+        public static class Embed
         {
             public const string Groups = "groups";
             public const string Profiles = "profiles";
@@ -22,22 +16,23 @@ namespace DAL
             public const string AvatarSrc = "avatarSrc";
         }
 
-        public class Environments
+        public static class Environments
         {
             public const string Dev = "dev";
             public const string Stage = "stage";
             public const string Prod = "prod";
         }
 
-        public class Assets
+        public static class Assets
         {
             public const string Group = "groups";
             public const string User = "users";
             public const string Profile = "profile";
             public const string Seed = "seed";
+            public const string Firmware = "firmware";
         }
 
-        public class Roles
+        public static class Roles
         {
             public const string User = "User";
             public const string Analyst = "Analyst";
@@ -64,10 +59,10 @@ namespace DAL
             public const string Default = "default";
         }
 
-        public class Cache
+        public static class Cache
         {
             public const string Prefix = "heddoko_dev";
-            public const string KeyALL = "all";
+            public const string KeyAll = "all";
             public const string Users = "users";
         }
     }

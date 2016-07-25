@@ -1,12 +1,10 @@
-﻿using DAL;
-using Services;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using DAL;
+using Services;
 
 namespace Heddoko.Controllers.API
 {
@@ -19,7 +17,7 @@ namespace Heddoko.Controllers.API
         [HttpPost]
         public IHttpActionResult Migrate()
         {
-            DAL.Migrator.RunMigrations();
+            Migrator.RunMigrations();
             return Ok();
         }
 
@@ -27,7 +25,7 @@ namespace Heddoko.Controllers.API
         [HttpPost]
         public IHttpActionResult Init()
         {
-            DAL.Migrator.InitMigration();
+            Migrator.InitMigration();
             return Ok();
         }
 
@@ -35,7 +33,7 @@ namespace Heddoko.Controllers.API
         [HttpPost]
         public IHttpActionResult Version(string version)
         {
-            DAL.Migrator.RunMigrations(version?.Trim());
+            Migrator.RunMigrations(version?.Trim());
             return Ok();
         }
 
@@ -43,7 +41,7 @@ namespace Heddoko.Controllers.API
         [HttpGet]
         public IHttpActionResult Pending()
         {
-            return Ok(DAL.Migrator.GetPending());
+            return Ok(Migrator.GetPending());
         }
 
         [Route("flush")]
@@ -62,7 +60,7 @@ namespace Heddoko.Controllers.API
             files.AddRange(Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Content/seed")));
             foreach (string file in files)
             {
-                Azure.Upload($"seed/{Path.GetFileName(file)}", Config.AssetsContainer, file);
+                Azure.Upload($"seed/{Path.GetFileName(file)}", DAL.Config.AssetsContainer, file);
             }
 
             return Ok();

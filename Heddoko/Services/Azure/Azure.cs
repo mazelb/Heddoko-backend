@@ -1,30 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Azure;
+﻿using System.IO;
+using DAL;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Services
 {
-    public class Azure
+    public static class Azure
     {
         public static void Upload(string url, string container, Stream stream = null)
         {
             Upload(url, container, null, stream);
         }
 
-        public static void Upload(string url, string container, string filename = null)
-        {
-            Upload(url, container, filename, null);
-        }
-
         public static void Upload(string url, string container, string filename = null, Stream stream = null)
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(DAL.Config.StorageConnectionString);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Config.StorageConnectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
             CloudBlobContainer blobContainer = blobClient.GetContainerReference(container);
@@ -33,7 +23,7 @@ namespace Services
 
             if (!string.IsNullOrEmpty(filename))
             {
-                using (var fileStream = System.IO.File.OpenRead(filename))
+                using (FileStream fileStream = File.OpenRead(filename))
                 {
                     blockBlob.UploadFromStream(fileStream);
                 }

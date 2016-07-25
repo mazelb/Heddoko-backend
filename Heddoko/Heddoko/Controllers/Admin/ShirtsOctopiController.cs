@@ -1,27 +1,23 @@
-﻿using DAL;
-using DAL.Models;
-using Heddoko.Helpers.Auth;
-using Heddoko.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using DAL;
+using DAL.Models;
+using Heddoko.Models;
 
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("admin/api/shirtsOctopi")]
-    [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
+    [AuthAPI(Roles = Constants.Roles.Admin)]
     public class ShirtsOctopiController : BaseAdminController<ShirtOctopi, ShirtOctopiAPIModel>
     {
-        const string Search = "Search";
-        const string IsDeleted = "IsDeleted";
-        const string Used = "Used";
+        private const string Search = "Search";
+        private const string IsDeleted = "IsDeleted";
+        private const string Used = "Used";
 
-        public override KendoResponse<IEnumerable<ShirtOctopiAPIModel>> Get([FromUri]KendoRequest request)
+        public override KendoResponse<IEnumerable<ShirtOctopiAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<ShirtOctopi> items = null;
             int count = 0;
@@ -29,7 +25,7 @@ namespace Heddoko.Controllers
             bool isDeleted = false;
             bool isUsed = false;
 
-            if(request != null && request.Filter != null)
+            if (request?.Filter != null)
             {
                 KendoFilterItem isUsedFilter = request.Filter.Get(Used);
 
@@ -54,8 +50,7 @@ namespace Heddoko.Controllers
                     }
 
                     KendoFilterItem searchFilter = request.Filter.Get(Search);
-                    if (searchFilter != null
-                    && !string.IsNullOrEmpty(searchFilter.Value))
+                    if (!string.IsNullOrEmpty(searchFilter?.Value))
                     {
                         items = UoW.ShirtOctopiRepository.Search(searchFilter.Value, isDeleted);
                     }
@@ -63,19 +58,18 @@ namespace Heddoko.Controllers
             }
 
             if (items == null
-            && !isUsed)
+                &&
+                !isUsed)
             {
                 items = UoW.ShirtOctopiRepository.All(isDeleted);
             }
 
             count = items.Count();
 
-            if (request != null
-             && request.Take.HasValue)
+            if (request?.Take != null)
             {
                 items = items.Skip(request.Skip.Value)
                              .Take(request.Take.Value);
-
             }
 
             List<ShirtOctopiAPIModel> itemsDefault = new List<ShirtOctopiAPIModel>();
@@ -88,9 +82,9 @@ namespace Heddoko.Controllers
                 });
             }
 
-            itemsDefault.AddRange(items.ToList().Select(c => Convert(c)));
+            itemsDefault.AddRange(items.ToList().Select(Convert));
 
-            return new KendoResponse<IEnumerable<ShirtOctopiAPIModel>>()
+            return new KendoResponse<IEnumerable<ShirtOctopiAPIModel>>
             {
                 Response = itemsDefault,
                 Total = count
@@ -101,7 +95,7 @@ namespace Heddoko.Controllers
         {
             ShirtOctopi item = UoW.ShirtOctopiRepository.Get(id);
 
-            return new KendoResponse<ShirtOctopiAPIModel>()
+            return new KendoResponse<ShirtOctopiAPIModel>
             {
                 Response = Convert(item)
             };
@@ -109,7 +103,7 @@ namespace Heddoko.Controllers
 
         public override KendoResponse<ShirtOctopiAPIModel> Post(ShirtOctopiAPIModel model)
         {
-            ShirtOctopiAPIModel response = new ShirtOctopiAPIModel();
+            ShirtOctopiAPIModel response;
 
             if (ModelState.IsValid)
             {
@@ -123,13 +117,13 @@ namespace Heddoko.Controllers
             }
             else
             {
-                throw new ModelStateException()
+                throw new ModelStateException
                 {
                     ModelState = ModelState
                 };
             }
 
-            return new KendoResponse<ShirtOctopiAPIModel>()
+            return new KendoResponse<ShirtOctopiAPIModel>
             {
                 Response = response
             };
@@ -139,30 +133,39 @@ namespace Heddoko.Controllers
         {
             ShirtOctopiAPIModel response = new ShirtOctopiAPIModel();
 
-            if (model.ID.HasValue)
+            if (!model.ID.HasValue)
             {
-                ShirtOctopi item = UoW.ShirtOctopiRepository.GetFull(model.ID.Value);
-                if (item != null)
+                return new KendoResponse<ShirtOctopiAPIModel>
                 {
-                    if (ModelState.IsValid)
-                    {
-
-                        Bind(item, model);
-                        UoW.Save();
-
-                        response = Convert(item);
-                    }
-                    else
-                    {
-                        throw new ModelStateException()
-                        {
-                            ModelState = ModelState
-                        };
-                    }
-                }
+                    Response = response
+                };
             }
 
-            return new KendoResponse<ShirtOctopiAPIModel>()
+            ShirtOctopi item = UoW.ShirtOctopiRepository.GetFull(model.ID.Value);
+            if (item == null)
+            {
+                return new KendoResponse<ShirtOctopiAPIModel>
+                {
+                    Response = response
+                };
+            }
+
+            if (ModelState.IsValid)
+            {
+                Bind(item, model);
+                UoW.Save();
+
+                response = Convert(item);
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+
+            return new KendoResponse<ShirtOctopiAPIModel>
             {
                 Response = response
             };
@@ -172,16 +175,21 @@ namespace Heddoko.Controllers
         {
             ShirtOctopi item = UoW.ShirtOctopiRepository.Get(id);
 
-            if (item.ID != CurrentUser.ID)
+            if (item.ID == CurrentUser.ID)
             {
-                item.Status = EquipmentStatusType.Trash;
-
-                UoW.ShirtRepository.RemoveShirtOctopi(item.ID);
-
-                UoW.Save();
+                return new KendoResponse<ShirtOctopiAPIModel>
+                {
+                    Response = Convert(item)
+                };
             }
 
-            return new KendoResponse<ShirtOctopiAPIModel>()
+            item.Status = EquipmentStatusType.Trash;
+
+            UoW.ShirtRepository.RemoveShirtOctopi(item.ID);
+
+            UoW.Save();
+
+            return new KendoResponse<ShirtOctopiAPIModel>
             {
                 Response = Convert(item)
             };
@@ -209,7 +217,7 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            return new ShirtOctopiAPIModel()
+            return new ShirtOctopiAPIModel
             {
                 ID = item.ID,
                 IDView = item.IDView,

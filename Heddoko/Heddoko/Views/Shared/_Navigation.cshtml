@@ -8,10 +8,11 @@
                 case DAL.Models.UserRoleType.Admin:
             <a href="@Url.Action("Index", "Inventory")">@i18n.Resources.Inventory</a>
             <a href="@Url.Action("Index", "License")">@i18n.Resources.LicenseTitle</a>
-                    break;
-                case DAL.Models.UserRoleType.Analyst:
-                    break;
-                case DAL.Models.UserRoleType.LicenseAdmin:
+            <a href="@Url.Action("Index", "Firmware")">@i18n.Resources.SoftwareAndFirmware</a>
+            break;
+        case DAL.Models.UserRoleType.Analyst:
+            break;
+        case DAL.Models.UserRoleType.LicenseAdmin:
             <a href="@Url.Action("Index", "Organization")">@i18n.Resources.LicenseTitle</a>
                     break;
                 case DAL.Models.UserRoleType.User:

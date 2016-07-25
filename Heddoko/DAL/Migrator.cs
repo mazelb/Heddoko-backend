@@ -1,18 +1,15 @@
-﻿using DAL.Migrations;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DAL.Migrations;
 
 namespace DAL
 {
-    public class Migrator
+    public static class Migrator
     {
         public static void RunMigrations(string version = null)
         {
             Configuration migrator = new Configuration();
-            DbMigrator dbMigrator = new System.Data.Entity.Migrations.DbMigrator(migrator);
+            DbMigrator dbMigrator = new DbMigrator(migrator);
             dbMigrator.Update(version);
         }
 
@@ -24,7 +21,7 @@ namespace DAL
         public static IEnumerable<string> GetPending()
         {
             Configuration migrator = new Configuration();
-            DbMigrator dbMigrator = new System.Data.Entity.Migrations.DbMigrator(migrator);
+            DbMigrator dbMigrator = new DbMigrator(migrator);
             return dbMigrator.GetPendingMigrations();
         }
     }

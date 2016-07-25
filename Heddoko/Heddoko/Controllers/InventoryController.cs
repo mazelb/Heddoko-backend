@@ -1,19 +1,18 @@
-﻿using Heddoko.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using DAL;
+using Heddoko.Models;
 
 namespace Heddoko.Controllers
 {
-    [Auth(Roles = DAL.Constants.Roles.Admin)]
+    [Auth(Roles = Constants.Roles.Admin)]
     public class InventoryController : BaseController
     {
         public ActionResult Index()
         {
-            BaseViewModel model = new BaseViewModel();
-            model.EnableKendo = true;
+            BaseViewModel model = new BaseViewModel
+            {
+                EnableKendo = true
+            };
             return View(model);
         }
     }

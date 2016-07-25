@@ -1,10 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DAL.Models
 {
@@ -20,20 +16,17 @@ namespace DAL.Models
         public EquipmentQAStatusType QAStatus { get; set; }
 
         #region Relations
-        
+
         [JsonIgnore]
         //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
         public virtual ICollection<Pants> Pants { get; set; }
+
         #endregion
 
         #region NotMapped
-        public string IDView
-        {
-            get
-            {
-                return $"PO{ID.ToString(Constants.PadZero)}";
-            }
-        }
+
+        public string IDView => $"PO{ID.ToString(Constants.PadZero)}";
+
         #endregion
     }
 }

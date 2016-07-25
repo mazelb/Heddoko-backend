@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Heddoko.Models
 {
@@ -21,5 +18,4 @@ namespace Heddoko.Models
 
         public List<KendoAggregateItem> Aggregate { get; set; }
     }
-
 }

@@ -8,6 +8,8 @@
 
         void SetCache(string id, T item);
 
+        void ClearCache(T item);
+
         void ClearCache(string id);
     }
 }

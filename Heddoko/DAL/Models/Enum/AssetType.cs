@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAL.Models
+﻿namespace DAL.Models
 {
     public enum AssetType
     {
@@ -16,5 +10,7 @@ namespace DAL.Models
         Profile = 2,
         [StringValue(Constants.Assets.Group)]
         Group = 3,
+        [StringValue(Constants.Assets.Firmware)]
+        Firmware = 4
     }
 }

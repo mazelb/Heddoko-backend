@@ -1,10 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace DAL.Models
 {
@@ -27,21 +22,19 @@ namespace DAL.Models
 
         public AnatomicLocationType AnatomicLocation { get; set; }
 
+        #region NotMapped
+
+        public string IDView => $"SE{ID.ToString(Constants.PadZero)}";
+
+        #endregion
+
         #region Relations
+
         [JsonIgnore]
         public int? SensorSetID { get; set; }
 
         public virtual SensorSet SensorSet { get; set; }
-        #endregion
 
-        #region NotMapped
-        public string IDView
-        {
-            get
-            {
-                return $"SE{ID.ToString(Constants.PadZero)}";
-            }
-        }
         #endregion
     }
 }

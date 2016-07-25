@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Migrations.Model;
 using System.Data.Entity.SqlServer;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Migrations
 {
@@ -26,7 +22,7 @@ namespace DAL.Migrations
 
         private static void SetCreatedUtcColumn(IEnumerable<ColumnModel> columns)
         {
-            foreach (var columnModel in columns)
+            foreach (ColumnModel columnModel in columns)
             {
                 SetCreatedUtcColumn(columnModel);
             }

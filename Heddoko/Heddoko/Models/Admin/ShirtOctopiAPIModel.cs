@@ -1,27 +1,24 @@
-﻿using DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using DAL;
+using DAL.Models;
+using i18n;
 
 namespace Heddoko.Models
 {
     public class ShirtOctopiAPIModel : BaseAPIModel
     {
-        private bool IsEmpty { get; set; }
         public ShirtOctopiAPIModel()
         {
-
         }
 
         public ShirtOctopiAPIModel(bool isEmpty)
         {
-            this.IsEmpty = isEmpty;
+            IsEmpty = isEmpty;
         }
 
-        [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(i18n.Resources))]
+        private bool IsEmpty { get; }
+
+        [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Location { get; set; }
 
         public SizeType Size { get; set; }
@@ -34,10 +31,7 @@ namespace Heddoko.Models
 
         public string Name
         {
-            get
-            {
-                return IsEmpty ? $"{i18n.Resources.No} {i18n.Resources.ShirtsOctopi}" : $"{IDView} - {Size.GetDisplayName()} - {Location}";
-            }
+            get { return IsEmpty ? $"{Resources.No} {Resources.ShirtsOctopi}" : $"{IDView} - {Size.GetDisplayName()} - {Location}"; }
         }
     }
 }

@@ -1,14 +1,15 @@
-﻿using DAL.Models;
-using System.Linq;
-using System.Data.Entity;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using DAL.Models;
 
 namespace DAL
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(HDContext sb) : base(sb)
+        public UserRepository(HDContext sb)
+            : base(sb)
         {
             Key = Constants.Cache.Users;
         }
@@ -18,57 +19,53 @@ namespace DAL
             SetCache(user.Email, user);
         }
 
-        public void ClearCache(User user)
+        public override void ClearCache(User user)
         {
-            ClearCache(user.Email, user);
-        }
-
-        public void ClearCache(string id, User user)
-        {
-
-            if (user.ID > 0)
+            if (user.ID <= 0)
             {
-                base.ClearCache(user.ID.ToString());
+                return;
+            }
 
-                if (!string.IsNullOrEmpty(user.Email))
-                {
-                    base.ClearCache(user.Email.ToLower());
-                }
+            base.ClearCache(user.ID.ToString());
 
-                if (!string.IsNullOrEmpty(user.Token))
-                {
-                    base.ClearCache(user.Token.ToLower());
-                }
+            if (!string.IsNullOrEmpty(user.Email))
+            {
+                base.ClearCache(user.Email.ToLower());
+            }
 
-                if (!string.IsNullOrEmpty(user.Username))
-                {
-                    base.ClearCache(user.Username.ToLower());
-                }
+            if (!string.IsNullOrEmpty(user.Token))
+            {
+                base.ClearCache(user.Token.ToLower());
+            }
+
+            if (!string.IsNullOrEmpty(user.Username))
+            {
+                base.ClearCache(user.Username.ToLower());
             }
         }
 
-
         public override void SetCache(string id, User user)
         {
-
-            if (user.ID > 0)
+            if (user.ID <= 0)
             {
-                base.SetCache(user.ID.ToString(), user);
+                return;
+            }
 
-                if (!string.IsNullOrEmpty(user.Email))
-                {
-                    base.SetCache(user.Email.ToLower(), user);
-                }
+            base.SetCache(user.ID.ToString(), user);
 
-                if (!string.IsNullOrEmpty(user.Token))
-                {
-                    base.SetCache(user.Token.ToLower(), user);
-                }
+            if (!string.IsNullOrEmpty(user.Email))
+            {
+                base.SetCache(user.Email.ToLower(), user);
+            }
 
-                if (!string.IsNullOrEmpty(user.Username))
-                {
-                    base.SetCache(user.Username.ToLower(), user);
-                }
+            if (!string.IsNullOrEmpty(user.Token))
+            {
+                base.SetCache(user.Token.ToLower(), user);
+            }
+
+            if (!string.IsNullOrEmpty(user.Username))
+            {
+                base.SetCache(user.Username.ToLower(), user);
             }
         }
 
@@ -87,7 +84,7 @@ namespace DAL
                         .Include(c => c.License)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .OrderBy(c => c.FirstName)
-                        .OrderBy(c => c.LastName);
+                        .ThenBy(c => c.LastName);
         }
 
         public override User GetFull(int id)
@@ -102,13 +99,14 @@ namespace DAL
         public User GetByEmailCached(string email)
         {
             User user = GetCached(email);
-            if (user == null)
+            if (user != null)
             {
-                user = GetByEmail(email);
-                if (user != null)
-                {
-                    SetCache(email, user);
-                }
+                return user;
+            }
+            user = GetByEmail(email);
+            if (user != null)
+            {
+                SetCache(email, user);
             }
 
             return user;
@@ -118,14 +116,14 @@ namespace DAL
         {
             return DbSet.Include(c => c.Asset)
                         .Include(c => c.Organization)
-                        .Where(c => c.Email.Equals(email, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                        .FirstOrDefault(c => c.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
         public User GetByUsername(string username)
         {
             return DbSet.Include(c => c.Asset)
                         .Include(c => c.Organization)
-                        .Where(c => c.Username.Equals(username, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                        .FirstOrDefault(c => c.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
         public User GetByUsernameFull(string username)
@@ -134,30 +132,31 @@ namespace DAL
                         .Include(c => c.Organization)
                         .Include(c => c.Tokens)
                         .Include(c => c.License)
-                        .Where(c => c.Username.Equals(username, StringComparison.OrdinalIgnoreCase))
-                        .FirstOrDefault();
+                        .FirstOrDefault(c => c.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
         public User GetByConfirmToken(string confirmToken)
         {
-            return DbSet.Where(c => c.ConfirmToken.Equals(confirmToken, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+            return DbSet.FirstOrDefault(c => c.ConfirmToken.Equals(confirmToken, StringComparison.OrdinalIgnoreCase));
         }
 
         public User GetByForgetToken(string forgetToken)
         {
-            return DbSet.Where(c => c.ForgotToken.Equals(forgetToken, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+            return DbSet.FirstOrDefault(c => c.ForgotToken.Equals(forgetToken, StringComparison.OrdinalIgnoreCase));
         }
 
         public User GetByUsernameCached(string username)
         {
             User user = GetCached(username);
-            if (user == null)
+            if (user != null)
             {
-                user = GetByUsername(username);
-                if (user != null)
-                {
-                    SetCache(username, user);
-                }
+                return user;
+            }
+
+            user = GetByUsername(username);
+            if (user != null)
+            {
+                SetCache(username, user);
             }
 
             return user;
@@ -167,40 +166,47 @@ namespace DAL
         {
             return DbSet.Where(c => c.Role == UserRoleType.Admin)
                         .OrderBy(c => c.FirstName)
-                        .OrderBy(c => c.LastName);
+                        .ThenBy(c => c.LastName);
         }
 
         public User GetByInviteToken(string inviteToken)
         {
             return DbSet.Include(c => c.Organization)
-                        .Where(c => c.InviteToken.Equals(inviteToken, StringComparison.OrdinalIgnoreCase))
-                        .FirstOrDefault();
+                        .FirstOrDefault(c => c.InviteToken.Equals(inviteToken, StringComparison.OrdinalIgnoreCase));
         }
 
         public IEnumerable<User> GetByOrganization(int organizationID, bool isDeleted = false, int? licenseID = null)
         {
             return DbSet.Include(c => c.License)
                         .Include(c => c.Organization)
-                        .Where(c => licenseID.HasValue ? c.LicenseID == licenseID.Value : true)
+                        .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => c.OrganizationID.Value == organizationID)
                         .OrderBy(c => c.FirstName)
-                        .OrderBy(c => c.LastName);
+                        .ThenBy(c => c.LastName);
         }
 
-        public IEnumerable<User> Search(string search, int? organizationID = null, bool isDeleted = false, int? licenseID = null)
+        public IEnumerable<User> Search(
+            string search,
+            int? organizationID = null,
+            bool isDeleted = false,
+            int? licenseID = null)
         {
             return DbSet.Include(c => c.License)
                         .Include(c => c.Organization)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
-                        .Where(c => licenseID.HasValue ? c.LicenseID == licenseID.Value : true)
-                        .Where(c => organizationID.HasValue ? c.OrganizationID.Value == organizationID : true)
-                        .Where(c => (!string.IsNullOrEmpty(c.FirstName) && c.FirstName.ToLower().Contains(search.ToLower()))
-                                 || (!string.IsNullOrEmpty(c.LastName) && c.LastName.ToLower().Contains(search.ToLower()))
-                                 || (!string.IsNullOrEmpty(c.Username) && c.Username.ToLower().Contains(search.ToLower()))
-                                 || (!string.IsNullOrEmpty(c.Email) && c.Email.ToLower().Contains(search.ToLower())))
+                        .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
+                        .Where(c => !organizationID.HasValue || c.OrganizationID.Value == organizationID)
+                        .Where(
+                            c =>
+                                (!string.IsNullOrEmpty(c.FirstName) && c.FirstName.ToLower().Contains(search.ToLower()))
+                                ||
+                                (!string.IsNullOrEmpty(c.LastName) && c.LastName.ToLower().Contains(search.ToLower()))
+                                ||
+                                (!string.IsNullOrEmpty(c.Username) && c.Username.ToLower().Contains(search.ToLower()))
+                                || (!string.IsNullOrEmpty(c.Email) && c.Email.ToLower().Contains(search.ToLower())))
                         .OrderBy(c => c.FirstName)
-                        .OrderBy(c => c.LastName);
+                        .ThenBy(c => c.LastName);
         }
     }
 }

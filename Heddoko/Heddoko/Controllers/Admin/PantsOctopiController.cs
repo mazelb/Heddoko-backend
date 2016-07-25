@@ -1,28 +1,24 @@
-﻿using DAL;
-using DAL.Models;
-using Heddoko.Helpers.Auth;
-using Heddoko.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using DAL;
+using DAL.Models;
+using Heddoko.Models;
 
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("admin/api/pantsOctopi")]
-    [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
+    [AuthAPI(Roles = Constants.Roles.Admin)]
     public class PantsOctopiController : BaseAdminController<PantsOctopi, PantsOctopiAPIModel>
     {
-        const string Search = "Search";
-        const string IsDeleted = "IsDeleted";
-        const string Used = "Used";
+        private const string Search = "Search";
+        private const string IsDeleted = "IsDeleted";
+        private const string Used = "Used";
 
 
-        public override KendoResponse<IEnumerable<PantsOctopiAPIModel>> Get([FromUri]KendoRequest request)
+        public override KendoResponse<IEnumerable<PantsOctopiAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<PantsOctopi> items = null;
             int count = 0;
@@ -30,56 +26,51 @@ namespace Heddoko.Controllers
             bool isDeleted = false;
             bool isUsed = false;
 
-            if (request != null)
+            if (request?.Filter != null)
             {
-                if (request.Filter != null)
+                KendoFilterItem isUsedFilter = request.Filter.Get(Used);
+
+                if (isUsedFilter != null)
                 {
-                    KendoFilterItem isUsedFilter = request.Filter.Get(Used);
-
-                    if (isUsedFilter != null)
+                    int tmp = 0;
+                    int? usedID = null;
+                    if (int.TryParse(isUsedFilter.Value, out tmp))
                     {
-                        int tmp = 0;
-                        int? usedID = null;
-                        if (int.TryParse(isUsedFilter.Value, out tmp))
-                        {
-                            usedID = tmp;
-                        }
-
-                        items = UoW.PantsOctopiRepository.GetAvailable(usedID);
-                        isUsed = true;
+                        usedID = tmp;
                     }
-                    else
-                    {
-                        KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
-                        if (isDeletedFilter != null)
-                        {
-                            isDeleted = true;
-                        }
 
-                        KendoFilterItem searchFilter = request.Filter.Get(Search);
-                        if (searchFilter != null
-                        && !string.IsNullOrEmpty(searchFilter.Value))
-                        {
-                            items = UoW.PantsOctopiRepository.Search(searchFilter.Value, isDeleted);
-                        }
+                    items = UoW.PantsOctopiRepository.GetAvailable(usedID);
+                    isUsed = true;
+                }
+                else
+                {
+                    KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
+                    if (isDeletedFilter != null)
+                    {
+                        isDeleted = true;
+                    }
+
+                    KendoFilterItem searchFilter = request.Filter.Get(Search);
+                    if (!string.IsNullOrEmpty(searchFilter?.Value))
+                    {
+                        items = UoW.PantsOctopiRepository.Search(searchFilter.Value, isDeleted);
                     }
                 }
             }
 
             if (items == null
-            && !isUsed)
+                &&
+                !isUsed)
             {
                 items = UoW.PantsOctopiRepository.All(isDeleted);
             }
 
             count = items.Count();
 
-            if (request != null
-             && request.Take.HasValue)
+            if (request?.Take != null)
             {
                 items = items.Skip(request.Skip.Value)
                              .Take(request.Take.Value);
-
             }
 
             List<PantsOctopiAPIModel> itemsDefault = new List<PantsOctopiAPIModel>();
@@ -87,33 +78,33 @@ namespace Heddoko.Controllers
             if (isUsed)
             {
                 itemsDefault.Add(new PantsOctopiAPIModel(true)
-                {
-                    ID = 0
-                });
+                                 {
+                                     ID = 0
+                                 });
             }
 
-            itemsDefault.AddRange(items.ToList().Select(c => Convert(c)));
+            itemsDefault.AddRange(items.ToList().Select(Convert));
 
-            return new KendoResponse<IEnumerable<PantsOctopiAPIModel>>()
-            {
-                Response = itemsDefault,
-                Total = count
-            };
+            return new KendoResponse<IEnumerable<PantsOctopiAPIModel>>
+                   {
+                       Response = itemsDefault,
+                       Total = count
+                   };
         }
 
         public override KendoResponse<PantsOctopiAPIModel> Get(int id)
         {
             PantsOctopi item = UoW.PantsOctopiRepository.Get(id);
 
-            return new KendoResponse<PantsOctopiAPIModel>()
-            {
-                Response = Convert(item)
-            };
+            return new KendoResponse<PantsOctopiAPIModel>
+                   {
+                       Response = Convert(item)
+                   };
         }
 
         public override KendoResponse<PantsOctopiAPIModel> Post(PantsOctopiAPIModel model)
         {
-            PantsOctopiAPIModel response = new PantsOctopiAPIModel();
+            PantsOctopiAPIModel response;
 
             if (ModelState.IsValid)
             {
@@ -127,68 +118,82 @@ namespace Heddoko.Controllers
             }
             else
             {
-                throw new ModelStateException()
-                {
-                    ModelState = ModelState
-                };
+                throw new ModelStateException
+                      {
+                          ModelState = ModelState
+                      };
             }
 
-            return new KendoResponse<PantsOctopiAPIModel>()
-            {
-                Response = response
-            };
+            return new KendoResponse<PantsOctopiAPIModel>
+                   {
+                       Response = response
+                   };
         }
 
         public override KendoResponse<PantsOctopiAPIModel> Put(PantsOctopiAPIModel model)
         {
             PantsOctopiAPIModel response = new PantsOctopiAPIModel();
 
-            if (model.ID.HasValue)
+            if (!model.ID.HasValue)
             {
-                PantsOctopi item = UoW.PantsOctopiRepository.GetFull(model.ID.Value);
-                if (item != null)
-                {
-                    if (ModelState.IsValid)
-                    {
-
-                        Bind(item, model);
-                        UoW.Save();
-
-                        response = Convert(item);
-                    }
-                    else
-                    {
-                        throw new ModelStateException()
-                        {
-                            ModelState = ModelState
-                        };
-                    }
-                }
+                return new KendoResponse<PantsOctopiAPIModel>
+                       {
+                           Response = response
+                       };
             }
 
-            return new KendoResponse<PantsOctopiAPIModel>()
+            PantsOctopi item = UoW.PantsOctopiRepository.GetFull(model.ID.Value);
+            if (item == null)
             {
-                Response = response
-            };
+                return new KendoResponse<PantsOctopiAPIModel>
+                       {
+                           Response = response
+                       };
+            }
+
+            if (ModelState.IsValid)
+            {
+                Bind(item, model);
+                UoW.Save();
+
+                response = Convert(item);
+            }
+            else
+            {
+                throw new ModelStateException
+                      {
+                          ModelState = ModelState
+                      };
+            }
+
+            return new KendoResponse<PantsOctopiAPIModel>
+                   {
+                       Response = response
+                   };
         }
 
         public override KendoResponse<PantsOctopiAPIModel> Delete(int id)
         {
             PantsOctopi item = UoW.PantsOctopiRepository.Get(id);
 
-            if (item.ID != CurrentUser.ID)
+            if (item.ID == CurrentUser.ID)
             {
-                item.Status = EquipmentStatusType.Trash;
-
-                UoW.PantsRepository.RemovePantsOctopi(item.ID);
-
-                UoW.Save();
+                return new KendoResponse<PantsOctopiAPIModel>
+                       {
+                           Response = Convert(item)
+                       };
             }
 
-            return new KendoResponse<PantsOctopiAPIModel>()
-            {
-                Response = Convert(item)
-            };
+            item.Status = EquipmentStatusType.Trash;
+
+            UoW.PantsRepository.RemovePantsOctopi(item.ID);
+
+            UoW.Save();
+
+            return new KendoResponse<PantsOctopiAPIModel>
+                   {
+                       Response = Convert(item)
+                   };
         }
 
 
@@ -214,15 +219,15 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            return new PantsOctopiAPIModel()
-            {
-                ID = item.ID,
-                IDView = item.IDView,
-                Location = item.Location,
-                QAStatus = item.QAStatus,
-                Size = item.Size,
-                Status = item.Status
-            };
+            return new PantsOctopiAPIModel
+                   {
+                       ID = item.ID,
+                       IDView = item.IDView,
+                       Location = item.Location,
+                       QAStatus = item.QAStatus,
+                       Size = item.Size,
+                       Status = item.Status
+                   };
         }
     }
 }

@@ -277,6 +277,24 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brainpack.
+        /// </summary>
+        public static string Brainpack {
+            get {
+                return ResourceManager.GetString("Brainpack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brainpacks.
+        /// </summary>
+        public static string Brainpacks {
+            get {
+                return ResourceManager.GetString("Brainpacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t add duplicate.
         /// </summary>
         public static string CannotAddDuplicate {
@@ -439,6 +457,24 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Databoard.
+        /// </summary>
+        public static string Databoard {
+            get {
+                return ResourceManager.GetString("Databoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Databoards.
+        /// </summary>
+        public static string Databoards {
+            get {
+                return ResourceManager.GetString("Databoards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data collectors amount.
         /// </summary>
         public static string DataCollectorAmount {
@@ -462,6 +498,15 @@ namespace i18n {
         public static string DetailedDescription {
             get {
                 return ResourceManager.GetString("DetailedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string Download {
+            get {
+                return ResourceManager.GetString("Download", resourceCulture);
             }
         }
         
@@ -786,6 +831,15 @@ namespace i18n {
         public static string Find {
             get {
                 return ResourceManager.GetString("Find", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firmware version.
+        /// </summary>
+        public static string FirmwareVersion {
+            get {
+                return ResourceManager.GetString("FirmwareVersion", resourceCulture);
             }
         }
         
@@ -1465,6 +1519,33 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please choose file for upload.
+        /// </summary>
+        public static string PleaseChooseFileForUpload {
+            get {
+                return ResourceManager.GetString("PleaseChooseFileForUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powerboard.
+        /// </summary>
+        public static string Powerboard {
+            get {
+                return ResourceManager.GetString("Powerboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powerboards.
+        /// </summary>
+        public static string Powerboards {
+            get {
+                return ResourceManager.GetString("Powerboards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to privacy policy.
         /// </summary>
         public static string Privacy {
@@ -1906,6 +1987,24 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Software &amp; Firmware.
+        /// </summary>
+        public static string SoftwareAndFirmware {
+            get {
+                return ResourceManager.GetString("SoftwareAndFirmware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Software or Firmware.
+        /// </summary>
+        public static string SoftwareOrFirmware {
+            get {
+                return ResourceManager.GetString("SoftwareOrFirmware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {
@@ -2001,6 +2100,15 @@ namespace i18n {
         public static string Unlink {
             get {
                 return ResourceManager.GetString("Unlink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Url.
+        /// </summary>
+        public static string Url {
+            get {
+                return ResourceManager.GetString("Url", resourceCulture);
             }
         }
         
@@ -2289,6 +2397,15 @@ namespace i18n {
         public static string VerifiedBy {
             get {
                 return ResourceManager.GetString("VerifiedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         

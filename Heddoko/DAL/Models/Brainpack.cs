@@ -1,11 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DAL.Models
 {
@@ -21,12 +16,19 @@ namespace DAL.Models
 
         public BrainpacksQAStatusType QAStatus { get; set; }
 
+        #region NotMapped
+
+        public string IDView => $"BP{ID.ToString(Constants.PadZero)}";
+
+        #endregion
+
         #region Relations
+
         [JsonIgnore]
         //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
         public virtual ICollection<Kit> Kit { get; set; }
 
-        public int? PowerboardID {get;set;}
+        public int? PowerboardID { get; set; }
 
         [JsonIgnore]
         public virtual Powerboard Powerboard { get; set; }
@@ -35,16 +37,13 @@ namespace DAL.Models
 
         [JsonIgnore]
         public virtual Databoard Databoard { get; set; }
-        #endregion
 
-        #region NotMapped
-        public string IDView
-        {
-            get
-            {
-                return $"BP{ID.ToString(Constants.PadZero)}";
-            }
-        }
+        [JsonIgnore]
+        public int? FirmwareID { get; set; }
+
+        [JsonIgnore]
+        public virtual Firmware Firmware { get; set; }
+
         #endregion
     }
 }

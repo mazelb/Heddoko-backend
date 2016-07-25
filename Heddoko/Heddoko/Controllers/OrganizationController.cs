@@ -1,13 +1,10 @@
-﻿using Heddoko.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using DAL;
+using Heddoko.Models;
 
 namespace Heddoko.Controllers
 {
-    [Auth(Roles = DAL.Constants.Roles.LicenseAdminAndAdmin)]
+    [Auth(Roles = Constants.Roles.LicenseAdminAndAdmin)]
     public class OrganizationController : BaseController
     {
         public ActionResult Index()
