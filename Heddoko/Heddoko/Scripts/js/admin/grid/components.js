@@ -1,8 +1,8 @@
 ﻿$(function () {
-    Components.init();
+    ComponentItems.init();
 });
 
-var Components = {
+var ComponentItems = {
     isDeleted: false,
     controls: {
         grid: null,
@@ -15,22 +15,13 @@ var Components = {
     },
 
     datasources: function () {
-        this.components = Components.getDatasource();
+        this.components = ComponentItems.getDatasource();
 
         this.componentTypes = new kendo.data.DataSource({
             data: _.values(Enums.ComponentsType.array)
         });
 
         this.componentTypes.read();
-    },
-
-    componentTypesDDEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDropDownList({
-            autoBind: true,
-            dataSouce: Datasources.componentTypes
-        });
     },
 
     getDatasource: function () {
@@ -48,11 +39,10 @@ var Components = {
                     id: "id",
                     fields: {
                         type: {
-                            nullable: true,
+                            nullable: false,
                             type: "number",
                             validation: {
                                 required: true,
-                                min: 0,
                                 max: KendoDS.maxInt
                             }
                         },
@@ -102,12 +92,12 @@ var Components = {
                 }],
                 columns: [
                 {
-                    field: 'type',
+                    field: "type",
                     title: i18n.Resources.Type,
                     template: function (e) {
                         return Format.components.componentsType(e.type);
                     },
-                    editor: Components.componentTypesDDEditor
+                    editor: this.componentTypesDDEditor
                 },
                 {
                     field: 'status',
@@ -161,17 +151,30 @@ var Components = {
                 model: this.getEmptyModel()
             });
 
+            this.validators.addModel = model.kendoValidator({
+                validateonBlur: true
+            }).data("kendoValidator");
+
             kendo.bind(model, this.controls.addModel);
 
             $('.chk-show-deleted', this.controls.grid.element).click(this.onShowDeleted.bind(this));
         }
     },
 
+    componentTypesDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSouce: Datasources.componentTypes
+        });
+    },
+
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
 
-        var grid = Components.controls.grid;
-        var enumerable = Enums.EquipmentStatusType.enum;
+        var grid = ComponentItems.controls.grid;
+        var enumarable = Enums.EquipmentStatusType.enum;
 
         $(".k-grid-delete", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
@@ -198,8 +201,6 @@ var Components = {
         });
     },
 
-    
-
     getEmptyModel: function (e) {
         return {
             type: null,
@@ -214,9 +215,9 @@ var Components = {
     },
 
     onRestore: function (e) {
-        var item = Components.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        var item = ComponentItems.controls.grid.dataItem($(e.currentTarget).closest("tr"));
         item.set('status', Enums.EquipmentStatusType.enum.Ready);
-        Components.controls.grid.dataSource.sync();
+        ComponentItems.controls.grid.dataSource.sync();
     },
 
     onReset: function (e) {
@@ -229,7 +230,7 @@ var Components = {
             var obj = this.controls.addModel.get('model');
 
             this.controls.grid.dataSource.add(obj);
-            this.controls.grid.dataSouce.sync();
+            this.controls.grid.dataSource.sync();
             this.controls.grid.dataSource.one('requestEnd', function (e) {
                 if (e.type === "create" && !e.response.Errors) {
                     this.onReset();
@@ -253,7 +254,7 @@ var Components = {
 
     buildFilter: function (search) {
         Notifications.clear();
-        var search = this.controls.filterModel.search;
+        search = this.controls.filterModel.search;
 
         var filters = [];
 
@@ -279,4 +280,4 @@ var Components = {
     }
 };
 
-Datasources.bind(Components.datasources);
+Datasources.bind(ComponentItems.datasources);
