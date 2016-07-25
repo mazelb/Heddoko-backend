@@ -18,6 +18,30 @@ var Databoards = {
     datasources: function () {
         //Datasources context
         this.databoards = Databoards.getDatasource();
+
+        this.databoardsDD = Databoards.getDatasourceDD();
+    },
+
+    getDatasourceDD: function (id) {
+        return new kendo.data.DataSource({
+            serverPaging: false,
+            serverFiltering: true,
+            serverSorting: false,
+            transport: KendoDS.buildTransport('/admin/api/databoards'),
+            schema: {
+                data: "response",
+                total: "total",
+                errors: "Errors",
+                model: {
+                    id: "id"
+                }
+            },
+            filter: [{
+                field: 'Used',
+                operator: 'eq',
+                value: id
+            }]
+        });
     },
 
     getDatasource: function () {
@@ -178,6 +202,15 @@ var Databoards = {
 
             $('.chk-show-deleted', this.controls.grid.element).click(this.onShowDeleted.bind(this));
         }
+    },
+
+    ddEditor: function (container, options) {
+        $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Databoards.getDatasourceDD(options.model.id)
+        });
     },
 
     onDataBound: function (e) {

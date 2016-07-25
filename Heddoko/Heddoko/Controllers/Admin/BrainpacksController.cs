@@ -1,0 +1,264 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Description;
+using DAL;
+using DAL.Models;
+using Heddoko.Models;
+
+namespace Heddoko.Controllers
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [RoutePrefix("admin/api/brainpacks")]
+    [AuthAPI(Roles = Constants.Roles.Admin)]
+    public class BrainpacksController : BaseAdminController<Brainpack, BrainpackAPIModel>
+    {
+        private const string Search = "Search";
+        private const string IsDeleted = "IsDeleted";
+        private const string Used = "Used";
+
+        public override KendoResponse<IEnumerable<BrainpackAPIModel>> Get([FromUri] KendoRequest request)
+        {
+            IEnumerable<Brainpack> items = null;
+
+            bool isDeleted = false;
+            bool isUsed = false;
+
+            if (request?.Filter != null)
+            {
+                KendoFilterItem isUsedFilter = request.Filter.Get(Used);
+
+                if (isUsedFilter != null)
+                {
+                    int tmp = 0;
+                    int? usedID = null;
+                    if (int.TryParse(isUsedFilter.Value, out tmp))
+                    {
+                        usedID = tmp;
+                    }
+
+                    items = UoW.BrainpackRepository.GetAvailable(usedID);
+                    isUsed = true;
+                }
+                else
+                {
+                    KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
+                    if (isDeletedFilter != null)
+                    {
+                        isDeleted = true;
+                    }
+
+                    KendoFilterItem searchFilter = request.Filter.Get(Search);
+                    if (!string.IsNullOrEmpty(searchFilter?.Value))
+                    {
+                        items = UoW.BrainpackRepository.Search(searchFilter.Value, isDeleted);
+                    }
+                }
+            }
+
+            if (items == null
+                &&
+                !isUsed)
+            {
+                items = UoW.BrainpackRepository.All(isDeleted);
+            }
+
+            int count = items.Count();
+
+            if (request?.Take != null
+                &&
+                request.Skip != null)
+            {
+                items = items.Skip(request.Skip.Value)
+                             .Take(request.Take.Value);
+            }
+
+            List<BrainpackAPIModel> itemsDefault = new List<BrainpackAPIModel>();
+
+            if (isUsed)
+            {
+                itemsDefault.Add(new BrainpackAPIModel(true)
+                {
+                    ID = 0
+                });
+            }
+
+            itemsDefault.AddRange(items.ToList().Select(Convert));
+
+            return new KendoResponse<IEnumerable<BrainpackAPIModel>>
+            {
+                Response = itemsDefault,
+                Total = count
+            };
+        }
+
+        public override KendoResponse<BrainpackAPIModel> Get(int id)
+        {
+            Brainpack item = UoW.BrainpackRepository.Get(id);
+
+            return new KendoResponse<BrainpackAPIModel>
+            {
+                Response = Convert(item)
+            };
+        }
+
+        public override KendoResponse<BrainpackAPIModel> Post(BrainpackAPIModel model)
+        {
+            BrainpackAPIModel response;
+
+            if (ModelState.IsValid)
+            {
+                Brainpack item = new Brainpack();
+
+                Bind(item, model);
+
+                UoW.BrainpackRepository.Create(item);
+
+                response = Convert(item);
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+
+            return new KendoResponse<BrainpackAPIModel>
+            {
+                Response = response
+            };
+        }
+
+        public override KendoResponse<BrainpackAPIModel> Put(BrainpackAPIModel model)
+        {
+            BrainpackAPIModel response = new BrainpackAPIModel();
+
+            if (!model.ID.HasValue)
+            {
+                return new KendoResponse<BrainpackAPIModel>
+                {
+                    Response = response
+                };
+            }
+
+
+            Brainpack item = UoW.BrainpackRepository.GetFull(model.ID.Value);
+            if (item == null)
+            {
+                return new KendoResponse<BrainpackAPIModel>
+                {
+                    Response = response
+                };
+            }
+
+
+            if (ModelState.IsValid)
+            {
+                Bind(item, model);
+                UoW.Save();
+
+                response = Convert(item);
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+
+            return new KendoResponse<BrainpackAPIModel>
+            {
+                Response = response
+            };
+        }
+
+        public override KendoResponse<BrainpackAPIModel> Delete(int id)
+        {
+            Brainpack item = UoW.BrainpackRepository.Get(id);
+
+            if (item.ID != CurrentUser.ID)
+            {
+                item.Status = EquipmentStatusType.Trash;
+                UoW.KitRepository.RemoveBrainpack(item.ID);
+
+                UoW.Save();
+            }
+
+            return new KendoResponse<BrainpackAPIModel>
+            {
+                Response = Convert(item)
+            };
+        }
+
+        protected override Brainpack Bind(Brainpack item, BrainpackAPIModel model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+
+            if (model.FirmwareID.HasValue)
+            {
+                Firmware firmware = UoW.FirmwareRepository.Get(model.FirmwareID.Value);
+
+                if (firmware != null)
+                {
+                    item.Firmware = firmware;
+                }
+            }
+
+            if (model.PowerboardID.HasValue)
+            {
+                Powerboard powerboard = UoW.PowerboardRepository.Get(model.PowerboardID.Value);
+
+                if (powerboard != null)
+                {
+                    item.Powerboard = powerboard;
+                }
+            }
+
+            if (model.DataboardID.HasValue)
+            {
+                Databoard databoard = UoW.DataboardRepository.Get(model.DataboardID.Value);
+
+                if (databoard != null)
+                {
+                    item.Databoard = databoard;
+                }
+            }
+
+            item.Version = model.Version;
+            item.Status = model.Status;
+            item.Location = model.Location;
+            item.QAStatus = model.QAStatus;
+
+            return item;
+        }
+
+        protected override BrainpackAPIModel Convert(Brainpack item)
+        {
+            if (item == null)
+            {
+                return null;
+            }
+
+            return new BrainpackAPIModel
+            {
+                ID = item.ID,
+                IDView = item.IDView,
+                Version = item.Version,
+                Location = item.Location,
+                Status = item.Status,
+                FirmwareID = item.FirmwareID,
+                Firmware = item.Firmware,
+                QAStatus = item.QAStatus,
+                Powerboard = item.Powerboard,
+                Databoard = item.Databoard,
+                PowerboardID = item.PowerboardID,
+                DataboardID = item.DataboardID
+            };
+        }
+    }
+}

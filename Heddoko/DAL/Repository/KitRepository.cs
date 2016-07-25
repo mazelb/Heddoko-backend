@@ -1,4 +1,7 @@
-﻿using DAL.Models;
+﻿using System;
+using System.Linq;
+using DAL.Models;
+using EntityFramework.Extensions;
 
 namespace DAL
 {
@@ -7,6 +10,15 @@ namespace DAL
         public KitRepository(HDContext sb)
             : base(sb)
         {
+        }
+
+
+        public void RemoveBrainpack(int brainpackID)
+        {
+            DbSet.Where(c => c.BrainpackID.Value == brainpackID).Update(c => new Kit()
+            {
+                BrainpackID = null
+            });
         }
     }
 }

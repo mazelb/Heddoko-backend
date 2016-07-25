@@ -1,8 +1,8 @@
 ﻿$(function () {
-    Powerboards.init();
+    Brainpacks.init();
 });
 
-var Powerboards = {
+var Brainpacks = {
     isDeleted: false,
     controls: {
         form: null,
@@ -17,31 +17,13 @@ var Powerboards = {
 
     datasources: function () {
         //Datasources context
-        this.powerboards = Powerboards.getDatasource();
+        this.brainpacks = Brainpacks.getDatasource();
 
-        this.powerboardsDD = Powerboards.getDatasourceDD();
-    },
-
-    getDatasourceDD: function (id) {
-        return new kendo.data.DataSource({
-            serverPaging: false,
-            serverFiltering: true,
-            serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/powerboards'),
-            schema: {
-                data: "response",
-                total: "total",
-                errors: "Errors",
-                model: {
-                    id: "id"
-                }
-            },
-            filter: [{
-                field: 'Used',
-                operator: 'eq',
-                value: id
-            }]
+        this.brainpacksQAStatusTypes = new kendo.data.DataSource({
+            data: _.values(Enums.BrainpacksQAStatusType.array)
         });
+
+        this.brainpacksQAStatusTypes.read();
     },
 
     getDatasource: function () {
@@ -50,7 +32,7 @@ var Powerboards = {
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport("/admin/api/powerboards"),
+            transport: KendoDS.buildTransport("/admin/api/brainpacks"),
             schema: {
                 data: "response",
                 total: "total",
@@ -77,6 +59,20 @@ var Powerboards = {
                                 max: KendoDS.maxInt
                             }
                         },
+                        powerboardID: {
+                            nullable: true,
+                            type: "number",
+                            validation: {
+                                max: KendoDS.maxInt
+                            }
+                        },
+                        databoardID: {
+                            nullable: true,
+                            type: "number",
+                            validation: {
+                                max: KendoDS.maxInt
+                            }
+                        },
                         location: {
                             nullable: false,
                             type: "string",
@@ -93,6 +89,15 @@ var Powerboards = {
                                 min: 0,
                                 max: KendoDS.maxInt
                             }
+                        },
+                        qaStatus: {
+                            nullable: false,
+                            type: "number",
+                            validation: {
+                                required: true,
+                                min: 0,
+                                max: KendoDS.maxInt
+                            }
                         }
                     }
                 }
@@ -101,13 +106,13 @@ var Powerboards = {
     },
 
     init: function () {
-        var control = $("#powerboardsGrid");
-        var filter = $(".powerboardsFilter");
-        this.controls.form = $(".powerboardsForm");
+        var control = $("#brainpacksGrid");
+        var filter = $(".brainpacksFilter");
+        this.controls.form = $(".brainpacksForm");
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                dataSource: Datasources.powerboards,
+                dataSource: Datasources.brainpacks,
                 sortable: false,
                 editable: "popup",
                 selectable: false,
@@ -133,7 +138,23 @@ var Powerboards = {
                     template: function (e) {
                         return Format.firmware.version(e);
                     },
-                    editor: Firmwares.ddEditorPowerboards
+                    editor: Firmwares.ddEditorBrainpacks
+                },
+                {
+                    field: "powerboardID",
+                    title: i18n.Resources.Powerboard,
+                    template: function (e) {
+                        return Format.brainpack.powerboard(e);
+                    },
+                    editor: Powerboards.ddEditor
+                },
+                {
+                    field: "databoardID",
+                    title: i18n.Resources.Databoard,
+                    template: function (e) {
+                        return Format.brainpack.databoard(e);
+                    },
+                    editor: Databoards.ddEditor
                 },
                 {
                     field: "version",
@@ -150,6 +171,14 @@ var Powerboards = {
                         return Format.equipment.equipmentStatus(e.status);
                     },
                     editor: Equipments.equipmentStatusDDEditor
+                },
+                {
+                    field: "qaStatus",
+                    title: i18n.Resources.QAStatus,
+                    template: function (e) {
+                        return Format.brainpack.brainpacksQAStatusTypes(e.qaStatus);
+                    },
+                    editor: Equipments.brainpacksQAStatusTypesDDEditor
                 }, {
                     command: [{
                         name: "edit",
@@ -185,9 +214,11 @@ var Powerboards = {
             this.controls.addModel = kendo.observable({
                 reset: this.onReset.bind(this),
                 submit: this.onAdd.bind(this),
-                sizes: Datasources.sizeTypes,
                 statuses: Datasources.equipmentStatusTypes,
-                firmwares: Datasources.firmwaresPowerboards,
+                firmwares: Datasources.firmwaresBrainpacks,
+                powerboards: Datasources.powerboardsDD,
+                databoards: Datasources.databoardsDD,
+                qaStatuses: Datasources.equipmentQAStatusTypes,
                 model: this.getEmptyModel()
             });
 
@@ -200,23 +231,14 @@ var Powerboards = {
                 }
             }).data("kendoValidator");
 
-            $(".chk-show-deleted", this.controls.grid.element).click(this.onShowDeleted.bind(this));
+            $('.chk-show-deleted', this.controls.grid.element).click(this.onShowDeleted.bind(this));
         }
-    },
-
-    ddEditor: function (container, options) {
-        $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDropDownList({
-            autoBind: true,
-            dataSource: Powerboards.getDatasourceDD(options.model.id)
-        });
     },
 
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
 
-        var grid = Powerboards.controls.grid;
+        var grid = Brainpacks.controls.grid;
         var enumarable = Enums.EquipmentStatusType.enum;
 
         $(".k-grid-delete", grid.element).each(function () {
@@ -244,12 +266,24 @@ var Powerboards = {
         });
     },
 
+    brainpacksQAStatusTypesDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.brainpacksQAStatusTypes
+        });
+    },
+
     getEmptyModel: function () {
         return {
             version: null,
             firmwareID: null,
+            databoardID: null,
+            powerboardID: null,
             location: null,
-            status: null
+            status: null,
+            qaStatus: null
         };
     },
 
@@ -259,7 +293,7 @@ var Powerboards = {
     },
 
     onRestore: function (e) {
-        var grid = Powerboards.controls.grid;
+        var grid = Brainpacks.controls.grid;
 
         var item = grid.dataItem($(e.currentTarget).closest("tr"));
         item.set("status", Enums.EquipmentStatusType.enum.Ready);
@@ -327,4 +361,4 @@ var Powerboards = {
     }
 };
 
-Datasources.bind(Powerboards.datasources);
+Datasources.bind(Brainpacks.datasources);

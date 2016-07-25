@@ -187,5 +187,32 @@
             }
             return "";
         }
+    },
+    brainpack: {
+        powerboard: function (item) {
+            if (item.powerboard) {
+                var div = '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.powerboard.idView + "</b><br/>";
+                div += i18n.Resources.Version + ": <b>" + item.powerboard.version + "</b><br/>";
+                div += "</div>";
+                return div;
+            }
+            return "";
+        },
+        databoard: function (item) {
+            if (item.databoard) {
+                var div = '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.databoard.idView + "</b><br/>";
+                div += i18n.Resources.Version + ": <b>" + item.databoard.version + "</b><br/>";
+                div += "</div>";
+                return div;
+            }
+            return "";
+        },
+        brainpacksQAStatusTypes: function(item) {
+            item = item ? Enums.BrainpacksQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        }
     }
 };

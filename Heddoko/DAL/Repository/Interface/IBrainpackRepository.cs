@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using System.Collections.Generic;
+using DAL.Models;
 
 namespace DAL
 {
@@ -6,5 +7,8 @@ namespace DAL
     {
         void RemoveDataboard(int databoardID);
         void RemovePowerboard(int id);
+        IEnumerable<Brainpack> GetAvailable(int? usedID);
+        IEnumerable<Brainpack> Search(string value, bool isDeleted);
+        IEnumerable<Brainpack> All(bool isDeleted);
     }
 }

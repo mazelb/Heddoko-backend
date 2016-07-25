@@ -303,7 +303,7 @@ var PantsOctopi = {
 
     buildFilter: function (search) {
         Notifications.clear();
-        var search = this.controls.filterModel.search;
+        search = this.controls.filterModel.search;
 
         var filters = [];
 

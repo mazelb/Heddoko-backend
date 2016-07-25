@@ -263,4 +263,20 @@
     };
     </text>
     }
+
+    Enums.BrainpacksQAStatusType = {};
+    Enums.BrainpacksQAStatusType.enum = {};
+    Enums.BrainpacksQAStatusType.array = {};
+    @foreach (DAL.Models.BrainpacksQAStatusType type in (DAL.Models.BrainpacksQAStatusType[])Enum.GetValues(typeof(DAL.Models.BrainpacksQAStatusType)))
+    {
+        <text>
+
+    Enums.BrainpacksQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.BrainpacksQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
 </script>
