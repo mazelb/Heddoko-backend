@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web;
 using DAL.Models;
 using i18n;
 
@@ -28,9 +30,6 @@ namespace Heddoko.Models
 
         public string Url { get; set; }
 
-        public string Name
-        {
-            get { return IsEmpty ? $"{Resources.No} {Resources.SoftwareOrFirmware}" : $"{Version}"; }
-        }
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.SoftwareOrFirmware}" : $"{Version}";
     }
 }

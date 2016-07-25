@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -57,6 +58,10 @@ namespace DAL
         #endregion
 
         #region String
+        public static string ToTitleCase(this string str)
+        {
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
+        }
 
         public static string CleanFileName(this string fileName)
         {

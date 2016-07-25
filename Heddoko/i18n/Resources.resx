@@ -912,4 +912,10 @@
   <data name="PleaseChooseFileForUpload" xml:space="preserve">
     <value>Please choose file for upload</value>
   </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>Url</value>
+  </data>
 </root>

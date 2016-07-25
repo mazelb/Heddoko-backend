@@ -133,10 +133,10 @@ var Firmwares = {
                     title: i18n.Resources.ID
                 },
                 {
-                    field: 'Type',
+                    field: 'type',
                     title: i18n.Resources.Type,
                     template: function (e) {
-                        return Format.equipment.size(e.size);
+                        return Format.firmware.type(e.type);
                     },
                     editor: Firmwares.typeDDEditor
                 },
@@ -153,7 +153,12 @@ var Firmwares = {
                     editor: Firmwares.statusDDEditor
                 },
                 {
-                    field: 'qaStatus',
+                    field: 'url',
+                    title: i18n.Resources.Url,
+                    template: function (e) {
+                        return Format.firmware.url(e.url);
+                    },
+                    editor: KendoDS.emptyEditor
                 }, {
                     command: [{
                         name: "edit",
@@ -313,8 +318,7 @@ var Firmwares = {
     },
 
     onUpload: function (e) {
-        console.log(e.files);
-        if (e.files.length == 0) {
+        if (e.files.length === 0) {
             Notifications.error(i18n.Resources.PleaseChooseFileForUpload);
             return false;
         } else {
@@ -328,6 +332,7 @@ var Firmwares = {
 
     onSuccessUpload: function (e) {
         this.onReset();
+        this.controls.grid.dataSource.read();
     },
 
     onEnter: function (e) {

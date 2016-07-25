@@ -4,9 +4,9 @@ namespace DAL
 {
     public class AssetManager
     {
-        public static string ImagePath(string name, AssetType type)
+        public static string Path(string name, AssetType type)
         {
-            return $"{type.GetStringValue()}{name}";
+            return $"{type.GetStringValue()}/{name}";
         }
     }
 }

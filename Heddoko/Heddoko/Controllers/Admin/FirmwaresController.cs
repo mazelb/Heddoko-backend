@@ -1,26 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
 using Heddoko.Models;
+using Newtonsoft.Json;
+using Services;
 
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("admin/api/firmwares")]
     [AuthAPI(Roles = Constants.Roles.Admin)]
-    public class FirmwaresController : BaseAdminController<ShirtOctopi, ShirtOctopiAPIModel>
+    public class FirmwaresController : BaseAdminController<Firmware, FirmwareAPIModel>
     {
         private const string Search = "Search";
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
 
-        public override KendoResponse<IEnumerable<ShirtOctopiAPIModel>> Get([FromUri] KendoRequest request)
+        public override KendoResponse<IEnumerable<FirmwareAPIModel>> Get([FromUri] KendoRequest request)
         {
-            IEnumerable<ShirtOctopi> items = null;
-            int count = 0;
+            IEnumerable<Firmware> items = null;
 
             bool isDeleted = false;
             bool isUsed = false;
@@ -32,13 +39,13 @@ namespace Heddoko.Controllers
                 if (isUsedFilter != null)
                 {
                     int tmp = 0;
-                    int? usedID = null;
+                    FirmwareType type = FirmwareType.Brainpack;
                     if (int.TryParse(isUsedFilter.Value, out tmp))
                     {
-                        usedID = tmp;
+                        type = (FirmwareType)tmp;
                     }
 
-                    items = UoW.ShirtOctopiRepository.GetAvailable(usedID);
+                    items = UoW.FirmwareRepository.GetByType(type);
                     isUsed = true;
                 }
                 else
@@ -52,7 +59,7 @@ namespace Heddoko.Controllers
                     KendoFilterItem searchFilter = request.Filter.Get(Search);
                     if (!string.IsNullOrEmpty(searchFilter?.Value))
                     {
-                        items = UoW.ShirtOctopiRepository.Search(searchFilter.Value, isDeleted);
+                        items = UoW.FirmwareRepository.Search(searchFilter.Value, isDeleted);
                     }
                 }
             }
@@ -61,81 +68,158 @@ namespace Heddoko.Controllers
                 &&
                 !isUsed)
             {
-                items = UoW.ShirtOctopiRepository.All(isDeleted);
+                items = UoW.FirmwareRepository.All(isDeleted);
             }
 
-            count = items.Count();
+            int count = items.Count();
 
-            if (request?.Take != null)
+            if (request?.Take != null
+             && request.Skip != null)
             {
                 items = items.Skip(request.Skip.Value)
                              .Take(request.Take.Value);
             }
 
-            List<ShirtOctopiAPIModel> itemsDefault = new List<ShirtOctopiAPIModel>();
+            List<FirmwareAPIModel> itemsDefault = new List<FirmwareAPIModel>();
 
             if (isUsed)
             {
-                itemsDefault.Add(new ShirtOctopiAPIModel(true)
-                                 {
-                                     ID = 0
-                                 });
+                itemsDefault.Add(new FirmwareAPIModel(true)
+                {
+                    ID = 0
+                });
             }
 
             itemsDefault.AddRange(items.ToList().Select(Convert));
 
-            return new KendoResponse<IEnumerable<ShirtOctopiAPIModel>>
-                   {
-                       Response = itemsDefault,
-                       Total = count
-                   };
+            return new KendoResponse<IEnumerable<FirmwareAPIModel>>
+            {
+                Response = itemsDefault,
+                Total = count
+            };
         }
 
-        public override KendoResponse<ShirtOctopiAPIModel> Get(int id)
+        public override KendoResponse<FirmwareAPIModel> Get(int id)
         {
-            ShirtOctopi item = UoW.ShirtOctopiRepository.Get(id);
+            Firmware item = UoW.FirmwareRepository.Get(id);
 
-            return new KendoResponse<ShirtOctopiAPIModel>
-                   {
-                       Response = Convert(item)
-                   };
+            return new KendoResponse<FirmwareAPIModel>
+            {
+                Response = Convert(item)
+            };
         }
 
-        public override KendoResponse<ShirtOctopiAPIModel> Post(ShirtOctopiAPIModel model)
+        public async Task<KendoResponse<FirmwareAPIModel>> Upload()
         {
-            ShirtOctopiAPIModel response;
+            FirmwareAPIModel model = new FirmwareAPIModel();
+
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            //TODO Moved to CustomMediaTypeFormater
+            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            MultipartFormDataStreamProvider provider = new MultipartFormDataStreamProvider(root);
+            await Request.Content.ReadAsMultipartAsync(provider);
+
+            foreach (string key in provider.FormData.AllKeys)
+            {
+                string[] enumerable = provider.FormData.GetValues(key);
+
+                if (enumerable == null)
+                {
+                    continue;
+                }
+
+                foreach (string val in enumerable)
+                {
+                    switch (key)
+                    {
+                        case "version":
+                            model.Version = val;
+                            break;
+                        case "type":
+                            model.Type = (FirmwareType)int.Parse(val);
+                            break;
+                        case "status":
+                            model.Status = (FirmwareStatusType)int.Parse(val);
+                            break;
+                    }
+                }
+            }
+
+
+
+            Firmware item = new Firmware();
+
+            Bind(item, model);
+
+            UoW.FirmwareRepository.Create(item);
+
+            Asset asset = new Asset
+            {
+                Type = AssetType.Firmware
+            };
+
+            foreach (MultipartFileData file in provider.FileData)
+            {
+                string path = AssetManager.Path($"{item.ID}/{JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName)}", asset.Type);
+
+                Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
+                File.Delete(file.LocalFileName);
+
+                asset.Image = $"/{path}";
+                break;
+            }
+
+            UoW.AssetRepository.Add((asset));
+            item.Asset = asset;
+
+            UoW.Save();
+
+
+            return new KendoResponse<FirmwareAPIModel>
+            {
+                Response = Convert(item)
+            };
+        }
+
+        public override KendoResponse<FirmwareAPIModel> Post(FirmwareAPIModel model)
+        {
+            FirmwareAPIModel response;
 
             if (ModelState.IsValid)
             {
-                ShirtOctopi item = new ShirtOctopi();
+                Firmware item = new Firmware();
 
                 Bind(item, model);
 
-                UoW.ShirtOctopiRepository.Create(item);
+                UoW.FirmwareRepository.Create(item);
 
                 response = Convert(item);
             }
             else
             {
                 throw new ModelStateException
-                      {
-                          ModelState = ModelState
-                      };
+                {
+                    ModelState = ModelState
+                };
             }
 
-            return new KendoResponse<ShirtOctopiAPIModel>
-                   {
-                       Response = response
-                   };
+            return new KendoResponse<FirmwareAPIModel>
+            {
+                Response = response
+            };
         }
 
-        public override KendoResponse<ShirtOctopiAPIModel> Put(ShirtOctopiAPIModel model)
+        public override KendoResponse<FirmwareAPIModel> Put(FirmwareAPIModel model)
         {
-            ShirtOctopiAPIModel response = new ShirtOctopiAPIModel();
+            FirmwareAPIModel response = new FirmwareAPIModel();
 
             if (model.ID.HasValue)
             {
-                ShirtOctopi item = UoW.ShirtOctopiRepository.GetFull(model.ID.Value);
+                Firmware item = UoW.FirmwareRepository.GetFull(model.ID.Value);
                 if (item != null)
                 {
                     if (ModelState.IsValid)
@@ -148,69 +232,65 @@ namespace Heddoko.Controllers
                     else
                     {
                         throw new ModelStateException
-                              {
-                                  ModelState = ModelState
-                              };
+                        {
+                            ModelState = ModelState
+                        };
                     }
                 }
             }
 
-            return new KendoResponse<ShirtOctopiAPIModel>
-                   {
-                       Response = response
-                   };
+            return new KendoResponse<FirmwareAPIModel>
+            {
+                Response = response
+            };
         }
 
-        public override KendoResponse<ShirtOctopiAPIModel> Delete(int id)
+        public override KendoResponse<FirmwareAPIModel> Delete(int id)
         {
-            ShirtOctopi item = UoW.ShirtOctopiRepository.Get(id);
+            Firmware item = UoW.FirmwareRepository.Get(id);
 
             if (item.ID != CurrentUser.ID)
             {
-                item.Status = EquipmentStatusType.Trash;
-
-                UoW.ShirtRepository.RemoveShirtOctopi(item.ID);
-
+                item.Status = FirmwareStatusType.Inactive;
                 UoW.Save();
             }
 
-            return new KendoResponse<ShirtOctopiAPIModel>
-                   {
-                       Response = Convert(item)
-                   };
+            return new KendoResponse<FirmwareAPIModel>
+            {
+                Response = Convert(item)
+            };
         }
 
-        protected override ShirtOctopi Bind(ShirtOctopi item, ShirtOctopiAPIModel model)
+        protected override Firmware Bind(Firmware item, FirmwareAPIModel model)
         {
             if (model == null)
             {
                 return null;
             }
 
-            item.Location = model.Location;
-            item.QAStatus = model.QAStatus;
+            item.Type = model.Type;
+            item.Version = model.Version;
             item.Status = model.Status;
-            item.Size = model.Size;
 
             return item;
         }
 
-        protected override ShirtOctopiAPIModel Convert(ShirtOctopi item)
+        protected override FirmwareAPIModel Convert(Firmware item)
         {
             if (item == null)
             {
                 return null;
             }
 
-            return new ShirtOctopiAPIModel
-                   {
-                       ID = item.ID,
-                       IDView = item.IDView,
-                       Location = item.Location,
-                       QAStatus = item.QAStatus,
-                       Size = item.Size,
-                       Status = item.Status
-                   };
+            return new FirmwareAPIModel
+            {
+                ID = item.ID,
+                IDView = item.IDView,
+                Version = item.Version,
+                Status = item.Status,
+                Type = item.Type,
+                Url = item.Asset?.Url
+            };
         }
     }
 }

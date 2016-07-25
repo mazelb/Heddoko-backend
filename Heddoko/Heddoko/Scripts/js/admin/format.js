@@ -51,7 +51,7 @@
     },
     organization: {
         user: function (e) {
-            var div = '<div class="">'
+            var div = '<div class="">';
             div += i18n.Resources.Name + ': <b>' + e.user.name + '</b><br/>';
             div += i18n.Resources.Email + ': <b>' + e.user.email + '</b><br/>';
             div += i18n.Resources.Username + ': <b>' + e.user.username + '</b><br/>';
@@ -161,6 +161,21 @@
                 return div;
             }
             return '';
+        }
+    },
+    firmware: {
+        status: function (item) {
+            item = item != null ? Enums.FirmwareStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        },
+        type: function (item) {
+            item = item != null ? Enums.FirmwareType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        },
+        url: function(item) {
+            return item != null ? '<a href="' + item + '">' + i18n.Resources.Download + "</a>" : "";
         }
     }
 };

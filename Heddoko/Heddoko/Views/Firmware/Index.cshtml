@@ -79,10 +79,11 @@
 
                             <div class="col-sm-6">
                                 <input type="file"
-                                       name="firmwares-file"
+                                       id="firmwarefile"
+                                       name="firmwarefile"
                                        data-role="upload"
                                        data-multiple="false"
-                                       data-async="{ saveUrl : 'save', autoUpload: false }"
+                                       data-async="{ saveUrl : '/admin/api/firmwares/upload', autoUpload: false }"
                                        validationMessage="@i18n.Resources.Required"
                                        class="form-control"
                                        data-bind="{ events: { select: select, upload: upload, success: success }}" />

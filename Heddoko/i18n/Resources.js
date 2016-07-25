@@ -265,7 +265,9 @@ i18n.Resources = (function () {
   "SoftwareOrFirmware": "Software or Firmware",
   "WrongSize": "is the wrong size",
   "Version": "Version",
-  "PleaseChooseFileForUpload": "Please choose file for upload"
+  "PleaseChooseFileForUpload": "Please choose file for upload",
+  "Download": "Download",
+  "Url": "Url"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

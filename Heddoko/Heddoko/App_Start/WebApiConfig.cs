@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using Heddoko.Helpers.Error;
@@ -37,6 +38,7 @@ namespace Heddoko
             json.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("multipart/form-data"));
             config.Formatters.Remove(config.Formatters.XmlFormatter);
 
             config.Services.Replace(typeof(IExceptionHandler), new ExceptionAPIHandler());
