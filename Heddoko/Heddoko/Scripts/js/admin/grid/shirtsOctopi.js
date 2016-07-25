@@ -240,7 +240,7 @@ var ShirtsOctopi = {
     },
 
     ddEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        $('<input required data-text-field="text" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             autoBind: true,
