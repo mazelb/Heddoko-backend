@@ -91,14 +91,7 @@ var ComponentItems = {
                     template: '<div class="grid-checkbox"><span><input class="chk-show-deleted" type="checkbox"/>' + i18n.Resources.ShowDeleted + '</span></div>'
                 }],
                 columns: [
-                {
-                    field: "type",
-                    title: i18n.Resources.Type,
-                    template: function (e) {
-                        return Format.components.componentsType(e.type);
-                    },
-                    editor: this.componentTypeDDEditor
-                },
+
                 {
                     field: 'status',
                     title: i18n.Resources.Status,
@@ -107,6 +100,14 @@ var ComponentItems = {
                     },
                     editor: Equipments.equipmentStatusDDEditor
                 },
+                   {
+                       field: "type",
+                       title: i18n.Resources.Type,
+                       template: function (e) {
+                           return Format.components.componentsType(e.type);
+                       },
+                       editor: this.componentTypeDDEditor
+                   },
                 {
                     field: 'quantity',
                     title: i18n.Resources.Quantity
