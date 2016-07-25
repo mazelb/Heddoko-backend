@@ -91,44 +91,43 @@ var ComponentItems = {
                     template: '<div class="grid-checkbox"><span><input class="chk-show-deleted" type="checkbox"/>' + i18n.Resources.ShowDeleted + '</span></div>'
                 }],
                 columns: [
-
-                {
-                    field: 'status',
-                    title: i18n.Resources.Status,
-                    template: function (e) {
-                        return Format.equipment.equipmentStatus(e.status);
+                    {
+                        field: "type",
+                        title: i18n.Resources.Type,
+                        template: function (e) {
+                            return Format.components.componentsType(e.type);
+                        },
+                        editor: this.typeDDEditor
                     },
-                    editor: Equipments.equipmentStatusDDEditor
-                },
-                   {
-                       field: "type",
-                       title: i18n.Resources.Type,
-                       template: function (e) {
-                           return Format.components.componentsType(e.type);
-                       },
-                       editor: this.componentTypeDDEditor
-                   },
-                {
-                    field: 'quantity',
-                    title: i18n.Resources.Quantity
-                },
-                {
-                    command: [{
-                        name: "edit",
-                        text: i18n.Resources.Edit,
-                        className: "k-grid-edit"
-                    }, {
-                        name: "destroy",
-                        text: i18n.Resources.Delete,
-                        className: "k-grid-delete"
-                    }, {
-                        text: i18n.Resources.Restore,
-                        className: "k-grid-restore",
-                        click: this.onRestore
-                    }],
-                    title: i18n.Resources.Actions,
-                    width: '165px'
-                }
+                    {
+                        field: 'status',
+                        title: i18n.Resources.Status,
+                        template: function (e) {
+                            return Format.equipment.equipmentStatus(e.status);
+                        },
+                        editor: Equipments.equipmentStatusDDEditor
+                    },
+                    {
+                        field: 'quantity',
+                        title: i18n.Resources.Quantity
+                    },
+                    {
+                        command: [{
+                            name: "edit",
+                            text: i18n.Resources.Edit,
+                            className: "k-grid-edit"
+                        }, {
+                            name: "destroy",
+                            text: i18n.Resources.Delete,
+                            className: "k-grid-delete"
+                        }, {
+                            text: i18n.Resources.Restore,
+                            className: "k-grid-restore",
+                            click: this.onRestore
+                        }],
+                        title: i18n.Resources.Actions,
+                        width: '165px'
+                    }
                 ],
                 save: KendoDS.onSave,
                 dataBound: this.onDataBound
@@ -168,6 +167,15 @@ var ComponentItems = {
         .kendoDropDownList({
             autoBind: true,
             dataSouce: Datasources.componentTypes
+        });
+    },
+
+    typeDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.componentTypes
         });
     },
 
