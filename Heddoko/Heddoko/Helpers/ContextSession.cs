@@ -1,13 +1,11 @@
-﻿using DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Web;
 using System.Web.SessionState;
+using DAL.Models;
 
 namespace Heddoko
 {
-    public class ContextSession
+    public static class ContextSession
     {
         private const string LastErrorKey = "LastError";
         private const string CurrentUserKey = "CurrentUser";
@@ -17,72 +15,36 @@ namespace Heddoko
         private const string LoggedAsKey = "LoggedAs";
         private const string GoogleOAuthProvider = "GoogleOAuthProvider";
 
-        public static HttpSessionState Current
-        {
-            get
-            {
-                return HttpContext.Current.Session;
-            }
-        }
+        public static HttpSessionState Current => HttpContext.Current.Session;
 
         public static User User
         {
-            get
-            {
-                return ContextSession.Current.Get<User>(CurrentUserKey);
-            }
-            set
-            {
-                ContextSession.Current.Set(CurrentUserKey, value);
-            }
+            get { return Current.Get<User>(CurrentUserKey); }
+            set { Current.Set(CurrentUserKey, value); }
         }
 
         public static User NewUser
         {
-            get
-            {
-                return ContextSession.Current.Get<User>(NewUserKey);
-            }
-            set
-            {
-                ContextSession.Current.Set(NewUserKey, value);
-            }
+            get { return Current.Get<User>(NewUserKey); }
+            set { Current.Set(NewUserKey, value); }
         }
 
         public static User ResendUser
         {
-            get
-            {
-                return ContextSession.Current.Get<User>(ResendUserKey);
-            }
-            set
-            {
-                ContextSession.Current.Set(ResendUserKey, value);
-            }
+            get { return Current.Get<User>(ResendUserKey); }
+            set { Current.Set(ResendUserKey, value); }
         }
 
         public static User LoggedAs
         {
-            get
-            {
-                return ContextSession.Current.Get<User>(LoggedAsKey);
-            }
-            set
-            {
-                ContextSession.Current.Set(LoggedAsKey, value);
-            }
+            get { return Current.Get<User>(LoggedAsKey); }
+            set { Current.Set(LoggedAsKey, value); }
         }
 
         public static Exception LastError
         {
-            get
-            {
-                return ContextSession.Current.Get<Exception>(LastErrorKey);
-            }
-            set
-            {
-                ContextSession.Current.Set(LastErrorKey, value);
-            }
+            get { return Current.Get<Exception>(LastErrorKey); }
+            set { Current.Set(LastErrorKey, value); }
         }
     }
 }

@@ -1,9 +1,7 @@
-﻿using DAL.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using DAL.Models;
+using i18n;
 
 namespace Heddoko.Models
 {
@@ -14,7 +12,7 @@ namespace Heddoko.Models
         public string Name { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [EmailAddress(ErrorMessage = null, ErrorMessageResourceName = "ValidateEmailMessage", ErrorMessageResourceType = typeof(i18n.Resources))]
+        [EmailAddress(ErrorMessage = null, ErrorMessageResourceName = "ValidateEmailMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Email { get; set; }
 
         public string Username { get; set; }

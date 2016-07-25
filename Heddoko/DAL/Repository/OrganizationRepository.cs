@@ -1,14 +1,15 @@
-﻿using DAL.Models;
-using System.Linq;
-using System.Data.Entity;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.Data.Entity;
+using System.Linq;
+using DAL.Models;
 
 namespace DAL
 {
     public class OrganizationRepository : BaseRepository<Organization>, IOrganizationRepository
     {
-        public OrganizationRepository(HDContext sb) : base(sb)
+        public OrganizationRepository(HDContext sb)
+            : base(sb)
         {
         }
 
@@ -27,16 +28,14 @@ namespace DAL
             return DbSet.Include(c => c.User)
                         .Include(c => c.Licenses)
                         .Where(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
-                        .Where(c => c.Status == OrganizationStatusType.Active)
-                        .FirstOrDefault();
+                        .FirstOrDefault(c => c.Status == OrganizationStatusType.Active);
         }
 
         public override Organization GetFull(int id)
         {
             return DbSet.Include(c => c.User)
                         .Include(c => c.Licenses)
-                        .Where(c => c.ID == id)
-                        .FirstOrDefault();
+                        .FirstOrDefault(c => c.ID == id);
         }
 
         public IEnumerable<Organization> Search(string value, bool isDeleted = false)
@@ -47,9 +46,9 @@ namespace DAL
                         .Include(c => c.Licenses)
                         .Where(c => c.Status == status)
                         .Where(c => c.ID.ToString().ToLower().Contains(value.ToLower())
-                                 || c.Name.ToLower().Contains(value.ToLower())
-                                 || c.Address.ToLower().Contains(value.ToLower())
-                                 || c.Phone.ToLower().Contains(value.ToLower()));
+                                    || c.Name.ToLower().Contains(value.ToLower())
+                                    || c.Address.ToLower().Contains(value.ToLower())
+                                    || c.Phone.ToLower().Contains(value.ToLower()));
         }
     }
 }

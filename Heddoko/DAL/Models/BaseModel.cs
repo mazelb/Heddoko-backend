@@ -1,11 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DAL.Models
 {
@@ -22,5 +18,7 @@ namespace DAL.Models
 
         //inject site URL
         public static string AssetsServer { get; set; }
+
+        public static string FirmwaresServer { get; set; }
     }
 }

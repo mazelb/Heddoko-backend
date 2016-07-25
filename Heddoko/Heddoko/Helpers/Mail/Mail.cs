@@ -1,29 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
-using System.Web;
 
 namespace Heddoko
 {
     public class MailFile
     {
-        public Stream Attachment;
+        public Stream Attachment { get; set; }
         public string Name { get; set; }
     }
 
     public class Mail
     {
         private const string HtmlContentID = "htmlView";
+
         public static void Send(string subject, string body, string mailTo = "", IEnumerable<MailFile> attachments = null)
         {
             SmtpClient client = new SmtpClient();
             MailMessage message = new MailMessage();
             foreach (string mail in mailTo.Split(','))
             {
-                message.To.Add(new MailAddress(mail?.Trim()));
+                if (mail != null)
+                {
+                    message.To.Add(new MailAddress(mail?.Trim()));
+                }
             }
 
             message.Subject = subject;
@@ -54,10 +55,12 @@ namespace Heddoko
 
             ContentType c = new ContentType("image/jpeg");
 
-            LinkedResource linkedResource = new LinkedResource(path);
-            linkedResource.ContentType = c;
-            linkedResource.ContentId = contentId;
-            linkedResource.TransferEncoding = TransferEncoding.Base64;
+            LinkedResource linkedResource = new LinkedResource(path)
+            {
+                ContentType = c,
+                ContentId = contentId,
+                TransferEncoding = TransferEncoding.Base64
+            };
 
             return linkedResource;
         }

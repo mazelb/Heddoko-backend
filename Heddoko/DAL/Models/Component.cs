@@ -1,10 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Models
 {
@@ -21,13 +15,9 @@ namespace DAL.Models
         public int Quantity { get; set; }
 
         #region NotMapped
-        public string IDView
-        {
-            get
-            {
-                return $"CO{ID.ToString(Constants.PadZero)}";
-            }
-        }
+
+        public string IDView => $"CO{ID.ToString(Constants.PadZero)}";
+
         #endregion
     }
 }

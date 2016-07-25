@@ -1,15 +1,14 @@
-﻿using DAL.Models;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Collections.Generic;
-using System;
-using System.Text.RegularExpressions;
+using System.Linq;
+using DAL.Models;
 
 namespace DAL
 {
     public class PantsOctopiRepository : BaseRepository<PantsOctopi>, IPantsOctopiRepository
     {
-        public PantsOctopiRepository(HDContext sb) : base(sb)
+        public PantsOctopiRepository(HDContext sb)
+            : base(sb)
         {
         }
 
@@ -36,11 +35,11 @@ namespace DAL
         {
             int? id = search.ParseID();
             return DbSet
-                        .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                        .Where(c => (c.ID == id)
-                                 || (c.Size.ToString().ToLower().Contains(search.ToLower()))
-                                 || (c.Location.ToLower().Contains(search.ToLower())))
-                        .OrderBy(c => c.ID);
+                .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
+                .Where(c => (c.ID == id)
+                            || c.Size.ToString().ToLower().Contains(search.ToLower())
+                            || c.Location.ToLower().Contains(search.ToLower()))
+                .OrderBy(c => c.ID);
         }
     }
 }

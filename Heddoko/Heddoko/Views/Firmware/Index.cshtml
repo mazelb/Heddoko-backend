@@ -13,7 +13,7 @@
     <div>
         <div class="row">
             <div class="col-md-4">
-                <div class="filters firmwareFilter">
+                <div class="filters firmwaresFilter">
                     <div>
                         <label for="searchFirmware" class="control-label">@i18n.Resources.Search</label>
                         <input id="searchFirmware"
@@ -30,7 +30,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-success firmwareForm">
+                <div class="panel panel-success firmwaresForm">
                     <div class="panel-heading clearfix">
                         <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.SoftwareOrFirmware</h3>
                         <div class="btn-group pull-right" role="group">
@@ -43,7 +43,7 @@
                             <div class="col-sm-2">
                                 <select class="form-control"
                                         required
-                                        name="firmware-type"
+                                        name="firmwares-type"
                                         validationMessage="@i18n.Resources.Required"
                                         data-role="dropdownlist"
                                         data-value-primitive="true"
@@ -56,7 +56,7 @@
                             <div class="col-sm-2">
                                 <select class="form-control"
                                         required
-                                        name="firmware-status"
+                                        name="firmwares-status"
                                         validationMessage="@i18n.Resources.Required"
                                         data-role="dropdownlist"
                                         data-value-primitive="true"
@@ -65,28 +65,27 @@
                                         data-value-field="value"
                                         data-bind="value: model.status, source: statuses"></select>
                             </div>
-                            <div class="col-sm-2">
-                                <select class="form-control"
-                                        required
-                                        name="firmware-qastatus"
-                                        validationMessage="@i18n.Resources.Required"
-                                        data-role="dropdownlist"
-                                        data-value-primitive="true"
-                                        data-text-field="text"
-                                        data-option-label="@i18n.Resources.SelectQAStatus"
-                                        data-value-field="value"
-                                        data-bind="value: model.qaStatus, source: qaStatuses"></select>
-                            </div>
                         </div>
                         <div class="row margin010">
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <input type="text"
                                        required
-                                       name="firmware-location"
+                                       name="firmwares-version"
                                        validationMessage="@i18n.Resources.Required"
-                                       placeholder="@i18n.Resources.PhysicalLocation"
+                                       placeholder="@i18n.Resources.Version"
                                        class="form-control"
-                                       data-bind="value: model.location" />
+                                       data-bind="value: model.version" />
+                            </div>
+
+                            <div class="col-sm-6">
+                                <input type="file"
+                                       name="firmwares-file"
+                                       data-role="upload"
+                                       data-multiple="false"
+                                       data-async="{ saveUrl : 'save', autoUpload: false }"
+                                       validationMessage="@i18n.Resources.Required"
+                                       class="form-control"
+                                       data-bind="{ events: { select: select, upload: upload, success: success }}" />
                             </div>
                         </div>
                     </div>
@@ -96,7 +95,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div id="firmwareGrid">
+                <div id="firmwaresGrid">
 
                 </div>
             </div>

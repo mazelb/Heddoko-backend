@@ -216,6 +216,37 @@
     </text>
     }
 
+    Enums.FirmwareType = {};
+    Enums.FirmwareType.enum = {};
+    Enums.FirmwareType.array = {};
+    @foreach (DAL.Models.FirmwareType type in (DAL.Models.FirmwareType[])Enum.GetValues(typeof(DAL.Models.FirmwareType)))
+    {
+        <text>
+
+    Enums.FirmwareType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.FirmwareType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.FirmwareStatusType = {};
+    Enums.FirmwareStatusType.enum = {};
+    Enums.FirmwareStatusType.array = {};
+    @foreach (DAL.Models.FirmwareStatusType type in (DAL.Models.FirmwareStatusType[])Enum.GetValues(typeof(DAL.Models.FirmwareStatusType)))
+    {
+        <text>
+
+    Enums.FirmwareStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.FirmwareStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
 
     Enums.SizeType = {};
     Enums.SizeType.enum = {};

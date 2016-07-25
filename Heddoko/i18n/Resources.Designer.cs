@@ -1456,6 +1456,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please choose file for upload.
+        /// </summary>
+        public static string PleaseChooseFileForUpload {
+            get {
+                return ResourceManager.GetString("PleaseChooseFileForUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to privacy policy.
         /// </summary>
         public static string Privacy {
@@ -2280,6 +2289,15 @@ namespace i18n {
         public static string VerifiedBy {
             get {
                 return ResourceManager.GetString("VerifiedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         

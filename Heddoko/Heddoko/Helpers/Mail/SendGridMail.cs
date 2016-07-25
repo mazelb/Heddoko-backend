@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
+using System.IO;
 using System.Web;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System.IO;
-using System.Diagnostics;
 
 namespace Heddoko
 {
-    public class SendGridMail
+    public static class SendGridMail
     {
         private const string TypeHtml = "text/html";
         private const string Disposition = "attachment";
@@ -31,13 +30,13 @@ namespace Heddoko
                 {
                     foreach (HttpPostedFileBase attachment in attachments)
                     {
-                        byte[] buffer = new byte[attachment.ContentLength];
+                        byte[] buffer;
                         using (BinaryReader theReader = new BinaryReader(attachment.InputStream))
                         {
                             buffer = theReader.ReadBytes(attachment.ContentLength);
                         }
 
-                        mail.AddAttachment(new Attachment()
+                        mail.AddAttachment(new Attachment
                         {
                             Content = Convert.ToBase64String(buffer),
                             Filename = attachment.FileName,
@@ -51,16 +50,16 @@ namespace Heddoko
 
                 if (enableTracking)
                 {
-                    mail.TrackingSettings = new TrackingSettings();
-
-                    mail.TrackingSettings.ClickTracking = new ClickTracking()
+                    mail.TrackingSettings = new TrackingSettings
                     {
-                        Enable = true
-                    };
-
-                    mail.TrackingSettings.OpenTracking = new OpenTracking()
-                    {
-                        Enable = true
+                        ClickTracking = new ClickTracking
+                        {
+                            Enable = true
+                        },
+                        OpenTracking = new OpenTracking
+                        {
+                            Enable = true
+                        }
                     };
                 }
 

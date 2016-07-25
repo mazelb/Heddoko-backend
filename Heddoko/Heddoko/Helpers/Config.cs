@@ -1,91 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
 using System.Web;
+using DAL.Models;
 
 namespace Heddoko
 {
     public class Config : DAL.Config
     {
-        public static int EmailForgotTokenExpiration
-        {
-            get
-            {
-                return int.Parse(ConfigurationManager.AppSettings["EmailForgotTokenExpiration"]);
-            }
-        }
+        public static int EmailForgotTokenExpiration => int.Parse(ConfigurationManager.AppSettings["EmailForgotTokenExpiration"]);
 
-        public static string SendgridKey
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["SendgridKey"];
-            }
-        }
+        public static string SendgridKey => ConfigurationManager.AppSettings["SendgridKey"];
 
-        public static string MailFrom
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["MailFrom"];
-            }
-        }
+        public static string MailFrom => ConfigurationManager.AppSettings["MailFrom"];
 
         #region Host
-        public static string Host
-        {
-            get
-            {
-                return _host;
-            }
-        }
 
-        public static string ApplicationPath
-        {
-            get
-            {
-                return _applicationPath;
-            }
-        }
+        private static string Host { get; set; }
 
-        private static string _host = null;
-        private static string _applicationPath = null;
+        public static string ApplicationPath { get; private set; }
 
-        private static Object _lock = new Object();
+        private static readonly object Lock = new object();
 
         public static void Initialise(HttpContext context)
         {
-            if (string.IsNullOrEmpty(_host))
+            if (!string.IsNullOrEmpty(Host))
             {
-                lock (_lock)
+                return;
+            }
+
+            lock (Lock)
+            {
+                if (!string.IsNullOrEmpty(Host))
                 {
-                    if (string.IsNullOrEmpty(_host))
-                    {
-                        Uri uri = HttpContext.Current.Request.Url;
-                        string appPath = HttpContext.Current.Request.ApplicationPath;
-                        if (uri.Port == 80
-                        || uri.Port == 443)
-                        {
-                            _host = string.Format("{0}{1}{2}{3}", uri.Scheme, Uri.SchemeDelimiter, uri.Host, appPath);
-                        }
-                        else
-                        {
-                            _host = string.Format("{0}{1}{2}{3}:{4}", uri.Scheme, Uri.SchemeDelimiter, uri.Host, appPath, uri.Port);
-                        }
-                        _host = _host.TrimEnd('/');
-
-                        _applicationPath = HttpContext.Current.Server.MapPath("~/").TrimEnd('\\');
-
-                        DAL.Models.BaseModel.AssetsServer = Config.AssetsServer;
-
-                        Trace.TraceInformation(string.Format("Host: {0}", Host));
-                        Trace.TraceInformation(string.Format("ApplicationPath : {0}", ApplicationPath));
-                    }
+                    return;
                 }
+
+                Uri uri = HttpContext.Current.Request.Url;
+                string appPath = HttpContext.Current.Request.ApplicationPath;
+                if (uri.Port == 80
+                    ||
+                    uri.Port == 443)
+                {
+                    Host = $"{uri.Scheme}{Uri.SchemeDelimiter}{uri.Host}{appPath}";
+                }
+                else
+                {
+                    Host = $"{uri.Scheme}{Uri.SchemeDelimiter}{uri.Host}{appPath}:{uri.Port}";
+                }
+                Host = Host.TrimEnd('/');
+
+                ApplicationPath = HttpContext.Current.Server.MapPath("~/").TrimEnd('\\');
+
+                BaseModel.AssetsServer = AssetsServer;
+
+                Trace.TraceInformation($"Host: {Host}");
+                Trace.TraceInformation($"ApplicationPath : {ApplicationPath}");
             }
         }
+
         #endregion
     }
 }

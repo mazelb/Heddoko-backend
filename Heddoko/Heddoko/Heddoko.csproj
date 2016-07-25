@@ -572,6 +572,7 @@
     <Content Include="Scripts\js\admin\grid\licenses.js" />
     <Content Include="Scripts\js\admin\grid\pants.js" />
     <Content Include="Scripts\js\admin\grid\pantsOctopi.js" />
+    <Content Include="Scripts\js\admin\grid\firmwares.js" />
     <Content Include="Scripts\js\admin\grid\shirtsOctopi.js" />
     <Content Include="Scripts\js\admin\grid\usersAdmin.js" />
     <Content Include="Scripts\js\admin\grid\users.js" />
@@ -637,6 +638,7 @@
     <Compile Include="Controllers\Admin\PantsController.cs" />
     <Compile Include="Controllers\Admin\PantsOctopiController.cs" />
     <Compile Include="Controllers\Admin\ShirtsController.cs" />
+    <Compile Include="Controllers\Admin\FirmwaresController.cs" />
     <Compile Include="Controllers\Admin\ShirtsOctopiController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\Admin\LicensesController.cs" />
@@ -646,8 +648,6 @@
     <Compile Include="Controllers\Admin\BaseAdminController.cs" />
     <Compile Include="Controllers\API\BaseAPIController.cs" />
     <Compile Include="Controllers\API\DevController.cs" />
-    <Compile Include="Controllers\API\GroupsAPIController.cs" />
-    <Compile Include="Controllers\API\ProfilesAPIController.cs" />
     <Compile Include="Controllers\API\UsersAPIController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
@@ -673,6 +673,7 @@
     <Compile Include="Helpers\Error\ExceptionAPIHandler.cs" />
     <Compile Include="Helpers\Error\ModelStateException.cs" />
     <Compile Include="Helpers\Error\TraceErrorAttribute.cs" />
+    <Compile Include="Helpers\Hangfire\HangfireAuthorizationFilter.cs" />
     <Compile Include="Helpers\Kendo\AggregateLogic.cs" />
     <Compile Include="Helpers\Kendo\FilterLogic.cs" />
     <Compile Include="Helpers\Kendo\FilterOperator.cs" />
@@ -697,6 +698,7 @@
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
     <Compile Include="Models\Admin\ShirtAPIModel.cs" />
+    <Compile Include="Models\Admin\FirmwareAPIModel.cs" />
     <Compile Include="Models\Admin\ShirtOctopiAPIModel.cs" />
     <Compile Include="Models\Admin\OrganizationAPIModel.cs" />
     <Compile Include="Models\Admin\PantsAPIModel.cs" />
@@ -733,8 +735,6 @@
   <ItemGroup>
     <Folder Include="Content\scss\views\" />
     <Folder Include="Helpers\JWT\" />
-    <Folder Include="Views\ShirtsOctopi\" />
-    <Folder Include="Views\Shirts\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\dev.pubxml" />

@@ -1,15 +1,12 @@
-﻿using DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+using DAL.Models;
+using i18n;
 
 namespace Heddoko.Models
 {
     public class ShirtAPIModel : BaseAPIModel
     {
-        [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(i18n.Resources))]
+        [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Location { get; set; }
 
         public SizeType Size { get; set; }

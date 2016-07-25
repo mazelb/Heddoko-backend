@@ -1,11 +1,9 @@
-﻿using Heddoko.Helpers.Error;
-using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Formatting;
+﻿using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
+using Heddoko.Helpers.Error;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Heddoko
 {
@@ -16,20 +14,26 @@ namespace Heddoko
             config.MapHttpAttributeRoutes(new CustomDirectRouteProvider());
 
             config.Routes.MapHttpRoute(
-                name: "AdminDefaultApi",
-                routeTemplate: "admin/api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+                "AdminDefaultApi",
+                "admin/api/{controller}/{id}",
+                new
+                {
+                    id = RouteParameter.Optional
+                }
+                );
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+                "DefaultApi",
+                "api/{controller}/{id}",
+                new
+                {
+                    id = RouteParameter.Optional
+                }
+                );
 
             JsonMediaTypeFormatter json = config.Formatters.JsonFormatter;
-            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
-            json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            json.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.None;
+            json.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             json.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 

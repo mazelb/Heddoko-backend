@@ -18,7 +18,7 @@
         }
         @Html.Partial("_FlashMessages", Model.Flash)
 
-        @using (Html.BeginForm("Invite", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", name = "forgotConfirmForm" }))
+        @using (Html.BeginForm("SignUpOrganization", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", name = "forgotConfirmForm" }))
         {
             @Html.AntiForgeryToken()
 

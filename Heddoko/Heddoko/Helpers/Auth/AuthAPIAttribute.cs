@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
+using i18n;
 
 namespace Heddoko
 {
@@ -19,9 +17,7 @@ namespace Heddoko
                 throw new Exception("actionContext");
             }
 
-            if (context.RequestContext.Principal == null
-               || context.RequestContext.Principal.Identity == null
-               || !context.RequestContext.Principal.Identity.IsAuthenticated)
+            if (context.RequestContext.Principal?.Identity == null || !context.RequestContext.Principal.Identity.IsAuthenticated)
             {
                 HandleUnauthorizedRequest(context);
                 return;
@@ -42,20 +38,18 @@ namespace Heddoko
 
         protected override void HandleUnauthorizedRequest(HttpActionContext context)
         {
-            if (context.RequestContext.Principal == null
-               || context.RequestContext.Principal.Identity == null
-               || !context.RequestContext.Principal.Identity.IsAuthenticated)
+            if (context.RequestContext.Principal?.Identity == null || !context.RequestContext.Principal.Identity.IsAuthenticated)
             {
                 context.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized)
                 {
-                    Content = new StringContent(i18n.Resources.YouAreNotAuthorized),
+                    Content = new StringContent(Resources.YouAreNotAuthorized)
                 };
             }
             else
             {
                 context.Response = new HttpResponseMessage(HttpStatusCode.Forbidden)
                 {
-                    Content = new StringContent(i18n.Resources.YouAreNotAllowed),
+                    Content = new StringContent(Resources.YouAreNotAllowed)
                 };
             }
         }

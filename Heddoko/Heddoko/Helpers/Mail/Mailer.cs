@@ -1,79 +1,88 @@
-﻿using DAL.Models;
-using Heddoko.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Threading.Tasks;
-using System.Web;
 using DAL;
+using DAL.Models;
+using Heddoko.Models;
+using i18n;
 
 namespace Heddoko
 {
-    public class Mailer
+    public static class Mailer
     {
-        public const string WrikeEmail = "wrike@wrike.com";
-        public async static Task SendActivationEmail(User user)
-        {
-            ActivationUserEmailViewModel mailModel = new ActivationUserEmailViewModel();
-            mailModel.Token = user.ConfirmToken;
+        private const string WrikeEmail = "wrike@wrike.com";
 
-            string subject = i18n.Resources.EmailActivationUserSubject;
+        public static async Task SendActivationEmail(User user)
+        {
+            ActivationUserEmailViewModel mailModel = new ActivationUserEmailViewModel
+            {
+                Token = user.ConfirmToken
+            };
+
+            string subject = Resources.EmailActivationUserSubject;
 
             string body = await Task.Run(() => RazorView.RenderViewToString("ActivationUserEmail", mailModel));
 
             SendGridMail.Send(subject, body, user.Email);
         }
 
-        public async static Task SendInviteAdminEmail(Organization organization)
+        public static async Task SendInviteAdminEmail(Organization organization)
         {
-            InviteAdminUserEmailViewModel mailModel = new InviteAdminUserEmailViewModel();
-            mailModel.Token = organization.User.InviteToken;
-            mailModel.FirstName = organization.User.Name;
-            mailModel.OrganizationName = organization.Name;
+            InviteAdminUserEmailViewModel mailModel = new InviteAdminUserEmailViewModel
+            {
+                Token = organization.User.InviteToken,
+                FirstName = organization.User.Name,
+                OrganizationName = organization.Name
+            };
 
-            string subject = i18n.Resources.EmailInviteAdminUserSubject;
+            string subject = Resources.EmailInviteAdminUserSubject;
 
             string body = await Task.Run(() => RazorView.RenderViewToString("InviteAdminUserEmail", mailModel));
 
             SendGridMail.Send(subject, body, organization.User.Email);
         }
 
-        public async static Task SendInviteEmail(User user)
+        public static async Task SendInviteEmail(User user)
         {
-            InviteAdminUserEmailViewModel mailModel = new InviteAdminUserEmailViewModel();
-            mailModel.Token = user.InviteToken;
-            mailModel.FirstName = user.Name;
-            mailModel.OrganizationName = user.Organization.Name;
+            InviteAdminUserEmailViewModel mailModel = new InviteAdminUserEmailViewModel
+            {
+                Token = user.InviteToken,
+                FirstName = user.Name,
+                OrganizationName = user.Organization.Name
+            };
 
-            string subject = i18n.Resources.EmailInviteUserSubject;
+            string subject = Resources.EmailInviteUserSubject;
 
             string body = await Task.Run(() => RazorView.RenderViewToString("InviteUserEmail", mailModel));
 
             SendGridMail.Send(subject, body, user.Email);
         }
 
-        public async static Task SendForgotPasswordEmail(User user)
+        public static async Task SendForgotPasswordEmail(User user)
         {
-            ForgotPasswordEmailViewModel mailModel = new ForgotPasswordEmailViewModel();
-            mailModel.ForgotToken = user.ForgotToken;
-            mailModel.FirstName = user.FirstName;
-            mailModel.LastName = user.LastName;
+            ForgotPasswordEmailViewModel mailModel = new ForgotPasswordEmailViewModel
+            {
+                ForgotToken = user.ForgotToken,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
 
-            string subject = i18n.Resources.EmailForgotPasswordSubject;
+            string subject = Resources.EmailForgotPasswordSubject;
 
             string body = await Task.Run(() => RazorView.RenderViewToString("ForgotPasswordEmail", mailModel));
 
             SendGridMail.Send(subject, body, user.Email);
         }
 
-        public async static Task SendForgotUsernameEmail(User user)
+        public static async Task SendForgotUsernameEmail(User user)
         {
-            ForgotPasswordEmailViewModel mailModel = new ForgotPasswordEmailViewModel();
-            mailModel.Username = user.Username;
-            mailModel.FirstName = user.FirstName;
-            mailModel.LastName = user.LastName;
+            ForgotPasswordEmailViewModel mailModel = new ForgotPasswordEmailViewModel
+            {
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
 
-            string subject = i18n.Resources.EmailForgotUsernameSubject;
+            string subject = Resources.EmailForgotUsernameSubject;
 
             string body = await Task.Run(() => RazorView.RenderViewToString("ForgotUsernameEmail", mailModel));
 
@@ -82,10 +91,10 @@ namespace Heddoko
 
         public static void SendSupportEmail(SupportIndexViewModel model)
         {
-            string env = Config.Environment == Constants.Environments.Prod ? string.Empty : Config.Environment;
+            string env = DAL.Config.Environment == Constants.Environments.Prod ? string.Empty : DAL.Config.Environment;
             string subject = $"{model.Type.GetStringValue()} {env} {model.ShortDescription}";
 
-            string from = string.Empty;
+            string from;
             switch (model.Type)
             {
                 case IssueType.NewFeature:
@@ -96,7 +105,7 @@ namespace Heddoko
                     break;
             }
 
-            SupportEmailViewModel mailModel = new SupportEmailViewModel()
+            SupportEmailViewModel mailModel = new SupportEmailViewModel
             {
                 Type = model.Type,
                 Importance = model.Importance,
@@ -112,16 +121,18 @@ namespace Heddoko
             SendGridMail.Send(subject, body, WrikeEmail, model.Attachments, from, false);
         }
 
-        public async static Task SendActivatedEmail(User user)
+        public static async Task SendActivatedEmail(User user)
         {
-            await SendEmail(user.Email, i18n.Resources.EmailActivatedSubject, i18n.Resources.EmailActivatedBody);
+            await SendEmail(user.Email, Resources.EmailActivatedSubject, Resources.EmailActivatedBody);
         }
 
-        public async static Task<string> SendEmail(string email, string subject, string body)
+        private static async Task<string> SendEmail(string email, string subject, string body)
         {
-            EmailViewModel mailModel = new EmailViewModel();
-            mailModel.Body = body;
-            mailModel.Email = email;
+            EmailViewModel mailModel = new EmailViewModel
+            {
+                Body = body,
+                Email = email
+            };
 
             string renderedBody = await Task.Run(() => RazorView.RenderViewToString("Email", mailModel));
 
