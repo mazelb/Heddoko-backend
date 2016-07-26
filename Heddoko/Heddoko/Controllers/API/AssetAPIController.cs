@@ -21,8 +21,8 @@ namespace Heddoko.Controllers.API
         /// <summary>
         ///     Uplaod files
         /// </summary>
-        /// <param name="kitID">The id of kit.</param>
-        /// <param name="type">The type of upload.</param>
+        /// <param name="kitID">The id of kit. optional</param>
+        /// <param name="type">The type of upload. required</param>
         [Route("upload")]
         [HttpPost]
         [AuthAPI(Roles = Constants.Roles.All)]

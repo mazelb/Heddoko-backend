@@ -480,8 +480,8 @@
             <summary>
                 Uplaod files
             </summary>
-            <param name="kitID">The id of kit.</param>
-            <param name="type">The type of upload.</param>
+            <param name="kitID">The id of kit. optional</param>
+            <param name="type">The type of upload. required</param>
         </member>
         <member name="M:Heddoko.Controllers.API.UsersAPIController.Profile">
             <summary>
