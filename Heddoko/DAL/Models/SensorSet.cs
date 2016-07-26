@@ -5,6 +5,8 @@ namespace DAL.Models
 {
     public class SensorSet : BaseModel
     {
+        public EquipmentStatusType Status { get; set; }
+
         public SensorsQAStatusType QAStatus { get; set; }
 
         #region NotMapped

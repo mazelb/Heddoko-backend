@@ -18,6 +18,8 @@ namespace Heddoko.Controllers
     {
         private const string Search = "Search";
         private const string IsDeleted = "IsDeleted";
+        private const string Used = "Used";
+
 
         public override KendoResponse<IEnumerable<OrganizationAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -37,6 +39,9 @@ namespace Heddoko.Controllers
                             {
                                 switch (filter.Field)
                                 {
+                                    case Used:
+                                        items = UoW.OrganizationRepository.All();
+                                        break;
                                     case Search:
                                         if (!string.IsNullOrEmpty(filter.Value))
                                         {
@@ -294,6 +299,7 @@ namespace Heddoko.Controllers
                        Address = item.Address,
                        UserID = item.UserID,
                        Notes = item.Notes,
+                       IDView =  item.IDView,
                        Status = item.Status,
                        User = new UserAPIModel
                               {

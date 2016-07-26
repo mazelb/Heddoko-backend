@@ -939,4 +939,10 @@
   <data name="Powerboards" xml:space="preserve">
     <value>Powerboards</value>
   </data>
+  <data name="Composition" xml:space="preserve">
+    <value>Composition</value>
+  </data>
+  <data name="Shirt" xml:space="preserve">
+    <value>Shirt</value>
+  </data>
 </root>

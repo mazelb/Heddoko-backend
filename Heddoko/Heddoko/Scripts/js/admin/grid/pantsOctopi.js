@@ -218,7 +218,7 @@ var PantsOctopi = {
         $(".k-grid-delete", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status == enumarable.Trash) {
+            if (currentDataItem.status === enumarable.Trash) {
                 $(this).remove();
             }
         });
@@ -226,7 +226,7 @@ var PantsOctopi = {
         $(".k-grid-edit", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status == enumarable.Trash) {
+            if (currentDataItem.status === enumarable.Trash) {
                 $(this).remove();
             }
         });
@@ -234,7 +234,7 @@ var PantsOctopi = {
         $(".k-grid-restore", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status != enumarable.Trash) {
+            if (currentDataItem.status !== enumarable.Trash) {
                 $(this).remove();
             }
         });

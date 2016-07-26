@@ -119,6 +119,10 @@
     <Compile Include="Migrations\201607251134294_RemoveUnused.Designer.cs">
       <DependentUpon>201607251134294_RemoveUnused.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607261507552_SensorSetStatus.cs" />
+    <Compile Include="Migrations\201607261507552_SensorSetStatus.Designer.cs">
+      <DependentUpon>201607261507552_SensorSetStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Enum\FirmwareStatusType.cs" />
@@ -244,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607251134294_RemoveUnused.resx">
       <DependentUpon>201607251134294_RemoveUnused.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607261507552_SensorSetStatus.resx">
+      <DependentUpon>201607261507552_SensorSetStatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,10 +1,11 @@
 ﻿$(function () {
-    Pants.init();
+    Kits.init();
 });
 
-var Pants = {
+var Kits = {
     isDeleted: false,
     controls: {
+        form: null,
         grid: null,
         filterModel: null,
         addModel: null
@@ -16,31 +17,13 @@ var Pants = {
 
     datasources: function () {
         //Datasources context
-        this.pants = Pants.getDatasource();
+        this.kits = Kits.getDatasource();
 
-        this.pantsDD = Pants.getDatasourceDD();
-    },
-
-    getDatasourceDD: function (id) {
-        return new kendo.data.DataSource({
-            serverPaging: false,
-            serverFiltering: true,
-            serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/pants'),
-            schema: {
-                data: "response",
-                total: "total",
-                errors: "Errors",
-                model: {
-                    id: "id"
-                }
-            },
-            filter: [{
-                field: 'Used',
-                operator: 'eq',
-                value: id
-            }]
+        this.kitCompositionTypes = new kendo.data.DataSource({
+            data: _.values(Enums.KitCompositionType.array)
         });
+
+        this.kitCompositionTypes.read();
     },
 
     getDatasource: function () {
@@ -49,7 +32,7 @@ var Pants = {
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/pants'),
+            transport: KendoDS.buildTransport("/admin/api/kits"),
             schema: {
                 data: "response",
                 total: "total",
@@ -61,15 +44,38 @@ var Pants = {
                             editable: false,
                             nullable: true
                         },
-                        pantsOctopiID: {
+                        brainpackID: {
                             nullable: true,
-                            type: "number"
-                        },
-                        size: {
-                            nullable: false,
                             type: "number",
                             validation: {
-                                required: true,
+                                max: KendoDS.maxInt
+                            }
+                        },
+                        sensorSetID: {
+                            nullable: true,
+                            type: "number",
+                            validation: {
+                                max: KendoDS.maxInt
+                            }
+                        },
+                        shirtID: {
+                            nullable: true,
+                            type: "number",
+                            validation: {
+                                max: KendoDS.maxInt
+                            }
+                        },
+                        pantsID: {
+                            nullable: true,
+                            type: "number",
+                            validation: {
+                                max: KendoDS.maxInt
+                            }
+                        },
+                        organizationID: {
+                            nullable: true,
+                            type: "number",
+                            validation: {
                                 max: KendoDS.maxInt
                             }
                         },
@@ -81,7 +87,7 @@ var Pants = {
                                 maxLengthValidation: Validator.equipment.location.maxLengthValidation
                             }
                         },
-                        status: {
+                        composition: {
                             nullable: false,
                             type: "number",
                             validation: {
@@ -90,7 +96,7 @@ var Pants = {
                                 max: KendoDS.maxInt
                             }
                         },
-                        qaStatus: {
+                        status: {
                             nullable: false,
                             type: "number",
                             validation: {
@@ -106,13 +112,13 @@ var Pants = {
     },
 
     init: function () {
-        var control = $("#pantsGrid");
-        var filter = $('.pantsFilter');
-        var model = $('.pantsForm');
+        var control = $("#kitsGrid");
+        var filter = $(".kitsFilter");
+        this.controls.form = $(".kitsForm");
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                dataSource: Datasources.pants,
+                dataSource: Datasources.kits,
                 sortable: false,
                 editable: "popup",
                 selectable: false,
@@ -128,32 +134,57 @@ var Pants = {
                 }],
                 columns: [
                 {
-                    field: 'idView',
+                    field: "idView",
                     title: i18n.Resources.ID,
                     editor: KendoDS.emptyEditor
                 },
                 {
-                    field: 'pantsOctopiID',
-                    title: i18n.Resources.PantsOctopi,
+                    field: "organizationID",
+                    title: i18n.Resources.Organization,
                     template: function (e) {
-                        return Format.pants.pantsOctopi(e);
+                        return Format.kit.organization(e);
                     },
-                    editor: PantsOctopi.ddEditor
+                    editor: Organizations.ddEditor
                 },
                 {
-                    field: 'size',
-                    title: i18n.Resources.Size,
+                    field: "brainpackID",
+                    title: i18n.Resources.Brainpack,
                     template: function (e) {
-                        return Format.equipment.size(e.size);
+                        return Format.kit.brainpack(e);
                     },
-                    editor: Equipments.sizeDDEditor
+                    editor: Brainpacks.ddEditor
                 },
                 {
-                    field: 'location',
+                    field: "sensorSetID",
+                    title: i18n.Resources.SensorSet,
+                    template: function (e) {
+                        return Format.kit.sensorSet(e);
+                    },
+                    //TODO uncomment when sensorsets will be ready
+                    //editor: SensorSets.ddEditor
+                },
+                {
+                    field: "pantsID",
+                    title: i18n.Resources.Pants,
+                    template: function (e) {
+                        return Format.kit.pants(e);
+                    },
+                    editor: Pants.ddEditor
+                },
+                 {
+                     field: "shirtID",
+                     title: i18n.Resources.Shirt,
+                     template: function (e) {
+                         return Format.kit.shirt(e);
+                     },
+                     editor: Shirts.ddEditor
+                 },
+                {
+                    field: "location",
                     title: i18n.Resources.PhysicalLocation
                 },
                 {
-                    field: 'status',
+                    field: "status",
                     title: i18n.Resources.Status,
                     template: function (e) {
                         return Format.equipment.equipmentStatus(e.status);
@@ -161,12 +192,12 @@ var Pants = {
                     editor: Equipments.equipmentStatusDDEditor
                 },
                 {
-                    field: 'qaStatus',
-                    title: i18n.Resources.QAStatus,
+                    field: "composition",
+                    title: i18n.Resources.Composition,
                     template: function (e) {
-                        return Format.equipment.equipmentQAStatus(e.qaStatus);
+                        return Format.kit.composition(e.composition);
                     },
-                    editor: Equipments.equipmentQAStatusDDEditor
+                    editor: Kits.kitCompositionTypesDDEditor
                 }, {
                     command: [{
                         name: "edit",
@@ -202,16 +233,20 @@ var Pants = {
             this.controls.addModel = kendo.observable({
                 reset: this.onReset.bind(this),
                 submit: this.onAdd.bind(this),
-                sizes: Datasources.sizeTypes,
                 statuses: Datasources.equipmentStatusTypes,
-                qaStatuses: Datasources.equipmentQAStatusTypes,
-                pantsOctopies: Datasources.pantsOctopiDD,
+                organizations: Datasources.organizationsDD,
+                brainpacks: Datasources.brainpacksDD,
+                //TODO uncomment when sensorsets will be ready
+                // sensorSets: Datasources.sensorSetsDD,
+                pants: Datasources.pantsDD,
+                shirts: Datasources.shirtsDD,
+                compositions: Datasources.kitCompositionTypes,
                 model: this.getEmptyModel()
             });
 
-            kendo.bind(model, this.controls.addModel);
+            kendo.bind(this.controls.form, this.controls.addModel);
 
-            this.validators.addModel = model.kendoValidator({
+            this.validators.addModel = this.controls.form.kendoValidator({
                 validateOnBlur: true,
                 rules: {
                     maxLengthValidationLocation: Validator.equipment.location.maxLengthValidation
@@ -222,19 +257,10 @@ var Pants = {
         }
     },
 
-    ddEditor: function (container, options) {
-        $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDropDownList({
-            autoBind: true,
-            dataSource: Pants.getDatasourceDD(options.model.id)
-        });
-    },
-
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
 
-        var grid = Pants.controls.grid;
+        var grid = Kits.controls.grid;
         var enumarable = Enums.EquipmentStatusType.enum;
 
         $(".k-grid-delete", grid.element).each(function () {
@@ -262,43 +288,58 @@ var Pants = {
         });
     },
 
+    kitCompositionTypesDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.kitCompositionTypes
+        });
+    },
+
     getEmptyModel: function () {
         return {
-            size: null,
-            location: null,
+            organisationID: null,
+            brainpackID: null,
+            sensorSetID: null,
+            pantsID: null,
             status: null,
-            qaStatus: null,
-            pantsOctopiID: null
+            shirtID: null,
+            location: null,
+            composition: null
         };
     },
 
     onShowDeleted: function (e) {
-        this.isDeleted = $(e.currentTarget).prop('checked');
+        this.isDeleted = $(e.currentTarget).prop("checked");
         this.onFilter();
     },
 
     onRestore: function (e) {
-        var grid = Pants.controls.grid;
+        var grid = Kits.controls.grid;
 
         var item = grid.dataItem($(e.currentTarget).closest("tr"));
-        item.set('status', Enums.EquipmentStatusType.enum.Ready);
+        item.set("status", Enums.EquipmentStatusType.enum.Ready);
         grid.dataSource.sync();
     },
 
     onReset: function (e) {
-        this.controls.addModel.set('model', this.getEmptyModel());
+        this.controls.addModel.set("model", this.getEmptyModel());
     },
 
     onAdd: function (e) {
         Notifications.clear();
         if (this.validators.addModel.validate()) {
-            var obj = this.controls.addModel.get('model');
+            var obj = this.controls.addModel.get("model");
 
             this.controls.grid.dataSource.add(obj);
             this.controls.grid.dataSource.sync();
-            this.controls.grid.dataSource.one('requestEnd', function (e) {
-                if (e.type === "create" && !e.response.Errors) {
-                    Datasources.pantsOctopiDD.read();
+            this.controls.grid.dataSource.one("requestEnd", function (ev) {
+                if (ev.type === "create"
+                && !ev.response.Errors) {
+                    Datasources.brainpacksDD.read();
+                    Datasources.pantsDD.read();
+                    Datasources.shirtsDD.read();
                     this.onReset();
                 }
             }.bind(this));
@@ -346,4 +387,4 @@ var Pants = {
     }
 };
 
-Datasources.bind(Pants.datasources);
+Datasources.bind(Kits.datasources);

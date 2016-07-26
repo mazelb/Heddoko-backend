@@ -6,6 +6,17 @@ namespace Heddoko.Models
 {
     public class ShirtAPIModel : BaseAPIModel
     {
+        public ShirtAPIModel()
+        {
+        }
+
+        public ShirtAPIModel(bool isEmpty)
+        {
+            IsEmpty = isEmpty;
+        }
+
+        private bool IsEmpty { get; }
+
         [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Location { get; set; }
 
@@ -20,5 +31,7 @@ namespace Heddoko.Models
         public ShirtOctopi ShirtOctopi { get; set; }
 
         public string IDView { get; set; }
+
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.Shirt}" : $"{IDView}";
     }
 }

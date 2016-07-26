@@ -331,6 +331,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Composition.
+        /// </summary>
+        public static string Composition {
+            get {
+                return ResourceManager.GetString("Composition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Condition.
         /// </summary>
         public static string Condition {
@@ -1857,6 +1866,15 @@ namespace i18n {
         public static string ShipType_Yes {
             get {
                 return ResourceManager.GetString("ShipType_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shirt.
+        /// </summary>
+        public static string Shirt {
+            get {
+                return ResourceManager.GetString("Shirt", resourceCulture);
             }
         }
         

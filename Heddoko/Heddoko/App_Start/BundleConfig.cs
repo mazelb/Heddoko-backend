@@ -87,6 +87,7 @@ namespace Heddoko
             adminScriptsBundle.Include(
                 "~/Scripts/js/admin/grid/organizations.js",
                 "~/Scripts/js/admin/grid/usersAdmin.js",
+                "~/Scripts/js/admin/grid/kits.js",
                 "~/Scripts/js/admin/grid/equipments.js",
                 "~/Scripts/js/admin/grid/databoards.js",
                 "~/Scripts/js/admin/grid/powerboards.js",

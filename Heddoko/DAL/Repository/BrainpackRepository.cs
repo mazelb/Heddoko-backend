@@ -19,6 +19,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.Firmware)
                         .Include(c => c.Databoard)
+                        .Include(c => c.Kit)
                         .Include(c => c.Powerboard)
                         .FirstOrDefault(c => c.ID == id);
         }

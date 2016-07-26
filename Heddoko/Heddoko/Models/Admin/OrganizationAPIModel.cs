@@ -30,6 +30,8 @@ namespace Heddoko.Models
 
         public int? DataAnalysisAmount { get; set; }
 
+        public  string IDView { get; set; }
+
         public OrganizationStatusType Status { get; set; }
     }
 }

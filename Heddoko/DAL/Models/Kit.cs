@@ -25,6 +25,10 @@ namespace DAL.Models
         [JsonIgnore]
         public virtual Organization Organization { get; set; }
 
+        public int? UserID { get; set; }
+
+        public virtual User User { get; set; }
+
         public int? BrainpackID { get; set; }
 
         [JsonIgnore]

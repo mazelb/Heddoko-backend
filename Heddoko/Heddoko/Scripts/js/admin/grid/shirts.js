@@ -17,6 +17,30 @@ var Shirts = {
     datasources: function () {
         //Datasources context
         this.shirts = Shirts.getDatasource();
+
+        this.shirtsDD = Shirts.getDatasourceDD();
+    },
+
+    getDatasourceDD: function (id) {
+        return new kendo.data.DataSource({
+            serverPaging: false,
+            serverFiltering: true,
+            serverSorting: false,
+            transport: KendoDS.buildTransport('/admin/api/shirts'),
+            schema: {
+                data: "response",
+                total: "total",
+                errors: "Errors",
+                model: {
+                    id: "id"
+                }
+            },
+            filter: [{
+                field: 'Used',
+                operator: 'eq',
+                value: id
+            }]
+        });
     },
 
     getDatasource: function () {
@@ -198,6 +222,15 @@ var Shirts = {
         }
     },
 
+    ddEditor: function (container, options) {
+        $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Shirts.getDatasourceDD(options.model.id)
+        });
+    },
+
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
 
@@ -287,7 +320,7 @@ var Shirts = {
 
     buildFilter: function (search) {
         Notifications.clear();
-        var search = this.controls.filterModel.search;
+        search = this.controls.filterModel.search;
 
         var filters = [];
 

@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
 using Heddoko.Models;
+using i18n;
 
 namespace Heddoko.Controllers
 {
@@ -16,6 +18,8 @@ namespace Heddoko.Controllers
         private const string Search = "Search";
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
+        private const int NoPowerboardID = 0;
+        private const int NoDataboardID = 0;
 
         public override KendoResponse<IEnumerable<BrainpackAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -201,31 +205,62 @@ namespace Heddoko.Controllers
 
             if (model.FirmwareID.HasValue)
             {
-                Firmware firmware = UoW.FirmwareRepository.Get(model.FirmwareID.Value);
-
-                if (firmware != null)
-                {
-                    item.Firmware = firmware;
-                }
+                item.Firmware = UoW.FirmwareRepository.Get(model.FirmwareID.Value);
             }
 
-            if (model.PowerboardID.HasValue)
+            if (model.PowerboardID.HasValue
+                &&
+                (!item.PowerboardID.HasValue || (model.PowerboardID.Value != item.PowerboardID.Value)))
             {
-                Powerboard powerboard = UoW.PowerboardRepository.Get(model.PowerboardID.Value);
-
-                if (powerboard != null)
+                if (model.PowerboardID.Value == NoPowerboardID)
                 {
+                    if (item.Powerboard != null
+                        &&
+                        item.Powerboard.Status == EquipmentStatusType.InUse)
+                    {
+                        item.Powerboard.Status = EquipmentStatusType.Ready;
+                    }
+                    item.Powerboard = null;
+                }
+                else
+                {
+                    Powerboard powerboard = UoW.PowerboardRepository.GetFull(model.PowerboardID.Value);
+
+                    if (powerboard.Brainpack.Any())
+                    {
+                        throw new Exception($"{Resources.Powerboard} {Resources.AlreadyUsed}");
+                    }
+
                     item.Powerboard = powerboard;
+                    powerboard.Status = EquipmentStatusType.InUse;
                 }
             }
 
-            if (model.DataboardID.HasValue)
+            if (model.DataboardID.HasValue
+               &&
+               (!item.DataboardID.HasValue || (model.DataboardID.Value != item.DataboardID.Value)))
             {
-                Databoard databoard = UoW.DataboardRepository.Get(model.DataboardID.Value);
-
-                if (databoard != null)
+                if (model.DataboardID.Value == NoDataboardID)
                 {
+                    if (item.Databoard != null
+                        &&
+                        item.Databoard.Status == EquipmentStatusType.InUse)
+                    {
+                        item.Databoard.Status = EquipmentStatusType.Ready;
+                    }
+                    item.Databoard = null;
+                }
+                else
+                {
+                    Databoard databoard = UoW.DataboardRepository.GetFull(model.DataboardID.Value);
+
+                    if (databoard.Brainpack.Any())
+                    {
+                        throw new Exception($"{Resources.Databoard} {Resources.AlreadyUsed}");
+                    }
+
                     item.Databoard = databoard;
+                    databoard.Status = EquipmentStatusType.InUse;
                 }
             }
 
@@ -236,6 +271,7 @@ namespace Heddoko.Controllers
 
             return item;
         }
+
 
         protected override BrainpackAPIModel Convert(Brainpack item)
         {

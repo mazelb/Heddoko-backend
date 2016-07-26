@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public sealed class User : BaseModel
+    public class User : BaseModel
     {
         [Index(IsUnique = true)]
         [StringLength(255)]
@@ -91,14 +91,27 @@ namespace DAL.Models
         public int? OrganizationID { get; set; }
 
         [JsonIgnore]
-        public Organization Organization { get; set; }
+        public virtual Organization Organization { get; set; }
 
         [JsonIgnore]
         public int? LicenseID { get; set; }
 
         [JsonIgnore]
-        public License License { get; set; }
+        public virtual License License { get; set; }
 
+        [JsonIgnore]
+        public int? AssetID { get; set; }
+
+        [JsonIgnore]
+        public virtual Asset Asset { get; set; }
+
+        [JsonIgnore]
+        [JilDirective(Ignore = true)]
+        public virtual ICollection<AccessToken> Tokens { get; set; }
+
+        #endregion
+
+        #region NotMapped
         public string LicenseInfoToken
         {
             get
@@ -106,14 +119,14 @@ namespace DAL.Models
                 if (License != null)
                 {
                     LicenseInfo info = new LicenseInfo
-                                       {
-                                           ID = License.ID,
-                                           ExpiredAt = License.ExpirationAt,
-                                           Name = License.Name,
-                                           Status = License.Status,
-                                           Type = License.Type,
-                                           ViewID = License.ViewID
-                                       };
+                    {
+                        ID = License.ID,
+                        ExpiredAt = License.ExpirationAt,
+                        Name = License.Name,
+                        Status = License.Status,
+                        Type = License.Type,
+                        ViewID = License.ViewID
+                    };
 
                     string json = JsonConvert.SerializeObject(info);
 
@@ -124,19 +137,6 @@ namespace DAL.Models
             }
         }
 
-        [JsonIgnore]
-        public int? AssetID { get; set; }
-
-        [JsonIgnore]
-        public Asset Asset { get; set; }
-
-        [JsonIgnore]
-        [JilDirective(Ignore = true)]
-        public ICollection<AccessToken> Tokens { get; set; }
-
-        #endregion
-
-        #region NotMapped
 
         public bool AllowToken()
         {
