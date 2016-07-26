@@ -314,6 +314,8 @@ var Brainpacks = {
             this.controls.grid.dataSource.one("requestEnd", function (ev) {
                 if (ev.type === "create"
                 && !ev.response.Errors) {
+                    Datasources.databoardsDD.read();
+                    Datasources.powerboardsDD.read();
                     this.onReset();
                 }
             }.bind(this));

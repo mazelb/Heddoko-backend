@@ -264,8 +264,8 @@ var Shirts = {
             this.controls.grid.dataSource.add(obj);
             this.controls.grid.dataSource.sync();
             this.controls.grid.dataSource.one('requestEnd', function (e) {
-                Datasources.pantsOctopi.read();
                 if (e.type === "create" && !e.response.Errors) {
+                    Datasources.shirtsOctopiDD.read();
                     this.onReset();
                 }
             }.bind(this));

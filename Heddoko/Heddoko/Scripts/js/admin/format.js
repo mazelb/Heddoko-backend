@@ -4,29 +4,29 @@
     },
     equipment: {
         equipmentQAStatus: function (item) {
-            item = item ? Enums.EquipmentQAStatusType.array[item].text : "";
+            item = item != null ? Enums.EquipmentQAStatusType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         equipmentStatus: function (item) {
-            item = item ? Enums.EquipmentStatusType.array[item].text : "";
+            item = item != null ? Enums.EquipmentStatusType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         status: function (item) {
-            item = item ? Enums.EquipmentStatusType.array[item].text : "";
+            item = item != null ? Enums.EquipmentStatusType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         anatomicalPosition: function (item) {
-            item = item ? Enums.AnatomicalPositionType.array[item].text : i18n.Resources.None;
+            item = item != null ? Enums.AnatomicalPositionType.array[item].text : i18n.Resources.None;
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         anatomicalPositionImg: function (item) {
-            var text = item ? Enums.AnatomicalPositionType.array[item].text : '';
+            var text = item != null ? Enums.AnatomicalPositionType.array[item].text : '';
             if (!item) {
-                return '&nbsp;'
+                return '&nbsp;';
             }
 
             var div = '<div class="body-wrap">';
@@ -37,14 +37,14 @@
             return div;
         },
         notes: function (item) {
-            var text = item ? item.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;').replace(/\n/g, '<br/>') : '';
+            var text = item != null ? item.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;').replace(/\n/g, '<br/>') : '';
             var div = '<div class="grid-notes">'
             div += text;
             div += "</div>";
             return div;
         },
         size: function (item) {
-            item = item ? Enums.SizeType.array[item].text : "";
+            item = item != null ? Enums.SizeType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
         }
@@ -60,7 +60,7 @@
         }
     },
     notes: function (item) {
-        var text = item ? item.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;').replace(/\n/g, '<br/>') : '';
+        var text = item != null ? item.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;').replace(/\n/g, '<br/>') : '';
         var div = '<div class="grid-notes">'
         div += text;
         div += "</div>";
@@ -68,12 +68,12 @@
     },
     license: {
         name: function (item) {
-            item = item ? item : "";
+            item = item != null ? item : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         type: function (item) {
-            item = item ? Enums.LicenseType.array[item].text : "";
+            item = item != null ? Enums.LicenseType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
@@ -90,7 +90,7 @@
             }
 
             var icon = this.iconStatus(item);
-            item = item ? Enums.LicenseStatusType.array[item].text : "";
+            item = item != null ? Enums.LicenseStatusType.array[item].text : "";
 
             if (skip) {
                 item = '';
@@ -99,7 +99,7 @@
             return '<span class="k-grid-showText">' + icon + ' ' + item + ' ' + warning + '</span>';
         },
         used: function (item) {
-            item = item ? item : 0;
+            item = item != null ? item : 0;
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
@@ -127,12 +127,12 @@
             return first + ' ' + last;
         },
         status: function (item) {
-            item = item ? Enums.UserStatusType.array[item].text : "";
+            item = item != null ? Enums.UserStatusType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         role: function (item) {
-            item = item ? Enums.UserRoleType.array[item].text : "";
+            item = item != null ? Enums.UserRoleType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
         }
@@ -165,12 +165,12 @@
     },
     firmware: {
         status: function (item) {
-            item = item ? Enums.FirmwareStatusType.array[item].text : "";
+            item = item != null ? Enums.FirmwareStatusType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         type: function (item) {
-            item = item ? Enums.FirmwareType.array[item].text : "";
+            item = item != null ? Enums.FirmwareType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
@@ -210,7 +210,7 @@
             return "";
         },
         brainpacksQAStatusTypes: function(item) {
-            item = item ? Enums.BrainpacksQAStatusType.array[item].text : "";
+            item = item != null ? Enums.BrainpacksQAStatusType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
         }

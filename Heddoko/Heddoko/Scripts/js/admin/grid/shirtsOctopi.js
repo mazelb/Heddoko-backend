@@ -134,7 +134,7 @@ var ShirtsOctopi = {
                     template: function (e) {
                         return Format.equipment.size(e.size);
                     },
-                    editor: ShirtsOctopi.sizeDDEditor
+                    editor: Equipments.sizeDDEditor
                 },
                 {
                     field: 'location',
@@ -241,7 +241,7 @@ var ShirtsOctopi = {
     },
 
     ddEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             autoBind: true,
