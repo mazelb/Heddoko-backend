@@ -100,14 +100,12 @@ namespace DAL.Models
         public virtual License License { get; set; }
 
         [JsonIgnore]
-        public int? AssetID { get; set; }
-
-        [JsonIgnore]
-        public virtual Asset Asset { get; set; }
+        [JilDirective(Ignore = true)]
+        public virtual ICollection<AccessToken> Tokens { get; set; }
 
         [JsonIgnore]
         [JilDirective(Ignore = true)]
-        public virtual ICollection<AccessToken> Tokens { get; set; }
+        public virtual ICollection<Asset> Assets { get; set; }
 
         #endregion
 
@@ -157,8 +155,6 @@ namespace DAL.Models
         }
 
         public string Name => $"{FirstName} {LastName}";
-
-        public string AvatarSrc => Asset == null ? string.Empty : Asset.Url;
 
         [NotMapped]
         public string Token { get; set; }

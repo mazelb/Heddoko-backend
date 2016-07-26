@@ -648,6 +648,7 @@
     <Compile Include="Controllers\Admin\ShirtsController.cs" />
     <Compile Include="Controllers\Admin\FirmwaresController.cs" />
     <Compile Include="Controllers\Admin\ShirtsOctopiController.cs" />
+    <Compile Include="Controllers\API\AssetAPIController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\Admin\LicensesController.cs" />
     <Compile Include="Controllers\Admin\UsersController.cs" />
@@ -725,7 +726,8 @@
     <Compile Include="Models\Admin\Kendo\KendoResponse.cs" />
     <Compile Include="Models\Admin\Kendo\KendoSort.cs" />
     <Compile Include="Models\Admin\UserAPIModel.cs" />
-    <Compile Include="Models\API\SignInAccountViewModel.cs" />
+    <Compile Include="Models\API\AssetAPIViewModel.cs" />
+    <Compile Include="Models\API\SignInAPIViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\Email\InviteAdminUserEmailViewModel.cs" />
     <Compile Include="Models\Email\ActivationUserEmailViewModel.cs" />

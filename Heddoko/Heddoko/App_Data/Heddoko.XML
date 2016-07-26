@@ -476,6 +476,13 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:Heddoko.Controllers.API.AssetsAPIController.Upload">
+            <summary>
+                Uplaod files
+            </summary>
+            <param name="kitID">The id of kit.</param>
+            <param name="type">The type of upload.</param>
+        </member>
         <member name="M:Heddoko.Controllers.API.UsersAPIController.Profile">
             <summary>
                 Get profile of current user

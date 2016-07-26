@@ -945,4 +945,10 @@
   <data name="Shirt" xml:space="preserve">
     <value>Shirt</value>
   </data>
+  <data name="Wrong" xml:space="preserve">
+    <value>Wrong</value>
+  </data>
+  <data name="NonAssigned" xml:space="preserve">
+    <value>Non assigned</value>
+  </data>
 </root>

@@ -71,16 +71,14 @@ namespace DAL
 
         public override User Get(int id)
         {
-            return DbSet.Include(c => c.Asset)
-                        .Include(c => c.Organization)
+            return DbSet.Include(c => c.Organization)
                         .Include(c => c.License)
                         .FirstOrDefault(c => c.ID == id);
         }
 
         public IEnumerable<User> All(bool isDeleted = false)
         {
-            return DbSet.Include(c => c.Asset)
-                        .Include(c => c.Organization)
+            return DbSet.Include(c => c.Organization)
                         .Include(c => c.License)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .OrderBy(c => c.FirstName)
@@ -89,8 +87,7 @@ namespace DAL
 
         public override User GetFull(int id)
         {
-            return DbSet.Include(c => c.Asset)
-                        .Include(c => c.Tokens)
+            return DbSet.Include(c => c.Tokens)
                         .Include(c => c.Organization)
                         .Include(c => c.License)
                         .FirstOrDefault(c => c.ID == id);
@@ -114,22 +111,19 @@ namespace DAL
 
         public User GetByEmail(string email)
         {
-            return DbSet.Include(c => c.Asset)
-                        .Include(c => c.Organization)
+            return DbSet.Include(c => c.Organization)
                         .FirstOrDefault(c => c.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
         public User GetByUsername(string username)
         {
-            return DbSet.Include(c => c.Asset)
-                        .Include(c => c.Organization)
+            return DbSet.Include(c => c.Organization)
                         .FirstOrDefault(c => c.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
         public User GetByUsernameFull(string username)
         {
-            return DbSet.Include(c => c.Asset)
-                        .Include(c => c.Organization)
+            return DbSet.Include(c => c.Organization)
                         .Include(c => c.Tokens)
                         .Include(c => c.License)
                         .FirstOrDefault(c => c.Username.Equals(username, StringComparison.OrdinalIgnoreCase));

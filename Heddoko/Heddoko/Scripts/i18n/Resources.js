@@ -276,7 +276,9 @@ i18n.Resources = (function () {
   "Powerboard": "Powerboard",
   "Powerboards": "Powerboards",
   "Composition": "Composition",
-  "Shirt": "Shirt"
+  "Shirt": "Shirt",
+  "Wrong": "Wrong",
+  "NonAssigned": "Non assigned"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

@@ -41,7 +41,7 @@ namespace Heddoko.Controllers
                     FirmwareType type = FirmwareType.Brainpack;
                     if (int.TryParse(isUsedFilter.Value, out tmp))
                     {
-                        type = (FirmwareType) tmp;
+                        type = (FirmwareType)tmp;
                     }
 
                     items = UoW.FirmwareRepository.GetByType(type);
@@ -140,10 +140,10 @@ namespace Heddoko.Controllers
                             model.Version = val;
                             break;
                         case "type":
-                            model.Type = (FirmwareType) int.Parse(val);
+                            model.Type = (FirmwareType)int.Parse(val);
                             break;
                         case "status":
-                            model.Status = (FirmwareStatusType) int.Parse(val);
+                            model.Status = (FirmwareStatusType)int.Parse(val);
                             break;
                     }
                 }
@@ -158,7 +158,9 @@ namespace Heddoko.Controllers
 
             Asset asset = new Asset
             {
-                Type = AssetType.Firmware
+                Type = AssetType.Firmware,
+                Proccessing = AssetProccessingType.None,
+                Status = UploadStatusType.New
             };
 
             foreach (MultipartFileData file in provider.FileData)
@@ -171,7 +173,7 @@ namespace Heddoko.Controllers
                 asset.Image = $"/{path}";
                 break;
             }
-
+            asset.Status = UploadStatusType.Uploaded;
             UoW.AssetRepository.Add(asset);
             item.Asset = asset;
 

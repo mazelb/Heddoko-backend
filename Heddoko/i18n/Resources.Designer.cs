@@ -1339,6 +1339,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Non assigned.
+        /// </summary>
+        public static string NonAssigned {
+            get {
+                return ResourceManager.GetString("NonAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
         public static string None {
@@ -2415,6 +2424,15 @@ namespace i18n {
         public static string WhatWouldYouLikeToDO {
             get {
                 return ResourceManager.GetString("WhatWouldYouLikeToDO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong.
+        /// </summary>
+        public static string Wrong {
+            get {
+                return ResourceManager.GetString("Wrong", resourceCulture);
             }
         }
         

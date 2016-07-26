@@ -11,6 +11,14 @@
         [StringValue(Constants.Assets.Group)]
         Group = 3,
         [StringValue(Constants.Assets.Firmware)]
-        Firmware = 4
+        Firmware = 4,
+        [StringValue(Constants.Assets.Log)]
+        Log = 5,
+        [StringValue(Constants.Assets.SystemLog)]
+        SystemLog = 6,
+        [StringValue(Constants.Assets.Setting)]
+        Setting = 7,
+        [StringValue(Constants.Assets.Record)]
+        Record = 8
     }
 }
