@@ -278,7 +278,8 @@ i18n.Resources = (function () {
   "Composition": "Composition",
   "Shirt": "Shirt",
   "Wrong": "Wrong",
-  "NonAssigned": "Non assigned"
+  "NonAssigned": "Non assigned",
+  "NotFound": "Not found"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

@@ -149,7 +149,6 @@ namespace Heddoko.Controllers
                 }
             }
 
-
             Firmware item = new Firmware();
 
             Bind(item, model);

@@ -19,7 +19,7 @@ namespace Heddoko.Controllers.API
     public class AssetsAPIController : BaseAPIController
     {
         /// <summary>
-        ///     Uplaod files
+        ///     Upload files
         /// </summary>
         /// <param name="kitID">The id of kit. optional</param>
         /// <param name="type">The type of upload. required</param>

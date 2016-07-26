@@ -16,6 +16,8 @@ namespace DAL.Models
 
         public string IDView => $"FW{ID.ToString(Constants.PadZero)}";
 
+        public string Url => Asset?.Url;
+
         #endregion
 
         #region Relations

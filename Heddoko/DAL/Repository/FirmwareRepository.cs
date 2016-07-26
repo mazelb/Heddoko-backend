@@ -42,5 +42,13 @@ namespace DAL
                                     || c.Version.ToString().ToLower().Contains(search.ToLower()))
                         .OrderByDescending(c => c.Created);
         }
+
+
+        public Firmware LastFirmwareByType(FirmwareType type)
+        {
+            return DbSet.Include(c => c.Asset)
+                        .OrderByDescending(c => c.Created)
+                        .FirstOrDefault(c => c.Type == type);
+        }
     }
 }

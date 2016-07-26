@@ -476,9 +476,29 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:Heddoko.Controllers.API.FirmwareAPIController.CheckFirmware(Heddoko.Models.FirmwareAPIViewModel)">
+            <summary>
+                Check firmware
+            </summary>
+            <param name="id">The id of brainpack or databoard or powerboard</param>
+            <param name="type">The type of firmware.</param>
+        </member>
+        <member name="M:Heddoko.Controllers.API.FirmwareAPIController.UpdateFirmware(Heddoko.Models.FirmwareAPIViewModel)">
+            <summary>
+                Update firmware
+            </summary>
+            <param name="id">The id of brainpack or databoard or powerboard</param>
+            <param name="firmwareID">The id of firmware</param>
+            <param name="type">The type of firmware.</param>
+        </member>
+        <member name="M:Heddoko.Controllers.API.FirmwareAPIController.CheckSoftware">
+            <summary>
+                Check software
+            </summary>
+        </member>
         <member name="M:Heddoko.Controllers.API.AssetsAPIController.Upload">
             <summary>
-                Uplaod files
+                Upload files
             </summary>
             <param name="kitID">The id of kit. optional</param>
             <param name="type">The type of upload. required</param>
