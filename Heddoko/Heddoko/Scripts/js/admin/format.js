@@ -195,5 +195,17 @@
             }
             return "";
         }
+    },
+    sensors: {
+        type: function (item) {
+            item = item != null ? Enums.SensorType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        },
+        qaStatus: function (item) {
+            item = item != null ? Enums.SensorsQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        }
     }
 };

@@ -906,10 +906,6 @@
   <data name="WrongSize" xml:space="preserve">
     <value>is the wrong size</value>
   </data>
-
-  <data name="Sensors" xml:space="default">
-    <value>Sensors</value>
-  </data>
   <data name="Components" xml:space="default">
     <value>Components</value>
   </data>
@@ -948,5 +944,17 @@
   </data>
   <data name="Powerboards" xml:space="preserve">
     <value>Powerboards</value>
+  </data>
+  <data name="Sensor" xml:space="default">
+    <value>Sensor</value>
+  </data>
+  <data name="Sensors" xml:space="default">
+    <value>Sensors</value>
+  </data>
+  <data name="SensorSet" xml:space="default">
+    <value>Sensor set</value>
+  </data>
+  <data name="SensorSets" xml:space="default">
+    <value>Sensor sets</value>
   </data>
 </root>

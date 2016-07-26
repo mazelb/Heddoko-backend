@@ -1834,11 +1834,38 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sensor.
+        /// </summary>
+        public static string Sensor {
+            get {
+                return ResourceManager.GetString("Sensor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sensors.
         /// </summary>
         public static string Sensors {
             get {
                 return ResourceManager.GetString("Sensors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor set.
+        /// </summary>
+        public static string SensorSet {
+            get {
+                return ResourceManager.GetString("SensorSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor sets.
+        /// </summary>
+        public static string SensorSets {
+            get {
+                return ResourceManager.GetString("SensorSets", resourceCulture);
             }
         }
         

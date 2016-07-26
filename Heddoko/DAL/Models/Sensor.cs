@@ -13,14 +13,13 @@ namespace DAL.Models
         [StringLength(255)]
         public string Version { get; set; }
 
-        [StringLength(255)]
-        public string FirmwareVersion { get; set; }
+        public int? FirmwareID { get; set; }
 
         public EquipmentStatusType Status { get; set; }
 
         public SensorsQAStatusType QAStatus { get; set; }
 
-        public AnatomicLocationType AnatomicLocation { get; set; }
+        public AnatomicLocationType? AnatomicalPosition { get; set; }
 
         #region NotMapped
 
@@ -31,7 +30,7 @@ namespace DAL.Models
         #region Relations
 
         [JsonIgnore]
-        public int? SensorSetID { get; set; }
+        public string SensorSetID { get; set; }
 
         public virtual SensorSet SensorSet { get; set; }
 

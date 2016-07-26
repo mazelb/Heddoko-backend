@@ -94,7 +94,8 @@ namespace Heddoko
                 "~/Scripts/js/admin/grid/pants.js",
                 "~/Scripts/js/admin/grid/shirtsOctopi.js",
                 "~/Scripts/js/admin/grid/shirts.js",
-                "~/Scripts/js/admin/grid/components.js"
+                "~/Scripts/js/admin/grid/components.js",
+                "~/Scripts/js/admin/grid/sensors.js"
             );
 
             bundles.Add(adminScriptsBundle);

@@ -11,7 +11,10 @@
 
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#suits">@i18n.Resources.Kits</a></li>
+        <li><a data-toggle="tab" href="#components">@i18n.Resources.Components</a></li>
         <li><a data-toggle="tab" href="#databoards">@i18n.Resources.Databoards</a></li>
+        <li><a data-toggle="tab" href="#sensors">@i18n.Resources.Sensors</a></li>
+        <li><a data-toggle="tab" href="#sensor_sets">@i18n.Resources.SensorSets</a></li>
         <li><a data-toggle="tab" href="#shirts">@i18n.Resources.Shirts</a></li>
         <li><a data-toggle="tab" href="#shirt_octopi">@i18n.Resources.ShirtsOctopi</a></li>
         <li><a data-toggle="tab" href="#pants">@i18n.Resources.Pants</a></li>
@@ -22,10 +25,22 @@
     <div class="tab-content">
         <div id="kits" class="tab-pane fade in active">
         </div>
+
+        <div id="components" class="tab-pane fade in active">
+            @Html.Partial("_Components")
+        </div>
         
         <div id="databoards" class="tab-pane fade">
             @Html.Partial("_Databoards")
         </div>
+
+        <div id="sensors" class="tab-pane fade">
+            @Html.Partial("_Sensors")
+        </div>
+
+        <!--<div id="sensor_sets" class="tab-pane fade">
+            Html.Partial("_SensorSets")
+        </div>-->
 
         <div id="shirts" class="tab-pane fade">
             @Html.Partial("_Shirts")

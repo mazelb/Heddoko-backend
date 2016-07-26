@@ -264,7 +264,6 @@ i18n.Resources = (function () {
   "SoftwareAndFirmware": "Software & Firmware",
   "SoftwareOrFirmware": "Software or Firmware",
   "WrongSize": "is the wrong size",
-  "Sensors": "Sensors",
   "Components": "Components",
   "Quantity": "Quantity",
   "Version": "Version",
@@ -277,7 +276,11 @@ i18n.Resources = (function () {
   "Databoard": "Databoard",
   "Databoards": "Databoards",
   "Powerboard": "Powerboard",
-  "Powerboards": "Powerboards"
+  "Powerboards": "Powerboards",
+  "Sensor": "Sensor",
+  "Sensors": "Sensors",
+  "SensorSet": "Sensor set",
+  "SensorSets": "Sensor sets"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

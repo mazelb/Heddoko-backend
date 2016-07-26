@@ -569,6 +569,8 @@
     <Content Include="Scripts\js\admin\grid\equipments.js" />
     <Content Include="Scripts\js\admin\grid\components.js" />
     <Content Include="Scripts\js\admin\grid\databoards.js" />
+    <Content Include="Scripts\js\admin\grid\sensorSets.js" />
+    <Content Include="Scripts\js\admin\grid\sensors.js" />
     <Content Include="Scripts\js\admin\grid\shirts.js" />
     <Content Include="Scripts\js\admin\grid\organizations.js" />
     <Content Include="Scripts\js\admin\grid\licenses.js" />
@@ -641,6 +643,8 @@
     <Compile Include="Controllers\Admin\OrganizationsController.cs" />
     <Compile Include="Controllers\Admin\PantsController.cs" />
     <Compile Include="Controllers\Admin\PantsOctopiController.cs" />
+    <Compile Include="Controllers\Admin\SensorsController.cs" />
+    <Compile Include="Controllers\Admin\SensorSetsController.cs" />
     <Compile Include="Controllers\Admin\ShirtsController.cs" />
     <Compile Include="Controllers\Admin\FirmwaresController.cs" />
     <Compile Include="Controllers\Admin\ShirtsOctopiController.cs" />
@@ -701,6 +705,8 @@
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
+    <Compile Include="Models\Admin\SensorSetsAPIModel.cs" />
+    <Compile Include="Models\Admin\SensorsAPIModel.cs" />
     <Compile Include="Models\Admin\ComponentsAPIModel.cs" />
     <Compile Include="Models\Admin\DataboardAPIModel.cs" />
     <Compile Include="Models\Admin\ShirtAPIModel.cs" />
@@ -741,6 +747,8 @@
   <ItemGroup>
     <Folder Include="Content\scss\views\" />
     <Folder Include="Helpers\JWT\" />
+    <Folder Include="Views\SensorSets\" />
+    <Folder Include="Views\Sensors\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\dev.pubxml" />
@@ -809,6 +817,8 @@
     <Content Include="Scripts\kendo\kendo.angular.min.js.map" />
     <Content Include="Scripts\kendo\kendo.angular2.min.js.map" />
     <Content Include="Views\Inventory\_Databoards.cshtml" />
+    <Content Include="Views\Inventory\_Sensors.cshtml" />
+    <Content Include="Views\Inventory\_SensorSets.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

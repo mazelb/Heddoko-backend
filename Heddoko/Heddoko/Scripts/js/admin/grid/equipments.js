@@ -20,6 +20,11 @@
 
         this.sizeTypes.read();
 
+        this.anatomicalPositionTypes = new kendo.data.DataSource({
+            data: _.values(Enums.AnatomicLocationType.array)
+        });
+
+        this.anatomicalPositionTypes.read();
     },
 
     sizeDDEditor: function (container, options) {
