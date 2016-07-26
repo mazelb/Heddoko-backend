@@ -26,19 +26,37 @@ namespace Heddoko.Controllers
             int count = 0;
 
             bool isDeleted = false;
+            bool isUsed = false;
 
             if (request?.Filter != null)
             {
-                KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
-                if (isDeletedFilter != null)
-                {
-                    isDeleted = true;
-                }
+                KendoFilterItem isUsedFilter = request.Filter.Get(Used);
 
-                KendoFilterItem searchFilter = request.Filter.Get(Search);
-                if (!string.IsNullOrEmpty(searchFilter?.Value))
+                if (isUsedFilter != null)
                 {
-                    items = UoW.ShirtRepository.Search(searchFilter.Value, isDeleted);
+                    int tmp = 0;
+                    int? usedID = null;
+                    if (int.TryParse(isUsedFilter.Value, out tmp))
+                    {
+                        usedID = tmp;
+                    }
+
+                    items = UoW.ShirtRepository.GetAvailable(usedID);
+                    isUsed = true;
+                }
+                else
+                {
+                    KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
+                    if (isDeletedFilter != null)
+                    {
+                        isDeleted = true;
+                    }
+
+                    KendoFilterItem searchFilter = request.Filter.Get(Search);
+                    if (!string.IsNullOrEmpty(searchFilter?.Value))
+                    {
+                        items = UoW.ShirtRepository.Search(searchFilter.Value, isDeleted);
+                    }
                 }
             }
 
@@ -49,18 +67,29 @@ namespace Heddoko.Controllers
 
             count = items.Count();
 
-            if (request?.Take != null)
+            if (request?.Take != null
+                &&
+                request.Skip != null)
             {
                 items = items.Skip(request.Skip.Value)
                              .Take(request.Take.Value);
             }
 
-            IEnumerable<ShirtAPIModel> result = items.ToList()
-                                                     .Select(Convert);
+            List<ShirtAPIModel> itemsDefault = new List<ShirtAPIModel>();
+
+            if (isUsed)
+            {
+                itemsDefault.Add(new ShirtAPIModel(true)
+                {
+                    ID = 0
+                });
+            }
+
+            itemsDefault.AddRange(items.ToList().Select(Convert));
 
             return new KendoResponse<IEnumerable<ShirtAPIModel>>
             {
-                Response = result,
+                Response = itemsDefault,
                 Total = count
             };
         }

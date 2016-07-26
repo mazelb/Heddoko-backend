@@ -16,6 +16,7 @@ namespace DAL
         public override Shirt GetFull(int id)
         {
             return DbSet.Include(c => c.ShirtOctopi)
+                        .Include(c => c.Kit)
                         .FirstOrDefault(c => c.ID == id);
         }
 
@@ -23,6 +24,13 @@ namespace DAL
         {
             return DbSet.Include(c => c.ShirtOctopi)
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
+                        .OrderBy(c => c.ID);
+        }
+
+        public IEnumerable<Shirt> GetAvailable(int? id = null)
+        {
+            return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
+                        .Where(c => c.Kit.Count == 0 || c.Kit.Any(p => p.ID == id))
                         .OrderBy(c => c.ID);
         }
 
@@ -40,9 +48,9 @@ namespace DAL
         public void RemoveShirtOctopi(int shirtOctopiID)
         {
             DbSet.Where(c => c.ShirtOctopiID.Value == shirtOctopiID).Update(c => new Shirt
-                                                                                 {
-                                                                                     ShirtOctopiID = null
-                                                                                 });
+            {
+                ShirtOctopiID = null
+            });
         }
     }
 }

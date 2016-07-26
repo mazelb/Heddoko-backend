@@ -9,5 +9,6 @@ namespace DAL
         IEnumerable<Pants> All(bool isDeleted);
 
         void RemovePantsOctopi(int pantsOctopiID);
+        IEnumerable<Pants> GetAvailable(int? usedID);
     }
 }

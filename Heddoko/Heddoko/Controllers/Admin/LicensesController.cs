@@ -104,19 +104,19 @@ namespace Heddoko.Controllers
             if (isUsed)
             {
                 itemsDefault.Add(new LicenseAPIModel
-                                 {
-                                     ID = 0,
-                                     Name = Resources.EmptyLicense
-                                 });
+                {
+                    ID = 0,
+                    Name = Resources.EmptyLicense
+                });
             }
 
             itemsDefault.AddRange(items.ToList().Select(Convert));
 
             return new KendoResponse<IEnumerable<LicenseAPIModel>>
-                   {
-                       Response = itemsDefault,
-                       Total = count
-                   };
+            {
+                Response = itemsDefault,
+                Total = count
+            };
         }
 
         public override KendoResponse<LicenseAPIModel> Get(int id)
@@ -124,9 +124,9 @@ namespace Heddoko.Controllers
             License item = UoW.LicenseRepository.GetFull(id);
 
             return new KendoResponse<LicenseAPIModel>
-                   {
-                       Response = Convert(item)
-                   };
+            {
+                Response = Convert(item)
+            };
         }
 
         [AuthAPI(Roles = Constants.Roles.Admin)]
@@ -147,15 +147,15 @@ namespace Heddoko.Controllers
             else
             {
                 throw new ModelStateException
-                      {
-                          ModelState = ModelState
-                      };
+                {
+                    ModelState = ModelState
+                };
             }
 
             return new KendoResponse<LicenseAPIModel>
-                   {
-                       Response = response
-                   };
+            {
+                Response = response
+            };
         }
 
         [AuthAPI(Roles = Constants.Roles.Admin)]
@@ -166,9 +166,9 @@ namespace Heddoko.Controllers
             if (!model.ID.HasValue)
             {
                 return new KendoResponse<LicenseAPIModel>
-                       {
-                           Response = response
-                       };
+                {
+                    Response = response
+                };
             }
 
 
@@ -176,9 +176,9 @@ namespace Heddoko.Controllers
             if (item == null)
             {
                 return new KendoResponse<LicenseAPIModel>
-                       {
-                           Response = response
-                       };
+                {
+                    Response = response
+                };
             }
 
             if (ModelState.IsValid)
@@ -191,15 +191,15 @@ namespace Heddoko.Controllers
             else
             {
                 throw new ModelStateException
-                      {
-                          ModelState = ModelState
-                      };
+                {
+                    ModelState = ModelState
+                };
             }
 
             return new KendoResponse<LicenseAPIModel>
-                   {
-                       Response = response
-                   };
+            {
+                Response = response
+            };
         }
 
         [AuthAPI(Roles = Constants.Roles.Admin)]
@@ -210,9 +210,9 @@ namespace Heddoko.Controllers
             UoW.Save();
 
             return new KendoResponse<LicenseAPIModel>
-                   {
-                       Response = Convert(item)
-                   };
+            {
+                Response = Convert(item)
+            };
         }
 
         protected override License Bind(License item, LicenseAPIModel model)
@@ -247,7 +247,7 @@ namespace Heddoko.Controllers
                 throw new Exception(Resources.LiceseAmountUsed);
             }
 
-            item.Amount = (int) model.Amount;
+            item.Amount = (int)model.Amount;
             item.Status = model.Status;
             item.ExpirationAt = model.ExpirationAt.EndOfDay();
             item.Type = model.Type;
@@ -263,17 +263,18 @@ namespace Heddoko.Controllers
             }
 
             return new LicenseAPIModel
-                   {
-                       Name = item.Name,
-                       ViewID = item.ViewID,
-                       ID = item.ID,
-                       Amount = (uint) item.Amount,
-                       Status = item.Status,
-                       OrganizationID = item.OrganizationID,
-                       ExpirationAt = item.ExpirationAt,
-                       Type = item.Type,
-                       Used = item.Users?.Count() ?? 0
-                   };
+            {
+                Name = item.Name,
+                ViewID = item.ViewID,
+                IDView = item.IDView,
+                ID = item.ID,
+                Amount = (uint)item.Amount,
+                Status = item.Status,
+                OrganizationID = item.OrganizationID,
+                ExpirationAt = item.ExpirationAt,
+                Type = item.Type,
+                Used = item.Users?.Count() ?? 0
+            };
         }
     }
 }

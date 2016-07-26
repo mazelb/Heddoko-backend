@@ -1,0 +1,136 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="filters kitsFilter">
+            <div>
+                <label for="searchKits" class="control-label">@i18n.Resources.Search</label>
+                <input id="searchKits"
+                       class="form-control"
+                       type="text"
+                       placeholder="@i18n.Resources.Enter @i18n.Resources.Kits @i18n.Resources.ID"
+                       data-bind="value: search, events:{ keyup: keyup }" />
+            </div>
+            <div class="margin010">
+                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success kitsForm">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.Kits</h3>
+                <div class="btn-group pull-right" role="group">
+                    <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
+                    <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row margin010">
+
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                required
+                                name="kits-status"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.SelectStatus"
+                                data-value-field="value"
+                                data-bind="value: model.status, source: statuses"></select>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                required
+                                name="kits-composition"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.Composition"
+                                data-value-field="value"
+                                data-bind="value: model.composition, source: compositions"></select>
+                    </div>
+                </div>
+                <div class="row margin010">
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                name="kits-brainpck"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="name"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.Brainpacks"
+                                data-value-field="id"
+                                data-bind="value: model.brainpackID, source: brainpacks"></select>
+                    </div>
+
+                    <div class="col-sm-2">
+                        @*TODO when sensorSet will be ready*@
+                        @*<select class="form-control"
+                                name="kits-sensorSet"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="name"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.Powerboard"
+                                data-value-field="id"
+                                data-bind="value: model.sensorSetID, source: sensorSets"></select>*@
+                    </div>
+
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                name="kits-pants"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="name"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.Pants"
+                                data-value-field="id"
+                                data-bind="value: model.pantsID, source: pants"></select>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                name="kits-shirt"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="name"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.Shirt"
+                                data-value-field="id"
+                                data-bind="value: model.shirtID, source: shirts"></select>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                name="kits-organization"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="name"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.Organization"
+                                data-value-field="id"
+                                data-bind="value: model.organizationID, source: organizations"></select>
+                    </div>
+                </div>
+                <div class="row margin010">
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="kits-location"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.PhysicalLocation"
+                               class="form-control"
+                               data-bind="value: model.location" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="kitsGrid">
+
+        </div>
+    </div>
+</div>

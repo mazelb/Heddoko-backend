@@ -125,7 +125,8 @@ var ShirtsOctopi = {
                 columns: [
                 {
                     field: 'idView',
-                    title: i18n.Resources.ID
+                    title: i18n.Resources.ID,
+                    editor: KendoDS.emptyEditor
                 },
                 {
                     field: 'size',
@@ -133,7 +134,7 @@ var ShirtsOctopi = {
                     template: function (e) {
                         return Format.equipment.size(e.size);
                     },
-                    editor: ShirtsOctopi.sizeDDEditor
+                    editor: Equipments.sizeDDEditor
                 },
                 {
                     field: 'location',
@@ -217,7 +218,7 @@ var ShirtsOctopi = {
         $(".k-grid-delete", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status == enumarable.Trash) {
+            if (currentDataItem.status === enumarable.Trash) {
                 $(this).remove();
             }
         });
@@ -225,7 +226,7 @@ var ShirtsOctopi = {
         $(".k-grid-edit", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status == enumarable.Trash) {
+            if (currentDataItem.status === enumarable.Trash) {
                 $(this).remove();
             }
         });
@@ -233,14 +234,14 @@ var ShirtsOctopi = {
         $(".k-grid-restore", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status != enumarable.Trash) {
+            if (currentDataItem.status !== enumarable.Trash) {
                 $(this).remove();
             }
         });
     },
 
     ddEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             autoBind: true,

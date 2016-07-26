@@ -14,6 +14,8 @@ namespace DAL.Models
 
         public string ViewID { get; set; }
 
+        public string IDView { get; set; }
+
         public int ID { get; set; }
     }
 }

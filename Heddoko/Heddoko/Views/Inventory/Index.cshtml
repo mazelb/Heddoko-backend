@@ -10,7 +10,9 @@
     </div>
 
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#suits">@i18n.Resources.Kits</a></li>
+        <li class="active"><a data-toggle="tab" href="#kits">@i18n.Resources.Kits</a></li>
+        <li><a data-toggle="tab" href="#brainpacks">@i18n.Resources.Brainpacks</a></li>
+        <li><a data-toggle="tab" href="#powerboards">@i18n.Resources.Powerboards</a></li>
         <li><a data-toggle="tab" href="#components">@i18n.Resources.Components</a></li>
         <li><a data-toggle="tab" href="#databoards">@i18n.Resources.Databoards</a></li>
         <li><a data-toggle="tab" href="#sensors">@i18n.Resources.Sensors</a></li>
@@ -24,12 +26,17 @@
     @Html.Partial("_FlashMessages", Model.Flash)
     <div class="tab-content">
         <div id="kits" class="tab-pane fade in active">
+            @Html.Partial("_Kits")
         </div>
 
-        <div id="components" class="tab-pane fade in active">
-            @Html.Partial("_Components")
+        <div id="brainpacks" class="tab-pane fade">
+            @Html.Partial("_Brainpacks")
         </div>
-        
+
+        <div id="powerboards" class="tab-pane fade">
+            @Html.Partial("_Powerboards")
+        </div>
+
         <div id="databoards" class="tab-pane fade">
             @Html.Partial("_Databoards")
         </div>

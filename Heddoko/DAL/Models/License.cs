@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public sealed class License : BaseModel
+    public class License : BaseModel
     {
         public LicenseType Type { get; set; }
 
@@ -22,11 +22,11 @@ namespace DAL.Models
 
         [JsonIgnore]
         [JilDirective(Ignore = true)]
-        public Organization Organization { get; set; }
+        public virtual Organization Organization { get; set; }
 
         [JsonIgnore]
         [JilDirective(Ignore = true)]
-        public ICollection<User> Users { get; set; }
+        public virtual ICollection<User> Users { get; set; }
 
         #endregion
 
@@ -36,7 +36,8 @@ namespace DAL.Models
 
         public string ViewID => $"{OrganizationID}-{ID}";
 
-        public string Name => $"{Type.GetDisplayName()} ({ExpirationAt.ToString("dd/MM/yyyy")})";
+
+        public string Name => $"{Type.GetDisplayName()} {IDView} ({ExpirationAt.ToString("dd/MM/yyyy")})";
 
         public bool IsActive => (Type == LicenseType.DataAnalysis || Type == LicenseType.DataCollection)
                                 && Status == LicenseStatusType.Active

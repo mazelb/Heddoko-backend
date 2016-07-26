@@ -17,6 +17,30 @@ var Pants = {
     datasources: function () {
         //Datasources context
         this.pants = Pants.getDatasource();
+
+        this.pantsDD = Pants.getDatasourceDD();
+    },
+
+    getDatasourceDD: function (id) {
+        return new kendo.data.DataSource({
+            serverPaging: false,
+            serverFiltering: true,
+            serverSorting: false,
+            transport: KendoDS.buildTransport('/admin/api/pants'),
+            schema: {
+                data: "response",
+                total: "total",
+                errors: "Errors",
+                model: {
+                    id: "id"
+                }
+            },
+            filter: [{
+                field: 'Used',
+                operator: 'eq',
+                value: id
+            }]
+        });
     },
 
     getDatasource: function () {
@@ -105,7 +129,8 @@ var Pants = {
                 columns: [
                 {
                     field: 'idView',
-                    title: i18n.Resources.ID
+                    title: i18n.Resources.ID,
+                    editor: KendoDS.emptyEditor
                 },
                 {
                     field: 'pantsOctopiID',
@@ -197,6 +222,15 @@ var Pants = {
         }
     },
 
+    ddEditor: function (container, options) {
+        $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Pants.getDatasourceDD(options.model.id)
+        });
+    },
+
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
 
@@ -206,7 +240,7 @@ var Pants = {
         $(".k-grid-delete", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status == enumarable.Trash) {
+            if (currentDataItem.status === enumarable.Trash) {
                 $(this).remove();
             }
         });
@@ -214,7 +248,7 @@ var Pants = {
         $(".k-grid-edit", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status == enumarable.Trash) {
+            if (currentDataItem.status === enumarable.Trash) {
                 $(this).remove();
             }
         });
@@ -222,7 +256,7 @@ var Pants = {
         $(".k-grid-restore", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status != enumarable.Trash) {
+            if (currentDataItem.status !== enumarable.Trash) {
                 $(this).remove();
             }
         });
@@ -263,8 +297,8 @@ var Pants = {
             this.controls.grid.dataSource.add(obj);
             this.controls.grid.dataSource.sync();
             this.controls.grid.dataSource.one('requestEnd', function (e) {
-                Datasources.pantsOctopi.read();
                 if (e.type === "create" && !e.response.Errors) {
+                    Datasources.pantsOctopiDD.read();
                     this.onReset();
                 }
             }.bind(this));
@@ -286,7 +320,7 @@ var Pants = {
 
     buildFilter: function (search) {
         Notifications.clear();
-        var search = this.controls.filterModel.search;
+        search = this.controls.filterModel.search;
 
         var filters = [];
 

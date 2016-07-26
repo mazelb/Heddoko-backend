@@ -16,6 +16,8 @@
         WrongObjectAccess,
         ObjectNotFound,
         ObjectWasDeleted,
-        LicenseIsNotReady
+        LicenseIsNotReady,
+        KitID,
+        AssetType
     }
 }

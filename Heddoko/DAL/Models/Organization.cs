@@ -23,6 +23,8 @@ namespace DAL.Models
 
         public OrganizationStatusType Status { get; set; }
 
+        public string IDView => $"OR{ID.ToString(Constants.PadZero)}";
+
         #region Relations
 
         [JsonIgnore]

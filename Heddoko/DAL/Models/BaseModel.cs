@@ -18,7 +18,5 @@ namespace DAL.Models
 
         //inject site URL
         public static string AssetsServer { get; set; }
-
-        public static string FirmwaresServer { get; set; }
     }
 }

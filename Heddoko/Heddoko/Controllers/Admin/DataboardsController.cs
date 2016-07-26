@@ -208,12 +208,7 @@ namespace Heddoko.Controllers
 
             if (model.FirmwareID.HasValue)
             {
-                Firmware firmware = UoW.FirmwareRepository.Get(model.FirmwareID.Value);
-
-                if (firmware != null)
-                {
-                    item.Firmware = firmware;
-                }
+                item.Firmware = UoW.FirmwareRepository.Get(model.FirmwareID.Value);
             }
 
             item.Version = model.Version;
@@ -235,6 +230,7 @@ namespace Heddoko.Controllers
                 ID = item.ID,
                 IDView = item.IDView,
                 Version = item.Version,
+                Location =  item.Location,
                 Status = item.Status,
                 FirmwareID = item.FirmwareID,
                 Firmware = item.Firmware

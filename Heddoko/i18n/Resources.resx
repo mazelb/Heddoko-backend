@@ -945,6 +945,21 @@
   <data name="Powerboards" xml:space="preserve">
     <value>Powerboards</value>
   </data>
+  <data name="Composition" xml:space="preserve">
+    <value>Composition</value>
+  </data>
+  <data name="Shirt" xml:space="preserve">
+    <value>Shirt</value>
+  </data>
+  <data name="Wrong" xml:space="preserve">
+    <value>Wrong</value>
+  </data>
+  <data name="NonAssigned" xml:space="preserve">
+    <value>Non assigned</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Not found</value>
+  </data>
   <data name="Sensor" xml:space="default">
     <value>Sensor</value>
   </data>
@@ -956,5 +971,4 @@
   </data>
   <data name="SensorSets" xml:space="default">
     <value>Sensor sets</value>
-  </data>
 </root>

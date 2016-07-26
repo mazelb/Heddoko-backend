@@ -134,7 +134,8 @@ var Firmwares = {
                 columns: [
                 {
                     field: 'idView',
-                    title: i18n.Resources.ID
+                    title: i18n.Resources.ID,
+                    editor: KendoDS.emptyEditor
                 },
                 {
                     field: 'type',
@@ -251,7 +252,7 @@ var Firmwares = {
     },
 
     ddEditorBrainpack: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             autoBind: true,
@@ -260,7 +261,7 @@ var Firmwares = {
     },
 
     ddEditorDataboards: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             autoBind: true,
@@ -269,7 +270,7 @@ var Firmwares = {
     },
 
     ddEditorPowerboards: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             autoBind: true,

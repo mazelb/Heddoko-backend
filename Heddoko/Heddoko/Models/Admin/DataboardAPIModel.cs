@@ -33,6 +33,6 @@ namespace Heddoko.Models
 
         public string IDView { get; set; }
 
-        public string Name => IsEmpty ? $"{Resources.No} {Resources.Dashboard}" : $"{IDView}";
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.Databoard}" : $"{IDView}";
     }
 }

@@ -11,11 +11,13 @@ namespace DAL.Models
         [JsonIgnore]
         public string Image { get; set; }
 
-        [JsonIgnore]
         public AssetType Type { get; set; }
 
         [JsonIgnore]
         public UploadStatusType Status { get; set; }
+
+        [JsonIgnore]
+        public AssetProccessingType Proccessing { get; set; }
 
         public string Url
         {
@@ -28,5 +30,19 @@ namespace DAL.Models
                 return null;
             }
         }
+
+        #region Relations
+
+        public int? UserID { get; set; }
+
+        [JsonIgnore]
+        public virtual User User { get; set; }
+
+        public int? KitID { get; set; }
+
+        [JsonIgnore]
+        public virtual Kit Kit { get; set; }
+
+        #endregion
     }
 }

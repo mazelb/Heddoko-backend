@@ -264,7 +264,6 @@
     </text>
     }
 
-
     Enums.ComponentsType = {};
     Enums.ComponentsType.enum = {};
     Enums.ComponentsType.array = {};
@@ -297,6 +296,24 @@
     </text>
     }
 
+
+    Enums.BrainpacksQAStatusType = {};
+    Enums.BrainpacksQAStatusType.enum = {};
+    Enums.BrainpacksQAStatusType.array = {};
+    @foreach (DAL.Models.BrainpacksQAStatusType type in (DAL.Models.BrainpacksQAStatusType[])Enum.GetValues(typeof(DAL.Models.BrainpacksQAStatusType)))
+    {
+        <text>
+
+    Enums.BrainpacksQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.BrainpacksQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+
     Enums.SensorsQAStatusType = {};
     Enums.SensorsQAStatusType.enum = {};
     Enums.SensorsQAStatusType.array = {};
@@ -312,5 +329,22 @@
     };
     </text>
     }
+
+    Enums.KitCompositionType = {};
+    Enums.KitCompositionType.enum = {};
+    Enums.KitCompositionType.array = {};
+    @foreach (DAL.Models.KitCompositionType type in (DAL.Models.KitCompositionType[])Enum.GetValues(typeof(DAL.Models.KitCompositionType)))
+    {
+        <text>
+
+    Enums.KitCompositionType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.KitCompositionType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
 
 </script>

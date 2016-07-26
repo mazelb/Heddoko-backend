@@ -26,7 +26,7 @@
         anatomicalPositionImg: function (item) {
             var text = item != null ? Enums.AnatomicalPositionType.array[item].text : '';
             if (!item) {
-                return '&nbsp;'
+                return '&nbsp;';
             }
 
             var div = '<div class="body-wrap">';
@@ -196,6 +196,93 @@
             return "";
         }
     },
+    brainpack: {
+        powerboard: function (item) {
+            if (item.powerboard) {
+                var div = '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.powerboard.idView + "</b><br/>";
+                div += i18n.Resources.Version + ": <b>" + item.powerboard.version + "</b><br/>";
+                div += "</div>";
+                return div;
+            }
+            return "";
+        },
+        databoard: function (item) {
+            if (item.databoard) {
+                var div = '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.databoard.idView + "</b><br/>";
+                div += i18n.Resources.Version + ": <b>" + item.databoard.version + "</b><br/>";
+                div += "</div>";
+                return div;
+            }
+            return "";
+        },
+        brainpacksQAStatusTypes: function(item) {
+            item = item != null ? Enums.BrainpacksQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        }
+    },
+    kit: {
+        composition: function(item) {
+            item = item != null ? Enums.KitCompositionType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        },
+        organization: function (item) {
+            var div = "";
+            if (item.organization) {
+                div = '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.organization.idView + "</b><br/>";
+                div += i18n.Resources.Name + ": <b>" + item.organization.name + "</b><br/>";
+                div += "</div>";
+            }
+            if (item.user) {
+                div += Format.organization.user(item.user);
+            }
+            return div;
+        },
+        brainpack: function(item) {
+            if (item.brainpack) {
+                var div = '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.brainpack.idView + "</b><br/>";
+                div += i18n.Resources.Version + ": <b>" + item.brainpack.version + "</b><br/>";
+                div += "</div>";
+                return div;
+            }
+            return "";
+        },
+        sensorSet: function (item) {
+            if (item.sensorSet) {
+                var div = '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.sensorSet.idView + "</b><br/>";
+                //TODO add aditional sensorSet fields if needed
+                div += "</div>";
+                return div;
+            }
+            return "";
+        },
+        pants: function (item) {
+            if (item.pants) {
+                var div = '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.pants.idView + "</b><br/>";
+                div += i18n.Resources.Size + ': <b>' + Format.equipment.size(item.pants.size) + '</b><br/>';
+                div += "</div>";
+                return div;
+            }
+            return "";
+        },
+        shirt: function (item) {
+            if (item.shirt) {
+                var div = '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.shirt.idView + "</b><br/>";
+                div += i18n.Resources.Size + ': <b>' + Format.equipment.size(item.shirt.size) + '</b><br/>';
+                div += "</div>";
+                return div;
+            }
+            return "";
+        }
+    },
     sensors: {
         type: function (item) {
             item = item != null ? Enums.SensorType.array[item].text : "";
@@ -207,5 +294,4 @@
 
             return '<span class="k-grid-showText">' + item + '</span>';
         }
-    }
 };

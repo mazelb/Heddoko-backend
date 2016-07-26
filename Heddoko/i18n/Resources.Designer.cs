@@ -330,12 +330,23 @@ namespace i18n {
             }
         }
         
+
         /// <summary>
+
         ///   Looks up a localized string similar to Components.
         /// </summary>
         public static string Components {
             get {
                 return ResourceManager.GetString("Components", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Composition.
+        /// </summary>
+        public static string Composition {
+            get {
+                return ResourceManager.GetString("Composition", resourceCulture);
             }
         }
         
@@ -1339,6 +1350,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Non assigned.
+        /// </summary>
+        public static string NonAssigned {
+            get {
+                return ResourceManager.GetString("NonAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
         public static string None {
@@ -1353,6 +1373,15 @@ namespace i18n {
         public static string Notes {
             get {
                 return ResourceManager.GetString("Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not found.
+        /// </summary>
+        public static string NotFound {
+            get {
+                return ResourceManager.GetString("NotFound", resourceCulture);
             }
         }
         
@@ -1915,6 +1944,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shirt.
+        /// </summary>
+        public static string Shirt {
+            get {
+                return ResourceManager.GetString("Shirt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shirts.
         /// </summary>
         public static string Shirts {
@@ -2451,6 +2489,15 @@ namespace i18n {
         public static string WhatWouldYouLikeToDO {
             get {
                 return ResourceManager.GetString("WhatWouldYouLikeToDO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong.
+        /// </summary>
+        public static string Wrong {
+            get {
+                return ResourceManager.GetString("Wrong", resourceCulture);
             }
         }
         

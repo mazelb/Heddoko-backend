@@ -125,7 +125,8 @@ var PantsOctopi = {
                 columns: [
                 {
                     field: 'idView',
-                    title: i18n.Resources.ID
+                    title: i18n.Resources.ID,
+                    editor: KendoDS.emptyEditor
                 },
                 {
                     field: 'size',
@@ -217,7 +218,7 @@ var PantsOctopi = {
         $(".k-grid-delete", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status == enumarable.Trash) {
+            if (currentDataItem.status === enumarable.Trash) {
                 $(this).remove();
             }
         });
@@ -225,7 +226,7 @@ var PantsOctopi = {
         $(".k-grid-edit", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status == enumarable.Trash) {
+            if (currentDataItem.status === enumarable.Trash) {
                 $(this).remove();
             }
         });
@@ -233,7 +234,7 @@ var PantsOctopi = {
         $(".k-grid-restore", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status != enumarable.Trash) {
+            if (currentDataItem.status !== enumarable.Trash) {
                 $(this).remove();
             }
         });
@@ -302,7 +303,7 @@ var PantsOctopi = {
 
     buildFilter: function (search) {
         Notifications.clear();
-        var search = this.controls.filterModel.search;
+        search = this.controls.filterModel.search;
 
         var filters = [];
 

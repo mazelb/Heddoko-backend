@@ -30,6 +30,10 @@
             public const string Profile = "profile";
             public const string Seed = "seed";
             public const string Firmware = "firmware";
+            public const string Log = "logs";
+            public const string SystemLog = "systemLogs";
+            public const string Setting = "settings";
+            public const string Record = "records";
         }
 
         public static class Roles
