@@ -202,11 +202,11 @@ namespace Heddoko.Controllers
             item.Type = model.Type;
             item.Version = model.version;
             item.Location = model.Location;
-            item.FirmwareID = model.FirmwareID;
+            //item.FirmwareID = model.FirmwareID;
             item.Status = model.Status;
             item.QAStatus = model.QAStatus;
-            item.SensorSetID = model.SetID;
-            item.AnatomicalPosition = model.AnatomicalPosition;
+            //item.SensorSetID = model.SetID;
+            item.AnatomicLocation = model.AnatomicalPosition;
 
             return item;
         }
@@ -224,11 +224,11 @@ namespace Heddoko.Controllers
                 Type = item.Type,
                 version = item.Version,
                 Location = item.Location,
-                FirmwareID = item.FirmwareID,
+                //FirmwareID = item.FirmwareID,
                 Status = item.Status,
                 QAStatus = item.QAStatus,
-                SetID = item.SensorSetID,
-                AnatomicalPosition = item.AnatomicalPosition
+                //SetID = item.SensorSetID,
+                AnatomicalPosition = item.AnatomicLocation
             };
         }
     }

@@ -27,7 +27,7 @@ namespace Heddoko.Models
         [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Location { get; set; }
 
-        public int? FirmwareID { get; set; }
+        //public int? FirmwareID { get; set; }
 
         public EquipmentStatusType Status { get; set; }
         
@@ -35,6 +35,6 @@ namespace Heddoko.Models
         
         public string SetID { get; set; }
 
-        public AnatomicLocationType? AnatomicalPosition { get; set; } 
+        public AnatomicLocationType AnatomicalPosition { get; set; } 
     }
 }

@@ -294,4 +294,5 @@
 
             return '<span class="k-grid-showText">' + item + '</span>';
         }
+    }
 };

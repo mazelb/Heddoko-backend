@@ -23,7 +23,7 @@ namespace Heddoko.Models
 
         public List<string> sensorIDs { get; set; }
 
-        public EquipmentQAStatusType QAStatus { get; set; }
+        public SensorsQAStatusType QAStatus { get; set; }
 
         public string KitID { get; set; }
     }

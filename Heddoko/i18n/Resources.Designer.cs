@@ -330,9 +330,7 @@ namespace i18n {
             }
         }
         
-
         /// <summary>
-
         ///   Looks up a localized string similar to Components.
         /// </summary>
         public static string Components {
@@ -340,7 +338,7 @@ namespace i18n {
                 return ResourceManager.GetString("Components", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Composition.
         /// </summary>

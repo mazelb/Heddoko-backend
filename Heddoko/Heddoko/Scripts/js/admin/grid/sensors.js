@@ -99,13 +99,13 @@ var Sensors = {
                                 maxLengthValidation: Validator.equipment.location.maxLengthValidation
                             }
                         },
-                        firmwareID: {
+                        /*firmwareID: {
                             nullable: false,
                             type: "number",
                             validation: {
                                 max: KendoDS.maxInt
                             }
-                        },
+                        },*/
                         status: {
                             nullable: false,
                             type: "number",
@@ -210,14 +210,14 @@ var Sensors = {
                         field: "location",
                         title: i18n.Resources.location
                     },
-                    {
+                    /*{
                         field: "firmware",
                         title: i18n.Resources.FirmwareVersion,
                         template: function (e) {
                             return Format.firmware.version(e);
                         },
                         editor: Firmwares.ddEditorDataboards
-                    },
+                    },*/
                     {
                         field: "status",
                         title: i18n.Resources.Status,
@@ -275,7 +275,7 @@ var Sensors = {
                 submit: this.onAdd.bind(this),
                 statuses: Datasources.equipmentStatusTypes,
                 qaStatuses: Datasources.sensorQAStatusTypes,
-                firmwares: Datasources.firmwaresDataboards,
+                //firmwares: Datasources.firmwaresDataboards,
                 sensorTypes: Datasources.sensorTypes,
                 anatomicalPositions: Datasources.anatomicalPositionTypes,
                 model: this.getEmptyModel()
@@ -284,7 +284,7 @@ var Sensors = {
             kendo.bind(this.controls.form, this.controls.addModel);
 
             this.validators.addModel = this.controls.form.kendoValidator({
-                validateOnBlue: true,
+                validateOnBlur: true,
                 rules: {
                     maxLengthValidationLocation: Validator.equipment.location.maxLengthValidation
                 }
@@ -339,7 +339,7 @@ var Sensors = {
             type: null,
             version: null,
             location: null,
-            firmwareID: null,
+            //firmwareID: null,
             status: null,
             qaStatus: null,
             //sensorSet: null,
