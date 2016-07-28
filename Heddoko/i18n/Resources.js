@@ -285,7 +285,8 @@ i18n.Resources = (function () {
   "Sensor": "Sensor",
   "Sensors": "Sensors",
   "SensorSet": "Sensor set",
-  "SensorSets": "Sensor sets"
+  "SensorSets": "Sensor sets",
+  "KitID": "Kit ID"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

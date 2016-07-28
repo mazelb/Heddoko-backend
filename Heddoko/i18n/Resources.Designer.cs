@@ -1087,6 +1087,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kit ID.
+        /// </summary>
+        public static string KitID {
+            get {
+                return ResourceManager.GetString("KitID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kits.
         /// </summary>
         public static string Kits {

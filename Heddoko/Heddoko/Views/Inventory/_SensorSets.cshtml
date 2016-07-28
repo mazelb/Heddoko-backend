@@ -26,11 +26,29 @@
                     <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
                 </div>
             </div>
-            <dic class="panel-body">
+            <div class="panel-body">
                 <div class="row margin010">
-                    
+                    <div class="col-sm-2">
+                        <input class="form-control"
+                               required
+                               name="sensorSets-idView"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.ID"
+                               type="text"
+                               data-bind="value: model.idView" />
+                    </div>
+
+                    <div class="col-sm-2">
+                        <input class="form-control"
+                               required
+                               name="sensorSets-idView"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.KitID"
+                               type="text"
+                               data-bind="value: model.kitID" />
+                    </div>
                 </div>
-            </dic>
+            </div>
         </div>
     </div>
 </div>

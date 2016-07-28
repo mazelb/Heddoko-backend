@@ -124,7 +124,7 @@ var SensorSets = {
                     },
                     {
                         field: "kitID",
-                        title: i18n.Resources.kitID
+                        title: i18n.Resources.KitID,
                     }
                 ]
             }).data("kendoGrid");
@@ -150,6 +150,15 @@ var SensorSets = {
 
         $(".k-grid-restore", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
+        });
+    },
+
+    ddEditor: function (container, options) {
+        $('<input required data-text-field="name" data-value-field="idView" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: SensorSets.getDatasourceDD(options.model.idView)
         });
     },
 
@@ -231,7 +240,6 @@ var SensorSets = {
         }
 
         return filters.length === 0 ? {} : filters;
-    }
     }
 };
 
