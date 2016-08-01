@@ -6,8 +6,8 @@ namespace DAL
     public interface IKitRepository : IBaseRepository<Kit>
     {
         void RemoveBrainpack(int iD);
-        IEnumerable<Kit> GetAvailable(int? usedID);
-        IEnumerable<Kit> Search(string value, bool isDeleted);
-        IEnumerable<Kit> All(bool isDeleted);
+        IEnumerable<Kit> Search(string value, bool isDeleted, int? organizationID = null);
+        IEnumerable<Kit> All(bool isDeleted, int? organizationID = null);
+        IEnumerable<Kit> GetAvailable(int? usedID, int? organizationID = null);
     }
 }

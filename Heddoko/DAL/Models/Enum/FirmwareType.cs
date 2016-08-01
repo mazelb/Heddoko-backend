@@ -5,6 +5,7 @@
         Brainpack,
         Powerboard,
         Databoard,
-        Software
+        Software,
+        Sensor
     }
 }

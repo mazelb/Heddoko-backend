@@ -242,7 +242,7 @@ var Brainpacks = {
                 firmwares: Datasources.firmwaresBrainpacks,
                 powerboards: Datasources.powerboardsDD,
                 databoards: Datasources.databoardsDD,
-                qaStatuses: Datasources.equipmentQAStatusTypes,
+                qaStatuses: Datasources.brainpacksQAStatusTypes,
                 model: this.getEmptyModel()
             });
 

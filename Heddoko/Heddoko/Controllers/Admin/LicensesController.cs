@@ -222,6 +222,11 @@ namespace Heddoko.Controllers
                 return null;
             }
 
+            if (CurrentUser.OrganizationID != item.OrganizationID)
+            {
+                throw new Exception(Resources.WrongObjectAccess);
+            }
+
             if (model.OrganizationID.HasValue)
             {
                 if (!item.OrganizationID.HasValue

@@ -58,6 +58,16 @@ namespace Heddoko.Controllers.API
 
                     brainpack.Firmware = firmware;
                     break;
+                case FirmwareType.Sensor:
+                    //TODO sensor when be done
+                    //Sensor sensor = UoW.SensorRepository.Get(model.ID.Value);
+                    //if (sensor == null)
+                    //{
+                    //    throw new APIException(ErrorAPIType.ObjectNotFound, $"{Resources.NotFound} {Resources.Sensor}");
+                    //}
+
+                    //sensor.Firmware = firmware;
+                    break;
                 case FirmwareType.Powerboard:
                     Powerboard powerboard = UoW.PowerboardRepository.Get(model.ID.Value);
 
