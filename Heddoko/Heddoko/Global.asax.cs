@@ -43,36 +43,41 @@ namespace Heddoko
             {
                 UnitOfWork uow = new UnitOfWork();
                 User user = uow.AccessTokenRepository.GetByToken(token)?.User;
-                if (user != null)
+                if (user == null)
                 {
-                    if (user.IsActive)
-                    {
-                        Context.User = new GenericPrincipal(new GenericIdentity(user.ID.ToString()), user.Roles.ToArray());
-                    }
+                    return;
+                }
+
+                if (user.IsActive)
+                {
+                    Context.User = new GenericPrincipal(new GenericIdentity(user.ID.ToString()), user.Roles.ToArray());
                 }
             }
             else
             {
-                if (FormsAuthentication.CookiesSupported)
+                if (!FormsAuthentication.CookiesSupported)
                 {
-                    HttpCookie authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
-                    if (authCookie == null ||
-                        authCookie.Value == string.Empty)
-                    {
-                    }
-                    else
-                    {
-                        FormsAuthenticationTicket authTicket = null;
-                        authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                    return;
+                }
 
-                        if (authTicket != null && authTicket.UserData == null)
-                        {
-                            return;
-                        }
-                        AuthCookie data = JsonConvert.DeserializeObject<AuthCookie>(authTicket.UserData);
+                HttpCookie authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
+                if (authCookie == null ||
+                    authCookie.Value == string.Empty)
+                {
+                }
+                else
+                {
+                    FormsAuthenticationTicket authTicket = null;
+                    authTicket = FormsAuthentication.Decrypt(authCookie.Value);
 
-                        Context.User = new GenericPrincipal(new GenericIdentity(authTicket.Name), data.Roles.ToArray());
+                    if (authTicket?.UserData == null)
+                    {
+                        return;
                     }
+
+                    AuthCookie data = JsonConvert.DeserializeObject<AuthCookie>(authTicket.UserData);
+
+                    Context.User = new GenericPrincipal(new GenericIdentity(authTicket.Name), data.Roles.ToArray());
                 }
             }
         }
@@ -86,24 +91,29 @@ namespace Heddoko
             HttpContextBase currentContext = new HttpContextWrapper(HttpContext.Current);
             UrlHelper urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
             RouteData routeData = urlHelper.RouteCollection.GetRouteData(currentContext);
-            string controller = routeData.Values["controller"] as string;
-            if (string.IsNullOrEmpty(controller)
-                ||
-                !controller.Equals("Error"))
+            if (routeData == null)
             {
-                Exception ex = Server.GetLastError();
-                Trace.WriteLine(string.Format("Application_Error: Message: {0} \nTrace:{1}", ex.Message, ex.StackTrace));
-                HttpException httpException = ex as HttpException;
-                if (ex != null)
-                {
-                    if (ex is CryptographicException)
-                    {
-                        Server.ClearError();
-                        Forms.SignOut();
-                    }
-                    ContextSession.LastError = ex;
-                }
+                return;
             }
+
+            string controller = routeData.Values["controller"] as string;
+
+            if (!string.IsNullOrEmpty(controller) &&
+                controller.Equals("Error"))
+            {
+                return;
+            }
+
+            Exception ex = Server.GetLastError();
+            Trace.WriteLine($"Application_Error: Message: {ex.Message} \nTrace:{ex.StackTrace}");
+            HttpException httpException = ex as HttpException;
+
+            if (ex is CryptographicException)
+            {
+                Server.ClearError();
+                Forms.SignOut();
+            }
+            ContextSession.LastError = ex;
         }
     }
 }
