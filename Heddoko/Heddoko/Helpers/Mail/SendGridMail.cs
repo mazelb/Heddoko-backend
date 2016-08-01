@@ -31,21 +31,24 @@ namespace Heddoko
                 {
                     foreach (HttpPostedFileBase attachment in attachments)
                     {
-                        byte[] buffer = new byte[attachment.ContentLength];
-                        using (BinaryReader theReader = new BinaryReader(attachment.InputStream))
+                        if (attachment != null)
                         {
-                            buffer = theReader.ReadBytes(attachment.ContentLength);
+                            byte[] buffer = new byte[attachment.ContentLength];
+                            using (BinaryReader theReader = new BinaryReader(attachment.InputStream))
+                            {
+                                buffer = theReader.ReadBytes(attachment.ContentLength);
+                            }
+
+                            mail.AddAttachment(new Attachment()
+                            {
+                                Content = Convert.ToBase64String(buffer),
+                                Filename = attachment.FileName,
+                                Type = attachment.ContentType,
+                                Disposition = Disposition
+                            });
+
+                            buffer = null;
                         }
-
-                        mail.AddAttachment(new Attachment()
-                        {
-                            Content = Convert.ToBase64String(buffer),
-                            Filename = attachment.FileName,
-                            Type = attachment.ContentType,
-                            Disposition = Disposition
-                        });
-
-                        buffer = null;
                     }
                 }
 

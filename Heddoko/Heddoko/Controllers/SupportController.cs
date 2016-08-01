@@ -29,8 +29,8 @@ namespace Heddoko.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.Attachments != null
-                  && model.Attachments.Sum(c => c.ContentLength) > Constants.EmailLimit)
+                if (model.Attachments?.Any() != null 
+                 && model.Attachments.Sum(c => c?.ContentLength) > Constants.EmailLimit)
                 {
                     ModelState.AddModelError(string.Empty, i18n.Resources.WrongAttachmentSize);
                 }
