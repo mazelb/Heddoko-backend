@@ -1,9 +1,12 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using DAL;
+﻿using DAL;
 using DAL.Models;
 using Heddoko.Models;
-using i18n;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Heddoko.Controllers
 {
@@ -26,21 +29,20 @@ namespace Heddoko.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.Attachments != null
-                    &&
-                    model.Attachments.Sum(c => c.ContentLength) > Constants.EmailLimit)
+                if (model.Attachments?.Any() != null 
+                 && model.Attachments.Sum(c => c?.ContentLength) > Constants.EmailLimit)
                 {
-                    ModelState.AddModelError(string.Empty, Resources.WrongAttachmentSize);
+                    ModelState.AddModelError(string.Empty, i18n.Resources.WrongAttachmentSize);
                 }
 
                 Mailer.SendSupportEmail(model);
 
                 BaseViewModel modelStatus = new BaseViewModel();
 
-                modelStatus.Flash.Add(new FlashMessage
+                modelStatus.Flash.Add(new FlashMessage()
                 {
                     Type = FlashMessageType.Success,
-                    Message = Resources.SupportSent
+                    Message = i18n.Resources.SupportSent
                 });
 
                 return View("IndexStatus", modelStatus);

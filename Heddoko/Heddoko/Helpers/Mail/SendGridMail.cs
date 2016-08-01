@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+using System.Linq;
 using System.Web;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.IO;
+using System.Diagnostics;
 
 namespace Heddoko
 {
-    public static class SendGridMail
+    public class SendGridMail
     {
         private const string TypeHtml = "text/html";
         private const string Disposition = "attachment";
@@ -30,36 +31,39 @@ namespace Heddoko
                 {
                     foreach (HttpPostedFileBase attachment in attachments)
                     {
-                        byte[] buffer;
-                        using (BinaryReader theReader = new BinaryReader(attachment.InputStream))
+                        if (attachment != null)
                         {
-                            buffer = theReader.ReadBytes(attachment.ContentLength);
+                            byte[] buffer = new byte[attachment.ContentLength];
+                            using (BinaryReader theReader = new BinaryReader(attachment.InputStream))
+                            {
+                                buffer = theReader.ReadBytes(attachment.ContentLength);
+                            }
+
+                            mail.AddAttachment(new Attachment()
+                            {
+                                Content = Convert.ToBase64String(buffer),
+                                Filename = attachment.FileName,
+                                Type = attachment.ContentType,
+                                Disposition = Disposition
+                            });
+
+                            buffer = null;
                         }
-
-                        mail.AddAttachment(new Attachment
-                        {
-                            Content = Convert.ToBase64String(buffer),
-                            Filename = attachment.FileName,
-                            Type = attachment.ContentType,
-                            Disposition = Disposition
-                        });
-
-                        buffer = null;
                     }
                 }
 
                 if (enableTracking)
                 {
-                    mail.TrackingSettings = new TrackingSettings
+                    mail.TrackingSettings = new TrackingSettings();
+
+                    mail.TrackingSettings.ClickTracking = new ClickTracking()
                     {
-                        ClickTracking = new ClickTracking
-                        {
-                            Enable = true
-                        },
-                        OpenTracking = new OpenTracking
-                        {
-                            Enable = true
-                        }
+                        Enable = true
+                    };
+
+                    mail.TrackingSettings.OpenTracking = new OpenTracking()
+                    {
+                        Enable = true
                     };
                 }
 
