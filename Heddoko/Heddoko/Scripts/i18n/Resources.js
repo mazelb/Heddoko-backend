@@ -286,7 +286,8 @@ i18n.Resources = (function () {
   "Sensors": "Sensors",
   "SensorSet": "Sensor set",
   "SensorSets": "Sensor sets",
-  "KitID": "Kit ID"
+  "KitID": "Kit ID",
+  "EnterSensors": "Enter the serial #, location or position of a sensor"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

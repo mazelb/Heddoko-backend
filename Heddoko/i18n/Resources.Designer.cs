@@ -727,6 +727,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the serial #, location or position of a sensor.
+        /// </summary>
+        public static string EnterSensors {
+            get {
+                return ResourceManager.GetString("EnterSensors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter shirt octopi id or size.
         /// </summary>
         public static string EnterShirtsOctopi {

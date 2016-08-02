@@ -1,6 +1,6 @@
 ﻿<div class="row">
     <div class="col-md-4">
-        <div class="filters sensorSetFilter">
+        <div class="filters sensorSetsFilter">
             <div>
                 <label for="searchPants" class="control-label">@i18n.Resources.Search</label>
                 <input id="searchPants"
@@ -18,7 +18,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-success sensorSetForm">
+        <div class="panel panel-success sensorSetsForm">
             <div class="panel-heading clearfix">
                 <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.SensorSet</h3>
                 <div class="btn-group pull-right" role="group">
@@ -29,23 +29,26 @@
             <div class="panel-body">
                 <div class="row margin010">
                     <div class="col-sm-2">
-                        <input class="form-control"
-                               required
-                               name="sensorSets-idView"
-                               validationMessage="@i18n.Resources.Required"
-                               placeholder="@i18n.Resources.ID"
-                               type="text"
-                               data-bind="value: model.idView" />
+                        <select class="form-control"
+                                required
+                                name="sensorSets-qaStatus"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.SelectQAStatus"
+                                data-value-field="value"
+                                data-bind="value: model.qaStatus, source: qaStatuses"></select>
                     </div>
-
                     <div class="col-sm-2">
-                        <input class="form-control"
-                               required
-                               name="sensorSets-idView"
-                               validationMessage="@i18n.Resources.Required"
-                               placeholder="@i18n.Resources.KitID"
-                               type="text"
-                               data-bind="value: model.kitID" />
+                        <select class="form-control"
+                                name="sensorSets=kit"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.Kits"
+                                data-value-field="value"
+                                data-bind="value: model.kit, source: kits"></select>
                     </div>
                 </div>
             </div>

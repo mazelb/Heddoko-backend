@@ -8,7 +8,9 @@ var SensorSets = {
         form: null,
         grid: null,
         filterModel: null,
-        addModel: null
+        addModel: null,
+        popup: null,
+        popupModel: null
     },
 
     validators: {
@@ -16,7 +18,9 @@ var SensorSets = {
     },
 
     datasources: function () {
-        this.sensors = SensorSets.getDatasource();
+        this.sensorSets = SensorSets.getDatasource();
+
+        this.sensorSetsDD = SensorSets.getDatasourceDD();
     },
 
     getDatasource: function() {
@@ -37,11 +41,6 @@ var SensorSets = {
                             editable: false,
                             nullable: true
                         },
-                        /*
-                        sensors: {
-                            
-                        }
-                        */
                         qaStatus: {
                             nullable: false,
                             type: "number",
@@ -51,11 +50,11 @@ var SensorSets = {
                                 max: KendoDS.maxInt
                             }
                         },
-                        kitID: {
-                            nullable: false,
+                        kit: {
+                            nullable: true,
                             type: "number",
                             validation: {
-                                required: true,
+                                required: false,
                                 min: 0,
                                 max: KendoDS.maxInt
                             }
@@ -92,6 +91,8 @@ var SensorSets = {
         var control = $("#sensorSetsGrid");
         var filter = $('.sensorSetsFilter');
         var model = $('.sensorSetsForm');
+        var popup = $('#sensorSetsPopup');
+        var popupModel = $('.sensorSetsLinkForm');
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
@@ -123,22 +124,237 @@ var SensorSets = {
                         editor: Sensors.qaStatusDDEditor
                     },
                     {
-                        field: "kitID",
-                        title: i18n.Resources.KitID,
+                        field: "kit",
+                        title: i18n.Resources.Kit,
+                        template: function (e) {
+                            return Format.kit.kit(e);
+                        },
+                        editor: Kits.ddEditor
+                    },
+                    {
+                        command: [{
+                            name: "edit",
+                            text: i18n.Resources.Edit,
+                            className: "k-grid-edit"
+                        }, {
+                            name: "destroy",
+                            text: i18n.Resources.Delete,
+                            className: "k-grid-delete"
+                        }, {
+                            text: i18n.Resources.Restore,
+                            className: "k-grid-restore",
+                            click: this.onRestore
+                        }],
+                        title: i18n.Resources.Actions,
+                        width: '165px'
                     }
-                ]
+                ],
+                save: KendoDS.onSave,
+                detailInit: this.detailInit,
+                dataBound: this.onDataBound
             }).data("kendoGrid");
 
-            KendoDS.bind(this.controls.form, this.controls.addModel);
+            KendoDS.bind(this.controls.grid, true);
+
+            this.controls.filterModel = kendo.observable({
+                find: this.onFilter.bind(this),
+                search: null,
+                keyup: this.onEnter(this)
+            });
+
+            kendo.bind(filter, this.controls.filterModel);
+
+            this.controls.addModel = kendo.observable({
+                reset: this.onReset.bind(this),
+                submit: this.onAdd.bind(this),
+                qaStatuses: Datasources.sensorQAStatusTypes,
+                kits: Datasources.kitsDD,
+                model: this.getEmptyModel()
+            });
+
+            kendo.bind(model, this.controls.addModel);
+
+            $(document).on('click', '.k-overlay', $.proxy(this.onClosePopup, this));
+
+            this.controls.popup = popup.kendoWindow({
+                title: i18n.Resources.Link + ' ' + i18n.Resources.Sensors,
+                modal: true,
+                pinned: true,
+                visible: false,
+                resizeable: false,
+                draggable: false,
+                actions: [
+                    "Close"
+                ]
+            }).data('kendoWindow');
+
+            this.controls.popupModel = kendo.observable({
+                model: this.getEmptyPopupModel(),
+                sensors: Datasources.sensorsLinkDD,
+                link: this.onLink,
+                reference: null
+            });
+
+            kendo.bind(popupModel, this.controls.popupModel);
+
+            this.validators.addModel = model.kendoValidator({
+                validateOnBlur: true,
+                rules: {
+                    maxLengthValidationSerialNo: Validator.equipment.serialNo.maxLengthValidation
+                }
+            }).data("kendoValidator");
+
+            this.validators.popupModel = popupModel.kendoValidator().data("kendoValidator");
 
             $('.chk-show-deleted', this.controls.grid.element).click(this.onShowDeleted.bind(this));
         }
+    },
+
+    detailInit: function(e) {
+        var datasourceSensors = Sensors.getDatasource();
+
+        var reference = 'k-grid-link-' + e.data.id;
+
+        var grid = $("<div>").appendTo(e.detailCell).kendoGrid({
+            dataSource: datasourceSensors,
+            sortable: false,
+            editable: "popup",
+            selectable: false,
+            scrollable: false,
+            resizeable: true,
+            autoBind: false,
+            pageable: {
+                refresh: true,
+                pageSizes: [10, 50, 100]
+            },
+            toolbar: [{
+                name: "create",
+                text: i18n.Resources.Add + ' ' + i18n.Resources.Sensors,
+                className: "k-grid-add btn-primary"
+            }, {
+                text: i18n.Resources.Link + ' ' + i18n.Resources.Sensors,
+                className: reference
+            }],
+            columns: [
+                {
+                    field: "idView",
+                    title: i18n.Resources.ID
+                },
+                {
+                    field: "type",
+                    title: i18n.Resources.type,
+                    template: function (e) {
+                        return Format.sensors.type(e.type);
+                    },
+                    editor: Sensors.typeDDEditor
+                },
+                {
+                    field: "version",
+                    title: i18n.Resources.version
+                },
+                {
+                    field: "location",
+                    title: i18n.Resources.location
+                },
+                {
+                    field: "firmware",
+                    title: i18n.Resources.FirmwareVersion,
+                    template: function (e) {
+                        return Format.firmware.version(e);
+                    },
+                    editor: Firmwares.ddEditorDataboards
+                },
+                {
+                    field: "status",
+                    title: i18n.Resources.Status,
+                    template: function (e) {
+                        return Format.equipment.equipmentStatus(e.status);
+                    },
+                    editor: Equipments.equipmentStatusDDEditor
+                },
+                {
+                    field: "qaStatus",
+                    title: i18n.Resources.QAStatus,
+                    template: function (e) {
+                        return Format.equipment.equipmentQAStatus(e.qaStatus);
+                    },
+                    editor: Sensors.qaStatusDDEditor
+                },
+                {
+                    field: "anatomicalPosition",
+                    title: i18n.Resources.AnatomicalPosition,
+                    template: function (e) {
+                        return Format.equipment.anatomicalPosition(e.anatomicalPosition);
+                    },
+                    editor: Sensors.anatomicalPositionDDEditor
+                },
+                {
+                    command: [{
+                        name: "edit",
+                        text: i18n.Resources.Edit,
+                        className: "k-grid-edit"
+                    }, {
+                        text: i18n.Resources.Unlink,
+                        className: "k-grid-unlink",
+                        click: SensorSets.onUnlink
+                    }],
+                    title: i18n.Resources.Actions,
+                    width: '165px'
+                }
+            ],
+            save: KendoDS.onSave,
+            dataBound: this.onDataBound
+        }).data("kendoGrid");
+
+        KendoDS.bind(grid, true);
+
+        datasourceSensors.filter({
+            field: "SensorSetID",
+            operator: "eq",
+            value: parseInt(e.data.id)
+        });
+
+        $('.' + reference).click(function (ev) {
+            SensorSets.onResetPopup();
+            SensorSets.controls.popupModel.set('model.id', e.data.id);
+            SensorSets.controls.popupModel.set('reference', reference);
+
+            SensorSets.onShowPopup();
+
+            return false;
+        });
+    },
+
+    onShowPopup: function (e) {
+        this.controls.popup.open().center();
+    },
+
+    onClosePopup: function (e) {
+        this.controls.popup.close();
+    },
+
+    onLink: function (e) {
+        var model = SensorSets.controls.popupModel.get('model');
+        var item = Datasources.sensorSets.get(model.id);
+        item.set('sensors', model.sensors);
+        Datasources.sensorSets.sync();
+        SensorSets.onClosePopup();
+    },
+
+    onUnlink: function (e) {
+        e.preventDefault();
+        var tr = $(e.currentTarget).closest("tr");
+        var dataItem = this.dataItem(tr);
+        tr.remove();
+
+        Ajax.post('/admin/api/sensors/' + dataItem.id + '/unlink');
     },
 
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
 
         var grid = SensorSets.controls.grid;
+
 
         $(".k-grid-delete", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
@@ -150,6 +366,8 @@ var SensorSets = {
 
         $(".k-grid-restore", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
+
+            $(this).remove();
         });
     },
 
@@ -160,6 +378,17 @@ var SensorSets = {
             autoBind: true,
             dataSource: SensorSets.getDatasourceDD(options.model.idView)
         });
+    },
+
+    onResetPopup: function (e) {
+        this.controls.popupModel.set('model', this.getEmptyPopupModel());
+    },
+
+    getEmptyPopupModel: function () {
+        return {
+            id: null,
+            sensors: []
+        };
     },
 
     getEmptyModel: function () {

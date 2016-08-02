@@ -975,4 +975,7 @@
   <data name="KitID" xml:space="default">
     <value>Kit ID</value>
   </data>
+  <data name="EnterSensors" xml:space="default">
+    <value>Enter the serial #, location or position of a sensor</value>
+  </data>
 </root>

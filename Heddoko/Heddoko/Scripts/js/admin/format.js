@@ -19,12 +19,12 @@
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         anatomicalPosition: function (item) {
-            item = item != null ? Enums.AnatomicalPositionType.array[item].text : i18n.Resources.None;
+            item = item != null ? Enums.AnatomicLocationType.array[item].text : i18n.Resources.None;
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         anatomicalPositionImg: function (item) {
-            var text = item != null ? Enums.AnatomicalPositionType.array[item].text : '';
+            var text = item != null ? Enums.AnatomicLocationType.array[item].text : '';
             if (!item) {
                 return '&nbsp;';
             }
@@ -281,6 +281,16 @@
                 return div;
             }
             return "";
+        },
+        kit: function (item) {
+            var div = "";
+            if (item.kitID) {
+                div = '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.kit.idView + "</b><br/>";
+                div += i18n.Resources.Location + ": <b>" + Format.equipment.location(item.kit.location) + "</b><br/>";
+                div += "<div></div>";
+            }
+            return div;
         }
     },
     sensors: {

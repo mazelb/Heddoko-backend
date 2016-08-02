@@ -192,6 +192,23 @@ namespace Heddoko.Controllers
             };
         }
 
+        [Route("{id:int}/unlink")]
+        public KendoResponse<SensorsAPIModel> Unlink(int id)
+        {
+            Sensor item = UoW.SensorRepository.GetFull(id);
+            if (item != null)
+            {
+                item.SensorSet = null;
+                item.SensorSetID = null;
+                UoW.Save();
+            }
+
+            return new KendoResponse<SensorsAPIModel>()
+            {
+                Response = Convert(item)
+            };
+        }
+
         protected override Sensor Bind(Sensor item, SensorsAPIModel model)
         {
             if (model == null)

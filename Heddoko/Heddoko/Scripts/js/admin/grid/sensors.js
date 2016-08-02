@@ -31,6 +31,22 @@ var Sensors = {
         });
 
         this.sensorQAStatusTypes.read();
+
+        this.sensorsLinkDD = new kendo.data.DataSource({
+            pageSize: KendoDS.pageSize,
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: false,
+            transport: KendoDS.buildTransport('/admin/api/sensors'),
+            schema: {
+                data: "response",
+                total: "total",
+                errors: "Errors",
+                model: {
+                    id: "id"
+                }
+            }
+        });
     },
 
     getDatasourceDD: function (id) {
@@ -150,7 +166,7 @@ var Sensors = {
         });
     },
 
-    typeDDEditor: function () {
+    typeDDEditor: function (container, options) {
         $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
@@ -159,12 +175,21 @@ var Sensors = {
         });
     },
 
-    qaStatusDDEditor: function () {
+    qaStatusDDEditor: function (container, options) {
         $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             autoBind: true,
             dataSource: Datasources.sensorQAStatusTypes
+        });
+    },
+
+    anatomicalPositionDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.anatomicalPositionTypes
         });
     },
 
@@ -210,14 +235,14 @@ var Sensors = {
                         field: "location",
                         title: i18n.Resources.location
                     },
-                    /*{
+                    {
                         field: "firmware",
                         title: i18n.Resources.FirmwareVersion,
                         template: function (e) {
                             return Format.firmware.version(e);
                         },
                         editor: Firmwares.ddEditorDataboards
-                    },*/
+                    },
                     {
                         field: "status",
                         title: i18n.Resources.Status,
@@ -244,7 +269,7 @@ var Sensors = {
                         template: function (e) {
                             return Format.equipment.anatomicalPosition(e.anatomicalPosition);
                         },
-                        editor: Equipments.anatomicalPositionTypes
+                        editor: Equipments.anatomicalPositionDDEditor
                     },
                     {
                         command: [{

@@ -21,7 +21,6 @@
         <li><a data-toggle="tab" href="#shirt_octopi">@i18n.Resources.ShirtsOctopi</a></li>
         <li><a data-toggle="tab" href="#pants">@i18n.Resources.Pants</a></li>
         <li><a data-toggle="tab" href="#pants_octopi">@i18n.Resources.PantsOctopi</a></li>
-        <li><a data-toggle="tab" href="#components">@i18n.Resources.Components</a></li>
     </ul>
     @Html.Partial("_FlashMessages", Model.Flash)
     <div class="tab-content">
@@ -73,4 +72,24 @@
 
 
 @section Body {
+<div id="sensorSetsPopup" style="display:none;">
+    <div class="sensorSetsLinkForm">
+        <div>
+            <input class="form-control"
+                   required
+                   name="complexEquipment-equipments"
+                   validationMessage="@i18n.Resources.Required"
+                   placeholder="@i18n.Resources.EnterSensors"
+                   data-role="autocomplete"
+                   data-value-primitive="true"
+                   data-text-field="serialNo"
+                   data-option-label="@i18n.Resources.EnterSensors"
+                   data-value-field="id"
+                   data-separator=", "
+                   data-bind="value: model.sensors, source: sensors" />
+        </div>
+        <br />
+        <button class="btn btn-primary" data-bind="events: { click: link }">@i18n.Resources.Save</button>
+    </div>
+</div>
 }
