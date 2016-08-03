@@ -282,13 +282,10 @@
             }
             return "";
         },
-        kit: function (item) {
+        kitID: function (item) {
             var div = "";
             if (item.kitID) {
-                div = '<div class="">';
-                div += i18n.Resources.ID + ": <b>" + item.kit.idView + "</b><br/>";
-                div += i18n.Resources.Location + ": <b>" + Format.equipment.location(item.kit.location) + "</b><br/>";
-                div += "<div></div>";
+                div = '<span class="k-grid-showText">' + item.kitID + '</span>';
             }
             return div;
         }

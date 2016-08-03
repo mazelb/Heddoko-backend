@@ -32,7 +32,11 @@ var Sensors = {
 
         this.sensorQAStatusTypes.read();
 
-        this.sensorsLinkDD = new kendo.data.DataSource({
+        this.sensorsLinkDD = Sensors.getDatasourceLinkDD();
+    },
+
+    getDatasourceLinkDD: function (id) {
+        return new kendo.data.DataSource({
             pageSize: KendoDS.pageSize,
             serverPaging: true,
             serverFiltering: true,
@@ -140,7 +144,6 @@ var Sensors = {
                                 max: KendoDS.maxInt
                             }
                         },
-                        /*
                         sensorSet: {
                             nullable: false,
                             type: "number",
@@ -149,8 +152,7 @@ var Sensors = {
                                 min: 0,
                                 max: KendoDS.maxInt
                             }
-                        }
-                        */
+                        },
                         anatomicalPosition: {
                             nullable: false,
                             type: "number",
@@ -259,10 +261,10 @@ var Sensors = {
                         },
                         editor: Sensors.qaStatusDDEditor
                     },
-                    /*{
-                        field: "setID",
+                    {
+                        field: "sensorSet",
                         title: i18n.Resources.sensorSet
-                    },*/
+                    },
                     {
                         field: "anatomicalPosition",
                         title: i18n.Resources.anatomicalPosition,
@@ -302,6 +304,7 @@ var Sensors = {
                 qaStatuses: Datasources.sensorQAStatusTypes,
                 //firmwares: Datasources.firmwaresDataboards,
                 sensorTypes: Datasources.sensorTypes,
+                sensorSets: Datasources.sensorSetsDD,
                 anatomicalPositions: Datasources.anatomicalPositionTypes,
                 model: this.getEmptyModel()
             });

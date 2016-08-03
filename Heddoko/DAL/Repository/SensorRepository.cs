@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using DAL.Models;
+using EntityFramework.Extensions;
 
 namespace DAL
 {
@@ -34,6 +35,17 @@ namespace DAL
                             || c.Location.ToLower().Contains(search.ToLower())
                             || c.Type.ToString().ToLower().Contains(search.ToLower()))
                 .OrderBy(c => c.ID);
+        }
+
+        public void RemoveSensorSet(int sensorSetID)
+        {
+            DbSet.Where(c => c.SensorSetID == sensorSetID).Update(u => new Sensor { SensorSetID = null });
+
+        }
+
+        public IEnumerable<Sensor> GetBySensorSet(int sensorSetID)
+        {
+            return All().Where(c => c.SensorSetID == sensorSetID);
         }
     }
 }

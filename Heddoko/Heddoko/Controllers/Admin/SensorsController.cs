@@ -27,33 +27,63 @@ namespace Heddoko.Controllers
 
             if (request?.Filter != null)
             {
-                KendoFilterItem isUsedFilter = request.Filter.Get(Used);
-
-                if (isUsedFilter != null)
+                switch (request.Filter.Filters.Count())
                 {
-                    int tmp = 0;
-                    int? usedID = null;
+                    case 0:
+                        if (items == null)
+                        {
+                            items = UoW.SensorRepository.All();
+                        }
+                        break;
+                    default:
+                        foreach (KendoFilterItem filter in request.Filter.Filters)
+                        {
+                            switch (filter.Field)
+                            {
+                                case "Search":
+                                    if (!string.IsNullOrEmpty(filter.Value))
+                                    {
+                                        items = UoW.SensorRepository.Search(filter.Value, false);
+                                    }
 
-                    if (int.TryParse(isUsedFilter.Value, out tmp))
-                    {
-                        usedID = tmp;
-                    }
+                                    if (items == null)
+                                    {
+                                        items = UoW.SensorRepository.All();
+                                    }
 
-                    items = UoW.SensorRepository.GetAvailable(usedID);
-                }
-                else
-                {
-                    KendoFilterItem isDeletedFilter = request.Filter.Get(IsDeleted);
-                    if (isDeletedFilter != null)
-                    {
-                        isDeleted = true;
-                    }
+                                    break;
+                                case "SensorSetID":
+                                    if(!string.IsNullOrEmpty(filter.Value))
+                                    {
+                                        items = UoW.SensorRepository.GetBySensorSet(int.Parse(filter.Value));
+                                    }
 
-                    KendoFilterItem searchFilter = request.Filter.Get(Search);
-                    if (!string.IsNullOrEmpty(searchFilter?.Value))
-                    {
-                        items = UoW.SensorRepository.Search(searchFilter.Value, isDeleted);
-                    }
+                                    break;
+                                case "Used":
+                                    int tmp = 0;
+                                    int? usedID = null;
+
+                                    if (int.TryParse(filter.Value, out tmp))
+                                    {
+                                        usedID = tmp;
+                                    }
+
+                                    items = UoW.SensorRepository.GetAvailable(usedID);
+                                    break;
+
+                                case "isDeleted":
+                                    isDeleted = true;
+
+                                    KendoFilterItem searchFilter = request.Filter.Get(Search);
+                                    if (!string.IsNullOrEmpty(searchFilter?.Value))
+                                    {
+                                        items = UoW.SensorRepository.Search(searchFilter.Value, isDeleted);
+                                    }
+                                    break;
+                            }
+                        }
+                        break;
+
                 }
             }
 
@@ -65,7 +95,7 @@ namespace Heddoko.Controllers
 
             count = items.Count();
 
-            if (request?.Take != null)
+            if (request?.Take != null && request.Take.HasValue)
             {
                 items = items.Skip(request.Skip.Value)
                              .Take(request.Take.Value);

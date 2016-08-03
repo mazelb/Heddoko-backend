@@ -119,15 +119,15 @@ var SensorSets = {
                         field: "qaStatus",
                         title: i18n.Resources.qaStatus,
                         template: function (e) {
-                            return Format.equipment.equipmentQAStatus(e.qaStatus);
+                            return Format.equipment.sensorQAStatusTypes(e.qaStatus);
                         },
                         editor: Sensors.qaStatusDDEditor
                     },
                     {
-                        field: "kit",
+                        field: "kitID",
                         title: i18n.Resources.Kit,
                         template: function (e) {
-                            return Format.kit.kit(e);
+                            return Format.kit.kitID(e);
                         },
                         editor: Kits.ddEditor
                     },
