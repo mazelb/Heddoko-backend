@@ -891,6 +891,9 @@
   <data name="Kits" xml:space="preserve">
     <value>Kits</value>
   </data>
+  <data name="Kit" xml:space="preserve">
+    <value>Kit</value>
+  </data>
   <data name="AlreadyUsed" xml:space="preserve">
     <value>already used</value>
   </data>
@@ -977,5 +980,8 @@
   </data>
   <data name="EnterSensors" xml:space="default">
     <value>Enter the serial #, location or position of a sensor</value>
+  </data>
+  <data name="Assemblies" xml:space="default">
+    <value>Assemblies</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -200,11 +201,40 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            //TODO: BENB - add these later
-            //item.IDView = model.IDView
-            //item.Sensors = model.sensorIDs;
-            //item.Kit = model.KitID;
+            if (model.Kit != null && model.Kit.Any())
+            {
+                if (model.Kit.FirstOrDefault() == null)
+                {
+                    item.Kit = null;
+                }
+                else
+                {
+                    item.Kit = model.Kit;
+                }
+            }       
+
+            item.ID = (int)model.ID;
             item.QAStatus = model.QAStatus;
+
+
+            if (model.Sensors != null)
+            {
+                List<string> sensors = model.Sensors.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim()).Where(c => c != "").ToList();
+
+                foreach (string sensor in sensors)
+                {
+                    if (item.Sensors != null &&
+                        !item.Sensors.Any(c => c.IDView == sensor))
+                    {
+                        Sensor sens = UoW.SensorRepository.GetByIDView(sensor);
+
+                        if (sens != null && !sens.SensorSetID.HasValue)
+                        {
+                            item.Sensors.Add(sens);
+                        }
+                    }
+                }
+            }
             
             return item;
         }
@@ -219,8 +249,9 @@ namespace Heddoko.Controllers
             return new SensorSetsAPIModel
             {
                 ID = item.ID,
+                IDView = item.IDView,
                 QAStatus = item.QAStatus,
-                //KitID = item.KitID
+                Kit = item.Kit
             };
         }
     }

@@ -91,7 +91,7 @@ var Sensors = {
                     fields: {
                         id: {
                             editable: false,
-                            nullable: true
+                            nullable: true,
                         },
                         type: {
                             nullable: false,
@@ -145,13 +145,8 @@ var Sensors = {
                             }
                         },
                         sensorSet: {
-                            nullable: false,
-                            type: "number",
-                            validation: {
-                                required: true,
-                                min: 0,
-                                max: KendoDS.maxInt
-                            }
+                            nullable: true,
+                            editable: false
                         },
                         anatomicalPosition: {
                             nullable: false,
@@ -219,11 +214,12 @@ var Sensors = {
                 columns: [
                     {
                         field: "idView",
-                        title: i18n.Resources.ID
+                        title: i18n.Resources.ID,
+                        editor: KendoDS.emptyEditor
                     },
                     {
                         field: "type",
-                        title: i18n.Resources.type, 
+                        title: i18n.Resources.Type, 
                         template: function (e) {
                             return Format.sensors.type(e.type);
                         },
@@ -231,11 +227,11 @@ var Sensors = {
                     },
                     {
                         field: "version",
-                        title: i18n.Resources.version
+                        title: i18n.Resources.Version
                     },
                     {
                         field: "location",
-                        title: i18n.Resources.location
+                        title: i18n.Resources.Location
                     },
                     {
                         field: "firmware",
@@ -255,7 +251,7 @@ var Sensors = {
                     },
                     {
                         field: "qaStatus",
-                        title: i18n.Resources.qaStatus,
+                        title: i18n.Resources.QAStatus,
                         template: function (e) {
                             return Format.equipment.equipmentQAStatus(e.qaStatus);
                         },
@@ -263,11 +259,15 @@ var Sensors = {
                     },
                     {
                         field: "sensorSet",
-                        title: i18n.Resources.sensorSet
+                        title: i18n.Resources.SensorSet,
+                        template: function (e) {
+                            return Format.kit.sensorSet(e);
+                        },
+                        editor: KendoDS.emptyEditor
                     },
                     {
                         field: "anatomicalPosition",
-                        title: i18n.Resources.anatomicalPosition,
+                        title: i18n.Resources.AnatomicalPosition,
                         template: function (e) {
                             return Format.equipment.anatomicalPosition(e.anatomicalPosition);
                         },
@@ -304,7 +304,6 @@ var Sensors = {
                 qaStatuses: Datasources.sensorQAStatusTypes,
                 //firmwares: Datasources.firmwaresDataboards,
                 sensorTypes: Datasources.sensorTypes,
-                sensorSets: Datasources.sensorSetsDD,
                 anatomicalPositions: Datasources.anatomicalPositionTypes,
                 model: this.getEmptyModel()
             });
@@ -370,12 +369,12 @@ var Sensors = {
             //firmwareID: null,
             status: null,
             qaStatus: null,
-            //sensorSet: null,
+            sensorSet: null,
             anatomicalPosition: null
         }
     },
 
-    onShowDeleted: function () {
+    onShowDeleted: function (e) {
         this.isDeleted = $(e.currentTarget).prop("checked");
         this.onFilter();
     },

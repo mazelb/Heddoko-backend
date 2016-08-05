@@ -32,5 +32,24 @@ namespace DAL
                           //  || c.KitID.ToLower().Contains(search.ToLower()))
                 .OrderBy(c => c.ID);
         }
+
+        public override SensorSet GetFull(int id)
+        {
+            return DbSet.Include(c => c.Kit)
+                        .Include(c => c.Sensors)
+                        .FirstOrDefault(c => c.ID == id);
+        }
+
+        public SensorSet GetByID(int? id = null)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            else
+            {
+                return DbSet.Where(c => c.ID == id).FirstOrDefault();
+            }
+        }
     }
 }

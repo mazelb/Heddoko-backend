@@ -9,5 +9,6 @@ namespace DAL
         IEnumerable<Sensor> Search(string value, bool isDeleted = false);
         IEnumerable<Sensor> GetAvailable(int? id = null);
         IEnumerable<Sensor> GetBySensorSet(int sensorSetID);
+        Sensor GetByIDView(string idView);
     }
 }

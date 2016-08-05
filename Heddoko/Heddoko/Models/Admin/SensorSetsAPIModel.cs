@@ -21,10 +21,12 @@ namespace Heddoko.Models
 
         public string IDView { get; set; }
 
-        public List<string> sensorIDs { get; set; }
-
         public SensorsQAStatusType QAStatus { get; set; }
 
-        public string KitID { get; set; }
+        public ICollection<Kit> Kit { get; set; }
+
+        public string Sensors { get; set; }
+
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.SensorSet}" : $"{IDView} - {QAStatus}";
     }
 }

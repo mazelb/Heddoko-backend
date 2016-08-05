@@ -247,13 +247,15 @@ namespace Heddoko.Controllers
             }
 
             item.Type = model.Type;
-            item.Version = model.version;
+            item.Version = model.Version;
             item.Location = model.Location;
+            // TODO - BENB - Add firmwareID back in when ready
             //item.FirmwareID = model.FirmwareID;
             item.Status = model.Status;
             item.QAStatus = model.QAStatus;
-            //item.SensorSetID = model.SetID;
-            item.AnatomicLocation = model.AnatomicalPosition;
+            item.SensorSetID = model.SensorSetID;
+            item.SensorSet = model.SensorSet;
+            item.AnatomicLocation = model.AnatomicLocation;
 
             return item;
         }
@@ -268,14 +270,17 @@ namespace Heddoko.Controllers
             return new SensorsAPIModel
             {
                 ID = item.ID,
+                IDView = item.IDView,
                 Type = item.Type,
-                version = item.Version,
+                Version = item.Version,
                 Location = item.Location,
+                //TODO - BENB - Add firmwareID back in when ready
                 //FirmwareID = item.FirmwareID,
                 Status = item.Status,
                 QAStatus = item.QAStatus,
-                //SetID = item.SensorSetID,
-                AnatomicalPosition = item.AnatomicLocation
+                SensorSetID = item.SensorSetID,
+                SensorSet = UoW.SensorSetRepository.GetByID(item.SensorSetID),
+                AnatomicLocation = item.AnatomicLocation
             };
         }
     }

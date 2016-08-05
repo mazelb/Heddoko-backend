@@ -51,13 +51,8 @@ var SensorSets = {
                             }
                         },
                         kit: {
-                            nullable: true,
-                            type: "number",
-                            validation: {
-                                required: false,
-                                min: 0,
-                                max: KendoDS.maxInt
-                            }
+                            editable: false,
+                            nullable: true
                         }
                     }
                 }
@@ -113,23 +108,24 @@ var SensorSets = {
                 columns: [
                     {
                         field: "idView",
-                        title: i18n.Resources.ID
+                        title: i18n.Resources.ID,
+                        editor: KendoDS.emptyEditor
                     },
                     {
                         field: "qaStatus",
-                        title: i18n.Resources.qaStatus,
+                        title: i18n.Resources.QAStatus,
                         template: function (e) {
-                            return Format.equipment.sensorQAStatusTypes(e.qaStatus);
+                            return Format.sensors.qaStatus(e.qaStatus);
                         },
                         editor: Sensors.qaStatusDDEditor
                     },
                     {
-                        field: "kitID",
+                        field: "kit",
                         title: i18n.Resources.Kit,
                         template: function (e) {
-                            return Format.kit.kitID(e);
+                            return Format.sensors.kit(e);
                         },
-                        editor: Kits.ddEditor
+                        editor: KendoDS.emptyEditor
                     },
                     {
                         command: [{
@@ -168,7 +164,6 @@ var SensorSets = {
                 reset: this.onReset.bind(this),
                 submit: this.onAdd.bind(this),
                 qaStatuses: Datasources.sensorQAStatusTypes,
-                kits: Datasources.kitsDD,
                 model: this.getEmptyModel()
             });
 
@@ -238,7 +233,8 @@ var SensorSets = {
             columns: [
                 {
                     field: "idView",
-                    title: i18n.Resources.ID
+                    title: i18n.Resources.ID,
+                    editor: KendoDS.emptyEditor
                 },
                 {
                     field: "type",
@@ -399,7 +395,7 @@ var SensorSets = {
         }
     },
 
-    onShowDeleted: function () {
+    onShowDeleted: function (e) {
         this.isDeleted = $(e.currentTarget).prop("checked");
         this.onFilter();
     },

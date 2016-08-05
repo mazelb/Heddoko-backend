@@ -9,8 +9,9 @@
         <h3>@Html.Raw(i18n.Resources.Inventory)</h3>
     </div>
 
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#kits">@i18n.Resources.Kits</a></li>
+    <ul class="nav nav-tabs">     
+        <li class="active"><a data-toggle="tab" href="#assemblies">@i18n.Resources.Assemblies</a></li>
+        <li><a data-toggle="tab" href="#kits">@i18n.Resources.Kits</a></li>
         <li><a data-toggle="tab" href="#brainpacks">@i18n.Resources.Brainpacks</a></li>
         <li><a data-toggle="tab" href="#powerboards">@i18n.Resources.Powerboards</a></li>
         <li><a data-toggle="tab" href="#components">@i18n.Resources.Components</a></li>
@@ -24,7 +25,11 @@
     </ul>
     @Html.Partial("_FlashMessages", Model.Flash)
     <div class="tab-content">
-        <div id="kits" class="tab-pane fade in active">
+        <div id="assemblies" class="tab-pane fade in active">
+            @Html.Partial("_Assemblies")
+        </div>
+
+        <div id="kits" class="tab-pane fade">
             @Html.Partial("_Kits")
         </div>
 
@@ -77,12 +82,12 @@
         <div>
             <input class="form-control"
                    required
-                   name="complexEquipment-equipments"
+                   name="sensorSets-sensors"
                    validationMessage="@i18n.Resources.Required"
                    placeholder="@i18n.Resources.EnterSensors"
                    data-role="autocomplete"
                    data-value-primitive="true"
-                   data-text-field="serialNo"
+                   data-text-field="idView"
                    data-option-label="@i18n.Resources.EnterSensors"
                    data-value-field="id"
                    data-separator=", "

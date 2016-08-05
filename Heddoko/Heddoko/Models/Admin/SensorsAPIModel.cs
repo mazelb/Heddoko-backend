@@ -22,19 +22,23 @@ namespace Heddoko.Models
 
         public SensorType Type { get; set; }
 
-        public string version { get; set; }
+        public string Version { get; set; }
 
         [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Location { get; set; }
 
-        //public int? FirmwareID { get; set; }
+        public string FirmwareVersion { get; set; }
 
         public EquipmentStatusType Status { get; set; }
         
         public SensorsQAStatusType QAStatus { get; set; }
         
-        public string SetID { get; set; }
+        public int? SensorSetID { get; set; }
 
-        public AnatomicLocationType AnatomicalPosition { get; set; } 
+        public SensorSet SensorSet { get; set; }
+
+        public AnatomicLocationType AnatomicLocation { get; set; }
+
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.Sensors}" : $"{IDView} - {Type.GetDisplayName()} - {Status}";
     }
 }

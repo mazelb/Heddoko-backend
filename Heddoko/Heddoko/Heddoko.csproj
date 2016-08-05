@@ -566,6 +566,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
+    <Content Include="Scripts\js\admin\grid\assemblies.js" />
     <Content Include="Scripts\js\admin\grid\kits.js" />
     <Content Include="Scripts\js\admin\grid\brainpacks.js" />
     <Content Include="Scripts\js\admin\grid\powerboards.js" />
@@ -715,7 +716,8 @@
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
     <Compile Include="Models\Admin\SensorSetsAPIModel.cs" />
     <Compile Include="Models\Admin\SensorsAPIModel.cs" />
-    <Compile Include="Models\Admin\ComponentsAPIModel.cs" />    <Compile Include="Models\Admin\KitAPIModel.cs" />
+    <Compile Include="Models\Admin\ComponentsAPIModel.cs" />
+    <Compile Include="Models\Admin\KitAPIModel.cs" />
     <Compile Include="Models\Admin\BrainpackAPIModel.cs" />
     <Compile Include="Models\Admin\PowerboardAPIModel.cs" />
     <Compile Include="Models\Admin\DataboardAPIModel.cs" />
@@ -830,9 +832,11 @@
     <Content Include="Scripts\kendo\kendo.angular2.min.js.map" />
     <Content Include="Views\Inventory\_Databoards.cshtml" />
     <Content Include="Views\Inventory\_Sensors.cshtml" />
-    <Content Include="Views\Inventory\_SensorSets.cshtml" />    <Content Include="Views\Inventory\_Powerboards.cshtml" />
+    <Content Include="Views\Inventory\_SensorSets.cshtml" />
+    <Content Include="Views\Inventory\_Powerboards.cshtml" />
     <Content Include="Views\Inventory\_Brainpacks.cshtml" />
     <Content Include="Views\Inventory\_Kits.cshtml" />
+    <Content Include="Views\Inventory\_Assemblies.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

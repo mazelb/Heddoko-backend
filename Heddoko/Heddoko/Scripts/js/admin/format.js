@@ -281,13 +281,6 @@
                 return div;
             }
             return "";
-        },
-        kitID: function (item) {
-            var div = "";
-            if (item.kitID) {
-                div = '<span class="k-grid-showText">' + item.kitID + '</span>';
-            }
-            return div;
         }
     },
     sensors: {
@@ -300,6 +293,15 @@
             item = item != null ? Enums.SensorsQAStatusType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
+        },
+        kit: function (item) {
+            var div = ""
+            if (item.kit) {
+                div += '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.kit.idView + "</b><br/>";
+                div += "</div>";
+            }
+            return div;
         }
     }
 };

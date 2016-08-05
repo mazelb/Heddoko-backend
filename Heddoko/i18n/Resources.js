@@ -259,6 +259,7 @@ i18n.Resources = (function () {
   "Shirts": "Shirts",
   "Select": "Select",
   "Kits": "Kits",
+  "Kit": "Kit",
   "AlreadyUsed": "already used",
   "No": "No",
   "SoftwareAndFirmware": "Software & Firmware",
@@ -287,7 +288,8 @@ i18n.Resources = (function () {
   "SensorSet": "Sensor set",
   "SensorSets": "Sensor sets",
   "KitID": "Kit ID",
-  "EnterSensors": "Enter the serial #, location or position of a sensor"
+  "EnterSensors": "Enter the serial #, location or position of a sensor",
+  "Assemblies": "Assemblies"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

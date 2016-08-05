@@ -259,6 +259,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assemblies.
+        /// </summary>
+        public static string Assemblies {
+            get {
+                return ResourceManager.GetString("Assemblies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attachments.
         /// </summary>
         public static string Attachments {
@@ -1092,6 +1101,15 @@ namespace i18n {
         public static string IssueType_Software {
             get {
                 return ResourceManager.GetString("IssueType_Software", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kit.
+        /// </summary>
+        public static string Kit {
+            get {
+                return ResourceManager.GetString("Kit", resourceCulture);
             }
         }
         

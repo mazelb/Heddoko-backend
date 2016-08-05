@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System;
 using DAL.Models;
 using EntityFramework.Extensions;
+using System.Text.RegularExpressions;
 
 namespace DAL
 {
@@ -46,6 +48,19 @@ namespace DAL
         public IEnumerable<Sensor> GetBySensorSet(int sensorSetID)
         {
             return All().Where(c => c.SensorSetID == sensorSetID);
+        }
+
+        public Sensor GetByIDView(string idView)
+        {
+            //TODO - BENB - replace with this when IDView is editable or used in the database
+            //return DbSet.Where(c => c.IDView.Equals(idView, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+            idView = Regex.Replace(idView, "[^0-9]", "");
+            int id;
+            if (Int32.TryParse(idView, out id))
+            {
+                return DbSet.Where(c => c.ID == id).FirstOrDefault();
+            }
+            return null;
         }
     }
 }
