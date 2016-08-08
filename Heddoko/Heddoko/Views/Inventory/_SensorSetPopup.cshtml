@@ -1,18 +1,20 @@
-﻿<div class="sensorSetsLinkForm">
-    <div>
-        <input class="form-control"
-               required
-               name="sensorSets-sensors"
-               validationMessage="@i18n.Resources.Required"
-               placeholder="@i18n.Resources.EnterSensors"
-               data-role="autocomplete"
-               data-value-primitive="true"
-               data-text-field="idView"
-               data-option-label="@i18n.Resources.EnterSensors"
-               data-value-field="id"
-               data-separator=", "
-               data-bind="value: model.sensors, source: sensors" />
+﻿<div id="sensorSetsPopup" style="display:none;">
+    <div class="sensorSetsLinkForm">
+        <div>
+            <input class="form-control"
+                   required
+                   name="sensorSets-sensors"
+                   validationMessage="@i18n.Resources.Required"
+                   placeholder="@i18n.Resources.EnterSensors"
+                   data-role="autocomplete"
+                   data-value-primitive="true"
+                   data-text-field="idView"
+                   data-option-label="@i18n.Resources.EnterSensors"
+                   data-value-field="id"
+                   data-separator=", "
+                   data-bind="value: model.sensors, source: sensors" />
+        </div>
+        <br />
+        <button class="btn btn-primary" data-bind="events: { click: link }">@i18n.Resources.Save</button>
     </div>
-    <br />
-    <button class="btn btn-primary" data-bind="events: { click: link }">@i18n.Resources.Save</button>
 </div>
