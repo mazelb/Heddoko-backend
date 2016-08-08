@@ -27,7 +27,7 @@
         location: {
             maxSize: 255,
             maxLengthValidation: function (input) {
-                return Validator.maxLengthValidation(input, 'name', Validator.equipment.location.maxSize);
+                return Validator.maxLengthValidation(input, 'location', Validator.equipment.location.maxSize);
             }
         },
         version: {

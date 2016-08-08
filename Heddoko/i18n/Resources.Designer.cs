@@ -151,101 +151,101 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anatomical position.
+        ///   Looks up a localized string similar to Anatomical location.
         /// </summary>
-        public static string AnatomicalPosition {
+        public static string AnatomicalLocation {
             get {
-                return ResourceManager.GetString("AnatomicalPosition", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocation", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anatomical positions.
+        ///   Looks up a localized string similar to Anatomical locations.
         /// </summary>
-        public static string AnatomicalPositions {
+        public static string AnatomicalLocations {
             get {
-                return ResourceManager.GetString("AnatomicalPositions", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocations", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Left Fore Arm.
         /// </summary>
-        public static string AnatomicalPositionType_LeftForeArm {
+        public static string AnatomicalLocationType_LeftForeArm {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_LeftForeArm", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_LeftForeArm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Left Thigh.
         /// </summary>
-        public static string AnatomicalPositionType_LeftThigh {
+        public static string AnatomicalLocationType_LeftThigh {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_LeftThigh", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_LeftThigh", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Left Tibia.
         /// </summary>
-        public static string AnatomicalPositionType_LeftTibia {
+        public static string AnatomicalLocationType_LeftTibia {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_LeftTibia", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_LeftTibia", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Left Upper Arm.
         /// </summary>
-        public static string AnatomicalPositionType_LeftUpperArm {
+        public static string AnatomicalLocationType_LeftUpperArm {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_LeftUpperArm", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_LeftUpperArm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Right Fore Arm.
         /// </summary>
-        public static string AnatomicalPositionType_RightForeArm {
+        public static string AnatomicalLocationType_RightForeArm {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_RightForeArm", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_RightForeArm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Right Thigh.
         /// </summary>
-        public static string AnatomicalPositionType_RightThigh {
+        public static string AnatomicalLocationType_RightThigh {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_RightThigh", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_RightThigh", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Right Tibia.
         /// </summary>
-        public static string AnatomicalPositionType_RightTibia {
+        public static string AnatomicalLocationType_RightTibia {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_RightTibia", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_RightTibia", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Right Upper Arm.
         /// </summary>
-        public static string AnatomicalPositionType_RightUpperArm {
+        public static string AnatomicalLocationType_RightUpperArm {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_RightUpperArm", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_RightUpperArm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Upper Spine.
         /// </summary>
-        public static string AnatomicalPositionType_UpperSpine {
+        public static string AnatomicalLocationType_UpperSpine {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_UpperSpine", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_UpperSpine", resourceCulture);
             }
         }
         
@@ -255,6 +255,15 @@ namespace i18n {
         public static string And {
             get {
                 return ResourceManager.GetString("And", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assemblies.
+        /// </summary>
+        public static string Assemblies {
+            get {
+                return ResourceManager.GetString("Assemblies", resourceCulture);
             }
         }
         
@@ -327,6 +336,15 @@ namespace i18n {
         public static string ComplexEquipments {
             get {
                 return ResourceManager.GetString("ComplexEquipments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Components.
+        /// </summary>
+        public static string Components {
+            get {
+                return ResourceManager.GetString("Components", resourceCulture);
             }
         }
         
@@ -718,6 +736,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the serial #, location or position of a sensor.
+        /// </summary>
+        public static string EnterSensors {
+            get {
+                return ResourceManager.GetString("EnterSensors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter shirt octopi id or size.
         /// </summary>
         public static string EnterShirtsOctopi {
@@ -1074,6 +1101,24 @@ namespace i18n {
         public static string IssueType_Software {
             get {
                 return ResourceManager.GetString("IssueType_Software", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kit.
+        /// </summary>
+        public static string Kit {
+            get {
+                return ResourceManager.GetString("Kit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kit ID.
+        /// </summary>
+        public static string KitID {
+            get {
+                return ResourceManager.GetString("KitID", resourceCulture);
             }
         }
         
@@ -1627,6 +1672,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quantity.
+        /// </summary>
+        public static string Quantity {
+            get {
+                return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to required.
         /// </summary>
         public static string Required {
@@ -1717,11 +1771,11 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select an anatomical position.
+        ///   Looks up a localized string similar to Select an anatomical location.
         /// </summary>
-        public static string SelectAnatomicalPosition {
+        public static string SelectAnatomicalLocation {
             get {
-                return ResourceManager.GetString("SelectAnatomicalPosition", resourceCulture);
+                return ResourceManager.GetString("SelectAnatomicalLocation", resourceCulture);
             }
         }
         
@@ -1839,6 +1893,42 @@ namespace i18n {
         public static string Send {
             get {
                 return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor.
+        /// </summary>
+        public static string Sensor {
+            get {
+                return ResourceManager.GetString("Sensor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensors.
+        /// </summary>
+        public static string Sensors {
+            get {
+                return ResourceManager.GetString("Sensors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor set.
+        /// </summary>
+        public static string SensorSet {
+            get {
+                return ResourceManager.GetString("SensorSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor sets.
+        /// </summary>
+        public static string SensorSets {
+            get {
+                return ResourceManager.GetString("SensorSets", resourceCulture);
             }
         }
         

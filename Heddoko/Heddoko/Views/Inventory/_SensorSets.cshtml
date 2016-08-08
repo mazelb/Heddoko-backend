@@ -1,0 +1,55 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="filters sensorSetsFilter">
+            <div>
+                <label for="searchPants" class="control-label">@i18n.Resources.Search</label>
+                <input id="searchPants"
+                       class="form-control"
+                       type="text"
+                       placeholder="@i18n.Resources.Enter @i18n.Resources.SensorSet @i18n.Resources.ID"
+                       data-bind="value: search, events:{ keyup: keyup }" />
+            </div>
+            <div class="margin010">
+                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success sensorSetsForm">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.SensorSet</h3>
+                <div class="btn-group pull-right" role="group">
+                    <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
+                    <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row margin010">
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                required
+                                name="sensorSets-qaStatus"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.SelectQAStatus"
+                                data-value-field="value"
+                                data-bind="value: model.qaStatus, source: qaStatuses"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="sensorSetsGrid">
+
+        </div>
+    </div>
+</div>

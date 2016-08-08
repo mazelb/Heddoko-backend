@@ -264,6 +264,39 @@
     </text>
     }
 
+    Enums.ComponentsType = {};
+    Enums.ComponentsType.enum = {};
+    Enums.ComponentsType.array = {};
+    @foreach (DAL.Models.ComponentsType type in (DAL.Models.ComponentsType[])Enum.GetValues(typeof(DAL.Models.ComponentsType)))
+    {
+        <text>
+
+    Enums.ComponentsType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.ComponentsType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.SensorType = {};
+    Enums.SensorType.enum = {};
+    Enums.SensorType.array = {};
+    @foreach (DAL.Models.SensorType type in (DAL.Models.SensorType[])Enum.GetValues(typeof(DAL.Models.SensorType)))
+    {
+        <text>
+
+    Enums.SensorType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.SensorType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+
     Enums.BrainpacksQAStatusType = {};
     Enums.BrainpacksQAStatusType.enum = {};
     Enums.BrainpacksQAStatusType.array = {};
@@ -274,6 +307,23 @@
     Enums.BrainpacksQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
 
     Enums.BrainpacksQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+
+    Enums.SensorsQAStatusType = {};
+    Enums.SensorsQAStatusType.enum = {};
+    Enums.SensorsQAStatusType.array = {};
+    @foreach (DAL.Models.SensorsQAStatusType type in (DAL.Models.SensorsQAStatusType[])Enum.GetValues(typeof(DAL.Models.SensorsQAStatusType)))
+    {
+        <text>
+
+    Enums.SensorsQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.SensorsQAStatusType.array[@((int)type)] = {
         "value": @((int)type),
         "text": "@type.GetDisplayName()"
     };
@@ -295,4 +345,6 @@
     };
     </text>
     }
+
+
 </script>

@@ -18,13 +18,13 @@
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
-        anatomicalPosition: function (item) {
-            item = item != null ? Enums.AnatomicalPositionType.array[item].text : i18n.Resources.None;
+        anatomicalLocation: function (item) {
+            item = item != null ? Enums.AnatomicLocationType.array[item].text : i18n.Resources.None;
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
-        anatomicalPositionImg: function (item) {
-            var text = item != null ? Enums.AnatomicalPositionType.array[item].text : '';
+        anatomicalLocationImg: function (item) {
+            var text = item != null ? Enums.AnatomicLocationType.array[item].text : '';
             if (!item) {
                 return '&nbsp;';
             }
@@ -48,6 +48,7 @@
 
             return '<span class="k-grid-showText">' + item + '</span>';
         }
+        
     },
     organization: {
         user: function (e) {
@@ -163,6 +164,13 @@
             return '';
         }
     },
+    components: {
+        componentsType: function (item) {
+            item = item != null ? Enums.ComponentsType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        }
+    },
     firmware: {
         status: function (item) {
             item = item != null ? Enums.FirmwareStatusType.array[item].text : "";
@@ -273,6 +281,27 @@
                 return div;
             }
             return "";
+        }
+    },
+    sensors: {
+        type: function (item) {
+            item = item != null ? Enums.SensorType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        },
+        qaStatus: function (item) {
+            item = item != null ? Enums.SensorsQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        },
+        kit: function (item) {
+            var div = ""
+            if (item.kit) {
+                div += '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.kit.idView + "</b><br/>";
+                div += "</div>";
+            }
+            return div;
         }
     }
 };

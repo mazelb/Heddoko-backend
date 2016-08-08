@@ -19,6 +19,8 @@ var Kits = {
         //Datasources context
         this.kits = Kits.getDatasource();
 
+        this.kitsDD = Kits.getDatasourceDD();
+
         this.kitCompositionTypes = new kendo.data.DataSource({
             data: _.values(Enums.KitCompositionType.array)
         });
@@ -111,6 +113,28 @@ var Kits = {
         });
     },
 
+    getDatasourceDD: function (id) {
+        return new kendo.data.DataSource({
+            serverPaging: false,
+            serverFiltering: true,
+            serverSorting: false,
+            transport: KendoDS.buildTransport("/admin/api/kits"),
+            schema: {
+                data: "response",
+                total: "total",
+                errors: "Errors",
+                model: {
+                    id: "id"
+                },
+            },
+            filter: [{
+                field: 'Used',
+                operator: 'eq',
+                value: id
+            }]
+        });
+    },
+
     init: function () {
         var control = $("#kitsGrid");
         var filter = $(".kitsFilter");
@@ -160,8 +184,7 @@ var Kits = {
                     template: function (e) {
                         return Format.kit.sensorSet(e);
                     },
-                    //TODO uncomment when sensorsets will be ready
-                    //editor: SensorSets.ddEditor
+                    editor: SensorSets.ddEditor
                 },
                 {
                     field: "pantsID",
@@ -236,8 +259,7 @@ var Kits = {
                 statuses: Datasources.equipmentStatusTypes,
                 organizations: Datasources.organizationsDD,
                 brainpacks: Datasources.brainpacksDD,
-                //TODO uncomment when sensorsets will be ready
-                // sensorSets: Datasources.sensorSetsDD,
+                sensorSets: Datasources.sensorSetsDD,
                 pants: Datasources.pantsDD,
                 shirts: Datasources.shirtsDD,
                 compositions: Datasources.kitCompositionTypes,
@@ -294,6 +316,15 @@ var Kits = {
         .kendoDropDownList({
             autoBind: true,
             dataSource: Datasources.kitCompositionTypes
+        });
+    },
+
+    ddEditor: function (container, options) {
+        $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Kits.getDatasourceDD(options.model.id)
         });
     },
 

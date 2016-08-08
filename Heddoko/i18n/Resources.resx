@@ -117,31 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnatomicalPositionType_LeftForeArm" xml:space="preserve">
+  <data name="AnatomicalLocationType_LeftForeArm" xml:space="preserve">
     <value>Left Fore Arm</value>
   </data>
-  <data name="AnatomicalPositionType_LeftThigh" xml:space="preserve">
+  <data name="AnatomicalLocationType_LeftThigh" xml:space="preserve">
     <value>Left Thigh</value>
   </data>
-  <data name="AnatomicalPositionType_LeftTibia" xml:space="preserve">
+  <data name="AnatomicalLocationType_LeftTibia" xml:space="preserve">
     <value>Left Tibia</value>
   </data>
-  <data name="AnatomicalPositionType_LeftUpperArm" xml:space="preserve">
+  <data name="AnatomicalLocationType_LeftUpperArm" xml:space="preserve">
     <value>Left Upper Arm</value>
   </data>
-  <data name="AnatomicalPositionType_RightForeArm" xml:space="preserve">
+  <data name="AnatomicalLocationType_RightForeArm" xml:space="preserve">
     <value>Right Fore Arm</value>
   </data>
-  <data name="AnatomicalPositionType_RightThigh" xml:space="preserve">
+  <data name="AnatomicalLocationType_RightThigh" xml:space="preserve">
     <value>Right Thigh</value>
   </data>
-  <data name="AnatomicalPositionType_RightTibia" xml:space="preserve">
+  <data name="AnatomicalLocationType_RightTibia" xml:space="preserve">
     <value>Right Tibia</value>
   </data>
-  <data name="AnatomicalPositionType_RightUpperArm" xml:space="preserve">
+  <data name="AnatomicalLocationType_RightUpperArm" xml:space="preserve">
     <value>Right Upper Arm</value>
   </data>
-  <data name="AnatomicalPositionType_UpperSpine" xml:space="preserve">
+  <data name="AnatomicalLocationType_UpperSpine" xml:space="preserve">
     <value>Upper Spine</value>
   </data>
   <data name="ConditionType_New" xml:space="preserve">
@@ -453,11 +453,11 @@
   <data name="AddANew" xml:space="preserve">
     <value>Add a new</value>
   </data>
-  <data name="AnatomicalPosition" xml:space="preserve">
-    <value>Anatomical position</value>
+  <data name="AnatomicalLocation" xml:space="preserve">
+    <value>Anatomical location</value>
   </data>
-  <data name="AnatomicalPositions" xml:space="preserve">
-    <value>Anatomical positions</value>
+  <data name="AnatomicalLocations" xml:space="preserve">
+    <value>Anatomical locations</value>
   </data>
   <data name="Equipment" xml:space="preserve">
     <value>Equipment</value>
@@ -555,8 +555,8 @@
   <data name="Prototype" xml:space="preserve">
     <value>Prototype</value>
   </data>
-  <data name="SelectAnatomicalPosition" xml:space="preserve">
-    <value>Select an anatomical position</value>
+  <data name="SelectAnatomicalLocation" xml:space="preserve">
+    <value>Select an anatomical location</value>
   </data>
   <data name="SelectCondition" xml:space="preserve">
     <value>Select a condition</value>
@@ -891,6 +891,9 @@
   <data name="Kits" xml:space="preserve">
     <value>Kits</value>
   </data>
+  <data name="Kit" xml:space="preserve">
+    <value>Kit</value>
+  </data>
   <data name="AlreadyUsed" xml:space="preserve">
     <value>already used</value>
   </data>
@@ -905,6 +908,12 @@
   </data>
   <data name="WrongSize" xml:space="preserve">
     <value>is the wrong size</value>
+  </data>
+  <data name="Components" xml:space="default">
+    <value>Components</value>
+  </data>
+  <data name="Quantity" xml:space="default">
+    <value>Quantity</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
@@ -953,5 +962,26 @@
   </data>
   <data name="NotFound" xml:space="preserve">
     <value>Not found</value>
+  </data>
+  <data name="Sensor" xml:space="default">
+    <value>Sensor</value>
+  </data>
+  <data name="Sensors" xml:space="default">
+    <value>Sensors</value>
+  </data>
+  <data name="SensorSet" xml:space="default">
+    <value>Sensor set</value>
+  </data>
+  <data name="SensorSets" xml:space="default">
+    <value>Sensor sets</value>
+  </data>
+  <data name="KitID" xml:space="default">
+    <value>Kit ID</value>
+  </data>
+  <data name="EnterSensors" xml:space="default">
+    <value>Enter the serial #, location or position of a sensor</value>
+  </data>
+  <data name="Assemblies" xml:space="default">
+    <value>Assemblies</value>
   </data>
 </root>

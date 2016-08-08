@@ -20,6 +20,11 @@
 
         this.sizeTypes.read();
 
+        this.anatomicalLocationTypes = new kendo.data.DataSource({
+            data: _.values(Enums.AnatomicLocationType.array)
+        });
+
+        this.anatomicalLocationTypes.read();
     },
 
     sizeDDEditor: function (container, options) {
@@ -47,6 +52,15 @@
             autoBind: true,
             dataSource: Datasources.equipmentQAStatusTypes
         });
+    },
+
+    anatomicalLocationDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.anatomicalLocationTypes
+        })
     }
 };
 

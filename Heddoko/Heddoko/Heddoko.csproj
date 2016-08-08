@@ -566,11 +566,15 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
+    <Content Include="Scripts\js\admin\grid\assemblies.js" />
     <Content Include="Scripts\js\admin\grid\kits.js" />
     <Content Include="Scripts\js\admin\grid\brainpacks.js" />
     <Content Include="Scripts\js\admin\grid\powerboards.js" />
     <Content Include="Scripts\js\admin\grid\equipments.js" />
+    <Content Include="Scripts\js\admin\grid\components.js" />
     <Content Include="Scripts\js\admin\grid\databoards.js" />
+    <Content Include="Scripts\js\admin\grid\sensorSets.js" />
+    <Content Include="Scripts\js\admin\grid\sensors.js" />
     <Content Include="Scripts\js\admin\grid\shirts.js" />
     <Content Include="Scripts\js\admin\grid\organizations.js" />
     <Content Include="Scripts\js\admin\grid\licenses.js" />
@@ -638,6 +642,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Admin\ComponentsController.cs" />
     <Compile Include="Controllers\Admin\KitsController.cs" />
     <Compile Include="Controllers\Admin\BrainpacksController.cs" />
     <Compile Include="Controllers\Admin\PowerboardsController.cs" />
@@ -645,6 +650,8 @@
     <Compile Include="Controllers\Admin\OrganizationsController.cs" />
     <Compile Include="Controllers\Admin\PantsController.cs" />
     <Compile Include="Controllers\Admin\PantsOctopiController.cs" />
+    <Compile Include="Controllers\Admin\SensorsController.cs" />
+    <Compile Include="Controllers\Admin\SensorSetsController.cs" />
     <Compile Include="Controllers\Admin\ShirtsController.cs" />
     <Compile Include="Controllers\Admin\FirmwaresController.cs" />
     <Compile Include="Controllers\Admin\ShirtsOctopiController.cs" />
@@ -707,6 +714,9 @@
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
+    <Compile Include="Models\Admin\SensorSetsAPIModel.cs" />
+    <Compile Include="Models\Admin\SensorsAPIModel.cs" />
+    <Compile Include="Models\Admin\ComponentsAPIModel.cs" />
     <Compile Include="Models\Admin\KitAPIModel.cs" />
     <Compile Include="Models\Admin\BrainpackAPIModel.cs" />
     <Compile Include="Models\Admin\PowerboardAPIModel.cs" />
@@ -751,6 +761,8 @@
   <ItemGroup>
     <Folder Include="Content\scss\views\" />
     <Folder Include="Helpers\JWT\" />
+    <Folder Include="Views\SensorSets\" />
+    <Folder Include="Views\Sensors\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\dev.pubxml" />
@@ -814,13 +826,18 @@
     <Content Include="Views\Inventory\_Pants.cshtml" />
     <Content Include="Views\Inventory\_ShirtOctopi.cshtml" />
     <Content Include="Views\Inventory\_Shirts.cshtml" />
+    <Content Include="Views\Inventory\_Components.cshtml" />
     <Content Include="Views\Firmware\Index.cshtml" />
     <Content Include="Scripts\kendo\kendo.angular.min.js.map" />
     <Content Include="Scripts\kendo\kendo.angular2.min.js.map" />
     <Content Include="Views\Inventory\_Databoards.cshtml" />
+    <Content Include="Views\Inventory\_Sensors.cshtml" />
+    <Content Include="Views\Inventory\_SensorSets.cshtml" />
     <Content Include="Views\Inventory\_Powerboards.cshtml" />
     <Content Include="Views\Inventory\_Brainpacks.cshtml" />
     <Content Include="Views\Inventory\_Kits.cshtml" />
+    <Content Include="Views\Inventory\_Assemblies.cshtml" />
+    <Content Include="Views\Inventory\_SensorSetPopup.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
