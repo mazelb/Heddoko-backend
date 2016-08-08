@@ -63,6 +63,14 @@ var ComponentItems = {
                                 min: 0,
                                 max: KendoDS.maxInt
                             }
+                        },
+                        location: {
+                            nullable: true,
+                            type: "text",
+                            validation: {
+                                required: true,
+                                maxLengthValidation: Validator.equipment.location.maxLengthValidation
+                            }
                         }
                     }
                 }
@@ -112,6 +120,10 @@ var ComponentItems = {
                         title: i18n.Resources.Quantity
                     },
                     {
+                        field: 'location',
+                        title: i18n.Resources.Location
+                    },
+                    {
                         command: [{
                             name: "edit",
                             text: i18n.Resources.Edit,
@@ -152,7 +164,10 @@ var ComponentItems = {
             });
 
             this.validators.addModel = model.kendoValidator({
-                validateonBlur: true
+                validateonBlur: true,
+                rules: {
+                    maxLengthValidationLocation: Validator.equipment.location.maxLengthValidation
+                }
             }).data("kendoValidator");
 
             kendo.bind(model, this.controls.addModel);

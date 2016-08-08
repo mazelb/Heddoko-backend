@@ -55,6 +55,16 @@
                     </div>
 
                     <div class="col-sm-2">
+                        <input class="form-control"
+                               required
+                               name="sensors-location"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.PhysicalLocation"
+                               type="text"
+                               data-bind="value: model.location" />
+                    </div>
+
+                    <div class="col-sm-2">
                         <input required
                                name="components-quantity"
                                validationMessage="@i18n.Resources.Required"
@@ -65,6 +75,7 @@
                                data-option-label="@i18n.Resources.Quantity"
                                data-bind="value: model.quantity" />
                     </div>
+
                 </div>
             </div>
         </div>

@@ -24,8 +24,8 @@ namespace DAL
         public IEnumerable<Sensor> GetAvailable(int? id = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
+                        .Where(c => c.SensorSet == null || c.SensorSet.ID == id)
                         .OrderBy(c => c.ID);
-            //TODO: BENB - Need to check against sensorsets
         }
 
         public IEnumerable<Sensor> Search(string search, bool isDeleted = false)

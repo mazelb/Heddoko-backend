@@ -837,6 +837,7 @@
     <Content Include="Views\Inventory\_Brainpacks.cshtml" />
     <Content Include="Views\Inventory\_Kits.cshtml" />
     <Content Include="Views\Inventory\_Assemblies.cshtml" />
+    <Content Include="Views\Inventory\_SensorSetPopup.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

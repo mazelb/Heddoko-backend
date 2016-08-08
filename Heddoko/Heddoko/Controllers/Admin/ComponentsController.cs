@@ -179,6 +179,7 @@ namespace Heddoko.Controllers.Admin
             item.Type = model.Type;
             item.Status = model.Status;
             item.Quantity = model.Quantity;
+            item.Location = model.Location;
 
             return item;
         }
@@ -195,7 +196,8 @@ namespace Heddoko.Controllers.Admin
                 ID = item.ID,
                 Status = item.Status,
                 Type = item.Type,
-                Quantity = item.Quantity
+                Quantity = item.Quantity,
+                Location = item.Location
             };
         }
     }

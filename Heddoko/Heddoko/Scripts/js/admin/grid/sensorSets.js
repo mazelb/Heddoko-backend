@@ -193,10 +193,7 @@ var SensorSets = {
             kendo.bind(popupModel, this.controls.popupModel);
 
             this.validators.addModel = model.kendoValidator({
-                validateOnBlur: true,
-                rules: {
-                    maxLengthValidationSerialNo: Validator.equipment.serialNo.maxLengthValidation
-                }
+                validateOnBlur: true
             }).data("kendoValidator");
 
             this.validators.popupModel = popupModel.kendoValidator().data("kendoValidator");
@@ -252,14 +249,15 @@ var SensorSets = {
                     field: "location",
                     title: i18n.Resources.location
                 },
-                {
+                // TODO - BENB add back in when firmware is ready
+                /*{
                     field: "firmware",
                     title: i18n.Resources.FirmwareVersion,
                     template: function (e) {
                         return Format.firmware.version(e);
                     },
                     editor: Firmwares.ddEditorDataboards
-                },
+                },*/
                 {
                     field: "status",
                     title: i18n.Resources.Status,
@@ -277,12 +275,12 @@ var SensorSets = {
                     editor: Sensors.qaStatusDDEditor
                 },
                 {
-                    field: "anatomicalPosition",
-                    title: i18n.Resources.AnatomicalPosition,
+                    field: "anatomicalLocation",
+                    title: i18n.Resources.AnatomicalLocation,
                     template: function (e) {
-                        return Format.equipment.anatomicalPosition(e.anatomicalPosition);
+                        return Format.equipment.anatomicalLocation(e.anatomicalLocation);
                     },
-                    editor: Sensors.anatomicalPositionDDEditor
+                    editor: Sensors.anatomicalLocationDDEditor
                 },
                 {
                     command: [{

@@ -14,5 +14,7 @@ namespace Heddoko.Models
         public int Quantity { get; set; }
 
         public ComponentsType Type { get; set; }
+
+        public string Location { get; set; }
     }
 }

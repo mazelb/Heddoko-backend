@@ -151,101 +151,101 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anatomical position.
+        ///   Looks up a localized string similar to Anatomical location.
         /// </summary>
-        public static string AnatomicalPosition {
+        public static string AnatomicalLocation {
             get {
-                return ResourceManager.GetString("AnatomicalPosition", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocation", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anatomical positions.
+        ///   Looks up a localized string similar to Anatomical locations.
         /// </summary>
-        public static string AnatomicalPositions {
+        public static string AnatomicalLocations {
             get {
-                return ResourceManager.GetString("AnatomicalPositions", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocations", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Left Fore Arm.
         /// </summary>
-        public static string AnatomicalPositionType_LeftForeArm {
+        public static string AnatomicalLocationType_LeftForeArm {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_LeftForeArm", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_LeftForeArm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Left Thigh.
         /// </summary>
-        public static string AnatomicalPositionType_LeftThigh {
+        public static string AnatomicalLocationType_LeftThigh {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_LeftThigh", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_LeftThigh", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Left Tibia.
         /// </summary>
-        public static string AnatomicalPositionType_LeftTibia {
+        public static string AnatomicalLocationType_LeftTibia {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_LeftTibia", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_LeftTibia", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Left Upper Arm.
         /// </summary>
-        public static string AnatomicalPositionType_LeftUpperArm {
+        public static string AnatomicalLocationType_LeftUpperArm {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_LeftUpperArm", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_LeftUpperArm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Right Fore Arm.
         /// </summary>
-        public static string AnatomicalPositionType_RightForeArm {
+        public static string AnatomicalLocationType_RightForeArm {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_RightForeArm", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_RightForeArm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Right Thigh.
         /// </summary>
-        public static string AnatomicalPositionType_RightThigh {
+        public static string AnatomicalLocationType_RightThigh {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_RightThigh", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_RightThigh", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Right Tibia.
         /// </summary>
-        public static string AnatomicalPositionType_RightTibia {
+        public static string AnatomicalLocationType_RightTibia {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_RightTibia", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_RightTibia", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Right Upper Arm.
         /// </summary>
-        public static string AnatomicalPositionType_RightUpperArm {
+        public static string AnatomicalLocationType_RightUpperArm {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_RightUpperArm", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_RightUpperArm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Upper Spine.
         /// </summary>
-        public static string AnatomicalPositionType_UpperSpine {
+        public static string AnatomicalLocationType_UpperSpine {
             get {
-                return ResourceManager.GetString("AnatomicalPositionType_UpperSpine", resourceCulture);
+                return ResourceManager.GetString("AnatomicalLocationType_UpperSpine", resourceCulture);
             }
         }
         
@@ -1771,11 +1771,11 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select an anatomical position.
+        ///   Looks up a localized string similar to Select an anatomical location.
         /// </summary>
-        public static string SelectAnatomicalPosition {
+        public static string SelectAnatomicalLocation {
             get {
-                return ResourceManager.GetString("SelectAnatomicalPosition", resourceCulture);
+                return ResourceManager.GetString("SelectAnatomicalLocation", resourceCulture);
             }
         }
         

@@ -18,12 +18,12 @@
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
-        anatomicalPosition: function (item) {
+        anatomicalLocation: function (item) {
             item = item != null ? Enums.AnatomicLocationType.array[item].text : i18n.Resources.None;
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
-        anatomicalPositionImg: function (item) {
+        anatomicalLocationImg: function (item) {
             var text = item != null ? Enums.AnatomicLocationType.array[item].text : '';
             if (!item) {
                 return '&nbsp;';

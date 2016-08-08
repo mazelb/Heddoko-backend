@@ -119,6 +119,7 @@ var Sensors = {
                                 maxLengthValidation: Validator.equipment.location.maxLengthValidation
                             }
                         },
+                        //TODO - BENB - add back in when firmware is ready
                         /*firmwareID: {
                             nullable: false,
                             type: "number",
@@ -148,7 +149,7 @@ var Sensors = {
                             nullable: true,
                             editable: false
                         },
-                        anatomicalPosition: {
+                        anatomicalLocation: {
                             nullable: false,
                             type: "number",
                             validation: {
@@ -181,12 +182,12 @@ var Sensors = {
         });
     },
 
-    anatomicalPositionDDEditor: function (container, options) {
+    anatomicalLocationDDEditor: function (container, options) {
         $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             autoBind: true,
-            dataSource: Datasources.anatomicalPositionTypes
+            dataSource: Datasources.anatomicalLocationTypes
         });
     },
 
@@ -233,14 +234,15 @@ var Sensors = {
                         field: "location",
                         title: i18n.Resources.Location
                     },
-                    {
+                    //TODO - BENB - Add Firmwares back in 
+                    /*{
                         field: "firmware",
                         title: i18n.Resources.FirmwareVersion,
                         template: function (e) {
                             return Format.firmware.version(e);
                         },
                         editor: Firmwares.ddEditorDataboards
-                    },
+                    },*/
                     {
                         field: "status",
                         title: i18n.Resources.Status,
@@ -266,12 +268,12 @@ var Sensors = {
                         editor: KendoDS.emptyEditor
                     },
                     {
-                        field: "anatomicalPosition",
-                        title: i18n.Resources.AnatomicalPosition,
+                        field: "anatomicalLocation",
+                        title: i18n.Resources.AnatomicalLocation,
                         template: function (e) {
-                            return Format.equipment.anatomicalPosition(e.anatomicalPosition);
+                            return Format.equipment.anatomicalLocation(e.anatomicalLocation);
                         },
-                        editor: Equipments.anatomicalPositionDDEditor
+                        editor: Equipments.anatomicalLocationDDEditor
                     },
                     {
                         command: [{
@@ -304,7 +306,7 @@ var Sensors = {
                 qaStatuses: Datasources.sensorQAStatusTypes,
                 //firmwares: Datasources.firmwaresDataboards,
                 sensorTypes: Datasources.sensorTypes,
-                anatomicalPositions: Datasources.anatomicalPositionTypes,
+                anatomicalLocations: Datasources.anatomicalLocationTypes,
                 model: this.getEmptyModel()
             });
 
@@ -370,7 +372,7 @@ var Sensors = {
             status: null,
             qaStatus: null,
             sensorSet: null,
-            anatomicalPosition: null
+            anatomicalLocation: null
         }
     },
 
