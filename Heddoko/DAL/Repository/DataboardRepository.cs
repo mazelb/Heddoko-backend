@@ -21,7 +21,7 @@ namespace DAL
         public IEnumerable<Databoard> GetAvailable(int? id = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
-                        .Where(c => c.Brainpack.Count == 0 || c.Brainpack.Any(p => p.ID == id))
+                        .Where(c => c.Brainpacks.Count == 0 || c.Brainpacks.Any(p => p.ID == id))
                         .OrderBy(c => c.ID);
         }
 

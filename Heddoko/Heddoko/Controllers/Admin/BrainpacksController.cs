@@ -254,7 +254,7 @@ namespace Heddoko.Controllers
                 {
                     Databoard databoard = UoW.DataboardRepository.GetFull(model.DataboardID.Value);
 
-                    if (databoard.Brainpack.Any())
+                    if (databoard.Brainpacks.Any())
                     {
                         throw new Exception($"{Resources.Databoard} {Resources.AlreadyUsed}");
                     }

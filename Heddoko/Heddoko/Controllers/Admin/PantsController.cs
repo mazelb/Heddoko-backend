@@ -228,7 +228,7 @@ namespace Heddoko.Controllers
                 else
                 {
                     PantsOctopi pantsOctopi = UoW.PantsOctopiRepository.GetFull(model.PantsOctopiID.Value);
-                    if (pantsOctopi.Pants.Any())
+                    if (pantsOctopi.PantsCollection.Any())
                     {
                         throw new Exception($"{Resources.PantsOctopi} {Resources.AlreadyUsed}");
                     }

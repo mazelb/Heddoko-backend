@@ -247,7 +247,7 @@ namespace Heddoko.Controllers
                     {
                         Brainpack brainpack = UoW.BrainpackRepository.GetFull(model.BrainpackID.Value);
 
-                        if (brainpack.Kit.Any())
+                        if (brainpack.Kits.Any())
                         {
                             throw new Exception($"{Resources.Brainpack} {Resources.AlreadyUsed}");
                         }
@@ -304,7 +304,7 @@ namespace Heddoko.Controllers
                     {
                         Pants pants = UoW.PantsRepository.GetFull(model.PantsID.Value);
 
-                        if (pants.Kit.Any())
+                        if (pants.Kits.Any())
                         {
                             throw new Exception($"{Resources.Pants} {Resources.AlreadyUsed}");
                         }

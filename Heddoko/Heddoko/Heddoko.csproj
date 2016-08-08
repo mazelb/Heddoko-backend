@@ -566,6 +566,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
+    <Content Include="Scripts\js\admin\grid\organizationKits.js" />
     <Content Include="Scripts\js\admin\grid\assemblies.js" />
     <Content Include="Scripts\js\admin\grid\kits.js" />
     <Content Include="Scripts\js\admin\grid\brainpacks.js" />
@@ -836,6 +837,7 @@
     <Content Include="Views\Inventory\_Powerboards.cshtml" />
     <Content Include="Views\Inventory\_Brainpacks.cshtml" />
     <Content Include="Views\Inventory\_Kits.cshtml" />
+    <Content Include="Views\Organization\_Kits.cshtml" />
     <Content Include="Views\Inventory\_Assemblies.cshtml" />
     <Content Include="Views\Inventory\_SensorSetPopup.cshtml" />
     <None Include="Web.dev.config">
@@ -871,7 +873,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50664</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

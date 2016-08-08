@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace DAL.Models
@@ -19,7 +20,10 @@ namespace DAL.Models
 
         [JsonIgnore]
         //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
-        public virtual ICollection<Pants> Pants { get; set; }
+        public virtual ICollection<Pants> PantsCollection { get; set; }
+
+        [JsonIgnore]
+        public virtual Pants Pants => PantsCollection?.FirstOrDefault();
 
         #endregion
 

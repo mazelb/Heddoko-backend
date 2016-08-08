@@ -19,7 +19,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.Firmware)
                         .Include(c => c.Databoard)
-                        .Include(c => c.Kit)
+                        .Include(c => c.Kits)
                         .Include(c => c.Powerboard)
                         .FirstOrDefault(c => c.ID == id);
         }
@@ -27,7 +27,7 @@ namespace DAL
         public IEnumerable<Brainpack> GetAvailable(int? id = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
-                        .Where(c => c.Kit.Count == 0 || c.Kit.Any(p => p.ID == id))
+                        .Where(c => c.Kits.Count == 0 || c.Kits.Any(p => p.ID == id))
                         .OrderBy(c => c.ID);
         }
 

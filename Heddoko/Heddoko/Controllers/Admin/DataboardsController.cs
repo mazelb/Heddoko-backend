@@ -211,9 +211,9 @@ namespace Heddoko.Controllers
                 item.Firmware = UoW.FirmwareRepository.Get(model.FirmwareID.Value);
             }
 
-            item.Version = model.Version;
+            item.Version = model.Version.Trim();
             item.Status = model.Status;
-            item.Location = model.Location;
+            item.Location = model.Location.Trim();
 
             return item;
         }

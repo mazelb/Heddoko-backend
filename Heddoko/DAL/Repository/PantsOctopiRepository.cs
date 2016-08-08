@@ -14,7 +14,7 @@ namespace DAL
 
         public override PantsOctopi GetFull(int id)
         {
-            return DbSet.Include(c => c.Pants)
+            return DbSet.Include(c => c.PantsCollection)
                         .FirstOrDefault(c => c.ID == id);
         }
 
@@ -27,7 +27,7 @@ namespace DAL
         public IEnumerable<PantsOctopi> GetAvailable(int? id = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
-                        .Where(c => c.Pants.Count == 0 || c.Pants.Any(p => p.ID == id))
+                        .Where(c => c.PantsCollection.Count == 0 || c.PantsCollection.Any(p => p.ID == id))
                         .OrderBy(c => c.ID);
         }
 

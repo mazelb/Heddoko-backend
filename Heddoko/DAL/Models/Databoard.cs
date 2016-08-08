@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace DAL.Models
@@ -24,7 +25,10 @@ namespace DAL.Models
 
         [JsonIgnore]
         //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
-        public virtual ICollection<Brainpack> Brainpack { get; set; }
+        public virtual ICollection<Brainpack> Brainpacks { get; set; }
+
+        [JsonIgnore]
+        public virtual Brainpack Brainpack => Brainpacks?.FirstOrDefault();
 
         [JsonIgnore]
         public int? FirmwareID { get; set; }
