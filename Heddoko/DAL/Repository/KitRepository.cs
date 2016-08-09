@@ -102,5 +102,17 @@ namespace DAL
                 UserID = null
             });
         }
+
+        public int GetNumReady()
+        {
+            IEnumerable<Kit> shirts = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
+
+            if (shirts != null)
+            {
+                return shirts.Count();
+            }
+
+            return 0;
+        }
     }
 }
