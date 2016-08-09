@@ -52,5 +52,17 @@ namespace DAL
                 ShirtOctopiID = null
             });
         }
+
+        public int GetNumReady()
+        {
+            IEnumerable<Shirt> shirts = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
+
+            if (shirts != null)
+            {
+                return shirts.Count();
+            }
+
+            return 0;
+        }
     }
 }

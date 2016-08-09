@@ -35,5 +35,21 @@ namespace DAL
                                  || (c.Type.ToString().ToLower().Contains(search.ToLower())))
                         .OrderBy(c => c.ID);
         }
+
+        public int GetQuantityReadyOfComponent(ComponentsType type)
+        {
+            int count = 0;
+            
+            IEnumerable<Component> components = DbSet
+                                                    .Where(c => c.Type == type)
+                                                    .Where(c => c.Status == EquipmentStatusType.Ready);
+            
+            foreach (Component component in components)
+            {
+                count += component.Quantity;
+            } 
+
+            return 0;
+        }
     }
 }

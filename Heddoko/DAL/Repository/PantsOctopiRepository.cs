@@ -41,5 +41,17 @@ namespace DAL
                             || c.Location.ToLower().Contains(search.ToLower()))
                 .OrderBy(c => c.ID);
         }
+
+        public int GetNumReady()
+        {
+            IEnumerable<PantsOctopi> pantsoctopi = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
+
+            if (pantsoctopi != null)
+            {
+                return pantsoctopi.Count();
+            }
+
+            return 0;
+        }
     }
 }

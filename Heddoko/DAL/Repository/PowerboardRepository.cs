@@ -43,5 +43,17 @@ namespace DAL
                                     || c.Location.ToLower().Contains(search.ToLower()))
                         .OrderBy(c => c.ID);
         }
+
+        public int GetNumReady()
+        {
+            IEnumerable<Powerboard> powerboards = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
+
+            if (powerboards != null)
+            {
+                return powerboards.Count();
+            }
+
+            return 0;
+        }
     }
 }

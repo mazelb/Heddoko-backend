@@ -200,5 +200,23 @@ namespace Heddoko.Controllers.Admin
                 Location = item.Location
             };
         }
+
+        public int GetCountByType(ComponentsType type)
+        {
+            IEnumerable<Component> items = null;
+            int count = 0;
+
+            items = UoW.ComponentRepository.All();
+
+            foreach (Component item in items)
+            {
+                if (item.Type == type)
+                {
+                    count += item.Quantity;
+                }
+            }
+
+            return count;
+        }
     }
 }

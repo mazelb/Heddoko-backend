@@ -72,5 +72,17 @@ namespace DAL
                             || c.Type.ToString().ToLower().Contains(search.ToLower()))
                 .OrderBy(c => c.ID);
         }
+
+        public int GetNumReady()
+        {
+            IEnumerable<Sensor> sensors = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
+
+            if (sensors != null)
+            {
+                return sensors.Count();
+            }
+
+            return 0;
+        }
     }
 }

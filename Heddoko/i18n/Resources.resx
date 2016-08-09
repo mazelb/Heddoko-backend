@@ -984,6 +984,15 @@
   <data name="Assemblies" xml:space="preserve">
     <value>Assemblies</value>
   </data>
+  <data name="Assembly" xml:space="preserve">
+    <value>Assembly</value>
+  </data>
+  <data name="QuantityOnHand" xml:space="preserve">
+    <value>Quantity on Hand</value>
+  </data>
+  <data name="QuantityProducible" xml:space="preserve">
+    <value>Quantity Producible</value>
+  </data>
   <data name="Label" xml:space="preserve">
     <value>Label</value>
   </data>

@@ -713,6 +713,7 @@
     <Compile Include="Models\Account\ProfileAccountViewModel.cs" />
     <Compile Include="Models\Account\SignUpAccountViewModel.cs" />
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
+    <Compile Include="Models\Admin\AssembliesAPIModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
     <Compile Include="Models\Admin\SensorSetsAPIModel.cs" />
@@ -762,6 +763,7 @@
   <ItemGroup>
     <Folder Include="Content\scss\views\" />
     <Folder Include="Helpers\JWT\" />
+    <Folder Include="Views\Assemblies\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\dev.pubxml" />

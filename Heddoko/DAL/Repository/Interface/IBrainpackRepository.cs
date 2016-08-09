@@ -10,5 +10,6 @@ namespace DAL
         IEnumerable<Brainpack> GetAvailable(int? usedID);
         IEnumerable<Brainpack> Search(string value, bool isDeleted);
         IEnumerable<Brainpack> All(bool isDeleted);
+        int GetNumReady();
     }
 }

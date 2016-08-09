@@ -12,5 +12,6 @@ namespace DAL
         void RemovePantsOctopi(int pantsOctopiID);
 
         IEnumerable<Pants> GetAvailable(int? usedID);
+        int GetNumReady();
     }
 }
