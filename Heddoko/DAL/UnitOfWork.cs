@@ -1,222 +1,111 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class UnitOfWork : IDisposable
+    public sealed class UnitOfWork : IDisposable
     {
-        private HDContext db { get; set; }
+        private readonly HDContext _db;
 
         public UnitOfWork(HDContext context = null)
         {
-            db = context ?? new HDContext();
+            _db = context ?? new HDContext();
         }
-
-        #region PrivateRepository
-        private IUserRepository userRepository { get; set; }
-
-        private IGroupRepository groupRepository { get; set; }
-
-        private IAccessTokenRepository accessTokenRepository { get; set; }
-
-        private IAssetRepository assetRepository { get; set; }
-
-        private IComplexEquipmentRepository complextEquipmentRepository { get; set; }
-
-        private IEquipmentRepository equipmentRepository { get; set; }
-
-        private IFolderRepository folderRepository { get; set; }
-
-        private IMaterialRepository materialRepository { get; set; }
-
-        private IMaterialTypeRepository materialTypeRepository { get; set; }
-
-        private IMovementEventRepository movementEventRepository { get; set; }
-
-        private IMovementFrameRepository movementFrameRepository { get; set; }
-
-        private IMovementMarkerRepository movementMarkerRepository { get; set; }
-
-        private IMovementRepository movementRepository { get; set; }
-
-        private IProfileRepository profileRepository { get; set; }
-
-        private IScreeningRepository screeningRepository { get; set; }
-
-        private ITagRepository tagRepository { get; set; }
-
-        private IOrganizationRepository organizationRepository { get; set; }
-
-        private ILicenseRepository licenseRepository { get; set; }
-        #endregion
-
-        #region PublicRepository
-        public IUserRepository UserRepository
-        {
-            get
-            {
-                return userRepository ?? (userRepository = new UserRepository(db));
-            }
-        }
-
-        public IGroupRepository GroupRepository
-        {
-            get
-            {
-                return groupRepository ?? (groupRepository = new GroupRepository(db));
-            }
-        }
-
-        public IAccessTokenRepository AccessTokenRepository
-        {
-            get
-            {
-                return accessTokenRepository ?? (accessTokenRepository = new AccessTokenRepository(db));
-            }
-        }
-
-        public IAssetRepository AssetRepository
-        {
-            get
-            {
-                return assetRepository ?? (assetRepository = new AssetRepository(db));
-            }
-        }
-
-        public IComplexEquipmentRepository ComplexEquipmentRepository
-        {
-            get
-            {
-                return complextEquipmentRepository ?? (complextEquipmentRepository = new ComplexEquipmentRepository(db));
-            }
-        }
-
-        public IEquipmentRepository EquipmentRepository
-        {
-            get
-            {
-                return equipmentRepository ?? (equipmentRepository = new EquipmentRepository(db));
-            }
-        }
-
-        public IFolderRepository FolderRepository
-        {
-            get
-            {
-                return folderRepository ?? (folderRepository = new FolderRepository(db));
-            }
-        }
-
-        public IMaterialRepository MaterialRepository
-        {
-            get
-            {
-                return materialRepository ?? (materialRepository = new MaterialRepository(db));
-            }
-        }
-
-        public IMaterialTypeRepository MaterialTypeRepository
-        {
-            get
-            {
-                return materialTypeRepository ?? (materialTypeRepository = new MaterialTypeRepository(db));
-            }
-        }
-
-        public IMovementEventRepository MovementEventRepository
-        {
-            get
-            {
-                return movementEventRepository ?? (movementEventRepository = new MovementEventRepository(db));
-            }
-        }
-
-        public IMovementFrameRepository MovementFrameRepository
-        {
-            get
-            {
-                return movementFrameRepository ?? (movementFrameRepository = new MovementFrameRepository(db));
-            }
-        }
-
-        public IMovementMarkerRepository MovementMarkerRepository
-        {
-            get
-            {
-                return movementMarkerRepository ?? (movementMarkerRepository = new MovementMarkerRepository(db));
-            }
-        }
-
-        public IMovementRepository MovementRepository
-        {
-            get
-            {
-                return movementRepository ?? (movementRepository = new MovementRepository(db));
-            }
-        }
-
-        public IProfileRepository ProfileRepository
-        {
-            get
-            {
-                return profileRepository ?? (profileRepository = new ProfileRepository(db));
-            }
-        }
-
-        public IScreeningRepository ScreeningRepository
-        {
-            get
-            {
-                return screeningRepository ?? (screeningRepository = new ScreeningRepository(db));
-            }
-        }
-
-        public ITagRepository TagRepository
-        {
-            get
-            {
-                return tagRepository ?? (tagRepository = new TagRepository(db));
-            }
-        }
-
-        public IOrganizationRepository OrganizationRepository
-        {
-            get
-            {
-                return organizationRepository ?? (organizationRepository = new OrganizationRepository(db));
-            }
-        }
-
-        public ILicenseRepository LicenseRepository
-        {
-            get
-            {
-                return licenseRepository ?? (licenseRepository = new LicenseRepository(db));
-            }
-        }
-        #endregion
 
         public void Save()
         {
-            db.SaveChanges();
+            _db.SaveChanges();
         }
 
-        #region IDisposable
-        private bool disposed = false;
+        #region PrivateRepository
 
-        protected virtual void Dispose(bool disposing)
+        private IUserRepository _userRepository;
+
+        private IAccessTokenRepository _accessTokenRepository;
+
+        private IAssetRepository _assetRepository;
+
+        private IOrganizationRepository _organizationRepository;
+
+        private ILicenseRepository _licenseRepository;
+
+        private IBrainpackRepository _brainpackRepository;
+
+        private IComponentRepository _componentRepository;
+
+        private IDataboardRepository _databoardRepository;
+
+        private IKitRepository _kitRepository;
+
+        private IPantsOctopiRepository _pantsOctopiRepository;
+
+        private IPantsRepository _pantsRepository;
+
+        private IPowerboardRepository _powerboardRepository;
+
+        private ISensorRepository _sensorRepository;
+
+        private ISensorSetRepository _sensorSetRepository;
+
+        private IShirtOctopiRepository _shirtOctopiRepository;
+
+        private IShirtRepository _shirtRepository;
+
+        private IFirmwareRepository _firmwareRepository;
+
+        #endregion
+
+        #region PublicRepository
+
+        public IUserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(_db));
+
+        public IAccessTokenRepository AccessTokenRepository => _accessTokenRepository ?? (_accessTokenRepository = new AccessTokenRepository(_db));
+
+        public IAssetRepository AssetRepository => _assetRepository ?? (_assetRepository = new AssetRepository(_db));
+
+        public IOrganizationRepository OrganizationRepository => _organizationRepository ?? (_organizationRepository = new OrganizationRepository(_db));
+
+        public ILicenseRepository LicenseRepository => _licenseRepository ?? (_licenseRepository = new LicenseRepository(_db));
+
+        public IBrainpackRepository BrainpackRepository => _brainpackRepository ?? (_brainpackRepository = new BrainpackRepository(_db));
+
+        public IComponentRepository ComponentRepository => _componentRepository ?? (_componentRepository = new ComponentRepository(_db));
+
+        public IDataboardRepository DataboardRepository => _databoardRepository ?? (_databoardRepository = new DataboardRepository(_db));
+
+        public IKitRepository KitRepository => _kitRepository ?? (_kitRepository = new KitRepository(_db));
+
+        public IPantsOctopiRepository PantsOctopiRepository => _pantsOctopiRepository ?? (_pantsOctopiRepository = new PantsOctopiRepository(_db));
+
+        public IPantsRepository PantsRepository => _pantsRepository ?? (_pantsRepository = new PantsRepository(_db));
+
+        public IPowerboardRepository PowerboardRepository => _powerboardRepository ?? (_powerboardRepository = new PowerboardRepository(_db));
+
+        public ISensorRepository SensorRepository => _sensorRepository ?? (_sensorRepository = new SensorRepository(_db));
+
+        public ISensorSetRepository SensorSetRepository => _sensorSetRepository ?? (_sensorSetRepository = new SensorSetRepository(_db));
+
+        public IShirtOctopiRepository ShirtOctopiRepository => _shirtOctopiRepository ?? (_shirtOctopiRepository = new ShirtOctopiRepository(_db));
+
+        public IShirtRepository ShirtRepository => _shirtRepository ?? (_shirtRepository = new ShirtRepository(_db));
+
+        public IFirmwareRepository FirmwareRepository => _firmwareRepository ?? (_firmwareRepository = new FirmwareRepository(_db));
+
+        #endregion
+
+        #region IDisposable
+
+        private bool _disposed;
+
+        private void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
-                    db.Dispose();
+                    _db.Dispose();
                 }
             }
-            this.disposed = true;
+            _disposed = true;
         }
 
         public void Dispose()
@@ -224,6 +113,7 @@ namespace DAL
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }

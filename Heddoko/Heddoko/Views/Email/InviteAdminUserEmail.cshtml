@@ -8,7 +8,7 @@ Welcome @Model.FirstName, <br /><br />You've been invited to become an administr
 <br />
 @if (!string.IsNullOrEmpty(Model.Token)) {
     <text>
-    Click here to activate your account: <a href="@(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")">@(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")</a>
+        Click here to activate your account: <a href="@(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")">@(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")</a>
     </text>
 }
 else

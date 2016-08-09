@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Heddoko.Helpers.Auth
 {
@@ -11,6 +8,7 @@ namespace Heddoko.Helpers.Auth
         {
             Roles = new List<string>();
         }
+
         public int ID { get; set; }
 
         public List<string> Roles { get; set; }

@@ -9,8 +9,8 @@ namespace Heddoko
         {
             Trace.TraceError("TraceErrorAttribute: Unhandled exception caught in controller '{1}' action '{2}': {0}",
                 ctx.Exception,
-                (string)ctx.RouteData.Values["controller"],
-                (string)ctx.RouteData.Values["action"]);
+                (string) ctx.RouteData.Values["controller"],
+                (string) ctx.RouteData.Values["action"]);
         }
     }
 }

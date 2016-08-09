@@ -1,9 +1,8 @@
-﻿using DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using DAL.Models;
+using i18n;
 
 namespace Heddoko.Models
 {
@@ -15,7 +14,7 @@ namespace Heddoko.Models
         {
             Flash = new FlashMessagesViewModel();
             CurrentUser = ContextSession.User;
-            Title = i18n.Resources.Title;
+            Title = Resources.Title;
         }
 
         public string Title { get; set; }
@@ -26,51 +25,38 @@ namespace Heddoko.Models
 
         public User CurrentUser { get; set; }
 
-        public bool IsAuth
-        {
-            get
-            {
-                return CurrentUser != null;
-            }
-        }
+        public bool IsAuth => CurrentUser != null;
 
-        public bool IsAdmin
-        {
-            get
-            {
-                return IsAuth && CurrentUser.Role == UserRoleType.Admin;
-            }
-        }
+        public bool IsAdmin => IsAuth && CurrentUser.Role == UserRoleType.Admin;
 
-        public IEnumerable<SelectListItem> ListCountries
+        public IEnumerable<SelectListItem> ListCountries => _countries ?? (_countries = new List<SelectListItem>
         {
-            get
+            new SelectListItem
             {
-                if (_countries == null)
-                {
-                    _countries = new List<SelectListItem>()
-                    {
-                         new SelectListItem { Text = DAL.Models.CountryType.Canada.ToString(), Value = DAL.Models.CountryType.Canada.ToString() },
-                         new SelectListItem { Text = DAL.Models.CountryType.USA.ToString(), Value = DAL.Models.CountryType.USA.ToString() }
-                    };
-                }
-                return _countries;
+                Text = CountryType.Canada.ToString(),
+                Value = CountryType.Canada.ToString()
+            },
+            new SelectListItem
+            {
+                Text = CountryType.USA.ToString(),
+                Value = CountryType.USA.ToString()
             }
-        }
+        });
 
-        public string Greeting
+        public static string Greeting
         {
             get
             {
                 int hour = DateTime.Now.Hour;
-                string result = i18n.Resources.GoodMorning;
-                if (hour > 11 && hour < 17)
+                string result = Resources.GoodMorning;
+                if (hour > 11 &&
+                    hour < 17)
                 {
-                    result = i18n.Resources.GoodAfternoon;
+                    result = Resources.GoodAfternoon;
                 }
                 else if (hour >= 17)
                 {
-                    result = i18n.Resources.GoodEvening;
+                    result = Resources.GoodEvening;
                 }
 
                 return result;

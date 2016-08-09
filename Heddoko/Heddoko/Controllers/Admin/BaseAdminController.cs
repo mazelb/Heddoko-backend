@@ -1,30 +1,30 @@
-﻿using DAL;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.Http.Description;
+using AutoMapper;
+using DAL;
 using DAL.Models;
 using Heddoko.Helpers.Auth;
 using Heddoko.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+using i18n;
 
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
-    public abstract class BaseAdminController<T, M> : ApiController
+    [AuthAPI(Roles = Constants.Roles.Admin)]
+    public abstract class BaseAdminController<T, TM> : ApiController
         where T : BaseModel
-        where M : class
+        where TM : class
     {
-        protected UnitOfWork UoW { get; set; }
-
-        protected User CurrentUser { get; set; }
-
-        public BaseAdminController()
+        protected BaseAdminController()
         {
             UoW = new UnitOfWork();
+            Mapper.Initialize(cfg =>
+                              {
+                                  cfg.CreateMap<T, TM>();
+                              });
+
             CurrentUser = Forms.ValidateSession(UoW);
             if (CurrentUser == null)
             {
@@ -32,56 +32,60 @@ namespace Heddoko.Controllers
             }
         }
 
+        protected UnitOfWork UoW { get; }
+
+        protected User CurrentUser { get; private set; }
+
         [Route("")]
         [HttpGet]
-        public virtual KendoResponse<IEnumerable<M>> Get([FromUri]KendoRequest request)
+        public virtual KendoResponse<IEnumerable<TM>> Get([FromUri] KendoRequest request)
         {
             throw new NotSupportedException();
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public virtual KendoResponse<M> Get(int id)
+        public virtual KendoResponse<TM> Get(int id)
         {
             throw new NotSupportedException();
         }
 
         [Route("")]
         [HttpPost]
-        public virtual KendoResponse<M> Post(M model)
+        public virtual KendoResponse<TM> Post(TM model)
         {
             throw new NotSupportedException();
         }
 
         [Route("bulk")]
         [HttpPatch]
-        public virtual KendoResponse<IEnumerable<M>> Bulk(KendoRequest model)
+        public virtual KendoResponse<IEnumerable<TM>> Bulk(KendoRequest model)
         {
             throw new NotSupportedException();
         }
 
         [Route("{id:int?}")]
         [HttpPut]
-        public virtual KendoResponse<M> Put(M model)
+        public virtual KendoResponse<TM> Put(TM model)
         {
             throw new NotSupportedException();
         }
 
         [Route("{id:int}")]
         [HttpDelete]
-        public virtual KendoResponse<M> Delete(int id)
+        public virtual KendoResponse<TM> Delete(int id)
         {
             throw new NotSupportedException();
         }
 
-        protected virtual T Bind(T item, M model)
+        protected virtual T Bind(T item, TM model)
         {
             throw new NotSupportedException();
         }
 
-        protected virtual M Convert(T item)
+        protected virtual TM Convert(T item)
         {
-            throw new NotSupportedException();
+            return Mapper.Map<TM>(item);
         }
 
         protected void InvalidateCurrentUser()
@@ -91,7 +95,7 @@ namespace Heddoko.Controllers
 
         protected void ThrowAccessException()
         {
-            throw new APIException(ErrorAPIType.Info, i18n.Resources.WrongObjectAccess);
+            throw new APIException(ErrorAPIType.Info, Resources.WrongObjectAccess);
         }
     }
 }

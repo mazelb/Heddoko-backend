@@ -1,5 +1,5 @@
-﻿using DAL.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using DAL.Models;
 
 namespace DAL
 {
@@ -7,10 +7,8 @@ namespace DAL
     {
         IEnumerable<License> GetByOrganization(int organizationID);
 
-        License GetFull(int value);
-
         IEnumerable<License> Search(string search, int? organizationID = null);
 
-        IEnumerable<License> GetAvailableByOrganization(int organizationID);
+        IEnumerable<License> GetAvailableByOrganization(int organizationID, int? id = null);
     }
 }

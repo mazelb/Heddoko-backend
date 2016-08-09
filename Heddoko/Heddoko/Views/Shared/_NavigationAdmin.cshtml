@@ -2,14 +2,14 @@
 
 <div class="logo">
     <div class="logo-container">
-        <img src="@Url.Content("~/Content/images/logos/heddoko_logo_1.svg")" alt="Heddoko" class="logo1">
-        <img src="@Url.Content("~/Content/images/logos/heddoko_logo_2.svg")" alt="Heddoko" class="logo2">
+        <a href="/">
+            <img src="@Url.Content("~/Content/images/logos/heddoko_logo_1.svg")" alt="Heddoko" class="logo1">
+            <img src="@Url.Content("~/Content/images/logos/heddoko_logo_2.svg")" alt="Heddoko" class="logo2">
+        </a>
     </div>
 </div>
 
 <div id="nav-wrapper">
-    @*<li role="presentation"><a href="@Url.Action("Signout", "Account")">@i18n.Resources.SignOut</a></li>*@
-
     <ul id="nav">
         @if (Model.IsAuth)
         {
@@ -22,8 +22,8 @@
             switch (Model.CurrentUser.Role)
             {
                 case DAL.Models.UserRoleType.Admin:
-                    <li class="@Html.IsCurrentActionLink("Index", "Admin")" title="@i18n.Resources.Inventory">
-                        <a href="@Url.Action("Index", "Admin")">
+                    <li class="@Html.IsCurrentActionLink("Index", "Inventory")" title="@i18n.Resources.Inventory">
+                        <a href="@Url.Action("Index", "Inventory")">
                             <i class="fa fa-cogs"></i>
                             <span>  @i18n.Resources.Inventory</span>
                         </a>
@@ -32,6 +32,12 @@
                         <a href="@Url.Action("Index", "License")">
                             <i class="fa fa-user-plus"></i>
                             <span> @i18n.Resources.LicenseTitle</span>
+                        </a>
+                    </li>
+                    <li class="@Html.IsCurrentActionLink("Index", "Firmware")" title="@i18n.Resources.SoftwareAndFirmware">
+                        <a href="@Url.Action("Index", "Firmware")">
+                            <i class="fa fa-terminal"></i>
+                            <span> @i18n.Resources.SoftwareAndFirmware</span>
                         </a>
                     </li>
                     break;

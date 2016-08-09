@@ -1,26 +1,27 @@
-﻿using DAL;
-using DAL.Models;
-using Heddoko.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using DAL;
+using DAL.Models;
+using Heddoko.Models;
+using i18n;
 
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("admin/api/organizations")]
-    [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
+    [AuthAPI(Roles = Constants.Roles.Admin)]
     public class OrganizationsController : BaseAdminController<Organization, OrganizationAPIModel>
     {
-        const string Search = "Search";
-        const string IsDeleted = "IsDeleted";
+        private const string Search = "Search";
+        private const string IsDeleted = "IsDeleted";
+        private const string Used = "Used";
 
-        public override KendoResponse<IEnumerable<OrganizationAPIModel>> Get([FromUri]KendoRequest request)
+
+        public override KendoResponse<IEnumerable<OrganizationAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<Organization> items = null;
             int count = 0;
@@ -31,16 +32,16 @@ namespace Heddoko.Controllers
                     switch (request.Filter.Filters.Count())
                     {
                         case 0:
-                            if (items == null)
-                            {
-                                items = UoW.OrganizationRepository.All();
-                            }
+                            items = UoW.OrganizationRepository.All();
                             break;
                         case 1:
                             foreach (KendoFilterItem filter in request.Filter.Filters)
                             {
                                 switch (filter.Field)
                                 {
+                                    case Used:
+                                        items = UoW.OrganizationRepository.All();
+                                        break;
                                     case Search:
                                         if (!string.IsNullOrEmpty(filter.Value))
                                         {
@@ -70,8 +71,7 @@ namespace Heddoko.Controllers
                             }
 
                             KendoFilterItem searchFilter = request.Filter.Get(Search);
-                            if (searchFilter != null
-                            && !string.IsNullOrEmpty(searchFilter.Value))
+                            if (!string.IsNullOrEmpty(searchFilter?.Value))
                             {
                                 items = UoW.OrganizationRepository.Search(searchFilter.Value, isDeleted);
                             }
@@ -85,10 +85,7 @@ namespace Heddoko.Controllers
                 }
                 else
                 {
-                    if (items == null)
-                    {
-                        items = UoW.OrganizationRepository.All();
-                    }
+                    items = UoW.OrganizationRepository.All();
                 }
             }
 
@@ -99,20 +96,16 @@ namespace Heddoko.Controllers
 
             count = items.Count();
 
-            if (request != null)
+            if (request?.Take != null)
             {
-                if (request.Take.HasValue)
-                {
-                    items = items.Skip(request.Skip.Value)
-                                 .Take(request.Take.Value);
-
-                }
+                items = items.Skip(request.Skip.Value)
+                             .Take(request.Take.Value);
             }
 
-            var result = items.ToList()
-                              .Select(c => Convert(c));
+            IEnumerable<OrganizationAPIModel> result = items.ToList()
+                                                            .Select(Convert);
 
-            return new KendoResponse<IEnumerable<OrganizationAPIModel>>()
+            return new KendoResponse<IEnumerable<OrganizationAPIModel>>
             {
                 Response = result,
                 Total = count
@@ -123,7 +116,7 @@ namespace Heddoko.Controllers
         {
             Organization item = UoW.OrganizationRepository.Get(id);
 
-            return new KendoResponse<OrganizationAPIModel>()
+            return new KendoResponse<OrganizationAPIModel>
             {
                 Response = Convert(item)
             };
@@ -131,7 +124,7 @@ namespace Heddoko.Controllers
 
         public override KendoResponse<OrganizationAPIModel> Post(OrganizationAPIModel model)
         {
-            OrganizationAPIModel response = new OrganizationAPIModel();
+            OrganizationAPIModel response;
 
             if (ModelState.IsValid)
             {
@@ -145,13 +138,13 @@ namespace Heddoko.Controllers
             }
             else
             {
-                throw new ModelStateException()
+                throw new ModelStateException
                 {
                     ModelState = ModelState
                 };
             }
 
-            return new KendoResponse<OrganizationAPIModel>()
+            return new KendoResponse<OrganizationAPIModel>
             {
                 Response = response
             };
@@ -168,7 +161,6 @@ namespace Heddoko.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-
                         Bind(item, model);
                         UoW.Save();
 
@@ -176,7 +168,7 @@ namespace Heddoko.Controllers
                     }
                     else
                     {
-                        throw new ModelStateException()
+                        throw new ModelStateException
                         {
                             ModelState = ModelState
                         };
@@ -184,7 +176,7 @@ namespace Heddoko.Controllers
                 }
             }
 
-            return new KendoResponse<OrganizationAPIModel>()
+            return new KendoResponse<OrganizationAPIModel>
             {
                 Response = response
             };
@@ -202,7 +194,8 @@ namespace Heddoko.Controllers
                 user.Status = UserStatusType.Deleted;
                 user.License = null;
                 if (user.Role == UserRoleType.Worker
-                 || user.Role == UserRoleType.Analyst)
+                    ||
+                    user.Role == UserRoleType.Analyst)
                 {
                     user.Role = UserRoleType.User;
                 }
@@ -211,7 +204,7 @@ namespace Heddoko.Controllers
 
             UoW.Save();
 
-            return new KendoResponse<OrganizationAPIModel>()
+            return new KendoResponse<OrganizationAPIModel>
             {
                 Response = Convert(item)
             };
@@ -224,48 +217,44 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            User user = null;
-
             if (model.User != null
-             && item.User == null)
+                &&
+                item.User == null)
             {
+                User user = null;
                 if (model.User.ID.HasValue)
                 {
                     user = UoW.UserRepository.Get(model.User.ID.Value);
                 }
                 else
                 {
-                    user = UoW.UserRepository.GetByEmail(model.User.Email?.Trim());
+                    user = UoW.UserRepository.GetByEmail(model.User.Email?.Trim()) ?? UoW.UserRepository.GetByUsername(model.User.Username?.ToLower().Trim());
 
-                    if (user == null)
+                    if (user?.OrganizationID != null)
                     {
-                        user = UoW.UserRepository.GetByUsername(model.User.Username?.ToLower().Trim());
-                    }
-
-                    if (user != null
-                    && user.OrganizationID != null)
-                    {
-                        throw new Exception(i18n.Resources.UserAlreadyInOrganizations);
+                        throw new Exception(Resources.UserAlreadyInOrganizations);
                     }
 
                     if (user == null)
                     {
-                        user = new User();
-                        user.FirstName = model.User.Firstname?.Trim();
-                        user.LastName = model.User.Lastname?.Trim();
-                        user.Email = model.User.Email?.Trim();
-                        user.Username = model.User.Username?.ToLower().Trim();
-                        user.Status = UserStatusType.Invited;
-                        user.Role = UserRoleType.LicenseAdmin;
-                        user.Phone = model.Phone;
-                        user.InviteToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString());
+                        user = new User
+                        {
+                            FirstName = model.User.Firstname?.Trim(),
+                            LastName = model.User.Lastname?.Trim(),
+                            Email = model.User.Email?.Trim(),
+                            Username = model.User.Username?.ToLower().Trim(),
+                            Status = UserStatusType.Invited,
+                            Role = UserRoleType.LicenseAdmin,
+                            Phone = model.Phone,
+                            InviteToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString())
+                        };
                         UoW.UserRepository.Create(user);
                     }
                     else
                     {
                         if (user.Role == UserRoleType.Admin)
                         {
-                            throw new Exception(i18n.Resources.WrongLicenseAdmin);
+                            throw new Exception(Resources.WrongLicenseAdmin);
                         }
 
                         user.Role = UserRoleType.LicenseAdmin;
@@ -302,7 +291,7 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            return new OrganizationAPIModel()
+            return new OrganizationAPIModel
             {
                 ID = item.ID,
                 Name = item.Name,
@@ -310,20 +299,63 @@ namespace Heddoko.Controllers
                 Address = item.Address,
                 UserID = item.UserID,
                 Notes = item.Notes,
+                IDView = item.IDView,
                 Status = item.Status,
-                User = new UserAPIModel()
+                User = new UserAPIModel
                 {
                     Email = item.User.Email,
                     Name = item.User.Name,
                     Username = item.User.Username
                 },
                 DataAnalysisAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataAnalysis
-                                                            && c.ExpirationAt >= DateTime.Now
-                                                            && c.Status == LicenseStatusType.Active).Sum(c => c.Amount),
+                                                               && c.ExpirationAt >= DateTime.Now
+                                                               && c.Status == LicenseStatusType.Active).Sum(c => c.Amount),
                 DataCollectorAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataCollection
-                                                             && c.ExpirationAt >= DateTime.Now
-                                                             && c.Status == LicenseStatusType.Active).Sum(c => c.Amount)
+                                                                && c.ExpirationAt >= DateTime.Now
+                                                                && c.Status == LicenseStatusType.Active).Sum(c => c.Amount)
             };
+        }
+
+        [Route("change")]
+        [HttpPost]
+        public bool Change(OrganizationAdminAPIModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Organization organization = UoW.OrganizationRepository.GetFull(model.OrganizationID);
+                User user = UoW.UserRepository.GetFull(model.UserID);
+
+                if (user != null
+                    &&
+                    organization != null)
+                {
+                    if (organization.ID == user.OrganizationID)
+                    {
+                        organization.User.Role = organization.User.RoleType;
+
+                        if (organization.User.Role == UserRoleType.LicenseAdmin)
+                        {
+                            organization.User.Role = UserRoleType.User;
+                        }
+
+                        organization.User = user;
+                        user.Role = UserRoleType.LicenseAdmin;
+
+                        UoW.Save();
+
+                        UoW.UserRepository.ClearCache(user);
+                        UoW.UserRepository.ClearCache(organization.User);
+                    }
+                }
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+            return true;
         }
     }
 }

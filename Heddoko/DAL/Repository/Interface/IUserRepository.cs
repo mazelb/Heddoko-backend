@@ -5,8 +5,6 @@ namespace DAL
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        User GetFull(int id);
-
         void SetCache(User user);
 
         void ClearCache(User user);

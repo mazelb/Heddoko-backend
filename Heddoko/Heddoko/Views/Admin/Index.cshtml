@@ -5,52 +5,11 @@
 }
 
 <div class="page">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#suits">@i18n.Resources.Suits</a></li>
-        <li><a data-toggle="tab" href="#equipment">@i18n.Resources.Equipments</a></li>
-        <li><a data-toggle="tab" href="#materials">@i18n.Resources.Materials</a></li>
-        <li><a data-toggle="tab" href="#material_types">@i18n.Resources.MaterialTypes</a></li>
-    </ul>
+
     @Html.Partial("_FlashMessages", Model.Flash)
-    <div class="tab-content">
-        <div id="suits" class="tab-pane fade in active">
-            @Html.Partial("_ComplexEquipments")
-        </div>
 
-        <div id="equipment" class="tab-pane fade">
-            @Html.Partial("_Equipments")
-        </div>
-
-        <div id="materials" class="tab-pane fade">
-            @Html.Partial("_Materials")
-        </div>
-
-        <div id="material_types" class="tab-pane fade">
-            @Html.Partial("_MaterialTypes")
-        </div>
-    </div>
 </div>
 
 
 @section Body {
-    <div id="ComplexEquipmentPopup" style="display:none;">
-        <div class="ComplexEquipmentLinkForm">
-            <div>
-                <input  class="form-control"
-                        required
-                        name="complexEquipment-equipments"
-                        validationMessage="@i18n.Resources.Required"
-                        placeholder="@i18n.Resources.EnterEquipment"
-                        data-role="autocomplete"
-                        data-value-primitive="true"
-                        data-text-field="serialNo"
-                        data-option-label="@i18n.Resources.SelectEquipment"
-                        data-value-field="id"
-                        data-separator=", "
-                        data-bind="value: model.equipments, source: equipments"/>
-            </div>
-            <br />
-            <button class="btn btn-primary" data-bind="events: { click: link }">@i18n.Resources.Save</button>
-        </div>
-    </div>
 }

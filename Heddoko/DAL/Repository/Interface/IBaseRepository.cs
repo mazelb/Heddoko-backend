@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace DAL
 {
-    public interface IBaseRepository<T> : IDisposable where T : DAL.Models.BaseModel
+    public interface IBaseRepository<T> : IDisposable where T : Models.BaseModel
     {
         #region Cache
         string GetCacheKey(string id);
@@ -18,6 +18,8 @@ namespace DAL
 
         #region Select
         T Get(int id);
+
+        T GetFull(int id);
 
         IEnumerable<T> All();
 
