@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Hangfire;
 using Heddoko.Models;
 using i18n;
 
@@ -148,6 +149,7 @@ namespace Heddoko.Controllers
                 UoW.LicenseRepository.Create(item);
 
                 // Task.Run(() => Mailer.SendInviteAdminEmail(item));
+                BackgroundJob.Enqueue(() => Services.LicenseManager.Check());
 
                 response = Convert(item);
             }
@@ -192,6 +194,8 @@ namespace Heddoko.Controllers
             {
                 Bind(item, model);
                 UoW.Save();
+
+                BackgroundJob.Enqueue(() => Services.LicenseManager.Check());
 
                 response = Convert(item);
             }

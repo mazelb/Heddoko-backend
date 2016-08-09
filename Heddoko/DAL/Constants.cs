@@ -65,7 +65,7 @@
 
         public static class Cache
         {
-            public const string Prefix = "heddoko_dev";
+            public const string Prefix = "heddoko";
             public const string KeyAll = "all";
             public const string Users = "users";
         }
