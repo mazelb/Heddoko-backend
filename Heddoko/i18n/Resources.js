@@ -429,7 +429,8 @@ i18n.Resources = (function () {
   "SizeType_ExtraLarge": "Extra Large",
   "SizeType_Large": "Large",
   "SizeType_Medium": "Medium",
-  "SizeType_Small": "Small"
+  "SizeType_Small": "Small",
+  "Change": "Change"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

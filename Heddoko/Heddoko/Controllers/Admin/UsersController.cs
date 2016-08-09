@@ -22,6 +22,8 @@ namespace Heddoko.Controllers
         private const int NoKit = 0;
         private const string IsDeleted = "IsDeleted";
         private const string License = "License";
+        private const string Used = "Used";
+
 
         public override KendoResponse<IEnumerable<UserAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -52,6 +54,16 @@ namespace Heddoko.Controllers
                     {
                         items = UoW.UserRepository.Admins();
                     }
+                }
+
+                KendoFilterItem isUsedFilter = request.Filter.Get(Used);
+
+                if (isUsedFilter != null)
+                {
+                    int tmp = 0;
+                    int.TryParse(isUsedFilter.Value, out tmp);
+
+                    items = UoW.UserRepository.GetByOrganization(tmp);
                 }
 
                 if (items == null)

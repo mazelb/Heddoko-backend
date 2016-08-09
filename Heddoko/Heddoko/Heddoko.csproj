@@ -715,6 +715,7 @@
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
+    <Compile Include="Models\Admin\OrganizationAdminAPIModel.cs" />
     <Compile Include="Models\Admin\SensorSetsAPIModel.cs" />
     <Compile Include="Models\Admin\SensorAPIModel.cs" />
     <Compile Include="Models\Admin\ComponentsAPIModel.cs" />
@@ -838,6 +839,7 @@
     <Content Include="Views\Organization\_Kits.cshtml" />
     <Content Include="Views\Inventory\_Assemblies.cshtml" />
     <Content Include="Views\Inventory\_SensorSetPopup.cshtml" />
+    <Content Include="Views\License\_OrganizationPopup.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
