@@ -222,7 +222,7 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            if (CurrentUser.OrganizationID != item.OrganizationID)
+            if (!CurrentUser.IsAdmin)
             {
                 throw new Exception(Resources.WrongObjectAccess);
             }
@@ -245,17 +245,11 @@ namespace Heddoko.Controllers
                 }
             }
 
-            if (item.Users != null
-                &&
-                item.Users.Count() > model.Amount)
-            {
-                throw new Exception(Resources.LiceseAmountUsed);
-            }
-
             item.Amount = (int)model.Amount;
             item.Status = model.Status;
             item.ExpirationAt = model.ExpirationAt.EndOfDay();
             item.Type = model.Type;
+            item.Validate();
 
             return item;
         }

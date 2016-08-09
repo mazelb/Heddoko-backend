@@ -43,10 +43,16 @@ namespace DAL.Models
                                 && Status == LicenseStatusType.Active
                                 && ExpirationAt >= DateTime.Now;
 
+        //TODO remove that later
         public bool Validate()
         {
             if (ExpirationAt > DateTime.Now)
             {
+                if (Status == LicenseStatusType.Expired)
+                {
+                    Status = LicenseStatusType.Active;
+                    return true;
+                }
                 return false;
             }
 
