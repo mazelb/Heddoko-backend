@@ -190,6 +190,7 @@ namespace Heddoko.Controllers
 
             item.Status = EquipmentStatusType.Trash;
             item.ShirtOctopi = null;
+            UoW.KitRepository.RemoveShirt(item.ID);
             UoW.Save();
 
             return new KendoResponse<ShirtAPIModel>

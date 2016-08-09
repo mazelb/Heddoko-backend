@@ -34,5 +34,9 @@ namespace Heddoko.Models
         public DateTime? ExpirationAt { get; set; }
 
         public string Phone { get; set; }
+
+        public int? KitID { get; set; }
+
+        public Kit Kit { get; set; }
     }
 }

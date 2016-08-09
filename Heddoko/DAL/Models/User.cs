@@ -107,6 +107,11 @@ namespace DAL.Models
         [JilDirective(Ignore = true)]
         public virtual ICollection<Asset> Assets { get; set; }
 
+        [JsonIgnore]
+        [JilDirective(Ignore = true)]
+        public virtual ICollection<Kit> Kits { get; set; }
+
+        public virtual Kit Kit => Kits?.FirstOrDefault();
         #endregion
 
         #region NotMapped

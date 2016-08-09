@@ -23,6 +23,29 @@ namespace DAL
             });
         }
 
+        public void RemoveShirt(int shirtID)
+        {
+            DbSet.Where(c => c.ShirtID.Value == shirtID).Update(c => new Kit()
+            {
+                ShirtID = null
+            });
+        }
+
+        public void RemovePants(int pantsID)
+        {
+            DbSet.Where(c => c.PantsID.Value == pantsID).Update(c => new Kit()
+            {
+                PantsID = null
+            });
+        }
+
+        public void RemoveSensorSet(int sensorSetID)
+        {
+            DbSet.Where(c => c.SensorSetID.Value == sensorSetID).Update(c => new Kit()
+            {
+                SensorSetID = null
+            });
+        }
 
         public override Kit GetFull(int id)
         {
@@ -38,7 +61,7 @@ namespace DAL
         public IEnumerable<Kit> GetAvailable(int? id = null, int? organizationID = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
-                        .Where(c => c.User == null || c.UserID  == id)
+                        .Where(c => c.User == null || c.UserID == id)
                         .Where(c => !organizationID.HasValue || c.OrganizationID == organizationID)
                         .OrderBy(c => c.ID);
         }
@@ -70,6 +93,14 @@ namespace DAL
                         .Where(c => (c.ID == id)
                                     || c.Location.ToLower().Contains(search.ToLower()))
                         .OrderBy(c => c.ID);
+        }
+
+        public void RemoveUser(int userID)
+        {
+            DbSet.Where(c => c.UserID.Value == userID).Update(c => new Kit()
+            {
+                UserID = null
+            });
         }
     }
 }

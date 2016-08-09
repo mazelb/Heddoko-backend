@@ -88,6 +88,7 @@ namespace DAL
         public override User GetFull(int id)
         {
             return DbSet.Include(c => c.Tokens)
+                        .Include(c => c.Kits)
                         .Include(c => c.Organization)
                         .Include(c => c.License)
                         .FirstOrDefault(c => c.ID == id);
@@ -126,6 +127,7 @@ namespace DAL
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.Tokens)
                         .Include(c => c.License)
+                        .Include(c => c.Kits)
                         .FirstOrDefault(c => c.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
@@ -172,6 +174,7 @@ namespace DAL
         public IEnumerable<User> GetByOrganization(int organizationID, bool isDeleted = false, int? licenseID = null)
         {
             return DbSet.Include(c => c.License)
+                        .Include(c => c.Kits)
                         .Include(c => c.Organization)
                         .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
@@ -188,6 +191,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.License)
                         .Include(c => c.Organization)
+                        .Include(c => c.Kits)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
                         .Where(c => !organizationID.HasValue || c.OrganizationID.Value == organizationID)

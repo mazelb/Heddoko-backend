@@ -102,7 +102,16 @@ var Users = {
                             }
                         },
                         licenseID: {
-                            nullable: false,
+                            nullable: true,
+                            type: "numer",
+                            validation: {
+                                required: true,
+                                min: 0,
+                                max: KendoDS.maxInt
+                            }
+                        },
+                        kitID: {
+                            nullable: true,
                             type: "numer",
                             validation: {
                                 required: true,
@@ -181,6 +190,13 @@ var Users = {
                         name += ' ' + Format.license.name(e.licenseName);;
 
                         return name;
+                    }
+                }, {
+                    field: 'kitID',
+                    title: i18n.Resources.Kit,
+                    editor: Kits.ddEditor,
+                    template: function (e) {
+                        return Format.user.kit(e);
                     }
                 }, {
                     field: 'status',

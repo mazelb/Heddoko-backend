@@ -195,6 +195,7 @@ namespace Heddoko.Controllers
 
             item.Status = EquipmentStatusType.Trash;
             item.PantsOctopi = null;
+            UoW.KitRepository.RemovePants(item.ID);
             UoW.Save();
 
             return new KendoResponse<PantsAPIModel>

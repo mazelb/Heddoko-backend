@@ -60,6 +60,6 @@ namespace Heddoko.Models
 
         public string IDView { get; set; }
 
-        public string Name => IsEmpty ? $"{Resources.No} {Resources.Brainpack}" : $"{IDView}";
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.Kit}" : $"{IDView}";
     }
 }

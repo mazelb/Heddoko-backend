@@ -38,14 +38,14 @@ namespace DAL
                         .Where(c => (c.OrganizationID + "-" + c.ID).ToLower().Contains(search.ToLower()));
         }
 
-        public IEnumerable<License> GetAvailableByOrganization(int organizationID)
+        public IEnumerable<License> GetAvailableByOrganization(int organizationID, int? id = null)
         {
             DateTime today = DateTime.Now.StartOfDay();
 
             return DbSet.Include(c => c.Organization)
                         .Where(c => c.OrganizationID.Value == organizationID
                                     && c.Status == LicenseStatusType.Active
-                                    && c.Users.Count() < c.Amount
+                                    && (c.Users.Count() < c.Amount || c.Users.Any(p => p.ID == id))
                                     && c.ExpirationAt > today)
                         .OrderByDescending(c => c.ExpirationAt);
         }

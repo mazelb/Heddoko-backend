@@ -78,7 +78,9 @@ namespace Heddoko
                 "~/Scripts/js/admin/validator.js",
                 "~/Scripts/js/admin/grid/users.js",
                 "~/Scripts/js/admin/grid/licenses.js",
-                "~/Scripts/js/admin/grid/organization.js"
+                "~/Scripts/js/admin/grid/kits.js",
+                "~/Scripts/js/admin/grid/organization.js",
+                "~/Scripts/js/admin/grid/organizationKits.js"
                 );
 
             bundles.Add(kendoScriptsBundle);
@@ -87,7 +89,6 @@ namespace Heddoko
             adminScriptsBundle.Include(
                 "~/Scripts/js/admin/grid/organizations.js",
                 "~/Scripts/js/admin/grid/usersAdmin.js",
-                "~/Scripts/js/admin/grid/kits.js",
                 "~/Scripts/js/admin/grid/equipments.js",
                 "~/Scripts/js/admin/grid/databoards.js",
                 "~/Scripts/js/admin/grid/powerboards.js",

@@ -51,7 +51,14 @@ namespace Heddoko.Controllers
                             switch (filter.Field)
                             {
                                 case Used:
-                                    items = UoW.LicenseRepository.GetAvailableByOrganization(CurrentUser.OrganizationID.Value);
+                                    int tmp = 0;
+                                    int? usedID = null;
+                                    if (int.TryParse(filter.Value, out tmp))
+                                    {
+                                        usedID = tmp;
+                                    }
+
+                                    items = UoW.LicenseRepository.GetAvailableByOrganization(CurrentUser.OrganizationID.Value, usedID);
                                     isUsed = true;
                                     break;
                                 case Search:

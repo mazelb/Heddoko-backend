@@ -63,6 +63,7 @@ var Kits = {
                             nullable: true,
                             type: "number",
                             validation: {
+                                min: 0,
                                 max: KendoDS.maxInt
                             }
                         },

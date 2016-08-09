@@ -185,6 +185,8 @@ namespace Heddoko.Controllers
                 };
             }
             UoW.SensorRepository.RemoveSensorSet(item.ID);
+            UoW.KitRepository.RemoveSensorSet(item.ID);
+
             item.Status = EquipmentStatusType.Trash;
             UoW.Save();
 

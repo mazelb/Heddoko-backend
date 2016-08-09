@@ -448,11 +448,11 @@ var SensorSets = {
     },
 
     ddEditor: function(container, options) {
-        $('<input required data-text-field="name" data-value-field="idView" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+        $('<input data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
             .appendTo(container)
             .kendoDropDownList({
                 autoBind: true,
-                dataSource: SensorSets.getDatasourceDD(options.model.idView)
+                dataSource: SensorSets.getDatasourceDD(options.model.id)
             });
     },
 

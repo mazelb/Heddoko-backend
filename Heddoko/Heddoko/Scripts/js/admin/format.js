@@ -48,7 +48,7 @@
 
             return '<span class="k-grid-showText">' + item + '</span>';
         }
-        
+
     },
     organization: {
         user: function (e) {
@@ -136,6 +136,15 @@
             item = item != null ? Enums.UserRoleType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
+        },
+        kit: function (item) {
+            var div = "";
+            if (item.kit) {
+                div = '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.kit.idView + "</b><br/>";
+                div += "</div>";
+            }
+            return div;
         }
     },
     pants: {
@@ -253,7 +262,7 @@
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
-        composition: function(item) {
+        composition: function (item) {
             item = item != null ? Enums.KitCompositionType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
@@ -271,7 +280,7 @@
             }
             return div;
         },
-        brainpack: function(item) {
+        brainpack: function (item) {
             if (item.brainpack) {
                 var div = '<div class="">';
                 div += i18n.Resources.ID + ": <b>" + item.brainpack.idView + "</b><br/>";

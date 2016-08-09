@@ -119,6 +119,7 @@ namespace Heddoko.Controllers
             };
         }
 
+        [AuthAPI(Roles = Constants.Roles.Admin)]
         public override KendoResponse<KitAPIModel> Post(KitAPIModel model)
         {
             KitAPIModel response;
@@ -147,6 +148,7 @@ namespace Heddoko.Controllers
             };
         }
 
+        [AuthAPI(Roles = Constants.Roles.Admin)]
         public override KendoResponse<KitAPIModel> Put(KitAPIModel model)
         {
             KitAPIModel response = new KitAPIModel();
@@ -191,6 +193,7 @@ namespace Heddoko.Controllers
             };
         }
 
+        [AuthAPI(Roles = Constants.Roles.Admin)]
         public override KendoResponse<KitAPIModel> Delete(int id)
         {
             Kit item = UoW.KitRepository.Get(id);
@@ -198,7 +201,12 @@ namespace Heddoko.Controllers
             if (item.ID != CurrentUser.ID)
             {
                 item.Status = EquipmentStatusType.Trash;
-
+                item.OrganizationID = null;
+                item.UserID = null;
+                item.SensorSetID = null;
+                item.BrainpackID = null;
+                item.ShirtID = null;
+                item.PantsID = null;
                 UoW.Save();
             }
 
@@ -215,13 +223,14 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            if (CurrentUser.OrganizationID != item.OrganizationID)
+            if (!CurrentUser.IsAdmin)
             {
                 throw new Exception(Resources.WrongObjectAccess);
             }
 
             if (CurrentUser.Role == UserRoleType.LicenseAdmin)
             {
+                //TODO remove that
                 if (model.UserID.HasValue)
                 {
                     item.User = UoW.UserRepository.Get(model.UserID.Value);
@@ -373,16 +382,16 @@ namespace Heddoko.Controllers
                 Composition = item.Composition,
                 SensorSet = item.SensorSet,
                 Brainpack = item.Brainpack,
-                SensorSetID = item.SensorSetID,
+                SensorSetID = item.SensorSetID ?? 0,
                 Organization = item.Organization,
-                ShirtID = item.ShirtID,
+                ShirtID = item.ShirtID ?? 0,
                 Pants = item.Pants,
-                PantsID = item.PantsID,
-                OrganizationID = item.OrganizationID,
+                PantsID = item.PantsID ?? 0,
+                OrganizationID = item.OrganizationID ?? 0,
                 User = item.User,
-                BrainpackID = item.BrainpackID,
+                BrainpackID = item.BrainpackID ?? 0,
                 Shirt = item.Shirt,
-                UserID = item.ShirtID,
+                UserID = item.ShirtID ?? 0,
                 Label = item.Label,
                 Notes = item.Notes,
                 QAStatus = item.QAStatus

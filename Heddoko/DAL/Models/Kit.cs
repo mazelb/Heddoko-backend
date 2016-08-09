@@ -7,6 +7,7 @@ namespace DAL.Models
     public class Kit : BaseModel
     {
         [StringLength(255)]
+        [JsonIgnore]
         public string Location { get; set; }
 
         [Index(IsUnique = true)]
@@ -14,12 +15,16 @@ namespace DAL.Models
         public string Label { get; set; }
 
         [Column(TypeName = "ntext")]
+        [JsonIgnore]
         public string Notes { get; set; }
 
+        [JsonIgnore]
         public KitCompositionType Composition { get; set; }
 
+        [JsonIgnore]
         public EquipmentStatusType Status { get; set; }
 
+        [JsonIgnore]
         public KitQAStatusType QAStatus { get; set; }
 
         #region NotMapped
@@ -29,31 +34,37 @@ namespace DAL.Models
         #endregion
 
         #region Relations
-
+        [JsonIgnore]
         public int? OrganizationID { get; set; }
 
         [JsonIgnore]
         public virtual Organization Organization { get; set; }
 
+        [JsonIgnore]
         public int? UserID { get; set; }
 
+        [JsonIgnore]
         public virtual User User { get; set; }
 
+        [JsonIgnore]
         public int? BrainpackID { get; set; }
 
         [JsonIgnore]
         public virtual Brainpack Brainpack { get; set; }
 
+        [JsonIgnore]
         public int? SensorSetID { get; set; }
 
         [JsonIgnore]
         public virtual SensorSet SensorSet { get; set; }
 
+        [JsonIgnore]
         public int? ShirtID { get; set; }
 
         [JsonIgnore]
         public virtual Shirt Shirt { get; set; }
 
+        [JsonIgnore]
         public int? PantsID { get; set; }
 
         [JsonIgnore]

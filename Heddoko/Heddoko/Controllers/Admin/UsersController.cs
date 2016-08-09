@@ -19,6 +19,7 @@ namespace Heddoko.Controllers
         private const string Search = "Search";
         private const string Admin = "Admin";
         private const int NoLicense = 0;
+        private const int NoKit = 0;
         private const string IsDeleted = "IsDeleted";
         private const string License = "License";
 
@@ -349,6 +350,31 @@ namespace Heddoko.Controllers
                 }
             }
 
+            if (model.KitID.HasValue)
+            {
+                if (model.KitID.Value == NoKit)
+                {
+                    UoW.KitRepository.RemoveUser(item.ID);
+                }
+                else
+                {
+                    Kit kit = UoW.KitRepository.GetFull(model.KitID.Value);
+
+                    if (kit.OrganizationID == null
+                     || kit.OrganizationID.Value != item.OrganizationID.Value)
+                    {
+                        throw new Exception(Resources.WrongObjectAccess);
+                    }
+
+                    if (kit.User != null)
+                    {
+                        throw new Exception($"{Resources.Kit} {Resources.AlreadyUsed}");
+                    }
+
+                    kit.User = item;
+                }
+            }
+
             return item;
         }
 
@@ -369,12 +395,14 @@ namespace Heddoko.Controllers
                 Username = item.Username,
                 Role = item.Role,
                 Status = item.Status,
-                LicenseID = item.LicenseID,
+                LicenseID = item.LicenseID ?? 0,
                 Phone = item.Phone,
                 LicenseName = item.License?.Name,
                 OrganizationName = item.Organization?.Name,
                 LicenseStatus = item.License?.Status,
-                ExpirationAt = item.License?.ExpirationAt
+                ExpirationAt = item.License?.ExpirationAt,
+                KitID = item.Kit?.ID ?? 0,
+                Kit = item.Kit
             };
         }
     }
