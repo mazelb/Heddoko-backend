@@ -41,8 +41,8 @@
                                 data-bind="value: model.status, source: statuses"></select>
                     </div>
 
-                    <div class="col-sm-2">
-                        <select class="form-control"
+                    <div class="col-sm-3 qastatus">
+                        <select class="form-control "
                                 required
                                 name="brainpacks-qaStatus"
                                 validationMessage="@i18n.Resources.Required"
@@ -53,7 +53,8 @@
                                 data-value-field="value"
                                 data-bind="value: model.qaStatus, source: qaStatuses"></select>
                     </div>
-
+                </div>
+                <div class="row margin010">
                     <div class="col-sm-2">
                         <select class="form-control"
                                 name="brainpacks-firmware"
@@ -97,7 +98,7 @@
                                validationMessage="@i18n.Resources.Required"
                                placeholder="@i18n.Resources.Version"
                                class="form-control"
-                               data-bind="value: model.version" />
+                               data-bind="value: model.version"/>
                     </div>
 
                     <div class="col-sm-3">
@@ -107,7 +108,23 @@
                                validationMessage="@i18n.Resources.Required"
                                placeholder="@i18n.Resources.PhysicalLocation"
                                class="form-control"
-                               data-bind="value: model.location" />
+                               data-bind="value: model.location"/>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <input type="text"
+                               name="brainpacks-label"
+                               placeholder="@i18n.Resources.Label"
+                               class="form-control"
+                               data-bind="value: model.label"/>
+                    </div>
+                </div>
+                <div class="row margin010">
+                    <div class="col-sm-12">
+                        <textarea name="brainpacks-notes"
+                                  class="form-control"
+                                  placeholder="@i18n.Resources.Notes"
+                                  data-bind="value: model.notes" ></textarea>
                     </div>
                 </div>
             </div>

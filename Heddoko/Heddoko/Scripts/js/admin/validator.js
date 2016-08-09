@@ -35,6 +35,12 @@
             maxLengthValidation: function (input) {
                 return Validator.maxLengthValidation(input, 'name', Validator.equipment.version.maxSize);
             }
+        },
+        label: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'name', Validator.equipment.label.maxSize);
+            }
         }
     },
     organization: {

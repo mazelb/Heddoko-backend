@@ -41,6 +41,10 @@ namespace Heddoko.Helpers.Error
             {
                 return $"{Resources.CannotAddDuplicate} {Resources.SerialNo}";
             }
+            if (message.Contains("idx_label_notnull", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return $"{Resources.CannotAddDuplicate} {Resources.Label}";
+            }
             return message;
         }
 

@@ -44,6 +44,19 @@
                     <div class="col-sm-2">
                         <select class="form-control"
                                 required
+                                name="kits-qaStatus"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.SelectQAStatus"
+                                data-value-field="value"
+                                data-bind="value: model.qaStatus, source: qaStatuses"></select>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                required
                                 name="kits-composition"
                                 validationMessage="@i18n.Resources.Required"
                                 data-role="dropdownlist"
@@ -119,6 +132,22 @@
                                placeholder="@i18n.Resources.PhysicalLocation"
                                class="form-control"
                                data-bind="value: model.location" />
+                    </div>
+
+                    <div class="col-sm-3">
+                        <input type="text"
+                               name="kits-label"
+                               placeholder="@i18n.Resources.Label"
+                               class="form-control"
+                               data-bind="value: model.label" />
+                    </div>
+                </div>
+                <div class="row margin010">
+                    <div class="col-sm-12">
+                        <textarea name="kits-notes"
+                                  class="form-control"
+                                  placeholder="@i18n.Resources.Notes"
+                                  data-bind="value: model.notes"></textarea>
                     </div>
                 </div>
             </div>

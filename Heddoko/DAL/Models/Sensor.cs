@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace DAL.Models
@@ -13,14 +14,18 @@ namespace DAL.Models
         [StringLength(255)]
         public string Version { get; set; }
 
+        [Index(IsUnique = true)]
         [StringLength(255)]
-        public string FirmwareVersion { get; set; }
+        public string Label { get; set; }
+
+        [Column(TypeName = "ntext")]
+        public string Notes { get; set; }
 
         public EquipmentStatusType Status { get; set; }
 
-        public SensorsQAStatusType QAStatus { get; set; }
+        public SensorQAStatusType QAStatus { get; set; }
 
-        public AnatomicLocationType AnatomicLocation { get; set; }
+        public AnatomicalLocationType AnatomicalLocation { get; set; }
 
         #region NotMapped
 
@@ -29,6 +34,11 @@ namespace DAL.Models
         #endregion
 
         #region Relations
+        [JsonIgnore]
+        public int? FirmwareID { get; set; }
+
+        [JsonIgnore]
+        public virtual Firmware Firmware { get; set; }
 
         [JsonIgnore]
         public int? SensorSetID { get; set; }

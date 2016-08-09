@@ -19,13 +19,13 @@
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         anatomicalLocation: function (item) {
-            item = item != null ? Enums.AnatomicLocationType.array[item].text : i18n.Resources.None;
+            item = item != null ? Enums.AnatomicalLocationType.array[item].text : i18n.Resources.None;
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         anatomicalLocationImg: function (item) {
-            var text = item != null ? Enums.AnatomicLocationType.array[item].text : '';
-            if (!item) {
+            var text = item != null ? Enums.AnatomicalLocationType.array[item].text : '';
+            if (item == null) {
                 return '&nbsp;';
             }
 
@@ -62,7 +62,7 @@
     },
     notes: function (item) {
         var text = item != null ? item.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;').replace(/\n/g, '<br/>') : '';
-        var div = '<div class="grid-notes">'
+        var div = '<div class="grid-notes">';
         div += text;
         div += "</div>";
         return div;
@@ -139,6 +139,11 @@
         }
     },
     pants: {
+        qaStatus: function (item) {
+            item = item != null ? Enums.PantsQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        },
         pantsOctopi: function (item) {
             if (item.pantsOctopi) {
                 var div = '<div class="">';
@@ -151,7 +156,19 @@
             return '';
         }
     },
+    pantsOctopi: {
+        qaStatus: function (item) {
+            item = item != null ? Enums.PantsOctopiQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        }
+    },
     shirts: {
+        qaStatus: function (item) {
+            item = item != null ? Enums.ShirtQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        },
         shirtsOctopi: function (item) {
             if (item.shirtsOctopi) {
                 var div = '<div class="">';
@@ -162,6 +179,13 @@
                 return div;
             }
             return '';
+        }
+    },
+    shirtOctopi: {
+        qaStatus: function (item) {
+            item = item != null ? Enums.ShirtOctopiQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
         }
     },
     components: {
@@ -197,6 +221,11 @@
         }
     },
     brainpack: {
+        qaStatus: function (item) {
+            item = item != null ? Enums.BrainpackQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        },
         powerboard: function (item) {
             if (item.powerboard) {
                 var div = '<div class="">';
@@ -216,14 +245,14 @@
                 return div;
             }
             return "";
-        },
-        brainpacksQAStatusTypes: function(item) {
-            item = item != null ? Enums.BrainpacksQAStatusType.array[item].text : "";
-
-            return '<span class="k-grid-showText">' + item + '</span>';
         }
     },
     kit: {
+        qaStatus: function (item) {
+            item = item != null ? Enums.KitQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        },
         composition: function(item) {
             item = item != null ? Enums.KitCompositionType.array[item].text : "";
 
@@ -284,24 +313,45 @@
         }
     },
     sensors: {
+        qaStatus: function (item) {
+            item = item != null ? Enums.SensorQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        },
         type: function (item) {
             item = item != null ? Enums.SensorType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
         },
-        qaStatus: function (item) {
-            item = item != null ? Enums.SensorsQAStatusType.array[item].text : "";
-
-            return '<span class="k-grid-showText">' + item + '</span>';
-        },
         kit: function (item) {
-            var div = ""
+            var div = "";
             if (item.kit) {
                 div += '<div class="">';
                 div += i18n.Resources.ID + ": <b>" + item.kit.idView + "</b><br/>";
                 div += "</div>";
             }
             return div;
+        }
+    },
+    sensorSet: {
+        qaStatus: function (item) {
+            item = item != null ? Enums.SensorSetQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        }
+    },
+    powerboard: {
+        qaStatus: function (item) {
+            item = item != null ? Enums.DataboardQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
+        }
+    },
+    databoard: {
+        qaStatus: function (item) {
+            item = item != null ? Enums.PowerboardQAStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
         }
     }
 };

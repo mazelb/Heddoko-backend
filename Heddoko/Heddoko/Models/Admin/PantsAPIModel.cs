@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DAL;
 using DAL.Models;
 using i18n;
 
@@ -20,11 +21,17 @@ namespace Heddoko.Models
         [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Location { get; set; }
 
+        [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
+        public string Label { get; set; }
+
+        [StringLength(1024, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
+        public string Notes { get; set; }
+
         public SizeType Size { get; set; }
 
         public EquipmentStatusType Status { get; set; }
 
-        public EquipmentQAStatusType QAStatus { get; set; }
+        public PantsQAStatusType QAStatus { get; set; }
 
         public int? PantsOctopiID { get; set; }
 
@@ -32,7 +39,7 @@ namespace Heddoko.Models
 
         public string IDView { get; set; }
 
-        public string Name => IsEmpty ? $"{Resources.No} {Resources.Pants}" : $"{IDView}";
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.Pants}" : $"{IDView} - {QAStatus.GetDisplayName()}";
 
     }
 }

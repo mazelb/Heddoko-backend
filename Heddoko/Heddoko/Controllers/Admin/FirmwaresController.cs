@@ -269,7 +269,7 @@ namespace Heddoko.Controllers
             }
 
             item.Type = model.Type;
-            item.Version = model.Version;
+            item.Version = model.Version.Trim();
             item.Status = model.Status;
 
             return item;

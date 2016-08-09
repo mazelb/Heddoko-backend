@@ -22,7 +22,15 @@ namespace Heddoko.Models
         [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Location { get; set; }
 
+        [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
+        public string Label { get; set; }
+
+        [StringLength(1024, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
+        public string Notes { get; set; }
+
         public EquipmentStatusType Status { get; set; }
+
+        public KitQAStatusType QAStatus { get; set; }
 
         public KitCompositionType Composition { get; set; }
 

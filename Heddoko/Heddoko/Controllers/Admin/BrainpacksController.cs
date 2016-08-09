@@ -226,7 +226,7 @@ namespace Heddoko.Controllers
                 {
                     Powerboard powerboard = UoW.PowerboardRepository.GetFull(model.PowerboardID.Value);
 
-                    if (powerboard.Brainpack.Any())
+                    if (powerboard.Brainpack != null)
                     {
                         throw new Exception($"{Resources.Powerboard} {Resources.AlreadyUsed}");
                     }
@@ -254,7 +254,7 @@ namespace Heddoko.Controllers
                 {
                     Databoard databoard = UoW.DataboardRepository.GetFull(model.DataboardID.Value);
 
-                    if (databoard.Brainpacks.Any())
+                    if (databoard.Brainpack != null)
                     {
                         throw new Exception($"{Resources.Databoard} {Resources.AlreadyUsed}");
                     }
@@ -264,10 +264,12 @@ namespace Heddoko.Controllers
                 }
             }
 
-            item.Version = model.Version;
+            item.Version = model.Version.Trim(); ;
             item.Status = model.Status;
-            item.Location = model.Location;
+            item.Location = model.Location.Trim(); ;
             item.QAStatus = model.QAStatus;
+            item.Notes = model.Notes.Trim();
+            item.Label = model.Label?.Trim();
 
             return item;
         }
@@ -293,7 +295,9 @@ namespace Heddoko.Controllers
                 Powerboard = item.Powerboard,
                 Databoard = item.Databoard,
                 PowerboardID = item.PowerboardID,
-                DataboardID = item.DataboardID
+                DataboardID = item.DataboardID,
+                Label = item.Label,
+                Notes = item.Notes
             };
         }
     }

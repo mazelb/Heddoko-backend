@@ -15,16 +15,24 @@ namespace DAL
         {
         }
 
+        public override Sensor GetFull(int id)
+        {
+            return DbSet.Include(c => c.Firmware)
+                        .Include(c => c.SensorSet)
+                        .FirstOrDefault(c => c.ID == id);
+        }
+
         public IEnumerable<Sensor> All(bool isDeleted)
         {
-            return DbSet.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
+            return DbSet.Include(c => c.Firmware)
+                        .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                         .OrderBy(c => c.ID);
         }
 
         public IEnumerable<Sensor> GetAvailable(int? id = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
-                        .Where(c => c.SensorSet == null || c.SensorSet.ID == id)
+                        .Where(c => c.SensorSet == null)
                         .OrderBy(c => c.ID);
         }
 
@@ -32,6 +40,7 @@ namespace DAL
         {
             int? id = search.ParseID();
             return DbSet
+                .Include(c => c.Firmware)
                 .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                 .Where(c => (c.ID == id)
                             || c.Location.ToLower().Contains(search.ToLower())
@@ -47,20 +56,21 @@ namespace DAL
 
         public IEnumerable<Sensor> GetBySensorSet(int sensorSetID)
         {
-            return All().Where(c => c.SensorSetID == sensorSetID);
+            return DbSet.Where(c => c.SensorSetID == sensorSetID)
+                        .OrderBy(c => c.ID);
         }
 
-        public Sensor GetByIDView(string idView)
+        public IEnumerable<Sensor> SearchAvailable(string search)
         {
-            //TODO - BENB - replace with this when IDView is editable or used in the database
-            //return DbSet.Where(c => c.IDView.Equals(idView, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
-            idView = Regex.Replace(idView, "[^0-9]", "");
-            int id;
-            if (Int32.TryParse(idView, out id))
-            {
-                return DbSet.Where(c => c.ID == id).FirstOrDefault();
-            }
-            return null;
+            int? id = search.ParseID();
+            return DbSet
+                .Where(c => c.Status != EquipmentStatusType.Trash)
+                .Where(c => c.SensorSet == null)
+                .Where(c => (c.ID == id)
+                            || c.ID.ToString().ToLower().Contains(search.ToLower())
+                            || c.Location.ToLower().Contains(search.ToLower())
+                            || c.Type.ToString().ToLower().Contains(search.ToLower()))
+                .OrderBy(c => c.ID);
         }
     }
 }

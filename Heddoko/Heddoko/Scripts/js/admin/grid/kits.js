@@ -26,6 +26,12 @@ var Kits = {
         });
 
         this.kitCompositionTypes.read();
+
+        this.kitQAStatusTypes = new kendo.data.DataSource({
+            data: _.values(Enums.KitQAStatusType.array)
+        });
+
+        this.kitQAStatusTypes.read();
     },
 
     getDatasource: function () {
@@ -106,6 +112,20 @@ var Kits = {
                                 min: 0,
                                 max: KendoDS.maxInt
                             }
+                        },
+                        label: {
+                            nullable: true,
+                            type: "string",
+                            validation: {
+                                maxLengthValidation: Validator.equipment.label.maxLengthValidation
+                            }
+                        },
+                        notes: {
+                            nullable: true,
+                            type: "string",
+                            validation: {
+                                maxLengthValidation: Validator.equipment.notes.maxLengthValidation
+                            }
                         }
                     }
                 }
@@ -162,6 +182,10 @@ var Kits = {
                     title: i18n.Resources.ID,
                     editor: KendoDS.emptyEditor
                 },
+                 {
+                     field: 'label',
+                     title: i18n.Resources.Label
+                 },
                 {
                     field: "organizationID",
                     title: i18n.Resources.Organization,
@@ -213,6 +237,13 @@ var Kits = {
                         return Format.equipment.equipmentStatus(e.status);
                     },
                     editor: Equipments.equipmentStatusDDEditor
+                }, {
+                    field: "qaStatus",
+                    title: i18n.Resources.QAStatus,
+                    template: function (e) {
+                        return Format.kit.qaStatus(e.qaStatus);
+                    },
+                    editor: this.qaStatusTypesDDEditor
                 },
                 {
                     field: "composition",
@@ -221,6 +252,11 @@ var Kits = {
                         return Format.kit.composition(e.composition);
                     },
                     editor: Kits.kitCompositionTypesDDEditor
+                },
+                {
+                    field: 'notes',
+                    title: i18n.Resources.Notes,
+                    editor: KendoDS.textAreaDDEditor
                 }, {
                     command: [{
                         name: "edit",
@@ -263,6 +299,7 @@ var Kits = {
                 pants: Datasources.pantsDD,
                 shirts: Datasources.shirtsDD,
                 compositions: Datasources.kitCompositionTypes,
+                qaStatuses: Datasources.kitQAStatusTypes,
                 model: this.getEmptyModel()
             });
 
@@ -328,6 +365,15 @@ var Kits = {
         });
     },
 
+    qaStatusTypesDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
+            .appendTo(container)
+            .kendoDropDownList({
+                autoBind: true,
+                dataSource: Datasources.kitQAStatusTypes
+            });
+    },
+
     getEmptyModel: function () {
         return {
             organisationID: null,
@@ -337,7 +383,10 @@ var Kits = {
             status: null,
             shirtID: null,
             location: null,
-            composition: null
+            composition: null,
+            qaStatus: null,
+            label: null,
+            notes: null
         };
     },
 

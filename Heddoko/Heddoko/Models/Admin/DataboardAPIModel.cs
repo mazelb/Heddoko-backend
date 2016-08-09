@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
+using DAL;
 using DAL.Models;
 using i18n;
 
@@ -25,7 +26,15 @@ namespace Heddoko.Models
         [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Location { get; set; }
 
+        [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
+        public string Label { get; set; }
+
+        [StringLength(1024, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
+        public string Notes { get; set; }
+
         public EquipmentStatusType Status { get; set; }
+
+        public DataboardQAStatusType QAStatus { get; set; }
 
         public int? FirmwareID { get; set; }
 
@@ -33,6 +42,6 @@ namespace Heddoko.Models
 
         public string IDView { get; set; }
 
-        public string Name => IsEmpty ? $"{Resources.No} {Resources.Databoard}" : $"{IDView}";
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.Databoard}" : $"{IDView} - {QAStatus.GetDisplayName()}";
     }
 }

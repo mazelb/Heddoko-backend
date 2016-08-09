@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace DAL.Models
@@ -9,11 +10,18 @@ namespace DAL.Models
         [StringLength(255)]
         public string Location { get; set; }
 
+        [Index(IsUnique = true)]
+        [StringLength(255)]
+        public string Label { get; set; }
+
+        [Column(TypeName = "ntext")]
+        public string Notes { get; set; }
+
         public SizeType Size { get; set; }
 
         public EquipmentStatusType Status { get; set; }
 
-        public EquipmentQAStatusType QAStatus { get; set; }
+        public ShirtOctopiQAStatusType QAStatus { get; set; }
 
         #region Relations
 

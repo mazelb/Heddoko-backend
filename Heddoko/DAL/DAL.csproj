@@ -127,9 +127,25 @@
     <Compile Include="Migrations\201607261844020_AssetsType.Designer.cs">
       <DependentUpon>201607261844020_AssetsType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608090253302_LabelNotes.cs" />
+    <Compile Include="Migrations\201608090253302_LabelNotes.Designer.cs">
+      <DependentUpon>201608090253302_LabelNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608090452536_AnatomicalLocation.cs" />
+    <Compile Include="Migrations\201608090452536_AnatomicalLocation.Designer.cs">
+      <DependentUpon>201608090452536_AnatomicalLocation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Enum\AssetsProccesingType.cs" />
+    <Compile Include="Models\Enum\PowerboardQAStatusType.cs" />
+    <Compile Include="Models\Enum\DataboardQAStatusType.cs" />
+    <Compile Include="Models\Enum\SensorSetQAStatusType.cs" />
+    <Compile Include="Models\Enum\ShirtOctopiQAStatusType.cs" />
+    <Compile Include="Models\Enum\PantsOctopiQAStatusType.cs" />
+    <Compile Include="Models\Enum\ShirtQAStatusType.cs" />
+    <Compile Include="Models\Enum\PantsQAStatusType.cs" />
+    <Compile Include="Models\Enum\KitQAStatusType.cs" />
     <Compile Include="Models\Enum\FirmwareStatusType.cs" />
     <Compile Include="Models\Firmware.cs" />
     <Compile Include="Models\Component.cs" />
@@ -146,8 +162,8 @@
     <Compile Include="Models\SensorSet.cs" />
     <Compile Include="Models\Databoard.cs" />
     <Compile Include="Models\Powerboard.cs" />
-    <Compile Include="Models\Enum\SensorsQAStatusType.cs" />
-    <Compile Include="Models\Enum\BrainpacksQAStatusType.cs" />
+    <Compile Include="Models\Enum\SensorQAStatusType.cs" />
+    <Compile Include="Models\Enum\BrainpackQAStatusType.cs" />
     <Compile Include="Models\Enum\KitCompositionType.cs" />
     <Compile Include="Models\Brainpack.cs" />
     <Compile Include="Models\Kit.cs" />
@@ -161,7 +177,7 @@
     <Compile Include="Models\License.cs" />
     <Compile Include="Models\LicenseInfo.cs" />
     <Compile Include="Models\Organization.cs" />
-    <Compile Include="Models\Enum\AnatomicLocationType.cs" />
+    <Compile Include="Models\Enum\AnatomicalLocationType.cs" />
     <Compile Include="Models\Enum\AssetType.cs" />
     <Compile Include="Models\Enum\ConditionType.cs" />
     <Compile Include="Models\Enum\EquipmentStatusType.cs" />
@@ -259,6 +275,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607261844020_AssetsType.resx">
       <DependentUpon>201607261844020_AssetsType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608090253302_LabelNotes.resx">
+      <DependentUpon>201608090253302_LabelNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608090452536_AnatomicalLocation.resx">
+      <DependentUpon>201608090452536_AnatomicalLocation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

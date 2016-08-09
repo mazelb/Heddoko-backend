@@ -36,30 +36,10 @@
                                 data-role="dropdownlist"
                                 data-value-primitive="true"
                                 data-text-field="text"
-                                data-option-label="@i18n.Resources.Type"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.Type"
                                 data-value-field="value"
-                                data-bind="value: model.sensorType, source: sensorTypes"></select>
+                                data-bind="value: model.type, source: sensorTypes"></select>
                     </div>
-
-                    <div class="col-sm-2">
-                        <input class="form-control"
-                                required
-                                name="sensors-version"
-                                validationMessage="@i18n.Resources.Required"
-                                placeholder="@i18n.Resources.Version"
-                                type="text"
-                                data-bind="value: model.version" />
-                    </div>
-
-                    <div class="col-sm-2">
-                        <input class="form-control"
-                               required
-                               name="sensors-location"
-                               validationMessage="@i18n.Resources.Required"
-                               placeholder="@i18n.Resources.PhysicalLocation"
-                               type="text"
-                               data-bind="value: model.location" />
-                     </div>
 
                     <div class="col-sm-2">
                         <select class="form-control"
@@ -69,7 +49,7 @@
                                 data-text-field="name"
                                 data-option-label="@i18n.Resources.Select @i18n.Resources.FirmwareVersion"
                                 data-value-field="id"
-                                data-bind="value: model.firmware, source: firmwares"></select>
+                                data-bind="value: model.firmwareID, source: firmwares"></select>
                     </div>
                 </div>
                 <div class="row margin010">
@@ -109,6 +89,44 @@
                                 data-option-label="@i18n.Resources.SelectAnatomicalLocation"
                                 data-value-field="value"
                                 data-bind="value: model.anatomicalLocation, source: anatomicalLocations"></select>
+                    </div>
+                </div>
+                <div class="row margin010">
+
+                    <div class="col-sm-3">
+                        <input class="form-control"
+                               required
+                               name="sensors-version"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Version"
+                               type="text"
+                               data-bind="value: model.version" />
+                    </div>
+
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="sensor-location"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.PhysicalLocation"
+                               class="form-control"
+                               data-bind="value: model.location"/>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <input type="text"
+                               name="sensor-label"
+                               placeholder="@i18n.Resources.Label"
+                               class="form-control"
+                               data-bind="value: model.label"/>
+                    </div>
+                </div>
+                <div class="row margin010">
+                    <div class="col-sm-12">
+                        <textarea name="sensor-notes"
+                                  class="form-control"
+                                  placeholder="@i18n.Resources.Notes"
+                                  data-bind="value: model.notes"></textarea>
                     </div>
                 </div>
             </div>

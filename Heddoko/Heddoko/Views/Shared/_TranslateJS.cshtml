@@ -53,16 +53,16 @@
     </text>
     }
 
-    Enums.AnatomicLocationType = {};
-    Enums.AnatomicLocationType.enum = {};
-    Enums.AnatomicLocationType.array = {};
-    @foreach (DAL.Models.AnatomicLocationType type in (DAL.Models.AnatomicLocationType[])Enum.GetValues(typeof(DAL.Models.AnatomicLocationType)))
+    Enums.AnatomicalLocationType = {};
+    Enums.AnatomicalLocationType.enum = {};
+    Enums.AnatomicalLocationType.array = {};
+    @foreach (DAL.Models.AnatomicalLocationType type in (DAL.Models.AnatomicalLocationType[])Enum.GetValues(typeof(DAL.Models.AnatomicalLocationType)))
     {
         <text>
 
-    Enums.AnatomicLocationType.enum["@type.GetDisplayName()"] = @((int)type);
+    Enums.AnatomicalLocationType.enum["@type.GetDisplayName()"] = @((int)type);
 
-    Enums.AnatomicLocationType.array[@((int)type)] = {
+    Enums.AnatomicalLocationType.array[@((int)type)] = {
         "value": @((int)type),
         "text": "@type.GetDisplayName()"
     };
@@ -297,16 +297,16 @@
     }
 
 
-    Enums.BrainpacksQAStatusType = {};
-    Enums.BrainpacksQAStatusType.enum = {};
-    Enums.BrainpacksQAStatusType.array = {};
-    @foreach (DAL.Models.BrainpacksQAStatusType type in (DAL.Models.BrainpacksQAStatusType[])Enum.GetValues(typeof(DAL.Models.BrainpacksQAStatusType)))
+    Enums.BrainpackQAStatusType = {};
+    Enums.BrainpackQAStatusType.enum = {};
+    Enums.BrainpackQAStatusType.array = {};
+    @foreach (DAL.Models.BrainpackQAStatusType type in (DAL.Models.BrainpackQAStatusType[])Enum.GetValues(typeof(DAL.Models.BrainpackQAStatusType)))
     {
         <text>
 
-    Enums.BrainpacksQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+    Enums.BrainpackQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
 
-    Enums.BrainpacksQAStatusType.array[@((int)type)] = {
+    Enums.BrainpackQAStatusType.array[@((int)type)] = {
         "value": @((int)type),
         "text": "@type.GetDisplayName()"
     };
@@ -314,16 +314,16 @@
     }
 
 
-    Enums.SensorsQAStatusType = {};
-    Enums.SensorsQAStatusType.enum = {};
-    Enums.SensorsQAStatusType.array = {};
-    @foreach (DAL.Models.SensorsQAStatusType type in (DAL.Models.SensorsQAStatusType[])Enum.GetValues(typeof(DAL.Models.SensorsQAStatusType)))
+    Enums.SensorQAStatusType = {};
+    Enums.SensorQAStatusType.enum = {};
+    Enums.SensorQAStatusType.array = {};
+    @foreach (DAL.Models.SensorQAStatusType type in (DAL.Models.SensorQAStatusType[])Enum.GetValues(typeof(DAL.Models.SensorQAStatusType)))
     {
         <text>
 
-    Enums.SensorsQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+    Enums.SensorQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
 
-    Enums.SensorsQAStatusType.array[@((int)type)] = {
+    Enums.SensorQAStatusType.array[@((int)type)] = {
         "value": @((int)type),
         "text": "@type.GetDisplayName()"
     };
@@ -347,4 +347,132 @@
     }
 
 
+    Enums.DataboardQAStatusType = {};
+    Enums.DataboardQAStatusType.enum = {};
+    Enums.DataboardQAStatusType.array = {};
+    @foreach (DAL.Models.DataboardQAStatusType type in (DAL.Models.DataboardQAStatusType[])Enum.GetValues(typeof(DAL.Models.DataboardQAStatusType)))
+    {
+        <text>
+
+    Enums.DataboardQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.DataboardQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.PowerboardQAStatusType = {};
+    Enums.PowerboardQAStatusType.enum = {};
+    Enums.PowerboardQAStatusType.array = {};
+    @foreach (DAL.Models.PowerboardQAStatusType type in (DAL.Models.PowerboardQAStatusType[])Enum.GetValues(typeof(DAL.Models.PowerboardQAStatusType)))
+    {
+        <text>
+
+    Enums.PowerboardQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.PowerboardQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.KitQAStatusType = {};
+    Enums.KitQAStatusType.enum = {};
+    Enums.KitQAStatusType.array = {};
+    @foreach (DAL.Models.KitQAStatusType type in (DAL.Models.KitQAStatusType[])Enum.GetValues(typeof(DAL.Models.KitQAStatusType)))
+    {
+        <text>
+
+    Enums.KitQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.KitQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.PantsQAStatusType = {};
+    Enums.PantsQAStatusType.enum = {};
+    Enums.PantsQAStatusType.array = {};
+    @foreach (DAL.Models.PantsQAStatusType type in (DAL.Models.PantsQAStatusType[])Enum.GetValues(typeof(DAL.Models.PantsQAStatusType)))
+    {
+        <text>
+
+    Enums.PantsQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.PantsQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.PantsOctopiQAStatusType = {};
+    Enums.PantsOctopiQAStatusType.enum = {};
+    Enums.PantsOctopiQAStatusType.array = {};
+    @foreach (DAL.Models.PantsOctopiQAStatusType type in (DAL.Models.PantsOctopiQAStatusType[])Enum.GetValues(typeof(DAL.Models.PantsOctopiQAStatusType)))
+    {
+        <text>
+
+    Enums.PantsOctopiQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.PantsOctopiQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+
+    Enums.ShirtQAStatusType = {};
+    Enums.ShirtQAStatusType.enum = {};
+    Enums.ShirtQAStatusType.array = {};
+    @foreach (DAL.Models.ShirtQAStatusType type in (DAL.Models.ShirtQAStatusType[])Enum.GetValues(typeof(DAL.Models.ShirtQAStatusType)))
+    {
+        <text>
+
+    Enums.ShirtQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.ShirtQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.ShirtOctopiQAStatusType = {};
+    Enums.ShirtOctopiQAStatusType.enum = {};
+    Enums.ShirtOctopiQAStatusType.array = {};
+    @foreach (DAL.Models.ShirtOctopiQAStatusType type in (DAL.Models.ShirtOctopiQAStatusType[])Enum.GetValues(typeof(DAL.Models.ShirtOctopiQAStatusType)))
+    {
+        <text>
+
+    Enums.ShirtOctopiQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.ShirtOctopiQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.SensorSetQAStatusType = {};
+    Enums.SensorSetQAStatusType.enum = {};
+    Enums.SensorSetQAStatusType.array = {};
+    @foreach (DAL.Models.SensorSetQAStatusType type in (DAL.Models.SensorSetQAStatusType[])Enum.GetValues(typeof(DAL.Models.SensorSetQAStatusType)))
+    {
+        <text>
+
+    Enums.SensorSetQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.SensorSetQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
 </script>

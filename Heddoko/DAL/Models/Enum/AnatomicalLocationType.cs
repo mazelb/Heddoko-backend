@@ -1,6 +1,6 @@
 ﻿namespace DAL.Models
 {
-    public enum AnatomicLocationType
+    public enum AnatomicalLocationType
     {
         Torso = 0,
         LeftUpperArm = 1,

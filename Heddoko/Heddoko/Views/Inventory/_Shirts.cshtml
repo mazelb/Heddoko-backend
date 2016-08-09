@@ -86,6 +86,22 @@
                                class="form-control"
                                data-bind="value: model.location" />
                     </div>
+
+                    <div class="col-sm-3">
+                        <input type="text"
+                               name="shirts-label"
+                               placeholder="@i18n.Resources.Label"
+                               class="form-control"
+                               data-bind="value: model.label" />
+                    </div>
+                </div>
+                <div class="row margin010">
+                    <div class="col-sm-12">
+                        <textarea name="shirts-notes"
+                                  class="form-control"
+                                  placeholder="@i18n.Resources.Notes"
+                                  data-bind="value: model.notes"></textarea>
+                    </div>
                 </div>
             </div>
         </div>

@@ -247,7 +247,7 @@ namespace Heddoko.Controllers
                     {
                         Brainpack brainpack = UoW.BrainpackRepository.GetFull(model.BrainpackID.Value);
 
-                        if (brainpack.Kits.Any())
+                        if (brainpack.Kit != null)
                         {
                             throw new Exception($"{Resources.Brainpack} {Resources.AlreadyUsed}");
                         }
@@ -275,10 +275,9 @@ namespace Heddoko.Controllers
                     {
                         SensorSet sensorSet = UoW.SensorSetRepository.GetFull(model.SensorSetID.Value);
 
-                        if (sensorSet.Kit.Any())
+                        if (sensorSet.Kit != null)
                         {
-                            //TODO change to sensor set
-                            throw new Exception($"{Resources.Powerboard} {Resources.AlreadyUsed}");
+                            throw new Exception($"{Resources.SensorSet} {Resources.AlreadyUsed}");
                         }
 
                         item.SensorSet = sensorSet;
@@ -304,7 +303,7 @@ namespace Heddoko.Controllers
                     {
                         Pants pants = UoW.PantsRepository.GetFull(model.PantsID.Value);
 
-                        if (pants.Kits.Any())
+                        if (pants.Kit != null)
                         {
                             throw new Exception($"{Resources.Pants} {Resources.AlreadyUsed}");
                         }
@@ -348,7 +347,10 @@ namespace Heddoko.Controllers
                 }
 
                 item.Status = model.Status;
-                item.Location = model.Location;
+                item.Location = model.Location.Trim(); ;
+                item.QAStatus = model.QAStatus;
+                item.Notes = model.Notes.Trim();
+                item.Label = model.Label?.Trim();
                 item.Composition = model.Composition;
             }
 
@@ -380,7 +382,10 @@ namespace Heddoko.Controllers
                 User = item.User,
                 BrainpackID = item.BrainpackID,
                 Shirt = item.Shirt,
-                UserID = item.ShirtID
+                UserID = item.ShirtID,
+                Label = item.Label,
+                Notes = item.Notes,
+                QAStatus = item.QAStatus
             };
         }
     }

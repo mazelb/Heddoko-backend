@@ -716,7 +716,7 @@
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
     <Compile Include="Models\Admin\SensorSetsAPIModel.cs" />
-    <Compile Include="Models\Admin\SensorsAPIModel.cs" />
+    <Compile Include="Models\Admin\SensorAPIModel.cs" />
     <Compile Include="Models\Admin\ComponentsAPIModel.cs" />
     <Compile Include="Models\Admin\KitAPIModel.cs" />
     <Compile Include="Models\Admin\BrainpackAPIModel.cs" />
@@ -762,8 +762,6 @@
   <ItemGroup>
     <Folder Include="Content\scss\views\" />
     <Folder Include="Helpers\JWT\" />
-    <Folder Include="Views\SensorSets\" />
-    <Folder Include="Views\Sensors\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\dev.pubxml" />

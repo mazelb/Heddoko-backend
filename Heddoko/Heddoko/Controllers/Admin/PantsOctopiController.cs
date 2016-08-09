@@ -78,18 +78,18 @@ namespace Heddoko.Controllers
             if (isUsed)
             {
                 itemsDefault.Add(new PantsOctopiAPIModel(true)
-                                 {
-                                     ID = 0
-                                 });
+                {
+                    ID = 0
+                });
             }
 
             itemsDefault.AddRange(items.ToList().Select(Convert));
 
             return new KendoResponse<IEnumerable<PantsOctopiAPIModel>>
-                   {
-                       Response = itemsDefault,
-                       Total = count
-                   };
+            {
+                Response = itemsDefault,
+                Total = count
+            };
         }
 
         public override KendoResponse<PantsOctopiAPIModel> Get(int id)
@@ -97,9 +97,9 @@ namespace Heddoko.Controllers
             PantsOctopi item = UoW.PantsOctopiRepository.Get(id);
 
             return new KendoResponse<PantsOctopiAPIModel>
-                   {
-                       Response = Convert(item)
-                   };
+            {
+                Response = Convert(item)
+            };
         }
 
         public override KendoResponse<PantsOctopiAPIModel> Post(PantsOctopiAPIModel model)
@@ -119,15 +119,15 @@ namespace Heddoko.Controllers
             else
             {
                 throw new ModelStateException
-                      {
-                          ModelState = ModelState
-                      };
+                {
+                    ModelState = ModelState
+                };
             }
 
             return new KendoResponse<PantsOctopiAPIModel>
-                   {
-                       Response = response
-                   };
+            {
+                Response = response
+            };
         }
 
         public override KendoResponse<PantsOctopiAPIModel> Put(PantsOctopiAPIModel model)
@@ -137,18 +137,18 @@ namespace Heddoko.Controllers
             if (!model.ID.HasValue)
             {
                 return new KendoResponse<PantsOctopiAPIModel>
-                       {
-                           Response = response
-                       };
+                {
+                    Response = response
+                };
             }
 
             PantsOctopi item = UoW.PantsOctopiRepository.GetFull(model.ID.Value);
             if (item == null)
             {
                 return new KendoResponse<PantsOctopiAPIModel>
-                       {
-                           Response = response
-                       };
+                {
+                    Response = response
+                };
             }
 
             if (ModelState.IsValid)
@@ -161,15 +161,15 @@ namespace Heddoko.Controllers
             else
             {
                 throw new ModelStateException
-                      {
-                          ModelState = ModelState
-                      };
+                {
+                    ModelState = ModelState
+                };
             }
 
             return new KendoResponse<PantsOctopiAPIModel>
-                   {
-                       Response = response
-                   };
+            {
+                Response = response
+            };
         }
 
         public override KendoResponse<PantsOctopiAPIModel> Delete(int id)
@@ -179,9 +179,9 @@ namespace Heddoko.Controllers
             if (item.ID == CurrentUser.ID)
             {
                 return new KendoResponse<PantsOctopiAPIModel>
-                       {
-                           Response = Convert(item)
-                       };
+                {
+                    Response = Convert(item)
+                };
             }
 
             item.Status = EquipmentStatusType.Trash;
@@ -191,9 +191,9 @@ namespace Heddoko.Controllers
             UoW.Save();
 
             return new KendoResponse<PantsOctopiAPIModel>
-                   {
-                       Response = Convert(item)
-                   };
+            {
+                Response = Convert(item)
+            };
         }
 
 
@@ -204,8 +204,10 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            item.Location = model.Location;
+            item.Location = model.Location.Trim(); ;
             item.QAStatus = model.QAStatus;
+            item.Notes = model.Notes.Trim();
+            item.Label = model.Label?.Trim();
             item.Status = model.Status;
             item.Size = model.Size;
 
@@ -220,14 +222,16 @@ namespace Heddoko.Controllers
             }
 
             return new PantsOctopiAPIModel
-                   {
-                       ID = item.ID,
-                       IDView = item.IDView,
-                       Location = item.Location,
-                       QAStatus = item.QAStatus,
-                       Size = item.Size,
-                       Status = item.Status
-                   };
+            {
+                ID = item.ID,
+                IDView = item.IDView,
+                Location = item.Location,
+                QAStatus = item.QAStatus,
+                Size = item.Size,
+                Status = item.Status,
+                Label = item.Label,
+                Notes = item.Notes
+            };
         }
     }
 }

@@ -4,7 +4,6 @@ namespace DAL.Models
 {
     public class Component : BaseModel
     {
-        //TODO check if we need that field
         [StringLength(255)]
         public string Location { get; set; }
 

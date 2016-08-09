@@ -8,6 +8,5 @@ namespace DAL
         IEnumerable<SensorSet> All(bool isDeleted);
         IEnumerable<SensorSet> Search(string value, bool isDeleted = false);
         IEnumerable<SensorSet> GetAvailable(int? id = null);
-        SensorSet GetByID(int? id = null);
     }
 }

@@ -210,10 +210,17 @@ namespace Heddoko.Controllers
             {
                 item.Firmware = UoW.FirmwareRepository.Get(model.FirmwareID.Value);
             }
+            else
+            {
+                item.Firmware = null;
+            }
 
-            item.Version = model.Version;
+            item.Version = model.Version.Trim();
             item.Status = model.Status;
-            item.Location = model.Location;
+            item.Location = model.Location.Trim(); ;
+            item.QAStatus = model.QAStatus;
+            item.Notes = model.Notes.Trim();
+            item.Label = model.Label?.Trim();
 
             return item;
         }
@@ -233,7 +240,10 @@ namespace Heddoko.Controllers
                 Location = item.Location,
                 Status = item.Status,
                 FirmwareID = item.FirmwareID,
-                Firmware = item.Firmware
+                Firmware = item.Firmware,
+                Label = item.Label,
+                Notes = item.Notes,
+                QAStatus = item.QAStatus
             };
         }
     }

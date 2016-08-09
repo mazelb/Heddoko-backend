@@ -1,4 +1,4 @@
-﻿$(function () {
+﻿$(function() {
     Organizations.init();
 });
 
@@ -12,7 +12,7 @@ var Organizations = {
     validators: {
         addModel: null
     },
-    datasources: function () {
+    datasources: function() {
         //Datasources context
         this.organizations = new kendo.data.DataSource({
             pageSize: KendoDS.pageSize,
@@ -80,7 +80,7 @@ var Organizations = {
         this.organizationsDD = Organizations.getDatasourceDD();
     },
 
-    getDatasourceDD: function (id) {
+    getDatasourceDD: function(id) {
         return new kendo.data.DataSource({
             serverPaging: false,
             serverFiltering: true,
@@ -94,94 +94,104 @@ var Organizations = {
                     id: "id"
                 }
             },
-            filter: [{
-                field: 'Used',
-                operator: 'eq',
-                value: id
-            }]
+            filter: [
+                {
+                    field: 'Used',
+                    operator: 'eq',
+                    value: id
+                }
+            ]
         });
     },
 
-    init: function () {
+    init: function() {
         var control = $("#organizationsGrid");
         var filter = $('.organizationsFilter');
         var model = $('.organizationsForm');
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                dataSource: Datasources.organizations,
-                sortable: false,
-                editable: "popup",
-                selectable: false,
-                scrollable: false,
-                resizable: true,
-                autoBind: true,
-                pageable: {
-                    refresh: true,
-                    pageSizes: [10, 50, 100]
-                },
-                toolbar: [{
-                    template: '<div class="grid-checkbox"><span><input class="chk-show-deleted" type="checkbox"/>' + i18n.Resources.ShowDeleted + '</span></div>'
-                }],
-                columns: [
-                {
-                    field: "idView",
-                    title: i18n.Resources.ID,
-                    editor: KendoDS.emptyEditor
-                }, {
-                    field: 'name',
-                    title: i18n.Resources.Name
-                }, {
-                    field: 'phone',
-                    title: i18n.Resources.Phone
-                }, {
-                    field: 'address',
-                    title: i18n.Resources.Address,
-                    editor: KendoDS.textAreaDDEditor
-                }, {
-                    field: 'userName',
-                    title: i18n.Resources.Admin,
-                    editor: KendoDS.emptyEditor,
-                    template: function (e) {
-                        return Format.organization.user(e);
-                    }
-                }, {
-                    field: 'notes',
-                    title: i18n.Resources.Notes,
-                    template: function (e) {
-                        return Format.notes(e.notes)
+                    dataSource: Datasources.organizations,
+                    sortable: false,
+                    editable: "popup",
+                    selectable: false,
+                    scrollable: false,
+                    resizable: true,
+                    autoBind: true,
+                    pageable: {
+                        refresh: true,
+                        pageSizes: [10, 50, 100]
                     },
-                    editor: KendoDS.textAreaDDEditor
-                }, {
-                    field: 'dataAnalysisAmount',
-                    title: i18n.Resources.DataAnalysisAmount,
-                    editor: KendoDS.emptyEditor
-                }, {
-                    field: 'dataCollectorAmount',
-                    title: i18n.Resources.DataCollectorAmount,
-                    editor: KendoDS.emptyEditor
-                }, {
-                    command: [{
-                        name: "edit",
-                        text: i18n.Resources.Edit,
-                        className: "k-grid-edit"
-                    }, {
-                        name: "destroy",
-                        text: i18n.Resources.Delete,
-                        className: "k-grid-delete"
-                    }, {
-                        text: i18n.Resources.Restore,
-                        className: "k-grid-restore",
-                        click: this.onRestore
-                    }],
-                    title: i18n.Resources.Actions,
-                    width: '165px'
-                }
-                ],
-                save: KendoDS.onSave,
-                detailInit: this.detailInit,
-                dataBound: this.onDataBound
-            }).data("kendoGrid");
+                    toolbar: [
+                        {
+                            template:
+                                '<div class="grid-checkbox"><span><input class="chk-show-deleted" type="checkbox"/>' +
+                                    i18n.Resources.ShowDeleted +
+                                    '</span></div>'
+                        }
+                    ],
+                    columns: [
+                        {
+                            field: "idView",
+                            title: i18n.Resources.ID,
+                            editor: KendoDS.emptyEditor
+                        }, {
+                            field: 'name',
+                            title: i18n.Resources.Name
+                        }, {
+                            field: 'phone',
+                            title: i18n.Resources.Phone
+                        }, {
+                            field: 'address',
+                            title: i18n.Resources.Address,
+                            editor: KendoDS.textAreaDDEditor
+                        }, {
+                            field: 'userName',
+                            title: i18n.Resources.Admin,
+                            editor: KendoDS.emptyEditor,
+                            template: function(e) {
+                                return Format.organization.user(e);
+                            }
+                        }, {
+                            field: 'notes',
+                            title: i18n.Resources.Notes,
+                            template: function(e) {
+                                return Format.notes(e.notes);
+                            },
+                            editor: KendoDS.textAreaDDEditor
+                        }, {
+                            field: 'dataAnalysisAmount',
+                            title: i18n.Resources.DataAnalysisAmount,
+                            editor: KendoDS.emptyEditor
+                        }, {
+                            field: 'dataCollectorAmount',
+                            title: i18n.Resources.DataCollectorAmount,
+                            editor: KendoDS.emptyEditor
+                        }, {
+                            command: [
+                                {
+                                    name: "edit",
+                                    text: i18n.Resources.Edit,
+                                    className: "k-grid-edit"
+                                }, {
+                                    name: "destroy",
+                                    text: i18n.Resources.Delete,
+                                    className: "k-grid-delete"
+                                }, {
+                                    text: i18n.Resources.Restore,
+                                    className: "k-grid-restore",
+                                    click: this.onRestore
+                                }
+                            ],
+                            title: i18n.Resources.Actions,
+                            width: '165px'
+                        }
+                    ],
+                    save: KendoDS.onSave,
+                    detailInit: this.detailInit,
+                    dataBound: this.onDataBound
+                })
+                .data("kendoGrid");
 
             KendoDS.bind(this.controls.grid, true);
 
@@ -202,106 +212,114 @@ var Organizations = {
             kendo.bind(model, this.controls.addModel);
 
             this.validators.addModel = model.kendoValidator({
-                validateOnBlur: true,
-                rules: {
-                    maxLengthValidationEmail: Validator.organization.email.maxLengthValidation,
-                    maxLengthValidationName: Validator.organization.name.maxLengthValidation,
-                    maxLengthValidationPhone: Validator.organization.phone.maxLengthValidation,
-                    maxLengthValidationAddress: Validator.organization.address.maxLengthValidation,
-                    maxLengthValidationNotes: Validator.organization.notes.maxLengthValidation
-                }
-            }).data("kendoValidator");
+                    validateOnBlur: true,
+                    rules: {
+                        maxLengthValidationEmail: Validator.organization.email.maxLengthValidation,
+                        maxLengthValidationName: Validator.organization.name.maxLengthValidation,
+                        maxLengthValidationPhone: Validator.organization.phone.maxLengthValidation,
+                        maxLengthValidationAddress: Validator.organization.address.maxLengthValidation,
+                        maxLengthValidationNotes: Validator.organization.notes.maxLengthValidation
+                    }
+                })
+                .data("kendoValidator");
 
             $('.chk-show-deleted', this.controls.grid.element).click(this.onShowDeleted.bind(this));
         }
     },
 
-    ddEditor: function (container, options) {
+    ddEditor: function(container, options) {
         $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDropDownList({
-            autoBind: true,
-            dataSource: Organizations.getDatasourceDD(options.model.id)
-        });
+            .appendTo(container)
+            .kendoDropDownList({
+                autoBind: true,
+                dataSource: Organizations.getDatasourceDD(options.model.id)
+            });
     },
 
-    detailInit: function (e) {
+    detailInit: function(e) {
         var datasourceItem = Licenses.getDatasource();
 
-        var grid = $("<div/>").appendTo(e.detailCell).kendoGrid({
-            dataSource: datasourceItem,
-            sortable: false,
-            editable: "popup",
-            selectable: false,
-            scrollable: false,
-            resizable: true,
-            autoBind: false,
-            pageable: {
-                refresh: true,
-                pageSizes: [10, 50, 100]
-            },
-            toolbar: [{
-                name: "create",
-                text: i18n.Resources.Add + ' ' + i18n.Resources.License,
-                className: "k-grid-add"
-            }],
-            columns: [
-                {
-                    field: 'idView',
-                    title: i18n.Resources.ID,
-                    editor: KendoDS.emptyEditor
-                }, {
-                    field: 'type',
-                    title: i18n.Resources.Type,
-                    template: function (ed) {
-                        return Format.license.type(ed.type);
-                    },
-                    editor: Licenses.typeDDEditor
-                }, {
-                    field: 'amount',
-                    title: i18n.Resources.Amount
-                }, {
-                    field: 'status',
-                    title: i18n.Resources.Status,
-                    template: function (ed) {
-                        return Format.license.status(ed.status, ed.expirationAt);
-                    },
-                    editor: Licenses.statusDDEditor
-                }, {
-                    field: 'expirationAt',
-                    title: i18n.Resources.ExpirationAt,
-                    editor: KendoDS.dateEditor,
-                    format: "{0:yyyy-MM-dd}",
-                    template: function (ed) {
-                        return Format.license.expiredAt(ed.expirationAt);
+        var grid = $("<div/>")
+            .appendTo(e.detailCell)
+            .kendoGrid({
+                dataSource: datasourceItem,
+                sortable: false,
+                editable: "popup",
+                selectable: false,
+                scrollable: false,
+                resizable: true,
+                autoBind: false,
+                pageable: {
+                    refresh: true,
+                    pageSizes: [10, 50, 100]
+                },
+                toolbar: [
+                    {
+                        name: "create",
+                        text: i18n.Resources.Add + ' ' + i18n.Resources.License,
+                        className: "k-grid-add"
                     }
-                }, {
-                    field: 'used',
-                    title: i18n.Resources.Used,
-                    editor: KendoDS.emptyEditor,
-                    template: function (ed) {
-                        return Format.license.used(ed.used);
-                    }
-                }, {
-                    command: [{
-                        name: "edit",
-                        text: i18n.Resources.Edit,
-                        className: "k-grid-edit"
+                ],
+                columns: [
+                    {
+                        field: 'idView',
+                        title: i18n.Resources.ID,
+                        editor: KendoDS.emptyEditor
                     }, {
-                        name: "delete",
-                        text: i18n.Resources.Delete,
-                        className: "k-grid-delete"
-                    }],
-                    title: i18n.Resources.Actions,
-                    width: '165px'
-                }
-            ],
-            save: KendoDS.onSave,
-            edit: function (ed) {
-                ed.model.set("organizationID", e.data.id);
-            },
-            dataBound: KendoDS.onDataBound
-        }).data("kendoGrid");
+                        field: 'type',
+                        title: i18n.Resources.Type,
+                        template: function(ed) {
+                            return Format.license.type(ed.type);
+                        },
+                        editor: Licenses.typeDDEditor
+                    }, {
+                        field: 'amount',
+                        title: i18n.Resources.Amount
+                    }, {
+                        field: 'status',
+                        title: i18n.Resources.Status,
+                        template: function(ed) {
+                            return Format.license.status(ed.status, ed.expirationAt);
+                        },
+                        editor: Licenses.statusDDEditor
+                    }, {
+                        field: 'expirationAt',
+                        title: i18n.Resources.ExpirationAt,
+                        editor: KendoDS.dateEditor,
+                        format: "{0:yyyy-MM-dd}",
+                        template: function(ed) {
+                            return Format.license.expiredAt(ed.expirationAt);
+                        }
+                    }, {
+                        field: 'used',
+                        title: i18n.Resources.Used,
+                        editor: KendoDS.emptyEditor,
+                        template: function(ed) {
+                            return Format.license.used(ed.used);
+                        }
+                    }, {
+                        command: [
+                            {
+                                name: "edit",
+                                text: i18n.Resources.Edit,
+                                className: "k-grid-edit"
+                            }, {
+                                name: "delete",
+                                text: i18n.Resources.Delete,
+                                className: "k-grid-delete"
+                            }
+                        ],
+                        title: i18n.Resources.Actions,
+                        width: '165px'
+                    }
+                ],
+                save: KendoDS.onSave,
+                edit: function(ed) {
+                    ed.model.set("organizationID", e.data.id);
+                },
+                dataBound: KendoDS.onDataBound
+            })
+            .data("kendoGrid");
 
         KendoDS.bind(grid, true);
 
@@ -311,7 +329,7 @@ var Organizations = {
             value: parseInt(e.data.id)
         });
     },
-    getEmptyModel: function () {
+    getEmptyModel: function() {
         return {
             name: null,
             phone: null,
@@ -325,82 +343,84 @@ var Organizations = {
             }
         };
     },
-    onDataBound: function (e) {
+    onDataBound: function(e) {
         KendoDS.onDataBound(e);
 
-        $(".k-grid-delete", Organizations.controls.grid.element).each(function () {
-            var currentDataItem = Organizations.controls.grid.dataItem($(this).closest("tr"));
+        $(".k-grid-delete", Organizations.controls.grid.element)
+            .each(function() {
+                var currentDataItem = Organizations.controls.grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status === Enums.OrganizationStatusType.enum.Deleted) {
-                $(this).remove();
-            }
-        });
+                if (currentDataItem.status === Enums.OrganizationStatusType.enum.Deleted) {
+                    $(this).remove();
+                }
+            });
 
-        $(".k-grid-edit", Organizations.controls.grid.element).each(function () {
-            var currentDataItem = Organizations.controls.grid.dataItem($(this).closest("tr"));
+        $(".k-grid-edit", Organizations.controls.grid.element)
+            .each(function() {
+                var currentDataItem = Organizations.controls.grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status === Enums.OrganizationStatusType.enum.Deleted) {
-                $(this).remove();
-            }
-        });
+                if (currentDataItem.status === Enums.OrganizationStatusType.enum.Deleted) {
+                    $(this).remove();
+                }
+            });
 
-        $(".k-grid-restore", Organizations.controls.grid.element).each(function () {
-            var currentDataItem = Organizations.controls.grid.dataItem($(this).closest("tr"));
+        $(".k-grid-restore", Organizations.controls.grid.element)
+            .each(function() {
+                var currentDataItem = Organizations.controls.grid.dataItem($(this).closest("tr"));
 
-            if (currentDataItem.status === Enums.OrganizationStatusType.enum.Active) {
-                $(this).remove();
-            }
-        });
+                if (currentDataItem.status === Enums.OrganizationStatusType.enum.Active) {
+                    $(this).remove();
+                }
+            });
 
     },
-    onShowDeleted: function (e) {
+    onShowDeleted: function(e) {
         this.isDeleted = $(e.currentTarget).prop('checked');
         this.onFilter();
     },
-    onRestore: function (e) {
+    onRestore: function(e) {
         var item = Organizations.controls.grid.dataItem($(e.currentTarget).closest("tr"));
         item.set('status', Enums.OrganizationStatusType.enum.Active);
         Organizations.controls.grid.dataSource.sync();
     },
-    onReset: function (e) {
+    onReset: function(e) {
         this.controls.addModel.set('model', this.getEmptyModel());
     },
-    onAdd: function (e) {
+    onAdd: function(e) {
         Notifications.clear();
         if (this.validators.addModel.validate()) {
             var obj = this.controls.addModel.get('model');
 
             this.controls.grid.dataSource.add(obj);
             this.controls.grid.dataSource.sync();
-            this.controls.grid.dataSource.one('requestEnd', function (e) {
-                if (e.type === "create") {
-                    if (!e.response.Errors) {
-                        this.onReset();
+            this.controls.grid.dataSource.one('requestEnd',
+                function(e) {
+                    if (e.type === "create") {
+                        if (!e.response.Errors) {
+                            this.onReset();
+                        }
                     }
-                }
-            }.bind(this));
+                }.bind(this));
         }
     },
-    onEnter: function (e) {
+    onEnter: function(e) {
         if (e.keyCode === kendo.keys.ENTER) {
             this.onFilter(e);
         }
     },
-    onFilter: function (e) {
+    onFilter: function(e) {
         var filters = this.buildFilter();
         if (filters) {
             this.controls.grid.dataSource.filter(filters);
         }
     },
-    buildFilter: function (search) {
+    buildFilter: function(search) {
         Notifications.clear();
         search = this.controls.filterModel.search;
 
         var filters = [];
 
-        if (typeof (search) !== "undefined"
-         && search !== ""
-         && search !== null) {
+        if (typeof (search) !== "undefined" && search !== "" && search !== null) {
             filters.push({
                 field: "Search",
                 operator: "eq",

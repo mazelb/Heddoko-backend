@@ -35,21 +35,9 @@ namespace DAL
 
         public override SensorSet GetFull(int id)
         {
-            return DbSet.Include(c => c.Kit)
+            return DbSet.Include(c => c.Kits)
                         .Include(c => c.Sensors)
                         .FirstOrDefault(c => c.ID == id);
-        }
-
-        public SensorSet GetByID(int? id = null)
-        {
-            if (id == null)
-            {
-                return null;
-            }
-            else
-            {
-                return DbSet.Where(c => c.ID == id).FirstOrDefault();
-            }
         }
     }
 }

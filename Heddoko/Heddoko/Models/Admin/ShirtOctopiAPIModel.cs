@@ -21,17 +21,20 @@ namespace Heddoko.Models
         [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Location { get; set; }
 
+        [StringLength(255, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
+        public string Label { get; set; }
+
+        [StringLength(1024, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
+        public string Notes { get; set; }
+
         public SizeType Size { get; set; }
 
         public EquipmentStatusType Status { get; set; }
 
-        public EquipmentQAStatusType QAStatus { get; set; }
+        public ShirtOctopiQAStatusType QAStatus { get; set; }
 
         public string IDView { get; set; }
 
-        public string Name
-        {
-            get { return IsEmpty ? $"{Resources.No} {Resources.ShirtsOctopi}" : $"{IDView} - {Size.GetDisplayName()} - {Location}"; }
-        }
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.ShirtsOctopi}" : $"{IDView} - {Size.GetDisplayName()} - {QAStatus.GetDisplayName()}";
     }
 }

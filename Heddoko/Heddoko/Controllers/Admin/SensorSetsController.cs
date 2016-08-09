@@ -18,13 +18,9 @@ namespace Heddoko.Controllers
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
 
-        bool isDeleted = false;
-        bool isUsed = false;
-
         public override KendoResponse<IEnumerable<SensorSetsAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<SensorSet> items = null;
-            int count = 0;
 
             bool isDeleted = false;
             bool isUsed = false;
@@ -37,13 +33,13 @@ namespace Heddoko.Controllers
                 {
                     int tmp = 0;
                     int? usedID = null;
-
                     if (int.TryParse(isUsedFilter.Value, out tmp))
                     {
                         usedID = tmp;
                     }
 
                     items = UoW.SensorSetRepository.GetAvailable(usedID);
+                    isUsed = true;
                 }
                 else
                 {
@@ -62,14 +58,17 @@ namespace Heddoko.Controllers
             }
 
             if (items == null
-                && !isUsed)
+                &&
+                !isUsed)
             {
                 items = UoW.SensorSetRepository.All(isDeleted);
             }
 
-            count = items.Count();
+            int count = items.Count();
 
-            if (request?.Take != null)
+            if (request?.Take != null
+                &&
+                request.Skip != null)
             {
                 items = items.Skip(request.Skip.Value)
                              .Take(request.Take.Value);
@@ -185,7 +184,8 @@ namespace Heddoko.Controllers
                     Response = Convert(item)
                 };
             }
-
+            UoW.SensorRepository.RemoveSensorSet(item.ID);
+            item.Status = EquipmentStatusType.Trash;
             UoW.Save();
 
             return new KendoResponse<SensorSetsAPIModel>
@@ -201,41 +201,59 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            if (model.Kit != null && model.Kit.Any())
-            {
-                if (model.Kit.FirstOrDefault() == null)
-                {
-                    item.Kit = null;
-                }
-                else
-                {
-                    item.Kit = model.Kit;
-                }
-            }       
 
-            item.ID = (int)model.ID;
+            item.Location = model.Location.Trim(); ;
             item.QAStatus = model.QAStatus;
+            item.Notes = model.Notes.Trim();
+            item.Label = model.Label?.Trim();
+            item.Status = model.Status;
 
+            if (model.Sensors == null)
+            {
+                return item;
+            }
 
             if (model.Sensors != null)
             {
-                List<string> sensors = model.Sensors.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim()).Where(c => c != "").ToList();
+                List<string> sensors = model.Sensors.Split(new[]
+                {
+                    ','
+                },
+                    StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim()).Where(c => c != "").ToList();
+
+                if (item.Sensors == null)
+                {
+                    item.Sensors = new List<Sensor>();
+                }
 
                 foreach (string sensor in sensors)
                 {
-                    if (item.Sensors != null &&
-                        !item.Sensors.Any(c => c.IDView == sensor))
-                    {
-                        Sensor sens = UoW.SensorRepository.GetByIDView(sensor);
+                    int? sensorID = sensor.ParseID();
 
-                        if (sens != null && !sens.SensorSetID.HasValue)
+                    if (item.Sensors.Any(c => c.ID == sensorID))
+                    {
+                        continue;
+                    }
+
+                    if (sensorID.HasValue)
+                    {
+                        Sensor sens = UoW.SensorRepository.Get(sensorID.Value);
+
+                        if (sens != null
+                            &&
+                            !sens.SensorSetID.HasValue)
                         {
+
+                            if (sens.Status == EquipmentStatusType.Ready)
+                            {
+                                sens.Status = EquipmentStatusType.InUse;
+                            }
                             item.Sensors.Add(sens);
                         }
                     }
                 }
             }
-            
+
             return item;
         }
 
@@ -251,7 +269,12 @@ namespace Heddoko.Controllers
                 ID = item.ID,
                 IDView = item.IDView,
                 QAStatus = item.QAStatus,
-                Kit = item.Kit
+                Kit = item.Kit,
+                KitID = item.Kit?.ID,
+                Status = item.Status,
+                Label = item.Label,
+                Notes = item.Notes,
+                Location = item.Location
             };
         }
     }

@@ -202,8 +202,10 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            item.Location = model.Location;
+            item.Location = model.Location.Trim(); ;
             item.QAStatus = model.QAStatus;
+            item.Notes = model.Notes.Trim();
+            item.Label = model.Label?.Trim();
             item.Status = model.Status;
             item.Size = model.Size;
 
@@ -224,7 +226,9 @@ namespace Heddoko.Controllers
                 Location = item.Location,
                 QAStatus = item.QAStatus,
                 Size = item.Size,
-                Status = item.Status
+                Status = item.Status,
+                Label = item.Label,
+                Notes = item.Notes
             };
         }
     }
