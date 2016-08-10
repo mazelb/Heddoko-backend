@@ -716,6 +716,7 @@
     <Compile Include="Models\Admin\AssembliesAPIModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
+    <Compile Include="Models\Admin\InventoryViewModel.cs" />
     <Compile Include="Models\Admin\SensorSetsAPIModel.cs" />
     <Compile Include="Models\Admin\SensorAPIModel.cs" />
     <Compile Include="Models\Admin\ComponentsAPIModel.cs" />
