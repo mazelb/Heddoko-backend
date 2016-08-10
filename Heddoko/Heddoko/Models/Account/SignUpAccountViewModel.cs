@@ -50,6 +50,7 @@ namespace Heddoko.Models
 
         [MaxLength(50)]
         [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessageResourceName = "InvalidPhone", ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Mobile", ResourceType = typeof(Resources))]
         public string Phone { get; set; }
 
