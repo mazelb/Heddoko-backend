@@ -1564,6 +1564,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phone number entered is not valid.
+        /// </summary>
+        public static string InvalidPhone {
+            get {
+                return ResourceManager.GetString("InvalidPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inventory.
         /// </summary>
         public static string Inventory {

@@ -1407,4 +1407,7 @@
   <data name="Change" xml:space="preserve">
     <value>Change</value>
   </data>
+  <data name="InvalidPhone" xml:space="preserve">
+    <value>Phone number entered is not valid</value>
+  </data>
 </root>
