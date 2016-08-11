@@ -239,7 +239,7 @@ namespace Heddoko.Controllers
                 Version = item.Version,
                 Location = item.Location,
                 Status = item.Status,
-                FirmwareID = item.FirmwareID,
+                FirmwareID = item.FirmwareID ?? 0,
                 Firmware = item.Firmware,
                 Label = item.Label,
                 Notes = item.Notes,

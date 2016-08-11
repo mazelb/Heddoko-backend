@@ -272,7 +272,7 @@ namespace Heddoko.Controllers
                 IDView = item.IDView,
                 QAStatus = item.QAStatus,
                 Kit = item.Kit,
-                KitID = item.Kit?.ID,
+                KitID = item.Kit?.ID ?? 0,
                 Status = item.Status,
                 Label = item.Label,
                 Notes = item.Notes,

@@ -263,7 +263,7 @@ namespace Heddoko.Controllers
                 Size = item.Size,
                 Status = item.Status,
                 ShirtOctopi = item.ShirtOctopi,
-                ShirtOctopiID = item.ShirtOctopiID,
+                ShirtOctopiID = item.ShirtOctopiID ?? 0,
                 Label = item.Label,
                 Notes = item.Notes
             };
