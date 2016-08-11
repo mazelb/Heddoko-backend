@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -139,5 +140,23 @@ namespace Heddoko.Controllers.API
 
             return asset;
         }
+
+        /// <summary>
+        ///     List of files
+        /// </summary>
+        /// <param name="userID">The filter by userID</param>
+        /// <param name="take">The amount of take entries</param>
+        /// <param name="skip">The amoun of skip entries</param>
+        [Route("list/{take:int}/{skip:int?}")]
+        [Route("list/{userID:int?}/{take:int}/{skip:int?}")]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.All)]
+        public async Task<IList<Asset>> List(int take = 100, int? userID = null, int? skip = 0)
+        {
+
+            return null;
+        }
+
+
     }
 }
