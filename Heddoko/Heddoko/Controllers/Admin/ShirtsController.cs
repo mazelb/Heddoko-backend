@@ -237,9 +237,9 @@ namespace Heddoko.Controllers
                 }
             }
 
-            item.Location = model.Location.Trim(); ;
+            item.Location = model.Location?.Trim(); ;
             item.QAStatus = model.QAStatus;
-            item.Notes = model.Notes.Trim();
+            item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
             item.Status = model.Status;
             item.Size = model.Size;
