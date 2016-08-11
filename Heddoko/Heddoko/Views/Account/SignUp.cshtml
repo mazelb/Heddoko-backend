@@ -105,7 +105,7 @@
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-phone-alt"></span>
                     </span>
-                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Phone).ToString()) })
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control phone-mask", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.Phone).ToString()) })
                 </div>
                 @Html.ValidationMessageFor(m => m.Phone, string.Empty, new { @class = "text-danger" })
             </div>
