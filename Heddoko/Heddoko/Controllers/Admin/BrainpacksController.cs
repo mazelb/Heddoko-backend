@@ -295,7 +295,7 @@ namespace Heddoko.Controllers
                 Powerboard = item.Powerboard,
                 Databoard = item.Databoard,
                 PowerboardID = item.PowerboardID ?? 0,
-                DataboardID = item.DataboardID,
+                DataboardID = item.DataboardID ?? 0,
                 Label = item.Label,
                 Notes = item.Notes
             };
