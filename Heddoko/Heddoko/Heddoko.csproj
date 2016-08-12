@@ -570,7 +570,6 @@
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
     <Content Include="Scripts\js\admin\grid\organizationKits.js" />
-    <Content Include="Scripts\js\admin\grid\assemblies.js" />
     <Content Include="Scripts\js\admin\grid\kits.js" />
     <Content Include="Scripts\js\admin\grid\brainpacks.js" />
     <Content Include="Scripts\js\admin\grid\powerboards.js" />
