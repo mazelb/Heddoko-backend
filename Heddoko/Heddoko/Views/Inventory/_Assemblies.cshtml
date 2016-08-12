@@ -1,33 +1,15 @@
 ﻿<!-- This Partial HTML uses the InventoryViewModel -->
-
 <div class="row">
     <h2 class="col-md-3 text-center">@i18n.Resources.Assembly</h2>
     <h2 class="col-md-3 text-center">@i18n.Resources.QuantityOnHand</h2>
     <h2 class="col-md-3 text-center">@i18n.Resources.QuantityProducible</h2>
 </div>
-<div class="row">
-    <div class="col-md-3 text-center">@Model.Assemblies[0].Assembly.ToString()</div>
-    <div class="col-md-3 text-center">@Model.Assemblies[0].QuantityOnHand</div>
-    <div class="col-md-3 text-center">@Model.Assemblies[0].QuantityProducible</div>
-</div>
-<div class="row">
-    <div class="col-md-3 text-center">@Model.Assemblies[1].Assembly.ToString()</div>
-    <div class="col-md-3 text-center">@Model.Assemblies[1].QuantityOnHand</div>
-    <div class="col-md-3 text-center">@Model.Assemblies[1].QuantityProducible</div>
-</div>
-<div class="row">
-    <div class="col-md-3 text-center">@Model.Assemblies[2].Assembly.ToString()</div>
-    <div class="col-md-3 text-center">@Model.Assemblies[2].QuantityOnHand</div>
-    <div class="col-md-3 text-center">@Model.Assemblies[2].QuantityProducible</div>
-</div>
-<div class="row">
-    <div class="col-md-3 text-center">@Model.Assemblies[3].Assembly.ToString()</div>
-    <div class="col-md-3 text-center">@Model.Assemblies[3].QuantityOnHand</div>
-    <div class="col-md-3 text-center">@Model.Assemblies[3].QuantityProducible</div>
-</div>
-<div class="row">
-    <div class="col-md-3 text-center">@Model.Assemblies[4].Assembly.ToString()</div>
-    <div class="col-md-3 text-center">@Model.Assemblies[4].QuantityOnHand</div>
-    <div class="col-md-3 text-center">@Model.Assemblies[4].QuantityProducible</div>
-</div>
 
+@foreach (var assembly in Model.Assemblies)
+{
+    <div class="row">
+        <div class="col-md-3 text-center">@assembly.Type.ToString()</div>
+        <div class="col-md-3 text-center">@assembly.QuantityOnHand</div>
+        <div class="col-md-3 text-center">@assembly.QuantityProducible</div>
+    </div>
+}
