@@ -209,6 +209,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
+    <Compile Include="Models\Assembly.cs" />
     <Compile Include="Models\Enum\AssetsProccesingType.cs" />
     <Compile Include="Models\Enum\AssembliesType.cs" />
     <Compile Include="Models\Enum\PowerboardQAStatusType.cs" />

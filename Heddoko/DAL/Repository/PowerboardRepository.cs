@@ -46,14 +46,7 @@ namespace DAL
 
         public int GetNumReady()
         {
-            IEnumerable<Powerboard> powerboards = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
-
-            if (powerboards != null)
-            {
-                return powerboards.Count();
-            }
-
-            return 0;
+            return DbSet.Where(c => c.Status == EquipmentStatusType.Ready).Count();
         }
     }
 }

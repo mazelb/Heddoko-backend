@@ -105,14 +105,7 @@ namespace DAL
 
         public int GetNumReady()
         {
-            IEnumerable<Kit> shirts = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
-
-            if (shirts != null)
-            {
-                return shirts.Count();
-            }
-
-            return 0;
+            return DbSet.Where(c => c.Status == EquipmentStatusType.Ready).Count();
         }
     }
 }

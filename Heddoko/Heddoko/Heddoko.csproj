@@ -570,7 +570,6 @@
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
     <Content Include="Scripts\js\admin\grid\organizationKits.js" />
-    <Content Include="Scripts\js\admin\grid\assemblies.js" />
     <Content Include="Scripts\js\admin\grid\kits.js" />
     <Content Include="Scripts\js\admin\grid\brainpacks.js" />
     <Content Include="Scripts\js\admin\grid\powerboards.js" />
@@ -716,7 +715,6 @@
     <Compile Include="Models\Account\ProfileAccountViewModel.cs" />
     <Compile Include="Models\Account\SignUpAccountViewModel.cs" />
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
-    <Compile Include="Models\Admin\AssembliesAPIModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
     <Compile Include="Models\Admin\InventoryViewModel.cs" />
