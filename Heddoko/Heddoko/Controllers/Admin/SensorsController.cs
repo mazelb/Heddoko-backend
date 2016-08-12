@@ -255,12 +255,12 @@ namespace Heddoko.Controllers
             }
 
             item.Type = model.Type;
-            item.Version = model.Version.Trim();
+            item.Version = model.Version?.Trim();
             item.Status = model.Status;
             item.AnatomicalLocation = model.AnatomicalLocation;
-            item.Location = model.Location.Trim(); ;
+            item.Location = model.Location?.Trim(); ;
             item.QAStatus = model.QAStatus;
-            item.Notes = model.Notes.Trim();
+            item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
 
             item.SensorSet = model.SensorSetID.HasValue ? UoW.SensorSetRepository.Get(model.SensorSetID.Value) : null;
@@ -282,10 +282,10 @@ namespace Heddoko.Controllers
                 Type = item.Type,
                 Version = item.Version,
                 Location = item.Location,
-                FirmwareID = item.FirmwareID,
+                FirmwareID = item.FirmwareID ?? 0,
                 Status = item.Status,
                 QAStatus = item.QAStatus,
-                SensorSetID = item.SensorSetID,
+                SensorSetID = item.SensorSetID ?? 0,
                 SensorSet = item.SensorSet,
                 AnatomicalLocation = item.AnatomicalLocation,
                 Label = item.Label,

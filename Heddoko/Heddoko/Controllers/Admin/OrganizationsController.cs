@@ -106,10 +106,10 @@ namespace Heddoko.Controllers
                                                             .Select(Convert);
 
             return new KendoResponse<IEnumerable<OrganizationAPIModel>>
-                   {
-                       Response = result,
-                       Total = count
-                   };
+            {
+                Response = result,
+                Total = count
+            };
         }
 
         public override KendoResponse<OrganizationAPIModel> Get(int id)
@@ -117,9 +117,9 @@ namespace Heddoko.Controllers
             Organization item = UoW.OrganizationRepository.Get(id);
 
             return new KendoResponse<OrganizationAPIModel>
-                   {
-                       Response = Convert(item)
-                   };
+            {
+                Response = Convert(item)
+            };
         }
 
         public override KendoResponse<OrganizationAPIModel> Post(OrganizationAPIModel model)
@@ -139,15 +139,15 @@ namespace Heddoko.Controllers
             else
             {
                 throw new ModelStateException
-                      {
-                          ModelState = ModelState
-                      };
+                {
+                    ModelState = ModelState
+                };
             }
 
             return new KendoResponse<OrganizationAPIModel>
-                   {
-                       Response = response
-                   };
+            {
+                Response = response
+            };
         }
 
         public override KendoResponse<OrganizationAPIModel> Put(OrganizationAPIModel model)
@@ -169,17 +169,17 @@ namespace Heddoko.Controllers
                     else
                     {
                         throw new ModelStateException
-                              {
-                                  ModelState = ModelState
-                              };
+                        {
+                            ModelState = ModelState
+                        };
                     }
                 }
             }
 
             return new KendoResponse<OrganizationAPIModel>
-                   {
-                       Response = response
-                   };
+            {
+                Response = response
+            };
         }
 
         public override KendoResponse<OrganizationAPIModel> Delete(int id)
@@ -205,9 +205,9 @@ namespace Heddoko.Controllers
             UoW.Save();
 
             return new KendoResponse<OrganizationAPIModel>
-                   {
-                       Response = Convert(item)
-                   };
+            {
+                Response = Convert(item)
+            };
         }
 
         protected override Organization Bind(Organization item, OrganizationAPIModel model)
@@ -238,16 +238,16 @@ namespace Heddoko.Controllers
                     if (user == null)
                     {
                         user = new User
-                               {
-                                   FirstName = model.User.Firstname?.Trim(),
-                                   LastName = model.User.Lastname?.Trim(),
-                                   Email = model.User.Email?.Trim(),
-                                   Username = model.User.Username?.ToLower().Trim(),
-                                   Status = UserStatusType.Invited,
-                                   Role = UserRoleType.LicenseAdmin,
-                                   Phone = model.Phone,
-                                   InviteToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString())
-                               };
+                        {
+                            FirstName = model.User.Firstname?.Trim(),
+                            LastName = model.User.Lastname?.Trim(),
+                            Email = model.User.Email?.Trim(),
+                            Username = model.User.Username?.ToLower().Trim(),
+                            Status = UserStatusType.Invited,
+                            Role = UserRoleType.LicenseAdmin,
+                            Phone = model.Phone,
+                            InviteToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString())
+                        };
                         UoW.UserRepository.Create(user);
                     }
                     else
@@ -292,28 +292,70 @@ namespace Heddoko.Controllers
             }
 
             return new OrganizationAPIModel
-                   {
-                       ID = item.ID,
-                       Name = item.Name,
-                       Phone = item.Phone,
-                       Address = item.Address,
-                       UserID = item.UserID,
-                       Notes = item.Notes,
-                       IDView =  item.IDView,
-                       Status = item.Status,
-                       User = new UserAPIModel
-                              {
-                                  Email = item.User.Email,
-                                  Name = item.User.Name,
-                                  Username = item.User.Username
-                              },
-                       DataAnalysisAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataAnalysis
-                                                                      && c.ExpirationAt >= DateTime.Now
-                                                                      && c.Status == LicenseStatusType.Active).Sum(c => c.Amount),
-                       DataCollectorAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataCollection
-                                                                       && c.ExpirationAt >= DateTime.Now
-                                                                       && c.Status == LicenseStatusType.Active).Sum(c => c.Amount)
-                   };
+            {
+                ID = item.ID,
+                Name = item.Name,
+                Phone = item.Phone,
+                Address = item.Address,
+                UserID = item.UserID,
+                Notes = item.Notes,
+                IDView = item.IDView,
+                Status = item.Status,
+                User = new UserAPIModel
+                {
+                    Email = item.User.Email,
+                    Name = item.User.Name,
+                    Username = item.User.Username
+                },
+                DataAnalysisAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataAnalysis
+                                                               && c.ExpirationAt >= DateTime.Now
+                                                               && c.Status == LicenseStatusType.Active).Sum(c => c.Amount),
+                DataCollectorAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataCollection
+                                                                && c.ExpirationAt >= DateTime.Now
+                                                                && c.Status == LicenseStatusType.Active).Sum(c => c.Amount)
+            };
+        }
+
+        [Route("change")]
+        [HttpPost]
+        public bool Change(OrganizationAdminAPIModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Organization organization = UoW.OrganizationRepository.GetFull(model.OrganizationID);
+                User user = UoW.UserRepository.GetFull(model.UserID);
+
+                if (user != null
+                    &&
+                    organization != null)
+                {
+                    if (organization.ID == user.OrganizationID)
+                    {
+                        organization.User.Role = organization.User.RoleType;
+
+                        if (organization.User.Role == UserRoleType.LicenseAdmin)
+                        {
+                            organization.User.Role = UserRoleType.User;
+                        }
+
+                        organization.User = user;
+                        user.Role = UserRoleType.LicenseAdmin;
+
+                        UoW.Save();
+
+                        UoW.UserRepository.ClearCache(user);
+                        UoW.UserRepository.ClearCache(organization.User);
+                    }
+                }
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+            return true;
         }
     }
 }

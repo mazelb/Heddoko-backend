@@ -432,7 +432,9 @@ i18n.Resources = (function () {
   "SizeType_ExtraLarge": "Extra Large",
   "SizeType_Large": "Large",
   "SizeType_Medium": "Medium",
-  "SizeType_Small": "Small"
+  "SizeType_Small": "Small",
+  "Change": "Change",
+  "InvalidPhone": "Phone number entered is not valid"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

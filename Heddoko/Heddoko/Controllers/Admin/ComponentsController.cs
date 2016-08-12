@@ -179,7 +179,7 @@ namespace Heddoko.Controllers.Admin
             item.Type = model.Type;
             item.Status = model.Status;
             item.Quantity = model.Quantity;
-            item.Location = model.Location;
+            item.Location = model.Location?.Trim();
 
             return item;
         }

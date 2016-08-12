@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using DAL.Models;
+using EntityFramework.Extensions;
 
 namespace DAL
 {
@@ -48,6 +49,23 @@ namespace DAL
                                     && (c.Users.Count() < c.Amount || c.Users.Any(p => p.ID == id))
                                     && c.ExpirationAt > today)
                         .OrderByDescending(c => c.ExpirationAt);
+        }
+
+        public void Check()
+        {
+            DateTime today = DateTime.Now.StartOfDay();
+
+            DbSet.Where(c => c.ExpirationAt < today
+                        && (c.Status != LicenseStatusType.Expired || c.Status != LicenseStatusType.Deleted)).Update(c => new License()
+                        {
+                            Status = LicenseStatusType.Expired
+                        });
+
+            DbSet.Where(c => c.ExpirationAt > today
+                        && (c.Status == LicenseStatusType.Expired)).Update(c => new License()
+                        {
+                            Status = LicenseStatusType.Active
+                        });
         }
     }
 }

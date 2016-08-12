@@ -37,8 +37,10 @@ namespace Heddoko
                 "~/Scripts/bootstrap.min.js",
                 "~/Scripts/bootstrap-datepicker.min.js",
                 "~/Scripts/jquery.slimscroll.min.js",
+                "~/Scripts/jquery.mask.min.js",
                 "~/Scripts/js/menu.js",
-                "~/Scripts/js/general.js"
+                "~/Scripts/js/general.js",
+                "~/Scripts/js/account/mask.js"
                 );
             bundles.Add(commonScriptsBundle);
 

@@ -239,9 +239,9 @@ namespace Heddoko.Controllers
                 }
             }
 
-            item.Location = model.Location.Trim(); ;
+            item.Location = model.Location?.Trim(); ;
             item.QAStatus = model.QAStatus;
-            item.Notes = model.Notes.Trim();
+            item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
             item.Status = model.Status;
             item.Size = model.Size;
@@ -265,7 +265,7 @@ namespace Heddoko.Controllers
                 Size = item.Size,
                 Status = item.Status,
                 PantsOctopi = item.PantsOctopi,
-                PantsOctopiID = item.PantsOctopiID,
+                PantsOctopiID = item.PantsOctopiID ?? 0,
                 Label = item.Label,
                 Notes = item.Notes
             };

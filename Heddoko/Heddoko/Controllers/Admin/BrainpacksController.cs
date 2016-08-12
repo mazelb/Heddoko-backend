@@ -264,11 +264,11 @@ namespace Heddoko.Controllers
                 }
             }
 
-            item.Version = model.Version.Trim(); ;
+            item.Version = model.Version?.Trim(); ;
             item.Status = model.Status;
-            item.Location = model.Location.Trim(); ;
+            item.Location = model.Location?.Trim(); ;
             item.QAStatus = model.QAStatus;
-            item.Notes = model.Notes.Trim();
+            item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
 
             return item;
@@ -289,13 +289,13 @@ namespace Heddoko.Controllers
                 Version = item.Version,
                 Location = item.Location,
                 Status = item.Status,
-                FirmwareID = item.FirmwareID,
+                FirmwareID = item.FirmwareID ?? 0,
                 Firmware = item.Firmware,
                 QAStatus = item.QAStatus,
                 Powerboard = item.Powerboard,
                 Databoard = item.Databoard,
-                PowerboardID = item.PowerboardID,
-                DataboardID = item.DataboardID,
+                PowerboardID = item.PowerboardID ?? 0,
+                DataboardID = item.DataboardID ?? 0,
                 Label = item.Label,
                 Notes = item.Notes
             };

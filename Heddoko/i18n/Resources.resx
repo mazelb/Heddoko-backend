@@ -1413,4 +1413,10 @@
   <data name="SizeType_Small" xml:space="preserve">
     <value>Small</value>
   </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="InvalidPhone" xml:space="preserve">
+    <value>Phone number entered is not valid</value>
+  </data>
 </root>

@@ -204,9 +204,9 @@ namespace Heddoko.Controllers
             }
 
 
-            item.Location = model.Location.Trim(); ;
+            item.Location = model.Location?.Trim(); ;
             item.QAStatus = model.QAStatus;
-            item.Notes = model.Notes.Trim();
+            item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
             item.Status = model.Status;
 
@@ -272,7 +272,7 @@ namespace Heddoko.Controllers
                 IDView = item.IDView,
                 QAStatus = item.QAStatus,
                 Kit = item.Kit,
-                KitID = item.Kit?.ID,
+                KitID = item.Kit?.ID ?? 0,
                 Status = item.Status,
                 Label = item.Label,
                 Notes = item.Notes,

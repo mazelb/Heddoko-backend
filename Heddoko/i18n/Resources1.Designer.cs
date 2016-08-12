@@ -781,6 +781,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change.
+        /// </summary>
+        public static string Change {
+            get {
+                return ResourceManager.GetString("Change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Suit.
         /// </summary>
         public static string ComplexEquipment {
@@ -1560,6 +1569,15 @@ namespace i18n {
         public static string Information {
             get {
                 return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number entered is not valid.
+        /// </summary>
+        public static string InvalidPhone {
+            get {
+                return ResourceManager.GetString("InvalidPhone", resourceCulture);
             }
         }
         
