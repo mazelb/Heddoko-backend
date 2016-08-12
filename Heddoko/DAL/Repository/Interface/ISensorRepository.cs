@@ -11,5 +11,6 @@ namespace DAL
         IEnumerable<Sensor> GetBySensorSet(int sensorSetID);
         void RemoveSensorSet(int sensorSetID);
         IEnumerable<Sensor> SearchAvailable(string value);
+        int GetNumReady();
     }
 }

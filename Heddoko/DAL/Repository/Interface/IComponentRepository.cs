@@ -7,5 +7,7 @@ namespace DAL
     {
         IEnumerable<Component> Search(string value, bool isDeleted);
         IEnumerable<Component> All(bool isDeleted);
+        IEnumerable<Component> GetAvailable(int? id = null);
+        int GetQuantityReadyOfComponent(ComponentsType type);
     }
 }

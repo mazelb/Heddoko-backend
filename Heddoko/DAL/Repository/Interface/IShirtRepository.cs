@@ -7,8 +7,8 @@ namespace DAL
     {
         IEnumerable<Shirt> Search(string value, bool isDeleted);
         IEnumerable<Shirt> All(bool isDeleted);
-
         void RemoveShirtOctopi(int shirtOctopiID);
         IEnumerable<Shirt> GetAvailable(int? usedID);
+        int GetNumReady();
     }
 }

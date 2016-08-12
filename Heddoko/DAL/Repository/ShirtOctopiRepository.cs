@@ -33,5 +33,16 @@ namespace DAL
                                     || c.Location.ToLower().Contains(search.ToLower()))
                         .OrderBy(c => c.ID);
         }
+        public int GetNumReady()
+        {
+            IEnumerable<ShirtOctopi> shirtOctopi = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
+
+            if (shirtOctopi != null)
+            {
+                return shirtOctopi.Count();
+            }
+
+            return 0;
+        }
     }
 }

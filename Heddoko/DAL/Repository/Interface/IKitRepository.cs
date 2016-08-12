@@ -13,5 +13,6 @@ namespace DAL
         void RemoveBrainpack(int id);
         void RemovePants(int pantsID);
         void RemoveSensorSet(int sensorSetID);
+        int GetNumReady();
     }
 }

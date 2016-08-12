@@ -8,5 +8,6 @@ namespace DAL
         IEnumerable<PantsOctopi> All(bool isDeleted);
         IEnumerable<PantsOctopi> Search(string value, bool isDeleted);
         IEnumerable<PantsOctopi> GetAvailable(int? id = null);
+        int GetNumReady();
     }
 }

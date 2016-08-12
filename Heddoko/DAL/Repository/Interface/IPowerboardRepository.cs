@@ -8,5 +8,6 @@ namespace DAL
         IEnumerable<Powerboard> Search(string value, bool isDeleted);
         IEnumerable<Powerboard> GetAvailable(int? usedID);
         IEnumerable<Powerboard> All(bool isDeleted);
+        int GetNumReady();
     }
 }

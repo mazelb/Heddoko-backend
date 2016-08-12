@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using DAL.Models;
 using EntityFramework.Extensions;
+using System.Collections;
 
 namespace DAL
 {
@@ -68,6 +69,18 @@ namespace DAL
             {
                 PowerboardID = null
             });
+        }
+
+        public int GetNumReady()
+        {
+            IEnumerable<Brainpack> brainpacks = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
+
+            if (brainpacks != null)
+            {
+                return brainpacks.Count();
+            }
+
+            return 0;
         }
     }
 }

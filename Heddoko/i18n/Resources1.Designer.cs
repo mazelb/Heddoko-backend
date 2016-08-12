@@ -268,6 +268,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assembly.
+        /// </summary>
+        public static string Assembly {
+            get {
+                return ResourceManager.GetString("Assembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attachments.
         /// </summary>
         public static string Attachments {
@@ -2586,6 +2595,24 @@ namespace i18n {
         public static string Quantity {
             get {
                 return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity on Hand.
+        /// </summary>
+        public static string QuantityOnHand {
+            get {
+                return ResourceManager.GetString("QuantityOnHand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity Producible.
+        /// </summary>
+        public static string QuantityProducible {
+            get {
+                return ResourceManager.GetString("QuantityProducible", resourceCulture);
             }
         }
         
