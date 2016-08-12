@@ -55,14 +55,7 @@ namespace DAL
 
         public int GetNumReady()
         {
-            IEnumerable<Pants> pants = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
-
-            if (pants != null)
-            {
-                return pants.Count();
-            }
-
-            return 0;
+            return DbSet.Where(c => c.Status == EquipmentStatusType.Ready).Count();
         }
     }
 }

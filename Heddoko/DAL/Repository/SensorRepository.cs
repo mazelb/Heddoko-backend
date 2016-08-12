@@ -75,14 +75,7 @@ namespace DAL
 
         public int GetNumReady()
         {
-            IEnumerable<Sensor> sensors = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
-
-            if (sensors != null)
-            {
-                return sensors.Count();
-            }
-
-            return 0;
+            return DbSet.Where(c => c.Status == EquipmentStatusType.Ready).Count();
         }
     }
 }

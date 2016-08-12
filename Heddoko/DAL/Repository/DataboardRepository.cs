@@ -45,14 +45,7 @@ namespace DAL
 
         public int GetNumReady()
         {
-            IEnumerable<Databoard> brainpacks = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
-
-            if (brainpacks != null)
-            {
-                return brainpacks.Count();
-            }
-
-            return 0;
+            return DbSet.Where(c => c.Status == EquipmentStatusType.Ready).Count();
         }
     }
 }
