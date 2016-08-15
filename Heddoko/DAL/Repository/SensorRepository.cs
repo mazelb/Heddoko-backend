@@ -38,7 +38,7 @@ namespace DAL
 
         public IEnumerable<Sensor> Search(string search, int? statusFilter = null, bool isDeleted = false)
         {
-            var query = DbSet
+            IQueryable<Sensor> query = DbSet
                         .Include(c => c.Firmware);
 
             if (!string.IsNullOrEmpty(search))

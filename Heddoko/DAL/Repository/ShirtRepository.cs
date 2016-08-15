@@ -36,7 +36,7 @@ namespace DAL
 
         public IEnumerable<Shirt> Search(string search, int? statusFilter = null, bool isDeleted = false)
         {           
-            var query = DbSet.Include(c => c.ShirtOctopi);
+            IQueryable<Shirt> query = DbSet.Include(c => c.ShirtOctopi);
 
             if (!string.IsNullOrEmpty(search))
             {

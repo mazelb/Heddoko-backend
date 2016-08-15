@@ -36,7 +36,7 @@ namespace DAL
 
         public IEnumerable<Pants> Search(string search, int? statusFilter = null, bool isDeleted = false)
         {
-            var query = DbSet.Include(c => c.PantsOctopi);
+            IQueryable<Pants> query = DbSet.Include(c => c.PantsOctopi);
                         
             if (!string.IsNullOrEmpty(search))
             {

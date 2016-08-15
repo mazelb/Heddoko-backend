@@ -82,7 +82,7 @@ namespace DAL
         public IEnumerable<Kit> Search(string search, int? statusFilter = null, bool isDeleted = false, int? organizationID = null)
         {
             
-            var query = DbSet.Include(c => c.Organization)
+            IQueryable<Kit> query = DbSet.Include(c => c.Organization)
                         .Include(c => c.Brainpack)
                         .Include(c => c.SensorSet)
                         .Include(c => c.Pants)
