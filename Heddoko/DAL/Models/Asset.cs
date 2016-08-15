@@ -35,7 +35,6 @@ namespace DAL.Models
 
         public int? UserID { get; set; }
 
-        [JsonIgnore]
         public virtual User User { get; set; }
 
         public int? KitID { get; set; }

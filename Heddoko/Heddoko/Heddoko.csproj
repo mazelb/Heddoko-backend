@@ -742,6 +742,7 @@
     <Compile Include="Models\Admin\Kendo\KendoResponse.cs" />
     <Compile Include="Models\Admin\Kendo\KendoSort.cs" />
     <Compile Include="Models\Admin\UserAPIModel.cs" />
+    <Compile Include="Models\API\ListAPIViewModel.cs" />
     <Compile Include="Models\API\FirmwareAPIViewModel.cs" />
     <Compile Include="Models\API\AssetAPIViewModel.cs" />
     <Compile Include="Models\API\SignInAPIViewModel.cs" />

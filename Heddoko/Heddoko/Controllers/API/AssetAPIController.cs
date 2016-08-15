@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -142,7 +143,7 @@ namespace Heddoko.Controllers.API
         }
 
         /// <summary>
-        ///     List of files
+        ///     List of files by organization
         /// </summary>
         /// <param name="userID">The filter by userID</param>
         /// <param name="take">The amount of take entries</param>
@@ -150,13 +151,19 @@ namespace Heddoko.Controllers.API
         [Route("list/{take:int}/{skip:int?}")]
         [Route("list/{userID:int?}/{take:int}/{skip:int?}")]
         [HttpGet]
-        [AuthAPI(Roles = Constants.Roles.All)]
-        public async Task<IList<Asset>> List(int take = 100, int? userID = null, int? skip = 0)
+        [AuthAPI(Roles = Constants.Roles.Analyst)]
+        public ListAPIViewModel<Asset> List(int take = 100, int? userID = null, int? skip = 0)
         {
+            if (!CurrentUser.OrganizationID.HasValue)
+            {
+                throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.NonAssigned} organization");
+            }
 
-            return null;
+            return new ListAPIViewModel<Asset>()
+            {
+                Collection = UoW.AssetRepository.GetRecordByOrganization(CurrentUser.OrganizationID.Value, take, skip, userID).ToList(),
+                TotalCount = UoW.AssetRepository.GetRecordByOrganizationCount(CurrentUser.OrganizationID.Value, userID)
+            };
         }
-
-
     }
 }

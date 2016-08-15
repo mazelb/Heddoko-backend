@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
@@ -141,6 +143,28 @@ namespace Heddoko.Controllers.API
             return new
             {
                 result = true
+            };
+        }
+
+        /// <summary>
+        ///     List of users by organization
+        /// </summary>
+        /// <param name="take">The amount of take entries</param>
+        /// <param name="skip">The amoun of skip entries</param>
+        [Route("list/{take:int}/{skip:int?}")]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.Analyst)]
+        public ListAPIViewModel<User> List(int take = 100, int? skip = 0)
+        {
+            if (!CurrentUser.OrganizationID.HasValue)
+            {
+                throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.NonAssigned} organization");
+            }
+
+            return new ListAPIViewModel<User>()
+            {
+                Collection = UoW.UserRepository.GetByOrganizationAPI(CurrentUser.OrganizationID.Value, take, skip).ToList(),
+                TotalCount = UoW.UserRepository.GetByOrganizationAPICount(CurrentUser.OrganizationID.Value)
             };
         }
     }

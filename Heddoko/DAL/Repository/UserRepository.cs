@@ -206,5 +206,26 @@ namespace DAL
                         .OrderBy(c => c.FirstName)
                         .ThenBy(c => c.LastName);
         }
+
+        public IEnumerable<User> GetByOrganizationAPI(int organizationID, int take, int? skip = 0)
+        {
+            IQueryable<User> query = DbSet.Where(c => c.OrganizationID == organizationID)
+                                          .OrderBy(c => c.FirstName)
+                                          .ThenBy(c => c.LastName);
+
+            query = query.Take(take);
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            return query;
+        }
+
+        public int GetByOrganizationAPICount(int organizationID)
+        {
+            return DbSet.Count(c => c.OrganizationID == organizationID);
+        }
     }
 }

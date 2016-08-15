@@ -97,6 +97,7 @@ namespace DAL.Models
         public int? LicenseID { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual License License { get; set; }
 
         [JsonIgnore]
