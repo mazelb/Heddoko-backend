@@ -209,6 +209,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
+    <Compile Include="Models\Assembly.cs" />
     <Compile Include="Models\Enum\AssetsProccesingType.cs" />
     <Compile Include="Models\Enum\AssembliesType.cs" />
     <Compile Include="Models\Enum\PowerboardQAStatusType.cs" />
@@ -270,6 +271,8 @@
     <Compile Include="Models\Enum\UserGenderType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AssetRepository.cs" />
+    <Compile Include="Repository\BaseCacheRepository.cs" />
+    <Compile Include="Repository\Interface\IAssemblyCacheRepositoy.cs" />
     <Compile Include="Repository\Interface\ILicenseRepository.cs" />
     <Compile Include="Repository\Interface\IFirmwareRepository.cs" />
     <Compile Include="Repository\Interface\IShirtOctopiRepository.cs" />
@@ -305,6 +308,7 @@
     <Compile Include="Repository\Interface\IAccessTokenRepository.cs" />
     <Compile Include="Repository\Interface\IAssetRepository.cs" />
     <Compile Include="Repository\Interface\IUserRepository.cs" />
+    <Compile Include="Repository\AssemblyCacheRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>

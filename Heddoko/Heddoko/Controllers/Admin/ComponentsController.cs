@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Hangfire;
 using Heddoko.Models;
 
 namespace Heddoko.Controllers.Admin
@@ -89,6 +90,8 @@ namespace Heddoko.Controllers.Admin
 
                 UoW.ComponentRepository.Create(item);
 
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
+
                 response = Convert(item);
             }
             else
@@ -130,6 +133,8 @@ namespace Heddoko.Controllers.Admin
             {
                 Bind(item, model);
                 UoW.Save();
+
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
 
                 response = Convert(item);
             }
@@ -199,24 +204,6 @@ namespace Heddoko.Controllers.Admin
                 Quantity = item.Quantity,
                 Location = item.Location
             };
-        }
-
-        public int GetCountByType(ComponentsType type)
-        {
-            IEnumerable<Component> items = null;
-            int count = 0;
-
-            items = UoW.ComponentRepository.All();
-
-            foreach (Component item in items)
-            {
-                if (item.Type == type)
-                {
-                    count += item.Quantity;
-                }
-            }
-
-            return count;
         }
     }
 }

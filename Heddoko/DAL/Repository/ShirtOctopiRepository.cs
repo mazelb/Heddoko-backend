@@ -35,14 +35,7 @@ namespace DAL
         }
         public int GetNumReady()
         {
-            IEnumerable<ShirtOctopi> shirtOctopi = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
-
-            if (shirtOctopi != null)
-            {
-                return shirtOctopi.Count();
-            }
-
-            return 0;
+            return DbSet.Where(c => c.Status == EquipmentStatusType.Ready).Count();
         }
     }
 }

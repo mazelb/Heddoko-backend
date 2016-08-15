@@ -44,14 +44,7 @@ namespace DAL
 
         public int GetNumReady()
         {
-            IEnumerable<PantsOctopi> pantsoctopi = DbSet.Where(c => c.Status == EquipmentStatusType.Ready);
-
-            if (pantsoctopi != null)
-            {
-                return pantsoctopi.Count();
-            }
-
-            return 0;
+            return DbSet.Where(c => c.Status == EquipmentStatusType.Ready).Count();
         }
     }
 }

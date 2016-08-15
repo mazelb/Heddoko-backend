@@ -15,7 +15,7 @@ namespace DAL
         private static IDatabase Cache => Connection.GetDatabase();
 
 
-        public static void Set(string key, object item)
+        public static void Set(string key, object item, int? hours = null)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace DAL
                 string value = JSON.Serialize(item, new Options(includeInherited: true));
 
                 db.StringSet(key, value);
-                db.KeyExpire(key, DateTime.Now.AddHours(Config.RedisCacheExpiration), CommandFlags.FireAndForget);
+                db.KeyExpire(key, DateTime.Now.AddHours(hours ?? Config.RedisCacheExpiration), CommandFlags.FireAndForget);
             }
             catch (Exception ex)
             {

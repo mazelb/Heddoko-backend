@@ -44,28 +44,28 @@ namespace DAL
             }
         }
 
-        public override void SetCache(string id, User user)
+        public override void SetCache(string id, User user, int? hours = null)
         {
             if (user.ID <= 0)
             {
                 return;
             }
 
-            base.SetCache(user.ID.ToString(), user);
+            base.SetCache(user.ID.ToString(), user, hours);
 
             if (!string.IsNullOrEmpty(user.Email))
             {
-                base.SetCache(user.Email.ToLower(), user);
+                base.SetCache(user.Email.ToLower(), user, hours);
             }
 
             if (!string.IsNullOrEmpty(user.Token))
             {
-                base.SetCache(user.Token.ToLower(), user);
+                base.SetCache(user.Token.ToLower(), user, hours);
             }
 
             if (!string.IsNullOrEmpty(user.Username))
             {
-                base.SetCache(user.Username.ToLower(), user);
+                base.SetCache(user.Username.ToLower(), user, hours);
             }
         }
 

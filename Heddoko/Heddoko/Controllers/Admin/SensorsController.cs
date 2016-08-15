@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Hangfire;
 using Heddoko.Models;
 
 namespace Heddoko.Controllers
@@ -133,6 +134,8 @@ namespace Heddoko.Controllers
 
                 UoW.SensorRepository.Create(item);
 
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
+
                 response = Convert(item);
             }
             else
@@ -174,6 +177,8 @@ namespace Heddoko.Controllers
             {
                 Bind(item, model);
                 UoW.Save();
+
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
 
                 response = Convert(item);
             }
@@ -229,6 +234,8 @@ namespace Heddoko.Controllers
             if (item.Status == EquipmentStatusType.InUse)
             {
                 item.Status = EquipmentStatusType.Ready;
+
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
             }
             UoW.Save();
 
