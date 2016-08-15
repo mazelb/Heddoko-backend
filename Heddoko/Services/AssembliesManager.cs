@@ -1,23 +1,31 @@
-﻿using DAL;
-using DAL.Models;
-using System.Collections.Generic;
-using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Diagnostics;
+using DAL;
+using DAL.Models;
 
 namespace Services
 {
     public static class AssembliesManager
     {
+        private const int BrainpackLightPipes = 2;
+        private const int BrainpackScrews = 6;
+        private const int BrainpackButtons = 3;
+        private const int ShirtSensors = 9;
+        private const int ShirtOvermold = 9;
+        private const int PantsSensors = 9;
+        private const int PantsOvermold = 9;
+        private const int KitSensors = 9;
+
         public static List<Assembly> GetAssemblies()
         {
-            //TODO - BENB - add cache with expiration and scheduled job which should update that cache information
             UnitOfWork UoW = new UnitOfWork();
-           
-            List<Assembly> assemblies = new List<Assembly>();
+            List<Assembly> assemblies = UoW.AssemblyCacheRepository.GetCached();
 
-            // Get number of components from DB
+            if (assemblies != null)
+            {
+                return assemblies;
+            }
+
             int batteries = UoW.ComponentRepository.GetQuantityReadyOfComponent(ComponentsType.Batteries);
             int bpTop = UoW.ComponentRepository.GetQuantityReadyOfComponent(ComponentsType.BPTop);
             int bpBottom = UoW.ComponentRepository.GetQuantityReadyOfComponent(ComponentsType.BPBottom);
@@ -46,26 +54,65 @@ namespace Services
             int pants = UoW.PantsRepository.GetNumReady();
             int kits = UoW.KitRepository.GetNumReady();
 
-            int[] brainpackArr = { batteries, bpTop, bpBottom, microSD, sdCover, (lightPipes / 2),
-                                    (bpScrews / 6), (bpButtons / 3), powerBoards, dataBoards };
+            int[] brainpackArr =
+            {
+                batteries,
+                bpTop,
+                bpBottom,
+                microSD,
+                sdCover,
+                lightPipes / BrainpackLightPipes,
+                bpScrews / BrainpackScrews,
+                bpButtons / BrainpackButtons,
+                powerBoards,
+                dataBoards
+            };
 
-            int[] sensorArr = { capsuleScrew, capsuleTop, capsuleBottom, capsuleButtons, sensors };
+            int[] sensorArr =
+            {
+                capsuleScrew,
+                capsuleTop,
+                capsuleBottom,
+                capsuleButtons,
+                sensors
+            };
 
-            int[] shirtArr = { shirtOctopi, (sensors / 9), auxCables, (overmoldBases / 9) };
+            int[] shirtArr =
+            {
+                shirtOctopi,
+                sensors / ShirtSensors,
+                auxCables,
+                overmoldBases / ShirtOvermold
+            };
 
-            int[] pantsArr = { pantsOctopi, (sensors / 9), auxCables, (overmoldBases / 9) };
+            int[] pantsArr =
+            {
+                pantsOctopi,
+                sensors / PantsSensors,
+                auxCables,
+                overmoldBases / PantsOvermold
+            };
 
-            int[] kitsArr = { brainpacks, shirts, pants, usbChargers, usbCables, (sensors / 9) };
+            int[] kitsArr =
+            {
+                brainpacks,
+                shirts,
+                pants,
+                usbChargers,
+                usbCables,
+                sensors / KitSensors
+            };
 
-            assemblies.Add(new Assembly(AssembliesType.Brainpacks, brainpacks, brainpackArr.Min()));
+            assemblies = new List<Assembly>
+            {
+                new Assembly(AssembliesType.Brainpacks, brainpacks, brainpackArr.Min()),
+                new Assembly(AssembliesType.Sensors, sensors, sensorArr.Min()),
+                new Assembly(AssembliesType.Shirts, shirts, shirtArr.Min()),
+                new Assembly(AssembliesType.Pants, pants, pantsArr.Min()),
+                new Assembly(AssembliesType.Kits, kits, kitsArr.Min())
+            };
 
-            assemblies.Add(new Assembly(AssembliesType.Sensors, sensors, sensorArr.Min()));
-
-            assemblies.Add(new Assembly(AssembliesType.Shirts, shirts, shirtArr.Min()));
-
-            assemblies.Add(new Assembly(AssembliesType.Pants, pants, pantsArr.Min()));
-
-            assemblies.Add(new Assembly(AssembliesType.Kits, kits, kitsArr.Min()));
+            UoW.AssemblyCacheRepository.SetCache(assemblies);
 
             return assemblies;
         }

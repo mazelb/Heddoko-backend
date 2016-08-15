@@ -52,6 +52,8 @@ namespace DAL
 
         private IFirmwareRepository _firmwareRepository;
 
+        private IAssemblyCacheRepository _assemblyCacheRepository;
+
         #endregion
 
         #region PublicRepository
@@ -89,6 +91,8 @@ namespace DAL
         public IShirtRepository ShirtRepository => _shirtRepository ?? (_shirtRepository = new ShirtRepository(_db));
 
         public IFirmwareRepository FirmwareRepository => _firmwareRepository ?? (_firmwareRepository = new FirmwareRepository(_db));
+
+        public IAssemblyCacheRepository AssemblyCacheRepository => _assemblyCacheRepository ?? (_assemblyCacheRepository = new AssemblyCacheRepository());
 
         #endregion
 

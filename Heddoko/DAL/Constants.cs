@@ -52,13 +52,13 @@
             public const string WorkerAndAdmin = "Worker,Admin";
         }
 
-        public class Languages
+        public static class Languages
         {
             public const string En = "en";
             public const string EnUS = "en-US";
         }
 
-        public class HangFireQueue
+        public static class HangFireQueue
         {
             public const string Default = "default";
         }
@@ -68,6 +68,12 @@
             public const string Prefix = "heddoko";
             public const string KeyAll = "all";
             public const string Users = "users";
+            public const string Assembly = "assembly";
+        }
+
+        public static class CacheExpiration
+        {
+            public const int Assembly = 48;
         }
     }
 }

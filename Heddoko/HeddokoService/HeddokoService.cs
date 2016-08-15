@@ -19,6 +19,8 @@ namespace HeddokoService
         private Thread Thread;
 
         private const string LicenseManagerCheck = "LicenseManager.Check";
+        private const string AssembliesManagerCheck = "AssembliesManager.GetAssemblies";
+
 
         public HeddokoService()
         {
@@ -42,6 +44,8 @@ namespace HeddokoService
         protected override void OnStart(string[] args)
         {
             RecurringJob.AddOrUpdate(LicenseManagerCheck, () => Services.LicenseManager.Check(), Cron.Hourly());
+            RecurringJob.AddOrUpdate(AssembliesManagerCheck, () => Services.AssembliesManager.GetAssemblies(), Cron.Daily);
+
 
             Thread = new Thread(Run);
             Thread.Name = "LongChecker";
@@ -54,6 +58,8 @@ namespace HeddokoService
         protected override void OnStop()
         {
             RecurringJob.RemoveIfExists(LicenseManagerCheck);
+            RecurringJob.RemoveIfExists(AssembliesManagerCheck);
+
             ShutdownEvent.Set();
             if (!Thread.Join(3000))
             {

@@ -11,7 +11,7 @@ namespace DAL
 
         T GetCached(string id);
 
-        void SetCache(string id, T item);
+        void SetCache(string id, T item, int? hours = null);
 
         T GetIDCached(int id);
         #endregion

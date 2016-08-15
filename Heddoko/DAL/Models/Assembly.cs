@@ -8,6 +8,11 @@ namespace DAL.Models
 {
     public class Assembly : BaseModel
     {
+        public Assembly()
+        {
+
+        }
+
         public Assembly(AssembliesType assembly, int onHand, int producible)
         {
             Type = assembly;

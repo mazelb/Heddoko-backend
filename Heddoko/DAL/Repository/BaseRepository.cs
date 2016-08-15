@@ -40,9 +40,9 @@ namespace DAL
             return item;
         }
 
-        public virtual void SetCache(string id, T item)
+        public virtual void SetCache(string id, T item, int? hours = null)
         {
-            RedisManager.Set(GetCacheKey(id), item);
+            RedisManager.Set(GetCacheKey(id?.ToLower()), item, hours);
         }
 
         public virtual void ClearCache(T item)
@@ -52,7 +52,7 @@ namespace DAL
 
         public virtual void ClearCache(string id)
         {
-            RedisManager.Clear(GetCacheKey(id));
+            RedisManager.Clear(GetCacheKey(id?.ToLower()));
         }
 
         public virtual T GetIDCached(int id)
