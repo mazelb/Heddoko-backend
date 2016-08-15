@@ -10,11 +10,9 @@ namespace Services
         private const int BrainpackLightPipes = 2;
         private const int BrainpackScrews = 6;
         private const int BrainpackButtons = 3;
-        private const int ShirtSensors = 9;
-        private const int ShirtOvermold = 9;
-        private const int PantsSensors = 9;
-        private const int PantsOvermold = 9;
-        private const int KitSensors = 9;
+        private const int ShirtSensors = 5;
+        private const int PantsSensors = 4;
+        private const int KitSensors = ShirtSensors + PantsSensors;
 
         public static List<Assembly> GetAssemblies()
         {
@@ -80,17 +78,15 @@ namespace Services
             int[] shirtArr =
             {
                 shirtOctopi,
-                sensors / ShirtSensors,
                 auxCables,
-                overmoldBases / ShirtOvermold
+                overmoldBases / ShirtSensors
             };
 
             int[] pantsArr =
             {
                 pantsOctopi,
-                sensors / PantsSensors,
                 auxCables,
-                overmoldBases / PantsOvermold
+                overmoldBases / PantsSensors
             };
 
             int[] kitsArr =

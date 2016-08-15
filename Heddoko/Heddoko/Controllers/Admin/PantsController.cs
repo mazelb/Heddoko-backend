@@ -16,6 +16,7 @@ namespace Heddoko.Controllers
     public class PantsController : BaseAdminController<Pants, PantsAPIModel>
     {
         private const string Search = "Search";
+        private const string Status = "Status";
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
         private const int NoPantsOctopiID = 0;
@@ -53,9 +54,21 @@ namespace Heddoko.Controllers
                     }
 
                     KendoFilterItem searchFilter = request.Filter.Get(Search);
+                    KendoFilterItem statusFilter = request.Filter.Get(Status);
+                    int? statusInt = null;
+                    string searchString = null;
+                    int temp;
                     if (!string.IsNullOrEmpty(searchFilter?.Value))
                     {
-                        items = UoW.PantsRepository.Search(searchFilter.Value, isDeleted);
+                        searchString = searchFilter.Value;
+                    }
+                    if (!string.IsNullOrEmpty(statusFilter?.Value) && int.TryParse(statusFilter.Value, out temp))
+                    {
+                        statusInt = temp;
+                    }
+                    if (statusInt.HasValue || searchString != null)
+                    {
+                        items = UoW.PantsRepository.Search(searchString, statusInt, isDeleted);
                     }
                 }
             }

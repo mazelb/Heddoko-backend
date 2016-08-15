@@ -1017,6 +1017,9 @@
   <data name="EquipmentStatusType_Testing" xml:space="preserve">
     <value>Testing</value>
   </data>
+  <data name="EquipmentStatusType_ForWash" xml:space="preserve">
+    <value>For wash</value>
+  </data>
   <data name="EquipmentStatusType_Trash" xml:space="preserve">
     <value>Trash</value>
   </data>
@@ -1418,5 +1421,11 @@
   </data>
   <data name="InvalidPhone" xml:space="preserve">
     <value>Phone number entered is not valid</value>
+  </data>
+  <data name="FilterStatus" xml:space="preserve">
+    <value>Filter by Status</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
   </data>
 </root>

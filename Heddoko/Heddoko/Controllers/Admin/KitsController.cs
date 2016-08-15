@@ -17,6 +17,7 @@ namespace Heddoko.Controllers
     {
         private const string Search = "Search";
         private const string IsDeleted = "IsDeleted";
+        private const string Status = "Status";
         private const string Used = "Used";
         private const int NoBrainpackID = 0;
         private const int NoShirtID = 0;
@@ -65,11 +66,24 @@ namespace Heddoko.Controllers
                         isDeleted = true;
                     }
 
+                    //Setup Search
                     KendoFilterItem searchFilter = request.Filter.Get(Search);
+                    KendoFilterItem statusFilter = request.Filter.Get(Status);
+                    int? statusInt = null;
+                    string searchString = null;
+                    int temp;
                     if (!string.IsNullOrEmpty(searchFilter?.Value))
                     {
-                        items = UoW.KitRepository.Search(searchFilter.Value, isDeleted, organizationID);
+                        searchString = searchFilter.Value;
                     }
+                    if (!string.IsNullOrEmpty(statusFilter?.Value) && int.TryParse(statusFilter.Value, out temp))
+                    {
+                        statusInt = temp;
+                    }
+                    if (statusInt.HasValue || searchString != null)
+                    {
+                        items = UoW.KitRepository.Search(searchString, statusInt, isDeleted, organizationID);
+                    }                     
                 }
             }
 

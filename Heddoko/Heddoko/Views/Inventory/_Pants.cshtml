@@ -1,16 +1,37 @@
 ﻿<div class="row">
-    <div class="col-md-4">
-        <div class="filters pantsFilter">
-            <div>
-                <label for="searchPants" class="control-label">@i18n.Resources.Search</label>
-                <input id="searchPants"
-                       class="form-control"
-                       type="text"
-                       placeholder="@i18n.Resources.Enter @i18n.Resources.Pants @i18n.Resources.ID"
-                       data-bind="value: search, events:{ keyup: keyup }" />
+    <div class="pantsFilter">
+        <div class="col-md-4">
+            <div class="filters pantsFilter">
+                <div>
+                    <label for="searchPants" class="control-label">@i18n.Resources.Search</label>
+                    <input id="searchPants"
+                           class="form-control"
+                           type="text"
+                           placeholder="@i18n.Resources.Enter @i18n.Resources.Pants @i18n.Resources.ID"
+                           data-bind="value: search, events:{ keyup: keyup }" />
+                </div>
+                <div class="margin010">
+                    <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+                </div>
             </div>
-            <div class="margin010">
-                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+        </div>
+        <div class="col-md-2">
+            <div class="filters">
+                <div>
+                    <label for="statusFilter" class="control-label">@i18n.Resources.FilterStatus</label>
+                    <select id="statusFilter"
+                            class="form-control"
+                            name="status-filter-kits"
+                            data-role="dropdownlist"
+                            data-value-primitive="true"
+                            data-text-field="text"
+                            data-option-label="@i18n.Resources.SelectStatus"
+                            data-value-field="value"
+                            data-bind="value: statusFilter, source: statuses"></select>
+                </div>
+                <div class="margin010">
+                    <button type="button" data-bind="click: filterStatus" class="btn btn-default">@i18n.Resources.Filter</button>
+                </div>
             </div>
         </div>
     </div>

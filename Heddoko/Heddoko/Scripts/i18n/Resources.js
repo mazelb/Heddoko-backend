@@ -301,6 +301,7 @@ i18n.Resources = (function () {
   "EquipmentStatusType_InUse": "In use",
   "EquipmentStatusType_Ready": "Ready",
   "EquipmentStatusType_Testing": "Testing",
+  "EquipmentStatusType_ForWash": "For wash",
   "EquipmentStatusType_Trash": "Trash",
   "SensorType_EMIMU": "EM IMU",
   "SensorType_NodIMU": "Nod IMU",
@@ -434,7 +435,9 @@ i18n.Resources = (function () {
   "SizeType_Medium": "Medium",
   "SizeType_Small": "Small",
   "Change": "Change",
-  "InvalidPhone": "Phone number entered is not valid"
+  "InvalidPhone": "Phone number entered is not valid",
+  "FilterStatus": "Filter by Status",
+  "Filter": "Filter"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

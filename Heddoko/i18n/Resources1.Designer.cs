@@ -1303,6 +1303,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For wash.
+        /// </summary>
+        public static string EquipmentStatusType_ForWash {
+            get {
+                return ResourceManager.GetString("EquipmentStatusType_ForWash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to In production.
         /// </summary>
         public static string EquipmentStatusType_InProduction {
@@ -1407,6 +1416,24 @@ namespace i18n {
         public static string ExpiredSoon {
             get {
                 return ResourceManager.GetString("ExpiredSoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by Status.
+        /// </summary>
+        public static string FilterStatus {
+            get {
+                return ResourceManager.GetString("FilterStatus", resourceCulture);
             }
         }
         
