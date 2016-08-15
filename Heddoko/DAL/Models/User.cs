@@ -44,26 +44,6 @@ namespace DAL.Models
         [JsonIgnore]
         public UserRoleType Role { get; set; }
 
-        public UserRoleType RoleType
-        {
-            get
-            {
-                if (License != null
-                    &&
-                    License.IsActive)
-                {
-                    switch (License.Type)
-                    {
-                        case LicenseType.DataAnalysis:
-                            return UserRoleType.Analyst;
-                        case LicenseType.DataCollection:
-                            return UserRoleType.Worker;
-                    }
-                }
-                return Role;
-            }
-        }
-
         public UserStatusType Status { get; set; }
 
         [StringLength(100)]
@@ -97,7 +77,6 @@ namespace DAL.Models
         public int? LicenseID { get; set; }
 
         [JsonIgnore]
-        [JilDirective(Ignore = true)]
         public virtual License License { get; set; }
 
         [JsonIgnore]
@@ -116,30 +95,29 @@ namespace DAL.Models
         #endregion
 
         #region NotMapped
-        public string LicenseInfoToken
+        public bool AllowLicenseInfoToken()
         {
-            get
+            if (License == null)
             {
-                if (License != null)
-                {
-                    LicenseInfo info = new LicenseInfo
-                    {
-                        ID = License.ID,
-                        ExpiredAt = License.ExpirationAt,
-                        Name = License.Name,
-                        Status = License.Status,
-                        Type = License.Type,
-                        ViewID = License.ViewID,
-                        IDView = License.IDView
-                    };
-
-                    string json = JsonConvert.SerializeObject(info);
-
-                    return JwtHelper.Create(json);
-                }
-
-                return null;
+                return false;
             }
+
+            LicenseInfo info = new LicenseInfo
+            {
+                ID = License.ID,
+                ExpiredAt = License.ExpirationAt,
+                Name = License.Name,
+                Status = License.Status,
+                Type = License.Type,
+                ViewID = License.ViewID,
+                IDView = License.IDView
+            };
+
+            string json = JsonConvert.SerializeObject(info);
+
+            LicenseInfoToken = JwtHelper.Create(json);
+
+            return true;
         }
 
 
@@ -164,13 +142,39 @@ namespace DAL.Models
         public string Name => $"{FirstName} {LastName}";
 
         [NotMapped]
+        [JilDirective(Ignore = true)]
         public string Token { get; set; }
+
+        [NotMapped]
+        [JilDirective(Ignore = true)]
+        public string LicenseInfoToken { get; set; }
 
         [JsonIgnore]
         public List<string> Roles => new List<string>
                                      {
-                                         Role.GetStringValue()
+                                         Role.GetStringValue(),
+                                         RoleType.GetStringValue()
                                      };
+
+        public UserRoleType RoleType
+        {
+            get
+            {
+                if (License != null
+                    &&
+                    License.IsActive)
+                {
+                    switch (License.Type)
+                    {
+                        case LicenseType.DataAnalysis:
+                            return UserRoleType.Analyst;
+                        case LicenseType.DataCollection:
+                            return UserRoleType.Worker;
+                    }
+                }
+                return Role;
+            }
+        }
 
         [JsonIgnore]
         public bool IsActive => Status == UserStatusType.Active;

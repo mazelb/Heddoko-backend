@@ -207,6 +207,10 @@
     <Compile Include="Migrations\201608090452536_AnatomicalLocation.Designer.cs">
       <DependentUpon>201608090452536_AnatomicalLocation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608152057200_AssetFilename.cs" />
+    <Compile Include="Migrations\201608152057200_AssetFilename.Designer.cs">
+      <DependentUpon>201608152057200_AssetFilename.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
@@ -358,6 +362,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608090452536_AnatomicalLocation.resx">
       <DependentUpon>201608090452536_AnatomicalLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608152057200_AssetFilename.resx">
+      <DependentUpon>201608152057200_AssetFilename.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

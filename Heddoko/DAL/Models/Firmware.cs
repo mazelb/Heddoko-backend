@@ -18,6 +18,8 @@ namespace DAL.Models
 
         public string Url => Asset?.Url;
 
+        public string Name => Asset?.Name;
+
         #endregion
 
         #region Relations

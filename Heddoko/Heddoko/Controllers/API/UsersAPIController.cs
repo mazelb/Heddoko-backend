@@ -46,6 +46,7 @@ namespace Heddoko.Controllers.API
         [AuthAPI(Roles = Constants.Roles.All)]
         public User Profile()
         {
+            CurrentUser.AllowLicenseInfoToken();
             return CurrentUser;
         }
 
@@ -115,6 +116,7 @@ namespace Heddoko.Controllers.API
 
                 if (user.AllowToken())
                 {
+                    user.AllowLicenseInfoToken();
                     return user;
                 }
 
@@ -125,6 +127,8 @@ namespace Heddoko.Controllers.API
                 UoW.Save();
                 user.AllowToken();
                 UoW.UserRepository.SetCache(user);
+
+                user.AllowLicenseInfoToken();
 
                 return user;
             }

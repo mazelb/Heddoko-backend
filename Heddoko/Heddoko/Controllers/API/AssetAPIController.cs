@@ -128,7 +128,8 @@ namespace Heddoko.Controllers.API
 
             foreach (MultipartFileData file in provider.FileData)
             {
-                string path = AssetManager.Path($"{CurrentUser.ID}/{DateTime.Now.Ticks.ToString("x")}_{JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName)}", asset.Type);
+                asset.Name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString();
+                string path = AssetManager.Path($"{CurrentUser.ID}/{DateTime.Now.Ticks.ToString("x")}_{asset.Name}", asset.Type);
 
                 Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
                 File.Delete(file.LocalFileName);

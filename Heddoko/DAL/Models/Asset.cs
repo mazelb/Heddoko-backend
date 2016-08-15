@@ -13,6 +13,9 @@ namespace DAL.Models
 
         public AssetType Type { get; set; }
 
+        [StringLength(255)]
+        public string Name { get; set; }
+
         [JsonIgnore]
         public UploadStatusType Status { get; set; }
 

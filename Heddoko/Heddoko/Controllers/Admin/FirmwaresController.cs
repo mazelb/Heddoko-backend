@@ -164,7 +164,8 @@ namespace Heddoko.Controllers
 
             foreach (MultipartFileData file in provider.FileData)
             {
-                string path = AssetManager.Path($"{item.ID}/{JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName)}", asset.Type);
+                asset.Name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString();
+                string path = AssetManager.Path($"{item.ID}/{asset.Name}", asset.Type);
 
                 Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
                 File.Delete(file.LocalFileName);
