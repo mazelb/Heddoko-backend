@@ -434,7 +434,8 @@ i18n.Resources = (function () {
   "SizeType_Medium": "Medium",
   "SizeType_Small": "Small",
   "Change": "Change",
-  "InvalidPhone": "Phone number entered is not valid"
+  "InvalidPhone": "Phone number entered is not valid",
+  "QAChecklist": "QA Checklist"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

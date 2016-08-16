@@ -1,22 +1,26 @@
-﻿namespace DAL.Models
+﻿using System;
+
+namespace DAL.Models
 {
-    public enum ShirtQAStatusType
+    [Flags]
+    public enum ShirtQAStatusType : long
     {
-        TestedAndReady = 0,
-        Fail = 1,
-        BaseplateInspectionPass = 2,
-        BaseplateInspectionFail = 3,
-        WiringInspectionPass = 4,
-        WiringInspectionFail = 5,
-        ConnectorInspectionPass = 6,
-        ConnectorInspectionFail = 7,
-        HeatShrinkInspectionPass = 8,
-        HeatShrinkInspectionFail = 9,
-        PowerInspectionPass = 10,
-        PowerInspectionFail = 11,
-        SeamsInspectionPass = 12,
-        SeamsInspectionFail = 13,
-        IDLabelInspectionPass = 14,
-        IDLabelInspectionFail = 15
+        None = 0,
+        TestedAndReady = 1,
+        Fail = 2,
+        BaseplateInspectionPass = 4,
+        BaseplateInspectionFail = 8,
+        WiringInspectionPass = 16,
+        WiringInspectionFail = 32,
+        ConnectorInspectionPass = 64,
+        ConnectorInspectionFail = 128,
+        HeatShrinkInspectionPass = 256,
+        HeatShrinkInspectionFail = 512,
+        PowerInspectionPass = 1024,
+        PowerInspectionFail = 2048,
+        SeamsInspectionPass = 4096,
+        SeamsInspectionFail = 8192,
+        IDLabelInspectionPass = 16384,
+        IDLabelInspectionFail = 32768
     }
 }

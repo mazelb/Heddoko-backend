@@ -174,9 +174,7 @@
     },
     shirts: {
         qaStatus: function (item) {
-            item = item != null ? Enums.ShirtQAStatusType.array[item].text : "";
-
-            return '<span class="k-grid-showText">' + item + '</span>';
+            return '<span class="k-grid-showText">' + (item != null ? item.replace(/,/g, '<br/>') : '') + '</span>';
         },
         shirtsOctopi: function (item) {
             if (item.shirtsOctopi) {

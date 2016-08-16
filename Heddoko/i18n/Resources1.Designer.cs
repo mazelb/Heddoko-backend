@@ -2581,6 +2581,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to QA Checklist.
+        /// </summary>
+        public static string QAChecklist {
+            get {
+                return ResourceManager.GetString("QAChecklist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to QA Status.
         /// </summary>
         public static string QAStatus {

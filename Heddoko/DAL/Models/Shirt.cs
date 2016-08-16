@@ -22,7 +22,6 @@ namespace DAL.Models
         public EquipmentStatusType Status { get; set; }
 
         public ShirtQAStatusType QAStatus { get; set; }
-
         #region NotMapped
 
         public string IDView => $"SH{ID.ToString(Constants.PadZero)}";

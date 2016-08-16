@@ -1419,4 +1419,7 @@
   <data name="InvalidPhone" xml:space="preserve">
     <value>Phone number entered is not valid</value>
   </data>
+  <data name="QAChecklist" xml:space="preserve">
+    <value>QA Checklist</value>
+  </data>
 </root>

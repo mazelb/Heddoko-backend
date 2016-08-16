@@ -147,6 +147,46 @@ namespace DAL
 
         #region Enums
 
+        public static string ToStringFlags(this Enum value)
+        {
+            Type type = value.GetType();
+            Array values = Enum.GetValues(type);
+            List<string> result = new List<string>();
+
+            foreach (var enumValue in values)
+            {
+                if (value.HasFlag((Enum)enumValue))
+                {
+                    result.Add(((Enum)enumValue).GetDisplayName());
+                }
+            }
+
+            return string.Join(",", result.ToArray());
+        }
+
+        public static T ParseEnum<T>(this string value, T defaultValue) where T : struct, IConvertible
+        {
+            if (!typeof(T).IsEnum)
+            {
+                throw new ArgumentException("T must be an enumerated type");
+            }
+
+            if (string.IsNullOrEmpty(value))
+            {
+                return defaultValue;
+            }
+
+            foreach (T item in Enum.GetValues(typeof(T)))
+            {
+                if (item.ToString().ToLower().Equals(value.Trim().ToLower()))
+                {
+                    return item;
+                }
+            }
+
+            return defaultValue;
+        }
+
         public static string GetDisplayName(this Enum e)
         {
             ResourceManager rm = new ResourceManager(typeof(Resources));
