@@ -235,7 +235,6 @@ var Shirts = {
                 search: null,
                 keyup: this.onEnter.bind(this),
                 statusFilter: null,
-                filterStatus: this.onFilter.bind(this),
                 statuses: Datasources.equipmentStatusTypes
             });
 
@@ -376,7 +375,7 @@ var Shirts = {
         }
     },
 
-    buildFilter: function(search, searchFilter) {
+    buildFilter: function(search) {
         Notifications.clear();
         search = this.controls.filterModel.search;
         statusFilter = this.controls.filterModel.statusFilter;

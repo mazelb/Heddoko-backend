@@ -335,7 +335,6 @@ var Sensors = {
                 search: null,
                 keyup: this.onEnter.bind(this),
                 statusFilter: null,
-                filterStatus: this.onFilter.bind(this),
                 statuses: Datasources.equipmentStatusTypes
             });
 
@@ -470,7 +469,7 @@ var Sensors = {
         }
     },
 
-    buildFilter: function(search, statusFilter) {
+    buildFilter: function(search) {
         Notifications.clear();
         search = this.controls.filterModel.search;
         statusFilter = this.controls.filterModel.statusFilter;

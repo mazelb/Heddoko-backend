@@ -70,19 +70,14 @@ namespace Heddoko.Controllers
                     KendoFilterItem searchFilter = request.Filter.Get(Search);
                     KendoFilterItem statusFilter = request.Filter.Get(Status);
                     int? statusInt = null;
-                    string searchString = null;
                     int temp;
-                    if (!string.IsNullOrEmpty(searchFilter?.Value))
-                    {
-                        searchString = searchFilter.Value;
-                    }
                     if (!string.IsNullOrEmpty(statusFilter?.Value) && int.TryParse(statusFilter.Value, out temp))
                     {
                         statusInt = temp;
                     }
-                    if (statusInt.HasValue || searchString != null)
+                    if (statusInt.HasValue || !string.IsNullOrEmpty(searchFilter?.Value))
                     {
-                        items = UoW.KitRepository.Search(searchString, statusInt, isDeleted, organizationID);
+                        items = UoW.KitRepository.Search(searchFilter?.Value, statusInt, isDeleted, organizationID);
                     }                     
                 }
             }
