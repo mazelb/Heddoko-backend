@@ -12,6 +12,7 @@ namespace DAL
 {
     public static class Extensions
     {
+        private const string NOSTATUS = "None";
         private static readonly Regex ToUnderScoreRegex = new Regex(@"((?<=.)[A-Z][a-zA-Z]*)|((?<=[a-zA-Z])\d+)", RegexOptions.Compiled);
 
         private static readonly Regex DigitRegex = new Regex(@"[^0-9]+", RegexOptions.Compiled);
@@ -155,10 +156,20 @@ namespace DAL
 
             foreach (var enumValue in values)
             {
+                // 0 will always be added, only want it if no other flags exist
+                if (((Enum)enumValue).GetDisplayName() == NOSTATUS)
+                {
+                    continue;
+                }
                 if (value.HasFlag((Enum)enumValue))
                 {
                     result.Add(((Enum)enumValue).GetDisplayName());
                 }
+            }
+
+            if (result.Count == 0)
+            {
+                result.Add(NOSTATUS);
             }
 
             return string.Join(",", result.ToArray());

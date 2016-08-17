@@ -2,6 +2,7 @@
 using DAL;
 using DAL.Models;
 using i18n;
+using System.Collections.Generic;
 
 namespace Heddoko.Models
 {
@@ -33,8 +34,12 @@ namespace Heddoko.Models
 
         public ShirtOctopiQAStatusType QAStatus { get; set; }
 
+        public Dictionary<string, bool> QaStatuses { get; set; }
+
         public string IDView { get; set; }
 
         public string Name => IsEmpty ? $"{Resources.No} {Resources.ShirtsOctopi}" : $"{IDView} - {Size.GetDisplayName()} - {QAStatus.GetDisplayName()}";
+
+        public string QAStatusText => QAStatus.ToStringFlags();
     }
 }

@@ -198,7 +198,7 @@ var Shirts = {
                         field: "qaStatus",
                         title: i18n.Resources.QAStatus,
                         template: function (e) {
-                            return Format.shirts.qaStatus(e.qaStatusText);
+                            return Format.equipment.garmentQAStatus(e.qaStatusText);
                         },
                         editor: KendoDS.emptyEditor
                     },

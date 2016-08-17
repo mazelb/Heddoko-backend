@@ -1,4 +1,5 @@
-﻿<div class="row">
+﻿@using DAL.Models
+<div class="row">
     <div class="col-md-4">
         <div class="filters shirtsOctopiFilter">
             <div>
@@ -105,3 +106,34 @@
         </div>
     </div>
 </div>
+
+<script type="text/x-kendo-template" id="shirtoctopi-qastatuses-template">
+    <div class="tabstrip">
+        <ul>
+            <li class="k-state-active">
+                @i18n.Resources.QAChecklist
+            </li>
+        </ul>
+        <div>
+            <div class="qa-statuses">
+                <ul>
+                    @foreach (DAL.Models.ShirtOctopiQAStatusType type in (DAL.Models.ShirtOctopiQAStatusType[])Enum.GetValues(typeof(DAL.Models.ShirtOctopiQAStatusType)))
+                    {
+                        if (type == ShirtOctopiQAStatusType.None)
+                        {
+                            continue;
+                        }
+                        <li>
+                            @type.GetDisplayName()
+                            <input type="checkbox"
+                                   data-bind="checked: model.@type.ToString().ToLower()" />
+                        </li>
+
+                    }
+                </ul>
+                <button type="button" data-bind="click: save" class="btn btn-default">@i18n.Resources.Save</button>
+            </div>
+        </div>
+    </div>
+
+</script>
