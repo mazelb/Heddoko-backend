@@ -1,14 +1,15 @@
 var i18n = i18n||{};
 i18n.Resources = (function () { 
 	var strings = {
-  "AnatomicalLocationType_LeftForeArm": "Left Fore Arm",
-  "AnatomicalLocationType_LeftThigh": "Left Thigh",
-  "AnatomicalLocationType_LeftTibia": "Left Tibia",
-  "AnatomicalLocationType_LeftUpperArm": "Left Upper Arm",
-  "AnatomicalLocationType_RightForeArm": "Right Fore Arm",
-  "AnatomicalLocationType_RightThigh": "Right Thigh",
-  "AnatomicalLocationType_RightTibia": "Right Tibia",
-  "AnatomicalLocationType_RightUpperArm": "Right Upper Arm",
+  "AnatomicalLocationType_Torso": "0 - Torso",
+  "AnatomicalLocationType_LeftForeArm": "4 - Left Fore Arm",
+  "AnatomicalLocationType_LeftThigh": "7 - Left Thigh",
+  "AnatomicalLocationType_LeftTibia": "8 - Left Tibia",
+  "AnatomicalLocationType_LeftUpperArm": "3 - Left Upper Arm",
+  "AnatomicalLocationType_RightForeArm": "2 - Right Fore Arm",
+  "AnatomicalLocationType_RightThigh": "5 - Right Thigh",
+  "AnatomicalLocationType_RightTibia": "6 - Right Tibia",
+  "AnatomicalLocationType_RightUpperArm": "1 - Right Upper Arm",
   "AnatomicalLocationType_UpperSpine": "Upper Spine",
   "ConditionType_New": "New",
   "ConditionType_Used": "Used",
@@ -301,6 +302,7 @@ i18n.Resources = (function () {
   "EquipmentStatusType_InUse": "In use",
   "EquipmentStatusType_Ready": "Ready",
   "EquipmentStatusType_Testing": "Testing",
+  "EquipmentStatusType_ForWash": "For wash",
   "EquipmentStatusType_Trash": "Trash",
   "SensorType_EMIMU": "EM IMU",
   "SensorType_NodIMU": "Nod IMU",
@@ -434,7 +436,9 @@ i18n.Resources = (function () {
   "SizeType_Medium": "Medium",
   "SizeType_Small": "Small",
   "Change": "Change",
-  "InvalidPhone": "Phone number entered is not valid"
+  "InvalidPhone": "Phone number entered is not valid",
+  "FilterStatus": "Filter by Status",
+  "Filter": "Filter"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

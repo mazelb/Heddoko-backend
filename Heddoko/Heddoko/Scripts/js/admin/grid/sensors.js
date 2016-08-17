@@ -330,6 +330,16 @@ var Sensors = {
 
             KendoDS.bind(this.controls.grid, true);
 
+            this.controls.filterModel = kendo.observable({
+                find: this.onFilter.bind(this),
+                search: null,
+                keyup: this.onEnter.bind(this),
+                statusFilter: null,
+                statuses: Datasources.equipmentStatusTypes
+            });
+
+            kendo.bind(filter, this.controls.filterModel);
+
             this.controls.addModel = kendo.observable({
                 reset: this.onReset.bind(this),
                 submit: this.onAdd.bind(this),
@@ -462,6 +472,7 @@ var Sensors = {
     buildFilter: function(search) {
         Notifications.clear();
         search = this.controls.filterModel.search;
+        statusFilter = this.controls.filterModel.statusFilter;
 
         var filters = [];
 
@@ -470,6 +481,14 @@ var Sensors = {
                 field: "Search",
                 operator: "eq",
                 value: search
+            });
+        }
+
+        if (typeof (statusFilter) === "number") {
+            filters.push({
+                field: "Status",
+                operator: "eq",
+                value: statusFilter
             });
         }
 

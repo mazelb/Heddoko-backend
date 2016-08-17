@@ -16,6 +16,7 @@ namespace Heddoko.Controllers
     {
         private const string Search = "Search";
         private const string IsDeleted = "IsDeleted";
+        private const string Status = "Status";
         private const string Used = "Used";
         private const string SensorSetID = "SensorSetID";
         private const string LinkField = "idView";
@@ -68,10 +69,18 @@ namespace Heddoko.Controllers
                         isDeleted = true;
                     }
 
+                    //Setup Search
                     KendoFilterItem searchFilter = request.Filter.Get(Search);
-                    if (!string.IsNullOrEmpty(searchFilter?.Value))
+                    KendoFilterItem statusFilter = request.Filter.Get(Status);
+                    int? statusInt = null;
+                    int temp;
+                    if (!string.IsNullOrEmpty(statusFilter?.Value) && int.TryParse(statusFilter.Value, out temp))
                     {
-                        items = UoW.SensorRepository.Search(searchFilter.Value, isDeleted);
+                        statusInt = temp;
+                    }
+                    if (statusInt.HasValue || !string.IsNullOrEmpty(searchFilter?.Value))
+                    {
+                        items = UoW.SensorRepository.Search(searchFilter?.Value, statusInt, isDeleted);
                     }
                 }
             }

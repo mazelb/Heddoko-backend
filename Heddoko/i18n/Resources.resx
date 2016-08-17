@@ -117,29 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AnatomicalLocationType_Torso" xml:space="preserve">
+    <value>0 - Torso</value>
+  </data>
   <data name="AnatomicalLocationType_LeftForeArm" xml:space="preserve">
-    <value>Left Fore Arm</value>
+    <value>4 - Left Fore Arm</value>
   </data>
   <data name="AnatomicalLocationType_LeftThigh" xml:space="preserve">
-    <value>Left Thigh</value>
+    <value>7 - Left Thigh</value>
   </data>
   <data name="AnatomicalLocationType_LeftTibia" xml:space="preserve">
-    <value>Left Tibia</value>
+    <value>8 - Left Tibia</value>
   </data>
   <data name="AnatomicalLocationType_LeftUpperArm" xml:space="preserve">
-    <value>Left Upper Arm</value>
+    <value>3 - Left Upper Arm</value>
   </data>
   <data name="AnatomicalLocationType_RightForeArm" xml:space="preserve">
-    <value>Right Fore Arm</value>
+    <value>2 - Right Fore Arm</value>
   </data>
   <data name="AnatomicalLocationType_RightThigh" xml:space="preserve">
-    <value>Right Thigh</value>
+    <value>5 - Right Thigh</value>
   </data>
   <data name="AnatomicalLocationType_RightTibia" xml:space="preserve">
-    <value>Right Tibia</value>
+    <value>6 - Right Tibia</value>
   </data>
   <data name="AnatomicalLocationType_RightUpperArm" xml:space="preserve">
-    <value>Right Upper Arm</value>
+    <value>1 - Right Upper Arm</value>
   </data>
   <data name="AnatomicalLocationType_UpperSpine" xml:space="preserve">
     <value>Upper Spine</value>
@@ -1017,6 +1020,9 @@
   <data name="EquipmentStatusType_Testing" xml:space="preserve">
     <value>Testing</value>
   </data>
+  <data name="EquipmentStatusType_ForWash" xml:space="preserve">
+    <value>For wash</value>
+  </data>
   <data name="EquipmentStatusType_Trash" xml:space="preserve">
     <value>Trash</value>
   </data>
@@ -1418,5 +1424,11 @@
   </data>
   <data name="InvalidPhone" xml:space="preserve">
     <value>Phone number entered is not valid</value>
+  </data>
+  <data name="FilterStatus" xml:space="preserve">
+    <value>Filter by Status</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
   </data>
 </root>
