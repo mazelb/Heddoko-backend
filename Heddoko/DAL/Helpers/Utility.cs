@@ -148,6 +148,23 @@ namespace DAL
 
         #region Enums
 
+        public static List<string> ToArrayStringFlags(this Enum value)
+        {
+            Type type = value.GetType();
+            Array values = Enum.GetValues(type);
+            List<string> result = new List<string>();
+
+            foreach (var enumValue in values)
+            {
+                if (value.HasFlag((Enum)enumValue))
+                {
+                    result.Add(((Enum)enumValue).ToString().ToLower());
+                }
+            }
+
+            return result;
+        }
+
         public static string ToStringFlags(this Enum value)
         {
             Type type = value.GetType();
