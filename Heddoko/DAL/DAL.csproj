@@ -122,6 +122,14 @@
       <HintPath>..\packages\JWT.1.3.4\lib\3.5\JWT.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -211,6 +219,10 @@
     <Compile Include="Migrations\201608152057200_AssetFilename.Designer.cs">
       <DependentUpon>201608152057200_AssetFilename.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608171933158_UserIdentity.cs" />
+    <Compile Include="Migrations\201608171933158_UserIdentity.Designer.cs">
+      <DependentUpon>201608171933158_UserIdentity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
@@ -231,6 +243,7 @@
     <Compile Include="Models\Enum\SizeType.cs" />
     <Compile Include="Models\Enum\ComponentsType.cs" />
     <Compile Include="Models\Enum\EquipmentQAStatusType.cs" />
+    <Compile Include="Models\Interface\IBaseModel.cs" />
     <Compile Include="Models\Pants.cs" />
     <Compile Include="Models\PantsOctopi.cs" />
     <Compile Include="Models\ShirtOctopi.cs" />
@@ -365,6 +378,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608152057200_AssetFilename.resx">
       <DependentUpon>201608152057200_AssetFilename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608171933158_UserIdentity.resx">
+      <DependentUpon>201608171933158_UserIdentity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

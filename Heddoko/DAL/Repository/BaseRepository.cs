@@ -4,10 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using DAL.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DAL
 {
-    public class BaseRepository<T> : ICacheRepository<T>, IBaseRepository<T> where T : BaseModel
+    public class BaseRepository<T> : ICacheRepository<T>, IBaseRepository<T> where T : class, IBaseModel
     {
         protected readonly IDbSet<T> DbSet;
 

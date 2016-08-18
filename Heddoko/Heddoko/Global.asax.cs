@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Web;
@@ -37,49 +38,6 @@ namespace Heddoko
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
-            string token = Context.Request.Headers[Constants.HeaderToken];
-
-            if (!string.IsNullOrEmpty(token))
-            {
-                UnitOfWork uow = new UnitOfWork();
-                User user = uow.AccessTokenRepository.GetByToken(token)?.User;
-                if (user == null)
-                {
-                    return;
-                }
-
-                if (user.IsActive)
-                {
-                    Context.User = new GenericPrincipal(new GenericIdentity(user.ID.ToString()), user.Roles.ToArray());
-                }
-            }
-            else
-            {
-                if (!FormsAuthentication.CookiesSupported)
-                {
-                    return;
-                }
-
-                HttpCookie authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
-                if (authCookie == null ||
-                    authCookie.Value == string.Empty)
-                {
-                }
-                else
-                {
-                    FormsAuthenticationTicket authTicket = null;
-                    authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-
-                    if (authTicket?.UserData == null)
-                    {
-                        return;
-                    }
-
-                    AuthCookie data = JsonConvert.DeserializeObject<AuthCookie>(authTicket.UserData);
-
-                    Context.User = new GenericPrincipal(new GenericIdentity(authTicket.Name), data.Roles.ToArray());
-                }
-            }
         }
 
         protected void Application_EndRequest()

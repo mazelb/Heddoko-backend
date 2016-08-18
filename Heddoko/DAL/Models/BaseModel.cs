@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class BaseModel
+    public class BaseModel : IBaseModel
     {
         public int ID { get; set; }
 

@@ -14,7 +14,7 @@ namespace Heddoko.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     [AuthAPI(Roles = Constants.Roles.Admin)]
     public abstract class BaseAdminController<T, TM> : ApiController
-        where T : BaseModel
+        where T : IBaseModel
         where TM : class
     {
         protected BaseAdminController()

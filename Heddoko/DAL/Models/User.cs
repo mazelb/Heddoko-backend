@@ -3,17 +3,68 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using DAL.Helpers;
 using Jil;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class User : BaseModel
+    public class CustomUserRole : IdentityUserRole<int> { }
+    public class CustomUserClaim : IdentityUserClaim<int> { }
+    public class CustomUserLogin : IdentityUserLogin<int> { }
+
+    public class CustomRole : IdentityRole<int, CustomUserRole>
     {
-        [Index(IsUnique = true)]
-        [StringLength(255)]
-        public string Email { get; set; }
+        public CustomRole() { }
+        public CustomRole(string name) { Name = name; }
+    }
+
+    public class CustomUserStore : UserStore<User, CustomRole, int,
+        CustomUserLogin, CustomUserRole, CustomUserClaim>
+    {
+        public CustomUserStore(HDContext context)
+            : base(context)
+        {
+        }
+    }
+
+    public class CustomRoleStore : RoleStore<CustomRole, int, CustomUserRole>
+    {
+        public CustomRoleStore(HDContext context)
+            : base(context)
+        {
+        }
+    }
+
+    public class User : IdentityUser<int, CustomUserLogin, CustomUserRole, CustomUserClaim>, IBaseModel
+    {
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
+        {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            // Add custom user claims here
+            return userIdentity;
+        }
+
+        #region BaseModel
+        [NotMapped]
+        public int ID
+        {
+            get { return Id; }
+            set { Id = value; }
+        }
+
+        [JsonProperty("updatedAt")]
+        public DateTime? Updated { get; set; }
+
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [JsonProperty("createdAt")]
+        public DateTime Created { get; set; }
+        #endregion
 
         [Index(IsUnique = true)]
         [StringLength(255)]
@@ -149,13 +200,6 @@ namespace DAL.Models
         [JilDirective(Ignore = true)]
         public string LicenseInfoToken { get; set; }
 
-        [JsonIgnore]
-        public List<string> Roles => new List<string>
-                                     {
-                                         Role.GetStringValue(),
-                                         RoleType.GetStringValue()
-                                     };
-
         public UserRoleType RoleType
         {
             get
@@ -184,7 +228,6 @@ namespace DAL.Models
 
         [JsonIgnore]
         public bool IsBanned => Status == UserStatusType.Banned;
-
         #endregion
     }
 }

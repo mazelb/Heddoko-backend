@@ -8,10 +8,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using DAL.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DAL
 {
-    public class HDContext : DbContext
+    public class HDContext : IdentityDbContext<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>
     {
         public HDContext()
             : base(Constants.ConnectionStringName)
@@ -22,8 +23,6 @@ namespace DAL
         public DbSet<AccessToken> AccessTokens { get; set; }
 
         public DbSet<Asset> Assets { get; set; }
-
-        public DbSet<User> Users { get; set; }
 
         public DbSet<Brainpack> Brainpacks { get; set; }
 
@@ -119,8 +118,14 @@ namespace DAL
 
             foreach (DbEntityEntry entity in updatedEntities)
             {
-                ((BaseModel) entity.Entity).Updated = DateTime.UtcNow;
+                ((BaseModel)entity.Entity).Updated = DateTime.UtcNow;
             }
+        }
+
+
+        public static HDContext Create()
+        {
+            return new HDContext();
         }
     }
 }

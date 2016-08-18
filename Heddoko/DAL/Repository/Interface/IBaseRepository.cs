@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DAL
 {
-    public interface IBaseRepository<T> : IDisposable where T : Models.BaseModel
+    public interface IBaseRepository<T> : IDisposable where T : Models.IBaseModel
     {
         #region Cache
         string GetCacheKey(string id);
