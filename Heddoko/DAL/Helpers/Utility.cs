@@ -12,7 +12,9 @@ namespace DAL
 {
     public static class Extensions
     {
-        private const string NOSTATUS = "None";
+        private const string NO_STATUS = "None";
+        private const string READY_STATUS = "Tested and Ready";
+
         private static readonly Regex ToUnderScoreRegex = new Regex(@"((?<=.)[A-Z][a-zA-Z]*)|((?<=[a-zA-Z])\d+)", RegexOptions.Compiled);
 
         private static readonly Regex DigitRegex = new Regex(@"[^0-9]+", RegexOptions.Compiled);
@@ -174,7 +176,7 @@ namespace DAL
             foreach (var enumValue in values)
             {
                 // 0 will always be added, only want it if no other flags exist
-                if (((Enum)enumValue).GetDisplayName() == NOSTATUS)
+                if (((Enum)enumValue).GetDisplayName() == NO_STATUS || ((Enum)enumValue).GetDisplayName() == READY_STATUS)
                 {
                     continue;
                 }
@@ -186,7 +188,13 @@ namespace DAL
 
             if (result.Count == 0)
             {
-                result.Add(NOSTATUS);
+                result.Add(NO_STATUS);
+            }
+            // TODO - BENB - This is ugly, needs to be reworked
+            if(result.Count == values.Length - 2) //None and Tested and Ready won't be included
+            {
+                result.Clear();
+                result.Add(READY_STATUS);
             }
 
             return string.Join(",", result.ToArray());

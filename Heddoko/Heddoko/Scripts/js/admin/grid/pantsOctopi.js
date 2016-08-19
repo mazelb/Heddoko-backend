@@ -327,7 +327,8 @@ var PantsOctopi = {
         var model = this.get('model');
 
         var grid = PantsOctopi.controls.grid;
-
+        //TODO - for testing REMOVE
+        var json = model.toJSON();
         var item = grid.dataSource.get(this.get('id'));
         item.set('qaStatuses', model.toJSON());
 

@@ -54,7 +54,7 @@
                                 data-bind="value: model.status, source: statuses"></select>
                     </div>
 
-                    <div class="col-sm-2">
+                    <!--<div class="col-sm-2">
                         <select class="form-control"
                                 required
                                 name="shirtsoctopi-qastatus"
@@ -65,7 +65,7 @@
                                 data-option-label="@i18n.Resources.SelectQAStatus"
                                 data-value-field="value"
                                 data-bind="value: model.qaStatus, source: qaStatuses"></select>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="row margin010">
                     <div class="col-sm-3">
@@ -117,16 +117,17 @@
         <div>
             <div class="qa-statuses">
                 <ul>
-                    @foreach (DAL.Models.ShirtOctopiQAStatusType type in (DAL.Models.ShirtOctopiQAStatusType[])Enum.GetValues(typeof(DAL.Models.ShirtOctopiQAStatusType)))
+                    @foreach (ShirtOctopiQAStatusType type in (ShirtOctopiQAStatusType[])Enum.GetValues(typeof(ShirtOctopiQAStatusType)))
                     {
-                        if (type == ShirtOctopiQAStatusType.None)
+                        if (type == ShirtOctopiQAStatusType.None || type == ShirtOctopiQAStatusType.TestedAndReady)
                         {
                             continue;
                         }
                         <li>
                             @type.GetDisplayName()
                             <input type="checkbox"
-                                   data-bind="checked: model.@type.ToString().ToLower()" />
+                                   data-bind="checked: qamodel" 
+                                   value="@type.ToString().ToLower()"/>
                         </li>
 
                     }

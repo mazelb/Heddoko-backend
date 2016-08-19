@@ -116,7 +116,7 @@
         <div>
             <div class="qa-statuses">
                 <ul>
-                    @foreach (DAL.Models.PantsOctopiQAStatusType type in (DAL.Models.PantsOctopiQAStatusType[])Enum.GetValues(typeof(DAL.Models.PantsOctopiQAStatusType)))
+                    @foreach (PantsOctopiQAStatusType type in (PantsOctopiQAStatusType[])Enum.GetValues(typeof(PantsOctopiQAStatusType)))
                     {
                         if (type == PantsOctopiQAStatusType.None)
                         {

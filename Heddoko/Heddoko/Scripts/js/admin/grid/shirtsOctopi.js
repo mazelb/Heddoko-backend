@@ -2,6 +2,8 @@
     ShirtsOctopi.init();
 });
 
+var NO_QA_STATUS = "None";
+
 var ShirtsOctopi = {
     isDeleted: false,
     controls: {
@@ -98,7 +100,6 @@ var ShirtsOctopi = {
                             nullable: false,
                             type: "number",
                             validation: {
-                                required: true,
                                 min: 0,
                                 max: KendoDS.maxInt
                             }
@@ -314,9 +315,7 @@ var ShirtsOctopi = {
 
         var model = kendo.observable({
             id: e.data.id,
-            model: {
-
-            },
+            qamodel: e.data.qaModel,
             save: this.onSaveQAStatus
         });
 
@@ -324,12 +323,15 @@ var ShirtsOctopi = {
     },
 
     onSaveQAStatus: function (e) {
-        var model = this.get('model');
+        var model = this.get('qamodel');
+
+        // Reformat for the API Model
+        var qaModel = _.zipObject(model, _.map(model, function (e) { return true }))
 
         var grid = ShirtsOctopi.controls.grid;
 
         var item = grid.dataSource.get(this.get('id'));
-        item.set('qaStatuses', model.toJSON());
+        item.set('qaStatuses', qaModel);
 
         ShirtsOctopi.controls.grid.dataSource.sync();
     },
@@ -339,7 +341,7 @@ var ShirtsOctopi = {
             size: null,
             location: null,
             status: null,
-            qaStatus: null,
+            qaStatus: NO_QA_STATUS,
             label: null,
             notes: null
         };
@@ -364,6 +366,7 @@ var ShirtsOctopi = {
         Notifications.clear();
         if (this.validators.addModel.validate()) {
             var obj = this.controls.addModel.get('model');
+            obj.qaStatus = NO_QA_STATUS;
 
             this.controls.grid.dataSource.add(obj);
             this.controls.grid.dataSource.sync();

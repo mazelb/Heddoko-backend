@@ -26,6 +26,6 @@
         RecoveryFromShutdown = 1048576,
         SetRecordingName = 2097152,
         RecordingFilenameSaved = 4194304,
-        FullChargingCycle = 8388608,
+        FullChargingCycle = 8388608
     }
 }
