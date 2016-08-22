@@ -232,9 +232,7 @@
     },
     brainpack: {
         qaStatus: function (item) {
-            item = item != null ? Enums.BrainpackQAStatusType.array[item].text : "";
-
-            return '<span class="k-grid-showText">' + item + '</span>';
+            return '<span class="k-grid-showText">' + (item != null ? item.replace(/,/g, '<br/>') : '') + '</span>';
         },
         powerboard: function (item) {
             if (item.powerboard) {
@@ -324,9 +322,7 @@
     },
     sensors: {
         qaStatus: function (item) {
-            item = item != null ? Enums.SensorQAStatusType.array[item].text : "";
-
-            return '<span class="k-grid-showText">' + item + '</span>';
+            return '<span class="k-grid-showText">' + (item != null ? item.replace(/,/g, '<br/>') : '') + '</span>';
         },
         type: function (item) {
             item = item != null ? Enums.SensorType.array[item].text : "";

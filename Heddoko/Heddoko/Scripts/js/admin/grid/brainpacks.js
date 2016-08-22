@@ -225,7 +225,7 @@ var Brainpacks = {
                             field: "qaStatus",
                             title: i18n.Resources.QAStatus,
                             template: function(e) {
-                                return Format.brainpack.qaStatus(e.qaStatus);
+                                return Format.brainpack.qaStatus(e.qaStatusText);
                             },
                             editor: this.qaStatusTypesDDEditor
                         },
@@ -254,6 +254,8 @@ var Brainpacks = {
                         }
                     ],
                     save: KendoDS.onSave,
+                    detailInit: this.detailInit.bind(this),
+                    detailTemplate: kendo.template($("#brainpacks-qastatuses-template").html()),
                     dataBound: this.onDataBound
                 })
                 .data("kendoGrid");
@@ -334,6 +336,38 @@ var Brainpacks = {
                     $(this).remove();
                 }
             });
+    },
+
+    detailInit: function (e) {
+        var detailRow = e.detailRow;
+
+        detailRow.find(".tabstrip").kendoTabStrip({
+            animation: {
+                open: { effects: "fadeIn" }
+            }
+        });
+
+        var model = kendo.observable({
+            id: e.data.id,
+            qamodel: e.data.qaModel,
+            save: this.onSaveQAStatus
+        });
+
+        kendo.bind(detailRow.find('.qa-statuses'), model);
+    },
+
+    onSaveQAStatus: function (e) {
+        var model = this.get('qamodel');
+
+        // Reformat for the API Model
+        var qaModel = _.zipObject(model, _.map(model, function (e) { return true }));
+
+        var grid = Brainpacks.controls.grid;
+
+        var item = grid.dataSource.get(this.get('id'));
+        item.set('qaStatuses', qaModel);
+
+        Brainpacks.controls.grid.dataSource.sync();
     },
 
     qaStatusTypesDDEditor: function(container, options) {

@@ -1059,6 +1059,21 @@
   <data name="SensorSetQAStatusType_TestedAndReady" xml:space="preserve">
     <value>Tested and Ready</value>
   </data>
+  <data name="SensorQAStatusType_FirmwareUpdated" xml:space="preserve">
+    <value>Firmware Updated</value>
+  </data>
+  <data name="SensorQAStatusType_SeatingInBase" xml:space="preserve">
+    <value>Sensor seating in base</value>
+  </data>
+  <data name="SensorQAStatusType_LED" xml:space="preserve">
+    <value>Sensor LED</value>
+  </data>
+  <data name="SensorQAStatusType_Orientation" xml:space="preserve">
+    <value>Sensor Orientation</value>
+  </data>
+  <data name="SensorQAStatusType_Drift" xml:space="preserve">
+    <value>Sensor Drift</value>
+  </data>
   <data name="ShirtQAStatusType_BaseplateInspection" xml:space="preserve">
     <value>Baseplates inspection</value>
   </data>

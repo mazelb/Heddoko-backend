@@ -6,13 +6,14 @@ namespace DAL.Models
     public enum ShirtQAStatusType : long
     {
         None = 0,
-        TestedAndReady = 1,
-        BaseplateInspection = 2,
-        WiringInspection = 4,
-        ConnectorInspection = 8,
-        HeatShrinkInspection = 16,
-        PowerInspection = 32,
-        SeamsInspection = 64,
-        IDLabelInspection = 128
+        BaseplateInspection = 1,
+        WiringInspection = 2,
+        ConnectorInspection = 4,
+        HeatShrinkInspection = 8,
+        PowerInspection = 16,
+        SeamsInspection = 32,
+        IDLabelInspection = 64,
+        TestedAndReady = BaseplateInspection | WiringInspection | ConnectorInspection | HeatShrinkInspection
+                        | PowerInspection | SeamsInspection | IDLabelInspection
     }
 }

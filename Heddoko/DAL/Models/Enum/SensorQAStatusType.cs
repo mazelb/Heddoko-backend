@@ -3,11 +3,11 @@
     public enum SensorQAStatusType
     {
         None = 0,
-        TestedAndReady = 1,
-        FirmawareUpdated = 2,
-        SeatingInBase = 4,
-        Led = 8,
-        Orientation = 16,
-        Drif = 32
+        FirmwareUpdated = 1,
+        SeatingInBase = 2,
+        LED = 4,
+        Orientation = 8,
+        Drift = 26,
+        TestedAndReady = FirmwareUpdated | SeatingInBase | LED | Orientation | Drift
     }
 }

@@ -331,8 +331,7 @@ var Shirts = {
 
         var model = kendo.observable({
             id:  e.data.id,
-            model: {
-            },
+            qamodel: e.data.qaModel,
             save: this.onSaveQAStatus
         });
 
@@ -341,7 +340,10 @@ var Shirts = {
     },
 
     onSaveQAStatus: function(e) {
-        var model = this.get('model');
+        var model = this.get('qamodel');
+
+        // Reformat for the API Model
+        var qaModel = _.zipObject(model, _.map(model, function (e) { return true }));
 
         var grid = Shirts.controls.grid;
 

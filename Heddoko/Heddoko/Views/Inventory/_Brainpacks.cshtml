@@ -141,7 +141,7 @@
     </div>
 </div>
 
-<script type="text/x-kendo-template" id="shirts-qastatuses-template">
+<script type="text/x-kendo-template" id="brainpacks-qastatuses-template">
     <div class="tabstrip">
         <ul>
             <li class="k-state-active">
@@ -160,7 +160,8 @@
                         <li>
                             @type.GetDisplayName()
                             <input type="checkbox"
-                                   data-bind="checked: model.@type.ToString().ToLower()" />
+                                   data-bind="checked: qamodel" 
+                                   value="@type.ToString().ToLower()"/>
                         </li>
 
                     }

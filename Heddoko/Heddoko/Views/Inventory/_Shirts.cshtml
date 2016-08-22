@@ -125,7 +125,8 @@
                             <li>
                                 @type.GetDisplayName()
                                 <input type="checkbox"
-                                       data-bind="checked: model.@type.ToString().ToLower()" />
+                                       data-bind="checked: qamodel"
+                                       value="@type.ToString().ToLower()" />
                             </li>
 
                         }

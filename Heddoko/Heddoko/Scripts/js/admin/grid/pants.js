@@ -244,7 +244,7 @@ var Pants = {
                 submit: this.onAdd.bind(this),
                 sizes: Datasources.sizeTypes,
                 statuses: Datasources.equipmentStatusTypes,
-                qaStatuses: Datasources.pantsQAStatusTypers,
+                qaStatuses: Datasources.pantsQAStatusTypes,
                 pantsOctopies: Datasources.pantsOctopiDD,
                 model: this.getEmptyModel()
             });
@@ -326,9 +326,7 @@ var Pants = {
 
         var model = kendo.observable({
             id: e.data.id,
-            model: {
-
-            },
+            qamodel: e.data.qaModel,
             save: this.onSaveQAStatus
         });
 
@@ -336,7 +334,10 @@ var Pants = {
     },
 
     onSaveQAStatus: function (e) {
-        var model = this.get('model');
+        var model = this.get('qamodel');
+
+        // Reformat for the API Model
+        var qaModel = _.zipObject(model, _.map(model, function (e) { return true }));
 
         var grid = Pants.controls.grid;
         

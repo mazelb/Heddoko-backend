@@ -266,9 +266,38 @@ namespace Heddoko.Controllers
             item.Status = model.Status;
             item.AnatomicalLocation = model.AnatomicalLocation;
             item.Location = model.Location?.Trim(); ;
-            item.QAStatus = model.QAStatus;
             item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
+
+            if (model.QaStatuses != null)
+            {
+                item.QAStatus = SensorQAStatusType.None;
+                foreach (var qaStatus in model.QaStatuses)
+                {
+                    if (qaStatus.Value)
+                    {
+                        SensorQAStatusType status = qaStatus.Key.ParseEnum<SensorQAStatusType>(SensorQAStatusType.None);
+
+                        if (status == SensorQAStatusType.None)
+                        {
+                            continue;
+                        }
+
+                        if (item.QAStatus == SensorQAStatusType.None)
+                        {
+                            item.QAStatus = status;
+                        }
+                        else
+                        {
+                            item.QAStatus |= status;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                item.QAStatus = model.QAStatus;
+            }
 
             item.SensorSet = model.SensorSetID.HasValue ? UoW.SensorSetRepository.Get(model.SensorSetID.Value) : null;
 

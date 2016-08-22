@@ -267,9 +267,38 @@ namespace Heddoko.Controllers
             item.Version = model.Version?.Trim(); ;
             item.Status = model.Status;
             item.Location = model.Location?.Trim(); ;
-            item.QAStatus = model.QAStatus;
             item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
+
+            if (model.QaStatuses != null)
+            {
+                item.QAStatus = BrainpackQAStatusType.None;
+                foreach (var qaStatus in model.QaStatuses)
+                {
+                    if (qaStatus.Value)
+                    {
+                        BrainpackQAStatusType status = qaStatus.Key.ParseEnum<BrainpackQAStatusType>(BrainpackQAStatusType.None);
+
+                        if (status == BrainpackQAStatusType.None)
+                        {
+                            continue;
+                        }
+
+                        if (item.QAStatus == BrainpackQAStatusType.None)
+                        {
+                            item.QAStatus = status;
+                        }
+                        else
+                        {
+                            item.QAStatus |= status;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                item.QAStatus = model.QAStatus;
+            }
 
             return item;
         }

@@ -326,7 +326,7 @@ var ShirtsOctopi = {
         var model = this.get('qamodel');
 
         // Reformat for the API Model
-        var qaModel = _.zipObject(model, _.map(model, function (e) { return true }))
+        var qaModel = _.zipObject(model, _.map(model, function (e) { return true }));
 
         var grid = ShirtsOctopi.controls.grid;
 

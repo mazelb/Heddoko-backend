@@ -26,6 +26,12 @@
         RecoveryFromShutdown = 1048576,
         SetRecordingName = 2097152,
         RecordingFilenameSaved = 4194304,
-        FullChargingCycle = 8388608
+        FullChargingCycle = 8388608,
+        TestedAndReady = Buttons1mmOfRecess | ButtonsReturnToInitialDepth | PowerButtonWorking | ResetButtonWorking | RecordButtonWorking
+                            | ChargingIndicatorLed | StateIndicatorLed | LedColors | SettingsFileUpdated | PairingWithIMUs
+                            | SDCardIsElectronicallyLabeledWithBatteryPackId | AppPairsBrainpack | AppLocatesBrainpack | AppConnectsToBrainpack
+                            | AppDisconnectsFromBrainpack | StateChangeIdleToRecording | StateChangeRecordingToIdle | StateChangeRecordingToReset
+                            | StateChangeIdleToReset | StateChangeRecordingToError | RecoveryFromShutdown | SetRecordingName 
+                            | RecordingFilenameSaved | FullChargingCycle
     }
 }

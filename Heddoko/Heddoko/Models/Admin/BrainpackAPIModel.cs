@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web;
+using DAL;
 using DAL.Models;
 using i18n;
 
@@ -35,6 +35,8 @@ namespace Heddoko.Models
 
         public BrainpackQAStatusType QAStatus { get; set; }
 
+        public Dictionary<string, bool> QaStatuses { get; set; }
+
         public int? FirmwareID { get; set; }
 
         public Firmware Firmware { get; set; }
@@ -50,5 +52,9 @@ namespace Heddoko.Models
         public string IDView { get; set; }
 
         public string Name => IsEmpty ? $"{Resources.No} {Resources.Brainpack}" : $"{IDView}";
+
+        public string QAStatusText => QAStatus.ToStringFlags();
+
+        public List<string> QAModel => QAStatus.ToArrayStringFlags();
     }
 }

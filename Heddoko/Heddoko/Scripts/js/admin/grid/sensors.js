@@ -278,7 +278,7 @@ var Sensors = {
                             field: "qaStatus",
                             title: i18n.Resources.QAStatus,
                             template: function (e) {
-                                return Format.sensors.qaStatus(e.qaStatus);
+                                return Format.sensors.qaStatus(e.qaStatusText);
                             },
                             editor: this.qaStatusTypesDDEditor
                         },
@@ -324,6 +324,8 @@ var Sensors = {
                         }
                     ],
                     save: KendoDS.onSave,
+                    detailInit: this.detailInit.bind(this),
+                    detailTemplate: kendo.template($("#sensors-qastatuses-template").html()),
                     dataBound: this.onDataBound
                 })
                 .data("kendoGrid");
@@ -396,6 +398,38 @@ var Sensors = {
                     $(this).remove();
                 }
             });
+    },
+
+    detailInit: function (e) {
+        var detailRow = e.detailRow;
+
+        detailRow.find(".tabstrip").kendoTabStrip({
+            animation: {
+                open: { effects: "fadeIn" }
+            }
+        });
+
+        var model = kendo.observable({
+            id: e.data.id,
+            qamodel: e.data.qaModel,
+            save: this.onSaveQAStatus
+        });
+
+        kendo.bind(detailRow.find('.qa-statuses'), model);
+    },
+
+    onSaveQAStatus: function (e) {
+        var model = this.get('qamodel');
+
+        // Reformat for the API Model
+        var qaModel = _.zipObject(model, _.map(model, function (e) { return true }))
+
+        var grid = Sensors.controls.grid;
+
+        var item = grid.dataSource.get(this.get('id'));
+        item.set('qaStatuses', qaModel);
+
+        Sensors.controls.grid.dataSource.sync();
     },
 
     getEmptyModel: function() {

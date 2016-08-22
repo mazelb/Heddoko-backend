@@ -314,9 +314,7 @@ var PantsOctopi = {
 
         var model = kendo.observable({
             id: e.data.id,
-            model: {
-
-            },
+            qamodel: e.data.qaModel,
             save: this.onSaveQAStatus
         });
 
@@ -324,13 +322,15 @@ var PantsOctopi = {
     },
 
     onSaveQAStatus: function (e) {
-        var model = this.get('model');
+        var model = this.get('qamodel');
+
+        // Reformat for the API Model
+        var qaModel = _.zipObject(model, _.map(model, function (e) { return true }));
 
         var grid = PantsOctopi.controls.grid;
-        //TODO - for testing REMOVE
-        var json = model.toJSON();
+
         var item = grid.dataSource.get(this.get('id'));
-        item.set('qaStatuses', model.toJSON());
+        item.set('qaStatuses', qaModel);
 
         PantsOctopi.controls.grid.dataSource.sync();
     },

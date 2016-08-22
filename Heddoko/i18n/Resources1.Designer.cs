@@ -2509,6 +2509,51 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sensor Drift.
+        /// </summary>
+        public static string SensorQAStatusType_Drift {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_Drift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firmware Updated.
+        /// </summary>
+        public static string SensorQAStatusType_FirmwareUpdated {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_FirmwareUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor LED.
+        /// </summary>
+        public static string SensorQAStatusType_LED {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_LED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Orientation.
+        /// </summary>
+        public static string SensorQAStatusType_Orientation {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_Orientation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor seating in base.
+        /// </summary>
+        public static string SensorQAStatusType_SeatingInBase {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_SeatingInBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sensors.
         /// </summary>
         public static string Sensors {
