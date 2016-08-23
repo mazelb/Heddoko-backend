@@ -41,7 +41,7 @@ namespace Heddoko.Models
 
         public EquipmentStatusType Status { get; set; }
         
-        public SensorQAStatusType QAStatus { get; set; }
+        public SensorQAStatusType? QAStatus { get; set; }
 
         public Dictionary<string, bool> QaStatuses { get; set; }
 

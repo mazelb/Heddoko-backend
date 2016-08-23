@@ -4,6 +4,8 @@
 
 var PantsOctopi = {
     isDeleted: false,
+    NO_QA_STATUS: "None",
+
     controls: {
         grid: null,
         filterModel: null,
@@ -184,7 +186,7 @@ var PantsOctopi = {
                         template: function (e) {
                             return Format.equipment.garmentQAStatus(e.qaStatusText);
                         },
-                        editor: this.qaStatusTypesDDEditor
+                        editor: KendoDS.emptyEditor
                     },
                     {
                         field: 'notes',
@@ -294,15 +296,6 @@ var PantsOctopi = {
             });
     },
 
-    qaStatusTypesDDEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-            .appendTo(container)
-            .kendoDropDownList({
-                autoBind: true,
-                dataSource: Datasources.pantsOctopiQAStatusTypes
-            });
-    },
-
     detailInit: function (e) {
         var detailRow = e.detailRow;
 
@@ -312,9 +305,10 @@ var PantsOctopi = {
             }
         });
 
+        var qaModel = _.zipObject(e.data.qaModel, _.map(e.data.qaModel, function (e) { return true }));
         var model = kendo.observable({
             id: e.data.id,
-            qamodel: e.data.qaModel,
+            qamodel: qaModel,
             save: this.onSaveQAStatus
         });
 
@@ -324,13 +318,10 @@ var PantsOctopi = {
     onSaveQAStatus: function (e) {
         var model = this.get('qamodel');
 
-        // Reformat for the API Model
-        var qaModel = _.zipObject(model, _.map(model, function (e) { return true }));
-
         var grid = PantsOctopi.controls.grid;
 
         var item = grid.dataSource.get(this.get('id'));
-        item.set('qaStatuses', qaModel);
+        item.set('qaStatuses', model.toJSON());
 
         PantsOctopi.controls.grid.dataSource.sync();
     },
@@ -364,6 +355,7 @@ var PantsOctopi = {
         Notifications.clear();
         if (this.validators.addModel.validate()) {
             var obj = this.controls.addModel.get('model');
+            obj.qaStatus = NO_QA_STATUS;
 
             this.controls.grid.dataSource.add(obj);
             this.controls.grid.dataSource.sync();

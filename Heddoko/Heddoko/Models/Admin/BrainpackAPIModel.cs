@@ -33,7 +33,7 @@ namespace Heddoko.Models
 
         public EquipmentStatusType Status { get; set; }
 
-        public BrainpackQAStatusType QAStatus { get; set; }
+        public BrainpackQAStatusType? QAStatus { get; set; }
 
         public Dictionary<string, bool> QaStatuses { get; set; }
 

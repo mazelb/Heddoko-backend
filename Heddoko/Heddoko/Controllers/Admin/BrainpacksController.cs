@@ -279,7 +279,7 @@ namespace Heddoko.Controllers
                     {
                         BrainpackQAStatusType status = qaStatus.Key.ParseEnum<BrainpackQAStatusType>(BrainpackQAStatusType.None);
 
-                        if (status == BrainpackQAStatusType.None)
+                        if (status == BrainpackQAStatusType.None || status == BrainpackQAStatusType.TestedAndReady)
                         {
                             continue;
                         }
@@ -297,7 +297,7 @@ namespace Heddoko.Controllers
             }
             else
             {
-                item.QAStatus = model.QAStatus;
+                item.QAStatus = BrainpackQAStatusType.None;
             }
 
             return item;

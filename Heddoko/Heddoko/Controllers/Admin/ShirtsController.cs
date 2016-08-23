@@ -252,7 +252,7 @@ namespace Heddoko.Controllers
                     {
                         ShirtQAStatusType status = qaStatus.Key.ParseEnum<ShirtQAStatusType>(ShirtQAStatusType.None);
 
-                        if (status == ShirtQAStatusType.None)
+                        if (status == ShirtQAStatusType.None || status == ShirtQAStatusType.TestedAndReady)
                         {
                             continue;
                         }
@@ -270,7 +270,7 @@ namespace Heddoko.Controllers
             }
             else
             {
-                item.QAStatus = model.QAStatus;
+                item.QAStatus = ShirtQAStatusType.None;
             }
 
             return item;

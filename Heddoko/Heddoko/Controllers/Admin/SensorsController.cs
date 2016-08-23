@@ -278,7 +278,7 @@ namespace Heddoko.Controllers
                     {
                         SensorQAStatusType status = qaStatus.Key.ParseEnum<SensorQAStatusType>(SensorQAStatusType.None);
 
-                        if (status == SensorQAStatusType.None)
+                        if (status == SensorQAStatusType.None || status == SensorQAStatusType.TestedAndReady)
                         {
                             continue;
                         }
@@ -296,7 +296,7 @@ namespace Heddoko.Controllers
             }
             else
             {
-                item.QAStatus = model.QAStatus;
+                item.QAStatus = SensorQAStatusType.None;
             }
 
             item.SensorSet = model.SensorSetID.HasValue ? UoW.SensorSetRepository.Get(model.SensorSetID.Value) : null;

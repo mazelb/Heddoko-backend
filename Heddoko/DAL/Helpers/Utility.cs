@@ -152,52 +152,67 @@ namespace DAL
 
         public static List<string> ToArrayStringFlags(this Enum value)
         {
-            Type type = value.GetType();
-            Array values = Enum.GetValues(type);
             List<string> result = new List<string>();
-
-            foreach (var enumValue in values)
+            try
             {
-                if (value.HasFlag((Enum)enumValue))
-                {
-                    result.Add(((Enum)enumValue).ToString().ToLower());
-                }
-            }
+                Type type = value.GetType();
+                Array values = Enum.GetValues(type);         
 
+                foreach (var enumValue in values)
+                {
+                    if (value.HasFlag((Enum)enumValue))
+                    {
+                        result.Add(((Enum)enumValue).ToString().ToLower());
+                    }
+                }
+
+            }
+            catch (NullReferenceException e)
+            {
+
+            }
+            catch (Exception e)
+            {
+
+            }
             return result;
         }
 
         public static string ToStringFlags(this Enum value)
         {
-            Type type = value.GetType();
-            Array values = Enum.GetValues(type);
             List<string> result = new List<string>();
-
-            foreach (var enumValue in values)
+            try
             {
-                // 0 will always be added, only want it if no other flags exist
-                if (((Enum)enumValue).GetDisplayName() == NO_STATUS || ((Enum)enumValue).GetDisplayName() == READY_STATUS)
+                Type type = value.GetType();
+                Array values = Enum.GetValues(type);
+                
+                foreach (var enumValue in values)
                 {
-                    continue;
+                    if (value.HasFlag((Enum)enumValue))
+                    {
+                        result.Add(((Enum)enumValue).GetDisplayName());
+                    }
                 }
-                if (value.HasFlag((Enum)enumValue))
+
+                if (result.Count == (values.Length))
                 {
-                    result.Add(((Enum)enumValue).GetDisplayName());
+                    return result.Last();
                 }
+                if (result.Count != 1)
+                {
+                    result.RemoveAt(0);
+                }
+
+                return string.Join(",", result.ToArray());
+            }
+            catch (NullReferenceException e)
+            {
+            }
+            catch (Exception e)
+            {
             }
 
-            if (result.Count == 0)
-            {
-                result.Add(NO_STATUS);
-            }
-            // TODO - BENB - This is ugly, needs to be reworked
-            if(result.Count == values.Length - 2) //None and Tested and Ready won't be included
-            {
-                result.Clear();
-                result.Add(READY_STATUS);
-            }
-
-            return string.Join(",", result.ToArray());
+            return "";
         }
 
         public static T ParseEnum<T>(this string value, T defaultValue) where T : struct, IConvertible

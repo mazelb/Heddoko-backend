@@ -32,7 +32,7 @@ namespace Heddoko.Models
 
         public EquipmentStatusType Status { get; set; }
 
-        public PantsOctopiQAStatusType QAStatus { get; set; }
+        public PantsOctopiQAStatusType? QAStatus { get; set; }
 
         public Dictionary<string, bool> QaStatuses { get; set; }
 

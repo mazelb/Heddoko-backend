@@ -3,9 +3,9 @@
 });
 
 var NO_QA_STATUS = "None";
-
 var ShirtsOctopi = {
     isDeleted: false,
+    
     controls: {
         grid: null,
         filterModel: null,
@@ -186,7 +186,7 @@ var ShirtsOctopi = {
                         template: function (e) {
                             return Format.equipment.garmentQAStatus(e.qaStatusText);
                         },
-                        editor: this.qaStatusTypesDDEditor
+                        editor: KendoDS.emptyEditor
                     },
                     {
                         field: 'notes',
@@ -295,15 +295,6 @@ var ShirtsOctopi = {
             });
     },
 
-    qaStatusTypesDDEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-            .appendTo(container)
-            .kendoDropDownList({
-                autoBind: true,
-                dataSource: Datasources.shirtOctopiQAStatusTypes
-            });
-    },
-
     detailInit: function (e) {
         var detailRow = e.detailRow;
 
@@ -313,9 +304,10 @@ var ShirtsOctopi = {
             }
         });
 
+        var qaModel = _.zipObject(e.data.qaModel, _.map(e.data.qaModel, function (e) { return true }));
         var model = kendo.observable({
             id: e.data.id,
-            qamodel: e.data.qaModel,
+            qamodel: qaModel,
             save: this.onSaveQAStatus
         });
 
@@ -325,13 +317,10 @@ var ShirtsOctopi = {
     onSaveQAStatus: function (e) {
         var model = this.get('qamodel');
 
-        // Reformat for the API Model
-        var qaModel = _.zipObject(model, _.map(model, function (e) { return true }));
-
         var grid = ShirtsOctopi.controls.grid;
 
         var item = grid.dataSource.get(this.get('id'));
-        item.set('qaStatuses', qaModel);
+        item.set('qaStatuses', model.toJSON());
 
         ShirtsOctopi.controls.grid.dataSource.sync();
     },
@@ -341,7 +330,7 @@ var ShirtsOctopi = {
             size: null,
             location: null,
             status: null,
-            qaStatus: NO_QA_STATUS,
+            qaStatus: null,
             label: null,
             notes: null
         };

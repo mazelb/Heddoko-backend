@@ -118,15 +118,14 @@
                 <ul>
                         @foreach (ShirtQAStatusType type in (ShirtQAStatusType[])Enum.GetValues(typeof(ShirtQAStatusType)))
                         {
-                            if (type == ShirtQAStatusType.None)
+                            if (type == ShirtQAStatusType.None || type == ShirtQAStatusType.TestedAndReady)
                             {
                                 continue;
                             }
                             <li>
                                 @type.GetDisplayName()
                                 <input type="checkbox"
-                                       data-bind="checked: qamodel"
-                                       value="@type.ToString().ToLower()" />
+                                       data-bind="checked: qamodel.@type.ToString().ToLower()" />
                             </li>
 
                         }

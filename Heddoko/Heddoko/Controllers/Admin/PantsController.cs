@@ -255,7 +255,7 @@ namespace Heddoko.Controllers
                     {
                         PantsQAStatusType status = qaStatus.Key.ParseEnum<PantsQAStatusType>(PantsQAStatusType.None);
 
-                        if (status == PantsQAStatusType.None)
+                        if (status == PantsQAStatusType.None || status == PantsQAStatusType.TestedAndReady)
                         {
                             continue;
                         }
