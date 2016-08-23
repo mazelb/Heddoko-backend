@@ -2,7 +2,6 @@
     ShirtsOctopi.init();
 });
 
-var NO_QA_STATUS = "None";
 var ShirtsOctopi = {
     isDeleted: false,
     
@@ -355,7 +354,6 @@ var ShirtsOctopi = {
         Notifications.clear();
         if (this.validators.addModel.validate()) {
             var obj = this.controls.addModel.get('model');
-            obj.qaStatus = NO_QA_STATUS;
 
             this.controls.grid.dataSource.add(obj);
             this.controls.grid.dataSource.sync();
