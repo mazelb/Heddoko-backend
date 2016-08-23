@@ -183,7 +183,7 @@ var ShirtsOctopi = {
                         field: "qaStatus",
                         title: i18n.Resources.QAStatus,
                         template: function (e) {
-                            return Format.equipment.garmentQAStatus(e.qaStatusText);
+                            return Format.equipment.qaStatus(e.qaStatusText);
                         },
                         editor: KendoDS.emptyEditor
                     },

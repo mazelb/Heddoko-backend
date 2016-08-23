@@ -4,7 +4,6 @@
 
 var Pants = {
     isDeleted: false,
-    NO_QA_STATUS: "None",
 
     controls: {
         grid: null,
@@ -196,7 +195,7 @@ var Pants = {
                         field: "qaStatus",
                         title: i18n.Resources.QAStatus,
                         template: function (e) {
-                            return Format.equipment.garmentQAStatus(e.qaStatusText);
+                            return Format.equipment.qaStatus(e.qaStatusText);
                         },
                         editor: KendoDS.emptyEditor
                     },
@@ -371,7 +370,6 @@ var Pants = {
         Notifications.clear();
         if (this.validators.addModel.validate()) {
             var obj = this.controls.addModel.get('model');
-            obj.qaStatus = NO_QA_STATUS;
 
             this.controls.grid.dataSource.add(obj);
             this.controls.grid.dataSource.sync();

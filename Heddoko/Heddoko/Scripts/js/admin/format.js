@@ -3,7 +3,7 @@
         return url ? '<img class="img-grid" src="' + url + '" />' : '&nbsp;';
     },
     equipment: {
-        garmentQAStatus: function (item) {
+        qaStatus: function (item) {
             return '<span class="k-grid-showText">' + (item != null ? item.replace(/,/g, '<br/>') : '') + '</span>';
         },
         equipmentQAStatus: function (item) {

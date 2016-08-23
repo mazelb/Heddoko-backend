@@ -6,15 +6,13 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 using i18n;
 
 namespace DAL
 {
     public static class Extensions
     {
-        private const string NO_STATUS = "None";
-        private const string READY_STATUS = "Tested and Ready";
-
         private static readonly Regex ToUnderScoreRegex = new Regex(@"((?<=.)[A-Z][a-zA-Z]*)|((?<=[a-zA-Z])\d+)", RegexOptions.Compiled);
 
         private static readonly Regex DigitRegex = new Regex(@"[^0-9]+", RegexOptions.Compiled);
@@ -169,11 +167,11 @@ namespace DAL
             }
             catch (NullReferenceException e)
             {
-
+                Trace.TraceError("ToArrayStringFlags: value is NULL: " + e.Message);
             }
             catch (Exception e)
             {
-
+                Trace.TraceError("ToArrayStringFlags: exception: " + e.Message);
             }
             return result;
         }
@@ -194,6 +192,8 @@ namespace DAL
                     }
                 }
 
+                // TODO: BENB - This should be refactored, 'None' is always first, 'TestedAndReady' is always last, don't want 
+                //              'None' in the result if any other value is there. Want to only send 'TestedAndReady' if all others are there
                 if (result.Count == (values.Length))
                 {
                     return result.Last();
@@ -207,9 +207,11 @@ namespace DAL
             }
             catch (NullReferenceException e)
             {
+                Trace.TraceError("ToStringFlags: value is NULL: " + e.Message);
             }
             catch (Exception e)
             {
+                Trace.TraceError("ToStringFlags: exception: " + e.Message);
             }
 
             return "";

@@ -271,6 +271,10 @@ namespace Heddoko.Controllers
                     }
                 }
             }
+            else
+            {
+                item.QAStatus = PantsQAStatusType.None;
+            }
 
             return item;
         }

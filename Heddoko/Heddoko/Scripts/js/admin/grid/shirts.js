@@ -4,7 +4,6 @@
 
 var Shirts = {
     isDeleted: false,
-    NO_QA_STATUS: "None",
 
     controls: {
         grid: null,
@@ -200,7 +199,7 @@ var Shirts = {
                         field: "qaStatus",
                         title: i18n.Resources.QAStatus,
                         template: function (e) {
-                            return Format.equipment.garmentQAStatus(e.qaStatusText);
+                            return Format.equipment.qaStatus(e.qaStatusText);
                         },
                         editor: KendoDS.emptyEditor
                     },
