@@ -2,7 +2,10 @@
 {
     public enum PowerboardQAStatusType
     {
-        TestedAndReady = 0,
-        Fail = 1
+        None = 0,
+        PowerboardProgrammed = 1,
+        PowerboardUSBEnum = 2,
+        BatteryInstalled = 4,
+        TestedAndReady = PowerboardProgrammed | PowerboardUSBEnum | BatteryInstalled
     }
 }

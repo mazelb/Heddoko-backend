@@ -218,9 +218,38 @@ namespace Heddoko.Controllers
             item.Version = model.Version?.Trim();
             item.Status = model.Status;
             item.Location = model.Location?.Trim(); ;
-            item.QAStatus = model.QAStatus;
             item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
+
+            if (model.QaStatuses != null)
+            {
+                item.QAStatus = PowerboardQAStatusType.None;
+                foreach (var qaStatus in model.QaStatuses)
+                {
+                    if (qaStatus.Value)
+                    {
+                        PowerboardQAStatusType status = qaStatus.Key.ParseEnum<PowerboardQAStatusType>(PowerboardQAStatusType.None);
+
+                        if (status == PowerboardQAStatusType.None || status == PowerboardQAStatusType.TestedAndReady)
+                        {
+                            continue;
+                        }
+
+                        if (item.QAStatus == PowerboardQAStatusType.None)
+                        {
+                            item.QAStatus = status;
+                        }
+                        else
+                        {
+                            item.QAStatus |= status;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                item.QAStatus = PowerboardQAStatusType.None;
+            }
 
             return item;
         }

@@ -348,16 +348,12 @@
     },
     powerboard: {
         qaStatus: function (item) {
-            item = item != null ? Enums.DataboardQAStatusType.array[item].text : "";
-
-            return '<span class="k-grid-showText">' + item + '</span>';
+            return '<span class="k-grid-showText">' + (item != null ? item.replace(/,/g, '<br/>') : '') + '</span>';
         }
     },
     databoard: {
         qaStatus: function (item) {
-            item = item != null ? Enums.PowerboardQAStatusType.array[item].text : "";
-
-            return '<span class="k-grid-showText">' + item + '</span>';
+            return '<span class="k-grid-showText">' + (item != null ? item.replace(/,/g, '<br/>') : '') + '</span>';
         }
     }
 };

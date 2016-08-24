@@ -736,16 +736,124 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fail.
+        ///   Looks up a localized string similar to Bluetooth connection tested.
         /// </summary>
-        public static string DataboardQAStatusType_Fail {
+        public static string DataboardQAStatusType_BluetoothConnectionTested {
             get {
-                return ResourceManager.GetString("DataboardQAStatusType_Fail", resourceCulture);
+                return ResourceManager.GetString("DataboardQAStatusType_BluetoothConnectionTested", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tested and Ready.
+        ///   Looks up a localized string similar to Bootloader Programmed.
+        /// </summary>
+        public static string DataboardQAStatusType_BootloaderProgrammed {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_BootloaderProgrammed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brain MCU Programmed.
+        /// </summary>
+        public static string DataboardQAStatusType_BrainMCUProgrammed {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_BrainMCUProgrammed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full Charge Cycle Completed.
+        /// </summary>
+        public static string DataboardQAStatusType_FullChargeCycleComplete {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_FullChargeCycleComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power Button Verified.
+        /// </summary>
+        public static string DataboardQAStatusType_PowerButtonVerified {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_PowerButtonVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quintic-1 Programmed.
+        /// </summary>
+        public static string DataboardQAStatusType_Quintic1Programmed {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_Quintic1Programmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quintic-2 Programmed.
+        /// </summary>
+        public static string DataboardQAStatusType_Quintic2Programmed {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_Quintic2Programmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quintic-3 Programmed.
+        /// </summary>
+        public static string DataboardQAStatusType_Quintic3Programmed {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_Quintic3Programmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record Button Verified.
+        /// </summary>
+        public static string DataboardQAStatusType_RecordButtonVerified {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_RecordButtonVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Button Verified.
+        /// </summary>
+        public static string DataboardQAStatusType_ResetButtonVerified {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_ResetButtonVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SD Card Assigned.
+        /// </summary>
+        public static string DataboardQAStatusType_SDCardAssigned {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_SDCardAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serial Number Programmed.
+        /// </summary>
+        public static string DataboardQAStatusType_SerialNumberProgrammed {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_SerialNumberProgrammed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streaming/Recording Frame test with 9 Nods.
+        /// </summary>
+        public static string DataboardQAStatusType_StreamingFrameTest {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_StreamingFrameTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string DataboardQAStatusType_TestedAndReady {
             get {
@@ -2158,11 +2266,29 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fail.
+        ///   Looks up a localized string similar to Battery Installed.
         /// </summary>
-        public static string PowerboardQAStatusType_Fail {
+        public static string PowerboardQAStatusType_BatteryInstalled {
             get {
-                return ResourceManager.GetString("PowerboardQAStatusType_Fail", resourceCulture);
+                return ResourceManager.GetString("PowerboardQAStatusType_BatteryInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powerboard Programmed.
+        /// </summary>
+        public static string PowerboardQAStatusType_PowerboardProgrammed {
+            get {
+                return ResourceManager.GetString("PowerboardQAStatusType_PowerboardProgrammed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powerboard USB Enumerates.
+        /// </summary>
+        public static string PowerboardQAStatusType_PowerboardUSBEnum {
+            get {
+                return ResourceManager.GetString("PowerboardQAStatusType_PowerboardUSBEnum", resourceCulture);
             }
         }
         

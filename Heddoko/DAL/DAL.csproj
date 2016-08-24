@@ -219,6 +219,10 @@
     <Compile Include="Migrations\201608232155308_equipmentQAStatuses.Designer.cs">
       <DependentUpon>201608232155308_equipmentQAStatuses.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608241937322_BoardQAStatuses.cs" />
+    <Compile Include="Migrations\201608241937322_BoardQAStatuses.Designer.cs">
+      <DependentUpon>201608241937322_BoardQAStatuses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
@@ -379,6 +383,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608232155308_equipmentQAStatuses.resx">
       <DependentUpon>201608232155308_equipmentQAStatuses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241937322_BoardQAStatuses.resx">
+      <DependentUpon>201608241937322_BoardQAStatuses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1035,22 +1035,10 @@
   <data name="EquipmentQAStatusType_TestedAndReady" xml:space="preserve">
     <value>Tested and Ready</value>
   </data>
-  <data name="DataboardQAStatusType_Fail" xml:space="preserve">
-    <value>Fail</value>
-  </data>
-  <data name="DataboardQAStatusType_TestedAndReady" xml:space="preserve">
-    <value>Tested and Ready</value>
-  </data>
   <data name="KitQAStatusType_Fail" xml:space="preserve">
     <value>Fail</value>
   </data>
   <data name="KitQAStatusType_TestedAndReady" xml:space="preserve">
-    <value>Tested and Ready</value>
-  </data>
-  <data name="PowerboardQAStatusType_Fail" xml:space="preserve">
-    <value>Fail</value>
-  </data>
-  <data name="PowerboardQAStatusType_TestedAndReady" xml:space="preserve">
     <value>Tested and Ready</value>
   </data>
   <data name="SensorSetQAStatusType_Fail" xml:space="preserve">
@@ -1259,6 +1247,60 @@
   </data>
   <data name="BrainpackQAStatusType_TestedAndReady" xml:space="preserve">
     <value>Tested and Ready</value>
+  </data>
+  <data name="PowerboardQAStatusType_PowerboardProgrammed" xml:space="preserve">
+    <value>Powerboard Programmed</value>
+  </data>
+  <data name="PowerboardQAStatusType_PowerboardUSBEnum" xml:space="preserve">
+    <value>Powerboard USB Enumerates</value>
+  </data>
+  <data name="PowerboardQAStatusType_BatteryInstalled" xml:space="preserve">
+    <value>Battery Installed</value>
+  </data>
+  <data name="PowerboardQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
+  <data name="DataboardQAStatusType_BootloaderProgrammed" xml:space="preserve">
+    <value>Bootloader Programmed</value>
+  </data>
+  <data name="DataboardQAStatusType_SDCardAssigned" xml:space="preserve">
+    <value>SD Card Assigned</value>
+  </data>
+  <data name="DataboardQAStatusType_BrainMCUProgrammed" xml:space="preserve">
+    <value>Brain MCU Programmed</value>
+  </data>
+  <data name="DataboardQAStatusType_Quintic1Programmed" xml:space="preserve">
+    <value>Quintic-1 Programmed</value>
+  </data>
+  <data name="DataboardQAStatusType_Quintic2Programmed" xml:space="preserve">
+    <value>Quintic-2 Programmed</value>
+  </data>
+  <data name="DataboardQAStatusType_Quintic3Programmed" xml:space="preserve">
+    <value>Quintic-3 Programmed</value>
+  </data>
+  <data name="DataboardQAStatusType_SerialNumberProgrammed" xml:space="preserve">
+    <value>Serial Number Programmed</value>
+  </data>
+  <data name="DataboardQAStatusType_BluetoothConnectionTested" xml:space="preserve">
+    <value>Bluetooth connection tested</value>
+  </data>
+  <data name="DataboardQAStatusType_PowerButtonVerified" xml:space="preserve">
+    <value>Power Button Verified</value>
+  </data>
+  <data name="DataboardQAStatusType_ResetButtonVerified" xml:space="preserve">
+    <value>Reset Button Verified</value>
+  </data>
+  <data name="DataboardQAStatusType_RecordButtonVerified" xml:space="preserve">
+    <value>Record Button Verified</value>
+  </data>
+  <data name="DataboardQAStatusType_StreamingFrameTest" xml:space="preserve">
+    <value>Streaming/Recording Frame test with 9 Nods</value>
+  </data>
+  <data name="DataboardQAStatusType_FullChargeCycleComplete" xml:space="preserve">
+    <value>Full Charge Cycle Completed</value>
+  </data>
+  <data name="DataboardQAStatusType_TestedAndReady" xml:space="preserve">
+    <value></value>
   </data>
   <data name="SizeType_ExtraLarge" xml:space="preserve">
     <value>Extra Large</value>
