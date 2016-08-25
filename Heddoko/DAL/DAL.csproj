@@ -215,13 +215,9 @@
     <Compile Include="Migrations\201608160932411_Bitwise.Designer.cs">
       <DependentUpon>201608160932411_Bitwise.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608232155308_equipmentQAStatuses.cs" />
-    <Compile Include="Migrations\201608232155308_equipmentQAStatuses.Designer.cs">
-      <DependentUpon>201608232155308_equipmentQAStatuses.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608241937322_BoardQAStatuses.cs" />
-    <Compile Include="Migrations\201608241937322_BoardQAStatuses.Designer.cs">
-      <DependentUpon>201608241937322_BoardQAStatuses.cs</DependentUpon>
+    <Compile Include="Migrations\201608251424197_bitwise-eqipment.cs" />
+    <Compile Include="Migrations\201608251424197_bitwise-eqipment.Designer.cs">
+      <DependentUpon>201608251424197_bitwise-eqipment.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
@@ -381,11 +377,8 @@
     <EmbeddedResource Include="Migrations\201608160932411_Bitwise.resx">
       <DependentUpon>201608160932411_Bitwise.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608232155308_equipmentQAStatuses.resx">
-      <DependentUpon>201608232155308_equipmentQAStatuses.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608241937322_BoardQAStatuses.resx">
-      <DependentUpon>201608241937322_BoardQAStatuses.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608251424197_bitwise-eqipment.resx">
+      <DependentUpon>201608251424197_bitwise-eqipment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
