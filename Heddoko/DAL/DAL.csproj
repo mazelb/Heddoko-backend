@@ -215,9 +215,9 @@
     <Compile Include="Migrations\201608160932411_Bitwise.Designer.cs">
       <DependentUpon>201608160932411_Bitwise.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608251424197_bitwise-eqipment.cs" />
-    <Compile Include="Migrations\201608251424197_bitwise-eqipment.Designer.cs">
-      <DependentUpon>201608251424197_bitwise-eqipment.cs</DependentUpon>
+    <Compile Include="Migrations\201608251424197_BitwiseEquipment.cs" />
+    <Compile Include="Migrations\201608251424197_BitwiseEquipment.Designer.cs">
+      <DependentUpon>201608251424197_BitwiseEquipment.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
@@ -377,8 +377,8 @@
     <EmbeddedResource Include="Migrations\201608160932411_Bitwise.resx">
       <DependentUpon>201608160932411_Bitwise.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608251424197_bitwise-eqipment.resx">
-      <DependentUpon>201608251424197_bitwise-eqipment.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608251424197_BitwiseEquipment.resx">
+      <DependentUpon>201608251424197_BitwiseEquipment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
