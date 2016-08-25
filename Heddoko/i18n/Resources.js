@@ -398,7 +398,7 @@ i18n.Resources = (function () {
   "DataboardQAStatusType_RecordButtonVerified": "Record Button Verified",
   "DataboardQAStatusType_StreamingFrameTest": "Streaming/Recording Frame test with 9 Nods",
   "DataboardQAStatusType_FullChargeCycleComplete": "Full Charge Cycle Completed",
-  "DataboardQAStatusType_TestedAndReady": "",
+  "DataboardQAStatusType_TestedAndReady": "Tested and Ready",
   "SizeType_ExtraLarge": "Extra Large",
   "SizeType_Large": "Large",
   "SizeType_Medium": "Medium",

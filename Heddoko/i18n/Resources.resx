@@ -1309,7 +1309,7 @@
     <value>Full Charge Cycle Completed</value>
   </data>
   <data name="DataboardQAStatusType_TestedAndReady" xml:space="preserve">
-    <value></value>
+    <value>Tested and Ready</value>
   </data>
   <data name="SizeType_ExtraLarge" xml:space="preserve">
     <value>Extra Large</value>

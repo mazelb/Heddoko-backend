@@ -862,7 +862,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Tested and Ready.
         /// </summary>
         public static string DataboardQAStatusType_TestedAndReady {
             get {
