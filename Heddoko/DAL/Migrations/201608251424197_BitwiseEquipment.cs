@@ -9,10 +9,10 @@ namespace DAL.Migrations
         {
             AlterColumn("dbo.Brainpacks", "QAStatus", c => c.Long(nullable: false));
 
-            Sql("ALTER TABLE dbo.Databoards DROP CONSTRAINT DF__Databoard__QASta__2077C861");
+            this.DeleteDefaultContraint("dbo.Databoards", "QAStatus");
             AlterColumn("dbo.Databoards", "QAStatus", c => c.Long(nullable: false));
 
-            Sql("ALTER TABLE dbo.Powerboards DROP CONSTRAINT DF__Powerboar__QASta__216BEC9A");
+            this.DeleteDefaultContraint("dbo.Powerboards", "QAStatus");
             AlterColumn("dbo.Powerboards", "QAStatus", c => c.Long(nullable: false));
 
 
