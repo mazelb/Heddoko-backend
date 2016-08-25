@@ -240,11 +240,41 @@ namespace Heddoko.Controllers
             }
 
             item.Location = model.Location?.Trim(); ;
-            item.QAStatus = model.QAStatus;
             item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
             item.Status = model.Status;
             item.Size = model.Size;
+            item.QAStatus = PantsQAStatusType.None;
+
+            if (model.QaStatuses != null)
+            {
+                
+                foreach (var qaStatus in model.QaStatuses)
+                {
+                    if (qaStatus.Value)
+                    {
+                        PantsQAStatusType status = qaStatus.Key.ParseEnum<PantsQAStatusType>(PantsQAStatusType.None);
+
+                        if (status == PantsQAStatusType.None || status == PantsQAStatusType.TestedAndReady)
+                        {
+                            continue;
+                        }
+
+                        if (item.QAStatus == PantsQAStatusType.None)
+                        {
+                            item.QAStatus = status;
+                        }
+                        else
+                        {
+                            item.QAStatus |= status;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                item.QAStatus = PantsQAStatusType.None;
+            }
 
             return item;
         }

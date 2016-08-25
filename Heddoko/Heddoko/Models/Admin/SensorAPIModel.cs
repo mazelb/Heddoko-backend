@@ -2,6 +2,7 @@
 using DAL;
 using DAL.Models;
 using i18n;
+using System.Collections.Generic;
 
 namespace Heddoko.Models
 {
@@ -40,8 +41,10 @@ namespace Heddoko.Models
 
         public EquipmentStatusType Status { get; set; }
         
-        public SensorQAStatusType QAStatus { get; set; }
-        
+        public SensorQAStatusType? QAStatus { get; set; }
+
+        public Dictionary<string, bool> QaStatuses { get; set; }
+
         public int? SensorSetID { get; set; }
 
         public SensorSet SensorSet { get; set; }
@@ -49,5 +52,9 @@ namespace Heddoko.Models
         public AnatomicalLocationType AnatomicalLocation { get; set; }
 
         public string Name => IsEmpty ? $"{Resources.No} {Resources.Sensors}" : $"{IDView} - {Type.GetDisplayName()} - {QAStatus.GetDisplayName()}";
+
+        public string QAStatusText => QAStatus.ToStringFlags();
+
+        public List<string> QAModel => QAStatus.ToArrayStringFlags();
     }
 }

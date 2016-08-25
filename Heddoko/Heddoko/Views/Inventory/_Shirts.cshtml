@@ -53,18 +53,6 @@
                                 data-value-field="value"
                                 data-bind="value: model.status, source: statuses"></select>
                     </div>
-                    <div class="col-sm-2">
-                        <select class="form-control"
-                                required
-                                name="shirts-qastatus"
-                                validationMessage="@i18n.Resources.Required"
-                                data-role="dropdownlist"
-                                data-value-primitive="true"
-                                data-text-field="text"
-                                data-option-label="@i18n.Resources.SelectQAStatus"
-                                data-value-field="value"
-                                data-bind="value: model.qaStatus, source: qaStatuses"></select>
-                    </div>
 
                     <div class="col-sm-2">
                         <select class="form-control" 
@@ -128,16 +116,16 @@
         <div>
             <div class="qa-statuses">
                 <ul>
-                        @foreach (DAL.Models.ShirtQAStatusType type in (DAL.Models.ShirtQAStatusType[])Enum.GetValues(typeof(DAL.Models.ShirtQAStatusType)))
+                        @foreach (ShirtQAStatusType type in (ShirtQAStatusType[])Enum.GetValues(typeof(ShirtQAStatusType)))
                         {
-                            if (type == ShirtQAStatusType.None)
+                            if (type == ShirtQAStatusType.None || type == ShirtQAStatusType.TestedAndReady)
                             {
                                 continue;
                             }
                             <li>
                                 @type.GetDisplayName()
                                 <input type="checkbox"
-                                       data-bind="checked: model.@type.ToString().ToLower()" />
+                                       data-bind="checked: qamodel.@type.ToString().ToLower()" />
                             </li>
 
                         }

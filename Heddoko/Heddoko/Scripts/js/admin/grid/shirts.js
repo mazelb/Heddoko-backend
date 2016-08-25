@@ -4,6 +4,7 @@
 
 var Shirts = {
     isDeleted: false,
+
     controls: {
         grid: null,
         filterModel: null,
@@ -198,7 +199,7 @@ var Shirts = {
                         field: "qaStatus",
                         title: i18n.Resources.QAStatus,
                         template: function (e) {
-                            return Format.shirts.qaStatus(e.qaStatusText);
+                            return Format.equipment.qaStatus(e.qaStatusText);
                         },
                         editor: KendoDS.emptyEditor
                     },
@@ -276,15 +277,6 @@ var Shirts = {
             });
     },
 
-    qaStatusTypesDDEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-            .appendTo(container)
-            .kendoDropDownList({
-                autoBind: true,
-                dataSource: Datasources.shirtQAStatusTypes
-            });
-    },
-
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
 
@@ -329,10 +321,10 @@ var Shirts = {
             }
         });
 
+        var qaModel = _.zipObject(e.data.qaModel, _.map(e.data.qaModel, function (e) { return true }));
         var model = kendo.observable({
             id:  e.data.id,
-            model: {
-            },
+            qamodel: qaModel,
             save: this.onSaveQAStatus
         });
 
@@ -341,7 +333,7 @@ var Shirts = {
     },
 
     onSaveQAStatus: function(e) {
-        var model = this.get('model');
+        var model = this.get('qamodel');
 
         var grid = Shirts.controls.grid;
 

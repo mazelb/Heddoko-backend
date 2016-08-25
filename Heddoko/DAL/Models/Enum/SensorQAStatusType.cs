@@ -1,18 +1,16 @@
-﻿namespace DAL.Models
+﻿using System;
+
+namespace DAL.Models
 {
-    public enum SensorQAStatusType
+    [Flags]
+    public enum SensorQAStatusType : long
     {
-        TestedAndReady = 0,
-        Fail = 1,
-        FirmawareUpdatedPass = 2,
-        FirmawareUpdatedFail = 3,
-        SeatingInBasePass = 4,
-        SeatingInBaseFail = 5,
-        LedPass = 6,
-        LedFail = 7,
-        OrientationPass = 8,
-        OrientationFail = 9,
-        DrifPass = 10,
-        DrifFail = 11
+        None = 0,
+        FirmwareUpdated = 1,
+        SeatingInBase = 2,
+        LED = 4,
+        Orientation = 8,
+        Drift = 26,
+        TestedAndReady = FirmwareUpdated | SeatingInBase | LED | Orientation | Drift
     }
 }

@@ -188,15 +188,6 @@ var Sensors = {
             });
     },
 
-    qaStatusTypesDDEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
-            .appendTo(container)
-            .kendoDropDownList({
-                autoBind: true,
-                dataSource: Datasources.sensorQAStatusTypes
-            });
-    },
-
     anatomicalLocationDDEditor: function(container, options) {
         $('<input required data-text-field="text" data-value-field="value" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
             .appendTo(container)
@@ -278,9 +269,9 @@ var Sensors = {
                             field: "qaStatus",
                             title: i18n.Resources.QAStatus,
                             template: function (e) {
-                                return Format.sensors.qaStatus(e.qaStatus);
+                                return Format.sensors.qaStatus(e.qaStatusText);
                             },
-                            editor: this.qaStatusTypesDDEditor
+                            editor: KendoDS.emptyEditor
                         },
                         {
                             field: "sensorSet",
@@ -324,6 +315,8 @@ var Sensors = {
                         }
                     ],
                     save: KendoDS.onSave,
+                    detailInit: this.detailInit.bind(this),
+                    detailTemplate: kendo.template($("#sensors-qastatuses-template").html()),
                     dataBound: this.onDataBound
                 })
                 .data("kendoGrid");
@@ -396,6 +389,36 @@ var Sensors = {
                     $(this).remove();
                 }
             });
+    },
+
+    detailInit: function (e) {
+        var detailRow = e.detailRow;
+
+        detailRow.find(".tabstrip").kendoTabStrip({
+            animation: {
+                open: { effects: "fadeIn" }
+            }
+        });
+
+        var qaModel = _.zipObject(e.data.qaModel, _.map(e.data.qaModel, function (e) { return true }));
+        var model = kendo.observable({
+            id: e.data.id,
+            qamodel: qaModel,
+            save: this.onSaveQAStatus
+        });
+
+        kendo.bind(detailRow.find('.qa-statuses'), model);
+    },
+
+    onSaveQAStatus: function (e) {
+        var model = this.get('qamodel');
+
+        var grid = Sensors.controls.grid;
+
+        var item = grid.dataSource.get(this.get('id'));
+        item.set('qaStatuses', model.toJSON());
+
+        Sensors.controls.grid.dataSource.sync();
     },
 
     getEmptyModel: function() {

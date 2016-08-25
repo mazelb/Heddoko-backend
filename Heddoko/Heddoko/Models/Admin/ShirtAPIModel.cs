@@ -10,6 +10,7 @@ namespace Heddoko.Models
     {
         public ShirtAPIModel()
         {
+            QAStatus = ShirtQAStatusType.None;
         }
 
         public ShirtAPIModel(bool isEmpty)
@@ -32,7 +33,7 @@ namespace Heddoko.Models
 
         public EquipmentStatusType Status { get; set; }
 
-        public ShirtQAStatusType QAStatus { get; set; }
+        public ShirtQAStatusType? QAStatus { get; set; }
 
         public Dictionary<string, bool> QaStatuses { get; set; }
 
@@ -42,7 +43,7 @@ namespace Heddoko.Models
 
         public string IDView { get; set; }
 
-        public string Name => IsEmpty ? $"{Resources.No} {Resources.Shirt}" : $"{IDView} - {QAStatus.GetDisplayName()}";
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.Shirt}" : $"{IDView} - {Size.GetDisplayName()}";
 
         public string QAStatusText => QAStatus.ToStringFlags();
 

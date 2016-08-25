@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 using i18n;
 
 namespace DAL
@@ -149,36 +150,71 @@ namespace DAL
 
         public static List<string> ToArrayStringFlags(this Enum value)
         {
-            Type type = value.GetType();
-            Array values = Enum.GetValues(type);
             List<string> result = new List<string>();
-
-            foreach (var enumValue in values)
+            try
             {
-                if (value.HasFlag((Enum)enumValue))
-                {
-                    result.Add(((Enum)enumValue).ToString().ToLower());
-                }
-            }
+                Type type = value.GetType();
+                Array values = Enum.GetValues(type);         
 
+                foreach (var enumValue in values)
+                {
+                    if (value.HasFlag((Enum)enumValue))
+                    {
+                        result.Add(((Enum)enumValue).ToString().ToLower());
+                    }
+                }
+
+            }
+            catch (NullReferenceException e)
+            {
+                Trace.TraceError("ToArrayStringFlags: value is NULL: " + e.Message);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError("ToArrayStringFlags: exception: " + e.Message);
+            }
             return result;
         }
 
         public static string ToStringFlags(this Enum value)
         {
-            Type type = value.GetType();
-            Array values = Enum.GetValues(type);
             List<string> result = new List<string>();
-
-            foreach (var enumValue in values)
+            try
             {
-                if (value.HasFlag((Enum)enumValue))
+                Type type = value.GetType();
+                Array values = Enum.GetValues(type);
+                
+                foreach (var enumValue in values)
                 {
-                    result.Add(((Enum)enumValue).GetDisplayName());
+                    if (value.HasFlag((Enum)enumValue))
+                    {
+                        result.Add(((Enum)enumValue).GetDisplayName());
+                    }
                 }
+
+                // TODO: BENB - This should be refactored, 'None' is always first, 'TestedAndReady' is always last, don't want 
+                //              'None' in the result if any other value is there. Want to only send 'TestedAndReady' if all others are there
+                if (result.Count == (values.Length))
+                {
+                    return result.Last();
+                }
+                if (result.Count != 1)
+                {
+                    result.RemoveAt(0);
+                }
+
+                return string.Join(",", result.ToArray());
+            }
+            catch (NullReferenceException e)
+            {
+                Trace.TraceError("ToStringFlags: value is NULL: " + e.Message);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError("ToStringFlags: exception: " + e.Message);
             }
 
-            return string.Join(",", result.ToArray());
+            return "";
         }
 
         public static T ParseEnum<T>(this string value, T defaultValue) where T : struct, IConvertible
