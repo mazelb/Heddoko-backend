@@ -51,7 +51,7 @@ namespace Heddoko.Models
 
         public AnatomicalLocationType AnatomicalLocation { get; set; }
 
-        public string Name => IsEmpty ? $"{Resources.No} {Resources.Sensors}" : $"{IDView} - {Type.GetDisplayName()} - {QAStatus.GetDisplayName()}";
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.Sensors}" : $"{IDView} - {Type.GetDisplayName()} - {Status.GetDisplayName()}";
 
         public string QAStatusText => QAStatus.ToStringFlags();
 

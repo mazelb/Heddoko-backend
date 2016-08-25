@@ -318,6 +318,7 @@ i18n.Resources = (function () {
   "SensorQAStatusType_LED": "Sensor LED",
   "SensorQAStatusType_Orientation": "Sensor Orientation",
   "SensorQAStatusType_Drift": "Sensor Drift",
+  "SensorQAStatusType_TestedAndReady": "Tested and Ready",
   "ShirtQAStatusType_BaseplateInspection": "Baseplates inspection",
   "ShirtQAStatusType_ConnectorInspection": "Connector inspection",
   "ShirtQAStatusType_Fail": "Fail",

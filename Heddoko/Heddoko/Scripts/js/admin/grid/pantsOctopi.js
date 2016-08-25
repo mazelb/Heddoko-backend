@@ -304,7 +304,7 @@ var PantsOctopi = {
             }
         });
 
-        var qaModel = _.zipObject(e.data.qaModel, _.map(e.data.qaModel, function (e) { return true }));
+        var qaModel = _.zipObject(e.data.qaModel, _.map(e.data.qaModel, function (ev) { return true }));
         var model = kendo.observable({
             id: e.data.id,
             qamodel: qaModel,
@@ -321,6 +321,7 @@ var PantsOctopi = {
 
         var item = grid.dataSource.get(this.get('id'));
         item.set('qaStatuses', model.toJSON());
+        item.dirty = true;
 
         PantsOctopi.controls.grid.dataSource.sync();
     },

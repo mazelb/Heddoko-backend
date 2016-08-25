@@ -2716,6 +2716,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tested and Ready.
+        /// </summary>
+        public static string SensorQAStatusType_TestedAndReady {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_TestedAndReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sensors.
         /// </summary>
         public static string Sensors {
