@@ -1,127 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL
 {
     public class Config
     {
-        public static string ConnectionString
-        {
-            get
-            {
-                return ConfigurationManager.ConnectionStrings["HDContext"].ToString();
+        public static string ConnectionString => ConfigurationManager.ConnectionStrings["HDContext"].ToString();
 
-            }
-        }
+        public static bool AllowInitData => bool.Parse(ConfigurationManager.AppSettings["AllowInitData"]);
 
-        public static bool AllowInitData
-        {
-            get
-            {
-                return bool.Parse(ConfigurationManager.AppSettings["AllowInitData"]);
-            }
-        }
+        public static string Environment => ConfigurationManager.AppSettings["Environment"];
 
-        public static string Environment
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["Environment"];
-            }
-        }
+        public static string BaseDirectory => AppDomain.CurrentDomain.BaseDirectory;
 
-        public static string BaseDirectory
-        {
-            get
-            {
-                return AppDomain.CurrentDomain.BaseDirectory;
-            }
-        }
+        public static string HomeSite => ConfigurationManager.AppSettings["HomeSite"];
 
-        public static string HomeSite
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["HomeSite"];
-            }
-        }
+        public static string DashboardSite => ConfigurationManager.AppSettings["DashboardSite"];
 
-        public static string DashboardSite
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["DashboardSite"];
-            }
-        }
+        #region JWT
+
+        public static string JwtSecret => ConfigurationManager.AppSettings["JWTSecret"];
+
+        #endregion
 
         #region Redis 
 
-        public static string RedisConnectionString
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["RedisConnectionString"];
-            }
-        }
+        public static string RedisConnectionString => ConfigurationManager.AppSettings["RedisConnectionString"];
 
-        public static int RedisCacheExpiration
-        {
-            get
-            {
-                return int.Parse(ConfigurationManager.AppSettings["RedisCacheExpiration"]);
-            }
-        }
+        public static int RedisCacheExpiration => int.Parse(ConfigurationManager.AppSettings["RedisCacheExpiration"]);
+
         #endregion
 
         #region Azure
 
+        public static string StorageConnectionString => ConfigurationManager.AppSettings["StorageConnectionString"];
 
-        public static string StorageConnectionString
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["StorageConnectionString"];
+        public static string AssetsContainer => ConfigurationManager.AppSettings["AssetsContainer"];
 
-            }
-        }
+        public static string AssetsServer => ConfigurationManager.AppSettings["AssetsServer"];
 
-        public static string AssetsContainer
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["AssetsContainer"];
-            }
-        }
-
-        public static int AssetsEndpoint
-        {
-            get
-            {
-                return int.Parse(ConfigurationManager.AppSettings["AssetsEndpoint"]);
-            }
-        }
-
-        public static string AssetsServer
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["AssetsServer"];
-            }
-        }
-        #endregion
-
-        #region JWT
-        public static string JWTSecret
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["JWTSecret"];
-            }
-        }
         #endregion
     }
 }

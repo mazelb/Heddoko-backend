@@ -4,11 +4,11 @@
     Layout = "~/Views/Shared/_LayoutEmail.cshtml";
 }
 
-Welcome @Model.FirstName, you invted to become part of organization @Model.OrganizationName
-<br />
+Welcome @Model.FirstName. You've been invited to become part of the organization @Model.OrganizationName
+<br /><br />
 @if (!string.IsNullOrEmpty(Model.Token)) {
     <text>
-    Click here to activate your account: @(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")
+    Click here to activate your account: <a href="@(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")">@(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")</a>
     </text>
 }
 else
@@ -17,5 +17,5 @@ else
         Please ask your admin of organization for license activation
     </text>
 }
-<br />
+<br /><br />
 - The Heddoko Team

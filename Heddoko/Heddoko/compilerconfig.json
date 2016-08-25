@@ -1,7 +1,14 @@
 ﻿[
   {
-    "outputFile": "Content/css/kendo.css",
-    "inputFile": "Content/scss/kendo.scss",
+    "outputFile": "Content/css/backend.css",
+    "inputFile": "Content/scss/backend.scss",
+    "minify": {
+      "enabled": true
+    }
+  },
+  {
+    "outputFile": "Content/css/general.css",
+    "inputFile": "Content/scss/general.scss",
     "minify": {
       "enabled": true
     }

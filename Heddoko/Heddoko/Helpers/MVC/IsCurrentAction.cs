@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace System.Web.Mvc
+﻿namespace System.Web.Mvc
 {
-
     public static class IsCurrentAction
     {
         public static MvcHtmlString IsCurrentActionLink(this HtmlHelper html, string action, string controller)
@@ -23,7 +17,8 @@ namespace System.Web.Mvc
             string str =
                 currentAction.Equals(action.ToLower(), StringComparison.InvariantCulture)
                 && currentController.Equals(controller.ToLower(), StringComparison.InvariantCulture)
-                ? " active " : String.Empty;
+                    ? " active "
+                    : string.Empty;
 
             return new MvcHtmlString(str);
         }

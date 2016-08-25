@@ -1,14 +1,8 @@
-﻿using DAL;
-using DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
+﻿using System;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.SessionState;
 
 namespace Heddoko
@@ -20,27 +14,28 @@ namespace Heddoko
         private const string HttpContext = "MS_HttpContext";
 
         #region HttpRequestBase
+
         public static string UserIP(this HttpRequestMessage request)
         {
             if (request != null)
             {
                 string realIP = request.Headers.FirstOrDefault(c => c.Key == XRealIP).Value?.FirstOrDefault();
 
-                if (String.IsNullOrEmpty(realIP))
+                if (string.IsNullOrEmpty(realIP))
                 {
                     realIP = request.Headers.FirstOrDefault(c => c.Key == XForwardedFor).Value?.FirstOrDefault();
                 }
 
-                if (String.IsNullOrEmpty(realIP))
+                if (string.IsNullOrEmpty(realIP))
                 {
                     if (request.Properties.ContainsKey(HttpContext))
                     {
-                        HttpContextWrapper ctx = (HttpContextWrapper)request.Properties[HttpContext];
+                        HttpContextWrapper ctx = (HttpContextWrapper) request.Properties[HttpContext];
                         if (ctx != null)
                         {
                             realIP = ctx.Request.Headers[XRealIP];
 
-                            if (String.IsNullOrEmpty(realIP))
+                            if (string.IsNullOrEmpty(realIP))
                             {
                                 realIP = ctx.Request.Headers[XForwardedFor];
                             }
@@ -55,18 +50,19 @@ namespace Heddoko
 
             return null;
         }
+
         public static string UserIP(this HttpRequestBase request)
         {
             if (request != null)
             {
                 string realIP = request.Headers[XRealIP];
 
-                if (String.IsNullOrEmpty(realIP))
+                if (string.IsNullOrEmpty(realIP))
                 {
                     realIP = request.Headers[XForwardedFor];
                 }
 
-                return !String.IsNullOrEmpty(realIP) ? realIP : request.UserHostAddress;
+                return !string.IsNullOrEmpty(realIP) ? realIP : request.UserHostAddress;
             }
 
             return null;
@@ -81,19 +77,24 @@ namespace Heddoko
 
             return null;
         }
+
         #endregion
+
         #region UserRepository
+
         //public static void UpdateCurrentUser(this IUserRepository repository, User user)
         //{
         //    repository.AttachAndUpdate(user);
         //    ContextSession.User = user;
         //}
+
         #endregion
+
         #region TempData
+
         public static T Get<T>(this TempDataDictionary tempData, string key)
         {
-
-            return tempData.Get<T>(key, () => default(T));
+            return tempData.Get(key, () => default(T));
         }
 
 
@@ -104,7 +105,7 @@ namespace Heddoko
                 object value = tempData[key];
                 if (value != null)
                 {
-                    return (T)value;
+                    return (T) value;
                 }
             }
             return createDefault();
@@ -132,12 +133,14 @@ namespace Heddoko
                 tempData[key] = null;
             }
         }
+
         #endregion
+
         #region Session
+
         public static T Get<T>(this HttpSessionState session, string key)
         {
-
-            return session.Get<T>(key, () => default(T));
+            return session.Get(key, () => default(T));
         }
 
 
@@ -148,7 +151,7 @@ namespace Heddoko
                 object value = session[key];
                 if (value != null)
                 {
-                    return (T)value;
+                    return (T) value;
                 }
             }
             return createDefault();
@@ -176,6 +179,7 @@ namespace Heddoko
                 session[key] = null;
             }
         }
+
         #endregion
     }
 }

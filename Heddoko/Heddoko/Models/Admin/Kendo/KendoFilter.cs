@@ -1,9 +1,6 @@
-﻿using Heddoko.Helpers.Kendo;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Heddoko.Helpers.Kendo;
 
 namespace Heddoko.Models
 {
@@ -17,5 +14,4 @@ namespace Heddoko.Models
             return Filters != null ? Filters.FirstOrDefault(c => c.Field.Equals(key)) : null;
         }
     }
-
 }

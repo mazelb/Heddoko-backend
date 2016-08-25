@@ -1,28 +1,27 @@
-﻿using DAL;
-using DAL.Models;
-using Heddoko.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using DAL;
+using DAL.Models;
+using Hangfire;
+using Heddoko.Models;
+using i18n;
 
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("admin/api/licenses")]
-    [AuthAPI(Roles = DAL.Constants.Roles.LicenseAdminAndAdmin)]
+    [AuthAPI(Roles = Constants.Roles.LicenseAdminAndAdmin)]
     public class LicensesController : BaseAdminController<License, LicenseAPIModel>
     {
-        const string Search = "Search";
-        const string OrganizationID = "OrganizationID";
-        const string Used = "Used";
+        private const string Search = "Search";
+        private const string OrganizationID = "OrganizationID";
+        private const string Used = "Used";
 
 
-        public override KendoResponse<IEnumerable<LicenseAPIModel>> Get([FromUri]KendoRequest request)
+        public override KendoResponse<IEnumerable<LicenseAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<License> items = null;
             int count = 0;
@@ -34,57 +33,63 @@ namespace Heddoko.Controllers
 
                 if (!CurrentUser.OrganizationID.HasValue)
                 {
-                    throw new Exception(i18n.Resources.WrongObjectAccess);
+                    throw new Exception(Resources.WrongObjectAccess);
                 }
             }
 
             bool isUsed = false;
 
-            if (request != null)
+            if (request?.Filter != null)
             {
-                if (request.Filter != null)
+                switch (request.Filter.Filters.Count())
                 {
-                    switch (request.Filter.Filters.Count())
-                    {
-                        case 0:
-                            items = UoW.LicenseRepository.GetByOrganization(CurrentUser.OrganizationID.Value);
-                            break;
-                        case 1:
-                            foreach (KendoFilterItem filter in request.Filter.Filters)
+                    case 0:
+                        items = UoW.LicenseRepository.GetByOrganization(CurrentUser.OrganizationID.Value);
+                        break;
+                    case 1:
+                        foreach (KendoFilterItem filter in request.Filter.Filters)
+                        {
+                            switch (filter.Field)
                             {
-                                switch (filter.Field)
-                                {
-                                    case Used:
-                                        items = UoW.LicenseRepository.GetAvailableByOrganization(CurrentUser.OrganizationID.Value);
-                                        isUsed = true;
-                                        break;
-                                    case Search:
-                                        if (!string.IsNullOrEmpty(filter.Value))
-                                        {
-                                            items = UoW.LicenseRepository.Search(filter.Value, isForceOrganization ? CurrentUser.OrganizationID : null);
-                                        }
-                                        break;
-                                    case OrganizationID:
-                                        if (!string.IsNullOrEmpty(filter.Value))
-                                        {
-                                            int organizationID = int.Parse(filter.Value);
+                                case Used:
+                                    int tmp = 0;
+                                    int? usedID = null;
+                                    if (int.TryParse(filter.Value, out tmp))
+                                    {
+                                        usedID = tmp;
+                                    }
 
-                                            if (isForceOrganization)
-                                            {
-                                                organizationID = CurrentUser.OrganizationID.Value;
-                                            }
+                                    items = UoW.LicenseRepository.GetAvailableByOrganization(CurrentUser.OrganizationID.Value, usedID);
+                                    isUsed = true;
+                                    break;
+                                case Search:
+                                    if (!string.IsNullOrEmpty(filter.Value))
+                                    {
+                                        items = UoW.LicenseRepository.Search(filter.Value, isForceOrganization ? CurrentUser.OrganizationID : null);
+                                    }
+                                    break;
+                                case OrganizationID:
+                                    if (!string.IsNullOrEmpty(filter.Value))
+                                    {
+                                        int organizationID = int.Parse(filter.Value);
 
-                                            items = UoW.LicenseRepository.GetByOrganization(int.Parse(filter.Value));
+                                        if (isForceOrganization)
+                                        {
+                                            organizationID = CurrentUser.OrganizationID.Value;
                                         }
-                                        break;
-                                }
+
+                                        items = UoW.LicenseRepository.GetByOrganization(int.Parse(filter.Value));
+                                    }
+                                    break;
                             }
-                            break;
-                    }
+                        }
+                        break;
                 }
             }
 
-            if (items == null)
+            if (items == null
+                &&
+                !isUsed)
             {
                 items = new List<License>();
 
@@ -96,30 +101,26 @@ namespace Heddoko.Controllers
 
             count = items.Count();
 
-            if (request != null)
+            if (request?.Take != null)
             {
-                if (request.Take.HasValue)
-                {
-                    items = items.Skip(request.Skip.Value)
-                                 .Take(request.Take.Value);
-
-                }
+                items = items.Skip(request.Skip.Value)
+                             .Take(request.Take.Value);
             }
 
             List<LicenseAPIModel> itemsDefault = new List<LicenseAPIModel>();
 
             if (isUsed)
             {
-                itemsDefault.Add(new LicenseAPIModel()
+                itemsDefault.Add(new LicenseAPIModel
                 {
                     ID = 0,
-                    Name = i18n.Resources.EmptyLicense
+                    Name = Resources.EmptyLicense
                 });
             }
 
-            itemsDefault.AddRange(items.ToList().Select(c => Convert(c)));
+            itemsDefault.AddRange(items.ToList().Select(Convert));
 
-            return new KendoResponse<IEnumerable<LicenseAPIModel>>()
+            return new KendoResponse<IEnumerable<LicenseAPIModel>>
             {
                 Response = itemsDefault,
                 Total = count
@@ -130,16 +131,16 @@ namespace Heddoko.Controllers
         {
             License item = UoW.LicenseRepository.GetFull(id);
 
-            return new KendoResponse<LicenseAPIModel>()
+            return new KendoResponse<LicenseAPIModel>
             {
                 Response = Convert(item)
             };
         }
 
-        [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
+        [AuthAPI(Roles = Constants.Roles.Admin)]
         public override KendoResponse<LicenseAPIModel> Post(LicenseAPIModel model)
         {
-            LicenseAPIModel response = new LicenseAPIModel();
+            LicenseAPIModel response;
 
             if (ModelState.IsValid)
             {
@@ -148,65 +149,78 @@ namespace Heddoko.Controllers
                 UoW.LicenseRepository.Create(item);
 
                 // Task.Run(() => Mailer.SendInviteAdminEmail(item));
+                BackgroundJob.Enqueue(() => Services.LicenseManager.Check());
 
                 response = Convert(item);
             }
             else
             {
-                throw new ModelStateException()
+                throw new ModelStateException
                 {
                     ModelState = ModelState
                 };
             }
 
-            return new KendoResponse<LicenseAPIModel>()
+            return new KendoResponse<LicenseAPIModel>
             {
                 Response = response
             };
         }
 
-        [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
+        [AuthAPI(Roles = Constants.Roles.Admin)]
         public override KendoResponse<LicenseAPIModel> Put(LicenseAPIModel model)
         {
             LicenseAPIModel response = new LicenseAPIModel();
 
-            if (model.ID.HasValue)
+            if (!model.ID.HasValue)
             {
-                License item = UoW.LicenseRepository.GetFull(model.ID.Value);
-                if (item != null)
+                return new KendoResponse<LicenseAPIModel>
                 {
-                    if (ModelState.IsValid)
-                    {
-
-                        Bind(item, model);
-                        UoW.Save();
-
-                        response = Convert(item);
-                    }
-                    else
-                    {
-                        throw new ModelStateException()
-                        {
-                            ModelState = ModelState
-                        };
-                    }
-                }
+                    Response = response
+                };
             }
 
-            return new KendoResponse<LicenseAPIModel>()
+
+            License item = UoW.LicenseRepository.GetFull(model.ID.Value);
+            if (item == null)
+            {
+                return new KendoResponse<LicenseAPIModel>
+                {
+                    Response = response
+                };
+            }
+
+            if (ModelState.IsValid)
+            {
+                Bind(item, model);
+                UoW.Save();
+
+                BackgroundJob.Enqueue(() => Services.LicenseManager.Check());
+
+                response = Convert(item);
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+
+            return new KendoResponse<LicenseAPIModel>
             {
                 Response = response
             };
         }
 
-        [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
+        [AuthAPI(Roles = Constants.Roles.Admin)]
         public override KendoResponse<LicenseAPIModel> Delete(int id)
         {
             License item = UoW.LicenseRepository.Get(id);
             item.Status = LicenseStatusType.Deleted;
             UoW.Save();
 
-            return new KendoResponse<LicenseAPIModel>()
+            return new KendoResponse<LicenseAPIModel>
             {
                 Response = Convert(item)
             };
@@ -219,10 +233,16 @@ namespace Heddoko.Controllers
                 return null;
             }
 
+            if (!CurrentUser.IsAdmin)
+            {
+                throw new Exception(Resources.WrongObjectAccess);
+            }
+
             if (model.OrganizationID.HasValue)
             {
                 if (!item.OrganizationID.HasValue
-                 || (model.OrganizationID.Value != item.OrganizationID.Value && (item.Users != null && item.Users.Count() == 0)))
+                    ||
+                    (model.OrganizationID.Value != item.OrganizationID.Value && item.Users != null && !item.Users.Any()))
                 {
                     Organization organization = UoW.OrganizationRepository.Get(model.OrganizationID.Value);
                     item.Organization = organization;
@@ -231,21 +251,16 @@ namespace Heddoko.Controllers
                 {
                     if (model.OrganizationID.Value != item.OrganizationID.Value)
                     {
-                        throw new Exception(i18n.Resources.LicenseUsed);
+                        throw new Exception(Resources.LicenseUsed);
                     }
                 }
-            }
-
-            if (item.Users != null
-             && item.Users.Count() > model.Amount)
-            {
-                throw new Exception(i18n.Resources.LiceseAmountUsed);
             }
 
             item.Amount = (int)model.Amount;
             item.Status = model.Status;
             item.ExpirationAt = model.ExpirationAt.EndOfDay();
             item.Type = model.Type;
+            item.Validate();
 
             return item;
         }
@@ -257,17 +272,18 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            return new LicenseAPIModel()
+            return new LicenseAPIModel
             {
                 Name = item.Name,
                 ViewID = item.ViewID,
+                IDView = item.IDView,
                 ID = item.ID,
                 Amount = (uint)item.Amount,
                 Status = item.Status,
                 OrganizationID = item.OrganizationID,
                 ExpirationAt = item.ExpirationAt,
                 Type = item.Type,
-                Used = item.Users == null ? 0 : item.Users.Count()
+                Used = item.Users?.Count() ?? 0
             };
         }
     }

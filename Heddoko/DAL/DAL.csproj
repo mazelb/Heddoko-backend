@@ -29,6 +29,78 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod|AnyCPU'">
+    <OutputPath>bin\Prod\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod|x64'">
+    <OutputPath>bin\x64\Prod\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|AnyCPU'">
+    <OutputPath>bin\Stage\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|x64'">
+    <OutputPath>bin\x64\Stage\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Dev\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Dev\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -42,16 +114,16 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Jil, Version=2.14.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Jil.2.14.3\lib\net45\Jil.dll</HintPath>
+    <Reference Include="Jil, Version=2.14.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jil.2.14.5\lib\net45\Jil.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="JWT, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\JWT.1.3.4\lib\3.5\JWT.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sigil, Version=4.7.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab, processorArchitecture=MSIL">
@@ -82,7 +154,7 @@
     <Compile Include="HDContext.cs" />
     <Compile Include="Helpers\AssetManager.cs" />
     <Compile Include="Helpers\CustomSqlServerMigrationSqlGenerator.cs" />
-    <Compile Include="Helpers\JWTHelper.cs" />
+    <Compile Include="Helpers\JwtHelper.cs" />
     <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Helpers\PasswordHasher.cs" />
     <Compile Include="Helpers\RedisManager.cs" />
@@ -103,10 +175,70 @@
     <Compile Include="Migrations\201605300933380_InviteToken.Designer.cs">
       <DependentUpon>201605300933380_InviteToken.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607110242531_NewInventory.cs" />
+    <Compile Include="Migrations\201607110242531_NewInventory.Designer.cs">
+      <DependentUpon>201607110242531_NewInventory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607221948075_Firmware.cs" />
+    <Compile Include="Migrations\201607221948075_Firmware.Designer.cs">
+      <DependentUpon>201607221948075_Firmware.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607222340125_RemoveOld.cs" />
+    <Compile Include="Migrations\201607222340125_RemoveOld.Designer.cs">
+      <DependentUpon>201607222340125_RemoveOld.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607251134294_RemoveUnused.cs" />
+    <Compile Include="Migrations\201607251134294_RemoveUnused.Designer.cs">
+      <DependentUpon>201607251134294_RemoveUnused.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607261507552_SensorSetStatus.cs" />
+    <Compile Include="Migrations\201607261507552_SensorSetStatus.Designer.cs">
+      <DependentUpon>201607261507552_SensorSetStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607261844020_AssetsType.cs" />
+    <Compile Include="Migrations\201607261844020_AssetsType.Designer.cs">
+      <DependentUpon>201607261844020_AssetsType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608090253302_LabelNotes.cs" />
+    <Compile Include="Migrations\201608090253302_LabelNotes.Designer.cs">
+      <DependentUpon>201608090253302_LabelNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608090452536_AnatomicalLocation.cs" />
+    <Compile Include="Migrations\201608090452536_AnatomicalLocation.Designer.cs">
+      <DependentUpon>201608090452536_AnatomicalLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608152057200_AssetFilename.cs" />
+    <Compile Include="Migrations\201608152057200_AssetFilename.Designer.cs">
+      <DependentUpon>201608152057200_AssetFilename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608160932411_Bitwise.cs" />
+    <Compile Include="Migrations\201608160932411_Bitwise.Designer.cs">
+      <DependentUpon>201608160932411_Bitwise.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608251424197_bitwise-eqipment.cs" />
+    <Compile Include="Migrations\201608251424197_bitwise-eqipment.Designer.cs">
+      <DependentUpon>201608251424197_bitwise-eqipment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
+    <Compile Include="Models\Assembly.cs" />
+    <Compile Include="Models\Enum\AssetsProccesingType.cs" />
+    <Compile Include="Models\Enum\AssembliesType.cs" />
+    <Compile Include="Models\Enum\PowerboardQAStatusType.cs" />
+    <Compile Include="Models\Enum\DataboardQAStatusType.cs" />
+    <Compile Include="Models\Enum\SensorSetQAStatusType.cs" />
+    <Compile Include="Models\Enum\ShirtOctopiQAStatusType.cs" />
+    <Compile Include="Models\Enum\PantsOctopiQAStatusType.cs" />
+    <Compile Include="Models\Enum\ShirtQAStatusType.cs" />
+    <Compile Include="Models\Enum\PantsQAStatusType.cs" />
+    <Compile Include="Models\Enum\KitQAStatusType.cs" />
+    <Compile Include="Models\Enum\FirmwareStatusType.cs" />
+    <Compile Include="Models\Firmware.cs" />
     <Compile Include="Models\Component.cs" />
-    <Compile Include="Models\Enum\SuitsQAStatusType.cs" />
+    <Compile Include="Models\Enum\FirmwareType.cs" />
+    <Compile Include="Models\Enum\SizeType.cs" />
+    <Compile Include="Models\Enum\ComponentsType.cs" />
+    <Compile Include="Models\Enum\EquipmentQAStatusType.cs" />
     <Compile Include="Models\Pants.cs" />
     <Compile Include="Models\PantsOctopi.cs" />
     <Compile Include="Models\ShirtOctopi.cs" />
@@ -116,19 +248,22 @@
     <Compile Include="Models\SensorSet.cs" />
     <Compile Include="Models\Databoard.cs" />
     <Compile Include="Models\Powerboard.cs" />
-    <Compile Include="Models\Enum\SensorsQAStatusType.cs" />
-    <Compile Include="Models\Enum\BrainpacksQAStatusType.cs" />
+    <Compile Include="Models\Enum\SensorQAStatusType.cs" />
+    <Compile Include="Models\Enum\BrainpackQAStatusType.cs" />
     <Compile Include="Models\Enum\KitCompositionType.cs" />
     <Compile Include="Models\Brainpack.cs" />
     <Compile Include="Models\Kit.cs" />
     <Compile Include="Models\AccessToken.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Enum\CountryType.cs" />
+    <Compile Include="Models\Enum\IssueImportance.cs" />
+    <Compile Include="Models\Enum\IssueType.cs" />
     <Compile Include="Models\Enum\LicenseStatusType.cs" />
     <Compile Include="Models\Enum\OrganizationStatusType.cs" />
     <Compile Include="Models\License.cs" />
     <Compile Include="Models\LicenseInfo.cs" />
     <Compile Include="Models\Organization.cs" />
-    <Compile Include="Models\Enum\AnatomicalPositionType.cs" />
+    <Compile Include="Models\Enum\AnatomicalLocationType.cs" />
     <Compile Include="Models\Enum\AssetType.cs" />
     <Compile Include="Models\Enum\ConditionType.cs" />
     <Compile Include="Models\Enum\EquipmentStatusType.cs" />
@@ -142,63 +277,50 @@
     <Compile Include="Models\Enum\UserRoleType.cs" />
     <Compile Include="Models\Enum\LicenseType.cs" />
     <Compile Include="Models\Enum\UserStatusType.cs" />
-    <Compile Include="Models\ComplexEquipment.cs" />
-    <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\FlashMessage.cs" />
-    <Compile Include="Models\Folder.cs" />
-    <Compile Include="Models\MovementEvent.cs" />
-    <Compile Include="Models\MovementFrame.cs" />
-    <Compile Include="Models\Group.cs" />
-    <Compile Include="Models\Movement.cs" />
-    <Compile Include="Models\MovementMarker.cs" />
     <Compile Include="Models\Asset.cs" />
-    <Compile Include="Models\Material.cs" />
-    <Compile Include="Models\MaterialType.cs" />
-    <Compile Include="Models\Profile.cs" />
-    <Compile Include="Models\Screening.cs" />
-    <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\Company.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Enum\UserGenderType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AssetRepository.cs" />
-    <Compile Include="Repository\ComplexEquipmentRepository.cs" />
-    <Compile Include="Repository\EquipmentRepository.cs" />
-    <Compile Include="Repository\FolderRepository.cs" />
+    <Compile Include="Repository\BaseCacheRepository.cs" />
+    <Compile Include="Repository\Interface\IAssemblyCacheRepositoy.cs" />
     <Compile Include="Repository\Interface\ILicenseRepository.cs" />
+    <Compile Include="Repository\Interface\IFirmwareRepository.cs" />
+    <Compile Include="Repository\Interface\IShirtOctopiRepository.cs" />
+    <Compile Include="Repository\Interface\ISensorSetRepository.cs" />
+    <Compile Include="Repository\Interface\ISensorRepository.cs" />
+    <Compile Include="Repository\Interface\IPowerboardRepository.cs" />
+    <Compile Include="Repository\Interface\IPantsOctopiRepository.cs" />
+    <Compile Include="Repository\Interface\IPantsRepository.cs" />
+    <Compile Include="Repository\Interface\IKitRepository.cs" />
+    <Compile Include="Repository\Interface\IDataboardRepository.cs" />
+    <Compile Include="Repository\Interface\IComponentRepository.cs" />
+    <Compile Include="Repository\Interface\IBrainpackRepository.cs" />
+    <Compile Include="Repository\Interface\IShirtRepository.cs" />
     <Compile Include="Repository\LicenseRepository.cs" />
     <Compile Include="Repository\OrganizationRepository.cs" />
     <Compile Include="Repository\Interface\IOrganizationRepository.cs" />
-    <Compile Include="Repository\MaterialRepository.cs" />
-    <Compile Include="Repository\MaterialTypeRepository.cs" />
-    <Compile Include="Repository\MovementMarkerRepository.cs" />
-    <Compile Include="Repository\MovementFrameRepository.cs" />
-    <Compile Include="Repository\MovementEventRepository.cs" />
-    <Compile Include="Repository\MovementRepository.cs" />
-    <Compile Include="Repository\ProfileRepository.cs" />
-    <Compile Include="Repository\ScreeningRepository.cs" />
-    <Compile Include="Repository\TagRepository.cs" />
+    <Compile Include="Repository\FirmwareRepository.cs" />
+    <Compile Include="Repository\ShirtOctopiRepository.cs" />
+    <Compile Include="Repository\SensorSetRepository.cs" />
+    <Compile Include="Repository\SensorRepository.cs" />
+    <Compile Include="Repository\PowerboardRepository.cs" />
+    <Compile Include="Repository\PantsRepository.cs" />
+    <Compile Include="Repository\PantsOctopiRepository.cs" />
+    <Compile Include="Repository\KitRepository.cs" />
+    <Compile Include="Repository\DataboardRepository.cs" />
+    <Compile Include="Repository\ShirtRepository.cs" />
+    <Compile Include="Repository\BrainpackRepository.cs" />
+    <Compile Include="Repository\ComponentRepository.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\AccessTokenRepository.cs" />
-    <Compile Include="Repository\Interface\IMovementMarkerRepository.cs" />
-    <Compile Include="Repository\Interface\IMovementFrameRepository.cs" />
-    <Compile Include="Repository\Interface\IMovementEventRepository.cs" />
-    <Compile Include="Repository\Interface\ITagRepository.cs" />
-    <Compile Include="Repository\Interface\IScreeningRepository.cs" />
-    <Compile Include="Repository\Interface\IProfileRepository.cs" />
-    <Compile Include="Repository\Interface\IMovementRepository.cs" />
-    <Compile Include="Repository\Interface\IMaterialTypeRepository.cs" />
-    <Compile Include="Repository\Interface\IMaterialRepository.cs" />
     <Compile Include="Repository\Interface\ICacheRepository.cs" />
-    <Compile Include="Repository\GroupRepository.cs" />
     <Compile Include="Repository\Interface\IBaseRepository.cs" />
     <Compile Include="Repository\Interface\IAccessTokenRepository.cs" />
     <Compile Include="Repository\Interface\IAssetRepository.cs" />
-    <Compile Include="Repository\Interface\IFolderRepository.cs" />
-    <Compile Include="Repository\Interface\IComplexEquipmentRepository.cs" />
-    <Compile Include="Repository\Interface\IGroupRepository.cs" />
-    <Compile Include="Repository\Interface\IEquipmentRepository.cs" />
     <Compile Include="Repository\Interface\IUserRepository.cs" />
+    <Compile Include="Repository\AssemblyCacheRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
@@ -224,6 +346,39 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605300933380_InviteToken.resx">
       <DependentUpon>201605300933380_InviteToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607110242531_NewInventory.resx">
+      <DependentUpon>201607110242531_NewInventory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607221948075_Firmware.resx">
+      <DependentUpon>201607221948075_Firmware.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607222340125_RemoveOld.resx">
+      <DependentUpon>201607222340125_RemoveOld.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607251134294_RemoveUnused.resx">
+      <DependentUpon>201607251134294_RemoveUnused.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607261507552_SensorSetStatus.resx">
+      <DependentUpon>201607261507552_SensorSetStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607261844020_AssetsType.resx">
+      <DependentUpon>201607261844020_AssetsType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608090253302_LabelNotes.resx">
+      <DependentUpon>201608090253302_LabelNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608090452536_AnatomicalLocation.resx">
+      <DependentUpon>201608090452536_AnatomicalLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608152057200_AssetFilename.resx">
+      <DependentUpon>201608152057200_AssetFilename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608160932411_Bitwise.resx">
+      <DependentUpon>201608160932411_Bitwise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608251424197_bitwise-eqipment.resx">
+      <DependentUpon>201608251424197_bitwise-eqipment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

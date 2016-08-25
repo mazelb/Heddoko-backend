@@ -5,7 +5,7 @@
 }
 
 Welcome @Model.FirstName,
-<br />
-Click here to activate your account: @(Heddoko.Config.DashboardSite + $"/confirm/{Model.Token}")
-<br />
+<br /><br />
+Click here to activate your account: <a href="@(Heddoko.Config.DashboardSite + $"/confirm/{Model.Token}")">@(Heddoko.Config.DashboardSite + $"/confirm/{Model.Token}")</a>
+<br /><br />
 - The Heddoko Team

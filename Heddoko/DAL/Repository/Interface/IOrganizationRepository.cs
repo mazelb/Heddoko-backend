@@ -1,5 +1,5 @@
-﻿using DAL.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using DAL.Models;
 
 namespace DAL
 {
@@ -7,8 +7,8 @@ namespace DAL
     {
         Organization GetByName(string name);
 
-        Organization GetFull(int id);
+        IEnumerable<Organization> All(bool isDeleted = false);
 
-        IEnumerable<Organization> Search(string search);
+        IEnumerable<Organization> Search(string search, bool isDeleted = false);
     }
 }

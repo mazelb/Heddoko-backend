@@ -1,0 +1,163 @@
+﻿@using DAL.Models
+<div class="row">
+    <div class="col-md-4">
+        <div class="filters sensorsFilter">
+            <div>
+                <label for="searchPants" class="control-label">@i18n.Resources.Search</label>
+                <input id="searchPants"
+                       class="form-control"
+                       type="text"
+                       placeholder="@i18n.Resources.Enter @i18n.Resources.Sensors @i18n.Resources.ID"
+                       data-bind="value: search, events:{ keyup: keyup }" />
+            </div>
+            <div class="margin010">
+                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success sensorsForm">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.Sensor</h3>
+                <div class="btn-group pull-right" role="group">
+                    <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
+                    <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row margin010">
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                required
+                                name="sensors-type"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.Type"
+                                data-value-field="value"
+                                data-bind="value: model.type, source: sensorTypes"></select>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                name="sensors-firmware"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="name"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.FirmwareVersion"
+                                data-value-field="id"
+                                data-bind="value: model.firmwareID, source: firmwares"></select>
+                    </div>
+                </div>
+                <div class="row margin010">
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                required
+                                name="sensors-status"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.SelectStatus"
+                                data-value-field="value"
+                                data-bind="value: model.status, source: statuses"></select>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                required
+                                name="sensors-anatomicalLocation"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.SelectAnatomicalLocation"
+                                data-value-field="value"
+                                data-bind="value: model.anatomicalLocation, source: anatomicalLocations"></select>
+                    </div>
+                </div>
+                <div class="row margin010">
+
+                    <div class="col-sm-3">
+                        <input class="form-control"
+                               required
+                               name="sensors-version"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Version"
+                               type="text"
+                               data-bind="value: model.version" />
+                    </div>
+
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="sensor-location"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.PhysicalLocation"
+                               class="form-control"
+                               data-bind="value: model.location"/>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <input type="text"
+                               name="sensor-label"
+                               placeholder="@i18n.Resources.Label"
+                               class="form-control"
+                               data-bind="value: model.label"/>
+                    </div>
+                </div>
+                <div class="row margin010">
+                    <div class="col-sm-12">
+                        <textarea name="sensor-notes"
+                                  class="form-control"
+                                  placeholder="@i18n.Resources.Notes"
+                                  data-bind="value: model.notes"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="sensorsGrid">
+
+        </div>
+    </div>
+</div>
+
+<script type="text/x-kendo-template" id="sensors-qastatuses-template">
+    <div class="tabstrip">
+        <ul>
+            <li class="k-state-active">
+                @i18n.Resources.QAChecklist
+            </li>
+        </ul>
+        <div>
+            <div class="qa-statuses">
+                <ul>
+                    @foreach (SensorQAStatusType type in (SensorQAStatusType[])Enum.GetValues(typeof(SensorQAStatusType)))
+                    {
+                        if (type == SensorQAStatusType.None || type == SensorQAStatusType.TestedAndReady)
+                        {
+                            continue;
+                        }
+                        <li>
+                            @type.GetDisplayName()
+                            <input type="checkbox"
+                                   data-bind="checked: qamodel.@type.ToString().ToLower()" />
+                        </li>
+
+                    }
+                </ul>
+                <button type="button" data-bind="click: save" class="btn btn-default">@i18n.Resources.Save</button>
+            </div>
+        </div>
+    </div>
+
+</script>

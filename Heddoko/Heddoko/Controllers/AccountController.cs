@@ -1,14 +1,11 @@
-﻿using DAL;
+﻿using System;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using DAL;
 using DAL.Models;
 using Heddoko.Helpers.Auth;
 using Heddoko.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http.Description;
-using System.Web.Mvc;
+using i18n;
 
 namespace Heddoko.Controllers
 {
@@ -43,21 +40,18 @@ namespace Heddoko.Controllers
 
                         return RedirectToLocal(model.ReturnUrl);
                     }
+                    if (user.IsBanned)
+                    {
+                        ModelState.AddModelError(string.Empty, Resources.UserIsBanned);
+                    }
                     else
                     {
-                        if (user.IsBanned)
-                        {
-                            ModelState.AddModelError(string.Empty, i18n.Resources.UserIsBanned);
-                        }
-                        else
-                        {
-                            ModelState.AddModelError(string.Empty, i18n.Resources.UserIsNotActive);
-                        }
+                        ModelState.AddModelError(string.Empty, Resources.UserIsNotActive);
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, i18n.Resources.WrongUsernameOrPassword);
+                    ModelState.AddModelError(string.Empty, Resources.WrongUsernameOrPassword);
                 }
             }
             return View(model);
@@ -80,8 +74,8 @@ namespace Heddoko.Controllers
 
                         signup.Organization = user.Organization;
                         signup.InviteToken = user.InviteToken;
-                        signup.Email = user.Email;
-                        signup.Username = user.Username;
+                        signup.Email = user.Email.ToLower();
+                        signup.Username = user.Username.ToLower();
                         signup.FirstName = user.FirstName;
                         signup.LastName = user.LastName;
                         signup.Phone = user.Phone;
@@ -92,13 +86,10 @@ namespace Heddoko.Controllers
 
                         return View(signup);
                     }
-                    else
-                    {
-                        user.Status = UserStatusType.Active;
-                        user.InviteToken = null;
-                        UoW.Save();
-                        UoW.UserRepository.SetCache(user);
-                    }
+                    user.Status = UserStatusType.Active;
+                    user.InviteToken = null;
+                    UoW.Save();
+                    UoW.UserRepository.SetCache(user);
 
                     if (user.Organization.UserID == user.ID)
                     {
@@ -107,19 +98,19 @@ namespace Heddoko.Controllers
                 }
                 else
                 {
-                    model.Flash.Add(new FlashMessage()
+                    model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Error,
-                        Message = i18n.Resources.WrongConfirmationToken
+                        Message = Resources.WrongConfirmationToken
                     });
                 }
             }
             else
             {
-                model.Flash.Add(new FlashMessage()
+                model.Flash.Add(new FlashMessage
                 {
                     Type = FlashMessageType.Error,
-                    Message = i18n.Resources.EmptyConfirmationToken
+                    Message = Resources.EmptyConfirmationToken
                 });
             }
 
@@ -136,15 +127,15 @@ namespace Heddoko.Controllers
 
             if (ModelState.IsValid)
             {
-
                 if (user != null)
                 {
                     User userUsed = UoW.UserRepository.GetByUsernameCached(model.Username?.Trim());
 
                     if (userUsed != null
-                     && user.ID != userUsed.ID)
+                        &&
+                        user.ID != userUsed.ID)
                     {
-                        ModelState.AddModelError(string.Empty, i18n.Resources.UsernameUsed);
+                        ModelState.AddModelError(string.Empty, Resources.UsernameUsed);
                     }
                     else
                     {
@@ -169,21 +160,21 @@ namespace Heddoko.Controllers
 
                         if (user.Role == UserRoleType.LicenseAdmin)
                         {
-                            message = i18n.Resources.UserSignupOrganizationMessage;
+                            message = Resources.UserSignupOrganizationMessage;
                         }
                         else
                         {
                             if (user.LicenseID.HasValue)
                             {
-                                message = i18n.Resources.UserSignupUserOrganizationMessage;
+                                message = Resources.UserSignupUserOrganizationMessage;
                             }
                             else
                             {
-                                message = i18n.Resources.UserSignupUserNonLicenseOrganizationMessage;
+                                message = Resources.UserSignupUserNonLicenseOrganizationMessage;
                             }
                         }
 
-                        modelStatus.Flash.Add(new FlashMessage()
+                        modelStatus.Flash.Add(new FlashMessage
                         {
                             Type = FlashMessageType.Success,
                             Message = message
@@ -193,7 +184,7 @@ namespace Heddoko.Controllers
                 }
             }
 
-            model.Organization = user.Organization;
+            model.Organization = user?.Organization;
             return View(model);
         }
 
@@ -215,28 +206,25 @@ namespace Heddoko.Controllers
 
                 if (organization != null)
                 {
-                    ModelState.AddModelError(string.Empty, i18n.Resources.OrganizationNameUsed);
+                    ModelState.AddModelError(string.Empty, Resources.OrganizationNameUsed);
                 }
                 else
                 {
-
                     User user = UoW.UserRepository.GetByEmailCached(model.Email?.Trim());
                     if (user != null)
                     {
-                        ModelState.AddModelError(string.Empty, i18n.Resources.EmailUsed);
+                        ModelState.AddModelError(string.Empty, Resources.EmailUsed);
                     }
                     else
                     {
-
                         user = UoW.UserRepository.GetByUsernameCached(model.Username?.Trim());
 
                         if (user != null)
                         {
-                            ModelState.AddModelError(string.Empty, i18n.Resources.UsernameUsed);
+                            ModelState.AddModelError(string.Empty, Resources.UsernameUsed);
                         }
                         else
                         {
-
                             organization = new Organization();
                             organization.Name = model.OrganizationName.Trim();
                             organization.Phone = model.Phone.Trim();
@@ -245,14 +233,17 @@ namespace Heddoko.Controllers
 
 
                             user = new User();
-                            user.Email = model.Email.Trim();
-                            user.Username = model.Username.Trim();
+                            user.Email = model.Email.ToLower().Trim();
+                            user.Username = model.Username.ToLower().Trim();
                             user.Role = UserRoleType.LicenseAdmin;
-                            user.FirstName = model.FirstName.Trim(); ;
-                            user.LastName = model.LastName.Trim(); ;
+                            user.FirstName = model.FirstName.Trim();
+                            ;
+                            user.LastName = model.LastName.Trim();
+                            ;
                             user.Country = model.Country;
                             user.BirthDay = model.Birthday;
-                            user.Phone = model.Phone.Trim(); ;
+                            user.Phone = model.Phone.Trim();
+                            ;
                             user.Status = UserStatusType.NotActive;
 
                             Passphrase pwd = PasswordHasher.Hash(model.Password);
@@ -273,10 +264,10 @@ namespace Heddoko.Controllers
                             Task.Run(() => Mailer.SendActivationEmail(user));
                             BaseViewModel modelStatus = new BaseViewModel();
 
-                            modelStatus.Flash.Add(new FlashMessage()
+                            modelStatus.Flash.Add(new FlashMessage
                             {
                                 Type = FlashMessageType.Success,
-                                Message = i18n.Resources.UserSignupMessage
+                                Message = Resources.UserSignupMessage
                             });
                             return View("SignUpStatus", modelStatus);
                         }
@@ -300,7 +291,7 @@ namespace Heddoko.Controllers
 
             model.Organization = CurrentUser.Organization;
             model.Email = CurrentUser.Email;
-            model.Username = CurrentUser.Username;
+            model.Username = CurrentUser.Username.ToLower();
             model.FirstName = CurrentUser.FirstName;
             model.LastName = CurrentUser.LastName;
             model.Phone = CurrentUser.Phone;
@@ -319,18 +310,18 @@ namespace Heddoko.Controllers
         {
             if (ModelState.IsValid)
             {
-                User userUsed = UoW.UserRepository.GetByUsernameCached(model.Username?.Trim());
+                User userUsed = UoW.UserRepository.GetByUsernameFull(model.Username?.Trim());
 
                 if (userUsed != null
-                 && CurrentUser.ID != userUsed.ID)
+                    &&
+                    CurrentUser.ID != userUsed.ID)
                 {
-                    ModelState.AddModelError(string.Empty, i18n.Resources.UsernameUsed);
+                    ModelState.AddModelError(string.Empty, Resources.UsernameUsed);
                 }
                 else
                 {
-
                     CurrentUser.FirstName = model.FirstName;
-                    CurrentUser.Username = model.Username;
+                    CurrentUser.Username = model.Username.ToLower();
                     CurrentUser.LastName = model.LastName;
                     CurrentUser.Phone = model.Phone;
                     CurrentUser.Country = model.Country;
@@ -338,7 +329,6 @@ namespace Heddoko.Controllers
 
                     if (!string.IsNullOrEmpty(model.NewPassord))
                     {
-
                         if (!PasswordHasher.Equals(model.OldPassword?.Trim(), CurrentUser.Salt, CurrentUser.Password))
                         {
                             Passphrase pwd = PasswordHasher.Hash(model.NewPassord);
@@ -346,7 +336,6 @@ namespace Heddoko.Controllers
                             CurrentUser.Password = pwd.Hash;
                             CurrentUser.Salt = pwd.Salt;
                         }
-
                     }
 
 
@@ -357,10 +346,10 @@ namespace Heddoko.Controllers
                     UoW.Save();
                     UoW.UserRepository.SetCache(CurrentUser);
 
-                    model.Flash.Add(new FlashMessage()
+                    model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Success,
-                        Message = i18n.Resources.ProfileSaveMessage
+                        Message = Resources.ProfileSaveMessage
                     });
                 }
             }
@@ -376,25 +365,22 @@ namespace Heddoko.Controllers
             {
                 return Redirect(returnUrl);
             }
-            else
+            if (IsAuth)
             {
-                if (IsAuth)
+                switch (CurrentUser.Role)
                 {
-                    switch (CurrentUser.Role)
-                    {
-                        case UserRoleType.Admin:
-                            return RedirectToAction("Index", "Admin");
-                        case UserRoleType.Analyst:
-                            return RedirectToAction("Index", "Analyst");
-                        case UserRoleType.LicenseAdmin:
-                            return RedirectToAction("Index", "Organization");
-                        case UserRoleType.User:
-                        default:
-                            return RedirectToAction("Index", "Default");
-                    }
+                    case UserRoleType.Admin:
+                        return RedirectToAction("Index", "License");
+                    case UserRoleType.Analyst:
+                        return RedirectToAction("Index", "Analyst");
+                    case UserRoleType.LicenseAdmin:
+                        return RedirectToAction("Index", "Organization");
+                    case UserRoleType.User:
+                    default:
+                        return RedirectToAction("Index", "Default");
                 }
-                return RedirectToAction("Signin", "Account");
             }
+            return RedirectToAction("Signin", "Account");
         }
 
         public ActionResult Confirm(string token)
@@ -414,28 +400,27 @@ namespace Heddoko.Controllers
 
                     Task.Run(() => Mailer.SendActivatedEmail(user));
 
-                    model.Flash.Add(new FlashMessage()
+                    model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Success,
-                        Message = i18n.Resources.Confirmed
+                        Message = Resources.Confirmed
                     });
-
                 }
                 else
                 {
-                    model.Flash.Add(new FlashMessage()
+                    model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Error,
-                        Message = i18n.Resources.WrongConfirmationToken
+                        Message = Resources.WrongConfirmationToken
                     });
                 }
             }
             else
             {
-                model.Flash.Add(new FlashMessage()
+                model.Flash.Add(new FlashMessage
                 {
                     Type = FlashMessageType.Error,
-                    Message = i18n.Resources.EmptyConfirmationToken
+                    Message = Resources.EmptyConfirmationToken
                 });
             }
 
@@ -452,38 +437,34 @@ namespace Heddoko.Controllers
                 if (user != null)
                 {
                     if (user.ForgotExpiration.HasValue
-                     && user.ForgotExpiration.Value >= DateTime.Now)
+                        &&
+                        user.ForgotExpiration.Value >= DateTime.Now)
                     {
                         ForgotViewModel forgetModel = new ForgotViewModel();
                         forgetModel.ForgetToken = token?.Trim();
                         return View("Forgot", forgetModel);
                     }
-                    else
+                    model.Flash.Add(new FlashMessage
                     {
-                        model.Flash.Add(new FlashMessage()
-                        {
-                            Type = FlashMessageType.Error,
-                            Message = i18n.Resources.ExpiredForgotToken
-                        });
-                    }
-
+                        Type = FlashMessageType.Error,
+                        Message = Resources.ExpiredForgotToken
+                    });
                 }
                 else
                 {
-                    model.Flash.Add(new FlashMessage()
+                    model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Error,
-                        Message = i18n.Resources.WrongForgotToken
+                        Message = Resources.WrongForgotToken
                     });
                 }
-
             }
             else
             {
-                model.Flash.Add(new FlashMessage()
+                model.Flash.Add(new FlashMessage
                 {
                     Type = FlashMessageType.Warning,
-                    Message = i18n.Resources.EmptyForgotToken
+                    Message = Resources.EmptyForgotToken
                 });
             }
 
@@ -502,7 +483,8 @@ namespace Heddoko.Controllers
                 if (user != null)
                 {
                     if (user.ForgotExpiration.HasValue
-                     && user.ForgotExpiration.Value >= DateTime.Now)
+                        &&
+                        user.ForgotExpiration.Value >= DateTime.Now)
                     {
                         Passphrase pwd = PasswordHasher.Hash(model.Password?.Trim());
 
@@ -514,28 +496,27 @@ namespace Heddoko.Controllers
                         UoW.Save();
                         UoW.UserRepository.SetCache(user);
 
-                        baseModel.Flash.Add(new FlashMessage()
+                        baseModel.Flash.Add(new FlashMessage
                         {
                             Type = FlashMessageType.Success,
-                            Message = i18n.Resources.PasswordSuccessufullyChanged
+                            Message = Resources.PasswordSuccessufullyChanged
                         });
                     }
                     else
                     {
-                        baseModel.Flash.Add(new FlashMessage()
+                        baseModel.Flash.Add(new FlashMessage
                         {
                             Type = FlashMessageType.Error,
-                            Message = i18n.Resources.ExpiredForgotToken
+                            Message = Resources.ExpiredForgotToken
                         });
                     }
-
                 }
                 else
                 {
-                    baseModel.Flash.Add(new FlashMessage()
+                    baseModel.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Error,
-                        Message = i18n.Resources.WrongForgotToken
+                        Message = Resources.WrongForgotToken
                     });
                 }
                 return View("ForgotStatus", baseModel);
@@ -562,7 +543,6 @@ namespace Heddoko.Controllers
                 User user = UoW.UserRepository.GetByEmail(model.Email?.Trim());
                 if (user != null)
                 {
-
                     user.ForgotExpiration = DateTime.Now.AddHours(Config.EmailForgotTokenExpiration);
                     user.ForgotToken = PasswordHasher.Md5(user.ForgotExpiration.Value.Ticks.ToString());
 
@@ -571,19 +551,18 @@ namespace Heddoko.Controllers
 
                     Task.Run(() => Mailer.SendForgotPasswordEmail(user));
 
-                    baseModel.Flash.Add(new FlashMessage()
+                    baseModel.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Success,
-                        Message = i18n.Resources.PasswordSuccessufullySent
+                        Message = Resources.PasswordSuccessufullySent
                     });
-
                 }
                 else
                 {
-                    baseModel.Flash.Add(new FlashMessage()
+                    baseModel.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Error,
-                        Message = i18n.Resources.WrongEmailForgotPassword
+                        Message = Resources.WrongEmailForgotPassword
                     });
                 }
 
@@ -611,23 +590,20 @@ namespace Heddoko.Controllers
                 User user = UoW.UserRepository.GetByEmail(model.Email?.Trim());
                 if (user != null)
                 {
-
-
                     Task.Run(() => Mailer.SendForgotUsernameEmail(user));
 
-                    baseModel.Flash.Add(new FlashMessage()
+                    baseModel.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Success,
-                        Message = i18n.Resources.UsernameSuccessufullySent
+                        Message = Resources.UsernameSuccessufullySent
                     });
-
                 }
                 else
                 {
-                    baseModel.Flash.Add(new FlashMessage()
+                    baseModel.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Error,
-                        Message = i18n.Resources.WrongEmailForgotPassword
+                        Message = Resources.WrongEmailForgotPassword
                     });
                 }
 

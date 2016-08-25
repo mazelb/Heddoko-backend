@@ -1,0 +1,15 @@
+﻿<!-- This Partial HTML uses the InventoryViewModel -->
+<div class="row">
+    <h2 class="col-md-3 text-center">@i18n.Resources.Assembly</h2>
+    <h2 class="col-md-3 text-center">@i18n.Resources.QuantityOnHand</h2>
+    <h2 class="col-md-3 text-center">@i18n.Resources.QuantityProducible</h2>
+</div>
+
+@foreach (var assembly in Model.Assemblies)
+{
+    <div class="row">
+        <div class="col-md-3 text-center">@assembly.Type.ToString()</div>
+        <div class="col-md-3 text-center">@assembly.QuantityOnHand</div>
+        <div class="col-md-3 text-center">@assembly.QuantityProducible</div>
+    </div>
+}

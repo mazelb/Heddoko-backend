@@ -1,0 +1,66 @@
+﻿@model Heddoko.Models.BaseViewModel
+
+<div class="logo">
+    <div class="logo-container">
+        <a href="/">
+            <img src="@Url.Content("~/Content/images/logos/heddoko_logo_1.svg")" alt="Heddoko" class="logo1">
+            <img src="@Url.Content("~/Content/images/logos/heddoko_logo_2.svg")" alt="Heddoko" class="logo2">
+        </a>
+    </div>
+</div>
+
+<div id="nav-wrapper">
+    <ul id="nav">
+        @if (Model.IsAuth)
+        {
+            <li class="home @Html.IsCurrentActionLink("Index", "Default")" title="@i18n.Resources.Home">
+                <a href="@Url.Action("Index", "Default")">
+                    <i class="fa fa-dashboard"></i>
+                    <span>@i18n.Resources.Home</span>
+                </a>
+            </li>
+            switch (Model.CurrentUser.Role)
+            {
+                case DAL.Models.UserRoleType.Admin:
+                    <li class="@Html.IsCurrentActionLink("Index", "Inventory")" title="@i18n.Resources.Inventory">
+                        <a href="@Url.Action("Index", "Inventory")">
+                            <i class="fa fa-cogs"></i>
+                            <span>  @i18n.Resources.Inventory</span>
+                        </a>
+                    </li>
+                    <li class="@Html.IsCurrentActionLink("Index", "License")" title="@i18n.Resources.LicenseTitle">
+                        <a href="@Url.Action("Index", "License")">
+                            <i class="fa fa-user-plus"></i>
+                            <span> @i18n.Resources.LicenseTitle</span>
+                        </a>
+                    </li>
+                    <li class="@Html.IsCurrentActionLink("Index", "Firmware")" title="@i18n.Resources.SoftwareAndFirmware">
+                        <a href="@Url.Action("Index", "Firmware")">
+                            <i class="fa fa-terminal"></i>
+                            <span> @i18n.Resources.SoftwareAndFirmware</span>
+                        </a>
+                    </li>
+                    break;
+                case DAL.Models.UserRoleType.Analyst:
+                    break;
+                case DAL.Models.UserRoleType.LicenseAdmin:
+                    <li class="@Html.IsCurrentActionLink("Index", "Organization")" title="@i18n.Resources.LicenseTitle">
+                        <a href="@Url.Action("Index", "Organization")">
+                            <i class="fa fa-users"></i>
+                            <span> @i18n.Resources.LicenseTitle</span>
+                        </a>
+                    </li>
+                    break;
+                case DAL.Models.UserRoleType.User:
+                    break;
+            }
+
+            <li class="@Html.IsCurrentActionLink("Me", "Account")" title="@i18n.Resources.Profile">
+                <a href="@Url.Action("Me", "Account")">
+                    <i class="fa fa-user"></i>
+                    <span> @i18n.Resources.Profile</span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

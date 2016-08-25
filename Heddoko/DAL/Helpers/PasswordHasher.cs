@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 
 namespace DAL
 {
@@ -13,7 +11,7 @@ namespace DAL
         public string Salt { get; set; }
     }
 
-    public class PasswordHasher
+    public static class PasswordHasher
     {
         private const int SaltSize = 64;
 
@@ -24,15 +22,15 @@ namespace DAL
             string hashedPassword = ComputeHash(passwordBytes, saltBytes);
 
             return new Passphrase
-            {
-                Hash = hashedPassword,
-                Salt = Convert.ToBase64String(saltBytes)
-            };
+                   {
+                       Hash = hashedPassword,
+                       Salt = Convert.ToBase64String(saltBytes)
+                   };
         }
 
         public static bool Equals(string password, string salt, string hash)
         {
-            return String.CompareOrdinal(hash, Hash(password, salt)) == 0;
+            return string.CompareOrdinal(hash, Hash(password, salt)) == 0;
         }
 
         public static string GenerateRandomSalt(int size = SaltSize)
@@ -42,7 +40,7 @@ namespace DAL
 
         private static string ComputeHash(byte[] password, byte[] salt)
         {
-            var passwordAndSalt = new byte[salt.Length + password.Length];
+            byte[] passwordAndSalt = new byte[salt.Length + password.Length];
 
             Buffer.BlockCopy(salt, 0, passwordAndSalt, 0, salt.Length);
             Buffer.BlockCopy(password, 0, passwordAndSalt, salt.Length, password.Length);
@@ -61,8 +59,8 @@ namespace DAL
 
         private static byte[] CreateRandomSalt(int size = SaltSize)
         {
-            Byte[] saltBytes = new Byte[size];
-            using (var rng = new RNGCryptoServiceProvider())
+            byte[] saltBytes = new byte[size];
+            using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
             {
                 rng.GetBytes(saltBytes);
             }
@@ -71,7 +69,7 @@ namespace DAL
 
         public static string GenerateRandomPassword(int length = 6)
         {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             Random random = new Random();
             return new string(Enumerable.Repeat(chars, length)
                                         .Select(s => s[random.Next(s.Length)])
@@ -80,10 +78,10 @@ namespace DAL
 
         public static string Md5(string src)
         {
-            System.Security.Cryptography.MD5CryptoServiceProvider x = new System.Security.Cryptography.MD5CryptoServiceProvider();
-            byte[] bs = System.Text.Encoding.UTF8.GetBytes(src);
+            MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
+            byte[] bs = Encoding.UTF8.GetBytes(src);
             bs = x.ComputeHash(bs);
-            System.Text.StringBuilder s = new System.Text.StringBuilder();
+            StringBuilder s = new StringBuilder();
             foreach (byte b in bs)
             {
                 s.Append(b.ToString("x2").ToLower());
@@ -91,9 +89,9 @@ namespace DAL
             return s.ToString();
         }
 
-        public string GenerateAccessToken(string email)
+        public static string GenerateAccessToken(string email)
         {
-            return Md5(email + DateTime.UtcNow.Ticks.ToString());
+            return Md5(email + DateTime.UtcNow.Ticks);
         }
     }
 }

@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DAL.Models
 {
@@ -16,15 +14,38 @@ namespace DAL.Models
         [StringLength(255)]
         public string Version { get; set; }
 
+        [Index(IsUnique = true)]
         [StringLength(255)]
-        public string FirmwareVersion { get; set; }
+        public string Label { get; set; }
+
+        [Column(TypeName = "ntext")]
+        public string Notes { get; set; }
 
         public EquipmentStatusType Status { get; set; }
+
+        public DataboardQAStatusType QAStatus { get; set; }
+
+        #region NotMapped
+
+        public string IDView => $"DB{ID.ToString(Constants.PadZero)}";
+
+        #endregion
 
         #region Relations
 
         [JsonIgnore]
-        public virtual Brainpack Brainpack { get; set; }
+        //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
+        public virtual ICollection<Brainpack> Brainpacks { get; set; }
+
+        [JsonIgnore]
+        public virtual Brainpack Brainpack => Brainpacks?.FirstOrDefault();
+
+        [JsonIgnore]
+        public int? FirmwareID { get; set; }
+
+        [JsonIgnore]
+        public virtual Firmware Firmware { get; set; }
+
         #endregion
     }
 }

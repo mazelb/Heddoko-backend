@@ -1,9 +1,7 @@
-﻿using DAL.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using DAL.Models;
+using i18n;
 
 namespace Heddoko.Models
 {
@@ -15,11 +13,15 @@ namespace Heddoko.Models
 
         public LicenseType Type { get; set; }
 
+        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
+        [CompareToday(CompareEquality.Greater, ErrorMessageResourceName = "WrongExpirationAtDate", ErrorMessageResourceType = typeof(Resources))]
         public DateTime ExpirationAt { get; set; }
 
         public LicenseStatusType Status { get; set; }
 
         public int? Used { get; set; }
+
+        public string IDView { get; set; }
 
         public int? OrganizationID { get; set; }
 

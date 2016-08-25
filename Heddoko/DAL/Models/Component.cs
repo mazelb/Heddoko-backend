@@ -1,10 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Models
 {
@@ -13,11 +7,16 @@ namespace DAL.Models
         [StringLength(255)]
         public string Location { get; set; }
 
-        [StringLength(255)]
-        public string Name { get; set; }
+        public ComponentsType Type { get; set; }
+
+        public EquipmentStatusType Status { get; set; }
 
         public int Quantity { get; set; }
 
-        public EquipmentStatusType Status { get; set; }
+        #region NotMapped
+
+        public string IDView => $"CO{ID.ToString(Constants.PadZero)}";
+
+        #endregion
     }
 }

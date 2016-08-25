@@ -4,12 +4,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<div class="container">
-    <div class="header clearfix">
-        @Html.Partial("_Navigation", Model)
-        <h3 class="text-muted">@Html.Raw(i18n.Resources.LicenseTitle)</h3>
-    </div>
-
+<div class="page">
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#organizations">@i18n.Resources.Organizations</a></li>
         <li><a data-toggle="tab" href="#users">@i18n.Resources.Users</a></li>
@@ -26,3 +21,7 @@
     </div>
 </div>
 
+
+@section Body {
+    @Html.Partial("_OrganizationPopup")
+}

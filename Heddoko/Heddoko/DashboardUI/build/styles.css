@@ -4474,6 +4474,8 @@ h1.title, h2.title, h3.title, h4.title {
   bottom: 0px; }
 .web-layout .auth-login form input {
   text-transform: uppercase; }
+.web-layout .form-username {
+  text-transform: uppercase; }
 .web-layout .auth-register .main-body {
   margin-bottom: 60px; }
 .web-layout .auth-register #footer {

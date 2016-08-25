@@ -5,9 +5,9 @@ namespace DAL
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        User GetFull(int id);
-
         void SetCache(User user);
+
+        void ClearCache(User user);
 
         User GetByEmailCached(string email);
 
@@ -27,8 +27,14 @@ namespace DAL
 
         IEnumerable<User> Admins();
 
-        IEnumerable<User> GetByOrganization(int value);
+        IEnumerable<User> All(bool isDeleted = false);
 
-        IEnumerable<User> Search(string search, int? organizationID = null);
+        IEnumerable<User> GetByOrganization(int value, bool isDeleted = false, int? licenseID = null);
+
+        IEnumerable<User> Search(string search, int? organizationID = null, bool isDeleted = false, int? licenseID = null);
+
+        IEnumerable<User> GetByOrganizationAPI(int organizationID, int take, int? skip = 0);
+
+        int GetByOrganizationAPICount(int organizationID);
     }
 }

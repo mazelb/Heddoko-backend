@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using i18n;
 
 namespace Heddoko.Models
 {
     public class InviteViewModel : BaseViewModel
     {
-        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(i18n.Resources))]
-        [Display(Name = "InviteToken", ResourceType = typeof(i18n.Resources))]
+        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
+        [Display(Name = "InviteToken", ResourceType = typeof(Resources))]
         [AllowHtml]
         public string InviteToken { get; set; }
 

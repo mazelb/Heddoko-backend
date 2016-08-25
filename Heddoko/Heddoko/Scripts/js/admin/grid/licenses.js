@@ -16,12 +16,16 @@ var Licenses = {
         });
 
         this.licenseTypes = new kendo.data.DataSource({
-            data: _.values(_.filter(Enums.LicenseType.array, function (u) { return u.value != 0 }))
+            data: _.values(_.filter(Enums.LicenseType.array, function (u) { return u.value !== Enums.LicenseType.enum.No }))
         });
 
         this.licenses = Licenses.getDatasource();
 
-        this.licenseDD = new kendo.data.DataSource({
+        this.licenseDD = Licenses.getDatasourceDD();
+    },
+
+    getDatasourceDD: function(id) {
+        return new kendo.data.DataSource({
             serverPaging: false,
             serverFiltering: true,
             serverSorting: false,
@@ -34,20 +38,42 @@ var Licenses = {
                     id: "id"
                 }
             },
-            filter: [{
-                field: 'Used',
-                operator: 'eq',
-                value: false
-            }]
+            filter: [
+                {
+                    field: 'Used',
+                    operator: 'eq',
+                    value: id
+                }
+            ]
         });
     },
     getDatasource: function () {
+
+        var licensesTransport = $.extend(true, {}, KendoDS.buildTransport('/admin/api/licenses'), {
+            parameterMap: function (options, type) {
+                switch (type) {
+                    case 'read':
+                    case 'destroy':
+                        return options;
+                    case 'create':
+                    case 'update':
+                        if (options.expirationAt) {
+                            options.expirationAt = kendo.toString(options.expirationAt, "yyyy/MM/dd");
+                        }
+                        if (options.models) {
+                            return kendo.stringify(options.models);
+                        }
+                        return kendo.stringify(options);
+                }
+            }
+        });
+
         return new kendo.data.DataSource({
             pageSize: KendoDS.pageSize,
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/licenses'),
+            transport: licensesTransport,
             schema: {
                 data: "response",
                 total: "total",
@@ -89,7 +115,8 @@ var Licenses = {
                             nullable: false,
                             type: "date",
                             validation: {
-                                required: true
+                                required: true,
+                                expirationAtValidation: Validator.license.expirationAt.expirationAtValidation
                             }
                         }
                     }
@@ -102,7 +129,7 @@ var Licenses = {
         .appendTo(container)
         .kendoDropDownList({
             autoBind: true,
-            dataSource: Datasources.licenseDD
+            dataSource: Licenses.getDatasourceDD(options.model.id)
         });
     },
     statusDDEditor: function (container, options) {
@@ -128,6 +155,7 @@ var Licenses = {
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
+
                 dataSource: Datasources.licenses,
                 sortable: false,
                 editable: false,
@@ -141,7 +169,7 @@ var Licenses = {
                 },
                 columns: [
                     {
-                        field: 'viewID',
+                        field: 'idView',
                         title: i18n.Resources.ID,
                         editor: KendoDS.emptyEditor
                     }, {
@@ -158,7 +186,7 @@ var Licenses = {
                         field: 'status',
                         title: i18n.Resources.Status,
                         template: function (ed) {
-                            return Format.license.status(ed.status);
+                            return Format.license.status(ed.status, ed.expirationAt);
                         },
                         editor: Licenses.statusDDEditor
                     }, {
@@ -221,7 +249,7 @@ var Licenses = {
         }
     },
     onEnter: function (e) {
-        if (e.keyCode == kendo.keys.ENTER) {
+        if (e.keyCode === kendo.keys.ENTER) {
             this.onFilter(e);
         }
     },
@@ -233,7 +261,7 @@ var Licenses = {
     },
     buildFilter: function (search) {
         Notifications.clear();
-        var search = this.controls.filterModel.search;
+        search = this.controls.filterModel.search;
 
         var filters = [];
 
@@ -247,7 +275,7 @@ var Licenses = {
             });
         }
 
-        return filters.length == 0 ? {} : filters;
+        return filters.length === 0 ? {} : filters;
     }
 };
 

@@ -1,0 +1,16 @@
+﻿<div id="organizationsPopup" style="display:none;">
+    <div class="organizationsPopupForm">
+        <div>
+            <select class="form-control"
+                    name="organizations-user"
+                    data-role="dropdownlist"
+                    data-value-primitive="true"
+                    data-text-field="email"
+                    data-option-label="@i18n.Resources.Select @i18n.Resources.Admin"
+                    data-value-field="id"
+                    data-bind="value: userID, source: users"></select>
+        </div>
+        <br />
+        <button class="btn btn-primary" data-bind="events: { click: change }">@i18n.Resources.Change</button>
+    </div>
+</div>

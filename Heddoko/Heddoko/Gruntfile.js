@@ -236,7 +236,7 @@ module.exports = function(grunt) {
                         'bower_components/intro.js/minified/introjs.min.css',
 
                         // Bootstrap 3 Datepicker
-                        'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+                        //'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
 
                         // Selectize
                         'bower_components/selectize/dist/css/selectize.bootstrap3.css',

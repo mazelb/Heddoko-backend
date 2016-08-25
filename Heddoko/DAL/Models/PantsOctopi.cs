@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DAL.Models
 {
@@ -13,19 +11,34 @@ namespace DAL.Models
         [StringLength(255)]
         public string Location { get; set; }
 
-        public int Size { get; set; }
+        [Index(IsUnique = true)]
+        [StringLength(255)]
+        public string Label { get; set; }
+
+        [Column(TypeName = "ntext")]
+        public string Notes { get; set; }
+
+        public SizeType Size { get; set; }
 
         public EquipmentStatusType Status { get; set; }
 
-        public SuitsQAStatusType QAStatus { get; set; }
+        public PantsOctopiQAStatusType QAStatus { get; set; }
 
         #region Relations
 
         [JsonIgnore]
-        public virtual Kit Kit { get; set; }
+        //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
+        public virtual ICollection<Pants> PantsCollection { get; set; }
 
         [JsonIgnore]
-        public virtual Pants Pants { get; set; }
+        public virtual Pants Pants => PantsCollection?.FirstOrDefault();
+
+        #endregion
+
+        #region NotMapped
+
+        public string IDView => $"PO{ID.ToString(Constants.PadZero)}";
+
         #endregion
     }
 }

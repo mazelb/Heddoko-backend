@@ -1,10 +1,6 @@
-﻿using DAL.Models;
+﻿using System.Web.Mvc;
+using DAL.Models;
 using Heddoko.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace Heddoko.Controllers
 {
@@ -12,11 +8,13 @@ namespace Heddoko.Controllers
     {
         public ActionResult Index(string url)
         {
-            ErrorViewModel model = new ErrorViewModel();
-            model.Url = getUrl(url);
-            model.Ex = ContextSession.LastError;
+            ErrorViewModel model = new ErrorViewModel
+            {
+                Url = GetUrl(url),
+                Ex = ContextSession.LastError
+            };
 
-            model.Flash.Add(new FlashMessage()
+            model.Flash.Add(new FlashMessage
             {
                 Type = FlashMessageType.Error,
                 Message = model.ExMessage
@@ -39,9 +37,9 @@ namespace Heddoko.Controllers
             return View(model);
         }
 
-        private string getUrl(string url)
+        private string GetUrl(string url)
         {
-            return url ?? Request.QueryString["aspxerrorpath"] ?? Request.Url.OriginalString;
+            return url ?? Request.QueryString["aspxerrorpath"] ?? Request?.Url?.OriginalString;
         }
     }
 }

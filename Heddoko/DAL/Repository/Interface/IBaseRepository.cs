@@ -4,20 +4,22 @@ using System.Linq.Expressions;
 
 namespace DAL
 {
-    public interface IBaseRepository<T> : IDisposable where T : DAL.Models.BaseModel
+    public interface IBaseRepository<T> : IDisposable where T : Models.BaseModel
     {
         #region Cache
         string GetCacheKey(string id);
 
         T GetCached(string id);
 
-        void SetCache(string id, T item);
+        void SetCache(string id, T item, int? hours = null);
 
         T GetIDCached(int id);
         #endregion
 
         #region Select
         T Get(int id);
+
+        T GetFull(int id);
 
         IEnumerable<T> All();
 

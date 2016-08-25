@@ -8,6 +8,7 @@ namespace DAL
         {
             StringValue = value;
         }
-        public string StringValue { get; protected set; }
+
+        public string StringValue { get; private set; }
     }
 }

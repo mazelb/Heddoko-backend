@@ -1,0 +1,19 @@
+﻿@model Heddoko.Models.SupportEmailViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutEmail.cshtml";
+}
+
+Name: @Model.FullName
+<br/>
+<br />
+Email: @Model.Email
+<br />
+<br />
+Importance: @Model.Importance.GetDisplayName()
+<br />
+<br />
+Date Entered: @Model.EnteredView
+<br />
+<br />
+Description: @Model.DetailedDescription

@@ -1,13 +1,12 @@
-﻿using DAL;
-using DAL.Models;
-using Heddoko.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using DAL;
+using DAL.Models;
+using Heddoko.Models;
+using i18n;
 
 namespace Heddoko.Controllers.API
 {
@@ -20,41 +19,39 @@ namespace Heddoko.Controllers.API
         [AuthAPI(Roles = Constants.Roles.All)]
         public User Get(int? id = null)
         {
-            if (id.HasValue)
+            if (!id.HasValue)
             {
-                User user = UoW.UserRepository.GetIDCached(id.Value);
-                if (user != null)
-                {
-                    if (CurrentUser.ID == id.Value)
-                    {
-                        return user;
-                    }
-                    else
-                    {
-                        throw new APIException(ErrorAPIType.WrongObjectAccess, ErrorAPIType.WrongObjectAccess.GetDisplayName());
-                    }
-                }
-                else
-                {
-                    throw new APIException(ErrorAPIType.UserNotFound, ErrorAPIType.UserNotFound.GetDisplayName());
-                }
+                return CurrentUser;
             }
-            return CurrentUser;
+
+            User user = UoW.UserRepository.GetIDCached(id.Value);
+            if (user == null)
+            {
+                throw new APIException(ErrorAPIType.UserNotFound, ErrorAPIType.UserNotFound.GetDisplayName());
+            }
+
+            if (CurrentUser.ID == id.Value)
+            {
+                return user;
+            }
+
+            throw new APIException(ErrorAPIType.WrongObjectAccess, ErrorAPIType.WrongObjectAccess.GetDisplayName());
         }
 
         /// <summary>
-        /// Get profile of current user
+        ///     Get profile of current user
         /// </summary>
         [Route("profile")]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
         public User Profile()
         {
+            CurrentUser.AllowLicenseInfoToken();
             return CurrentUser;
         }
 
         /// <summary>
-        /// Sign in user
+        ///     Sign in user
         /// </summary>
         /// <param name="username">The username of user.</param>
         /// <param name="password">The password of user.</param>
@@ -62,60 +59,85 @@ namespace Heddoko.Controllers.API
         [HttpPost]
         public User Signin(SignInAPIViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                User user = UoW.UserRepository.GetByUsernameFull(model.Username?.Trim());
-                if (user != null)
-                {
-                    if (user.IsActive)
-                    {
-                        if (PasswordHasher.Equals(model.Password?.Trim(), user.Salt, user.Password))
-                        {
-                            if (!user.AllowToken())
-                            {
-                                user.Tokens.Add(new AccessToken()
-                                {
-                                    Token = user.GenerateToken()
-                                });
-                                UoW.Save();
-                                user.AllowToken();
-                                UoW.UserRepository.SetCache(user);
-                            }
-                            return user;
-                        }
-                        else
-                        {
-                            throw new APIException(ErrorAPIType.EmailOrPassword, i18n.Resources.WrongUsernameOrPassword);
-                        }
-                    }
-                    else
-                    {
-                        if (user.IsBanned)
-                        {
-                            throw new APIException(ErrorAPIType.UserIsBanned, i18n.Resources.UserIsBanned);
-                        }
-                        else
-                        {
-                            throw new APIException(ErrorAPIType.UserIsNotActive, i18n.Resources.UserIsNotActive);
-                        }
-                    }
-                }
-                else
-                {
-                    throw new APIException(ErrorAPIType.EmailOrPassword, i18n.Resources.WrongUsernameOrPassword);
-                }
-            }
-            else
-            {
-                throw new ModelStateException()
+                throw new ModelStateException
                 {
                     ModelState = ModelState
                 };
             }
+
+            User user = UoW.UserRepository.GetByUsernameFull(model.Username?.Trim());
+            if (user == null)
+            {
+                throw new APIException(ErrorAPIType.EmailOrPassword, Resources.WrongUsernameOrPassword);
+            }
+
+            if (user.IsBanned)
+            {
+                throw new APIException(ErrorAPIType.UserIsBanned, Resources.UserIsBanned);
+            }
+
+            if (user.IsActive)
+            {
+                if (!PasswordHasher.Equals(model.Password?.Trim(), user.Salt, user.Password))
+                {
+                    throw new APIException(ErrorAPIType.EmailOrPassword, Resources.WrongUsernameOrPassword);
+                }
+
+                if (user.License == null)
+                {
+                    throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.UserIsBanned);
+                }
+
+                if (user.License.Validate())
+                {
+                    UoW.Save();
+                    UoW.UserRepository.ClearCache(user);
+                }
+
+                if (!user.License.IsActive)
+                {
+                    switch (user.License.Status)
+                    {
+                        case LicenseStatusType.Expired:
+                            throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.WrongLicenseExpiration);
+                        case LicenseStatusType.Inactive:
+                            throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.WrongLicenseActive);
+                        case LicenseStatusType.Deleted:
+                            throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.WrongLicenseDeleted);
+                    }
+
+                    if (user.License.ExpirationAt < DateTime.Now)
+                    {
+                        throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.WrongLicenseExpiration);
+                    }
+                }
+
+                if (user.AllowToken())
+                {
+                    user.AllowLicenseInfoToken();
+                    return user;
+                }
+
+                user.Tokens.Add(new AccessToken
+                {
+                    Token = user.GenerateToken()
+                });
+                UoW.Save();
+                user.AllowToken();
+                UoW.UserRepository.SetCache(user);
+
+                user.AllowLicenseInfoToken();
+
+                return user;
+            }
+
+            throw new APIException(ErrorAPIType.UserIsNotActive, Resources.UserIsNotActive);
         }
 
         /// <summary>
-        /// Check if token is valid
+        ///     Check if token is valid
         /// </summary>
         [Route("check")]
         [HttpGet]
@@ -125,6 +147,28 @@ namespace Heddoko.Controllers.API
             return new
             {
                 result = true
+            };
+        }
+
+        /// <summary>
+        ///     List of users by organization
+        /// </summary>
+        /// <param name="take">The amount of take entries</param>
+        /// <param name="skip">The amoun of skip entries</param>
+        [Route("list/{take:int}/{skip:int?}")]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.Analyst)]
+        public ListAPIViewModel<User> List(int take = 100, int? skip = 0)
+        {
+            if (!CurrentUser.OrganizationID.HasValue)
+            {
+                throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.NonAssigned} organization");
+            }
+
+            return new ListAPIViewModel<User>()
+            {
+                Collection = UoW.UserRepository.GetByOrganizationAPI(CurrentUser.OrganizationID.Value, take, skip).ToList(),
+                TotalCount = UoW.UserRepository.GetByOrganizationAPICount(CurrentUser.OrganizationID.Value)
             };
         }
     }
