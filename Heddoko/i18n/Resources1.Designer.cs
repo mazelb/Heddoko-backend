@@ -169,7 +169,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Fore Arm.
+        ///   Looks up a localized string similar to 4 - Left Fore Arm.
         /// </summary>
         public static string AnatomicalLocationType_LeftForeArm {
             get {
@@ -178,7 +178,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Thigh.
+        ///   Looks up a localized string similar to 7 - Left Thigh.
         /// </summary>
         public static string AnatomicalLocationType_LeftThigh {
             get {
@@ -187,7 +187,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Tibia.
+        ///   Looks up a localized string similar to 8 - Left Tibia.
         /// </summary>
         public static string AnatomicalLocationType_LeftTibia {
             get {
@@ -196,7 +196,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Upper Arm.
+        ///   Looks up a localized string similar to 3 - Left Upper Arm.
         /// </summary>
         public static string AnatomicalLocationType_LeftUpperArm {
             get {
@@ -205,7 +205,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Right Fore Arm.
+        ///   Looks up a localized string similar to 2 - Right Fore Arm.
         /// </summary>
         public static string AnatomicalLocationType_RightForeArm {
             get {
@@ -214,7 +214,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Right Thigh.
+        ///   Looks up a localized string similar to 5 - Right Thigh.
         /// </summary>
         public static string AnatomicalLocationType_RightThigh {
             get {
@@ -223,7 +223,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Right Tibia.
+        ///   Looks up a localized string similar to 6 - Right Tibia.
         /// </summary>
         public static string AnatomicalLocationType_RightTibia {
             get {
@@ -232,11 +232,20 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Right Upper Arm.
+        ///   Looks up a localized string similar to 1 - Right Upper Arm.
         /// </summary>
         public static string AnatomicalLocationType_RightUpperArm {
             get {
                 return ResourceManager.GetString("AnatomicalLocationType_RightUpperArm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0 - Torso.
+        /// </summary>
+        public static string AnatomicalLocationType_Torso {
+            get {
+                return ResourceManager.GetString("AnatomicalLocationType_Torso", resourceCulture);
             }
         }
         
@@ -403,7 +412,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Power button working Fail.
+        ///   Looks up a localized string similar to Power button working.
         /// </summary>
         public static string BrainpackQAStatusType_PowerButtonWorking {
             get {
@@ -1195,6 +1204,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For wash.
+        /// </summary>
+        public static string EquipmentStatusType_ForWash {
+            get {
+                return ResourceManager.GetString("EquipmentStatusType_ForWash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to In production.
         /// </summary>
         public static string EquipmentStatusType_InProduction {
@@ -1299,6 +1317,24 @@ namespace i18n {
         public static string ExpiredSoon {
             get {
                 return ResourceManager.GetString("ExpiredSoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by Status.
+        /// </summary>
+        public static string FilterStatus {
+            get {
+                return ResourceManager.GetString("FilterStatus", resourceCulture);
             }
         }
         

@@ -7,6 +7,7 @@
         Defective = 2,
         InProduction = 3,
         Testing = 4,
-        Trash = 5
+        ForWash = 5,
+        Trash = 6
     }
 }

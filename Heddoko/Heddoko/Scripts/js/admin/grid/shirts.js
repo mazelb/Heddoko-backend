@@ -239,7 +239,9 @@ var Shirts = {
             this.controls.filterModel = kendo.observable({
                 find: this.onFilter.bind(this),
                 search: null,
-                keyup: this.onEnter.bind(this)
+                keyup: this.onEnter.bind(this),
+                statusFilter: null,
+                statuses: Datasources.equipmentStatusTypes
             });
 
             kendo.bind(filter, this.controls.filterModel);
@@ -405,6 +407,7 @@ var Shirts = {
     buildFilter: function (search) {
         Notifications.clear();
         search = this.controls.filterModel.search;
+        statusFilter = this.controls.filterModel.statusFilter;
 
         var filters = [];
 
@@ -413,6 +416,14 @@ var Shirts = {
                 field: "Search",
                 operator: "eq",
                 value: search
+            });
+        }
+
+        if (typeof (statusFilter) === "number") {
+            filters.push({
+                field: "Status",
+                operator: "eq",
+                value: statusFilter
             });
         }
 
