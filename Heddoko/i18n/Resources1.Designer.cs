@@ -862,7 +862,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Tested and Ready.
         /// </summary>
         public static string DataboardQAStatusType_TestedAndReady {
             get {
@@ -2712,6 +2712,15 @@ namespace i18n {
         public static string SensorQAStatusType_SeatingInBase {
             get {
                 return ResourceManager.GetString("SensorQAStatusType_SeatingInBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tested and Ready.
+        /// </summary>
+        public static string SensorQAStatusType_TestedAndReady {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_TestedAndReady", resourceCulture);
             }
         }
         

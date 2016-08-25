@@ -1068,6 +1068,9 @@
   <data name="SensorQAStatusType_Drift" xml:space="preserve">
     <value>Sensor Drift</value>
   </data>
+  <data name="SensorQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
   <data name="ShirtQAStatusType_BaseplateInspection" xml:space="preserve">
     <value>Baseplates inspection</value>
   </data>
@@ -1306,7 +1309,7 @@
     <value>Full Charge Cycle Completed</value>
   </data>
   <data name="DataboardQAStatusType_TestedAndReady" xml:space="preserve">
-    <value></value>
+    <value>Tested and Ready</value>
   </data>
   <data name="SizeType_ExtraLarge" xml:space="preserve">
     <value>Extra Large</value>

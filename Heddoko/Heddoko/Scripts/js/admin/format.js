@@ -274,7 +274,7 @@
                 div += i18n.Resources.Name + ": <b>" + item.organization.name + "</b><br/>";
                 div += "</div>";
             }
-            if (item.organization.user) {
+            if (item.organization && item.organization.user) {
                 div += Format.organization.user(item.user);
             }
             return div;

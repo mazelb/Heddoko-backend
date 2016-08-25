@@ -42,7 +42,7 @@ namespace Heddoko.Models
 
         public string IDView { get; set; }
 
-        public string Name => IsEmpty ? $"{Resources.No} {Resources.Pants}" : $"{IDView} - {QAStatus.GetDisplayName()}";
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.Pants}" : $"{IDView} - {Status.GetDisplayName()}";
 
         public string QAStatusText => QAStatus.ToStringFlags();
 
