@@ -1,6 +1,9 @@
-﻿namespace DAL.Models
+﻿using System;
+
+namespace DAL.Models
 {
-    public enum PowerboardQAStatusType
+    [Flags]
+    public enum PowerboardQAStatusType : long
     {
         None = 0,
         PowerboardProgrammed = 1,

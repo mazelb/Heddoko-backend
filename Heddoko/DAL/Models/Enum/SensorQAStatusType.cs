@@ -1,6 +1,9 @@
-﻿namespace DAL.Models
+﻿using System;
+
+namespace DAL.Models
 {
-    public enum SensorQAStatusType
+    [Flags]
+    public enum SensorQAStatusType : long
     {
         None = 0,
         FirmwareUpdated = 1,

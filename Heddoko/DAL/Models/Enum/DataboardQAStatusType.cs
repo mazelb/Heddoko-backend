@@ -1,6 +1,9 @@
-﻿namespace DAL.Models
+﻿using System;
+
+namespace DAL.Models
 {
-    public enum DataboardQAStatusType
+    [Flags]
+    public enum DataboardQAStatusType : long
     {
         None = 0,
         BootloaderProgrammed = 1,

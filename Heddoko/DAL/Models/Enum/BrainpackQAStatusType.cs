@@ -1,6 +1,9 @@
-﻿namespace DAL.Models
+﻿using System;
+
+namespace DAL.Models
 {
-    public enum BrainpackQAStatusType
+    [Flags]
+    public enum BrainpackQAStatusType : long
     {
         None = 0,
         Buttons1mmOfRecess = 1,

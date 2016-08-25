@@ -1,6 +1,9 @@
-﻿namespace DAL.Models
+﻿using System;
+
+namespace DAL.Models
 {
-    public enum PantsOctopiQAStatusType
+    [Flags]
+    public enum PantsOctopiQAStatusType : long
     {
         None = 0,
         BaseplateInspection = 1,
