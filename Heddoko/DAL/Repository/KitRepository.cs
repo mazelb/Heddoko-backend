@@ -81,7 +81,7 @@ namespace DAL
 
         public IEnumerable<Kit> Search(string search, int? statusFilter = null, bool isDeleted = false, int? organizationID = null)
         {
-            
+
             IQueryable<Kit> query = DbSet.Include(c => c.Organization)
                         .Include(c => c.Brainpack)
                         .Include(c => c.SensorSet)
@@ -94,7 +94,7 @@ namespace DAL
             if (!string.IsNullOrEmpty(search))
             {
                 int? id = search.ParseID();
-                query = query.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)                               
+                query = query.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                                 .Where(c => (c.ID == id)
                                             || c.Location.ToLower().Contains(search.ToLower()));
             }
@@ -118,7 +118,21 @@ namespace DAL
 
         public int GetNumReady()
         {
-            return DbSet.Where(c => c.Status == EquipmentStatusType.Ready).Count();
+            return DbSet.Count(c => c.Status == EquipmentStatusType.Ready);
+        }
+
+        public Kit Get(string value)
+        {
+            int? id = value.ParseID();
+
+            return DbSet.Include(c => c.User)
+                        .FirstOrDefault(c => (c.ID == id) || c.Label.ToLower().Contains(value.ToLower()));
+        }
+
+        public override Kit Get(int id)
+        {
+            return DbSet.Include(c => c.User)
+                        .FirstOrDefault(c => c.ID == id);
         }
     }
 }
