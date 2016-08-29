@@ -227,6 +227,10 @@
     <Compile Include="Migrations\201608291421474_SensorSets-QAStatus.Designer.cs">
       <DependentUpon>201608291421474_SensorSets-QAStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608291645428_MoveToNvarcharMax.cs" />
+    <Compile Include="Migrations\201608291645428_MoveToNvarcharMax.Designer.cs">
+      <DependentUpon>201608291645428_MoveToNvarcharMax.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
@@ -393,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608291421474_SensorSets-QAStatus.resx">
       <DependentUpon>201608291421474_SensorSets-QAStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608291645428_MoveToNvarcharMax.resx">
+      <DependentUpon>201608291645428_MoveToNvarcharMax.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

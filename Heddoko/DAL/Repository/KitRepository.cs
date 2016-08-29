@@ -96,7 +96,8 @@ namespace DAL
                 int? id = search.ParseID();
                 query = query.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)                               
                                 .Where(c => (c.ID == id)
-                                            || c.Location.ToLower().Contains(search.ToLower()));
+                                            || c.Location.ToLower().Contains(search.ToLower())
+                                            || !c.Notes.IsNullOrEmpty() && c.Notes.ToLower().Contains(search.ToLower()));
             }
             if (statusFilter.HasValue)
             {

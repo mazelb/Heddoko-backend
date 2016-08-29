@@ -47,7 +47,8 @@ namespace DAL
                 query = query.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                                .Where(c => (c.ID == id)
                                    || c.Location.ToLower().Contains(search.ToLower())
-                                   || c.Type.ToString().ToLower().Contains(search.ToLower()));
+                                   || c.Type.ToString().ToLower().Contains(search.ToLower())
+                                   || c.Notes.ToLower().Contains(search.ToLower()));
             }
             if (statusFilter.HasValue)
             {

@@ -14,7 +14,6 @@ namespace DAL.Models
         [StringLength(255)]
         public string Label { get; set; }
 
-        [Column(TypeName = "ntext")]
         public string Notes { get; set; }
 
         public SizeType Size { get; set; }

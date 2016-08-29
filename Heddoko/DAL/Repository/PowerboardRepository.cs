@@ -40,7 +40,8 @@ namespace DAL
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                         .Where(c => (c.ID == id)
                                     || c.Version.ToString().ToLower().Contains(search.ToLower())
-                                    || c.Location.ToLower().Contains(search.ToLower()))
+                                    || c.Location.ToLower().Contains(search.ToLower())
+                                    || c.Notes.ToLower().Contains(search.ToLower()))
                         .OrderBy(c => c.ID);
         }
 
