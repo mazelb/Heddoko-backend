@@ -25,7 +25,7 @@ namespace DAL.Models
 
         public SensorQAStatusType QAStatus { get; set; }
 
-        public AnatomicalLocationType AnatomicalLocation { get; set; }
+        public AnatomicalLocationType? AnatomicalLocation { get; set; }
 
         #region NotMapped
 

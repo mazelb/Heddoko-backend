@@ -240,6 +240,7 @@ namespace Heddoko.Controllers
             }
 
             item.SensorSet = null;
+            item.AnatomicalLocation = null;
             if (item.Status == EquipmentStatusType.InUse)
             {
                 item.Status = EquipmentStatusType.Ready;
@@ -273,7 +274,12 @@ namespace Heddoko.Controllers
             item.Type = model.Type;
             item.Version = model.Version?.Trim();
             item.Status = model.Status;
-            item.AnatomicalLocation = model.AnatomicalLocation;
+
+            if (model.AnatomicalLocation.HasValue)
+            {
+                item.AnatomicalLocation = model.AnatomicalLocation.Value;
+            }
+
             item.Location = model.Location?.Trim(); ;
             item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
