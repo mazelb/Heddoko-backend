@@ -395,22 +395,6 @@
     </text>
     }
 
-    Enums.PantsQAStatusType = {};
-    Enums.PantsQAStatusType.enum = {};
-    Enums.PantsQAStatusType.array = {};
-    @foreach (DAL.Models.PantsQAStatusType type in (DAL.Models.PantsQAStatusType[])Enum.GetValues(typeof(DAL.Models.PantsQAStatusType)))
-    {
-        <text>
-
-    Enums.PantsQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
-
-    Enums.PantsQAStatusType.array[@((int)type)] = {
-        "value": @((int)type),
-        "text": "@type.GetDisplayName()"
-    };
-    </text>
-    }
-
     Enums.PantsOctopiQAStatusType = {};
     Enums.PantsOctopiQAStatusType.enum = {};
     Enums.PantsOctopiQAStatusType.array = {};
@@ -427,17 +411,16 @@
     </text>
     }
 
-
-    Enums.ShirtQAStatusType = {};
-    Enums.ShirtQAStatusType.enum = {};
-    Enums.ShirtQAStatusType.array = {};
-    @foreach (DAL.Models.ShirtQAStatusType type in (DAL.Models.ShirtQAStatusType[])Enum.GetValues(typeof(DAL.Models.ShirtQAStatusType)))
+    Enums.PantsQAStatusType = {};
+    Enums.PantsQAStatusType.enum = {};
+    Enums.PantsQAStatusType.array = {};
+    @foreach (DAL.Models.PantsQAStatusType type in (DAL.Models.PantsQAStatusType[])Enum.GetValues(typeof(DAL.Models.PantsQAStatusType)))
     {
         <text>
 
-    Enums.ShirtQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+    Enums.PantsQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
 
-    Enums.ShirtQAStatusType.array[@((int)type)] = {
+    Enums.PantsQAStatusType.array[@((int)type)] = {
         "value": @((int)type),
         "text": "@type.GetDisplayName()"
     };
@@ -454,6 +437,22 @@
     Enums.ShirtOctopiQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
 
     Enums.ShirtOctopiQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.ShirtQAStatusType = {};
+    Enums.ShirtQAStatusType.enum = {};
+    Enums.ShirtQAStatusType.array = {};
+    @foreach (DAL.Models.ShirtQAStatusType type in (DAL.Models.ShirtQAStatusType[])Enum.GetValues(typeof(DAL.Models.ShirtQAStatusType)))
+    {
+        <text>
+
+    Enums.ShirtQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+
+    Enums.ShirtQAStatusType.array[@((int)type)] = {
         "value": @((int)type),
         "text": "@type.GetDisplayName()"
     };

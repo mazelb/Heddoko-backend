@@ -169,7 +169,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Fore Arm.
+        ///   Looks up a localized string similar to 4 - Left Fore Arm.
         /// </summary>
         public static string AnatomicalLocationType_LeftForeArm {
             get {
@@ -178,7 +178,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Thigh.
+        ///   Looks up a localized string similar to 7 - Left Thigh.
         /// </summary>
         public static string AnatomicalLocationType_LeftThigh {
             get {
@@ -187,7 +187,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Tibia.
+        ///   Looks up a localized string similar to 8 - Left Tibia.
         /// </summary>
         public static string AnatomicalLocationType_LeftTibia {
             get {
@@ -196,7 +196,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Upper Arm.
+        ///   Looks up a localized string similar to 3 - Left Upper Arm.
         /// </summary>
         public static string AnatomicalLocationType_LeftUpperArm {
             get {
@@ -205,7 +205,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Right Fore Arm.
+        ///   Looks up a localized string similar to 2 - Right Fore Arm.
         /// </summary>
         public static string AnatomicalLocationType_RightForeArm {
             get {
@@ -214,7 +214,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Right Thigh.
+        ///   Looks up a localized string similar to 5 - Right Thigh.
         /// </summary>
         public static string AnatomicalLocationType_RightThigh {
             get {
@@ -223,7 +223,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Right Tibia.
+        ///   Looks up a localized string similar to 6 - Right Tibia.
         /// </summary>
         public static string AnatomicalLocationType_RightTibia {
             get {
@@ -232,11 +232,20 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Right Upper Arm.
+        ///   Looks up a localized string similar to 1 - Right Upper Arm.
         /// </summary>
         public static string AnatomicalLocationType_RightUpperArm {
             get {
                 return ResourceManager.GetString("AnatomicalLocationType_RightUpperArm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0 - Torso.
+        /// </summary>
+        public static string AnatomicalLocationType_Torso {
+            get {
+                return ResourceManager.GetString("AnatomicalLocationType_Torso", resourceCulture);
             }
         }
         
@@ -304,128 +313,65 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App connects to to brainpack Fail.
+        ///   Looks up a localized string similar to App connects to to brainpack.
         /// </summary>
-        public static string BrainpackQAStatusType_AppConnectsToBrainpackFail {
+        public static string BrainpackQAStatusType_AppConnectsToBrainpack {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_AppConnectsToBrainpackFail", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_AppConnectsToBrainpack", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App connects to to brainpack Pass.
+        ///   Looks up a localized string similar to App disconnects from brainpack.
         /// </summary>
-        public static string BrainpackQAStatusType_AppConnectsToBrainpackPass {
+        public static string BrainpackQAStatusType_AppDisconnectsFromBrainpack {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_AppConnectsToBrainpackPass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_AppDisconnectsFromBrainpack", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App disconnects from brainpack Fail.
+        ///   Looks up a localized string similar to App locates brainpack.
         /// </summary>
-        public static string BrainpackQAStatusType_AppDisconnectsFromBrainpackFail {
+        public static string BrainpackQAStatusType_AppLocatesBrainpack {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_AppDisconnectsFromBrainpackFail", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_AppLocatesBrainpack", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App disconnects from brainpack Pass.
+        ///   Looks up a localized string similar to App pairs brainpack.
         /// </summary>
-        public static string BrainpackQAStatusType_AppDisconnectsFromBrainpackPass {
+        public static string BrainpackQAStatusType_AppPairsBrainpack {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_AppDisconnectsFromBrainpackPass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_AppPairsBrainpack", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App locates brainpack Fail.
+        ///   Looks up a localized string similar to Buttons 1 mm of recess.
         /// </summary>
-        public static string BrainpackQAStatusType_AppLocatesBrainpackFail {
+        public static string BrainpackQAStatusType_Buttons1mmOfRecess {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_AppLocatesBrainpackFail", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_Buttons1mmOfRecess", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App locates brainpack Pass.
+        ///   Looks up a localized string similar to Buttons return to initial depth.
         /// </summary>
-        public static string BrainpackQAStatusType_AppLocatesBrainpackPass {
+        public static string BrainpackQAStatusType_ButtonsReturnToInitialDepth {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_AppLocatesBrainpackPass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_ButtonsReturnToInitialDepth", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App pairs brainpack Fail.
+        ///   Looks up a localized string similar to Charging indicator LED.
         /// </summary>
-        public static string BrainpackQAStatusType_AppPairsBrainpackFail {
+        public static string BrainpackQAStatusType_ChargingIndicatorLed {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_AppPairsBrainpackFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to App pairs brainpack Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_AppPairsBrainpackPass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_AppPairsBrainpackPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Buttons 1 mm of recess Fail.
-        /// </summary>
-        public static string BrainpackQAStatusType_Buttons1mmOfRecessFail {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_Buttons1mmOfRecessFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Buttons 1 mm of recess Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_Buttons1mmOfRecessPass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_Buttons1mmOfRecessPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Buttons return to initial depth Fail.
-        /// </summary>
-        public static string BrainpackQAStatusType_ButtonsReturnToInitialDepthFail {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_ButtonsReturnToInitialDepthFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Buttons return to initial depth Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_ButtonsReturnToInitialDepthPass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_ButtonsReturnToInitialDepthPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Charging indicator LED Fail.
-        /// </summary>
-        public static string BrainpackQAStatusType_ChargingIndicatorLedFail {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_ChargingIndicatorLedFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Charging indicator LED Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_ChargingIndicatorLedPass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_ChargingIndicatorLedPass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_ChargingIndicatorLed", resourceCulture);
             }
         }
         
@@ -439,308 +385,155 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Full Charging Cycle Fail.
+        ///   Looks up a localized string similar to Full Charging Cycle.
         /// </summary>
-        public static string BrainpackQAStatusType_FullChargingCycleFail {
+        public static string BrainpackQAStatusType_FullChargingCycle {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_FullChargingCycleFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Full Charging Cycle Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_FullChargingCyclePass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_FullChargingCyclePass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_FullChargingCycle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to LED colors Fail.
         /// </summary>
-        public static string BrainpackQAStatusType_LedColorsFail {
+        public static string BrainpackQAStatusType_LedColors {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_LedColorsFail", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_LedColors", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LED colors Pass.
+        ///   Looks up a localized string similar to Pairing with IMUs.
         /// </summary>
-        public static string BrainpackQAStatusType_LedColorsPass {
+        public static string BrainpackQAStatusType_PairingWithIMUs {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_LedColorsPass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_PairingWithIMUs", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pairing with IMUs Fail.
+        ///   Looks up a localized string similar to Power button working.
         /// </summary>
-        public static string BrainpackQAStatusType_PairingWithIMUsFail {
+        public static string BrainpackQAStatusType_PowerButtonWorking {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_PairingWithIMUsFail", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_PowerButtonWorking", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pairing with IMUs Pass.
+        ///   Looks up a localized string similar to Record button working.
         /// </summary>
-        public static string BrainpackQAStatusType_PairingWithIMUsPass {
+        public static string BrainpackQAStatusType_RecordButtonWorking {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_PairingWithIMUsPass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_RecordButtonWorking", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Power button working Fail.
+        ///   Looks up a localized string similar to Recording File name saved.
         /// </summary>
-        public static string BrainpackQAStatusType_PowerButtonWorkingFail {
+        public static string BrainpackQAStatusType_RecordingFilenameSaved {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_PowerButtonWorkingFail", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_RecordingFilenameSaved", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Power button working Pass.
+        ///   Looks up a localized string similar to Recovery from shutdown.
         /// </summary>
-        public static string BrainpackQAStatusType_PowerButtonWorkingPass {
+        public static string BrainpackQAStatusType_RecoveryFromShutdown {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_PowerButtonWorkingPass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_RecoveryFromShutdown", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Record button working Fail.
+        ///   Looks up a localized string similar to Reset button working.
         /// </summary>
-        public static string BrainpackQAStatusType_RecordButtonWorkingFail {
+        public static string BrainpackQAStatusType_ResetButtonWorking {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_RecordButtonWorkingFail", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_ResetButtonWorking", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Record button working Pass.
+        ///   Looks up a localized string similar to SD card is electronically labeled with battery pack ID.
         /// </summary>
-        public static string BrainpackQAStatusType_RecordButtonWorkingPass {
+        public static string BrainpackQAStatusType_SDCardIsElectronicallyLabeledWithBatteryPackId {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_RecordButtonWorkingPass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_SDCardIsElectronicallyLabeledWithBatteryPackId", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recording File name saved Fail.
+        ///   Looks up a localized string similar to Set recording name.
         /// </summary>
-        public static string BrainpackQAStatusType_RecordingFilenameSavedFail {
+        public static string BrainpackQAStatusType_SetRecordingName {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_RecordingFilenameSavedFail", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_SetRecordingName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recording File name saved Pass.
+        ///   Looks up a localized string similar to Settings file updated.
         /// </summary>
-        public static string BrainpackQAStatusType_RecordingFilenameSavedPass {
+        public static string BrainpackQAStatusType_SettingsFileUpdated {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_RecordingFilenameSavedPass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_SettingsFileUpdated", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recovery from shutdown Fail.
+        ///   Looks up a localized string similar to State change: idle to recording.
         /// </summary>
-        public static string BrainpackQAStatusType_RecoveryFromShutdownFail {
+        public static string BrainpackQAStatusType_StateChangeIdleToRecording {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_RecoveryFromShutdownFail", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeIdleToRecording", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recovery from shutdown Pass.
+        ///   Looks up a localized string similar to State change: idle to reset.
         /// </summary>
-        public static string BrainpackQAStatusType_RecoveryFromShutdownPass {
+        public static string BrainpackQAStatusType_StateChangeIdleToReset {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_RecoveryFromShutdownPass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeIdleToReset", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset button working Fail.
+        ///   Looks up a localized string similar to State change: recording to error.
         /// </summary>
-        public static string BrainpackQAStatusType_ResetButtonWorkingFail {
+        public static string BrainpackQAStatusType_StateChangeRecordingToError {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_ResetButtonWorkingFail", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeRecordingToError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset button working Pass.
+        ///   Looks up a localized string similar to State change: recording to idle.
         /// </summary>
-        public static string BrainpackQAStatusType_ResetButtonWorkingPass {
+        public static string BrainpackQAStatusType_StateChangeRecordingToIdle {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_ResetButtonWorkingPass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeRecordingToIdle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SD card is electronically labeled with battery pack ID Fail.
+        ///   Looks up a localized string similar to State change: recording to reset.
         /// </summary>
-        public static string BrainpackQAStatusType_SDCardIsElectronicallyLabeledWithBatteryPackIdFail {
+        public static string BrainpackQAStatusType_StateChangeRecordingToReset {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_SDCardIsElectronicallyLabeledWithBatteryPackIdFail", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeRecordingToReset", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SD card is electronically labeled with battery pack ID Pass.
+        ///   Looks up a localized string similar to State indicator LED.
         /// </summary>
-        public static string BrainpackQAStatusType_SDCardIsElectronicallyLabeledWithBatteryPackIdPass {
+        public static string BrainpackQAStatusType_StateIndicatorLed {
             get {
-                return ResourceManager.GetString("BrainpackQAStatusType_SDCardIsElectronicallyLabeledWithBatteryPackIdPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set recording name Fail.
-        /// </summary>
-        public static string BrainpackQAStatusType_SetRecordingNameFail {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_SetRecordingNameFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set recording name Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_SetRecordingNamePass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_SetRecordingNamePass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings file updated Fail.
-        /// </summary>
-        public static string BrainpackQAStatusType_SettingsFileUpdatedFail {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_SettingsFileUpdatedFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings file updated Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_SettingsFileUpdatedPass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_SettingsFileUpdatedPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State change: idle to recording Fail.
-        /// </summary>
-        public static string BrainpackQAStatusType_StateChangeIdleToRecordingFail {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeIdleToRecordingFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State change: idle to recording Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_StateChangeIdleToRecordingPass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeIdleToRecordingPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State change: idle to reset Fail.
-        /// </summary>
-        public static string BrainpackQAStatusType_StateChangeIdleToResetFail {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeIdleToResetFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State change: idle to reset Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_StateChangeIdleToResetPass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeIdleToResetPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State change: recording to error Fail.
-        /// </summary>
-        public static string BrainpackQAStatusType_StateChangeRecordingToErrorFail {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeRecordingToErrorFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State change: recording to error Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_StateChangeRecordingToErrorPass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeRecordingToErrorPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State change: recording to idle Fail.
-        /// </summary>
-        public static string BrainpackQAStatusType_StateChangeRecordingToIdleFail {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeRecordingToIdleFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State change: recording to idle Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_StateChangeRecordingToIdlePass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeRecordingToIdlePass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State change: recording to reset Fail.
-        /// </summary>
-        public static string BrainpackQAStatusType_StateChangeRecordingToResetFail {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeRecordingToResetFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State change: recording to reset Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_StateChangeRecordingToResetPass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_StateChangeRecordingToResetPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State indicator LED Fail.
-        /// </summary>
-        public static string BrainpackQAStatusType_StateIndicatorLedFail {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_StateIndicatorLedFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State indicator LED Pass.
-        /// </summary>
-        public static string BrainpackQAStatusType_StateIndicatorLedPass {
-            get {
-                return ResourceManager.GetString("BrainpackQAStatusType_StateIndicatorLedPass", resourceCulture);
+                return ResourceManager.GetString("BrainpackQAStatusType_StateIndicatorLed", resourceCulture);
             }
         }
         
@@ -952,11 +745,119 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fail.
+        ///   Looks up a localized string similar to Bluetooth connection tested.
         /// </summary>
-        public static string DataboardQAStatusType_Fail {
+        public static string DataboardQAStatusType_BluetoothConnectionTested {
             get {
-                return ResourceManager.GetString("DataboardQAStatusType_Fail", resourceCulture);
+                return ResourceManager.GetString("DataboardQAStatusType_BluetoothConnectionTested", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bootloader Programmed.
+        /// </summary>
+        public static string DataboardQAStatusType_BootloaderProgrammed {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_BootloaderProgrammed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brain MCU Programmed.
+        /// </summary>
+        public static string DataboardQAStatusType_BrainMCUProgrammed {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_BrainMCUProgrammed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full Charge Cycle Completed.
+        /// </summary>
+        public static string DataboardQAStatusType_FullChargeCycleComplete {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_FullChargeCycleComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power Button Verified.
+        /// </summary>
+        public static string DataboardQAStatusType_PowerButtonVerified {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_PowerButtonVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quintic-1 Programmed.
+        /// </summary>
+        public static string DataboardQAStatusType_Quintic1Programmed {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_Quintic1Programmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quintic-2 Programmed.
+        /// </summary>
+        public static string DataboardQAStatusType_Quintic2Programmed {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_Quintic2Programmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quintic-3 Programmed.
+        /// </summary>
+        public static string DataboardQAStatusType_Quintic3Programmed {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_Quintic3Programmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record Button Verified.
+        /// </summary>
+        public static string DataboardQAStatusType_RecordButtonVerified {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_RecordButtonVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Button Verified.
+        /// </summary>
+        public static string DataboardQAStatusType_ResetButtonVerified {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_ResetButtonVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SD Card Assigned.
+        /// </summary>
+        public static string DataboardQAStatusType_SDCardAssigned {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_SDCardAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serial Number Programmed.
+        /// </summary>
+        public static string DataboardQAStatusType_SerialNumberProgrammed {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_SerialNumberProgrammed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streaming/Recording Frame test with 9 Nods.
+        /// </summary>
+        public static string DataboardQAStatusType_StreamingFrameTest {
+            get {
+                return ResourceManager.GetString("DataboardQAStatusType_StreamingFrameTest", resourceCulture);
             }
         }
         
@@ -1303,6 +1204,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For wash.
+        /// </summary>
+        public static string EquipmentStatusType_ForWash {
+            get {
+                return ResourceManager.GetString("EquipmentStatusType_ForWash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to In production.
         /// </summary>
         public static string EquipmentStatusType_InProduction {
@@ -1407,6 +1317,24 @@ namespace i18n {
         public static string ExpiredSoon {
             get {
                 return ResourceManager.GetString("ExpiredSoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by Status.
+        /// </summary>
+        public static string FilterStatus {
+            get {
+                return ResourceManager.GetString("FilterStatus", resourceCulture);
             }
         }
         
@@ -2131,38 +2059,20 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Baseplates inspection Fail.
+        ///   Looks up a localized string similar to Baseplates inspection.
         /// </summary>
-        public static string PantsOctopiQAStatusType_BaseplateInspectionFail {
+        public static string PantsOctopiQAStatusType_BaseplateInspection {
             get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_BaseplateInspectionFail", resourceCulture);
+                return ResourceManager.GetString("PantsOctopiQAStatusType_BaseplateInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Baseplates inspection Pass.
+        ///   Looks up a localized string similar to Connector inspection.
         /// </summary>
-        public static string PantsOctopiQAStatusType_BaseplateInspectionPass {
+        public static string PantsOctopiQAStatusType_ConnectorInspection {
             get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_BaseplateInspectionPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connector inspection Fail.
-        /// </summary>
-        public static string PantsOctopiQAStatusType_ConnectorInspectionFail {
-            get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_ConnectorInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connector inspection Pass.
-        /// </summary>
-        public static string PantsOctopiQAStatusType_ConnectorInspectionPass {
-            get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_ConnectorInspectionPass", resourceCulture);
+                return ResourceManager.GetString("PantsOctopiQAStatusType_ConnectorInspection", resourceCulture);
             }
         }
         
@@ -2176,74 +2086,38 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heat Shrink Inspection Fail.
+        ///   Looks up a localized string similar to Heat Shrink Inspection.
         /// </summary>
-        public static string PantsOctopiQAStatusType_HeatShrinkInspectionFail {
+        public static string PantsOctopiQAStatusType_HeatShrinkInspection {
             get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_HeatShrinkInspectionFail", resourceCulture);
+                return ResourceManager.GetString("PantsOctopiQAStatusType_HeatShrinkInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heat Shrink Inspection Pass.
+        ///   Looks up a localized string similar to ID label inspection.
         /// </summary>
-        public static string PantsOctopiQAStatusType_HeatShrinkInspectionPass {
+        public static string PantsOctopiQAStatusType_IDLabelInspection {
             get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_HeatShrinkInspectionPass", resourceCulture);
+                return ResourceManager.GetString("PantsOctopiQAStatusType_IDLabelInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID label inspection Fail.
+        ///   Looks up a localized string similar to Power inspection.
         /// </summary>
-        public static string PantsOctopiQAStatusType_IDLabelInspectionFail {
+        public static string PantsOctopiQAStatusType_PowerInspection {
             get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_IDLabelInspectionFail", resourceCulture);
+                return ResourceManager.GetString("PantsOctopiQAStatusType_PowerInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID label inspection Pass.
+        ///   Looks up a localized string similar to Seams inspection.
         /// </summary>
-        public static string PantsOctopiQAStatusType_IDLabelInspectionPass {
+        public static string PantsOctopiQAStatusType_SeamsInspection {
             get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_IDLabelInspectionPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Power inspection Fail.
-        /// </summary>
-        public static string PantsOctopiQAStatusType_PowerInspectionFail {
-            get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_PowerInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Power inspection Pass.
-        /// </summary>
-        public static string PantsOctopiQAStatusType_PowerInspectionPass {
-            get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_PowerInspectionPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seams inspection Fail.
-        /// </summary>
-        public static string PantsOctopiQAStatusType_SeamsInspectionFail {
-            get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_SeamsInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seams inspection Pass.
-        /// </summary>
-        public static string PantsOctopiQAStatusType_SeamsInspectionPass {
-            get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_SeamsInspectionPass", resourceCulture);
+                return ResourceManager.GetString("PantsOctopiQAStatusType_SeamsInspection", resourceCulture);
             }
         }
         
@@ -2257,56 +2131,29 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wiring inspection Fail.
+        ///   Looks up a localized string similar to Wiring inspection.
         /// </summary>
-        public static string PantsOctopiQAStatusType_WiringInspectionFail {
+        public static string PantsOctopiQAStatusType_WiringInspection {
             get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_WiringInspectionFail", resourceCulture);
+                return ResourceManager.GetString("PantsOctopiQAStatusType_WiringInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wiring inspection Pass.
+        ///   Looks up a localized string similar to Baseplates inspection.
         /// </summary>
-        public static string PantsOctopiQAStatusType_WiringInspectionPass {
+        public static string PantsQAStatusType_BaseplateInspection {
             get {
-                return ResourceManager.GetString("PantsOctopiQAStatusType_WiringInspectionPass", resourceCulture);
+                return ResourceManager.GetString("PantsQAStatusType_BaseplateInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Baseplates inspection Fail.
+        ///   Looks up a localized string similar to Connector inspection.
         /// </summary>
-        public static string PantsQAStatusType_BaseplateInspectionFail {
+        public static string PantsQAStatusType_ConnectorInspection {
             get {
-                return ResourceManager.GetString("PantsQAStatusType_BaseplateInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Baseplates inspection Pass.
-        /// </summary>
-        public static string PantsQAStatusType_BaseplateInspectionPass {
-            get {
-                return ResourceManager.GetString("PantsQAStatusType_BaseplateInspectionPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connector inspection Fail.
-        /// </summary>
-        public static string PantsQAStatusType_ConnectorInspectionFail {
-            get {
-                return ResourceManager.GetString("PantsQAStatusType_ConnectorInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connector inspection Pass.
-        /// </summary>
-        public static string PantsQAStatusType_ConnectorInspectionPass {
-            get {
-                return ResourceManager.GetString("PantsQAStatusType_ConnectorInspectionPass", resourceCulture);
+                return ResourceManager.GetString("PantsQAStatusType_ConnectorInspection", resourceCulture);
             }
         }
         
@@ -2320,74 +2167,38 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heat Shrink Inspection Fail.
+        ///   Looks up a localized string similar to Heat Shrink Inspection.
         /// </summary>
-        public static string PantsQAStatusType_HeatShrinkInspectionFail {
+        public static string PantsQAStatusType_HeatShrinkInspection {
             get {
-                return ResourceManager.GetString("PantsQAStatusType_HeatShrinkInspectionFail", resourceCulture);
+                return ResourceManager.GetString("PantsQAStatusType_HeatShrinkInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heat Shrink Inspection Pass.
+        ///   Looks up a localized string similar to ID label inspection.
         /// </summary>
-        public static string PantsQAStatusType_HeatShrinkInspectionPass {
+        public static string PantsQAStatusType_IDLabelInspection {
             get {
-                return ResourceManager.GetString("PantsQAStatusType_HeatShrinkInspectionPass", resourceCulture);
+                return ResourceManager.GetString("PantsQAStatusType_IDLabelInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID label inspection Fail.
+        ///   Looks up a localized string similar to Power inspection.
         /// </summary>
-        public static string PantsQAStatusType_IDLabelInspectionFail {
+        public static string PantsQAStatusType_PowerInspection {
             get {
-                return ResourceManager.GetString("PantsQAStatusType_IDLabelInspectionFail", resourceCulture);
+                return ResourceManager.GetString("PantsQAStatusType_PowerInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID label inspection Pass.
+        ///   Looks up a localized string similar to Seams inspection.
         /// </summary>
-        public static string PantsQAStatusType_IDLabelInspectionPass {
+        public static string PantsQAStatusType_SeamsInspection {
             get {
-                return ResourceManager.GetString("PantsQAStatusType_IDLabelInspectionPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Power inspection Fail.
-        /// </summary>
-        public static string PantsQAStatusType_PowerInspectionFail {
-            get {
-                return ResourceManager.GetString("PantsQAStatusType_PowerInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Power inspection Pass.
-        /// </summary>
-        public static string PantsQAStatusType_PowerInspectionPass {
-            get {
-                return ResourceManager.GetString("PantsQAStatusType_PowerInspectionPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seams inspection Fail.
-        /// </summary>
-        public static string PantsQAStatusType_SeamsInspectionFail {
-            get {
-                return ResourceManager.GetString("PantsQAStatusType_SeamsInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seams inspection Pass.
-        /// </summary>
-        public static string PantsQAStatusType_SeamsInspectionPass {
-            get {
-                return ResourceManager.GetString("PantsQAStatusType_SeamsInspectionPass", resourceCulture);
+                return ResourceManager.GetString("PantsQAStatusType_SeamsInspection", resourceCulture);
             }
         }
         
@@ -2401,20 +2212,11 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wiring inspection Fail.
+        ///   Looks up a localized string similar to Wiring inspection.
         /// </summary>
-        public static string PantsQAStatusType_WiringInspectionFail {
+        public static string PantsQAStatusType_WiringInspection {
             get {
-                return ResourceManager.GetString("PantsQAStatusType_WiringInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wiring inspection Pass.
-        /// </summary>
-        public static string PantsQAStatusType_WiringInspectionPass {
-            get {
-                return ResourceManager.GetString("PantsQAStatusType_WiringInspectionPass", resourceCulture);
+                return ResourceManager.GetString("PantsQAStatusType_WiringInspection", resourceCulture);
             }
         }
         
@@ -2500,11 +2302,29 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fail.
+        ///   Looks up a localized string similar to Battery Installed.
         /// </summary>
-        public static string PowerboardQAStatusType_Fail {
+        public static string PowerboardQAStatusType_BatteryInstalled {
             get {
-                return ResourceManager.GetString("PowerboardQAStatusType_Fail", resourceCulture);
+                return ResourceManager.GetString("PowerboardQAStatusType_BatteryInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powerboard Programmed.
+        /// </summary>
+        public static string PowerboardQAStatusType_PowerboardProgrammed {
+            get {
+                return ResourceManager.GetString("PowerboardQAStatusType_PowerboardProgrammed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powerboard USB Enumerates.
+        /// </summary>
+        public static string PowerboardQAStatusType_PowerboardUSBEnum {
+            get {
+                return ResourceManager.GetString("PowerboardQAStatusType_PowerboardUSBEnum", resourceCulture);
             }
         }
         
@@ -2577,6 +2397,15 @@ namespace i18n {
         public static string PrototypeType_Yes {
             get {
                 return ResourceManager.GetString("PrototypeType_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to QA Checklist.
+        /// </summary>
+        public static string QAChecklist {
+            get {
+                return ResourceManager.GetString("QAChecklist", resourceCulture);
             }
         }
         
@@ -2842,6 +2671,60 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sensor Drift.
+        /// </summary>
+        public static string SensorQAStatusType_Drift {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_Drift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firmware Updated.
+        /// </summary>
+        public static string SensorQAStatusType_FirmwareUpdated {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_FirmwareUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor LED.
+        /// </summary>
+        public static string SensorQAStatusType_LED {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_LED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Orientation.
+        /// </summary>
+        public static string SensorQAStatusType_Orientation {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_Orientation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor seating in base.
+        /// </summary>
+        public static string SensorQAStatusType_SeatingInBase {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_SeatingInBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tested and Ready.
+        /// </summary>
+        public static string SensorQAStatusType_TestedAndReady {
+            get {
+                return ResourceManager.GetString("SensorQAStatusType_TestedAndReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sensors.
         /// </summary>
         public static string Sensors {
@@ -2968,38 +2851,20 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Baseplates inspection Fail.
+        ///   Looks up a localized string similar to Baseplates inspection.
         /// </summary>
-        public static string ShirtOctopiQAStatusType_BaseplateInspectionFail {
+        public static string ShirtOctopiQAStatusType_BaseplateInspection {
             get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_BaseplateInspectionFail", resourceCulture);
+                return ResourceManager.GetString("ShirtOctopiQAStatusType_BaseplateInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Baseplates inspection Pass.
+        ///   Looks up a localized string similar to Connector inspection.
         /// </summary>
-        public static string ShirtOctopiQAStatusType_BaseplateInspectionPass {
+        public static string ShirtOctopiQAStatusType_ConnectorInspection {
             get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_BaseplateInspectionPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connector inspection Fail.
-        /// </summary>
-        public static string ShirtOctopiQAStatusType_ConnectorInspectionFail {
-            get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_ConnectorInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connector inspection Pass.
-        /// </summary>
-        public static string ShirtOctopiQAStatusType_ConnectorInspectionPass {
-            get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_ConnectorInspectionPass", resourceCulture);
+                return ResourceManager.GetString("ShirtOctopiQAStatusType_ConnectorInspection", resourceCulture);
             }
         }
         
@@ -3013,74 +2878,38 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heat Shrink Inspection Fail.
+        ///   Looks up a localized string similar to Heat Shrink Inspection.
         /// </summary>
-        public static string ShirtOctopiQAStatusType_HeatShrinkInspectionFail {
+        public static string ShirtOctopiQAStatusType_HeatShrinkInspection {
             get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_HeatShrinkInspectionFail", resourceCulture);
+                return ResourceManager.GetString("ShirtOctopiQAStatusType_HeatShrinkInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heat Shrink Inspection Pass.
+        ///   Looks up a localized string similar to ID label inspection.
         /// </summary>
-        public static string ShirtOctopiQAStatusType_HeatShrinkInspectionPass {
+        public static string ShirtOctopiQAStatusType_IDLabelInspection {
             get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_HeatShrinkInspectionPass", resourceCulture);
+                return ResourceManager.GetString("ShirtOctopiQAStatusType_IDLabelInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID label inspection Fail.
+        ///   Looks up a localized string similar to Power inspection.
         /// </summary>
-        public static string ShirtOctopiQAStatusType_IDLabelInspectionFail {
+        public static string ShirtOctopiQAStatusType_PowerInspection {
             get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_IDLabelInspectionFail", resourceCulture);
+                return ResourceManager.GetString("ShirtOctopiQAStatusType_PowerInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID label inspection Pass.
+        ///   Looks up a localized string similar to Seams inspection.
         /// </summary>
-        public static string ShirtOctopiQAStatusType_IDLabelInspectionPass {
+        public static string ShirtOctopiQAStatusType_SeamsInspection {
             get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_IDLabelInspectionPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Power inspection Fail.
-        /// </summary>
-        public static string ShirtOctopiQAStatusType_PowerInspectionFail {
-            get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_PowerInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Power inspection Pass.
-        /// </summary>
-        public static string ShirtOctopiQAStatusType_PowerInspectionPass {
-            get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_PowerInspectionPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seams inspection Fail.
-        /// </summary>
-        public static string ShirtOctopiQAStatusType_SeamsInspectionFail {
-            get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_SeamsInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seams inspection Pass.
-        /// </summary>
-        public static string ShirtOctopiQAStatusType_SeamsInspectionPass {
-            get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_SeamsInspectionPass", resourceCulture);
+                return ResourceManager.GetString("ShirtOctopiQAStatusType_SeamsInspection", resourceCulture);
             }
         }
         
@@ -3094,56 +2923,29 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wiring inspection Fail.
+        ///   Looks up a localized string similar to Wiring inspection.
         /// </summary>
-        public static string ShirtOctopiQAStatusType_WiringInspectionFail {
+        public static string ShirtOctopiQAStatusType_WiringInspection {
             get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_WiringInspectionFail", resourceCulture);
+                return ResourceManager.GetString("ShirtOctopiQAStatusType_WiringInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wiring inspection Pass.
+        ///   Looks up a localized string similar to Baseplates inspection.
         /// </summary>
-        public static string ShirtOctopiQAStatusType_WiringInspectionPass {
+        public static string ShirtQAStatusType_BaseplateInspection {
             get {
-                return ResourceManager.GetString("ShirtOctopiQAStatusType_WiringInspectionPass", resourceCulture);
+                return ResourceManager.GetString("ShirtQAStatusType_BaseplateInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Baseplates inspection Fail.
+        ///   Looks up a localized string similar to Connector inspection.
         /// </summary>
-        public static string ShirtQAStatusType_BaseplateInspectionFail {
+        public static string ShirtQAStatusType_ConnectorInspection {
             get {
-                return ResourceManager.GetString("ShirtQAStatusType_BaseplateInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Baseplates inspection Pass.
-        /// </summary>
-        public static string ShirtQAStatusType_BaseplateInspectionPass {
-            get {
-                return ResourceManager.GetString("ShirtQAStatusType_BaseplateInspectionPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connector inspection Fail.
-        /// </summary>
-        public static string ShirtQAStatusType_ConnectorInspectionFail {
-            get {
-                return ResourceManager.GetString("ShirtQAStatusType_ConnectorInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connector inspection Pass.
-        /// </summary>
-        public static string ShirtQAStatusType_ConnectorInspectionPass {
-            get {
-                return ResourceManager.GetString("ShirtQAStatusType_ConnectorInspectionPass", resourceCulture);
+                return ResourceManager.GetString("ShirtQAStatusType_ConnectorInspection", resourceCulture);
             }
         }
         
@@ -3157,74 +2959,38 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heat Shrink Inspection Fail.
+        ///   Looks up a localized string similar to Heat Shrink Inspection.
         /// </summary>
-        public static string ShirtQAStatusType_HeatShrinkInspectionFail {
+        public static string ShirtQAStatusType_HeatShrinkInspection {
             get {
-                return ResourceManager.GetString("ShirtQAStatusType_HeatShrinkInspectionFail", resourceCulture);
+                return ResourceManager.GetString("ShirtQAStatusType_HeatShrinkInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heat Shrink Inspection Pass.
+        ///   Looks up a localized string similar to ID label inspection.
         /// </summary>
-        public static string ShirtQAStatusType_HeatShrinkInspectionPass {
+        public static string ShirtQAStatusType_IDLabelInspection {
             get {
-                return ResourceManager.GetString("ShirtQAStatusType_HeatShrinkInspectionPass", resourceCulture);
+                return ResourceManager.GetString("ShirtQAStatusType_IDLabelInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID label inspection Fail.
+        ///   Looks up a localized string similar to Power inspection.
         /// </summary>
-        public static string ShirtQAStatusType_IDLabelInspectionFail {
+        public static string ShirtQAStatusType_PowerInspection {
             get {
-                return ResourceManager.GetString("ShirtQAStatusType_IDLabelInspectionFail", resourceCulture);
+                return ResourceManager.GetString("ShirtQAStatusType_PowerInspection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID label inspection Pass.
+        ///   Looks up a localized string similar to Seams inspection.
         /// </summary>
-        public static string ShirtQAStatusType_IDLabelInspectionPass {
+        public static string ShirtQAStatusType_SeamsInspection {
             get {
-                return ResourceManager.GetString("ShirtQAStatusType_IDLabelInspectionPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Power inspection Fail.
-        /// </summary>
-        public static string ShirtQAStatusType_PowerInspectionFail {
-            get {
-                return ResourceManager.GetString("ShirtQAStatusType_PowerInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Power inspection Pass.
-        /// </summary>
-        public static string ShirtQAStatusType_PowerInspectionPass {
-            get {
-                return ResourceManager.GetString("ShirtQAStatusType_PowerInspectionPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seams inspection Fail.
-        /// </summary>
-        public static string ShirtQAStatusType_SeamsInspectionFail {
-            get {
-                return ResourceManager.GetString("ShirtQAStatusType_SeamsInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seams inspection Pass.
-        /// </summary>
-        public static string ShirtQAStatusType_SeamsInspectionPass {
-            get {
-                return ResourceManager.GetString("ShirtQAStatusType_SeamsInspectionPass", resourceCulture);
+                return ResourceManager.GetString("ShirtQAStatusType_SeamsInspection", resourceCulture);
             }
         }
         
@@ -3238,20 +3004,11 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wiring inspection Fail.
+        ///   Looks up a localized string similar to Wiring inspection.
         /// </summary>
-        public static string ShirtQAStatusType_WiringInspectionFail {
+        public static string ShirtQAStatusType_WiringInspection {
             get {
-                return ResourceManager.GetString("ShirtQAStatusType_WiringInspectionFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wiring inspection Pass.
-        /// </summary>
-        public static string ShirtQAStatusType_WiringInspectionPass {
-            get {
-                return ResourceManager.GetString("ShirtQAStatusType_WiringInspectionPass", resourceCulture);
+                return ResourceManager.GetString("ShirtQAStatusType_WiringInspection", resourceCulture);
             }
         }
         

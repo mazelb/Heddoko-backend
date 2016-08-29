@@ -204,12 +204,41 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            item.Location = model.Location?.Trim(); ;
-            item.QAStatus = model.QAStatus;
+            item.Location = model.Location?.Trim();
             item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
             item.Status = model.Status;
             item.Size = model.Size;
+
+            if (model.QaStatuses != null)
+            {
+                item.QAStatus = PantsOctopiQAStatusType.None;
+                foreach (var qaStatus in model.QaStatuses)
+                {
+                    if (qaStatus.Value)
+                    {
+                        PantsOctopiQAStatusType status = qaStatus.Key.ParseEnum<PantsOctopiQAStatusType>(PantsOctopiQAStatusType.None);
+
+                        if (status == PantsOctopiQAStatusType.None || status == PantsOctopiQAStatusType.TestedAndReady)
+                        {
+                            continue;
+                        }
+
+                        if (item.QAStatus == PantsOctopiQAStatusType.None)
+                        {
+                            item.QAStatus = status;
+                        }
+                        else
+                        {
+                            item.QAStatus |= status;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                item.QAStatus = PantsOctopiQAStatusType.None;
+            }
 
             return item;
         }

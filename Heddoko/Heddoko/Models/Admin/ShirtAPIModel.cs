@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using DAL;
 using DAL.Models;
 using i18n;
@@ -9,6 +10,7 @@ namespace Heddoko.Models
     {
         public ShirtAPIModel()
         {
+            QAStatus = ShirtQAStatusType.None;
         }
 
         public ShirtAPIModel(bool isEmpty)
@@ -31,7 +33,9 @@ namespace Heddoko.Models
 
         public EquipmentStatusType Status { get; set; }
 
-        public ShirtQAStatusType QAStatus { get; set; }
+        public ShirtQAStatusType? QAStatus { get; set; }
+
+        public Dictionary<string, bool> QaStatuses { get; set; }
 
         public int? ShirtOctopiID { get; set; }
 
@@ -39,6 +43,10 @@ namespace Heddoko.Models
 
         public string IDView { get; set; }
 
-        public string Name => IsEmpty ? $"{Resources.No} {Resources.Shirt}" : $"{IDView} - {QAStatus.GetDisplayName()}";
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.Shirt}" : $"{IDView} - {Size.GetDisplayName()}";
+
+        public string QAStatusText => QAStatus?.ToStringFlags();
+
+        public List<string> QAModel => QAStatus?.ToArrayStringFlags();
     }
 }

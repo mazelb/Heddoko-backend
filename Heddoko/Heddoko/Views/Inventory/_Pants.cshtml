@@ -1,16 +1,35 @@
-﻿<div class="row">
-    <div class="col-md-4">
-        <div class="filters pantsFilter">
-            <div>
-                <label for="searchPants" class="control-label">@i18n.Resources.Search</label>
-                <input id="searchPants"
-                       class="form-control"
-                       type="text"
-                       placeholder="@i18n.Resources.Enter @i18n.Resources.Pants @i18n.Resources.ID"
-                       data-bind="value: search, events:{ keyup: keyup }" />
+﻿@using DAL.Models
+<div class="row">
+    <div class="pantsFilter">
+        <div class="col-md-4">
+            <div class="filters pantsFilter">
+                <div>
+                    <label for="searchPants" class="control-label">@i18n.Resources.Search</label>
+                    <input id="searchPants"
+                           class="form-control"
+                           type="text"
+                           placeholder="@i18n.Resources.Enter @i18n.Resources.Pants @i18n.Resources.ID"
+                           data-bind="value: search, events:{ keyup: keyup }" />
+                </div>
+                <div class="margin010">
+                    <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+                </div>
             </div>
-            <div class="margin010">
-                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+        </div>
+        <div class="col-md-2">
+            <div class="filters">
+                <div>
+                    <label for="statusFilter" class="control-label">@i18n.Resources.FilterStatus</label>
+                    <select id="statusFilter"
+                            class="form-control"
+                            name="status-filter-kits"
+                            data-role="dropdownlist"
+                            data-value-primitive="true"
+                            data-text-field="text"
+                            data-option-label="@i18n.Resources.SelectStatus"
+                            data-value-field="value"
+                            data-bind="value: statusFilter, source: statuses"></select>
+                </div>
             </div>
         </div>
     </div>
@@ -52,19 +71,6 @@
                                 data-value-field="value"
                                 data-bind="value: model.status, source: statuses"></select>
                     </div>
-                    <div class="col-sm-2">
-                        <select class="form-control"
-                                required
-                                name="pants-qastatus"
-                                validationMessage="@i18n.Resources.Required"
-                                data-role="dropdownlist"
-                                data-value-primitive="true"
-                                data-text-field="text"
-                                data-option-label="@i18n.Resources.SelectQAStatus"
-                                data-value-field="value"
-                                data-bind="value: model.qaStatus, source: qaStatuses"></select>
-                    </div>
-
                     <div class="col-sm-2">
                         <select class="form-control"
                                 name="pants-pantsotopi"
@@ -115,3 +121,35 @@
         </div>
     </div>
 </div>
+
+<script type="text/x-kendo-template" id="pants-qastatuses-template">
+    <div class="tabstrip">
+        <ul>
+            <li class="k-state-active">
+                @i18n.Resources.QAChecklist
+            </li>
+        </ul>
+        <div>
+            <div class="qa-statuses">
+                <ul>
+                    @foreach (PantsQAStatusType type in (PantsQAStatusType[])Enum.GetValues(typeof(PantsQAStatusType)))
+                    {
+                        if (type == PantsQAStatusType.None || type == PantsQAStatusType.TestedAndReady)
+                        {
+                            continue;
+                        }
+                        <li>
+                            @type.GetDisplayName()
+                            <input type="checkbox"
+                                   data-bind="checked: qamodel.@type.ToString().ToLower()" />
+                        </li>
+
+                    }
+                </ul>
+                <button type="button" data-bind="click: save" class="btn btn-default">@i18n.Resources.Save</button>
+            </div>
+        </div>
+    </div>
+
+</script>
+

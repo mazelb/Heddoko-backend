@@ -218,9 +218,38 @@ namespace Heddoko.Controllers
             item.Version = model.Version?.Trim();
             item.Status = model.Status;
             item.Location = model.Location?.Trim(); ;
-            item.QAStatus = model.QAStatus;
             item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
+
+            if (model.QaStatuses != null)
+            {
+                item.QAStatus = DataboardQAStatusType.None;
+                foreach (var qaStatus in model.QaStatuses)
+                {
+                    if (qaStatus.Value)
+                    {
+                        DataboardQAStatusType status = qaStatus.Key.ParseEnum<DataboardQAStatusType>(DataboardQAStatusType.None);
+
+                        if (status == DataboardQAStatusType.None || status == DataboardQAStatusType.TestedAndReady)
+                        {
+                            continue;
+                        }
+
+                        if (item.QAStatus == DataboardQAStatusType.None)
+                        {
+                            item.QAStatus = status;
+                        }
+                        else
+                        {
+                            item.QAStatus |= status;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                item.QAStatus = DataboardQAStatusType.None;
+            }
 
             return item;
         }

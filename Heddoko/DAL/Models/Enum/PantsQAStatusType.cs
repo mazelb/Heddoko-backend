@@ -1,22 +1,19 @@
-﻿namespace DAL.Models
+﻿using System;
+
+namespace DAL.Models
 {
-    public enum PantsQAStatusType
+    [Flags]
+    public enum PantsQAStatusType : long
     {
-        TestedAndReady = 0,
-        Fail = 1,
-        BaseplateInspectionPass = 2,
-        BaseplateInspectionFail = 3,
-        WiringInspectionPass = 4,
-        WiringInspectionFail = 5,
-        ConnectorInspectionPass = 6,
-        ConnectorInspectionFail = 7,
-        HeatShrinkInspectionPass = 8,
-        HeatShrinkInspectionFail = 9,
-        PowerInspectionPass = 10,
-        PowerInspectionFail = 11,
-        SeamsInspectionPass = 12,
-        SeamsInspectionFail = 13,
-        IDLabelInspectionPass = 14,
-        IDLabelInspectionFail = 15
+        None = 0,
+        BaseplateInspection = 1,
+        WiringInspection = 2,
+        ConnectorInspection = 4,
+        HeatShrinkInspection = 8,
+        PowerInspection = 16,
+        SeamsInspection = 32,
+        IDLabelInspection = 64,
+        TestedAndReady = BaseplateInspection | WiringInspection | ConnectorInspection | HeatShrinkInspection
+                        | PowerInspection | SeamsInspection | IDLabelInspection
     }
 }

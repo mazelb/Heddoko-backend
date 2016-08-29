@@ -27,7 +27,7 @@ namespace Heddoko.Controllers.API
         /// <param name="type">The type of upload. required</param>
         [Route("upload")]
         [HttpPost]
-        [AuthAPI(Roles = Constants.Roles.All)]
+        [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
         public async Task<Asset> Upload()
         {
             AssetAPIViewModel model = new AssetAPIViewModel();
@@ -66,6 +66,9 @@ namespace Heddoko.Controllers.API
                                 model.KitID = kitID;
                             }
                             break;
+                        case "serial":
+                            model.Serial = val;
+                            break;
                         case "type":
                             AssetType typeTmp;
                             if (!Enum.TryParse(val, true, out typeTmp))
@@ -102,19 +105,44 @@ namespace Heddoko.Controllers.API
             if (model.KitID.HasValue)
             {
                 kit = UoW.KitRepository.Get(model.KitID.Value);
-                if (kit.UserID.HasValue)
+            }
+
+            if (kit == null
+            && !string.IsNullOrEmpty(model.Serial))
+            {
+                kit = UoW.KitRepository.Get(model.Serial);
+            }
+
+            if (kit == null)
+            {
+                throw new APIException(ErrorAPIType.ObjectNotFound, $"{Resources.NotFound} Kit by KitID or Serial");
+            }
+
+            if (kit.UserID.HasValue)
+            {
+                if (CurrentUser.RoleType == UserRoleType.Worker)
                 {
                     if (kit.UserID.Value != CurrentUser.ID)
                     {
-                        //TODO block wrong users
-                        //throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} kitID");
+                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} kitID");
                     }
                 }
                 else
                 {
-                    //TODO block non assinged kits
-                    //throw new APIException(ErrorAPIType.KitID, $"{Resources.NonAssigned} kitID");
+                    if (!kit.OrganizationID.HasValue)
+                    {
+                        throw new APIException(ErrorAPIType.KitID, $"{Resources.NonAssigned} OrganizationID");
+                    }
+
+                    if (kit.OrganizationID != CurrentUser.OrganizationID)
+                    {
+                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} OrganizationID");
+                    }
                 }
+            }
+            else
+            {
+                throw new APIException(ErrorAPIType.KitID, $"{Resources.NonAssigned} kitID");
             }
 
             Asset asset = new Asset
@@ -123,7 +151,7 @@ namespace Heddoko.Controllers.API
                 Proccessing = AssetProccessingType.New,
                 Status = UploadStatusType.New,
                 Kit = kit,
-                User = CurrentUser
+                User = kit.User
             };
 
             foreach (MultipartFileData file in provider.FileData)
@@ -152,12 +180,17 @@ namespace Heddoko.Controllers.API
         [Route("list/{take:int}/{skip:int?}")]
         [Route("list/{userID:int?}/{take:int}/{skip:int?}")]
         [HttpGet]
-        [AuthAPI(Roles = Constants.Roles.Analyst)]
+        [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
         public ListAPIViewModel<Asset> List(int take = 100, int? userID = null, int? skip = 0)
         {
             if (!CurrentUser.OrganizationID.HasValue)
             {
                 throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.NonAssigned} organization");
+            }
+
+            if (CurrentUser.Role == UserRoleType.Worker)
+            {
+                userID = CurrentUser.ID;
             }
 
             return new ListAPIViewModel<Asset>()
