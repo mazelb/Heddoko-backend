@@ -175,7 +175,7 @@ var Kits = {
                     pageSizes: [10, 50, 100]
                 },
                 toolbar: [{
-                    template: '<div class="grid-checkbox"><span><input class="chk-show-deleted" type="checkbox"/>' + i18n.Resources.ShowDeleted + '</span><div class="numResults" style="float: right;"></div></div>'
+                    template: '<div class="grid-checkbox"><span><input class="chk-show-deleted" type="checkbox"/>' + i18n.Resources.ShowDeleted + '</span></div>'
                 }],
                 columns: [
                 {
@@ -324,8 +324,6 @@ var Kits = {
 
         var grid = Kits.controls.grid;
         var enumarable = Enums.EquipmentStatusType.enum;
-
-        $(".numResults").html(grid._data.length + " : Number of Results");
 
         $(".k-grid-delete", grid.element).each(function () {
             var currentDataItem = grid.dataItem($(this).closest("tr"));
