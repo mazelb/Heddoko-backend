@@ -143,7 +143,7 @@ namespace Heddoko.Controllers
 
                 UoW.SensorRepository.Create(item);
 
-                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies(true));
 
                 response = Convert(item);
             }
@@ -187,7 +187,7 @@ namespace Heddoko.Controllers
                 Bind(item, model);
                 UoW.Save();
 
-                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies(true));
 
                 response = Convert(item);
             }
@@ -244,7 +244,7 @@ namespace Heddoko.Controllers
             {
                 item.Status = EquipmentStatusType.Ready;
 
-                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies(true));
             }
             UoW.Save();
 

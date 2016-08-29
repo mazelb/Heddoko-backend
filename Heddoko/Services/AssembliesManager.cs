@@ -14,14 +14,17 @@ namespace Services
         private const int PantsSensors = 4;
         private const int KitSensors = ShirtSensors + PantsSensors;
 
-        public static List<Assembly> GetAssemblies()
+        public static List<Assembly> GetAssemblies(bool force = false)
         {
             UnitOfWork UoW = new UnitOfWork();
             List<Assembly> assemblies = UoW.AssemblyCacheRepository.GetCached();
 
-            if (assemblies != null)
+            if (!force)
             {
-                return assemblies;
+                if (assemblies != null)
+                {
+                    return assemblies;
+                }
             }
 
             int batteries = UoW.ComponentRepository.GetQuantityReadyOfComponent(ComponentsType.Batteries);
