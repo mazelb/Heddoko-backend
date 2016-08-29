@@ -1,8 +1,14 @@
-﻿namespace DAL.Models
+﻿using System;
+
+namespace DAL.Models
 {
-    public enum PowerboardQAStatusType
+    [Flags]
+    public enum PowerboardQAStatusType : long
     {
-        TestedAndReady = 0,
-        Fail = 1
+        None = 0,
+        PowerboardProgrammed = 1,
+        PowerboardUSBEnum = 2,
+        BatteryInstalled = 4,
+        TestedAndReady = PowerboardProgrammed | PowerboardUSBEnum | BatteryInstalled
     }
 }

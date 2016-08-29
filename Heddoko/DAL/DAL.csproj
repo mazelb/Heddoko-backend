@@ -219,6 +219,14 @@
     <Compile Include="Migrations\201608152057200_AssetFilename.Designer.cs">
       <DependentUpon>201608152057200_AssetFilename.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608160932411_Bitwise.cs" />
+    <Compile Include="Migrations\201608160932411_Bitwise.Designer.cs">
+      <DependentUpon>201608160932411_Bitwise.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608251424197_BitwiseEquipment.cs" />
+    <Compile Include="Migrations\201608251424197_BitwiseEquipment.Designer.cs">
+      <DependentUpon>201608251424197_BitwiseEquipment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201608171933158_UserIdentity.cs" />
     <Compile Include="Migrations\201608171933158_UserIdentity.Designer.cs">
       <DependentUpon>201608171933158_UserIdentity.cs</DependentUpon>
@@ -378,6 +386,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608152057200_AssetFilename.resx">
       <DependentUpon>201608152057200_AssetFilename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608160932411_Bitwise.resx">
+      <DependentUpon>201608160932411_Bitwise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608251424197_BitwiseEquipment.resx">
+      <DependentUpon>201608251424197_BitwiseEquipment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608171933158_UserIdentity.resx">
       <DependentUpon>201608171933158_UserIdentity.cs</DependentUpon>

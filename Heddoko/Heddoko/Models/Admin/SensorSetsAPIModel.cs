@@ -40,6 +40,6 @@ namespace Heddoko.Models
 
         public string Sensors { get; set; }
 
-        public string Name => IsEmpty ? $"{Resources.No} {Resources.SensorSet}" : $"{IDView} - {QAStatus.GetDisplayName()}";
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.SensorSet}" : $"{IDView} - {Status.GetDisplayName()}";
     }
 }

@@ -34,15 +34,25 @@ namespace DAL
                         .OrderBy(c => c.ID);
         }
 
-        public IEnumerable<Pants> Search(string search, bool isDeleted = false)
+        public IEnumerable<Pants> Search(string search, int? statusFilter = null, bool isDeleted = false)
         {
-            int? id = search.ParseID();
-            return DbSet.Include(c => c.PantsOctopi)
-                        .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                        .Where(c => (c.ID == id)
-                                    || c.Size.ToString().ToLower().Contains(search.ToLower())
-                                    || c.Location.ToLower().Contains(search.ToLower()))
-                        .OrderBy(c => c.ID);
+            IQueryable<Pants> query = DbSet.Include(c => c.PantsOctopi);
+                        
+            if (!string.IsNullOrEmpty(search))
+            {
+                int? id = search.ParseID();
+                query = query   .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)                               
+                                .Where(c => (c.ID == id)
+                                            || c.Size.ToString().ToLower().Contains(search.ToLower())
+                                            || c.Location.ToLower().Contains(search.ToLower()));
+            }
+            if (statusFilter.HasValue)
+            {
+                query = query.Where(c => c.Status == (EquipmentStatusType)statusFilter);
+            }           
+
+            query = query.OrderBy(c => c.ID);
+            return query;
         }
 
         public void RemovePantsOctopi(int pantsOctopiID)

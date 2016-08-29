@@ -16,6 +16,7 @@ namespace Heddoko.Controllers
     public class ShirtsController : BaseAdminController<Shirt, ShirtAPIModel>
     {
         private const string Search = "Search";
+        private const string Status = "Status";
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
         private const int NoShirtsOctopiID = 0;
@@ -53,10 +54,17 @@ namespace Heddoko.Controllers
                     }
 
                     KendoFilterItem searchFilter = request.Filter.Get(Search);
-                    if (!string.IsNullOrEmpty(searchFilter?.Value))
+                    KendoFilterItem statusFilter = request.Filter.Get(Status);
+                    int? statusInt = null;
+                    int temp;
+                    if (!string.IsNullOrEmpty(statusFilter?.Value) && int.TryParse(statusFilter.Value, out temp))
                     {
-                        items = UoW.ShirtRepository.Search(searchFilter.Value, isDeleted);
+                        statusInt = temp;
                     }
+                    if (statusInt.HasValue || !string.IsNullOrEmpty(searchFilter?.Value))
+                    {
+                        items = UoW.ShirtRepository.Search(searchFilter?.Value, statusInt, isDeleted);
+                    }       
                 }
             }
 
@@ -238,11 +246,40 @@ namespace Heddoko.Controllers
             }
 
             item.Location = model.Location?.Trim(); ;
-            item.QAStatus = model.QAStatus;
             item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();
             item.Status = model.Status;
             item.Size = model.Size;
+
+            if (model.QaStatuses != null)
+            {
+                item.QAStatus = ShirtQAStatusType.None;
+                foreach (var qaStatus in model.QaStatuses)
+                {
+                    if (qaStatus.Value)
+                    {
+                        ShirtQAStatusType status = qaStatus.Key.ParseEnum<ShirtQAStatusType>(ShirtQAStatusType.None);
+
+                        if (status == ShirtQAStatusType.None || status == ShirtQAStatusType.TestedAndReady)
+                        {
+                            continue;
+                        }
+
+                        if (item.QAStatus == ShirtQAStatusType.None)
+                        {
+                            item.QAStatus = status;
+                        }
+                        else
+                        {
+                            item.QAStatus |= status;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                item.QAStatus = ShirtQAStatusType.None;
+            }
 
             return item;
         }

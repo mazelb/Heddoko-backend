@@ -34,7 +34,9 @@ namespace Heddoko.Models
 
         public EquipmentStatusType Status { get; set; }
 
-        public DataboardQAStatusType QAStatus { get; set; }
+        public DataboardQAStatusType? QAStatus { get; set; }
+
+        public Dictionary<string, bool> QaStatuses { get; set; }
 
         public int? FirmwareID { get; set; }
 
@@ -42,6 +44,10 @@ namespace Heddoko.Models
 
         public string IDView { get; set; }
 
-        public string Name => IsEmpty ? $"{Resources.No} {Resources.Databoard}" : $"{IDView} - {QAStatus.GetDisplayName()}";
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.Databoard}" : $"{IDView} - {Status.GetDisplayName()}";
+
+        public string QAStatusText => QAStatus?.ToStringFlags();
+
+        public List<string> QAModel => QAStatus?.ToArrayStringFlags();
     }
 }

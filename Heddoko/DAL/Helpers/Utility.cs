@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations.Infrastructure;
+using System.Data.Entity.Migrations.Model;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -15,6 +17,21 @@ namespace DAL
         private static readonly Regex ToUnderScoreRegex = new Regex(@"((?<=.)[A-Z][a-zA-Z]*)|((?<=[a-zA-Z])\d+)", RegexOptions.Compiled);
 
         private static readonly Regex DigitRegex = new Regex(@"[^0-9]+", RegexOptions.Compiled);
+
+        public static void DeleteDefaultContraint(this IDbMigration migration, string tableName, string colName, bool suppressTransaction = false)
+        {
+            SqlOperation sql = new SqlOperation(string.Format(@"DECLARE @SQL varchar(1000)
+        SET @SQL='ALTER TABLE {0} DROP CONSTRAINT ['+(SELECT name
+        FROM sys.default_constraints
+        WHERE parent_object_id = object_id('{0}')
+        AND col_name(parent_object_id, parent_column_id) = '{1}')+']';
+        PRINT @SQL;
+        EXEC(@SQL);", tableName, colName))
+            {
+                SuppressTransaction = suppressTransaction
+            };
+            migration.AddOperation(sql);
+        }
 
         #region List
 
@@ -58,6 +75,7 @@ namespace DAL
         #endregion
 
         #region String
+
         public static string ToTitleCase(this string str)
         {
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
@@ -114,8 +132,8 @@ namespace DAL
             }
 
             string[] words = value.Split(new char[]
-                                         {
-                                         },
+            {
+            },
                 StringSplitOptions.RemoveEmptyEntries);
 
             string result = words.FirstOrDefault()?.ToLower();
@@ -146,6 +164,75 @@ namespace DAL
         #endregion
 
         #region Enums
+
+        public static List<string> ToArrayStringFlags(this Enum value)
+        {
+            List<string> result = new List<string>();
+
+            Type type = value.GetType();
+            Array values = Enum.GetValues(type);
+
+            foreach (object enumValue in values)
+            {
+                if (value.HasFlag((Enum) enumValue))
+                {
+                    result.Add(((Enum) enumValue).ToString().ToLower());
+                }
+            }
+
+            return result;
+        }
+
+        public static string ToStringFlags(this Enum value)
+        {
+            List<string> result = new List<string>();
+            Type type = value.GetType();
+            Array values = Enum.GetValues(type);
+
+            foreach (object enumValue in values)
+            {
+                if (value.HasFlag((Enum) enumValue))
+                {
+                    result.Add(((Enum) enumValue).GetDisplayName());
+                }
+            }
+
+            // TODO: BENB - This should be refactored, 'None' is always first, 'TestedAndReady' is always last, don't want 
+            //              'None' in the result if any other value is there. Want to only send 'TestedAndReady' if all others are there
+            if (result.Count == values.Length)
+            {
+                return result.Last();
+            }
+            if (result.Count != 1)
+            {
+                result.RemoveAt(0);
+            }
+
+            return string.Join(",", result.ToArray());
+        }
+
+        public static T ParseEnum<T>(this string value, T defaultValue) where T : struct, IConvertible
+        {
+            if (!typeof(T).IsEnum)
+            {
+                throw new ArgumentException("T must be an enumerated type");
+            }
+
+            if (string.IsNullOrEmpty(value))
+            {
+                return defaultValue;
+            }
+
+            foreach (T item in Enum.GetValues(typeof(T)))
+            {
+                if (item.ToString().ToLower().Equals(value.Trim().ToLower()))
+                {
+                    return item;
+                }
+            }
+
+            return defaultValue;
+        }
 
         public static string GetDisplayName(this Enum e)
         {
