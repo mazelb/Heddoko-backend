@@ -151,7 +151,7 @@ var Pants = {
                         template:
                             '<div class="grid-checkbox"><span><input class="chk-show-deleted" type="checkbox"/>' +
                                 i18n.Resources.ShowDeleted +
-                                '</span></div></div>'
+                                '</span></div>'
                     }
                 ],
                 columns: [
