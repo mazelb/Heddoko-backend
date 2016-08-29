@@ -151,7 +151,7 @@ var Pants = {
                         template:
                             '<div class="grid-checkbox"><span><input class="chk-show-deleted" type="checkbox"/>' +
                                 i18n.Resources.ShowDeleted +
-                                '</span></div>'
+                                '</span><div class="numResults" style="float: right;"></div></div>'
                     }
                 ],
                 columns: [
@@ -280,6 +280,8 @@ var Pants = {
 
         var grid = Pants.controls.grid;
         var enumarable = Enums.EquipmentStatusType.enum;
+
+        $(".numResults").html(grid._data.length + " : Number of Results");
 
         $(".k-grid-delete", grid.element)
             .each(function() {

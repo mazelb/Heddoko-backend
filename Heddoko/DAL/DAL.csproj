@@ -219,6 +219,14 @@
     <Compile Include="Migrations\201608251424197_BitwiseEquipment.Designer.cs">
       <DependentUpon>201608251424197_BitwiseEquipment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608291332582_bitwise-sensorsets.cs" />
+    <Compile Include="Migrations\201608291332582_bitwise-sensorsets.Designer.cs">
+      <DependentUpon>201608291332582_bitwise-sensorsets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608291421474_SensorSets-QAStatus.cs" />
+    <Compile Include="Migrations\201608291421474_SensorSets-QAStatus.Designer.cs">
+      <DependentUpon>201608291421474_SensorSets-QAStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
@@ -379,6 +387,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608251424197_BitwiseEquipment.resx">
       <DependentUpon>201608251424197_BitwiseEquipment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608291332582_bitwise-sensorsets.resx">
+      <DependentUpon>201608291332582_bitwise-sensorsets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608291421474_SensorSets-QAStatus.resx">
+      <DependentUpon>201608291421474_SensorSets-QAStatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -20,7 +20,7 @@ namespace DAL.Models
 
         public EquipmentStatusType Status { get; set; }
 
-        public SensorSetQAStatusType QAStatus { get; set; }
+        public SensorSetQAStatusType? QAStatus { get; set; }
 
         #region NotMapped
 
