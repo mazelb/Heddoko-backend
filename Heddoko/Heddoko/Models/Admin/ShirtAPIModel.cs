@@ -45,8 +45,8 @@ namespace Heddoko.Models
 
         public string Name => IsEmpty ? $"{Resources.No} {Resources.Shirt}" : $"{IDView} - {Size.GetDisplayName()}";
 
-        public string QAStatusText => QAStatus.ToStringFlags();
+        public string QAStatusText => QAStatus?.ToStringFlags();
 
-        public List<string> QAModel => QAStatus.ToArrayStringFlags();
+        public List<string> QAModel => QAStatus?.ToArrayStringFlags();
     }
 }
