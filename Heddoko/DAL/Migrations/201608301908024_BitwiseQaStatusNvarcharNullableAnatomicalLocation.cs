@@ -38,6 +38,7 @@ namespace DAL.Migrations
             AlterColumn("dbo.ShirtOctopis", "Notes", c => c.String(storeType: "ntext"));
             AlterColumn("dbo.Shirts", "QAStatus", c => c.Int(nullable: false));
             AlterColumn("dbo.Shirts", "Notes", c => c.String(storeType: "ntext"));
+            Sql("update dbo.Sensors set AnatomicalLocation = 0");
             AlterColumn("dbo.Sensors", "AnatomicalLocation", c => c.Int(nullable: false));
             AlterColumn("dbo.Sensors", "QAStatus", c => c.Int(nullable: false));
             AlterColumn("dbo.Sensors", "Notes", c => c.String(storeType: "ntext"));
