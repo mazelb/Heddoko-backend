@@ -1,8 +1,11 @@
-﻿namespace DAL.Models
+﻿using System;
+
+namespace DAL.Models
 {
-    public enum SensorSetQAStatusType
+    [Flags]
+    public enum SensorSetQAStatusType : long
     {
-        TestedAndReady = 0,
-        Fail = 1
+        None = 0,
+        TestedAndReady = 1
     }
 }

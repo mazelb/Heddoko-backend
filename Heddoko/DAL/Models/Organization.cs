@@ -18,7 +18,6 @@ namespace DAL.Models
         [StringLength(255)]
         public string Address { get; set; }
 
-        [Column(TypeName = "ntext")]
         public string Notes { get; set; }
 
         public OrganizationStatusType Status { get; set; }
