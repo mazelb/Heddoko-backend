@@ -1,21 +1,21 @@
-﻿using Heddoko.Models;
-using Services;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Http.Description;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using DAL;
+using DAL.Models;
+using Heddoko.Models;
 
 namespace Heddoko.Controllers
 {
-    [Auth(Roles = DAL.Constants.Roles.All)]
+    [Auth(Roles = Constants.Roles.All)]
     public class DefaultController : BaseController
     {
         public ActionResult Index()
         {
-            return View(new BaseViewModel());
+            DefaultIndexViewModel model = new DefaultIndexViewModel()
+            {
+                Software = UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Software)
+            };
+
+            return View(model);
         }
     }
 }

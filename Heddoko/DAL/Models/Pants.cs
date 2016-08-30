@@ -1,0 +1,48 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using Newtonsoft.Json;
+
+namespace DAL.Models
+{
+    public class Pants : BaseModel
+    {
+        [StringLength(255)]
+        public string Location { get; set; }
+
+        [Index(IsUnique = true)]
+        [StringLength(255)]
+        public string Label { get; set; }
+
+        public string Notes { get; set; }
+
+        public SizeType Size { get; set; }
+
+        public EquipmentStatusType Status { get; set; }
+
+        public PantsQAStatusType QAStatus { get; set; }
+
+        #region NotMapped
+
+        public string IDView => $"PA{ID.ToString(Constants.PadZero)}";
+
+        #endregion
+
+        #region Relations
+
+        [JsonIgnore]
+        //Inverse property - 1 to 1 relation, cause of ef6 1 to 1 supporting
+        public virtual ICollection<Kit> Kits { get; set; }
+
+        [JsonIgnore]
+        public virtual Kit Kit => Kits?.FirstOrDefault();
+
+        public int? PantsOctopiID { get; set; }
+
+        [JsonIgnore]
+        public virtual PantsOctopi PantsOctopi { get; set; }
+
+        #endregion
+    }
+}

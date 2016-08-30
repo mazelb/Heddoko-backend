@@ -1,11 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DAL.Models
 {
@@ -16,11 +11,16 @@ namespace DAL.Models
         [JsonIgnore]
         public string Image { get; set; }
 
-        [JsonIgnore]
         public AssetType Type { get; set; }
+
+        [StringLength(255)]
+        public string Name { get; set; }
 
         [JsonIgnore]
         public UploadStatusType Status { get; set; }
+
+        [JsonIgnore]
+        public AssetProccessingType Proccessing { get; set; }
 
         public string Url
         {
@@ -33,5 +33,18 @@ namespace DAL.Models
                 return null;
             }
         }
+
+        #region Relations
+
+        public int? UserID { get; set; }
+
+        public virtual User User { get; set; }
+
+        public int? KitID { get; set; }
+
+        [JsonIgnore]
+        public virtual Kit Kit { get; set; }
+
+        #endregion
     }
 }

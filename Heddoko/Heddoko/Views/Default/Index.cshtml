@@ -1,8 +1,127 @@
-﻿@model Heddoko.Models.BaseViewModel
+﻿@using Heddoko.Models
+@model Heddoko.Models.DefaultIndexViewModel
 
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
 
-<div class="container">
-    <div class="header clearfix">
-        @Html.Partial("_Navigation", Model)
+<div class="dashboard page">
+
+    <div class="dashboard-menu">
+        @if (Model.IsAuth)
+        {
+            <div class="row dashboard-title">
+                <div class="col-sm-12">
+                    <h1 ng-show="global.state.user.id > 0 && global.state.user.firstName.length"
+                        class="text-center">
+                        @BaseViewModel.Greeting @Model.CurrentUser.FirstName,
+                    </h1>
+
+                    <h3 class="text-center">
+                        @i18n.Resources.WhatWouldYouLikeToDO
+                    </h3>
+                </div>
+            </div>
+
+            <div class="row">
+
+                @switch (Model.CurrentUser.Role)
+                {
+                    case DAL.Models.UserRoleType.Admin:
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2">
+                            <a href="@Url.Action("Index", "Inventory")" class="btn-dashboard">
+                                <i class="fa fa-2x fa-cogs"></i>
+                                <span>
+                                    @i18n.Resources.Manage @i18n.Resources.Inventory
+                                </span>
+                                <span></span>
+                            </a>
+                        </div>
+
+                        <div class="col-md-2">
+                            <a href="@Url.Action("Index", "License")" class="btn-dashboard">
+                                <i class="fa fa-2x fa-user-plus"></i>
+                                <span>
+                                    @i18n.Resources.Manage @i18n.Resources.Licenses
+                                </span>
+                                <span></span>
+                            </a>
+                        </div>
+
+                        <div class="col-md-2">
+                            <a href="@Url.Action("Index", "Firmware")" class="btn-dashboard">
+                                <i class="fa fa-2x fa-terminal"></i>
+                                <span>
+                                    @i18n.Resources.Manage @i18n.Resources.SoftwareAndFirmware
+                                </span>
+                                <span></span>
+                            </a>
+                        </div>
+
+                        <div class="col-md-2">
+                            <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
+                                <i class="fa fa-2x fa-download"></i>
+                                <span>
+                                    @i18n.Resources.Download @i18n.Resources.Software
+                                </span>
+                                <span></span>
+                            </a>
+                            <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
+                        </div>
+
+                        break;
+                    case DAL.Models.UserRoleType.Analyst:
+                        <div class="col-md-5"></div>
+                        <div class="col-md-2">
+                            <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
+                                <i class="fa fa-2x fa-download"></i>
+                                <span>
+                                    @i18n.Resources.Download @i18n.Resources.Software
+                                </span>
+                                <span></span>
+                            </a>
+                            <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
+                        </div>
+                        break;
+                    case DAL.Models.UserRoleType.LicenseAdmin:
+                        <div class="col-md-4"></div>
+                        <div class="col-md-2">
+                            <a href="@Url.Action("Index", "Organization")" class="btn-dashboard">
+                                <i class="fa fa-2x fa-pencil-square-o"></i>
+                                <span>
+                                    @i18n.Resources.Manage @i18n.Resources.Organization
+                                </span>
+                                <span></span>
+                            </a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
+                                <i class="fa fa-2x fa-download"></i>
+                                <span>
+                                    @i18n.Resources.Download @i18n.Resources.Software
+                                </span>
+                                <span></span>
+                            </a>
+                            <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
+                        </div>
+                        break;
+                    case DAL.Models.UserRoleType.User:
+                        <div class="col-md-5"></div>
+                        <div class="col-md-2">
+                            <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
+                                <i class="fa fa-2x fa-download"></i>
+                                <span>
+                                    @i18n.Resources.Download @i18n.Resources.Software
+                                </span>
+                                <span></span>
+                            </a>
+                            <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
+                        </div>
+                        break;
+                }
+            </div>
+        }
     </div>
+
 </div>

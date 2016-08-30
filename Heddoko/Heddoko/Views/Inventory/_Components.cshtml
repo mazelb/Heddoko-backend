@@ -1,0 +1,91 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="filters ComponentsFilter">
+            <div>
+                <label for="searchComponents" class="control-label">@i18n.Resources.Search</label>
+                <input id="searchComponents"
+                       class="form-control"
+                       type="text"
+                       placeholder="@i18n.Resources.Enter @i18n.Resources.Components @i18n.Resources.ID"
+                       data-bind="value: search, events:{ keyup: keyup }" />
+            </div>
+            <div class="margin010">
+                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success componentsForm">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.Components</h3>
+                <div class="btn-group pull-right" role="group">
+                    <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
+                    <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row margin010">
+                    
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                required
+                                name="components-type"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.Type"
+                                data-value-field="value"
+                                data-bind="value: model.type, source: types"></select>
+                    </div>
+                    
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                required
+                                name="components-status"
+                                validationMessage="@i18n.Resources.Required"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.SelectStatus"
+                                data-value-field="value"
+                                data-bind="value: model.status, source: statuses"></select>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <input class="form-control"
+                               required
+                               name="sensors-location"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.PhysicalLocation"
+                               type="text"
+                               data-bind="value: model.location" />
+                    </div>
+
+                    <div class="col-sm-2">
+                        <input required
+                               name="components-quantity"
+                               validationMessage="@i18n.Resources.Required"
+                               data-role="numerictextbox"
+                               data-format="n0"
+                               data-min="0"
+                               data-value="1"
+                               data-option-label="@i18n.Resources.Quantity"
+                               data-bind="value: model.quantity" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="componentsGrid">
+
+        </div>
+    </div>
+</div>

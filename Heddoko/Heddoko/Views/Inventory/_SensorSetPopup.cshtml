@@ -1,0 +1,18 @@
+﻿<div id="sensorSetsPopup" style="display:none; width: 500px;">
+    <div class="sensorSetsLinkForm">
+        <div>
+            <select  class="form-control"
+                   required
+                   name="sensorSets-sensors"
+                   validationMessage="@i18n.Resources.Required"
+                   data-role="multiselect"
+                   data-value-primitive="true"
+                   data-text-field="name"
+                   data-option-label="@i18n.Resources.EnterSensors"
+                   data-value-field="id"
+                   data-bind="value: model.sensors, source: sensors"> </select>
+        </div>
+        <br />
+        <button class="btn btn-primary" data-bind="events: { click: link }">@i18n.Resources.Save</button>
+    </div>
+</div>

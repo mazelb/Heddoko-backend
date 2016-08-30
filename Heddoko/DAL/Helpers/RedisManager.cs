@@ -1,56 +1,44 @@
-﻿using Jil;
-using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using Jil;
+using StackExchange.Redis;
 
 namespace DAL
 {
-    public class RedisManager
+    public static class RedisManager
     {
         private static readonly Lazy<ConnectionMultiplexer> LazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(Config.RedisConnectionString));
 
-        public static ConnectionMultiplexer Connection
-        {
-            get
-            {
-                return LazyConnection.Value;
-            }
-        }
+        private static ConnectionMultiplexer Connection => LazyConnection.Value;
 
-        private static IDatabase Cache
-        {
-            get
-            {
-                return Connection.GetDatabase();
-            }
-        }
+        private static IDatabase Cache => Connection.GetDatabase();
 
 
-        public static void Set(string key, object item)
+        public static void Set(string key, object item, int? hours = null)
         {
             try
             {
-                if (!string.IsNullOrEmpty(key))
+                if (string.IsNullOrEmpty(key))
                 {
-                    if (item != null)
-                    {
-                        IDatabase db = Cache;
-
-                        string value = JSON.Serialize(item, new Options(includeInherited: true));
-
-                        db.StringSet(key, value);
-                        db.KeyExpire(key, DateTime.Now.AddHours(Config.RedisCacheExpiration), flags: CommandFlags.FireAndForget);
-                    }
+                    return;
                 }
+
+                if (item == null)
+                {
+                    return;
+                }
+
+                IDatabase db = Cache;
+
+                string value = JSON.Serialize(item, new Options(includeInherited: true));
+
+                db.StringSet(key, value);
+                db.KeyExpire(key, DateTime.Now.AddHours(hours ?? Config.RedisCacheExpiration), CommandFlags.FireAndForget);
             }
             catch (Exception ex)
             {
-                Trace.TraceError("RedisManager.Set.Exception: key:{0} Error:{1}", key, ex.GetOriginalException());
+                Trace.TraceError($"RedisManager.Set.Exception: key:{key} Error:{ex.GetOriginalException()}");
             }
         }
 
@@ -58,19 +46,21 @@ namespace DAL
         {
             try
             {
-                if (!string.IsNullOrEmpty(key))
+                if (string.IsNullOrEmpty(key))
                 {
-                    IDatabase db = Cache;
+                    return;
+                }
 
-                    if (db.KeyExists(key))
-                    {
-                        db.KeyDelete(key);
-                    }
+                IDatabase db = Cache;
+
+                if (db.KeyExists(key))
+                {
+                    db.KeyDelete(key);
                 }
             }
             catch (Exception ex)
             {
-                Trace.TraceError("RedisManager.Clear.Exception: key:{0} Error:{1}", key, ex.GetOriginalException());
+                Trace.TraceError($"RedisManager.Clear.Exception: key:{key} Error:{ex.GetOriginalException()}");
             }
         }
 
@@ -90,7 +80,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                Trace.TraceError("RedisManager.Get.Exception: key:{0} Error:{1}", key, ex.GetOriginalException());
+                Trace.TraceError($"RedisManager.Get.Exception: key:{key} Error:{ex.GetOriginalException()}");
             }
 
             return value;

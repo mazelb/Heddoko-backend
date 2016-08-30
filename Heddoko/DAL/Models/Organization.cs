@@ -1,12 +1,8 @@
-﻿using Jil;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Jil;
+using Newtonsoft.Json;
 
 namespace DAL.Models
 {
@@ -22,12 +18,14 @@ namespace DAL.Models
         [StringLength(255)]
         public string Address { get; set; }
 
-        [Column(TypeName = "ntext")]
         public string Notes { get; set; }
 
         public OrganizationStatusType Status { get; set; }
 
+        public string IDView => $"OR{ID.ToString(Constants.PadZero)}";
+
         #region Relations
+
         [JsonIgnore]
         public int UserID { get; set; }
 
@@ -42,6 +40,11 @@ namespace DAL.Models
         [JsonIgnore]
         [JilDirective(Ignore = true)]
         public virtual ICollection<License> Licenses { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<Kit> Kits { get; set; }
+
         #endregion
     }
 }

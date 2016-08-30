@@ -1,23 +1,24 @@
-﻿using DAL;
-using DAL.Models;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Security;
+using DAL;
+using DAL.Models;
+using Newtonsoft.Json;
 
 namespace Heddoko.Helpers.Auth
 {
-    public class Forms
+    public static class Forms
     {
-        const int Version = 1;
+        private const int Version = 1;
+
         public static User SignIn(UnitOfWork uow, string username, string password)
         {
             User user = uow.UserRepository.GetByUsernameCached(username?.ToLower().Trim());
 
             if (user != null
-             && PasswordHasher.Equals(password?.Trim(), user.Salt, user.Password))
+                &&
+                PasswordHasher.Equals(password?.Trim(), user.Salt, user.Password))
             {
                 return user;
             }
@@ -29,9 +30,14 @@ namespace Heddoko.Helpers.Auth
         {
             SignOut();
 
-            AuthCookie data = new AuthCookie();
-            data.ID = user.ID;
-            data.Roles = new List<string>() { user.Role.GetStringValue() };
+            AuthCookie data = new AuthCookie
+            {
+                ID = user.ID,
+                Roles = new List<string>
+                {
+                    user.Role.GetStringValue()
+                }
+            };
 
             FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
                 Version,
@@ -40,7 +46,7 @@ namespace Heddoko.Helpers.Auth
                 DateTime.Now.AddMonths(1),
                 true,
                 JsonConvert.SerializeObject(data)
-            );
+                );
             string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
             HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
 
@@ -55,18 +61,22 @@ namespace Heddoko.Helpers.Auth
         {
             User user = ContextSession.User;
             if ((user == null || isForce)
-             && HttpContext.Current.User != null
-             && HttpContext.Current.User.Identity != null
-             && HttpContext.Current.User.Identity.IsAuthenticated
-             )
+                &&
+                HttpContext.Current.User != null
+                &&
+                HttpContext.Current.User.Identity != null
+                &&
+                HttpContext.Current.User.Identity.IsAuthenticated
+                )
             {
                 user = uow.UserRepository.GetIDCached(int.Parse(HttpContext.Current.User.Identity.Name));
                 ContextSession.User = user;
 
                 if (user != null
-                 && user.IsBanned)
+                    &&
+                    user.IsBanned)
                 {
-                    Forms.SignOut();
+                    SignOut();
                     HttpContext.Current.Response.Redirect("", true);
                 }
             }

@@ -7,9 +7,9 @@ namespace Heddoko
         public APIException(ErrorAPIType type, string message)
             : base(message)
         {
-            Code = (int)type;
+            Code = (int) type;
         }
 
-        public int Code { get; set; }
+        public int Code { get; }
     }
 }

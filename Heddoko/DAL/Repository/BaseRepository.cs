@@ -1,25 +1,24 @@
-﻿using DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using DAL.Models;
 
 namespace DAL
 {
     public class BaseRepository<T> : ICacheRepository<T>, IBaseRepository<T> where T : BaseModel
     {
-        protected HDContext db { get; private set; }
-        protected IDbSet<T> DbSet;
-        protected string Key { get; set; }
+        protected readonly IDbSet<T> DbSet;
 
-        public BaseRepository(HDContext context)
+        protected BaseRepository(HDContext context)
         {
-            db = context;
-            DbSet = db.Set<T>();
+            Db = context;
+            DbSet = Db.Set<T>();
         }
+
+        private HDContext Db { get; }
+        protected string Key { private get; set; }
 
         #region Cache
 
@@ -32,7 +31,8 @@ namespace DAL
         {
             T item = RedisManager.Get<T>(GetCacheKey(id?.ToLower()));
             if (item != null
-             && item.ID > 0)
+                &&
+                item.ID > 0)
             {
                 Attach(item);
             }
@@ -40,14 +40,19 @@ namespace DAL
             return item;
         }
 
-        public virtual void SetCache(string id, T item)
+        public virtual void SetCache(string id, T item, int? hours = null)
         {
-            RedisManager.Set(GetCacheKey(id), item);
+            RedisManager.Set(GetCacheKey(id?.ToLower()), item, hours);
+        }
+
+        public virtual void ClearCache(T item)
+        {
+            ClearCache(item.ID.ToString());
         }
 
         public virtual void ClearCache(string id)
         {
-            RedisManager.Clear(GetCacheKey(id));
+            RedisManager.Clear(GetCacheKey(id?.ToLower()));
         }
 
         public virtual T GetIDCached(int id)
@@ -64,66 +69,81 @@ namespace DAL
 
             return item;
         }
+
         #endregion
 
         #region Select
+
         public virtual T Get(int id)
         {
             return DbSet.FirstOrDefault(c => c.ID == id);
         }
 
+        public virtual T GetFull(int id)
+        {
+            return Get(id);
+        }
+
         public virtual IEnumerable<T> All()
         {
-            return this.DbSet;
+            return DbSet;
         }
 
         public IEnumerable<T> Where(Expression<Func<T, bool>> predicate)
         {
-            return this.DbSet.Where(predicate);
+            return DbSet.Where(predicate);
         }
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return this.DbSet.Where(predicate);
+            return DbSet.Where(predicate);
         }
 
         public bool Any(Expression<Func<T, bool>> predicate)
         {
-            return this.DbSet.Any(predicate);
+            return DbSet.Any(predicate);
         }
 
         public T First(Expression<Func<T, bool>> predicate)
         {
-            return this.DbSet.First(predicate);
+            return DbSet.First(predicate);
         }
 
         public T FirstOrDefault(Expression<Func<T, bool>> predicate)
         {
-            return this.DbSet.FirstOrDefault(predicate);
+            return DbSet.FirstOrDefault(predicate);
         }
 
         public void RemoveRange(List<T> items)
         {
-            this.RemoveRange(items);
+            foreach (T item in items)
+            {
+                DbSet.Remove(item);
+            }
         }
 
         public void Reload(T entity)
         {
-            this.db.Entry<T>(entity).Reload();
+            Db.Entry(entity).Reload();
         }
+
         #endregion
 
         #region Save
+
         public void Attach(T item)
         {
-            if (db.Entry(item).State == EntityState.Detached)
+            if (Db.Entry(item).State != EntityState.Detached)
             {
-                if (!Exists(item))
-                {
-                    DbSet.Attach(item);
-                }
+                return;
+            }
+
+            if (!Exists(item))
+            {
+                DbSet.Attach(item);
             }
         }
+
         public bool Exists(T entity)
         {
             return DbSet.Local.Any(e => e.ID == entity.ID);
@@ -132,14 +152,14 @@ namespace DAL
 
         public void AttachModified(T item)
         {
-            if (db.Entry(item).State == EntityState.Detached)
+            if (Db.Entry(item).State == EntityState.Detached)
             {
                 if (!Exists(item))
                 {
                     DbSet.Attach(item);
                 }
             }
-            db.Entry(item).State = EntityState.Modified;
+            Db.Entry(item).State = EntityState.Modified;
         }
 
         public void Add(T item)
@@ -154,7 +174,7 @@ namespace DAL
 
         private void Save()
         {
-            db.SaveChanges();
+            Db.SaveChanges();
         }
 
         private void Update()
@@ -179,21 +199,23 @@ namespace DAL
             Remove(item);
             Save();
         }
+
         #endregion
 
         #region IDisposable
-        private bool disposed = false;
 
-        protected virtual void Dispose(bool disposing)
+        private bool _disposed;
+
+        protected void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
-                    db.Dispose();
+                    Db.Dispose();
                 }
             }
-            this.disposed = true;
+            _disposed = true;
         }
 
         public void Dispose()
@@ -201,6 +223,7 @@ namespace DAL
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }

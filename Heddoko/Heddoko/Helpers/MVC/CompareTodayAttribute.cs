@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using DAL;
 
 namespace Heddoko
@@ -13,7 +10,7 @@ namespace Heddoko
         Less
     }
 
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class CompareTodayAttribute : ValidationAttribute
     {
         public CompareTodayAttribute(CompareEquality type)
@@ -21,13 +18,13 @@ namespace Heddoko
             Type = type;
         }
 
-        public CompareEquality Type { get; private set; }
+        private CompareEquality Type { get; }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if (value is DateTime)
             {
-                DateTime currentValue = (DateTime)value;
+                DateTime currentValue = (DateTime) value;
                 DateTime otherValue = DateTime.Now;
 
                 switch (Type)

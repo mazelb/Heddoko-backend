@@ -1,13 +1,12 @@
-﻿using DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
+using DAL.Models;
 
 namespace Heddoko.Models
 {
-	public class SupportEmailViewModel : EmailViewModel
-	{
+    public class SupportEmailViewModel : EmailViewModel
+    {
         public IssueType Type { get; set; }
 
         public IssueImportance Importance { get; set; }
@@ -24,10 +23,7 @@ namespace Heddoko.Models
 
         public string EnteredView
         {
-            get
-            {
-                return Entered.ToString("MM/dd/yyyy");
-            }
+            get { return Entered.ToString("MM/dd/yyyy"); }
         }
     }
 }

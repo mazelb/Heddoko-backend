@@ -12,9 +12,11 @@ namespace Heddoko.Controllers
     {
         public ActionResult Index()
         {
-            BaseViewModel model = new BaseViewModel();
-            model.Title = i18n.Resources.AdminTitle;
-            model.EnableKendo = true;
+            BaseViewModel model = new BaseViewModel
+            {
+                Title = i18n.Resources.AdminTitle,
+                EnableKendo = true
+            };
             return View(model);
         }
     }

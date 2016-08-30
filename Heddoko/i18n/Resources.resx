@@ -117,31 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnatomicalPositionType_LeftForeArm" xml:space="preserve">
-    <value>Left Fore Arm</value>
+  <data name="AnatomicalLocationType_Torso" xml:space="preserve">
+    <value>0 - Torso</value>
   </data>
-  <data name="AnatomicalPositionType_LeftThigh" xml:space="preserve">
-    <value>Left Thigh</value>
+  <data name="AnatomicalLocationType_LeftForeArm" xml:space="preserve">
+    <value>4 - Left Fore Arm</value>
   </data>
-  <data name="AnatomicalPositionType_LeftTibia" xml:space="preserve">
-    <value>Left Tibia</value>
+  <data name="AnatomicalLocationType_LeftThigh" xml:space="preserve">
+    <value>7 - Left Thigh</value>
   </data>
-  <data name="AnatomicalPositionType_LeftUpperArm" xml:space="preserve">
-    <value>Left Upper Arm</value>
+  <data name="AnatomicalLocationType_LeftTibia" xml:space="preserve">
+    <value>8 - Left Tibia</value>
   </data>
-  <data name="AnatomicalPositionType_RightForeArm" xml:space="preserve">
-    <value>Right Fore Arm</value>
+  <data name="AnatomicalLocationType_LeftUpperArm" xml:space="preserve">
+    <value>3 - Left Upper Arm</value>
   </data>
-  <data name="AnatomicalPositionType_RightThigh" xml:space="preserve">
-    <value>Right Thigh</value>
+  <data name="AnatomicalLocationType_RightForeArm" xml:space="preserve">
+    <value>2 - Right Fore Arm</value>
   </data>
-  <data name="AnatomicalPositionType_RightTibia" xml:space="preserve">
-    <value>Right Tibia</value>
+  <data name="AnatomicalLocationType_RightThigh" xml:space="preserve">
+    <value>5 - Right Thigh</value>
   </data>
-  <data name="AnatomicalPositionType_RightUpperArm" xml:space="preserve">
-    <value>Right Upper Arm</value>
+  <data name="AnatomicalLocationType_RightTibia" xml:space="preserve">
+    <value>6 - Right Tibia</value>
   </data>
-  <data name="AnatomicalPositionType_UpperSpine" xml:space="preserve">
+  <data name="AnatomicalLocationType_RightUpperArm" xml:space="preserve">
+    <value>1 - Right Upper Arm</value>
+  </data>
+  <data name="AnatomicalLocationType_UpperSpine" xml:space="preserve">
     <value>Upper Spine</value>
   </data>
   <data name="ConditionType_New" xml:space="preserve">
@@ -453,11 +456,11 @@
   <data name="AddANew" xml:space="preserve">
     <value>Add a new</value>
   </data>
-  <data name="AnatomicalPosition" xml:space="preserve">
-    <value>Anatomical position</value>
+  <data name="AnatomicalLocation" xml:space="preserve">
+    <value>Anatomical location</value>
   </data>
-  <data name="AnatomicalPositions" xml:space="preserve">
-    <value>Anatomical positions</value>
+  <data name="AnatomicalLocations" xml:space="preserve">
+    <value>Anatomical locations</value>
   </data>
   <data name="Equipment" xml:space="preserve">
     <value>Equipment</value>
@@ -555,8 +558,8 @@
   <data name="Prototype" xml:space="preserve">
     <value>Prototype</value>
   </data>
-  <data name="SelectAnatomicalPosition" xml:space="preserve">
-    <value>Select an anatomical position</value>
+  <data name="SelectAnatomicalLocation" xml:space="preserve">
+    <value>Select an anatomical location</value>
   </data>
   <data name="SelectCondition" xml:space="preserve">
     <value>Select a condition</value>
@@ -833,5 +836,509 @@
   </data>
   <data name="ShowByLicenses" xml:space="preserve">
     <value>Show users by license</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="QAStatus" xml:space="preserve">
+    <value>QA Status</value>
+  </data>
+  <data name="PantsOctopi" xml:space="preserve">
+    <value>Pants Octopi</value>
+  </data>
+  <data name="ShirtsOctopi" xml:space="preserve">
+    <value>Shirts Octopi</value>
+  </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
+  <data name="GoodAfternoon" xml:space="preserve">
+    <value>Good Afternoon</value>
+  </data>
+  <data name="GoodEvening" xml:space="preserve">
+    <value>Good Evening</value>
+  </data>
+  <data name="GoodMorning" xml:space="preserve">
+    <value>Good Morning</value>
+  </data>
+  <data name="WhatWouldYouLikeToDO" xml:space="preserve">
+    <value>What would you like to do?</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="EnterPantsOctopi" xml:space="preserve">
+    <value>Enter pants octopi id or size</value>
+  </data>
+  <data name="EnterShirtsOctopi" xml:space="preserve">
+    <value>Enter shirt octopi id or size</value>
+  </data>
+  <data name="SelectQAStatus" xml:space="preserve">
+    <value>Select QA status</value>
+  </data>
+  <data name="SelectSize" xml:space="preserve">
+    <value>Select size</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="Pants" xml:space="preserve">
+    <value>Pants</value>
+  </data>
+  <data name="Shirts" xml:space="preserve">
+    <value>Shirts</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Kits" xml:space="preserve">
+    <value>Kits</value>
+  </data>
+  <data name="Kit" xml:space="preserve">
+    <value>Kit</value>
+  </data>
+  <data name="AlreadyUsed" xml:space="preserve">
+    <value>already used</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="SoftwareAndFirmware" xml:space="preserve">
+    <value>Software &amp; Firmware</value>
+  </data>
+  <data name="SoftwareOrFirmware" xml:space="preserve">
+    <value>Software or Firmware</value>
+  </data>
+  <data name="WrongSize" xml:space="preserve">
+    <value>is the wrong size</value>
+  </data>
+  <data name="Components" xml:space="preserve">
+    <value>Components</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="PleaseChooseFileForUpload" xml:space="preserve">
+    <value>Please choose file for upload</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="FirmwareVersion" xml:space="preserve">
+    <value>Firmware version</value>
+  </data>
+  <data name="Brainpack" xml:space="preserve">
+    <value>Brainpack</value>
+  </data>
+  <data name="Brainpacks" xml:space="preserve">
+    <value>Brainpacks</value>
+  </data>
+  <data name="Databoard" xml:space="preserve">
+    <value>Databoard</value>
+  </data>
+  <data name="Databoards" xml:space="preserve">
+    <value>Databoards</value>
+  </data>
+  <data name="Powerboard" xml:space="preserve">
+    <value>Powerboard</value>
+  </data>
+  <data name="Powerboards" xml:space="preserve">
+    <value>Powerboards</value>
+  </data>
+  <data name="Composition" xml:space="preserve">
+    <value>Composition</value>
+  </data>
+  <data name="Shirt" xml:space="preserve">
+    <value>Shirt</value>
+  </data>
+  <data name="Wrong" xml:space="preserve">
+    <value>Wrong</value>
+  </data>
+  <data name="NonAssigned" xml:space="preserve">
+    <value>Non assigned</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Not found</value>
+  </data>
+  <data name="Sensor" xml:space="preserve">
+    <value>Sensor</value>
+  </data>
+  <data name="Sensors" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="SensorSet" xml:space="preserve">
+    <value>Sensor set</value>
+  </data>
+  <data name="SensorSets" xml:space="preserve">
+    <value>Sensor sets</value>
+  </data>
+  <data name="KitID" xml:space="preserve">
+    <value>Kit ID</value>
+  </data>
+  <data name="EnterSensors" xml:space="preserve">
+    <value>Enter the serial #, location or position of a sensor</value>
+  </data>
+  <data name="Assemblies" xml:space="preserve">
+    <value>Assemblies</value>
+  </data>
+  <data name="Assembly" xml:space="preserve">
+    <value>Assembly</value>
+  </data>
+  <data name="QuantityOnHand" xml:space="preserve">
+    <value>Quantity on Hand</value>
+  </data>
+  <data name="QuantityProducible" xml:space="preserve">
+    <value>Quantity Producible</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="LabelInfo" xml:space="preserve">
+    <value>Mapping to old version of serial number</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="EquipmentStatusType_Defective" xml:space="preserve">
+    <value>Defective</value>
+  </data>
+  <data name="EquipmentStatusType_InProduction" xml:space="preserve">
+    <value>In production</value>
+  </data>
+  <data name="EquipmentStatusType_InUse" xml:space="preserve">
+    <value>In use</value>
+  </data>
+  <data name="EquipmentStatusType_Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="EquipmentStatusType_Testing" xml:space="preserve">
+    <value>Testing</value>
+  </data>
+  <data name="EquipmentStatusType_ForWash" xml:space="preserve">
+    <value>For wash</value>
+  </data>
+  <data name="EquipmentStatusType_Trash" xml:space="preserve">
+    <value>Trash</value>
+  </data>
+  <data name="SensorType_EMIMU" xml:space="preserve">
+    <value>EM IMU</value>
+  </data>
+  <data name="SensorType_NodIMU" xml:space="preserve">
+    <value>Nod IMU</value>
+  </data>
+  <data name="SensorType_StretchSense" xml:space="preserve">
+    <value>Stretch Sense</value>
+  </data>
+  <data name="EquipmentQAStatusType_Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="EquipmentQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
+  <data name="KitQAStatusType_Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="KitQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
+  <data name="SensorSetQAStatusType_Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="SensorSetQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
+  <data name="SensorQAStatusType_FirmwareUpdated" xml:space="preserve">
+    <value>Firmware Updated</value>
+  </data>
+  <data name="SensorQAStatusType_SeatingInBase" xml:space="preserve">
+    <value>Sensor seating in base</value>
+  </data>
+  <data name="SensorQAStatusType_LED" xml:space="preserve">
+    <value>Sensor LED</value>
+  </data>
+  <data name="SensorQAStatusType_Orientation" xml:space="preserve">
+    <value>Sensor Orientation</value>
+  </data>
+  <data name="SensorQAStatusType_Drift" xml:space="preserve">
+    <value>Sensor Drift</value>
+  </data>
+  <data name="SensorQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
+  <data name="ShirtQAStatusType_BaseplateInspection" xml:space="preserve">
+    <value>Baseplates inspection</value>
+  </data>
+  <data name="ShirtQAStatusType_ConnectorInspection" xml:space="preserve">
+    <value>Connector inspection</value>
+  </data>
+  <data name="ShirtQAStatusType_Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="ShirtQAStatusType_HeatShrinkInspection" xml:space="preserve">
+    <value>Heat Shrink Inspection</value>
+  </data>
+  <data name="ShirtQAStatusType_IDLabelInspection" xml:space="preserve">
+    <value>ID label inspection</value>
+  </data>
+  <data name="ShirtQAStatusType_PowerInspection" xml:space="preserve">
+    <value>Power inspection</value>
+  </data>
+  <data name="ShirtQAStatusType_SeamsInspection" xml:space="preserve">
+    <value>Seams inspection</value>
+  </data>
+  <data name="ShirtQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
+  <data name="ShirtQAStatusType_WiringInspection" xml:space="preserve">
+    <value>Wiring inspection</value>
+  </data>
+  <data name="ShirtOctopiQAStatusType_BaseplateInspection" xml:space="preserve">
+    <value>Baseplates inspection</value>
+  </data>
+  <data name="ShirtOctopiQAStatusType_ConnectorInspection" xml:space="preserve">
+    <value>Connector inspection</value>
+  </data>
+  <data name="ShirtOctopiQAStatusType_Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="ShirtOctopiQAStatusType_HeatShrinkInspection" xml:space="preserve">
+    <value>Heat Shrink Inspection</value>
+  </data>
+  <data name="ShirtOctopiQAStatusType_IDLabelInspection" xml:space="preserve">
+    <value>ID label inspection</value>
+  </data>
+  <data name="ShirtOctopiQAStatusType_PowerInspection" xml:space="preserve">
+    <value>Power inspection</value>
+  </data>
+  <data name="ShirtOctopiQAStatusType_SeamsInspection" xml:space="preserve">
+    <value>Seams inspection</value>
+  </data>
+  <data name="ShirtOctopiQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
+  <data name="ShirtOctopiQAStatusType_WiringInspection" xml:space="preserve">
+    <value>Wiring inspection</value>
+  </data>
+  <data name="PantsQAStatusType_BaseplateInspection" xml:space="preserve">
+    <value>Baseplates inspection</value>
+  </data>
+  <data name="PantsQAStatusType_ConnectorInspection" xml:space="preserve">
+    <value>Connector inspection</value>
+  </data>
+  <data name="PantsQAStatusType_Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="PantsQAStatusType_HeatShrinkInspection" xml:space="preserve">
+    <value>Heat Shrink Inspection</value>
+  </data>
+  <data name="PantsQAStatusType_IDLabelInspection" xml:space="preserve">
+    <value>ID label inspection</value>
+  </data>
+  <data name="PantsQAStatusType_PowerInspection" xml:space="preserve">
+    <value>Power inspection</value>
+  </data>
+  <data name="PantsQAStatusType_SeamsInspection" xml:space="preserve">
+    <value>Seams inspection</value>
+  </data>
+  <data name="PantsQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
+  <data name="PantsQAStatusType_WiringInspection" xml:space="preserve">
+    <value>Wiring inspection</value>
+  </data>
+  <data name="PantsOctopiQAStatusType_BaseplateInspection" xml:space="preserve">
+    <value>Baseplates inspection</value>
+  </data>
+  <data name="PantsOctopiQAStatusType_ConnectorInspection" xml:space="preserve">
+    <value>Connector inspection</value>
+  </data>
+  <data name="PantsOctopiQAStatusType_Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="PantsOctopiQAStatusType_HeatShrinkInspection" xml:space="preserve">
+    <value>Heat Shrink Inspection</value>
+  </data>
+  <data name="PantsOctopiQAStatusType_IDLabelInspection" xml:space="preserve">
+    <value>ID label inspection</value>
+  </data>
+  <data name="PantsOctopiQAStatusType_PowerInspection" xml:space="preserve">
+    <value>Power inspection</value>
+  </data>
+  <data name="PantsOctopiQAStatusType_SeamsInspection" xml:space="preserve">
+    <value>Seams inspection</value>
+  </data>
+  <data name="PantsOctopiQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
+  <data name="PantsOctopiQAStatusType_WiringInspection" xml:space="preserve">
+    <value>Wiring inspection</value>
+  </data>
+  <data name="BrainpackQAStatusType_AppConnectsToBrainpack" xml:space="preserve">
+    <value>App connects to to brainpack</value>
+  </data>
+  <data name="BrainpackQAStatusType_AppDisconnectsFromBrainpack" xml:space="preserve">
+    <value>App disconnects from brainpack</value>
+  </data>
+  <data name="BrainpackQAStatusType_AppLocatesBrainpack" xml:space="preserve">
+    <value>App locates brainpack</value>
+  </data>
+  <data name="BrainpackQAStatusType_AppPairsBrainpack" xml:space="preserve">
+    <value>App pairs brainpack</value>
+  </data>
+  <data name="BrainpackQAStatusType_Buttons1mmOfRecess" xml:space="preserve">
+    <value>Buttons 1 mm of recess</value>
+  </data>
+  <data name="BrainpackQAStatusType_ButtonsReturnToInitialDepth" xml:space="preserve">
+    <value>Buttons return to initial depth</value>
+  </data>
+  <data name="BrainpackQAStatusType_ChargingIndicatorLed" xml:space="preserve">
+    <value>Charging indicator LED</value>
+  </data>
+  <data name="BrainpackQAStatusType_Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="BrainpackQAStatusType_FullChargingCycle" xml:space="preserve">
+    <value>Full Charging Cycle</value>
+  </data>
+  <data name="BrainpackQAStatusType_LedColors" xml:space="preserve">
+    <value>LED colors Fail</value>
+  </data>
+  <data name="BrainpackQAStatusType_PairingWithIMUs" xml:space="preserve">
+    <value>Pairing with IMUs</value>
+  </data>
+  <data name="BrainpackQAStatusType_PowerButtonWorking" xml:space="preserve">
+    <value>Power button working</value>
+  </data>
+  <data name="BrainpackQAStatusType_RecordButtonWorking" xml:space="preserve">
+    <value>Record button working</value>
+  </data>
+  <data name="BrainpackQAStatusType_RecordingFilenameSaved" xml:space="preserve">
+    <value>Recording File name saved</value>
+  </data>
+  <data name="BrainpackQAStatusType_RecoveryFromShutdown" xml:space="preserve">
+    <value>Recovery from shutdown</value>
+  </data>
+  <data name="BrainpackQAStatusType_ResetButtonWorking" xml:space="preserve">
+    <value>Reset button working</value>
+  </data>
+  <data name="BrainpackQAStatusType_SDCardIsElectronicallyLabeledWithBatteryPackId" xml:space="preserve">
+    <value>SD card is electronically labeled with battery pack ID</value>
+  </data>
+  <data name="BrainpackQAStatusType_SetRecordingName" xml:space="preserve">
+    <value>Set recording name</value>
+  </data>
+  <data name="BrainpackQAStatusType_SettingsFileUpdated" xml:space="preserve">
+    <value>Settings file updated</value>
+  </data>
+  <data name="BrainpackQAStatusType_StateChangeIdleToRecording" xml:space="preserve">
+    <value>State change: idle to recording</value>
+  </data>
+  <data name="BrainpackQAStatusType_StateChangeIdleToReset" xml:space="preserve">
+    <value>State change: idle to reset</value>
+  </data>
+  <data name="BrainpackQAStatusType_StateChangeRecordingToError" xml:space="preserve">
+    <value>State change: recording to error</value>
+  </data>
+  <data name="BrainpackQAStatusType_StateChangeRecordingToIdle" xml:space="preserve">
+    <value>State change: recording to idle</value>
+  </data>
+  <data name="BrainpackQAStatusType_StateChangeRecordingToReset" xml:space="preserve">
+    <value>State change: recording to reset</value>
+  </data>
+  <data name="BrainpackQAStatusType_StateIndicatorLed" xml:space="preserve">
+    <value>State indicator LED</value>
+  </data>
+  <data name="BrainpackQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
+  <data name="PowerboardQAStatusType_PowerboardProgrammed" xml:space="preserve">
+    <value>Powerboard Programmed</value>
+  </data>
+  <data name="PowerboardQAStatusType_PowerboardUSBEnum" xml:space="preserve">
+    <value>Powerboard USB Enumerates</value>
+  </data>
+  <data name="PowerboardQAStatusType_BatteryInstalled" xml:space="preserve">
+    <value>Battery Installed</value>
+  </data>
+  <data name="PowerboardQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
+  <data name="DataboardQAStatusType_BootloaderProgrammed" xml:space="preserve">
+    <value>Bootloader Programmed</value>
+  </data>
+  <data name="DataboardQAStatusType_SDCardAssigned" xml:space="preserve">
+    <value>SD Card Assigned</value>
+  </data>
+  <data name="DataboardQAStatusType_BrainMCUProgrammed" xml:space="preserve">
+    <value>Brain MCU Programmed</value>
+  </data>
+  <data name="DataboardQAStatusType_Quintic1Programmed" xml:space="preserve">
+    <value>Quintic-1 Programmed</value>
+  </data>
+  <data name="DataboardQAStatusType_Quintic2Programmed" xml:space="preserve">
+    <value>Quintic-2 Programmed</value>
+  </data>
+  <data name="DataboardQAStatusType_Quintic3Programmed" xml:space="preserve">
+    <value>Quintic-3 Programmed</value>
+  </data>
+  <data name="DataboardQAStatusType_SerialNumberProgrammed" xml:space="preserve">
+    <value>Serial Number Programmed</value>
+  </data>
+  <data name="DataboardQAStatusType_BluetoothConnectionTested" xml:space="preserve">
+    <value>Bluetooth connection tested</value>
+  </data>
+  <data name="DataboardQAStatusType_PowerButtonVerified" xml:space="preserve">
+    <value>Power Button Verified</value>
+  </data>
+  <data name="DataboardQAStatusType_ResetButtonVerified" xml:space="preserve">
+    <value>Reset Button Verified</value>
+  </data>
+  <data name="DataboardQAStatusType_RecordButtonVerified" xml:space="preserve">
+    <value>Record Button Verified</value>
+  </data>
+  <data name="DataboardQAStatusType_StreamingFrameTest" xml:space="preserve">
+    <value>Streaming/Recording Frame test with 9 Nods</value>
+  </data>
+  <data name="DataboardQAStatusType_FullChargeCycleComplete" xml:space="preserve">
+    <value>Full Charge Cycle Completed</value>
+  </data>
+  <data name="DataboardQAStatusType_TestedAndReady" xml:space="preserve">
+    <value>Tested and Ready</value>
+  </data>
+  <data name="SizeType_ExtraLarge" xml:space="preserve">
+    <value>Extra Large</value>
+  </data>
+  <data name="SizeType_Large" xml:space="preserve">
+    <value>Large</value>
+  </data>
+  <data name="SizeType_Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="SizeType_Small" xml:space="preserve">
+    <value>Small</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="InvalidPhone" xml:space="preserve">
+    <value>Phone number entered is not valid</value>
+  </data>
+  <data name="QAChecklist" xml:space="preserve">
+    <value>QA Checklist</value>
+  </data>
+  <data name="FilterStatus" xml:space="preserve">
+    <value>Filter by Status</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Software" xml:space="preserve">
+    <value>Software</value>
   </data>
 </root>

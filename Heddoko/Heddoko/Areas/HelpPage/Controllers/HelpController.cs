@@ -43,6 +43,7 @@ namespace Heddoko.Areas.HelpPage.Controllers
                 }
             }
 
+            // ReSharper disable once Mvc.ViewNotResolved
             return View(ErrorViewName);
         }
 
@@ -58,6 +59,7 @@ namespace Heddoko.Areas.HelpPage.Controllers
                 }
             }
 
+            // ReSharper disable once Mvc.ViewNotResolved
             return View(ErrorViewName);
         }
     }

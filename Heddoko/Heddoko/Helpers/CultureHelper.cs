@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 using System.Threading;
-using System.Web;
 
 namespace Heddoko
 {
@@ -15,7 +11,7 @@ namespace Heddoko
             Thread.CurrentThread.CurrentUICulture = culture;
         }
 
-        public static CultureInfo Get()
+        private static CultureInfo Get()
         {
             return Thread.CurrentThread.CurrentCulture;
         }
@@ -27,10 +23,7 @@ namespace Heddoko
             {
                 return info.Name;
             }
-            else
-            {
-                return info.Parent.Name;
-            }
+            return info.Parent.Name;
         }
     }
 }

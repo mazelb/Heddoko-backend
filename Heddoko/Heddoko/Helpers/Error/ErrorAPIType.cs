@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Heddoko
+﻿namespace Heddoko
 {
     public enum ErrorAPIType
     {
@@ -21,6 +16,8 @@ namespace Heddoko
         WrongObjectAccess,
         ObjectNotFound,
         ObjectWasDeleted,
-        LicenseIsNotReady
+        LicenseIsNotReady,
+        KitID,
+        AssetType
     }
 }

@@ -1,8 +1,5 @@
-﻿using DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using DAL.Models;
 
 namespace Heddoko.Models
 {
@@ -12,7 +9,9 @@ namespace Heddoko.Models
         {
             FlashMessages = new List<FlashMessage>();
         }
+
         public List<FlashMessage> FlashMessages { get; set; }
+
         public void Add(FlashMessage message)
         {
             FlashMessages.Add(message);
