@@ -59,30 +59,36 @@
                             </a>
                         </div>
 
-                        <div class="col-md-2">
-                            <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
-                                <i class="fa fa-2x fa-download"></i>
-                                <span>
-                                    @i18n.Resources.Download @i18n.Resources.Software
-                                </span>
-                                <span></span>
-                            </a>
-                            <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
-                        </div>
+                        if (Model.Software != null)
+                        {
+                            <div class="col-md-2">
+                                <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
+                                    <i class="fa fa-2x fa-download"></i>
+                                    <span>
+                                        @i18n.Resources.Download @i18n.Resources.Software
+                                    </span>
+                                    <span></span>
+                                </a>
+                                <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
+                            </div>
+                        }
 
                         break;
                     case DAL.Models.UserRoleType.Analyst:
                         <div class="col-md-5"></div>
-                        <div class="col-md-2">
-                            <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
-                                <i class="fa fa-2x fa-download"></i>
-                                <span>
+                        if (Model.Software != null)
+                         {
+                             <div class="col-md-2">
+                                 <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
+                                     <i class="fa fa-2x fa-download"></i>
+                                     <span>
                                     @i18n.Resources.Download @i18n.Resources.Software
                                 </span>
-                                <span></span>
-                            </a>
-                            <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
-                        </div>
+                                     <span></span>
+                                 </a>
+                                 <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
+                             </div>
+                         }
                         break;
                     case DAL.Models.UserRoleType.LicenseAdmin:
                         <div class="col-md-4"></div>
@@ -95,16 +101,19 @@
                                 <span></span>
                             </a>
                         </div>
-                        <div class="col-md-2">
-                            <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
-                                <i class="fa fa-2x fa-download"></i>
-                                <span>
-                                    @i18n.Resources.Download @i18n.Resources.Software
-                                </span>
-                                <span></span>
-                            </a>
-                            <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
-                        </div>
+                        if (Model.Software != null)
+                        {
+                            <div class="col-md-2">
+                                <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
+                                    <i class="fa fa-2x fa-download"></i>
+                                    <span>
+                                        @i18n.Resources.Download @i18n.Resources.Software
+                                    </span>
+                                    <span></span>
+                                </a>
+                                <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
+                            </div>
+                        }
                         break;
                     case DAL.Models.UserRoleType.User:
                         break;
