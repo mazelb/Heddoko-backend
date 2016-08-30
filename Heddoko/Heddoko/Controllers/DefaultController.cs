@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using DAL;
+using DAL.Models;
 using Heddoko.Models;
 
 namespace Heddoko.Controllers
@@ -9,7 +10,12 @@ namespace Heddoko.Controllers
     {
         public ActionResult Index()
         {
-            return View(new BaseViewModel());
+            DefaultIndexViewModel model = new DefaultIndexViewModel()
+            {
+                Software = UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Software)
+            };
+
+            return View(model);
         }
     }
 }

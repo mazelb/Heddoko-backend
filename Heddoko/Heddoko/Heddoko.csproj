@@ -746,6 +746,7 @@
     <Compile Include="Models\API\FirmwareAPIViewModel.cs" />
     <Compile Include="Models\API\AssetAPIViewModel.cs" />
     <Compile Include="Models\API\SignInAPIViewModel.cs" />
+    <Compile Include="Models\Default\DefaultIndexViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\Email\InviteAdminUserEmailViewModel.cs" />
     <Compile Include="Models\Email\ActivationUserEmailViewModel.cs" />

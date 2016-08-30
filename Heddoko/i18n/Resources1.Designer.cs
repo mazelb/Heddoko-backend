@@ -3148,6 +3148,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Software.
+        /// </summary>
+        public static string Software {
+            get {
+                return ResourceManager.GetString("Software", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Software &amp; Firmware.
         /// </summary>
         public static string SoftwareAndFirmware {
