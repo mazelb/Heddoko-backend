@@ -7,13 +7,13 @@ namespace DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class BitwiseEquipment : IMigrationMetadata
+    public sealed partial class BitwiseQaStatusNvarcharNullableAnatomicalLocation : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(BitwiseEquipment));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(BitwiseQaStatusNvarcharNullableAnatomicalLocation));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608251424197_bitwise-eqipment"; }
+            get { return "201608301908024_BitwiseQaStatusNvarcharNullableAnatomicalLocation"; }
         }
         
         string IMigrationMetadata.Source

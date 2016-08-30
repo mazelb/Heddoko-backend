@@ -217,41 +217,30 @@ namespace Heddoko.Controllers
 
             if (model.Sensors != null)
             {
-                List<string> sensors = model.Sensors.Split(new[]
-                {
-                    ','
-                },
-                    StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim()).Where(c => c != "").ToList();
-
                 if (item.Sensors == null)
                 {
                     item.Sensors = new List<Sensor>();
                 }
 
-                foreach (string sensor in sensors)
+                foreach (int sensor in model.Sensors)
                 {
-                    int? sensorID = sensor.ParseID();
-
-                    if (item.Sensors.Any(c => c.ID == sensorID))
+                    if (item.Sensors.Any(c => c.ID == sensor))
                     {
                         continue;
                     }
 
-                    if (sensorID.HasValue)
+                    Sensor sens = UoW.SensorRepository.Get(sensor);
+
+                    if (sens != null
+                        &&
+                        !sens.SensorSetID.HasValue)
                     {
-                        Sensor sens = UoW.SensorRepository.Get(sensorID.Value);
 
-                        if (sens != null
-                            &&
-                            !sens.SensorSetID.HasValue)
+                        if (sens.Status == EquipmentStatusType.Ready)
                         {
-
-                            if (sens.Status == EquipmentStatusType.Ready)
-                            {
-                                sens.Status = EquipmentStatusType.InUse;
-                            }
-                            item.Sensors.Add(sens);
+                            sens.Status = EquipmentStatusType.InUse;
                         }
+                        item.Sensors.Add(sens);
                     }
                 }
             }

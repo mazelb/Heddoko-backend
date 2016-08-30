@@ -32,7 +32,7 @@ namespace DAL
         public IEnumerable<Sensor> GetAvailable(int? id = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
-                        .Where(c => c.SensorSet == null)
+                        .Where(c => c.SensorSetID == null)
                         .OrderBy(c => c.ID);
         }
 

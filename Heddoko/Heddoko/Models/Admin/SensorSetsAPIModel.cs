@@ -38,7 +38,7 @@ namespace Heddoko.Models
 
         public int? KitID { get; set; }
 
-        public string Sensors { get; set; }
+        public List<int> Sensors { get; set; }
 
         public string Name => IsEmpty ? $"{Resources.No} {Resources.SensorSet}" : $"{IDView} - {Status.GetDisplayName()}";
     }

@@ -241,6 +241,7 @@ var SensorSets = {
                 .data("kendoWindow");
 
             this.controls.popupModel = kendo.observable({
+                sensorSetID: null,
                 model: this.getEmptyPopupModel(),
                 sensors: Datasources.sensorsLinkDD,
                 link: this.onLink,
@@ -395,6 +396,7 @@ var SensorSets = {
         var item = Datasources.sensorSets.get(model.id);
         item.set("sensors", model.sensors);
         Datasources.sensorSets.sync();
+        Datasources.sensorsLinkDD.read();
         SensorSets.onClosePopup();
     },
 
@@ -405,6 +407,7 @@ var SensorSets = {
         tr.remove();
 
         Ajax.post("/admin/api/sensors/" + dataItem.id + "/unlink");
+        Datasources.sensorsLinkDD.read();
     },
 
     onDataBound: function (e) {

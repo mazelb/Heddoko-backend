@@ -57,7 +57,17 @@ namespace HeddokoService
                                 Trace.TraceInformation("Server is migrating");
 
                                 DatabaseManager.Migrate();
+
                                 Trace.TraceInformation("Server is migrated");
+                                break;
+                            case "-r":
+                                Trace.TraceInformation("Server is rollback");
+                                string target = Console.ReadLine();
+                                Trace.TraceInformation($"Revert to {target}");
+
+                                DatabaseManager.Rollback(target);
+
+                                Trace.TraceInformation("Server is reverted");
                                 break;
                             case "-p":
                                 List<string> migros = DatabaseManager.Pending().ToList();

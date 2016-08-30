@@ -211,29 +211,9 @@
     <Compile Include="Migrations\201608152057200_AssetFilename.Designer.cs">
       <DependentUpon>201608152057200_AssetFilename.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608160932411_Bitwise.cs" />
-    <Compile Include="Migrations\201608160932411_Bitwise.Designer.cs">
-      <DependentUpon>201608160932411_Bitwise.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608251424197_BitwiseEquipment.cs" />
-    <Compile Include="Migrations\201608251424197_BitwiseEquipment.Designer.cs">
-      <DependentUpon>201608251424197_BitwiseEquipment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608291332582_bitwise-sensorsets.cs" />
-    <Compile Include="Migrations\201608291332582_bitwise-sensorsets.Designer.cs">
-      <DependentUpon>201608291332582_bitwise-sensorsets.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608291421474_SensorSets-QAStatus.cs" />
-    <Compile Include="Migrations\201608291421474_SensorSets-QAStatus.Designer.cs">
-      <DependentUpon>201608291421474_SensorSets-QAStatus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608291645428_MoveToNvarcharMax.cs" />
-    <Compile Include="Migrations\201608291645428_MoveToNvarcharMax.Designer.cs">
-      <DependentUpon>201608291645428_MoveToNvarcharMax.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608292041335_SensorNullableAnatomicaLocation.cs" />
-    <Compile Include="Migrations\201608292041335_SensorNullableAnatomicaLocation.Designer.cs">
-      <DependentUpon>201608292041335_SensorNullableAnatomicaLocation.cs</DependentUpon>
+    <Compile Include="Migrations\201608301908024_BitwiseQaStatusNvarcharNullableAnatomicalLocation.cs" />
+    <Compile Include="Migrations\201608301908024_BitwiseQaStatusNvarcharNullableAnatomicalLocation.Designer.cs">
+      <DependentUpon>201608301908024_BitwiseQaStatusNvarcharNullableAnatomicalLocation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
@@ -390,23 +370,8 @@
     <EmbeddedResource Include="Migrations\201608152057200_AssetFilename.resx">
       <DependentUpon>201608152057200_AssetFilename.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608160932411_Bitwise.resx">
-      <DependentUpon>201608160932411_Bitwise.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608251424197_BitwiseEquipment.resx">
-      <DependentUpon>201608251424197_BitwiseEquipment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608291332582_bitwise-sensorsets.resx">
-      <DependentUpon>201608291332582_bitwise-sensorsets.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608291421474_SensorSets-QAStatus.resx">
-      <DependentUpon>201608291421474_SensorSets-QAStatus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608291645428_MoveToNvarcharMax.resx">
-      <DependentUpon>201608291645428_MoveToNvarcharMax.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608292041335_SensorNullableAnatomicaLocation.resx">
-      <DependentUpon>201608292041335_SensorNullableAnatomicaLocation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608301908024_BitwiseQaStatusNvarcharNullableAnatomicalLocation.resx">
+      <DependentUpon>201608301908024_BitwiseQaStatusNvarcharNullableAnatomicalLocation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
