@@ -12,14 +12,15 @@
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         equipmentStatus: function (item) {
-            item = item != null ? Enums.EquipmentStatusType.array[item].text : "";
+            var icon = this.iconStatus(item);
+            item = item != null ? Enums.EquipmentStatusType.array[item].text : "";          
 
-            return '<span class="k-grid-showText">' + item + '</span>';
+            return '<span class="k-grid-showText">' + icon + ' ' + item + '</span>';
         },
         status: function (item) {
             item = item != null ? Enums.EquipmentStatusType.array[item].text : "";
 
-            return '<span class="k-grid-showText">' + item + '</span>';
+            return '<span class="k-grid-showText">'  + item + '</span>';
         },
         anatomicalLocation: function (item) {
             item = item != null ? Enums.AnatomicalLocationType.array[item].text : i18n.Resources.None;
@@ -50,7 +51,25 @@
             item = item != null ? Enums.SizeType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
-        }
+        },
+        iconStatus: function (status) {
+            switch (status) {
+                case Enums.EquipmentStatusType.enum.Ready:
+                    return '<i class="green status glyphicon glyphicon-ok-circle" title="' + i18n.Resources.EquipmentStatusType_Ready + '"></i>';
+                case Enums.EquipmentStatusType.enum["In use"]:
+                    return '<i class="green status glyphicon glyphicon-thumbs-up" title="' + i18n.Resources.EquipmentStatusType_Ready + '"></i>';
+                case Enums.EquipmentStatusType.enum.Defective:
+                    return '<i class="red status glyphicon glyphicon-warning-sign" title="' + i18n.Resources.EquipmentStatusType_Defective + '"></i>';
+                case Enums.EquipmentStatusType.enum["In production"]:
+                    return '<i class="black status glyphicon glyphicon-wrench" title="' + i18n.Resources.EquipmentStatusType_InProduction + '"></i>';
+                case Enums.EquipmentStatusType.enum.Testing:
+                    return '<i class="black status glyphicon glyphicon-cog" title="' + i18n.Resources.EquipmentStatusType_Testing + '"></i>';
+                case Enums.EquipmentStatusType.enum["For wash"]:
+                    return '<i class="blue status glyphicon glyphicon-tint" title="' + i18n.Resources.EquipmentStatusType_ForWash + '"></i>';
+                default:
+                    return '<i class="red status glyphicon glyphicon-trash" title="' + i18n.Resources.EquipmentStatusType_Trash + '"></i>';
+            }
+        },
 
     },
     organization: {
@@ -116,11 +135,11 @@
                 case Enums.LicenseStatusType.enum.Active:
                     return '<i class="green status glyphicon glyphicon-ok-circle" title="' + i18n.Resources.LicenseStatusType_Active + '"></i>';
                 case Enums.LicenseStatusType.enum.Deleted:
-                    return '<i class="red status glyphicon glyphicon-remove-circle" title="' + i18n.Resources.LicenseStatusType_Active + '"></i>';
+                    return '<i class="red status glyphicon glyphicon-remove-circle" title="' + i18n.Resources.LicenseStatusType_Deleted + '"></i>';
                 case Enums.LicenseStatusType.enum.Expired:
-                    return '<i class="orange status glyphicon glyphicon-exclamation-sign" title="' + i18n.Resources.LicenseStatusType_Active + '"></i>';
+                    return '<i class="orange status glyphicon glyphicon-exclamation-sign" title="' + i18n.Resources.LicenseStatusType_Expired + '"></i>';
                 case Enums.LicenseStatusType.enum.Inactive:
-                    return '<i class="orange status glyphicon glyphicon-ban-circle" title="' + i18n.Resources.LicenseStatusType_Active + '"></i>';
+                    return '<i class="orange status glyphicon glyphicon-ban-circle" title="' + i18n.Resources.LicenseStatusType_Inactive + '"></i>';
                 default:
                     return '<i class="brown status glyphicon glyphicon-bullhorn" title="' + i18n.Resources.ExpiredSoon + '"></i>';
             }
