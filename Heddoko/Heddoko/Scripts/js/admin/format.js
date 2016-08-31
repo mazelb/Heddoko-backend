@@ -56,15 +56,15 @@
             switch (status) {
                 case Enums.EquipmentStatusType.enum.Ready:
                     return '<i class="green status glyphicon glyphicon-ok-circle" title="' + i18n.Resources.EquipmentStatusType_Ready + '"></i>';
-                case Enums.EquipmentStatusType.enum["In use"]:
+                case Enums.EquipmentStatusType.enum.InUse:
                     return '<i class="green status glyphicon glyphicon-thumbs-up" title="' + i18n.Resources.EquipmentStatusType_Ready + '"></i>';
                 case Enums.EquipmentStatusType.enum.Defective:
                     return '<i class="red status glyphicon glyphicon-warning-sign" title="' + i18n.Resources.EquipmentStatusType_Defective + '"></i>';
-                case Enums.EquipmentStatusType.enum["In production"]:
+                case Enums.EquipmentStatusType.enum.InProduction:
                     return '<i class="black status glyphicon glyphicon-wrench" title="' + i18n.Resources.EquipmentStatusType_InProduction + '"></i>';
                 case Enums.EquipmentStatusType.enum.Testing:
                     return '<i class="black status glyphicon glyphicon-cog" title="' + i18n.Resources.EquipmentStatusType_Testing + '"></i>';
-                case Enums.EquipmentStatusType.enum["For wash"]:
+                case Enums.EquipmentStatusType.enum.ForWash:
                     return '<i class="blue status glyphicon glyphicon-tint" title="' + i18n.Resources.EquipmentStatusType_ForWash + '"></i>';
                 default:
                     return '<i class="red status glyphicon glyphicon-trash" title="' + i18n.Resources.EquipmentStatusType_Trash + '"></i>';
