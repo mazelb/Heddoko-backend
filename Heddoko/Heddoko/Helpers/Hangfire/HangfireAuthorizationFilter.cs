@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Hangfire.Dashboard;
+using Microsoft.Owin;
 
 namespace Heddoko.Helpers.Hangfire
 {
@@ -14,11 +16,10 @@ namespace Heddoko.Helpers.Hangfire
 
         public bool Authorize(DashboardContext context)
         {
-            //TODO wait for 1.6.1 version
-            //   AspNetCoreDashboardContext
-            //   var result = Roles.Aggregate(false, (current, role) => current || httpContext.User.IsInRole(role));
+            var environment = context.GetOwinEnvironment();
+            OwinContext owinContext = new OwinContext(environment);
 
-            return false;
+            return Roles.Aggregate(false, (current, role) => current || owinContext.Request.User.IsInRole(role));
         }
     }
 }
