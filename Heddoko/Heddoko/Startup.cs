@@ -2,6 +2,7 @@
 using Hangfire;
 using Hangfire.Dashboard;
 using Heddoko;
+using Heddoko.Helpers.Hangfire;
 using Microsoft.Owin;
 using Owin;
 
@@ -18,19 +19,18 @@ namespace Heddoko
             app.UseHangfireDashboard("/hangfire",
                 new DashboardOptions
                 {
-                    //TODO wait for 1.6.1 version
-                    //Authorization = new[]
-                    //{
-                    //    new HangfireAuthorizationFilter(Constants.Roles.Admin)
-                    //}
-                    AuthorizationFilters = new[]
+                    Authorization = new[]
                     {
-                        new AuthorizationFilter
-                        {
-                            Roles = Constants.Roles.Admin
-                        }
+                        new HangfireAuthorizationFilter(Constants.Roles.Admin)
                     }
-                });
+                    //AuthorizationFilters = new[]
+                    //{
+                    //    new AuthorizationFilter
+                    //    {
+                    //        Roles = Constants.Roles.Admin
+                    //    }
+                    //}
+        });
         }
     }
 }
