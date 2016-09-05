@@ -1,4 +1,5 @@
 using System.Data.Entity.Migrations;
+using System.Linq;
 using DAL.Models;
 
 namespace DAL.Migrations
@@ -26,7 +27,13 @@ namespace DAL.Migrations
 
         private static void Users(HDContext context)
         {
-            Passphrase pwd = PasswordHasher.Hash("p@ssword");
+            Passphrase pwd = PasswordHasher.Hash("H3dd0k0_1323$");
+            Passphrase pwd2 = PasswordHasher.Hash("H3dd0k0_4242$");
+
+            if (context.Users.Any())
+            {
+                return;
+            }
 
             context.Users.AddOrUpdate(
                 p => p.Email,
@@ -57,8 +64,8 @@ namespace DAL.Migrations
                     Email = "support@heddoko.co",
                     Username = "heddoko.support",
                     Status = UserStatusType.Active,
-                    Password = pwd.Hash,
-                    Salt = pwd.Salt,
+                    Password = pwd2.Hash,
+                    Salt = pwd2.Salt,
                     FirstName = "Support",
                     LastName = "",
                     Role = UserRoleType.Admin
