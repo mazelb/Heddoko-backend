@@ -82,7 +82,10 @@ namespace DAL
                 foreach (AuditEntry entiry in audit.Entries)
                 {
                     entiry.CreatedBy = audit.CreatedBy;
-                    entiry.EntityTypeName = entiry.EntityTypeName.Substring(0, entiry.EntityTypeName.IndexOf("_"));
+                    if (entiry.EntityTypeName.Contains("_"))
+                    {
+                        entiry.EntityTypeName = entiry.EntityTypeName.Substring(0, entiry.EntityTypeName.IndexOf("_"));
+                    }
                 }
                 (context as HDContext)?.AuditEntries.AddRange(audit.Entries);
             };
