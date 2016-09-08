@@ -52,7 +52,7 @@ namespace Heddoko.Controllers
 
         [Route("history/{id:int}")]
         [HttpGet]
-        public virtual KendoResponse<IEnumerable<string>> History(int id)
+        public virtual KendoResponse<IEnumerable<HistoryNotes>> History(int id)
         {
             throw new NotSupportedException();
         }

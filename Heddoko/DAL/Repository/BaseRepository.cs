@@ -80,13 +80,26 @@ namespace DAL
             return Db.AuditEntries.Where<T>(id);
         }
 
-        public virtual List<string> HistoryNotes(int id)
+        public virtual List<HistoryNotes> HistoryNotes(int id)
         {
             IEnumerable<AuditEntry> logs = Db.AuditEntries.Where<T>(id)
                                              .OrderBy(c => c.CreatedBy)
                                              .Include(c => c.Properties)
                                              .ToList();
-            return logs.SelectMany(c => c.Properties.Where(p => p.PropertyName == Constants.AuditFieldName.Notes)).Select(c => c.OldValueFormatted).ToList();
+            List<int> ids = logs.Where(c => c.CreatedBy != Constants.SystemUser).Select(c => int.Parse(c.CreatedBy)).ToList();
+            List<User> users = Db.Users.Where(c => ids.Contains(c.ID)).ToList();
+
+            User systemUser = new User();
+            systemUser.Username = Constants.SystemUser;
+
+            users.Add(systemUser);
+
+            return logs.SelectMany(c => c.Properties.Where(p => p.PropertyName == Constants.AuditFieldName.Notes)).Select(c => new HistoryNotes()
+            {
+                User = users.FirstOrDefault(u => u.Username == c.Parent.CreatedBy || int.Parse(c.Parent.CreatedBy) == u.ID),
+                Created = c.Parent.CreatedDate,
+                Notes = c.OldValueFormatted
+            }).ToList();
         }
 
         #endregion

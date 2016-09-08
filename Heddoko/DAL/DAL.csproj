@@ -243,6 +243,7 @@
     <Compile Include="Models\Enum\SizeType.cs" />
     <Compile Include="Models\Enum\ComponentsType.cs" />
     <Compile Include="Models\Enum\EquipmentQAStatusType.cs" />
+    <Compile Include="Models\HistoryNotes.cs" />
     <Compile Include="Models\Interfaces\ISoftDelete.cs" />
     <Compile Include="Models\Interfaces\IAuditable.cs" />
     <Compile Include="Models\Pants.cs" />
