@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class Pants : BaseModel
+    public class Pants : BaseModel, IAuditable, ISoftDelete
     {
         [StringLength(255)]
         public string Location { get; set; }
@@ -24,6 +24,7 @@ namespace DAL.Models
         public PantsQAStatusType QAStatus { get; set; }
 
         #region NotMapped
+        bool ISoftDelete.IsDeleted => Status == EquipmentStatusType.Trash;
 
         public string IDView => $"PA{ID.ToString(Constants.PadZero)}";
 

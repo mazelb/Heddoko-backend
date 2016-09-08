@@ -196,6 +196,16 @@ namespace Heddoko.Controllers
             };
         }
 
+        public override KendoResponse<IEnumerable<string>> History(int id)
+        {
+            List<string> item = UoW.PantsOctopiRepository.HistoryNotes(id);
+
+            return new KendoResponse<IEnumerable<string>>
+            {
+                Response = item
+            };
+        }
+
 
         protected override PantsOctopi Bind(PantsOctopi item, PantsOctopiAPIModel model)
         {

@@ -50,6 +50,13 @@ namespace Heddoko.Controllers
             throw new NotSupportedException();
         }
 
+        [Route("history/{id:int}")]
+        [HttpGet]
+        public virtual KendoResponse<IEnumerable<string>> History(int id)
+        {
+            throw new NotSupportedException();
+        }
+
         [Route("")]
         [HttpPost]
         public virtual KendoResponse<TM> Post(TM model)

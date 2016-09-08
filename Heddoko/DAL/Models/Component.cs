@@ -2,7 +2,7 @@
 
 namespace DAL.Models
 {
-    public class Component : BaseModel
+    public class Component : BaseModel, IAuditable, ISoftDelete
     {
         [StringLength(255)]
         public string Location { get; set; }
@@ -14,6 +14,7 @@ namespace DAL.Models
         public int Quantity { get; set; }
 
         #region NotMapped
+        bool ISoftDelete.IsDeleted => Status == EquipmentStatusType.Trash;
 
         public string IDView => $"CO{ID.ToString(Constants.PadZero)}";
 

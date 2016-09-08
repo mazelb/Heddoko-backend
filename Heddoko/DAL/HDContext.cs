@@ -6,8 +6,10 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DAL.Models;
+using Z.EntityFramework.Plus;
 
 namespace DAL
 {
@@ -49,6 +51,9 @@ namespace DAL
 
         public DbSet<Firmware> Firmware { get; set; }
 
+        public DbSet<AuditEntry> AuditEntries { get; set; }
+        public DbSet<AuditEntryProperty> AuditEntryProperties { get; set; }
+
         public void DisableChangedAndValidation()
         {
             Configuration.AutoDetectChangesEnabled = false;
@@ -68,35 +73,68 @@ namespace DAL
             // .HasMany<User>(s => s.Users)
             // .WithOptional(c => c.Organization);
 
+            AuditManager.DefaultConfiguration.Exclude(x => true);
+            AuditManager.DefaultConfiguration.Include<IAuditable>();
+            AuditManager.DefaultConfiguration.SoftDeleted<ISoftDelete>(x => x.IsDeleted);
+
+            AuditManager.DefaultConfiguration.AutoSavePreAction = (context, audit) =>
+            {
+                foreach (AuditEntry entiry in audit.Entries)
+                {
+                    entiry.CreatedBy = audit.CreatedBy;
+                    entiry.EntityTypeName = entiry.EntityTypeName.Substring(0, entiry.EntityTypeName.IndexOf("_"));
+                }
+                (context as HDContext)?.AuditEntries.AddRange(audit.Entries);
+            };
+
             base.OnModelCreating(modelBuilder);
         }
 
         public override int SaveChanges()
         {
+            Audit audit = new Audit();
+            audit.PreSaveChanges(this);
+
+            string currentUser = System.Threading.Thread.CurrentPrincipal.Identity.Name;
+            audit.CreatedBy = string.IsNullOrEmpty(currentUser) ? Constants.SystemUser : currentUser;
+
             SetUpdated();
-            try
+            int rowAffecteds = base.SaveChanges();
+            audit.PostSaveChanges();
+
+            if (audit.Configuration.AutoSavePreAction != null)
             {
-                return base.SaveChanges();
+                audit.Configuration.AutoSavePreAction(this, audit);
+                base.SaveChanges();
             }
-            catch (DbEntityValidationException ex)
+
+            return rowAffecteds;
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        {
+            Audit audit = new Audit();
+            audit.PreSaveChanges(this);
+            SetUpdated();
+
+            string currentUser = System.Threading.Thread.CurrentPrincipal.Identity.Name;
+            audit.CreatedBy = string.IsNullOrEmpty(currentUser) ? Constants.SystemUser : currentUser;
+
+            int rowAffecteds = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            audit.PostSaveChanges();
+
+            if (audit.Configuration.AutoSavePreAction != null)
             {
-                DebugEntityValidationErrors(ex);
-                throw;
+                audit.Configuration.AutoSavePreAction(this, audit);
+                await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             }
+
+            return rowAffecteds;
         }
 
         public override Task<int> SaveChangesAsync()
         {
-            SetUpdated();
-            try
-            {
-                return base.SaveChangesAsync();
-            }
-            catch (DbEntityValidationException ex)
-            {
-                DebugEntityValidationErrors(ex);
-                throw;
-            }
+            return SaveChangesAsync(CancellationToken.None);
         }
 
         private static void DebugEntityValidationErrors(DbEntityValidationException ex)
@@ -119,7 +157,7 @@ namespace DAL
 
             foreach (DbEntityEntry entity in updatedEntities)
             {
-                ((BaseModel) entity.Entity).Updated = DateTime.UtcNow;
+                ((BaseModel)entity.Entity).Updated = DateTime.UtcNow;
             }
         }
     }

@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using DAL.Models;
+using Z.EntityFramework.Plus;
 
 namespace DAL
 {
@@ -68,6 +69,24 @@ namespace DAL
             }
 
             return item;
+        }
+
+        #endregion
+
+        #region History 
+
+        public virtual IEnumerable<AuditEntry> History(int id)
+        {
+            return Db.AuditEntries.Where<T>(id);
+        }
+
+        public virtual List<string> HistoryNotes(int id)
+        {
+            IEnumerable<AuditEntry> logs = Db.AuditEntries.Where<T>(id)
+                                             .OrderBy(c => c.CreatedBy)
+                                             .Include(c => c.Properties)
+                                             .ToList();
+            return logs.SelectMany(c => c.Properties.Where(p => p.PropertyName == Constants.AuditFieldName.Notes)).Select(c => c.OldValueFormatted).ToList();
         }
 
         #endregion

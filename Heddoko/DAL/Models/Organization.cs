@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Jil;
@@ -6,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class Organization : BaseModel
+    public class Organization : BaseModel, IAuditable, ISoftDelete
     {
         [Index(IsUnique = true)]
         [StringLength(255)]
@@ -21,8 +22,12 @@ namespace DAL.Models
         public string Notes { get; set; }
 
         public OrganizationStatusType Status { get; set; }
+        #region NotMapped
 
         public string IDView => $"OR{ID.ToString(Constants.PadZero)}";
+
+        bool ISoftDelete.IsDeleted => Status == OrganizationStatusType.Deleted;
+        #endregion
 
         #region Relations
 
@@ -44,6 +49,7 @@ namespace DAL.Models
 
         [JsonIgnore]
         public virtual ICollection<Kit> Kits { get; set; }
+
 
         #endregion
     }

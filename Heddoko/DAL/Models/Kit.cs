@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class Kit : BaseModel
+    public class Kit : BaseModel, IAuditable, ISoftDelete
     {
         [StringLength(255)]
         [JsonIgnore]
@@ -27,6 +27,7 @@ namespace DAL.Models
         public KitQAStatusType QAStatus { get; set; }
 
         #region NotMapped
+        bool ISoftDelete.IsDeleted => Status == EquipmentStatusType.Trash;
 
         public string IDView => $"KI{ID.ToString(Constants.PadZero)}";
 

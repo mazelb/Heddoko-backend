@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class Powerboard : BaseModel
+    public class Powerboard : BaseModel, IAuditable, ISoftDelete
     {
         [StringLength(255)]
         public string Location { get; set; }
@@ -25,6 +25,7 @@ namespace DAL.Models
         public PowerboardQAStatusType QAStatus { get; set; }
 
         #region NotMapped
+        bool ISoftDelete.IsDeleted => Status == EquipmentStatusType.Trash;
 
         public string IDView => $"PB{ID.ToString(Constants.PadZero)}";
 

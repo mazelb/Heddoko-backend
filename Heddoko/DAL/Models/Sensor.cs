@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class Sensor : BaseModel
+    public class Sensor : BaseModel, IAuditable, ISoftDelete
     {
         public SensorType Type { get; set; }
 
@@ -27,6 +27,7 @@ namespace DAL.Models
         public AnatomicalLocationType? AnatomicalLocation { get; set; }
 
         #region NotMapped
+        bool ISoftDelete.IsDeleted => Status == EquipmentStatusType.Trash;
 
         public string IDView => $"SE{ID.ToString(Constants.PadZero)}";
 

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class Firmware : BaseModel
+    public class Firmware : BaseModel, IAuditable
     {
         [StringLength(255)]
         public string Version { get; set; }
@@ -13,7 +13,6 @@ namespace DAL.Models
         public FirmwareStatusType Status { get; set; }
 
         #region NotMapped
-
         public string IDView => $"FW{ID.ToString(Constants.PadZero)}";
 
         public string Url => Asset?.Url;
