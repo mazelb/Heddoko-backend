@@ -3,7 +3,7 @@ using DAL.Models;
 
 namespace DAL
 {
-    public interface IPowerboardRepository : IBaseRepository<Powerboard>
+    public interface IPowerboardRepository : IBaseRepository<Powerboard>, IHistoryRepository<Powerboard>
     {
         IEnumerable<Powerboard> Search(string value, bool isDeleted);
         IEnumerable<Powerboard> GetAvailable(int? usedID);

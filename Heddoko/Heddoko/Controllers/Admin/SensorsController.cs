@@ -255,6 +255,16 @@ namespace Heddoko.Controllers
             };
         }
 
+        public override KendoResponse<IEnumerable<HistoryNotes>> History(int id)
+        {
+            List<HistoryNotes> item = UoW.SensorRepository.HistoryNotes(id);
+
+            return new KendoResponse<IEnumerable<HistoryNotes>>
+            {
+                Response = item
+            };
+        }
+
         protected override Sensor Bind(Sensor item, SensorAPIModel model)
         {
             if (model == null)

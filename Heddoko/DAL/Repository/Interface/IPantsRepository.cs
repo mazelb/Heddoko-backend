@@ -3,7 +3,7 @@ using DAL.Models;
 
 namespace DAL
 {
-    public interface IPantsRepository : IBaseRepository<Pants>
+    public interface IPantsRepository : IBaseRepository<Pants>, IHistoryRepository<Pants>
     {
         IEnumerable<Pants> Search(string value, int? statusFilter = null, bool isDeleted = false);
 

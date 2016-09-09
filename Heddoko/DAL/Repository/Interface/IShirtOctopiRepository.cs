@@ -3,7 +3,7 @@ using DAL.Models;
 
 namespace DAL
 {
-    public interface IShirtOctopiRepository : IBaseRepository<ShirtOctopi>
+    public interface IShirtOctopiRepository : IBaseRepository<ShirtOctopi>, IHistoryRepository<ShirtOctopi>
     {
         IEnumerable<ShirtOctopi> All(bool isDeleted);
         IEnumerable<ShirtOctopi> Search(string value, bool isDeleted);

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using DAL.Models;
+using Z.EntityFramework.Plus;
 
 namespace DAL
 {
-    public interface IKitRepository : IBaseRepository<Kit>
+    public interface IKitRepository : IBaseRepository<Kit>, IHistoryRepository<Kit>
     {
         Models.Kit Get(string value);
         IEnumerable<Kit> Search(string value, int? statusFilter = null, bool isDeleted = false, int? organizationID = null);

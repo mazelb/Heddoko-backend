@@ -196,6 +196,16 @@ namespace Heddoko.Controllers
             };
         }
 
+        public override KendoResponse<IEnumerable<HistoryNotes>> History(int id)
+        {
+            List<HistoryNotes> item = UoW.BrainpackRepository.HistoryNotes(id);
+
+            return new KendoResponse<IEnumerable<HistoryNotes>>
+            {
+                Response = item
+            };
+        }
+
         protected override Brainpack Bind(Brainpack item, BrainpackAPIModel model)
         {
             if (model == null)

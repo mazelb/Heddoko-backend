@@ -227,7 +227,7 @@ namespace Heddoko.Controllers
 
         public override KendoResponse<IEnumerable<HistoryNotes>> History(int id)
         {
-            List<HistoryNotes> item = UoW.PantsOctopiRepository.HistoryNotes(id);
+            List<HistoryNotes> item = UoW.KitRepository.HistoryNotes(id);
 
             return new KendoResponse<IEnumerable<HistoryNotes>>
             {

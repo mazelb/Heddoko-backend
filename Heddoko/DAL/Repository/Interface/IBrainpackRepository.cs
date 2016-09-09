@@ -3,7 +3,7 @@ using DAL.Models;
 
 namespace DAL
 {
-    public interface IBrainpackRepository : IBaseRepository<Brainpack>
+    public interface IBrainpackRepository : IBaseRepository<Brainpack>, IHistoryRepository<Brainpack>
     {
         void RemoveDataboard(int databoardID);
         void RemovePowerboard(int id);

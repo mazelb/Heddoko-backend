@@ -207,6 +207,16 @@ namespace Heddoko.Controllers
             };
         }
 
+        public override KendoResponse<IEnumerable<HistoryNotes>> History(int id)
+        {
+            List<HistoryNotes> item = UoW.ShirtRepository.HistoryNotes(id);
+
+            return new KendoResponse<IEnumerable<HistoryNotes>>
+            {
+                Response = item
+            };
+        }
+
         protected override Shirt Bind(Shirt item, ShirtAPIModel model)
         {
             if (model == null)
