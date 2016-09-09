@@ -408,7 +408,9 @@ i18n.Resources = (function () {
   "QAChecklist": "QA Checklist",
   "FilterStatus": "Filter by Status",
   "Filter": "Filter",
-  "Software": "Software"
+  "Software": "Software",
+  "History": "History",
+  "Date": "Date"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

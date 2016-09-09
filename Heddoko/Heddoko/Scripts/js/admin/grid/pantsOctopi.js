@@ -8,7 +8,8 @@ var PantsOctopi = {
     controls: {
         grid: null,
         filterModel: null,
-        addModel: null
+        addModel: null,
+        historyPopup: null
     },
 
     validators: {
@@ -138,6 +139,7 @@ var PantsOctopi = {
         var control = $("#pantsOctopiGrid");
         var filter = $('.pantsOctopiFilter');
         var model = $('.pantsOctopiForm');
+        var historyPopup = $('#notesHistoryPopup');
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
@@ -212,6 +214,10 @@ var PantsOctopi = {
                                 text: i18n.Resources.Delete,
                                 className: "k-grid-delete"
                             }, {
+                                text: i18n.Resources.History,
+                                className: "k-grid-history",
+                                click: this.showHistory
+                            }, {
                                 text: i18n.Resources.Restore,
                                 className: "k-grid-restore",
                                 click: this.onRestore
@@ -248,6 +254,20 @@ var PantsOctopi = {
             });
 
             kendo.bind(model, this.controls.addModel);
+
+            $(document).on("click", ".k-overlay", $.proxy(this.onClosePopup, this));
+
+            this.controls.historyPopup = historyPopup.kendoWindow({
+                title: i18n.Resources.Notes + " " + i18n.Resources.History,
+                modal: true,
+                pinned: true,
+                visible: false,
+                resizeable: false,
+                draggable: true,
+                actions: [
+                    "Close"
+                ]
+            }).data("kendoWindow");
 
             this.validators.addModel = model.kendoValidator({
                     validateOnBlur: true,
@@ -355,6 +375,29 @@ var PantsOctopi = {
         var item = PantsOctopi.controls.grid.dataItem($(e.currentTarget).closest("tr"));
         item.set('status', Enums.EquipmentStatusType.enum.Ready);
         PantsOctopi.controls.grid.dataSource.sync();
+    },
+
+    showHistory: function (e) {
+        var item = PantsOctopi.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        $.get('/admin/api/pantsoctopi/history/' + item.id, function (data, status) {
+            var viewModel = new Array();
+            $.each(data.response, function (index, note) {
+                viewModel.push({username: note.user.username, date: note.created, notes: note.notes})
+            });
+
+            //For Engineer readability, most recent to oldest
+            viewModel.reverse();
+
+            var historyPopupModel = kendo.observable({
+                notes: viewModel
+            });
+            kendo.bind($("#notesHistoryPopup"), historyPopupModel);
+            PantsOctopi.controls.historyPopup.open().center();
+        });
+    },
+
+    onClosePopup: function (e) {
+        this.controls.historyPopup.close();
     },
 
     onReset: function(e) {

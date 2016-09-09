@@ -1341,4 +1341,10 @@
   <data name="Software" xml:space="preserve">
     <value>Software</value>
   </data>
+  <data name="History" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
 </root>

@@ -1,0 +1,24 @@
+﻿<div id="notesHistoryPopup" class="history-popup" style="display:none; height: 500px; width:900px;">
+    <table>
+        <thead>
+            <tr>
+                <th>@i18n.Resources.Date</th>
+                <th>@i18n.Resources.UserRoleType_User</th>
+                <th>@i18n.Resources.Notes</th>
+            </tr>
+        </thead>
+        <tbody data-template="row-template" data-bind="source: notes"></tbody>
+    </table>
+</div>
+
+<script id="row-template" type="text/x-kendo-template">
+    <tr>
+        <td data-bind="text: date" style="width: 100px;">
+        </td>
+
+        <td data-bind="text: username" style="width: 200px;">
+        </td>
+        <td data-bind="text: notes">
+        </td>
+    </tr>
+</script>
