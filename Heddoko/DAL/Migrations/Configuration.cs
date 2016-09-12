@@ -29,11 +29,13 @@ namespace DAL.Migrations
         {
             Passphrase pwd = PasswordHasher.Hash("H3dd0k0_1323$");
             Passphrase pwd2 = PasswordHasher.Hash("H3dd0k0_4242$");
+            Passphrase pwd3 = PasswordHasher.Hash("H3dd0k0_anuk34$");
 
-            if (context.Users.Any())
-            {
-                return;
-            }
+
+            //if (context.Users.Any())
+            //{
+            //    return;
+            //}
 
             context.Users.AddOrUpdate(
                 p => p.Email,
@@ -68,6 +70,17 @@ namespace DAL.Migrations
                     Salt = pwd2.Salt,
                     FirstName = "Support",
                     LastName = "",
+                    Role = UserRoleType.Admin
+                },
+                new User
+                {
+                    Email = "ankit@heddoko.co",
+                    Username = "ankit.heddoko",
+                    Status = UserStatusType.Active,
+                    Password = pwd3.Hash,
+                    Salt = pwd3.Salt,
+                    FirstName = "Ankit",
+                    LastName = "Vasu",
                     Role = UserRoleType.Admin
                 }
                 );
