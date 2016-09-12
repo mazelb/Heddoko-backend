@@ -83,7 +83,7 @@ namespace DAL
         public virtual List<HistoryNotes> HistoryNotes(int id)
         {
             IEnumerable<AuditEntry> logs = Db.AuditEntries.Where<T>(id)
-                                             .OrderBy(c => c.CreatedBy)
+                                             .OrderByDescending(c => c.CreatedDate)
                                              .Include(c => c.Properties)
                                              .ToList();
             List<int> ids = logs.Where(c => c.CreatedBy != Constants.SystemUser).Select(c => int.Parse(c.CreatedBy)).ToList();

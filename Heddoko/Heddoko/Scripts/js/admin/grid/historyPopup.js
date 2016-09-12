@@ -28,15 +28,8 @@ var HistoryPopup = {
     onShowHistory: function (e) {
         var viewModel = new Array();
 
-        $.each(e.response, function (index, note) {
-            viewModel.push({username: note.user.username, date: note.created, notes: note.notes})
-        });
-
-        //For Engineer readability, most recent to oldest
-        viewModel.reverse();
-
         var historyPopupModel = kendo.observable({
-            notes: viewModel
+            notes: e.response
         });
 
         kendo.bind($("#notesHistoryPopup"), historyPopupModel);
