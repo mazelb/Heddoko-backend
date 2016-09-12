@@ -1341,4 +1341,13 @@
   <data name="Software" xml:space="preserve">
     <value>Software</value>
   </data>
+  <data name="WrongOldPassword" xml:space="preserve">
+    <value>Old password is wrong</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Teams</value>
+  </data>
 </root>

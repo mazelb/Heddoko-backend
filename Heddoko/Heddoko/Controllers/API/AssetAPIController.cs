@@ -126,6 +126,11 @@ namespace Heddoko.Controllers.API
                     {
                         throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} kitID");
                     }
+
+                    if (kit.User.TeamID != CurrentUser.TeamID)
+                    {
+                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} team");
+                    }
                 }
                 else
                 {
@@ -188,6 +193,12 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.NonAssigned} organization");
             }
 
+
+            if (!CurrentUser.TeamID.HasValue)
+            {
+                throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.NonAssigned} team");
+            }
+
             if (CurrentUser.Role == UserRoleType.Worker)
             {
                 userID = CurrentUser.ID;
@@ -195,8 +206,8 @@ namespace Heddoko.Controllers.API
 
             return new ListAPIViewModel<Asset>()
             {
-                Collection = UoW.AssetRepository.GetRecordByOrganization(CurrentUser.OrganizationID.Value, take, skip, userID).ToList(),
-                TotalCount = UoW.AssetRepository.GetRecordByOrganizationCount(CurrentUser.OrganizationID.Value, userID)
+                Collection = UoW.AssetRepository.GetRecordByOrganization(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value, take, skip, userID).ToList(),
+                TotalCount = UoW.AssetRepository.GetRecordByOrganizationCount(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value, userID)
             };
         }
     }

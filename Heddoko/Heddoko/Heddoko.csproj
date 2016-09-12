@@ -569,6 +569,7 @@
     <Content Include="Scripts\js\account\mask.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
+    <Content Include="Scripts\js\admin\grid\teams.js" />
     <Content Include="Scripts\js\admin\grid\organizationKits.js" />
     <Content Include="Scripts\js\admin\grid\kits.js" />
     <Content Include="Scripts\js\admin\grid\brainpacks.js" />
@@ -658,6 +659,7 @@
     <Compile Include="Controllers\Admin\ShirtsController.cs" />
     <Compile Include="Controllers\Admin\FirmwaresController.cs" />
     <Compile Include="Controllers\Admin\ShirtsOctopiController.cs" />
+    <Compile Include="Controllers\Admin\TeamsController.cs" />
     <Compile Include="Controllers\API\FirmwareAPIController.cs" />
     <Compile Include="Controllers\API\AssetAPIController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
@@ -741,6 +743,7 @@
     <Compile Include="Models\Admin\Kendo\KendoRequest.cs" />
     <Compile Include="Models\Admin\Kendo\KendoResponse.cs" />
     <Compile Include="Models\Admin\Kendo\KendoSort.cs" />
+    <Compile Include="Models\Admin\TeamAPIModel.cs" />
     <Compile Include="Models\Admin\UserAPIModel.cs" />
     <Compile Include="Models\API\ListAPIViewModel.cs" />
     <Compile Include="Models\API\FirmwareAPIViewModel.cs" />
@@ -846,6 +849,7 @@
     <Content Include="Views\Inventory\_Assemblies.cshtml" />
     <Content Include="Views\Inventory\_SensorSetPopup.cshtml" />
     <Content Include="Views\License\_OrganizationPopup.cshtml" />
+    <Content Include="Views\Organization\_Teams.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
