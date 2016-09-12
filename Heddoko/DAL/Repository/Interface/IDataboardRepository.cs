@@ -3,7 +3,7 @@ using DAL.Models;
 
 namespace DAL
 {
-    public interface IDataboardRepository : IBaseRepository<Databoard>
+    public interface IDataboardRepository : IBaseRepository<Databoard>, IHistoryRepository<Databoard>
     {
         IEnumerable<Databoard> All(bool isDeleted);
         IEnumerable<Databoard> Search(string value, bool isDeleted);

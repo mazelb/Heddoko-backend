@@ -411,7 +411,9 @@ i18n.Resources = (function () {
   "Software": "Software",
   "WrongOldPassword": "Old password is wrong",
   "Team": "Team",
-  "Teams": "Teams"
+  "Teams": "Teams",
+  "History": "History",
+  "Date": "Date"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

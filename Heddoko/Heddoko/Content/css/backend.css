@@ -176,3 +176,14 @@ div.k-edit-form-container {
   div.k-edit-form-container .k-edit-field > * {
     width: 80%; }
 
+.history-popup table {
+  border-collapse: collapse;
+  width: 100%; }
+
+.history-popup th, .history-popup td {
+  padding: 5px;
+  text-align: left; }
+
+.history-popup tr:nth-child(2n) {
+  background-color: #c1bfc0; }
+

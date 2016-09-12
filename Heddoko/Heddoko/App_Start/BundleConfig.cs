@@ -104,7 +104,8 @@ namespace Heddoko
                 "~/Scripts/js/admin/grid/components.js",
                 "~/Scripts/js/admin/grid/sensors.js",
                 "~/Scripts/js/admin/grid/sensorSets.js",
-                "~/Scripts/js/admin/grid/teams.js"
+                "~/Scripts/js/admin/grid/teams.js",
+                "~/Scripts/js/admin/grid/historyPopup.js"
             );
 
             bundles.Add(adminScriptsBundle);

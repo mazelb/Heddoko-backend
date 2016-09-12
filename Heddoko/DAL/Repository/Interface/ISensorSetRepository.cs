@@ -3,7 +3,7 @@ using DAL.Models;
 
 namespace DAL
 {
-    public interface ISensorSetRepository : IBaseRepository<SensorSet>
+    public interface ISensorSetRepository : IBaseRepository<SensorSet>, IHistoryRepository<SensorSet>
     {
         IEnumerable<SensorSet> All(bool isDeleted);
         IEnumerable<SensorSet> Search(string value, bool isDeleted = false);

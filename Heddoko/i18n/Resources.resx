@@ -1350,4 +1350,10 @@
   <data name="Teams" xml:space="preserve">
     <value>Teams</value>
   </data>
+  <data name="History" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
 </root>
