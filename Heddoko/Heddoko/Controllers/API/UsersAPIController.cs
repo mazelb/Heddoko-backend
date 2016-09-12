@@ -165,10 +165,15 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.NonAssigned} organization");
             }
 
+            if (!CurrentUser.TeamID.HasValue)
+            {
+                throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.NonAssigned} team");
+            }
+
             return new ListAPIViewModel<User>()
             {
-                Collection = UoW.UserRepository.GetByOrganizationAPI(CurrentUser.OrganizationID.Value, take, skip).ToList(),
-                TotalCount = UoW.UserRepository.GetByOrganizationAPICount(CurrentUser.OrganizationID.Value)
+                Collection = UoW.UserRepository.GetByOrganizationAPI(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value, take, skip).ToList(),
+                TotalCount = UoW.UserRepository.GetByOrganizationAPICount(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value)
             };
         }
     }

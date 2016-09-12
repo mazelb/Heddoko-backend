@@ -88,6 +88,7 @@ namespace DAL
         public override User GetFull(int id)
         {
             return DbSet.Include(c => c.Tokens)
+                        .Include(c => c.Team)
                         .Include(c => c.Kits)
                         .Include(c => c.Organization)
                         .Include(c => c.License)
@@ -126,6 +127,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.Tokens)
+                        .Include(c => c.Team)
                         .Include(c => c.License)
                         .Include(c => c.Kits)
                         .FirstOrDefault(c => c.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
@@ -175,6 +177,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.License)
                         .Include(c => c.Kits)
+                        .Include(c => c.Team)
                         .Include(c => c.Organization)
                         .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
@@ -192,6 +195,7 @@ namespace DAL
             return DbSet.Include(c => c.License)
                         .Include(c => c.Organization)
                         .Include(c => c.Kits)
+                        .Include(c => c.Team)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
                         .Where(c => !organizationID.HasValue || c.OrganizationID.Value == organizationID)
@@ -207,9 +211,10 @@ namespace DAL
                         .ThenBy(c => c.LastName);
         }
 
-        public IEnumerable<User> GetByOrganizationAPI(int organizationID, int take, int? skip = 0)
+        public IEnumerable<User> GetByOrganizationAPI(int organizationID, int teamID, int take, int? skip = 0)
         {
-            IQueryable<User> query = DbSet.Where(c => c.OrganizationID == organizationID)
+            IQueryable<User> query = DbSet.Where(c => c.OrganizationID == organizationID
+                                                   && c.TeamID == teamID)
                                           .OrderBy(c => c.FirstName)
                                           .ThenBy(c => c.LastName);
 
@@ -223,9 +228,10 @@ namespace DAL
             return query;
         }
 
-        public int GetByOrganizationAPICount(int organizationID)
+        public int GetByOrganizationAPICount(int organizationID, int teamID)
         {
-            return DbSet.Count(c => c.OrganizationID == organizationID);
+            return DbSet.Count(c => c.OrganizationID == organizationID
+                                 && c.TeamID == teamID);
         }
     }
 }

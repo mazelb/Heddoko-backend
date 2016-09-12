@@ -409,6 +409,9 @@ i18n.Resources = (function () {
   "FilterStatus": "Filter by Status",
   "Filter": "Filter",
   "Software": "Software",
+  "WrongOldPassword": "Old password is wrong",
+  "Team": "Team",
+  "Teams": "Teams",
   "History": "History",
   "Date": "Date"
 };

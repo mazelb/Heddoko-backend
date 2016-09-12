@@ -38,5 +38,9 @@ namespace Heddoko.Models
         public int? KitID { get; set; }
 
         public Kit Kit { get; set; }
+
+        public int? TeamID { get; set; }
+
+        public Team Team { get; set; }
     }
 }

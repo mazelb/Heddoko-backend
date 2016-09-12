@@ -54,6 +54,8 @@ namespace DAL
 
         private IAssemblyCacheRepository _assemblyCacheRepository;
 
+        private ITeamRepository _teamRepository;
+
         #endregion
 
         #region PublicRepository
@@ -93,6 +95,8 @@ namespace DAL
         public IFirmwareRepository FirmwareRepository => _firmwareRepository ?? (_firmwareRepository = new FirmwareRepository(_db));
 
         public IAssemblyCacheRepository AssemblyCacheRepository => _assemblyCacheRepository ?? (_assemblyCacheRepository = new AssemblyCacheRepository());
+
+        public ITeamRepository TeamRepository => _teamRepository ?? (_teamRepository = new TeamRepository(_db));
 
         #endregion
 

@@ -127,12 +127,14 @@ namespace DAL
             int? id = value.ParseID();
 
             return DbSet.Include(c => c.User)
+                        .Include(c => c.User.Team)
                         .FirstOrDefault(c => (c.ID == id) || c.Label.ToLower().Contains(value.ToLower()));
         }
 
         public override Kit Get(int id)
         {
             return DbSet.Include(c => c.User)
+                        .Include(c => c.User.Team)
                         .FirstOrDefault(c => c.ID == id);
         }
     }

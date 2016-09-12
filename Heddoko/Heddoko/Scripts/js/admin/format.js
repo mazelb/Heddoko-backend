@@ -167,6 +167,16 @@
                 div += "</div>";
             }
             return div;
+        },
+        team: function(item) {
+            var div = "";
+            if (item.team) {
+                div = '<div class="">';
+                div += i18n.Resources.ID + ": <b>" + item.team.idView + "</b><br/>";
+                div += i18n.Resources.Name + ": <b>" + item.team.name + "</b><br/>";
+                div += "</div>";
+            }
+            return div;
         }
     },
     pants: {
@@ -373,6 +383,13 @@
     databoard: {
         qaStatus: function (item) {
             return '<span class="k-grid-showText">' + (item != null ? item.replace(/,/g, '<br/>') : '') + '</span>';
+        }
+    },
+    team: {
+        status: function(item) {
+            item = item != null ? Enums.TeamStatusType.array[item].text : "";
+
+            return '<span class="k-grid-showText">' + item + '</span>';
         }
     }
 };
