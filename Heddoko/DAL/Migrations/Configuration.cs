@@ -52,7 +52,7 @@ namespace DAL.Migrations
                 },
                 new User
                 {
-                    Email = "admin@heddoko.co",
+                    Email = "admin@heddoko.com",
                     Username = "heddoko.admin",
                     Status = UserStatusType.Active,
                     Password = pwd.Hash,
@@ -63,7 +63,7 @@ namespace DAL.Migrations
                 },
                 new User
                 {
-                    Email = "support@heddoko.co",
+                    Email = "support@heddoko.com",
                     Username = "heddoko.support",
                     Status = UserStatusType.Active,
                     Password = pwd2.Hash,
@@ -74,7 +74,7 @@ namespace DAL.Migrations
                 },
                 new User
                 {
-                    Email = "ankit@heddoko.co",
+                    Email = "ankit@heddoko.com",
                     Username = "ankit.heddoko",
                     Status = UserStatusType.Active,
                     Password = pwd3.Hash,

@@ -129,7 +129,7 @@ namespace Heddoko.Controllers.API
 
                     if (kit.User.TeamID != CurrentUser.TeamID)
                     {
-                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} team");
+                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} Team");
                     }
                 }
                 else
@@ -142,6 +142,11 @@ namespace Heddoko.Controllers.API
                     if (kit.OrganizationID != CurrentUser.OrganizationID)
                     {
                         throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} OrganizationID");
+                    }
+
+                    if (kit.User.TeamID != CurrentUser.TeamID)
+                    {
+                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} Team");
                     }
                 }
             }

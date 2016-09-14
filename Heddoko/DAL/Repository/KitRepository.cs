@@ -81,23 +81,22 @@ namespace DAL
 
         public IEnumerable<Kit> Search(string search, int? statusFilter = null, bool isDeleted = false, int? organizationID = null)
         {
-
             IQueryable<Kit> query = DbSet.Include(c => c.Organization)
-                        .Include(c => c.Brainpack)
-                        .Include(c => c.SensorSet)
-                        .Include(c => c.Pants)
-                        .Include(c => c.Shirt)
-                        .Include(c => c.User)
-                        .Where(c => !organizationID.HasValue || c.OrganizationID == organizationID);
+                                         .Include(c => c.Brainpack)
+                                         .Include(c => c.SensorSet)
+                                         .Include(c => c.Pants)
+                                         .Include(c => c.Shirt)
+                                         .Include(c => c.User)
+                                         .Where(c => !organizationID.HasValue || c.OrganizationID == organizationID);
 
 
             if (!string.IsNullOrEmpty(search))
             {
                 int? id = search.ParseID();
                 query = query.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                                .Where(c => (c.ID == id)
-                                            || c.Location.ToLower().Contains(search.ToLower())
-                                            || !c.Notes.IsNullOrEmpty() && c.Notes.ToLower().Contains(search.ToLower()));
+                             .Where(c => (c.ID == id)
+                                         || c.Location.ToLower().Contains(search.ToLower())
+                                         || !c.Notes.IsNullOrEmpty() && c.Notes.ToLower().Contains(search.ToLower()));
             }
             if (statusFilter.HasValue)
             {
@@ -128,7 +127,9 @@ namespace DAL
 
             return DbSet.Include(c => c.User)
                         .Include(c => c.User.Team)
-                        .FirstOrDefault(c => (c.ID == id) || c.Label.ToLower().Contains(value.ToLower()));
+                        .FirstOrDefault(c => (c.ID == id)
+                                             || c.Label.ToLower().Contains(value.ToLower())
+                                             || c.Brainpack.Label.ToLower().Contains(value.ToLower()));
         }
 
         public override Kit Get(int id)
