@@ -31,12 +31,12 @@ namespace DAL
                 query = query.Where(c => c.UserID == userID);
             }
 
-            query = query.Take(take);
-
             if (skip.HasValue)
             {
                 query = query.Skip(skip.Value);
             }
+
+            query = query.Take(take);
 
             return query;
         }

@@ -217,14 +217,12 @@ namespace DAL
                                                    && c.TeamID == teamID)
                                           .OrderBy(c => c.FirstName)
                                           .ThenBy(c => c.LastName);
-
-            query = query.Take(take);
-
             if (skip.HasValue)
             {
                 query = query.Skip(skip.Value);
             }
 
+            query = query.Take(take);
             return query;
         }
 
