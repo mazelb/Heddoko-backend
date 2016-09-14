@@ -8,6 +8,37 @@
 	},
 	"item": [
 		{
+			"name": "assets",
+			"description": "",
+			"item": [
+				{
+					"name": "Get list copy",
+					"request": {
+						"url": "http://dev.app.heddoko.com/api/v1/assets/list/17/1/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "token",
+								"value": "af3ee0555fe0b3172a2202ec168344f2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "dev",
 			"description": "",
 			"item": [
@@ -166,6 +197,31 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    'username' : 'ss',\n    'password': 'p@ssword'\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get list",
+					"request": {
+						"url": "http://dev.app.heddoko.com/api/v1/users/profile",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "token",
+								"value": "2124dceeb69ba80e858ec58125a513b6",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
 						},
 						"description": ""
 					},
