@@ -378,7 +378,7 @@ namespace Heddoko.Controllers
                     case UserRoleType.Admin:
                         return RedirectToAction("Index", "License");
                     case UserRoleType.Analyst:
-                        return RedirectToAction("Index", "Analyst");
+                        return RedirectToAction("Index", "Default");
                     case UserRoleType.LicenseAdmin:
                         return RedirectToAction("Index", "Organization");
                     case UserRoleType.User:
