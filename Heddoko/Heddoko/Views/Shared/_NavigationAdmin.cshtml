@@ -61,6 +61,12 @@
                     <span> @i18n.Resources.Profile</span>
                 </a>
             </li>
+            <li class="@Html.IsCurrentActionLink("Index", "Support")" title="@i18n.Resources.Support">
+                <a href="@Url.Action("Index", "Support")">
+                    <i class="fa fa-question"></i>
+                    <span> @i18n.Resources.Support</span>
+                </a>
+            </li>
         }
     </ul>
 </div>
