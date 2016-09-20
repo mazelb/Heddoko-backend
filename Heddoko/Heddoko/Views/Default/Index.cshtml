@@ -118,6 +118,16 @@
                     case DAL.Models.UserRoleType.User:
                         break;
                 }
+
+                <div class="col-md-2">
+                    <a href="@Url.Action("Index", "Support")" class="btn-dashboard">
+                        <i class="fa fa-2x fa-question"></i>
+                        <span>
+                            @i18n.Resources.Support
+                        </span>
+                        <span></span>
+                    </a>
+                </div>
             </div>
         }
     </div>
