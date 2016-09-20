@@ -787,6 +787,7 @@
     <Compile Include="Models\API\SignInAPIViewModel.cs" />
     <Compile Include="Models\Default\DefaultIndexViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\Email\WelcomeEmailViewModel.cs" />
     <Compile Include="Models\Email\InviteAdminUserEmailViewModel.cs" />
     <Compile Include="Models\Email\ActivationUserEmailViewModel.cs" />
     <Compile Include="Models\Email\EmailViewModel.cs" />
@@ -887,6 +888,7 @@
     <Content Include="Views\License\_OrganizationPopup.cshtml" />
     <Content Include="Views\Organization\_Teams.cshtml" />
     <Content Include="Views\Inventory\_NotesHistory.cshtml" />
+    <Content Include="Views\Email\WelcomeUserEmail.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -15,7 +15,8 @@ namespace Heddoko
         {
             ActivationUserEmailViewModel mailModel = new ActivationUserEmailViewModel
             {
-                Token = user.ConfirmToken
+                Token = user.ConfirmToken,
+                FirstName = user.FirstName
             };
 
             string subject = Resources.EmailActivationUserSubject;
@@ -123,7 +124,18 @@ namespace Heddoko
 
         public static async Task SendActivatedEmail(User user)
         {
-            await SendEmail(user.Email, Resources.EmailActivatedSubject, Resources.EmailActivatedBody);
+            WelcomeEmailViewModel mailModel = new WelcomeEmailViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username
+            };
+
+            string subject = Resources.EmailActivatedSubject;
+
+            string body = await Task.Run(() => RazorView.RenderViewToString("WelcomeUserEmail", mailModel));
+
+            SendGridMail.Send(subject, body, user.Email);
         }
 
         private static async Task<string> SendEmail(string email, string subject, string body)
