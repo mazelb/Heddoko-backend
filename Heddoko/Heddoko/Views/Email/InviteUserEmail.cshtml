@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutEmail.cshtml";
 }
 
-Welcome @Model.FirstName. You've been invited to become part of the organization @Model.OrganizationName
+Welcome @Model.FirstName. You're invited to become a member of @Model.OrganizationName on Heddoko
 <br /><br />
 @if (!string.IsNullOrEmpty(Model.Token)) {
     <text>
@@ -19,3 +19,5 @@ else
 }
 <br /><br />
 - The Heddoko Team
+<br /><br />
+<b>Need help? Contact </b> <a href="mailto:support@heddoko.com" rel="nofollow" target="_blank">support@heddoko.com</a>
