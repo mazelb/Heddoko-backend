@@ -2,6 +2,7 @@
 using Hangfire;
 using Hangfire.Dashboard;
 using Heddoko;
+using Heddoko.Helpers.Hangfire;
 using Microsoft.Owin;
 using Owin;
 
@@ -9,7 +10,6 @@ using Owin;
 
 namespace Heddoko
 {
-    public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
@@ -18,18 +18,17 @@ namespace Heddoko
             app.UseHangfireDashboard("/hangfire",
                 new DashboardOptions
                 {
-                    //TODO wait for 1.6.1 version
-                    //Authorization = new[]
-                    //{
-                    //    new HangfireAuthorizationFilter(Constants.Roles.Admin)
-                    //}
-                    AuthorizationFilters = new[]
+                    Authorization = new[]
                     {
-                        new AuthorizationFilter
-                        {
-                            Roles = Constants.Roles.Admin
-                        }
+                        new HangfireAuthorizationFilter(Constants.Roles.Admin)
                     }
+                    //AuthorizationFilters = new[]
+                    //{
+                    //    new AuthorizationFilter
+                    //    {
+                    //        Roles = Constants.Roles.Admin
+                    //    }
+                    //}
                 });
 
             ConfigureAuth(app);

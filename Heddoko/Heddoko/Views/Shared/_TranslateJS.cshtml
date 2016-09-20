@@ -44,7 +44,7 @@
     {
         <text>
 
-    Enums.EquipmentStatusType.enum["@type.GetDisplayName()"] = @((int)type);
+    Enums.EquipmentStatusType.enum["@type.ToString()"] = @((int)type);
 
     Enums.EquipmentStatusType.array[@((int)type)] = {
         "value": @((int)type),
@@ -469,6 +469,22 @@
     Enums.SensorSetQAStatusType.enum["@type.GetDisplayName()"] = @((int)type);
 
     Enums.SensorSetQAStatusType.array[@((int)type)] = {
+        "value": @((int)type),
+        "text": "@type.GetDisplayName()"
+    };
+    </text>
+    }
+
+    Enums.TeamStatusType = {};
+    Enums.TeamStatusType.enum = {};
+    Enums.TeamStatusType.array = {};
+    @foreach (DAL.Models.TeamStatusType type in (DAL.Models.TeamStatusType[])Enum.GetValues(typeof(DAL.Models.TeamStatusType)))
+    {
+        <text>
+
+    Enums.TeamStatusType.enum["@type.ToString()"] = @((int)type);
+
+    Enums.TeamStatusType.array[@((int)type)] = {
         "value": @((int)type),
         "text": "@type.GetDisplayName()"
     };

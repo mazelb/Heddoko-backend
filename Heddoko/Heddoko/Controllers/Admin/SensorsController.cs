@@ -143,7 +143,7 @@ namespace Heddoko.Controllers
 
                 UoW.SensorRepository.Create(item);
 
-                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies(true));
 
                 response = Convert(item);
             }
@@ -187,7 +187,7 @@ namespace Heddoko.Controllers
                 Bind(item, model);
                 UoW.Save();
 
-                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies(true));
 
                 response = Convert(item);
             }
@@ -240,17 +240,28 @@ namespace Heddoko.Controllers
             }
 
             item.SensorSet = null;
+            item.AnatomicalLocation = null;
             if (item.Status == EquipmentStatusType.InUse)
             {
                 item.Status = EquipmentStatusType.Ready;
 
-                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies(true));
             }
             UoW.Save();
 
             return new KendoResponse<SensorAPIModel>()
             {
                 Response = Convert(item)
+            };
+        }
+
+        public override KendoResponse<IEnumerable<HistoryNotes>> History(int id)
+        {
+            List<HistoryNotes> item = UoW.SensorRepository.HistoryNotes(id);
+
+            return new KendoResponse<IEnumerable<HistoryNotes>>
+            {
+                Response = item
             };
         }
 
@@ -273,7 +284,12 @@ namespace Heddoko.Controllers
             item.Type = model.Type;
             item.Version = model.Version?.Trim();
             item.Status = model.Status;
-            item.AnatomicalLocation = model.AnatomicalLocation;
+
+            if (model.AnatomicalLocation.HasValue)
+            {
+                item.AnatomicalLocation = model.AnatomicalLocation.Value;
+            }
+
             item.Location = model.Location?.Trim(); ;
             item.Notes = model.Notes?.Trim();
             item.Label = model.Label?.Trim();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Z.EntityFramework.Plus;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DAL

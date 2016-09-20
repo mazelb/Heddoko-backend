@@ -7,6 +7,7 @@
 
         public const int EmailLimit = 20871520;
         public const string PadZero = "D6";
+        public const string SystemUser = "System";
 
         public static class Embed
         {
@@ -74,6 +75,11 @@
         public static class CacheExpiration
         {
             public const int Assembly = 48;
+        }
+
+        public static class AuditFieldName
+        {
+            public const string Notes = "Notes";
         }
     }
 }

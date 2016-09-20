@@ -225,6 +225,16 @@ namespace Heddoko.Controllers
             };
         }
 
+        public override KendoResponse<IEnumerable<HistoryNotes>> History(int id)
+        {
+            List<HistoryNotes> item = UoW.KitRepository.HistoryNotes(id);
+
+            return new KendoResponse<IEnumerable<HistoryNotes>>
+            {
+                Response = item
+            };
+        }
+
         protected override Kit Bind(Kit item, KitAPIModel model)
         {
             if (model == null)

@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using DAL.Models;
+using Z.EntityFramework.Plus;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DAL
@@ -69,6 +70,37 @@ namespace DAL
             }
 
             return item;
+        }
+
+        #endregion
+
+        #region History 
+
+        public virtual IEnumerable<AuditEntry> History(int id)
+        {
+            return Db.AuditEntries.Where<T>(id);
+        }
+
+        public virtual List<HistoryNotes> HistoryNotes(int id)
+        {
+            IEnumerable<AuditEntry> logs = Db.AuditEntries.Where<T>(id)
+                                             .OrderByDescending(c => c.CreatedDate)
+                                             .Include(c => c.Properties)
+                                             .ToList();
+            List<int> ids = logs.Where(c => c.CreatedBy != Constants.SystemUser).Select(c => int.Parse(c.CreatedBy)).ToList();
+            List<User> users = Db.Users.Where(c => ids.Contains(c.ID)).ToList();
+
+            User systemUser = new User();
+            systemUser.Username = Constants.SystemUser;
+
+            users.Add(systemUser);
+
+            return logs.SelectMany(c => c.Properties.Where(p => p.PropertyName == Constants.AuditFieldName.Notes)).Select(c => new HistoryNotes()
+            {
+                User = users.FirstOrDefault(u => u.Username == c.Parent.CreatedBy || int.Parse(c.Parent.CreatedBy) == u.ID),
+                Created = c.Parent.CreatedDate,
+                Notes = c.OldValueFormatted
+            }).ToList();
         }
 
         #endregion

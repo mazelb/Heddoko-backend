@@ -1,0 +1,67 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="filters teamsFilter">
+            <div>
+                <label for="teamsSearch" class="control-label">@i18n.Resources.Search</label>
+                <input id="teamsSearch"
+                       class="form-control"
+                       type="text"
+                       placeholder="@i18n.Resources.EnterUser"
+                       data-bind="value: search, events:{ keyup: keyup }" />
+            </div>
+            <div class="margin010">
+                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success teamsForm">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.Team</h3>
+                <div class="btn-group pull-right" role="group">
+                    <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
+                    <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="team-name"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Name"
+                               class="form-control"
+                               data-bind="value: model.name" />
+                    </div>
+
+                    <div class="col-sm-6">
+                        <textarea type="text"
+                                  required
+                                  name="team-address"
+                                  validationMessage="@i18n.Resources.Required"
+                                  placeholder="@i18n.Resources.Address"
+                                  class="form-control"
+                                  data-bind="value: model.address"></textarea>
+                    </div>
+                </div>
+                <div class="row margin010">
+                    <div class="col-sm-12">
+                        <textarea data-bind="value: model.notes"
+                                  class="form-control"
+                                  placeholder="@i18n.Resources.Notes"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="teamsGrid">
+
+        </div>
+    </div>
+</div>

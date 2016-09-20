@@ -19,6 +19,16 @@ var ShirtsOctopi = {
         //Datasources context
         this.shirtsOctopi = ShirtsOctopi.getDatasource();
 
+        this.shirtsOctopi.bind("requestEnd", function (e) {
+            switch (e.type) {
+                case "create":
+                case "update":
+                case "destroy":
+                    Datasources.shirtsOctopiDD.read();
+                    break;
+            }
+        });
+
         this.shirtsOctopiDD = ShirtsOctopi.getDatasourceDD();
 
         this.shirtOctopiQAStatusTypes = new kendo.data.DataSource({
@@ -202,6 +212,10 @@ var ShirtsOctopi = {
                                 text: i18n.Resources.Delete,
                                 className: "k-grid-delete"
                             }, {
+                                text: i18n.Resources.History,
+                                className: "k-grid-history",
+                                click: this.showHistory
+                            }, {
                                 text: i18n.Resources.Restore,
                                 className: "k-grid-restore",
                                 click: this.onRestore
@@ -349,6 +363,11 @@ var ShirtsOctopi = {
 
     onReset: function(e) {
         this.controls.addModel.set('model', this.getEmptyModel());
+    },
+
+    showHistory: function (e) {
+        var item = ShirtsOctopi.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        HistoryPopup.show('shirtsoctopi/history/' + item.id)
     },
 
     onAdd: function(e) {

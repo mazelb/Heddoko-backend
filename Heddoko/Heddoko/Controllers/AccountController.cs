@@ -363,7 +363,7 @@ namespace Heddoko.Controllers
                 else
                 {
                     CurrentUser.FirstName = model.FirstName;
-                    CurrentUser.Username = model.Username.ToLower();
+                    CurrentUser.Username = model.Username?.ToLower();
                     CurrentUser.LastName = model.LastName;
                     CurrentUser.Phone = model.Phone;
                     CurrentUser.Country = model.Country;
@@ -371,12 +371,18 @@ namespace Heddoko.Controllers
 
                     if (!string.IsNullOrEmpty(model.NewPassord))
                     {
-                        if (!PasswordHasher.Equals(model.OldPassword?.Trim(), CurrentUser.Salt, CurrentUser.Password))
+                        if (PasswordHasher.Equals(model.OldPassword?.Trim(), CurrentUser.Salt, CurrentUser.Password))
                         {
                             Passphrase pwd = PasswordHasher.Hash(model.NewPassord);
 
                             CurrentUser.Password = pwd.Hash;
                             CurrentUser.Salt = pwd.Salt;
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(string.Empty, Resources.WrongOldPassword);
+                            model.Organization = CurrentUser.Organization;
+                            return View(model);
                         }
                     }
 
@@ -414,7 +420,7 @@ namespace Heddoko.Controllers
                     case UserRoleType.Admin:
                         return RedirectToAction("Index", "License");
                     case UserRoleType.Analyst:
-                        return RedirectToAction("Index", "Analyst");
+                        return RedirectToAction("Index", "Default");
                     case UserRoleType.LicenseAdmin:
                         return RedirectToAction("Index", "Organization");
                     case UserRoleType.User:

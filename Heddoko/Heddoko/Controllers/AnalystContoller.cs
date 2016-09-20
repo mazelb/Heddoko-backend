@@ -10,7 +10,7 @@ namespace Heddoko.Controllers
         public ActionResult Index()
         {
             BaseViewModel model = new BaseViewModel();
-            return View(model);
+            return RedirectToAction("Index", "Default");
         }
     }
 }

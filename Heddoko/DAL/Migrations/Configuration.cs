@@ -1,4 +1,5 @@
 using System.Data.Entity.Migrations;
+using System.Linq;
 using DAL.Models;
 
 namespace DAL.Migrations
@@ -26,7 +27,15 @@ namespace DAL.Migrations
 
         private static void Users(HDContext context)
         {
-            Passphrase pwd = PasswordHasher.Hash("p@ssword");
+            Passphrase pwd = PasswordHasher.Hash("H3dd0k0_1323$");
+            Passphrase pwd2 = PasswordHasher.Hash("H3dd0k0_4242$");
+            Passphrase pwd3 = PasswordHasher.Hash("H3dd0k0_anuk34$");
+
+
+            //if (context.Users.Any())
+            //{
+            //    return;
+            //}
 
             context.Users.AddOrUpdate(
                 p => p.Email,
@@ -43,7 +52,7 @@ namespace DAL.Migrations
                 },
                 new User
                 {
-                    Email = "admin@heddoko.co",
+                    Email = "admin@heddoko.com",
                     Username = "heddoko.admin",
                     Status = UserStatusType.Active,
                     Password = pwd.Hash,
@@ -54,13 +63,24 @@ namespace DAL.Migrations
                 },
                 new User
                 {
-                    Email = "support@heddoko.co",
+                    Email = "support@heddoko.com",
                     Username = "heddoko.support",
                     Status = UserStatusType.Active,
-                    Password = pwd.Hash,
-                    Salt = pwd.Salt,
+                    Password = pwd2.Hash,
+                    Salt = pwd2.Salt,
                     FirstName = "Support",
                     LastName = "",
+                    Role = UserRoleType.Admin
+                },
+                new User
+                {
+                    Email = "ankit@heddoko.com",
+                    Username = "ankit.heddoko",
+                    Status = UserStatusType.Active,
+                    Password = pwd3.Hash,
+                    Salt = pwd3.Salt,
+                    FirstName = "Ankit",
+                    LastName = "Vasu",
                     Role = UserRoleType.Admin
                 }
                 );

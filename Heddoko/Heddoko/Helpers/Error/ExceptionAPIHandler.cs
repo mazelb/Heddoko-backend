@@ -26,7 +26,12 @@ namespace Heddoko.Helpers.Error
             }
 
             Guid guid = Guid.NewGuid();
-            Trace.TraceError($"ExceptionAPIHandler.{guid}: Unhandled exception caught in API '{context.Request.RequestUri}'  Body: '{context.Request.Content.ReadAsStringAsync().Result}' Error: {context.Exception}");
+            string body = context.Request.Content.ReadAsStringAsync().Result;
+            if (context.Request.RequestUri.ToString().Contains("assets/upload"))
+            {
+                body = null;
+            }
+            Trace.TraceError($"ExceptionAPIHandler.{guid}: Unhandled exception caught in API '{context.Request.RequestUri}'  Body: '{body}' Error: {context.Exception}");
 
             context.Result = new ErrorResult
             {

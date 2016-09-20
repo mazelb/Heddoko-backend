@@ -119,6 +119,11 @@ namespace DAL.Models
         #region Relations
 
         [JsonIgnore]
+        public int? TeamID { get; set; }
+
+        public virtual Team Team { get; set; }
+
+        [JsonIgnore]
         public int? OrganizationID { get; set; }
 
         [JsonIgnore]

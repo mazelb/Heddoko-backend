@@ -18,6 +18,17 @@ var Sensors = {
     datasources: function() {
         this.sensors = Sensors.getDatasource();
 
+        this.sensors.bind("requestEnd", function (e) {
+            switch (e.type) {
+                case "create":
+                case "update":
+                case "destroy":
+                    Datasources.sensorsDD.read();
+                    Datasources.sensorsLinkDD.read();
+                    break;
+            }
+        });
+
         this.sensorsDD = Sensors.getDatasourceDD();
 
         this.sensorTypes = new kendo.data.DataSource({
@@ -49,7 +60,14 @@ var Sensors = {
                 model: {
                     id: "id"
                 }
-            }
+            },
+            filter: [
+                {
+                    field: 'Used',
+                    operator: 'eq',
+                    value: null
+                }
+            ]
         });
     },
 
@@ -151,10 +169,9 @@ var Sensors = {
                             editable: false
                         },
                         anatomicalLocation: {
-                            nullable: false,
+                            nullable: true,
                             type: "number",
                             validation: {
-                                required: true,
                                 min: 0,
                                 max: KendoDS.maxInt
                             }
@@ -282,14 +299,6 @@ var Sensors = {
                             editor: KendoDS.emptyEditor
                         },
                         {
-                            field: "anatomicalLocation",
-                            title: i18n.Resources.AnatomicalLocation,
-                            template: function(e) {
-                                return Format.equipment.anatomicalLocationImg(e.anatomicalLocation);
-                            },
-                            editor: Equipments.anatomicalLocationDDEditor
-                        },
-                        {
                             field: 'notes',
                             title: i18n.Resources.Notes,
                             editor: KendoDS.textAreaDDEditor
@@ -304,6 +313,10 @@ var Sensors = {
                                     name: "destroy",
                                     text: i18n.Resources.Delete,
                                     className: "k-grid-delete"
+                                }, {
+                                    text: i18n.Resources.History,
+                                    className: "k-grid-history",
+                                    click: this.showHistory
                                 }, {
                                     text: i18n.Resources.Restore,
                                     className: "k-grid-restore",
@@ -462,6 +475,11 @@ var Sensors = {
 
     onReset: function(e) {
         this.controls.addModel.set("model", this.getEmptyModel());
+    },
+
+    showHistory: function (e) {
+        var item = Sensors.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        HistoryPopup.show('sensors/history/' + item.id)
     },
 
     onAdd: function(e) {

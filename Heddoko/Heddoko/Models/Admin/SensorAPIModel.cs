@@ -49,7 +49,7 @@ namespace Heddoko.Models
 
         public SensorSet SensorSet { get; set; }
 
-        public AnatomicalLocationType AnatomicalLocation { get; set; }
+        public AnatomicalLocationType? AnatomicalLocation { get; set; }
 
         public string Name => IsEmpty ? $"{Resources.No} {Resources.Sensors}" : $"{IDView} - {Type.GetDisplayName()} - {Status.GetDisplayName()}";
 

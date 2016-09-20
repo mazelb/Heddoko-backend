@@ -90,7 +90,7 @@ namespace Heddoko.Controllers.Admin
 
                 UoW.ComponentRepository.Create(item);
 
-                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies(true));
 
                 response = Convert(item);
             }
@@ -134,7 +134,7 @@ namespace Heddoko.Controllers.Admin
                 Bind(item, model);
                 UoW.Save();
 
-                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies());
+                BackgroundJob.Enqueue(() => Services.AssembliesManager.GetAssemblies(true));
 
                 response = Convert(item);
             }

@@ -7,13 +7,13 @@ namespace DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Bitwise : IMigrationMetadata
+    public sealed partial class Team : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Bitwise));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Team));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608160932411_Bitwise"; }
+            get { return "201609091114388_Team"; }
         }
         
         string IMigrationMetadata.Source

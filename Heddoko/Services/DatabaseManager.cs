@@ -18,5 +18,10 @@ namespace Services
         {
             return Migrator.GetPending();
         }
+
+        public static void Rollback(string migration)
+        {
+            Migrator.RunMigrations(migration);
+        }
     }
 }

@@ -44,12 +44,15 @@ namespace HeddokoService
         protected override void OnStart(string[] args)
         {
             RecurringJob.AddOrUpdate(LicenseManagerCheck, () => Services.LicenseManager.Check(), Cron.Hourly());
-            RecurringJob.AddOrUpdate(AssembliesManagerCheck, () => Services.AssembliesManager.GetAssemblies(), Cron.Daily);
+            RecurringJob.AddOrUpdate(AssembliesManagerCheck, () => Services.AssembliesManager.GetAssemblies(true), Cron.Daily());
 
 
-            Thread = new Thread(Run);
-            Thread.Name = "LongChecker";
-            Thread.IsBackground = true;
+            Thread = new Thread(Run)
+            {
+                Name = "LongChecker",
+                IsBackground = true
+            };
+
             Thread.Start();
 
             Trace.TraceInformation("Start service");

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class License : BaseModel
+    public class License : BaseModel, IAuditable, ISoftDelete
     {
         public LicenseType Type { get; set; }
 
@@ -31,6 +31,7 @@ namespace DAL.Models
         #endregion
 
         #region NotMapped
+        bool ISoftDelete.IsDeleted => Status == LicenseStatusType.Deleted;
 
         public string IDView => $"LI{ID.ToString(Constants.PadZero)}";
 

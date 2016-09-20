@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class SensorSet : BaseModel
+    public class SensorSet : BaseModel, IAuditable, ISoftDelete
     {
         [StringLength(255)]
         public string Location { get; set; }
@@ -15,14 +15,14 @@ namespace DAL.Models
         [StringLength(255)]
         public string Label { get; set; }
 
-        [Column(TypeName = "ntext")]
         public string Notes { get; set; }
 
         public EquipmentStatusType Status { get; set; }
 
-        public SensorSetQAStatusType QAStatus { get; set; }
+        public SensorSetQAStatusType? QAStatus { get; set; }
 
         #region NotMapped
+        bool ISoftDelete.IsDeleted => Status == EquipmentStatusType.Trash;
 
         public string IDView => $"SS{ID.ToString(Constants.PadZero)}";
 

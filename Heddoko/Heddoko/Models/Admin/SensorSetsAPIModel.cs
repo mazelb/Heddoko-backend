@@ -30,7 +30,7 @@ namespace Heddoko.Models
         [StringLength(1024, ErrorMessageResourceName = "ValidateLengthRangeMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Notes { get; set; }
 
-        public SensorSetQAStatusType QAStatus { get; set; }
+        public SensorSetQAStatusType? QAStatus { get; set; }
 
         public EquipmentStatusType Status { get; set; }
 
@@ -38,7 +38,7 @@ namespace Heddoko.Models
 
         public int? KitID { get; set; }
 
-        public string Sensors { get; set; }
+        public List<int> Sensors { get; set; }
 
         public string Name => IsEmpty ? $"{Resources.No} {Resources.SensorSet}" : $"{IDView} - {Status.GetDisplayName()}";
     }

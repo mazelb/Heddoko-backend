@@ -19,6 +19,16 @@ var Brainpacks = {
         //Datasources context
         this.brainpacks = Brainpacks.getDatasource();
 
+        this.brainpacks.bind("requestEnd", function (e) {
+            switch (e.type) {
+                case "create":
+                case "update":
+                case "destroy":
+                    Datasources.brainpacksDD.read();
+                    break;
+            }
+        });
+
         this.brainpackQAStatusTypes = new kendo.data.DataSource({
             data: _.values(Enums.BrainpackQAStatusType.array)
         });
@@ -244,6 +254,10 @@ var Brainpacks = {
                                     text: i18n.Resources.Delete,
                                     className: "k-grid-delete"
                                 }, {
+                                    text: i18n.Resources.History,
+                                    className: "k-grid-history",
+                                    click: this.showHistory
+                                }, {
                                     text: i18n.Resources.Restore,
                                     className: "k-grid-restore",
                                     click: this.onRestore
@@ -398,6 +412,11 @@ var Brainpacks = {
 
     onReset: function(e) {
         this.controls.addModel.set("model", this.getEmptyModel());
+    },
+
+    showHistory: function (e) {
+        var item = Brainpacks.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        HistoryPopup.show('brainpacks/history/' + item.id);
     },
 
     onAdd: function(e) {

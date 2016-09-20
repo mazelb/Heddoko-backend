@@ -19,6 +19,16 @@ var Databoards = {
         //Datasources context
         this.databoards = Databoards.getDatasource();
 
+        this.databoards.bind("requestEnd", function (e) {
+            switch (e.type) {
+                case "create":
+                case "update":
+                case "destroy":
+                    Datasources.databoardsDD.read();
+                    break;
+            }
+        });
+
         this.databoardsDD = Databoards.getDatasourceDD();
 
         this.databoardQAStatusTypes = new kendo.data.DataSource({
@@ -213,6 +223,10 @@ var Databoards = {
                                     text: i18n.Resources.Delete,
                                     className: "k-grid-delete"
                                 }, {
+                                    text: i18n.Resources.History,
+                                    className: "k-grid-history",
+                                    click: this.showHistory
+                                }, {
                                     text: i18n.Resources.Restore,
                                     className: "k-grid-restore",
                                     click: this.onRestore
@@ -364,6 +378,11 @@ var Databoards = {
 
     onReset: function(e) {
         this.controls.addModel.set("model", this.getEmptyModel());
+    },
+
+    showHistory: function (e) {
+        var item = Databoards.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        HistoryPopup.show('databoards/history/' + item.id)
     },
 
     onAdd: function(e) {

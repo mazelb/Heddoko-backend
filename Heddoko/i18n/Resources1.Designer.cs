@@ -889,6 +889,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -1452,6 +1461,15 @@ namespace i18n {
         public static string Heddoko {
             get {
                 return ResourceManager.GetString("Heddoko", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to History.
+        /// </summary>
+        public static string History {
+            get {
+                return ResourceManager.GetString("History", resourceCulture);
             }
         }
         
@@ -3148,6 +3166,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Software.
+        /// </summary>
+        public static string Software {
+            get {
+                return ResourceManager.GetString("Software", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Software &amp; Firmware.
         /// </summary>
         public static string SoftwareAndFirmware {
@@ -3216,6 +3243,24 @@ namespace i18n {
         public static string SupportSent {
             get {
                 return ResourceManager.GetString("SupportSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team.
+        /// </summary>
+        public static string Team {
+            get {
+                return ResourceManager.GetString("Team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teams.
+        /// </summary>
+        public static string Teams {
+            get {
+                return ResourceManager.GetString("Teams", resourceCulture);
             }
         }
         
@@ -3684,6 +3729,15 @@ namespace i18n {
         public static string WrongObjectAccess {
             get {
                 return ResourceManager.GetString("WrongObjectAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old password is wrong.
+        /// </summary>
+        public static string WrongOldPassword {
+            get {
+                return ResourceManager.GetString("WrongOldPassword", resourceCulture);
             }
         }
         

@@ -28,7 +28,9 @@ namespace DAL
         {
             int? id = search.ParseID();
             return DbSet
-                .Where(c => (c.ID == id))
+                .Where(c => (c.ID == id)
+                            || c.Label.ToLower().Contains(search.ToLower())
+                            || c.Notes.ToLower().Contains(search.ToLower()))
                           //  || c.KitID.ToLower().Contains(search.ToLower()))
                 .OrderBy(c => c.ID);
         }

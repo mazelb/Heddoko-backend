@@ -19,6 +19,16 @@ var Pants = {
         //Datasources context
         this.pants = Pants.getDatasource();
 
+        this.pants.bind("requestEnd", function (e) {
+            switch (e.type) {
+                case "create":
+                case "update":
+                case "destroy":
+                    Datasources.pantsDD.read();
+                    break;
+            }
+        });
+
         this.pantsDD = Pants.getDatasourceDD();
 
         this.pantsQAStatusTypes = new kendo.data.DataSource({
@@ -214,6 +224,10 @@ var Pants = {
                                 text: i18n.Resources.Delete,
                                 className: "k-grid-delete"
                             }, {
+                                text: i18n.Resources.History,
+                                className: "k-grid-history",
+                                click: this.showHistory
+                            }, {
                                 text: i18n.Resources.Restore,
                                 className: "k-grid-restore",
                                 click: this.onRestore
@@ -368,6 +382,11 @@ var Pants = {
 
     onReset: function (e) {
         this.controls.addModel.set('model', this.getEmptyModel());
+    },
+
+    showHistory: function (e) {
+        var item = Pants.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        HistoryPopup.show('pants/history/' + item.id)
     },
 
     onAdd: function (e) {

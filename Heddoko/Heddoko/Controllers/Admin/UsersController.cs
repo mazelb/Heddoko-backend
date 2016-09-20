@@ -314,6 +314,11 @@ namespace Heddoko.Controllers
                 }
             }
 
+            if (model.TeamID.HasValue)
+            {
+                item.Team = UoW.TeamRepository.Get(model.TeamID.Value);
+            }
+
             if (model.LicenseID.HasValue)
             {
                 if (model.LicenseID.Value == NoLicense)
@@ -414,7 +419,9 @@ namespace Heddoko.Controllers
                 LicenseStatus = item.License?.Status,
                 ExpirationAt = item.License?.ExpirationAt,
                 KitID = item.Kit?.ID ?? 0,
-                Kit = item.Kit
+                Kit = item.Kit,
+                TeamID = item.TeamID ?? 0,
+                Team = item.Team
             };
         }
     }
