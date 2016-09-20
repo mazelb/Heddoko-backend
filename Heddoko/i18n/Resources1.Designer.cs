@@ -997,7 +997,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You become as admin of organization.
+        ///   Looks up a localized string similar to Welcome to Heddoko!.
         /// </summary>
         public static string EmailInviteAdminUserSubject {
             get {
@@ -1006,7 +1006,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You invited to organization.
+        ///   Looks up a localized string similar to Welcome to Heddoko!.
         /// </summary>
         public static string EmailInviteUserSubject {
             get {

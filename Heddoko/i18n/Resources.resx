@@ -655,7 +655,7 @@
     <value>User already exists</value>
   </data>
   <data name="EmailInviteAdminUserSubject" xml:space="preserve">
-    <value>You become as admin of organization</value>
+    <value>Welcome to Heddoko!</value>
   </data>
   <data name="UserAlreadyInOrganizations" xml:space="preserve">
     <value>User used in another Organization</value>
@@ -733,7 +733,7 @@
     <value>Role</value>
   </data>
   <data name="EmailInviteUserSubject" xml:space="preserve">
-    <value>You invited to organization</value>
+    <value>Welcome to Heddoko!</value>
   </data>
   <data name="EmptyLicense" xml:space="preserve">
     <value>No license</value>
