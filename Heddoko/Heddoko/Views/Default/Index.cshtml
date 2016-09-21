@@ -28,7 +28,25 @@
                 @switch (Model.CurrentUser.Role)
                 {
                     case DAL.Models.UserRoleType.Admin:
-                        <div class="col-md-2"></div>
+
+                        if (Model.Software != null)
+                        {
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
+                                    <i class="fa fa-2x fa-download"></i>
+                                    <span>
+                                        @i18n.Resources.Download @i18n.Resources.Software
+                                    </span>
+                                    <span></span>
+                                </a>
+                                <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-2"></div>
+                        }
                         <div class="col-md-2">
                             <a href="@Url.Action("Index", "Inventory")" class="btn-dashboard">
                                 <i class="fa fa-2x fa-cogs"></i>
@@ -59,25 +77,14 @@
                             </a>
                         </div>
 
-                        if (Model.Software != null)
-                        {
-                            <div class="col-md-2">
-                                <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
-                                    <i class="fa fa-2x fa-download"></i>
-                                    <span>
-                                        @i18n.Resources.Download @i18n.Resources.Software
-                                    </span>
-                                    <span></span>
-                                </a>
-                                <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
-                            </div>
-                        }
+
 
                         break;
                     case DAL.Models.UserRoleType.Analyst:
-                        <div class="col-md-5"></div>
+
                         if (Model.Software != null)
-                         {
+                        {
+                            <div class="col-md-4"></div>
                              <div class="col-md-2">
                                  <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
                                      <i class="fa fa-2x fa-download"></i>
@@ -88,21 +95,17 @@
                                  </a>
                                  <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
                              </div>
-                         }
+                        }
+                        else
+                        {
+                            <div class="col-md-5"></div>
+                        }
                         break;
                     case DAL.Models.UserRoleType.LicenseAdmin:
-                        <div class="col-md-4"></div>
-                        <div class="col-md-2">
-                            <a href="@Url.Action("Index", "Organization")" class="btn-dashboard">
-                                <i class="fa fa-2x fa-pencil-square-o"></i>
-                                <span>
-                                    @i18n.Resources.Manage @i18n.Resources.Organization
-                                </span>
-                                <span></span>
-                            </a>
-                        </div>
+
                         if (Model.Software != null)
                         {
+                            <div class="col-md-3"></div>
                             <div class="col-md-2">
                                 <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
                                     <i class="fa fa-2x fa-download"></i>
@@ -114,6 +117,19 @@
                                 <p class="text-center">@i18n.Resources.Version: @Model.Software.Version</p>
                             </div>
                         }
+                        else
+                        {
+                            <div class="col-md-4"></div>
+                        }
+                        <div class="col-md-2">
+                            <a href="@Url.Action("Index", "Organization")" class="btn-dashboard">
+                                <i class="fa fa-2x fa-pencil-square-o"></i>
+                                <span>
+                                    @i18n.Resources.Manage @i18n.Resources.Organization
+                                </span>
+                                <span></span>
+                            </a>
+                        </div>                        
                         break;
                     case DAL.Models.UserRoleType.User:
                         break;
@@ -128,6 +144,27 @@
                         <span></span>
                     </a>
                 </div>
+            </div>
+            <div class="row">
+
+                @if (Model.Guide != null)
+                {
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2">
+                        <a href="@Model.Guide.Asset.Url" target="_blank" class="btn-dashboard">
+                            <i class="fa fa-2x fa-info-circle"></i>
+                            <span>
+                                @i18n.Resources.Download @i18n.Resources.Guide
+                            </span>
+                            <span></span>
+                        </a>
+                        <p class="text-center">@i18n.Resources.Version: @Model.Guide.Version</p>
+                    </div>
+                }
+                else
+                { 
+                    <div class="col-md-5"></div>
+                }
 
                 <div class="col-md-2">
                     <a href="@Url.Action("Requirements", "Static")" class="btn-dashboard">
@@ -139,19 +176,7 @@
                     </a>
                 </div>
 
-                @if (Model.Guide != null)
-                {
-                <div class="col-md-2">
-                    <a href="@Model.Guide.Asset.Url" target="_blank" class="btn-dashboard">
-                        <i class="fa fa-2x fa-info-circle"></i>
-                        <span>
-                            @i18n.Resources.Download @i18n.Resources.Guide
-                        </span>
-                        <span></span>
-                    </a>
-                    <p class="text-center">@i18n.Resources.Version: @Model.Guide.Version</p>
-                </div>
-                }
+                
             </div>
         }
     </div>
