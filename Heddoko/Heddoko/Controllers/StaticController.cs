@@ -3,7 +3,7 @@ using Heddoko.Models;
 
 namespace Heddoko.Controllers
 {
-    public class StaticController : Controller
+    public class StaticController : BaseController
     {
         public ActionResult Terms()
         {
@@ -11,6 +11,11 @@ namespace Heddoko.Controllers
         }
 
         public ActionResult Privacy()
+        {
+            return View(new BaseViewModel());
+        }
+
+        public ActionResult Requirements()
         {
             return View(new BaseViewModel());
         }

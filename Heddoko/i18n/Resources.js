@@ -413,7 +413,9 @@ i18n.Resources = (function () {
   "Team": "Team",
   "Teams": "Teams",
   "History": "History",
-  "Date": "Date"
+  "Date": "Date",
+  "Guide": "Guide",
+  "Requirements": "Requirements"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

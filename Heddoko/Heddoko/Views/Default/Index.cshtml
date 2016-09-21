@@ -128,6 +128,30 @@
                         <span></span>
                     </a>
                 </div>
+
+                <div class="col-md-2">
+                    <a href="@Url.Action("Requirements", "Static")" class="btn-dashboard">
+                        <i class="fa fa-2x fa-check-circle"></i>
+                        <span>
+                            @i18n.Resources.Requirements
+                        </span>
+                        <span></span>
+                    </a>
+                </div>
+
+                @if (Model.Guide != null)
+                {
+                <div class="col-md-2">
+                    <a href="@Model.Guide.Asset.Url" target="_blank" class="btn-dashboard">
+                        <i class="fa fa-2x fa-info-circle"></i>
+                        <span>
+                            @i18n.Resources.Download @i18n.Resources.Guide
+                        </span>
+                        <span></span>
+                    </a>
+                    <p class="text-center">@i18n.Resources.Version: @Model.Guide.Version</p>
+                </div>
+                }
             </div>
         }
     </div>
