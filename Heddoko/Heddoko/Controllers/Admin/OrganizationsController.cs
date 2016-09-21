@@ -265,6 +265,8 @@ namespace Heddoko.Controllers
 
                 item.User = user;
                 user.Organization = item;
+
+                UoW.UserRepository.ClearCache(user);
             }
 
             item.Name = model.Name;
@@ -280,6 +282,7 @@ namespace Heddoko.Controllers
                     item.User.Status = UserStatusType.Active;
                 }
             }
+
 
             return item;
         }
