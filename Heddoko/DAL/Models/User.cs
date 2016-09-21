@@ -44,9 +44,9 @@ namespace DAL.Models
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
         {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+
             return userIdentity;
         }
 
@@ -66,26 +66,11 @@ namespace DAL.Models
         public DateTime Created { get; set; }
         #endregion
 
-        [Index(IsUnique = true)]
-        [StringLength(255)]
-        public string Username { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        public string Password { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        public string Salt { get; set; }
-
         [StringLength(255)]
         public string FirstName { get; set; }
 
         [StringLength(255)]
         public string LastName { get; set; }
-
-        [StringLength(255)]
-        public string Phone { get; set; }
 
         [StringLength(20)]
         public string Country { get; set; }

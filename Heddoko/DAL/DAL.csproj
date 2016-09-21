@@ -235,9 +235,9 @@
     <Compile Include="Migrations\201609091114388_Team.Designer.cs">
       <DependentUpon>201609091114388_Team.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608171933158_UserIdentity.cs" />
-    <Compile Include="Migrations\201608171933158_UserIdentity.Designer.cs">
-      <DependentUpon>201608171933158_UserIdentity.cs</DependentUpon>
+    <Compile Include="Migrations\201609201202151_UserIdentity.cs" />
+    <Compile Include="Migrations\201609201202151_UserIdentity.Designer.cs">
+      <DependentUpon>201609201202151_UserIdentity.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
@@ -412,8 +412,8 @@
     <EmbeddedResource Include="Migrations\201609091114388_Team.resx">
       <DependentUpon>201609091114388_Team.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608171933158_UserIdentity.resx">
-      <DependentUpon>201608171933158_UserIdentity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609201202151_UserIdentity.resx">
+      <DependentUpon>201609201202151_UserIdentity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

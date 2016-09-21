@@ -78,7 +78,7 @@ namespace Heddoko
         {
             ForgotPasswordEmailViewModel mailModel = new ForgotPasswordEmailViewModel
             {
-                Username = user.Username,
+                Username = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName
             };
@@ -128,7 +128,7 @@ namespace Heddoko
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Username = user.Username
+                Username = user.UserName
             };
 
             string subject = Resources.EmailActivatedSubject;

@@ -271,12 +271,12 @@ namespace Heddoko.Controllers
                     if (user == null)
                     {
                         item.Email = model.Email?.ToLower().Trim();
-                        item.Username = model.Username?.ToLower().Trim();
+                        item.UserName = model.Username?.ToLower().Trim();
                         item.FirstName = model.Firstname?.Trim();
                         item.LastName = model.Lastname?.Trim();
                         item.Status = UserStatusType.Invited;
                         item.Role = UserRoleType.User;
-                        item.Phone = model.Phone;
+                        item.PhoneNumber = model.Phone;
                         item.InviteToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString());
                         item.Organization = UoW.OrganizationRepository.Get(CurrentUser.OrganizationID.Value);
                     }
@@ -409,11 +409,11 @@ namespace Heddoko.Controllers
                 Email = item.Email,
                 Firstname = item.FirstName,
                 Lastname = item.LastName,
-                Username = item.Username,
+                Username = item.UserName,
                 Role = item.Role,
                 Status = item.Status,
                 LicenseID = item.LicenseID ?? 0,
-                Phone = item.Phone,
+                Phone = item.PhoneNumber,
                 LicenseName = item.License?.Name,
                 OrganizationName = item.Organization?.Name,
                 LicenseStatus = item.License?.Status,

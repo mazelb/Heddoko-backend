@@ -108,7 +108,7 @@ namespace Heddoko.Controllers
                 User user = UoW.UserRepository.GetByInviteToken(token?.Trim());
                 if (user != null)
                 {
-                    bool isNew = string.IsNullOrEmpty(user.Password);
+                    bool isNew = string.IsNullOrEmpty(user.PasswordHash);
 
                     if (isNew)
                     {
@@ -117,10 +117,10 @@ namespace Heddoko.Controllers
                         signup.Organization = user.Organization;
                         signup.InviteToken = user.InviteToken;
                         signup.Email = user.Email.ToLower();
-                        signup.Username = user.Username.ToLower();
+                        signup.Username = user.UserName.ToLower();
                         signup.FirstName = user.FirstName;
                         signup.LastName = user.LastName;
-                        signup.Phone = user.Phone;
+                        signup.Phone = user.PhoneNumber;
                         signup.Country = user.Country;
                         signup.Birthday = user.BirthDay;
                         signup.OrganizationName = user.Organization.Name;
@@ -185,13 +185,13 @@ namespace Heddoko.Controllers
                         user.LastName = model.LastName?.Trim();
                         user.Country = model.Country?.Trim();
                         user.BirthDay = model.Birthday;
-                        user.Phone = model.Phone;
+                        user.PhoneNumber = model.Phone;
                         user.Status = UserStatusType.Active;
                         user.InviteToken = null;
                         Passphrase pwd = PasswordHasher.Hash(model.Password?.Trim());
 
-                        user.Password = pwd.Hash;
-                        user.Salt = pwd.Salt;
+                        //user.Password = pwd.Hash;
+                        //user.Salt = pwd.Salt;
 
                         UoW.Save();
                         UoW.UserRepository.SetCache(user);
@@ -244,6 +244,7 @@ namespace Heddoko.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 Organization organization = UoW.OrganizationRepository.GetByName(model.OrganizationName?.Trim());
 
                 if (organization != null)
@@ -276,26 +277,23 @@ namespace Heddoko.Controllers
 
                             user = new User();
                             user.Email = model.Email.ToLower().Trim();
-                            user.Username = model.Username.ToLower().Trim();
+                            user.UserName = model.Username.ToLower().Trim();
                             user.Role = UserRoleType.LicenseAdmin;
                             user.FirstName = model.FirstName.Trim();
-                            ;
                             user.LastName = model.LastName.Trim();
-                            ;
                             user.Country = model.Country;
                             user.BirthDay = model.Birthday;
-                            user.Phone = model.Phone.Trim();
-                            ;
+                            user.PhoneNumber = model.Phone.Trim();
                             user.Status = UserStatusType.NotActive;
 
                             Passphrase pwd = PasswordHasher.Hash(model.Password);
 
-                            user.Password = pwd.Hash;
-                            user.Salt = pwd.Salt;
+                            //user.Password = pwd.Hash;
+                            //user.Salt = pwd.Salt;
 
                             user.ConfirmToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString());
 
-                            UoW.UserRepository.Create(user);
+                            var result = UserManager.Create(user, model.Password);
 
                             organization.User = user;
                             UoW.OrganizationRepository.Create(organization);
@@ -333,10 +331,10 @@ namespace Heddoko.Controllers
 
             model.Organization = CurrentUser.Organization;
             model.Email = CurrentUser.Email;
-            model.Username = CurrentUser.Username.ToLower();
+            model.Username = CurrentUser.UserName.ToLower();
             model.FirstName = CurrentUser.FirstName;
             model.LastName = CurrentUser.LastName;
-            model.Phone = CurrentUser.Phone;
+            model.Phone = CurrentUser.PhoneNumber;
             model.Country = CurrentUser.Country;
             model.Birthday = CurrentUser.BirthDay;
             model.OrganizationName = CurrentUser.Organization?.Name;
@@ -363,27 +361,27 @@ namespace Heddoko.Controllers
                 else
                 {
                     CurrentUser.FirstName = model.FirstName;
-                    CurrentUser.Username = model.Username?.ToLower();
+                    CurrentUser.UserName = model.Username?.ToLower();
                     CurrentUser.LastName = model.LastName;
-                    CurrentUser.Phone = model.Phone;
+                    CurrentUser.PhoneNumber = model.Phone;
                     CurrentUser.Country = model.Country;
                     CurrentUser.BirthDay = model.Birthday;
 
                     if (!string.IsNullOrEmpty(model.NewPassord))
                     {
-                        if (PasswordHasher.Equals(model.OldPassword?.Trim(), CurrentUser.Salt, CurrentUser.Password))
-                        {
-                            Passphrase pwd = PasswordHasher.Hash(model.NewPassord);
+                        //if (PasswordHasher.Equals(model.OldPassword?.Trim(), CurrentUser.Salt, CurrentUser.Password))
+                        //{
+                        //    Passphrase pwd = PasswordHasher.Hash(model.NewPassord);
 
-                            CurrentUser.Password = pwd.Hash;
-                            CurrentUser.Salt = pwd.Salt;
-                        }
-                        else
-                        {
-                            ModelState.AddModelError(string.Empty, Resources.WrongOldPassword);
-                            model.Organization = CurrentUser.Organization;
-                            return View(model);
-                        }
+                        //    CurrentUser.Password = pwd.Hash;
+                        //    CurrentUser.Salt = pwd.Salt;
+                        //}
+                        //else
+                        //{
+                        //    ModelState.AddModelError(string.Empty, Resources.WrongOldPassword);
+                        //    model.Organization = CurrentUser.Organization;
+                        //    return View(model);
+                        //}
                     }
 
 
@@ -534,10 +532,10 @@ namespace Heddoko.Controllers
                         &&
                         user.ForgotExpiration.Value >= DateTime.Now)
                     {
-                        Passphrase pwd = PasswordHasher.Hash(model.Password?.Trim());
+                        //Passphrase pwd = PasswordHasher.Hash(model.Password?.Trim());
 
-                        user.Password = pwd.Hash;
-                        user.Salt = pwd.Salt;
+                        //user.Password = pwd.Hash;
+                        //user.Salt = pwd.Salt;
                         user.ForgotToken = null;
                         user.ForgotExpiration = null;
 

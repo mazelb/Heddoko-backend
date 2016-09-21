@@ -80,10 +80,10 @@ namespace Heddoko.Controllers.API
 
             if (user.IsActive)
             {
-                if (!PasswordHasher.Equals(model.Password?.Trim(), user.Salt, user.Password))
-                {
-                    throw new APIException(ErrorAPIType.EmailOrPassword, Resources.WrongUsernameOrPassword);
-                }
+                //if (!PasswordHasher.Equals(model.Password?.Trim(), user.Salt, user.Password))
+                //{
+                //    throw new APIException(ErrorAPIType.EmailOrPassword, Resources.WrongUsernameOrPassword);
+                //}
 
                 if (user.License == null)
                 {

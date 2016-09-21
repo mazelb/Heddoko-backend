@@ -16,12 +16,12 @@ namespace Heddoko.Helpers.Auth
         {
             User user = uow.UserRepository.GetByUsernameCached(username?.ToLower().Trim());
 
-            if (user != null
-                &&
-                PasswordHasher.Equals(password?.Trim(), user.Salt, user.Password))
-            {
-                return user;
-            }
+            //if (user != null
+            //    &&
+            //    PasswordHasher.Equals(password?.Trim(), user.Salt, user.Password))
+            //{
+            //    return user;
+            //}
 
             return null;
         }

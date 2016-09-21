@@ -38,9 +38,9 @@ namespace DAL
                 base.ClearCache(user.Token.ToLower());
             }
 
-            if (!string.IsNullOrEmpty(user.Username))
+            if (!string.IsNullOrEmpty(user.UserName))
             {
-                base.ClearCache(user.Username.ToLower());
+                base.ClearCache(user.UserName.ToLower());
             }
         }
 
@@ -63,9 +63,9 @@ namespace DAL
                 base.SetCache(user.Token.ToLower(), user, hours);
             }
 
-            if (!string.IsNullOrEmpty(user.Username))
+            if (!string.IsNullOrEmpty(user.UserName))
             {
-                base.SetCache(user.Username.ToLower(), user, hours);
+                base.SetCache(user.UserName.ToLower(), user, hours);
             }
         }
 
@@ -120,7 +120,7 @@ namespace DAL
         public User GetByUsername(string username)
         {
             return DbSet.Include(c => c.Organization)
-                        .FirstOrDefault(c => c.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+                        .FirstOrDefault(c => c.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
         public User GetByUsernameFull(string username)
@@ -130,7 +130,7 @@ namespace DAL
                         .Include(c => c.Team)
                         .Include(c => c.License)
                         .Include(c => c.Kits)
-                        .FirstOrDefault(c => c.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+                        .FirstOrDefault(c => c.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
         public User GetByConfirmToken(string confirmToken)
@@ -205,7 +205,7 @@ namespace DAL
                                 ||
                                 (!string.IsNullOrEmpty(c.LastName) && c.LastName.ToLower().Contains(search.ToLower()))
                                 ||
-                                (!string.IsNullOrEmpty(c.Username) && c.Username.ToLower().Contains(search.ToLower()))
+                                (!string.IsNullOrEmpty(c.UserName) && c.UserName.ToLower().Contains(search.ToLower()))
                                 || (!string.IsNullOrEmpty(c.Email) && c.Email.ToLower().Contains(search.ToLower())))
                         .OrderBy(c => c.FirstName)
                         .ThenBy(c => c.LastName);

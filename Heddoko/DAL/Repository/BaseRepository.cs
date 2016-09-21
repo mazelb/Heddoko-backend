@@ -91,13 +91,13 @@ namespace DAL
             List<User> users = Db.Users.Where(c => ids.Contains(c.ID)).ToList();
 
             User systemUser = new User();
-            systemUser.Username = Constants.SystemUser;
+            systemUser.UserName = Constants.SystemUser;
 
             users.Add(systemUser);
 
             return logs.SelectMany(c => c.Properties.Where(p => p.PropertyName == Constants.AuditFieldName.Notes)).Select(c => new HistoryNotes()
             {
-                User = users.FirstOrDefault(u => u.Username == c.Parent.CreatedBy || int.Parse(c.Parent.CreatedBy) == u.ID),
+                User = users.FirstOrDefault(u => u.UserName == c.Parent.CreatedBy || int.Parse(c.Parent.CreatedBy) == u.ID),
                 Created = c.Parent.CreatedDate,
                 Notes = c.OldValueFormatted
             }).ToList();

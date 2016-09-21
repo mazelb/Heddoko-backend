@@ -42,10 +42,8 @@ namespace DAL.Migrations
                 new User
                 {
                     Email = "ss@a2a.co",
-                    Username = "ss",
+                    UserName = "ss",
                     Status = UserStatusType.Active,
-                    Password = pwd.Hash,
-                    Salt = pwd.Salt,
                     FirstName = "S",
                     LastName = "S",
                     Role = UserRoleType.Admin
@@ -53,10 +51,8 @@ namespace DAL.Migrations
                 new User
                 {
                     Email = "admin@heddoko.com",
-                    Username = "heddoko.admin",
+                    UserName = "heddoko.admin",
                     Status = UserStatusType.Active,
-                    Password = pwd.Hash,
-                    Salt = pwd.Salt,
                     FirstName = "Admin",
                     LastName = "",
                     Role = UserRoleType.Admin
@@ -64,10 +60,8 @@ namespace DAL.Migrations
                 new User
                 {
                     Email = "support@heddoko.com",
-                    Username = "heddoko.support",
+                    UserName = "heddoko.support",
                     Status = UserStatusType.Active,
-                    Password = pwd2.Hash,
-                    Salt = pwd2.Salt,
                     FirstName = "Support",
                     LastName = "",
                     Role = UserRoleType.Admin
@@ -75,10 +69,8 @@ namespace DAL.Migrations
                 new User
                 {
                     Email = "ankit@heddoko.com",
-                    Username = "ankit.heddoko",
+                    UserName = "ankit.heddoko",
                     Status = UserStatusType.Active,
-                    Password = pwd3.Hash,
-                    Salt = pwd3.Salt,
                     FirstName = "Ankit",
                     LastName = "Vasu",
                     Role = UserRoleType.Admin

@@ -242,10 +242,10 @@ namespace Heddoko.Controllers
                             FirstName = model.User.Firstname?.Trim(),
                             LastName = model.User.Lastname?.Trim(),
                             Email = model.User.Email?.Trim(),
-                            Username = model.User.Username?.ToLower().Trim(),
+                            UserName = model.User.Username?.ToLower().Trim(),
                             Status = UserStatusType.Invited,
                             Role = UserRoleType.LicenseAdmin,
-                            Phone = model.Phone,
+                            PhoneNumber = model.Phone,
                             InviteToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString())
                         };
                         UoW.UserRepository.Create(user);
@@ -305,7 +305,7 @@ namespace Heddoko.Controllers
                 {
                     Email = item.User.Email,
                     Name = item.User.Name,
-                    Username = item.User.Username
+                    Username = item.User.UserName
                 },
                 DataAnalysisAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataAnalysis
                                                                && c.ExpirationAt >= DateTime.Now

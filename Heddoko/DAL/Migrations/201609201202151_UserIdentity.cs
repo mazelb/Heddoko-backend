@@ -69,12 +69,17 @@ namespace DAL.Migrations
             AddColumn("dbo.AspNetUsers", "AccessFailedCount", c => c.Int(nullable: false));
             AlterColumn("dbo.AspNetUsers", "Email", c => c.String(maxLength: 256));
             AlterColumn("dbo.AspNetUsers", "UserName", c => c.String(nullable: false, maxLength: 256));
-            CreateIndex("dbo.AspNetUsers", "Username", unique: true);
             CreateIndex("dbo.AspNetUsers", "UserName", unique: true, name: "UserNameIndex");
+            DropColumn("dbo.AspNetUsers", "Password");
+            DropColumn("dbo.AspNetUsers", "Salt");
+            DropColumn("dbo.AspNetUsers", "Phone");
         }
         
         public override void Down()
         {
+            AddColumn("dbo.AspNetUsers", "Phone", c => c.String(maxLength: 255));
+            AddColumn("dbo.AspNetUsers", "Salt", c => c.String(maxLength: 100));
+            AddColumn("dbo.AspNetUsers", "Password", c => c.String(maxLength: 100));
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
@@ -85,8 +90,6 @@ namespace DAL.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.AspNetUsers", new[] { "Username" });
-            AlterColumn("dbo.Shirts", "QAStatus", c => c.Long(nullable: false));
             AlterColumn("dbo.AspNetUsers", "UserName", c => c.String(maxLength: 255));
             AlterColumn("dbo.AspNetUsers", "Email", c => c.String(maxLength: 255));
             DropColumn("dbo.AspNetUsers", "AccessFailedCount");

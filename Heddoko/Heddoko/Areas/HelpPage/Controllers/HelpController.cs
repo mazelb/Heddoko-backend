@@ -10,6 +10,7 @@ namespace Heddoko.Areas.HelpPage.Controllers
     /// <summary>
     /// The controller that will handle requests for the help page.
     /// </summary>
+    [Auth(Roles = DAL.Constants.Roles.Admin)]
     public class HelpController : Controller
     {
         private const string ErrorViewName = "Error";
