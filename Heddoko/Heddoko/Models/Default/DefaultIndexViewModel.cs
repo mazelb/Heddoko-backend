@@ -9,5 +9,8 @@ namespace Heddoko.Models
     public class DefaultIndexViewModel : BaseViewModel 
     {
         public Firmware Software { get; set; }
+
+        public Firmware Guide { get; set; }
+
     }
 }

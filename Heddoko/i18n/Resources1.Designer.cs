@@ -997,7 +997,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You become as admin of organization.
+        ///   Looks up a localized string similar to Welcome to Heddoko!.
         /// </summary>
         public static string EmailInviteAdminUserSubject {
             get {
@@ -1006,7 +1006,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You invited to organization.
+        ///   Looks up a localized string similar to Welcome to Heddoko!.
         /// </summary>
         public static string EmailInviteUserSubject {
             get {
@@ -1425,6 +1425,15 @@ namespace i18n {
         public static string GoodMorning {
             get {
                 return ResourceManager.GetString("GoodMorning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guide.
+        /// </summary>
+        public static string Guide {
+            get {
+                return ResourceManager.GetString("Guide", resourceCulture);
             }
         }
         
@@ -2469,6 +2478,15 @@ namespace i18n {
         public static string Required {
             get {
                 return ResourceManager.GetString("Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requirements.
+        /// </summary>
+        public static string Requirements {
+            get {
+                return ResourceManager.GetString("Requirements", resourceCulture);
             }
         }
         

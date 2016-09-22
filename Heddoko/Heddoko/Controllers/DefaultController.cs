@@ -12,7 +12,8 @@ namespace Heddoko.Controllers
         {
             DefaultIndexViewModel model = new DefaultIndexViewModel()
             {
-                Software = UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Software)
+                Software = UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Software),
+                Guide = UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Guide)
             };
 
             return View(model);

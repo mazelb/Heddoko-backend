@@ -1,0 +1,22 @@
+﻿@model Heddoko.Models.WelcomeEmailViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutEmail.cshtml";
+}
+
+Hello @Model.FirstName,
+<br /><br />
+Thanks for activating your account!
+<br />
+Please visit your dashboard at <a href="(@Heddoko.Config.DashboardSite)">@Heddoko.Config.DashboardSite</a> to:
+<br />
+<p style="text-indent: 4em;">
+1. Download the latest version of our software<br />
+2. View our User Guide, System Requirements and Specifications, and Customer Support Information
+</p>
+<br /><br />
+Need technical support? Visit <a href="@(Heddoko.Config.DashboardSite + $"/support")">@(Heddoko.Config.DashboardSite + $"/support")</a>
+<br /><br />
+Questions or feedback? Contact <a href="mailto:support@heddoko.com" rel="nofollow" target="_blank">support@heddoko.com</a>
+<br /><br />
+-the Heddoko Team
