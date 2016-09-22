@@ -3,6 +3,7 @@
     public enum OrganizationStatusType
     {
         Active,
-        Deleted
+        Deleted,
+        Pending
     }
 }

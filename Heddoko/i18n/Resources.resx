@@ -397,7 +397,7 @@
     <value>Username already used</value>
   </data>
   <data name="UserSignupMessage" xml:space="preserve">
-    <value>User have been created. We have sent email with activation link, please activate your account.</value>
+    <value>User have been created. We have sent request to administration, please check when your account will be approved</value>
   </data>
   <data name="And" xml:space="preserve">
     <value>and</value>
@@ -1361,5 +1361,23 @@
   </data>
   <data name="Requirements" xml:space="preserve">
     <value>Requirements</value>
+  </data>
+  <data name="UserIsNotApproved" xml:space="preserve">
+    <value>User is not approved</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="CantChangeInvite" xml:space="preserve">
+    <value>You can't change invite status</value>
+  </data>
+  <data name="CantChangePending" xml:space="preserve">
+    <value>You can't change pending status</value>
+  </data>
+  <data name="CantSetInvite" xml:space="preserve">
+    <value>You can't set invite status</value>
+  </data>
+  <data name="CantSetPending" xml:space="preserve">
+    <value>You can't set pending status</value>
   </data>
 </root>

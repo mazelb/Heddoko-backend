@@ -303,15 +303,30 @@ namespace Heddoko.Controllers
                 }
             }
 
-            if (model.Status.HasValue)
+            if (model.Status.HasValue
+             && item.Status != model.Status)
             {
-                if (item.Status != UserStatusType.Invited)
+                if (item.Status == UserStatusType.Invited)
                 {
-                    if (model.Status.Value != UserStatusType.Invited)
-                    {
-                        item.Status = model.Status.Value;
-                    }
+                    throw new Exception(Resources.CantChangeInvite);
                 }
+
+                if (model.Status == UserStatusType.Invited)
+                {
+                    throw new Exception(Resources.CantSetInvite);
+                }
+
+                if (item.Status == UserStatusType.Pending)
+                {
+                    throw new Exception(Resources.CantChangePending);
+                }
+
+                if (model.Status == UserStatusType.Pending)
+                {
+                    throw new Exception(Resources.CantSetPending);
+                }
+
+                item.Status = model.Status.Value;
             }
 
             if (model.TeamID.HasValue)

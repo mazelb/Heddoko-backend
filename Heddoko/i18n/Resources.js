@@ -94,7 +94,7 @@ i18n.Resources = (function () {
   "UsernameSuccessufullySent": "We have sent an email with your username.",
   "EmailUsed": "Email already used",
   "UsernameUsed": "Username already used",
-  "UserSignupMessage": "User have been created. We have sent email with activation link, please activate your account.",
+  "UserSignupMessage": "User have been created. We have sent request to administration, please check when your account will be approved",
   "And": "and",
   "Privacy": "privacy policy",
   "SignInInviteMessage": "Already have an account?",
@@ -415,7 +415,9 @@ i18n.Resources = (function () {
   "History": "History",
   "Date": "Date",
   "Guide": "Guide",
-  "Requirements": "Requirements"
+  "Requirements": "Requirements",
+  "UserIsNotApproved": "User is not approved",
+  "Approve": "Approve"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

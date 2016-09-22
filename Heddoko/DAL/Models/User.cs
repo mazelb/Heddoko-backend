@@ -190,6 +190,9 @@ namespace DAL.Models
         [JsonIgnore]
         public bool IsBanned => Status == UserStatusType.Banned;
 
+        [JsonIgnore]
+        public bool IsNotApproved => Status == UserStatusType.Pending;
+
         #endregion
     }
 }

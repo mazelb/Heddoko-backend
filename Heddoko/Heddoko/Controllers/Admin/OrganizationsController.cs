@@ -360,5 +360,42 @@ namespace Heddoko.Controllers
             }
             return true;
         }
+
+        [Route("approve")]
+        [HttpPost]
+        public bool Approve(OrganizationAdminAPIModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Organization organization = UoW.OrganizationRepository.GetFull(model.OrganizationID);
+
+                if (organization != null)
+                {
+                    if (organization.User.Status == UserStatusType.Pending)
+                    {
+                        organization.User.Status = UserStatusType.Active;
+
+                        organization.Status = OrganizationStatusType.Active;
+
+                        UoW.Save();
+
+                        UoW.UserRepository.ClearCache(organization.User);
+
+                        if (!string.IsNullOrEmpty(organization.User.ConfirmToken))
+                        {
+                            Task.Run(() => Mailer.SendActivationEmail(organization.User));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+            return true;
+        }
     }
 }

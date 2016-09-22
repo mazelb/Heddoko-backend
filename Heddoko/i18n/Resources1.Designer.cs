@@ -268,6 +268,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approve.
+        /// </summary>
+        public static string Approve {
+            get {
+                return ResourceManager.GetString("Approve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assemblies.
         /// </summary>
         public static string Assemblies {
@@ -570,6 +579,42 @@ namespace i18n {
         public static string CannotRemove {
             get {
                 return ResourceManager.GetString("CannotRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t change invite status.
+        /// </summary>
+        public static string CantChangeInvite {
+            get {
+                return ResourceManager.GetString("CantChangeInvite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t change pending status.
+        /// </summary>
+        public static string CantChangePending {
+            get {
+                return ResourceManager.GetString("CantChangePending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t set invite status.
+        /// </summary>
+        public static string CantSetInvite {
+            get {
+                return ResourceManager.GetString("CantSetInvite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t set pending status.
+        /// </summary>
+        public static string CantSetPending {
+            get {
+                return ResourceManager.GetString("CantSetPending", resourceCulture);
             }
         }
         
@@ -3427,6 +3472,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User is not approved.
+        /// </summary>
+        public static string UserIsNotApproved {
+            get {
+                return ResourceManager.GetString("UserIsNotApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {
@@ -3508,7 +3562,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User have been created. We have sent email with activation link, please activate your account..
+        ///   Looks up a localized string similar to User have been created. We have sent request to administration, please check when your account will be approved.
         /// </summary>
         public static string UserSignupMessage {
             get {
