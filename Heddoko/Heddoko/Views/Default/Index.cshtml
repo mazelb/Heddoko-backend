@@ -31,7 +31,7 @@
 
                         if (Model.Software != null)
                         {
-                            <div class="col-md-1"></div>
+                            <div class="col-md-2"></div>
                             <div class="col-md-2">
                                 <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
                                     <i class="fa fa-2x fa-download"></i>
@@ -45,7 +45,7 @@
                         }
                         else
                         {
-                            <div class="col-md-2"></div>
+                            <div class="col-md-3"></div>
                         }
                         <div class="col-md-2">
                             <a href="@Url.Action("Index", "Inventory")" class="btn-dashboard">
@@ -77,14 +77,12 @@
                             </a>
                         </div>
 
-
-
                         break;
                     case DAL.Models.UserRoleType.Analyst:
 
                         if (Model.Software != null)
                         {
-                            <div class="col-md-4"></div>
+                            <div class="col-md-5"></div>
                              <div class="col-md-2">
                                  <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
                                      <i class="fa fa-2x fa-download"></i>
@@ -98,14 +96,14 @@
                         }
                         else
                         {
-                            <div class="col-md-5"></div>
+                            <div class="col-md-6"></div>
                         }
                         break;
                     case DAL.Models.UserRoleType.LicenseAdmin:
 
                         if (Model.Software != null)
                         {
-                            <div class="col-md-3"></div>
+                            <div class="col-md-4"></div>
                             <div class="col-md-2">
                                 <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
                                     <i class="fa fa-2x fa-download"></i>
@@ -119,7 +117,7 @@
                         }
                         else
                         {
-                            <div class="col-md-4"></div>
+                            <div class="col-md-5"></div>
                         }
                         <div class="col-md-2">
                             <a href="@Url.Action("Index", "Organization")" class="btn-dashboard">
@@ -135,21 +133,12 @@
                         break;
                 }
 
-                <div class="col-md-2">
-                    <a href="@Url.Action("Index", "Support")" class="btn-dashboard">
-                        <i class="fa fa-2x fa-question"></i>
-                        <span>
-                            @i18n.Resources.Support
-                        </span>
-                        <span></span>
-                    </a>
-                </div>
             </div>
             <div class="row">
 
                 @if (Model.Guide != null)
                 {
-                    <div class="col-md-4"></div>
+                    <div class="col-md-3"></div>
                     <div class="col-md-2">
                         <a href="@Model.Guide.Asset.Url" target="_blank" class="btn-dashboard">
                             <i class="fa fa-2x fa-info-circle"></i>
@@ -163,7 +152,7 @@
                 }
                 else
                 { 
-                    <div class="col-md-5"></div>
+                    <div class="col-md-4"></div>
                 }
 
                 <div class="col-md-2">
@@ -176,6 +165,15 @@
                     </a>
                 </div>
 
+                <div class="col-md-2">
+                    <a href="@Url.Action("Index", "Support")" class="btn-dashboard">
+                        <i class="fa fa-2x fa-question"></i>
+                        <span>
+                            @i18n.Resources.Support
+                        </span>
+                        <span></span>
+                    </a>
+                </div>
                 
             </div>
         }
