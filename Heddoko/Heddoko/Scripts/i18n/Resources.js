@@ -417,7 +417,11 @@ i18n.Resources = (function () {
   "Guide": "Guide",
   "Requirements": "Requirements",
   "UserIsNotApproved": "User is not approved",
-  "Approve": "Approve"
+  "Approve": "Approve",
+  "CantChangeInvite": "You can't change invite status",
+  "CantChangePending": "You can't change pending status",
+  "CantSetInvite": "You can't set invite status",
+  "CantSetPending": "You can't set pending status"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());
