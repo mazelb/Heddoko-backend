@@ -15,11 +15,9 @@ namespace DAL
 
         public IEnumerable<Organization> All(bool isDeleted = false)
         {
-            OrganizationStatusType status = isDeleted ? OrganizationStatusType.Deleted : OrganizationStatusType.Active;
-
             return DbSet.Include(c => c.User)
                         .Include(c => c.Licenses)
-                        .Where(c => c.Status == status)
+                        .Where(c => isDeleted ? c.Status == OrganizationStatusType.Deleted : c.Status != OrganizationStatusType.Deleted)
                         .OrderBy(c => c.Name);
         }
 
@@ -28,7 +26,7 @@ namespace DAL
             return DbSet.Include(c => c.User)
                         .Include(c => c.Licenses)
                         .Where(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
-                        .FirstOrDefault(c => c.Status == OrganizationStatusType.Active);
+                        .FirstOrDefault();
         }
 
         public override Organization GetFull(int id)
@@ -40,11 +38,9 @@ namespace DAL
 
         public IEnumerable<Organization> Search(string value, bool isDeleted = false)
         {
-            OrganizationStatusType status = isDeleted ? OrganizationStatusType.Deleted : OrganizationStatusType.Active;
-
             return DbSet.Include(c => c.User)
                         .Include(c => c.Licenses)
-                        .Where(c => c.Status == status)
+                        .Where(c => isDeleted ? c.Status == OrganizationStatusType.Deleted : c.Status != OrganizationStatusType.Deleted)
                         .Where(c => c.ID.ToString().ToLower().Contains(value.ToLower())
                                     || c.Name.ToLower().Contains(value.ToLower())
                                     || c.Address.ToLower().Contains(value.ToLower())

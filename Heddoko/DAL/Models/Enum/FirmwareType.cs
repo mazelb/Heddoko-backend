@@ -6,6 +6,7 @@
         Powerboard,
         Databoard,
         Software,
-        Sensor
+        Sensor,
+        Guide
     }
 }

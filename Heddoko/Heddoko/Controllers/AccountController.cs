@@ -86,6 +86,10 @@ namespace Heddoko.Controllers
                     {
                         ModelState.AddModelError(string.Empty, Resources.UserIsBanned);
                     }
+                    else if (user.IsNotApproved)
+                    {
+                        ModelState.AddModelError(string.Empty, Resources.UserIsNotApproved);
+                    }
                     else
                     {
                         ModelState.AddModelError(string.Empty, Resources.UserIsNotActive);
@@ -272,7 +276,7 @@ namespace Heddoko.Controllers
                             organization.Name = model.OrganizationName.Trim();
                             organization.Phone = model.Phone.Trim();
                             organization.Address = model.Address.Trim();
-                            organization.Status = OrganizationStatusType.Active;
+                            organization.Status = OrganizationStatusType.Pending;
 
 
                             user = new User();
@@ -284,7 +288,7 @@ namespace Heddoko.Controllers
                             user.Country = model.Country;
                             user.BirthDay = model.Birthday;
                             user.PhoneNumber = model.Phone.Trim();
-                            user.Status = UserStatusType.NotActive;
+                            user.Status = UserStatusType.Pending;
 
                             Passphrase pwd = PasswordHasher.Hash(model.Password);
 
@@ -301,7 +305,6 @@ namespace Heddoko.Controllers
                             user.Organization = organization;
                             UoW.Save();
 
-                            Task.Run(() => Mailer.SendActivationEmail(user));
                             BaseViewModel modelStatus = new BaseViewModel();
 
                             modelStatus.Flash.Add(new FlashMessage

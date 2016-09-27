@@ -18,6 +18,7 @@
         ObjectWasDeleted,
         LicenseIsNotReady,
         KitID,
-        AssetType
+        AssetType,
+        UserIsNotApproved
     }
 }

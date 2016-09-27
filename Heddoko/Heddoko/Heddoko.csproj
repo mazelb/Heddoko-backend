@@ -889,6 +889,7 @@
     <Content Include="Views\Organization\_Teams.cshtml" />
     <Content Include="Views\Inventory\_NotesHistory.cshtml" />
     <Content Include="Views\Email\WelcomeUserEmail.cshtml" />
+    <Content Include="Views\Static\Requirements.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

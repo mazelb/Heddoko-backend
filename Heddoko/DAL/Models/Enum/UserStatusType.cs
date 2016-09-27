@@ -6,6 +6,7 @@
         Active = 1,
         Banned = 2,
         Deleted = 3,
-        Invited = 4
+        Invited = 4,
+        Pending = 5
     }
 }

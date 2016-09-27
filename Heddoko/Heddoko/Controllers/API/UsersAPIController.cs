@@ -78,6 +78,11 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.UserIsBanned, Resources.UserIsBanned);
             }
 
+            if (user.IsNotApproved)
+            {
+                throw new APIException(ErrorAPIType.UserIsNotApproved, Resources.UserIsNotApproved);
+            }
+
             if (user.IsActive)
             {
                 //if (!PasswordHasher.Equals(model.Password?.Trim(), user.Salt, user.Password))
