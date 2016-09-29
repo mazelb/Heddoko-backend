@@ -37,46 +37,46 @@ namespace DAL.Migrations
             //    return;
             //}
 
-            context.Users.AddOrUpdate(
-                p => p.Email,
-                new User
-                {
-                    Email = "ss@a2a.co",
-                    UserName = "ss",
-                    Status = UserStatusType.Active,
-                    FirstName = "S",
-                    LastName = "S",
-                    Role = UserRoleType.Admin
-                },
-                new User
-                {
-                    Email = "admin@heddoko.com",
-                    UserName = "heddoko.admin",
-                    Status = UserStatusType.Active,
-                    FirstName = "Admin",
-                    LastName = "",
-                    Role = UserRoleType.Admin
-                },
-                new User
-                {
-                    Email = "support@heddoko.com",
-                    UserName = "heddoko.support",
-                    Status = UserStatusType.Active,
-                    FirstName = "Support",
-                    LastName = "",
-                    Role = UserRoleType.Admin
-                },
-                new User
-                {
-                    Email = "ankit@heddoko.com",
-                    UserName = "ankit.heddoko",
-                    Status = UserStatusType.Active,
-                    FirstName = "Ankit",
-                    LastName = "Vasu",
-                    Role = UserRoleType.Admin
-                }
-                );
-            context.SaveChanges();
+        //    context.Users.AddOrUpdate(
+        //        p => p.Email,
+        //        new User
+        //        {
+        //            Email = "ss@a2a.co",
+        //            UserName = "ss",
+        //            Status = UserStatusType.Active,
+        //            FirstName = "S",
+        //            LastName = "S",
+        //            Role = UserRoleType.Admin
+        //        },
+        //        new User
+        //        {
+        //            Email = "admin@heddoko.com",
+        //            UserName = "heddoko.admin",
+        //            Status = UserStatusType.Active,
+        //            FirstName = "Admin",
+        //            LastName = "",
+        //            Role = UserRoleType.Admin
+        //        },
+        //        new User
+        //        {
+        //            Email = "support@heddoko.com",
+        //            UserName = "heddoko.support",
+        //            Status = UserStatusType.Active,
+        //            FirstName = "Support",
+        //            LastName = "",
+        //            Role = UserRoleType.Admin
+        //        },
+        //        new User
+        //        {
+        //            Email = "ankit@heddoko.com",
+        //            UserName = "ankit.heddoko",
+        //            Status = UserStatusType.Active,
+        //            FirstName = "Ankit",
+        //            LastName = "Vasu",
+        //            Role = UserRoleType.Admin
+        //        }
+        //        );
+        //    context.SaveChanges();
         }
     }
 }
