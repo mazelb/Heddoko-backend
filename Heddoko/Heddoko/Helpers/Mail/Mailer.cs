@@ -47,7 +47,7 @@ namespace Heddoko
             {
                 Token = user.InviteToken,
                 FirstName = user.Name,
-                OrganizationName = user.Organization.Name
+                OrganizationName = user.Organization?.Name
             };
 
             string subject = Resources.EmailInviteUserSubject;
