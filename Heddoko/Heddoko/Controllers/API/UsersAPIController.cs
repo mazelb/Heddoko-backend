@@ -87,7 +87,7 @@ namespace Heddoko.Controllers.API
 
                 if (user.License == null)
                 {
-                    throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.UserIsBanned);
+                    throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.LicenseIsNotReady);
                 }
 
                 if (user.License.Validate())
