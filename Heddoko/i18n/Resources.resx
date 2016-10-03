@@ -1357,6 +1357,6 @@
     <value>Date</value>
   </data>
   <data name="LicenseIsNotReady" xml:space="preserve">
-    <value>License is not assigned on your. Please notify organization admin.</value>
+    <value>License is not assigned on you. Please notify organization admin.</value>
   </data>
 </root>
