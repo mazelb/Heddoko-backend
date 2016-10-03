@@ -422,6 +422,8 @@ i18n.Resources = (function () {
   "CantChangePending": "You can't change pending status",
   "CantSetInvite": "You can't set invite status",
   "CantSetPending": "You can't set pending status"
+  "Date": "Date",
+  "LicenseIsNotReady": "License is not assigned on your. Please notify organization admin."
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

@@ -1753,7 +1753,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to License is not assigned on your. Please notify organization admin..
+        ///   Looks up a localized string similar to License is not assigned on you. Please notify organization admin..
         /// </summary>
         public static string LicenseIsNotReady {
             get {
