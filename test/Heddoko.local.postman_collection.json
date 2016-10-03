@@ -94,6 +94,20 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "send admin invite",
+					"request": {
+						"url": "http://dev.hed.com/api/v1/development/sendadminInvite/",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -129,7 +143,7 @@
 				{
 					"name": "User sigin",
 					"request": {
-						"url": "http://dev.heddoko.com/api/v1/users/signin",
+						"url": "http://dev.hed.com/api/v1/users/signin",
 						"method": "POST",
 						"header": [
 							{
@@ -166,6 +180,31 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    'username' : 'ss',\n    'password': 'p@ssword'\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get list",
+					"request": {
+						"url": "http://dev.hed.com/api/v1/users/list/100/0",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "token",
+								"value": "28b627576c013b774813c7376ee7d30d",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
 						},
 						"description": ""
 					},

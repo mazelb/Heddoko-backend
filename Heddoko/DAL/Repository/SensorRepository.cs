@@ -15,6 +15,11 @@ namespace DAL
         {
         }
 
+        public Sensor Get(string label)
+        {
+            return DbSet.FirstOrDefault(c => c.Label.Equals(label, StringComparison.OrdinalIgnoreCase));
+        }
+
         public override Sensor GetFull(int id)
         {
             return DbSet.Include(c => c.Firmware)

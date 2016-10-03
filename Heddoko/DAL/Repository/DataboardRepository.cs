@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using DAL.Models;
+using System;
 
 namespace DAL
 {
@@ -10,6 +11,11 @@ namespace DAL
         public DataboardRepository(HDContext sb)
             : base(sb)
         {
+        }
+
+        public Databoard Get(string label)
+        {
+            return DbSet.FirstOrDefault(c => c.Label.Equals(label, StringComparison.OrdinalIgnoreCase));
         }
 
         public override Databoard GetFull(int id)

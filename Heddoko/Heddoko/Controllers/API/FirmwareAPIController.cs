@@ -35,9 +35,10 @@ namespace Heddoko.Controllers.API
         [HttpPost]
         public Firmware UpdateFirmware(FirmwareAPIViewModel model)
         {
-            if (!model.ID.HasValue)
+            if (!model.ID.HasValue 
+              && string.IsNullOrEmpty(model.Label))
             {
-                throw new APIException(ErrorAPIType.ObjectNotFound, $"{Resources.NotFound} ID");
+                throw new APIException(ErrorAPIType.ObjectNotFound, $"{Resources.NotFound} ID or Label");
             }
 
             if (!model.FirmwareID.HasValue)
@@ -50,7 +51,7 @@ namespace Heddoko.Controllers.API
             switch (firmware.Type)
             {
                 case FirmwareType.Brainpack:
-                    Brainpack brainpack = UoW.BrainpackRepository.Get(model.ID.Value);
+                    Brainpack brainpack = model.ID.HasValue ? UoW.BrainpackRepository.Get(model.ID.Value) : UoW.BrainpackRepository.Get(model.Label);
                     if (brainpack == null)
                     {
                         throw new APIException(ErrorAPIType.ObjectNotFound, $"{Resources.NotFound} {Resources.Brainpack}");
@@ -59,7 +60,7 @@ namespace Heddoko.Controllers.API
                     brainpack.Firmware = firmware;
                     break;
                 case FirmwareType.Sensor:
-                    Sensor sensor = UoW.SensorRepository.Get(model.ID.Value);
+                    Sensor sensor = model.ID.HasValue ? UoW.SensorRepository.Get(model.ID.Value) : UoW.SensorRepository.Get(model.Label);
                     if (sensor == null)
                     {
                         throw new APIException(ErrorAPIType.ObjectNotFound, $"{Resources.NotFound} {Resources.Sensor}");
@@ -68,7 +69,7 @@ namespace Heddoko.Controllers.API
                     sensor.Firmware = firmware;
                     break;
                 case FirmwareType.Powerboard:
-                    Powerboard powerboard = UoW.PowerboardRepository.Get(model.ID.Value);
+                    Powerboard powerboard = model.ID.HasValue ? UoW.PowerboardRepository.Get(model.ID.Value) : UoW.PowerboardRepository.Get(model.Label);
 
                     if (powerboard == null)
                     {
@@ -78,7 +79,7 @@ namespace Heddoko.Controllers.API
                     powerboard.Firmware = firmware;
                     break;
                 case FirmwareType.Databoard:
-                    Databoard databoard = UoW.DataboardRepository.Get(model.ID.Value);
+                    Databoard databoard = model.ID.HasValue ? UoW.DataboardRepository.Get(model.ID.Value) : UoW.DataboardRepository.Get(model.Label);
 
                     if (databoard == null)
                     {

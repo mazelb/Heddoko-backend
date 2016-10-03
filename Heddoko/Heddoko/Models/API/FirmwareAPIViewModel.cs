@@ -9,6 +9,8 @@ namespace Heddoko.Models
     {
         public int? ID { get; set; }
 
+        public string Label { get; set; }
+
         public int? FirmwareID { get; set; }
 
         public FirmwareType? Type { get; set; }
