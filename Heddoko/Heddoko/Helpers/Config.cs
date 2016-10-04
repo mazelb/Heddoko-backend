@@ -14,6 +14,8 @@ namespace Heddoko
 
         public static string MailFrom => ConfigurationManager.AppSettings["MailFrom"];
 
+        public static string CIUploadToken => ConfigurationManager.AppSettings["CIUploadToken"];
+
         #region Host
 
         private static string Host { get; set; }

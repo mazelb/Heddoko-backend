@@ -414,6 +414,7 @@ i18n.Resources = (function () {
   "Teams": "Teams",
   "History": "History",
   "Date": "Date",
+  "LicenseIsNotReady": "License is not assigned on you. Please notify organization admin.",
   "Guide": "Guide",
   "Requirements": "Requirements",
   "UserIsNotApproved": "User is not approved",
@@ -422,8 +423,6 @@ i18n.Resources = (function () {
   "CantChangePending": "You can't change pending status",
   "CantSetInvite": "You can't set invite status",
   "CantSetPending": "You can't set pending status"
-  "Date": "Date",
-  "LicenseIsNotReady": "License is not assigned on your. Please notify organization admin."
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

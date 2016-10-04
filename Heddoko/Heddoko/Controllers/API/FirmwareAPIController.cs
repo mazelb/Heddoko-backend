@@ -2,6 +2,14 @@
 using DAL.Models;
 using Heddoko.Models;
 using i18n;
+using System.Net;
+using System.Net.Http;
+using System.Web;
+using Newtonsoft.Json;
+using DAL;
+using Services;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Heddoko.Controllers.API
 {
@@ -35,7 +43,7 @@ namespace Heddoko.Controllers.API
         [HttpPost]
         public Firmware UpdateFirmware(FirmwareAPIViewModel model)
         {
-            if (!model.ID.HasValue 
+            if (!model.ID.HasValue
               && string.IsNullOrEmpty(model.Label))
             {
                 throw new APIException(ErrorAPIType.ObjectNotFound, $"{Resources.NotFound} ID or Label");
@@ -102,6 +110,72 @@ namespace Heddoko.Controllers.API
         public Firmware CheckSoftware()
         {
             return UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Software);
+        }
+
+        [Route("upload/{token}/{version}")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<bool> UploadSoftware(string token, string version)
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            MultipartFormDataStreamProvider provider = new MultipartFormDataStreamProvider(root);
+            await Request.Content.ReadAsMultipartAsync(provider);
+
+            if (string.IsNullOrEmpty(token))
+            {
+                throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.NotFound} token");
+            }
+
+            if (!Config.CIUploadToken.Equals(token))
+            {
+                throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess}");
+            }
+
+            if (string.IsNullOrEmpty(version))
+            {
+                throw new APIException(ErrorAPIType.Error, $"{Resources.NotFound} version");
+            }
+
+            Firmware item = new Firmware()
+            {
+                Type = FirmwareType.Software,
+                Version = version?.Trim(),
+                Status = FirmwareStatusType.Active
+            };
+
+
+            UoW.FirmwareRepository.Create(item);
+
+            Asset asset = new Asset
+            {
+                Type = AssetType.Firmware,
+                Proccessing = AssetProccessingType.None,
+                Status = UploadStatusType.New
+            };
+
+            foreach (MultipartFileData file in provider.FileData)
+            {
+                asset.Name = file.Headers.ContentDisposition.FileName;
+                string path = AssetManager.Path($"{item.ID}/{asset.Name}", asset.Type);
+
+                Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
+                File.Delete(file.LocalFileName);
+
+                asset.Image = $"/{path}";
+                break;
+            }
+
+            asset.Status = UploadStatusType.Uploaded;
+            UoW.AssetRepository.Add(asset);
+            item.Asset = asset;
+            UoW.Save();
+
+
+            return true;
         }
     }
 }
