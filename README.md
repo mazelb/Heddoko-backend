@@ -15,4 +15,4 @@ Update-Database –TargetMigration: $InitialDatabase
 
 3. Upload sowftware via Powershel script
 
-upload-desktop-app.ps1 -version 1.1 -file c:\users\file.exe
+upload-desktop-app.ps1 -version 1.1 -file c:\users\file.exe -server http://dev.app.heddoko.com
