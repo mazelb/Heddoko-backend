@@ -147,7 +147,7 @@ namespace Heddoko.Controllers
                         user.LastName = model.LastName?.Trim();
                         user.Country = model.Country?.Trim();
                         user.BirthDay = model.Birthday;
-                        user.Phone = model.Phone;
+                        user.Phone = model.Phone?.Trim();
                         user.Status = UserStatusType.Active;
                         user.InviteToken = null;
                         Passphrase pwd = PasswordHasher.Hash(model.Password?.Trim());
@@ -231,7 +231,7 @@ namespace Heddoko.Controllers
                         {
                             organization = new Organization();
                             organization.Name = model.OrganizationName.Trim();
-                            organization.Phone = model.Phone.Trim();
+                            organization.Phone = model.Phone?.Trim();
                             organization.Address = model.Address.Trim();
                             organization.Status = OrganizationStatusType.Pending;
 
@@ -323,11 +323,11 @@ namespace Heddoko.Controllers
                 }
                 else
                 {
-                    CurrentUser.FirstName = model.FirstName;
-                    CurrentUser.Username = model.Username?.ToLower();
-                    CurrentUser.LastName = model.LastName;
-                    CurrentUser.Phone = model.Phone;
-                    CurrentUser.Country = model.Country;
+                    CurrentUser.FirstName = model.FirstName?.Trim();
+                    CurrentUser.Username = model.Username?.Trim().ToLower();
+                    CurrentUser.LastName = model.LastName?.Trim();
+                    CurrentUser.Phone = model.Phone?.Trim();
+                    CurrentUser.Country = model.Country?.Trim();
                     CurrentUser.BirthDay = model.Birthday;
 
                     if (!string.IsNullOrEmpty(model.NewPassord))
