@@ -38,7 +38,7 @@ namespace DAL.Migrations
             //}
 
             context.Users.AddOrUpdate(
-                p => p.Email,
+                p => p.Username,
                 new User
                 {
                     Email = "ss@a2a.co",
@@ -46,7 +46,7 @@ namespace DAL.Migrations
                     Status = UserStatusType.Active,
                     Password = pwd.Hash,
                     Salt = pwd.Salt,
-                    FirstName = "S",
+                    FirstName = "S2",
                     LastName = "S",
                     Role = UserRoleType.Admin
                 },
