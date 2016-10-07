@@ -1,5 +1,6 @@
 ﻿namespace Heddoko
 {
+    //sync with Heddoko.DAL
     public enum ErrorAPIType
     {
         Info,

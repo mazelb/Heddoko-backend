@@ -130,6 +130,7 @@ namespace DAL
                         .Include(c => c.Team)
                         .Include(c => c.License)
                         .Include(c => c.Kits)
+                        .Include(c => c.Kits.Select(k => k.Brainpack))
                         .FirstOrDefault(c => c.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
