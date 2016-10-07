@@ -67,7 +67,8 @@ namespace Heddoko.Controllers.API
                             }
                             break;
                         case "serial":
-                            model.Serial = val;
+                        case "label":
+                            model.Label = val;
                             break;
                         case "type":
                             AssetType typeTmp;
@@ -108,9 +109,9 @@ namespace Heddoko.Controllers.API
             }
 
             if (kit == null
-            && !string.IsNullOrEmpty(model.Serial))
+            && !string.IsNullOrEmpty(model.Label))
             {
-                kit = UoW.KitRepository.Get(model.Serial);
+                kit = UoW.KitRepository.Get(model.Label);
             }
 
             if (kit == null)

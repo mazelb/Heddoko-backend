@@ -122,15 +122,15 @@ namespace DAL
             return DbSet.Count(c => c.Status == EquipmentStatusType.Ready);
         }
 
-        public Kit Get(string value)
+        public Kit Get(string label)
         {
-            int? id = value.ParseID();
+            int? id = label.ParseID();
 
             return DbSet.Include(c => c.User)
                         .Include(c => c.User.Team)
                         .FirstOrDefault(c => (c.ID == id)
-                                             || c.Label.ToLower().Contains(value.ToLower())
-                                             || c.Brainpack.Label.ToLower().Contains(value.ToLower()));
+                                             || c.Label.ToLower().Contains(label.ToLower())
+                                             || c.Brainpack.Label.ToLower().Contains(label.ToLower()));
         }
 
         public override Kit Get(int id)

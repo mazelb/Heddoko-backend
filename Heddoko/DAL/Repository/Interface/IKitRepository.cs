@@ -6,7 +6,7 @@ namespace DAL
 {
     public interface IKitRepository : IBaseRepository<Kit>, IHistoryRepository<Kit>
     {
-        Models.Kit Get(string value);
+        Models.Kit Get(string label);
         IEnumerable<Kit> Search(string value, int? statusFilter = null, bool isDeleted = false, int? organizationID = null);
         IEnumerable<Kit> All(bool isDeleted, int? organizationID = null);
         IEnumerable<Kit> GetAvailable(int? usedID, int? organizationID = null);
