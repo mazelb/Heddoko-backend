@@ -30,6 +30,7 @@ namespace DAL
         public IEnumerable<Sensor> All(bool isDeleted)
         {
             return DbSet.Include(c => c.Firmware)
+                        .Include(c => c.SensorSet)
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                         .OrderBy(c => c.ID);
         }
@@ -44,7 +45,8 @@ namespace DAL
         public IEnumerable<Sensor> Search(string search, int? statusFilter = null, bool isDeleted = false)
         {
             IQueryable<Sensor> query = DbSet
-                        .Include(c => c.Firmware);
+                        .Include(c => c.Firmware)
+                        .Include(c => c.SensorSet);
 
             if (!string.IsNullOrEmpty(search))
             {
@@ -59,7 +61,7 @@ namespace DAL
             if (statusFilter.HasValue)
             {
                 query = query.Where(c => c.Status == (EquipmentStatusType)statusFilter);
-            }          
+            }
             query = query.OrderBy(c => c.ID);
 
             return query;
