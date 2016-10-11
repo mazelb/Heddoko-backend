@@ -20,3 +20,5 @@
 /Heddoko/Heddoko/Properties/PublishProfiles/prod.pubxml.user
 /Heddoko/Heddoko.sln.DotSettings.user
 /redis.flush.live.cmd
+/Heddoko/ImportConsole/obj
+/Heddoko/ImportConsole/bin

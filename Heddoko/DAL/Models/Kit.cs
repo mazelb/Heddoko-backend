@@ -49,7 +49,6 @@ namespace DAL.Models
         [JsonIgnore]
         public int? BrainpackID { get; set; }
 
-        [JsonIgnore]
         public virtual Brainpack Brainpack { get; set; }
 
         [JsonIgnore]

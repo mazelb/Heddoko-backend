@@ -9,7 +9,7 @@ namespace Heddoko.Models
     {
         public int? KitID { get; set; }
 
-        public string Serial { get; set; }
+        public string Label { get; set; }
 
         public AssetType Type { get; set; }
     }

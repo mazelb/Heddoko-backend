@@ -1753,6 +1753,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to License is not assigned on you. Please notify organization admin..
+        /// </summary>
+        public static string LicenseIsNotReady {
+            get {
+                return ResourceManager.GetString("LicenseIsNotReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licenses.
         /// </summary>
         public static string Licenses {

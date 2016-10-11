@@ -84,7 +84,21 @@
 				{
 					"name": "flush redis",
 					"request": {
-						"url": "http://app.heddoko.com/api/v1/development/pending-db",
+						"url": "https://app.heddoko.com/api/v1/development/flush",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "send admin invite",
+					"request": {
+						"url": "https://app.heddoko.com/api/v1/development/sendadminInvite/41",
 						"method": "GET",
 						"header": [],
 						"body": {

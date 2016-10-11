@@ -5,6 +5,7 @@ namespace DAL
 {
     public interface IBrainpackRepository : IBaseRepository<Brainpack>, IHistoryRepository<Brainpack>
     {
+        Brainpack Get(string label);
         void RemoveDataboard(int databoardID);
         void RemovePowerboard(int id);
         IEnumerable<Brainpack> GetAvailable(int? usedID);

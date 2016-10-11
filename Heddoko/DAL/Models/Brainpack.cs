@@ -9,6 +9,7 @@ namespace DAL.Models
     public class Brainpack : BaseModel, IAuditable, ISoftDelete
     {
         [StringLength(255)]
+        [JsonIgnore]
         public string Location { get; set; }
 
         [StringLength(255)]
@@ -18,13 +19,17 @@ namespace DAL.Models
         [StringLength(255)]
         public string Label { get; set; }
 
+        [JsonIgnore]
         public string Notes { get; set; }
 
+        [JsonIgnore]
         public EquipmentStatusType Status { get; set; }
 
+        [JsonIgnore]
         public BrainpackQAStatusType QAStatus { get; set; }
 
         #region NotMapped
+        [JsonIgnore]
         bool ISoftDelete.IsDeleted => Status == EquipmentStatusType.Trash;
         public string IDView => $"BP{ID.ToString(Constants.PadZero)}";
 

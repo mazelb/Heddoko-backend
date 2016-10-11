@@ -15,6 +15,10 @@ namespace DAL
         {
         }
 
+        public Brainpack Get(string label)
+        {
+            return DbSet.FirstOrDefault(c => c.Label.Equals(label, StringComparison.OrdinalIgnoreCase));
+        }
 
         public override Brainpack GetFull(int id)
         {
@@ -77,5 +81,6 @@ namespace DAL
         {
             return DbSet.Where(c => c.Status == EquipmentStatusType.Ready).Count();
         }
+
     }
 }

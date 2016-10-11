@@ -5,6 +5,9 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using Services;
+using System;
+using System.Threading.Tasks;
+using DAL.Models;
 
 namespace Heddoko.Controllers.API
 {
@@ -49,6 +52,29 @@ namespace Heddoko.Controllers.API
         public IHttpActionResult Flush()
         {
             RedisManager.Flush();
+            return Ok();
+        }
+
+        [Route("sendadminInvite/{id:int}")]
+        [HttpGet]
+        public IHttpActionResult SendAdminInvite(int id)
+        {
+            UnitOfWork uow = new UnitOfWork(new HDContext());
+
+            User user = uow.UserRepository.Get(id);
+
+            if (user.OrganizationID.HasValue)
+            {
+                user.Status = UserStatusType.Invited;
+                user.InviteToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString());
+                uow.Save();
+                uow.UserRepository.ClearCache(user);
+
+                Organization organization = uow.OrganizationRepository.GetFull(user.OrganizationID.Value);
+
+                Task.Run(() => Mailer.SendInviteAdminEmail(organization));
+            }
+
             return Ok();
         }
 

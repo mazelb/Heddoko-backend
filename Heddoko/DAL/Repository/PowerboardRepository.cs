@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using DAL.Models;
+using System;
 
 namespace DAL
 {
@@ -12,6 +13,10 @@ namespace DAL
         {
         }
 
+        public Powerboard Get(string label)
+        {
+            return DbSet.FirstOrDefault(c => c.Label.Equals(label, StringComparison.OrdinalIgnoreCase));
+        }
 
         public override Powerboard GetFull(int id)
         {
