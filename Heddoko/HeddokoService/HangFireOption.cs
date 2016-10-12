@@ -16,11 +16,13 @@ namespace HeddokoService
 
     class HangFireOptions
     {
+        private const int QueuePollInterval = 1;
+
         public static HangFireOption Get()
         {
             SqlServerStorageOptions optionsSql = new SqlServerStorageOptions
             {
-                QueuePollInterval = TimeSpan.FromSeconds(1)
+                QueuePollInterval = TimeSpan.FromSeconds(QueuePollInterval)
             };
             HangFireOption option = new HangFireOption();
             option.Storage = new SqlServerStorage(DAL.Config.ConnectionString, optionsSql);
