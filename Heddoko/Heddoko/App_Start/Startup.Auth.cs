@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using DAL.Models;
 using Services;
+using Services.MailSending;
 
 namespace Heddoko
 {
@@ -17,7 +18,7 @@ namespace Heddoko
     {
         public void ConfigureAuth(IAppBuilder app)
         {
-            app.CreatePerOwinContext(EmailServiceActivator.Create);
+            app.CreatePerOwinContext(ProxyEmailService.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 

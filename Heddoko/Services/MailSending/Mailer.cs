@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using DAL;
 using DAL.Models;
 using i18n;
@@ -17,12 +18,12 @@ namespace Services.MailSending
             razorView = new RazorView(EmailTemplatesFolder, LayoutViewName);
         }
 
-        public static void SendActivationEmail(User user)
+        public static void SendActivationEmail(User user, string code)
         {
             var mailModel = new ActivationUserEmailViewModel
             {
                 FirstName = user.FirstName,
-                ActivationUrl = $"{Config.DashboardSite}/confirm/{user.ConfirmToken}"
+                ActivationUrl = $"{Config.DashboardSite}/confirm/{user.Id}/{code}"
             };
 
             string subject = Resources.EmailActivationUserSubject;
@@ -89,7 +90,7 @@ namespace Services.MailSending
         {
             var mailModel = new ForgotPasswordEmailViewModel
             {
-                Username = user.Username,
+                Username = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName
             };
@@ -139,7 +140,7 @@ namespace Services.MailSending
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Username = user.Username
+                Username = user.UserName
             };
 
             string subject = Resources.EmailActivatedSubject;

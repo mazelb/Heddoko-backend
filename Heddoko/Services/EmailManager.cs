@@ -1,4 +1,5 @@
-﻿using DAL;
+﻿using System.Web;
+using DAL;
 using DAL.Models;
 using Hangfire;
 using Services.MailSending;
@@ -6,15 +7,15 @@ using Services.MailSending.Models;
 
 namespace Services
 {
-    public class EmailManager
+    public static class EmailManager
     {
         [Queue(Constants.HangFireQueue.Email)]
-        public static void SendActivationEmail(int userId)
+        public static void SendActivationEmail(int userId, string code)
         {
             UnitOfWork uow = new UnitOfWork();
             User user = uow.UserRepository.GetIDCached(userId);
 
-            Mailer.SendActivationEmail(user);
+            Mailer.SendActivationEmail(user, code);
         }
 
         [Queue(Constants.HangFireQueue.Email)]

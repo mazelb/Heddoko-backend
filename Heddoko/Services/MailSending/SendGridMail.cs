@@ -9,12 +9,17 @@ using SendGrid.Helpers.Mail;
 
 namespace Services.MailSending
 {
-    public class SendGridMail
+    public static class SendGridMail
     {
         private const string TypeHtml = "text/html";
         private const string Disposition = "attachment";
 
-        public static void Send(string subject, string body, string mailTo = "", IEnumerable<HttpPostedFileBase> attachments = null, string mailFrom = null, bool enableTracking = true)
+        public static void Send(string subject,
+                                string body,
+                                string mailTo = "",
+                                IEnumerable<HttpPostedFileBase> attachments = null,
+                                string mailFrom = null,
+                                bool enableTracking = true)
         {
             try
             {
@@ -54,16 +59,16 @@ namespace Services.MailSending
 
                 if (enableTracking)
                 {
-                    mail.TrackingSettings = new TrackingSettings();
-
-                    mail.TrackingSettings.ClickTracking = new ClickTracking()
+                    mail.TrackingSettings = new TrackingSettings
                     {
-                        Enable = true
-                    };
-
-                    mail.TrackingSettings.OpenTracking = new OpenTracking()
-                    {
-                        Enable = true
+                        ClickTracking = new ClickTracking()
+                        {
+                            Enable = true
+                        },
+                        OpenTracking = new OpenTracking()
+                        {
+                            Enable = true
+                        }
                     };
                 }
 

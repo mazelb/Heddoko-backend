@@ -20,18 +20,16 @@ namespace DAL
 
         public UnitOfWork UoW { get; set; }
 
-        public UserStore UserStore
-        {
-            get
-            {
-                return Store as UserStore;
-            }
-        }
+        public UserStore UserStore => Store as UserStore;
+
+        public EmailService UserEmailService => EmailService as EmailService;
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            ApplicationUserManager manager = new ApplicationUserManager(new UserStore(context.Get<UnitOfWork>().Context));
-            manager.UoW = context.Get<UnitOfWork>();
+            ApplicationUserManager manager = new ApplicationUserManager(new UserStore(context.Get<UnitOfWork>().Context))
+            {
+                UoW = context.Get<UnitOfWork>()
+            };
 
             manager.UserValidator = new UserValidator<User, int>(manager)
             {
@@ -149,6 +147,41 @@ namespace DAL
         public User FindByEmailCached(string email)
         {
             return UserStore.FindByEmailCached(email);
+        }
+
+        public void SendActivationEmail(int userId, string code)
+        {
+            UserEmailService.Service.SendActivationEmail(userId, code);
+        }
+
+        public void SendInviteAdminEmail(int organizationId)
+        {
+            UserEmailService.Service.SendInviteAdminEmail(organizationId);
+        }
+
+        public void SendInviteEmail(int userId)
+        {
+            UserEmailService.Service.SendInviteEmail(userId);
+        }
+
+        public void SendForgotPasswordEmail(int userId)
+        {
+            UserEmailService.Service.SendForgotPasswordEmail(userId);
+        }
+
+        public void SendForgotUsernameEmail(int userId)
+        {
+            UserEmailService.Service.SendForgotUsernameEmail(userId);
+        }
+
+        public void SendSupportEmail(ISupportEmailViewModel model)
+        {
+            UserEmailService.Service.SendSupportEmail(model);
+        }
+
+        public void SendActivatedEmail(int userId)
+        {
+            UserEmailService.Service.SendActivatedEmail(userId);
         }
     }
 }

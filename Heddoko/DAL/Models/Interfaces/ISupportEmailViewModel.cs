@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using DAL.Models;
 
-namespace Services.MailSending.Models
+namespace DAL.Models
 {
     public interface ISupportEmailViewModel
     {

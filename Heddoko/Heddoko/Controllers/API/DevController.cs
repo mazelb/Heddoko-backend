@@ -73,7 +73,7 @@ namespace Heddoko.Controllers.API
 
                 Organization organization = uow.OrganizationRepository.GetFull(user.OrganizationID.Value);
 
-                int organizationID = organization.ID;
+                int organizationID = organization.Id;
                 BackgroundJob.Enqueue(() => EmailManager.SendInviteAdminEmail(organizationID));
             }
 

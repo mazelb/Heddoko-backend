@@ -10,6 +10,7 @@ using Services;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
+using Services.MailSending;
 
 namespace Heddoko.Controllers
 {
@@ -291,8 +292,7 @@ namespace Heddoko.Controllers
                 UoW.Save();
 
                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                //TODO Identity
-                //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                UserManager.SendActivationEmail(user.Id, code);
 
                 BaseViewModel modelStatus = new BaseViewModel();
 
@@ -423,17 +423,16 @@ namespace Heddoko.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Confirm(int userId, string token)
+        public async Task<ActionResult> Confirm(int userId, string code)
         {
             BaseViewModel model = new BaseViewModel();
 
-            if (!string.IsNullOrEmpty(token?.Trim()))
+            if (!string.IsNullOrEmpty(code?.Trim()))
             {
-                var result = await UserManager.ConfirmEmailAsync(userId, token);
+                var result = await UserManager.ConfirmEmailAsync(userId, code);
                 if (result.Succeeded)
                 {
-                    //TODO Identity
-                    //  Task.Run(() => Mailer.SendActivatedEmail(user));
+                    UserManager.SendActivatedEmail(userId);
                     model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Success,
@@ -631,7 +630,7 @@ namespace Heddoko.Controllers
                 User user = await UserManager.FindByNameAsync(model.Email?.Trim());
                 if (user != null)
                 {
-                    Task.Run(() => Mailer.SendForgotUsernameEmail(user));
+                   // Task.Run(() => Mailer.SendForgotUsernameEmail(user));
 
                     baseModel.Flash.Add(new FlashMessage
                     {

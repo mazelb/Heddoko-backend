@@ -137,6 +137,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -264,10 +265,11 @@
     <Compile Include="Models\Enum\ComponentsType.cs" />
     <Compile Include="Models\Enum\EquipmentQAStatusType.cs" />
     <Compile Include="Models\HistoryNotes.cs" />
-    <Compile Include="Models\Interfaces\IMailSender.cs" />
+    <Compile Include="Models\Interfaces\IEmailService.cs" />
     <Compile Include="Models\Interfaces\ISoftDelete.cs" />
     <Compile Include="Models\Interfaces\IAuditable.cs" />
     <Compile Include="Models\Interfaces\IBaseModel.cs" />
+    <Compile Include="Models\Interfaces\ISupportEmailViewModel.cs" />
     <Compile Include="Models\Pants.cs" />
     <Compile Include="Models\PantsOctopi.cs" />
     <Compile Include="Models\ShirtOctopi.cs" />

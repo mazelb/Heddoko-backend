@@ -10,21 +10,22 @@ namespace DAL
 {
     public class EmailService : IIdentityMessageService, IDisposable
     {
-        public EmailService(IMailSender sender)
+        public EmailService(IEmailService service)
         {
-            Sender = sender;
+            Service = service;
         }
 
-        private IMailSender Sender { get; set; }
+        public IEmailService Service { get; set; }
 
         public Task SendAsync(IdentityMessage message)
         {
+            //Todo add simple send
             return Task.FromResult(0);
         }
 
         public void Dispose()
         {
-
+            Service = null;
         }
     }
 }

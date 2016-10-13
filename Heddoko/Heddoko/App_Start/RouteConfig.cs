@@ -89,12 +89,13 @@ namespace Heddoko
 
             routes.MapRoute(
                 "Confirm",
-                "confirm/{token}",
+                "confirm/{userId}/{code}",
                 new
                 {
                     controller = "Account",
                     action = "Confirm",
-                    token = UrlParameter.Optional
+                    userId = UrlParameter.Optional,
+                    code = UrlParameter.Optional
                 }
                 );
 
