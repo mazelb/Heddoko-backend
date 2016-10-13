@@ -1,7 +1,8 @@
-﻿@model Heddoko.Models.SupportEmailViewModel
+﻿@using DAL
+@model Services.MailSending.Models.SupportEmailViewModel
 
 @{
-    Layout = "~/Views/Shared/_LayoutEmail.cshtml";
+    Layout = "_LayoutEmail";
 }
 
 Name: @Model.FullName

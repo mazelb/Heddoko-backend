@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Hangfire;
 using Heddoko.Models;
 using i18n;
 
@@ -135,7 +136,8 @@ namespace Heddoko.Controllers
                 Bind(item, model);
                 UoW.OrganizationRepository.Create(item);
 
-                Task.Run(() => Mailer.SendInviteAdminEmail(item));
+                int organizationID = item.ID;
+                BackgroundJob.Enqueue(() => Services.EmailManager.SendInviteAdminEmail(organizationID));
 
                 response = Convert(item);
             }
@@ -386,7 +388,8 @@ namespace Heddoko.Controllers
 
                         if (!string.IsNullOrEmpty(organization.User.ConfirmToken))
                         {
-                            Task.Run(() => Mailer.SendActivationEmail(organization.User));
+                            int userID = organization.User.ID;
+                            BackgroundJob.Enqueue(() => Services.EmailManager.SendActivationEmail(userID));
                         }
                     }
                 }

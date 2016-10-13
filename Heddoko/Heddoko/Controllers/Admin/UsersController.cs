@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Hangfire;
 using Heddoko.Models;
 using i18n;
 
@@ -151,7 +152,8 @@ namespace Heddoko.Controllers
                     UoW.UserRepository.ClearCache(item);
                 }
 
-                Task.Run(() => Mailer.SendInviteEmail(item));
+                int userID = item.ID;
+                BackgroundJob.Enqueue(() => Services.EmailManager.SendInviteEmail(userID));
 
                 response = Convert(item);
             }

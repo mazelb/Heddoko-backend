@@ -1,14 +1,15 @@
-﻿@model Heddoko.Models.InviteAdminUserEmailViewModel
+﻿@using DAL
+@model Services.MailSending.Models.InviteAdminUserEmailViewModel
 
 @{
-    Layout = "~/Views/Shared/_LayoutEmail.cshtml";
+    Layout = "_LayoutEmail";
 }
 
 Welcome @Model.FirstName. You're invited to become a member of @Model.OrganizationName on Heddoko
 <br /><br />
 @if (!string.IsNullOrEmpty(Model.Token)) {
     <text>
-    Click here to activate your account: <a href="@(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")">@(Heddoko.Config.DashboardSite + $"/invite/{Model.Token}")</a>
+    Click here to activate your account: <a href="@Model.ActivationUrl">@Model.ActivationUrl</a>
     </text>
 }
 else

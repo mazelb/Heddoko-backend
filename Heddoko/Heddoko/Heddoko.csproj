@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -716,10 +716,6 @@
     <Compile Include="Helpers\Kendo\FilterLogic.cs" />
     <Compile Include="Helpers\Kendo\FilterOperator.cs" />
     <Compile Include="Helpers\Kendo\SortDirection.cs" />
-    <Compile Include="Helpers\Mail\Mail.cs" />
-    <Compile Include="Helpers\Mail\Mailer.cs" />
-    <Compile Include="Helpers\Mail\RazorView.cs" />
-    <Compile Include="Helpers\Mail\SendGridMail.cs" />
     <Compile Include="Helpers\MVC\CompareTodayAttribute.cs" />
     <Compile Include="Helpers\MVC\ContextTempData.cs" />
     <Compile Include="Helpers\MVC\CustomDirectRouteProvider.cs" />
@@ -767,12 +763,6 @@
     <Compile Include="Models\API\SignInAPIViewModel.cs" />
     <Compile Include="Models\Default\DefaultIndexViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
-    <Compile Include="Models\Email\WelcomeEmailViewModel.cs" />
-    <Compile Include="Models\Email\InviteAdminUserEmailViewModel.cs" />
-    <Compile Include="Models\Email\ActivationUserEmailViewModel.cs" />
-    <Compile Include="Models\Email\EmailViewModel.cs" />
-    <Compile Include="Models\Email\ForgotPasswordEmailViewModel.cs" />
-    <Compile Include="Models\Email\SupportEmailViewModel.cs" />
     <Compile Include="Models\Error\API\ErrorAPIViewModel.cs" />
     <Compile Include="Models\Error\ErrorViewModel.cs" />
     <Compile Include="Models\FlashMessagesViewModel.cs" />
@@ -808,11 +798,6 @@
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Shared\_FlashMessages.cshtml" />
-    <Content Include="Views\Shared\_LayoutEmail.cshtml" />
-    <Content Include="Views\Email\Email.cshtml" />
-    <Content Include="Views\Email\ActivationUserEmail.cshtml" />
-    <Content Include="Views\Email\ForgotPasswordEmail.cshtml" />
-    <Content Include="Views\Email\ForgotUsernameEmail.cshtml" />
     <Content Include="Views\Account\Confirm.cshtml" />
     <Content Include="Views\Account\ConfirmStatus.cshtml" />
     <Content Include="Views\Account\Forgot.cshtml" />
@@ -833,18 +818,15 @@
     <Content Include="Views\License\Index.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\License\_Organizations.cshtml" />
-    <Content Include="Views\Email\InviteAdminUserEmail.cshtml" />
     <Content Include="Views\Organization\Index.cshtml" />
     <Content Include="Views\Account\Invite.cshtml" />
     <Content Include="Views\Account\SignUpOrganization.cshtml" />
     <Content Include="Views\Organization\_Users.cshtml" />
     <Content Include="Views\Organization\_Licenses.cshtml" />
-    <Content Include="Views\Email\InviteUserEmail.cshtml" />
     <Content Include="Views\License\_Users.cshtml" />
     <Content Include="Views\Account\Me.cshtml" />
     <Content Include="Views\Support\Index.cshtml" />
     <Content Include="Views\Support\IndexStatus.cshtml" />
-    <Content Include="Views\Email\SupportEmail.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Inventory\_PantsOctopi.cshtml" />
     <Content Include="Views\Shared\_NavigationAdmin.cshtml" />
@@ -868,7 +850,6 @@
     <Content Include="Views\License\_OrganizationPopup.cshtml" />
     <Content Include="Views\Organization\_Teams.cshtml" />
     <Content Include="Views\Inventory\_NotesHistory.cshtml" />
-    <Content Include="Views\Email\WelcomeUserEmail.cshtml" />
     <Content Include="Views\Static\Requirements.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -979,8 +960,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

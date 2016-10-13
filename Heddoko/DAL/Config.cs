@@ -17,6 +17,12 @@ namespace DAL
 
         public static string DashboardSite => ConfigurationManager.AppSettings["DashboardSite"];
 
+        public static string SendgridKey => ConfigurationManager.AppSettings["SendgridKey"];
+
+        public static string MailFrom => ConfigurationManager.AppSettings["MailFrom"];
+
+        public static string WrikeEmail => ConfigurationManager.AppSettings["WrikeEmail"];
+
         #region JWT
 
         public static string JwtSecret => ConfigurationManager.AppSettings["JWTSecret"];

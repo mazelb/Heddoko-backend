@@ -1,0 +1,11 @@
+﻿@model Services.MailSending.Models.ActivationUserEmailViewModel
+
+@{
+    Layout = "_LayoutEmail";
+}
+
+Welcome @Model.FirstName,
+<br /><br />
+Click here to activate your account: <a href="@Model.ActivationUrl">@Model.ActivationUrl</a>
+<br /><br />
+- The Heddoko Team

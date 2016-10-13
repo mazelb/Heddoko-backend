@@ -6,10 +6,11 @@ using System.Web.Mvc;
 using DAL;
 using DAL.Models;
 using i18n;
+using Services.MailSending.Models;
 
 namespace Heddoko.Models
 {
-    public class SupportIndexViewModel : BaseViewModel
+    public class SupportIndexViewModel : BaseViewModel, ISupportEmailViewModel
     {
         [Display(Name = "IssueType", ResourceType = typeof(Resources))]
         public IssueType Type { get; set; }

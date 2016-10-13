@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
+using System.IO;
 using System.Web;
+using DAL;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System.IO;
-using System.Diagnostics;
 
-namespace Heddoko
+namespace Services.MailSending
 {
     public class SendGridMail
     {
