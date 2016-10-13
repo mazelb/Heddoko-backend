@@ -17,6 +17,8 @@ namespace DAL
 
         public static string DashboardSite => ConfigurationManager.AppSettings["DashboardSite"];
 
+        public static string MongoDbName => ConfigurationManager.AppSettings["MongoDbName"];
+
         #region JWT
 
         public static string JwtSecret => ConfigurationManager.AppSettings["JWTSecret"];
