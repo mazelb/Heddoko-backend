@@ -12,7 +12,7 @@ namespace Services
         public static void SendActivationEmail(int userId)
         {
             UnitOfWork uow = new UnitOfWork();
-            var user = uow.UserRepository.Get(userId);
+            User user = uow.UserRepository.GetIDCached(userId);
 
             Mailer.SendActivationEmail(user);
         }
@@ -21,7 +21,7 @@ namespace Services
         public static void SendInviteAdminEmail(int organizationId)
         {
             UnitOfWork uow = new UnitOfWork();
-            var organization = uow.OrganizationRepository.Get(organizationId);
+            Organization organization = uow.OrganizationRepository.GetIDCached(organizationId);
 
             Mailer.SendInviteAdminEmail(organization);
         }
@@ -30,7 +30,7 @@ namespace Services
         public static void SendInviteEmail(int userId)
         {
             UnitOfWork uow = new UnitOfWork();
-            var user = uow.UserRepository.Get(userId);
+            User user = uow.UserRepository.GetIDCached(userId);
 
             Mailer.SendInviteEmail(user);
         }
@@ -39,7 +39,7 @@ namespace Services
         public static void SendForgotPasswordEmail(int userId)
         {
             UnitOfWork uow = new UnitOfWork();
-            var user = uow.UserRepository.Get(userId);
+            User user = uow.UserRepository.GetIDCached(userId);
 
             Mailer.SendForgotPasswordEmail(user);
         }
@@ -48,7 +48,7 @@ namespace Services
         public static void SendForgotUsernameEmail(int userId)
         {
             UnitOfWork uow = new UnitOfWork();
-            var user = uow.UserRepository.Get(userId);
+            User user = uow.UserRepository.GetIDCached(userId);
 
             Mailer.SendForgotUsernameEmail(user);
         }
@@ -63,7 +63,7 @@ namespace Services
         public static void SendActivatedEmail(int userId)
         {
             UnitOfWork uow = new UnitOfWork();
-            var user = uow.UserRepository.Get(userId);
+            User user = uow.UserRepository.GetIDCached(userId);
 
             Mailer.SendActivatedEmail(user);
         }
