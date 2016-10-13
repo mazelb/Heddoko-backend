@@ -1,0 +1,24 @@
+﻿@using DAL
+@model Services.MailSending.Models.InviteAdminUserEmailViewModel
+
+@{
+    Layout = "_LayoutEmail";
+}
+
+Welcome @Model.FirstName, <br /><br />You're invited to become a Heddoko administrator for @Model.OrganizationName
+<br />
+@if (!string.IsNullOrEmpty(Model.Token)) {
+    <text>
+        Click here to activate your account: <a href="@Model.ActivationUrl">@Model.ActivationUrl</a>
+    </text>
+}
+else
+{
+    <text>
+        Click here to manage your organization: <a href="@(Config.DashboardSite + "/organization")">@(Config.DashboardSite + "/organization")</a>
+    </text>
+}
+<br /><br />
+- The Heddoko Team
+<br /><br />
+<b>Need help? Contact </b> <a href="mailto:support@heddoko.com" rel="nofollow" target="_blank">support@heddoko.com</a>

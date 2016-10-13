@@ -8,6 +8,7 @@ using Services;
 using System;
 using System.Threading.Tasks;
 using DAL.Models;
+using Hangfire;
 
 namespace Heddoko.Controllers.API
 {
@@ -72,7 +73,8 @@ namespace Heddoko.Controllers.API
 
                 Organization organization = uow.OrganizationRepository.GetFull(user.OrganizationID.Value);
 
-                Task.Run(() => Mailer.SendInviteAdminEmail(organization));
+                int organizationID = organization.ID;
+                BackgroundJob.Enqueue(() => EmailManager.SendInviteAdminEmail(organizationID));
             }
 
             return Ok();

@@ -1,21 +1,22 @@
-﻿@model Heddoko.Models.WelcomeEmailViewModel
+﻿@using DAL
+@model Services.MailSending.Models.WelcomeEmailViewModel
 
 @{
-    Layout = "~/Views/Shared/_LayoutEmail.cshtml";
+    Layout = "_LayoutEmail";
 }
 
 Hello @Model.FirstName,
 <br /><br />
 Thanks for activating your account!
 <br />
-Please visit your dashboard at <a href="(@Heddoko.Config.DashboardSite)">@Heddoko.Config.DashboardSite</a> to:
+Please visit your dashboard at <a href="(@Config.DashboardSite)">@Config.DashboardSite</a> to:
 <br />
 <p style="text-indent: 4em;">
 1. Download the latest version of our software<br />
 2. View our User Guide, System Requirements and Specifications, and Customer Support Information
 </p>
 <br /><br />
-Need technical support? Visit <a href="@(Heddoko.Config.DashboardSite + $"/support")">@(Heddoko.Config.DashboardSite + $"/support")</a>
+Need technical support? Visit <a href="@(Config.DashboardSite + "/support")">@(Config.DashboardSite + "/support")</a>
 <br /><br />
 Questions or feedback? Contact <a href="mailto:support@heddoko.com" rel="nofollow" target="_blank">support@heddoko.com</a>
 <br /><br />

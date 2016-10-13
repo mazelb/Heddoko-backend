@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using DAL;
 using DAL.Models;
+using Hangfire;
 using Heddoko.Helpers.Auth;
 using Heddoko.Models;
 using i18n;
@@ -407,7 +408,8 @@ namespace Heddoko.Controllers
                     UoW.Save();
                     UoW.UserRepository.SetCache(user);
 
-                    Task.Run(() => Mailer.SendActivatedEmail(user));
+                    int userID = user.ID;
+                    BackgroundJob.Enqueue(() => Services.EmailManager.SendActivatedEmail(userID));
 
                     model.Flash.Add(new FlashMessage
                     {
@@ -558,7 +560,8 @@ namespace Heddoko.Controllers
                     UoW.Save();
                     UoW.UserRepository.SetCache(user);
 
-                    Task.Run(() => Mailer.SendForgotPasswordEmail(user));
+                    int userID = user.ID;
+                    BackgroundJob.Enqueue(() => Services.EmailManager.SendForgotPasswordEmail(userID));
 
                     baseModel.Flash.Add(new FlashMessage
                     {
@@ -599,7 +602,8 @@ namespace Heddoko.Controllers
                 User user = UoW.UserRepository.GetByEmail(model.Email?.Trim());
                 if (user != null)
                 {
-                    Task.Run(() => Mailer.SendForgotUsernameEmail(user));
+                    int userID = user.ID;
+                    BackgroundJob.Enqueue(() => Services.EmailManager.SendForgotUsernameEmail(userID));
 
                     baseModel.Flash.Add(new FlashMessage
                     {
