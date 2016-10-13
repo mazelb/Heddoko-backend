@@ -23,14 +23,14 @@ namespace Services.MailSending
                 return Engine.Razor.Run(viewName, null, model);
             }
 
-            var template = GetViewContent(viewName);
+            string template = GetViewContent(viewName);
 
             return Engine.Razor.RunCompile(template, viewName, null, model);
         }
 
         private string GetViewContent(string viewName)
         {
-            var fullPath = Path.Combine(templateFolderPath, $"{viewName}.cshtml");
+            string fullPath = Path.Combine(templateFolderPath, $"{viewName}.cshtml");
 
             return File.ReadAllText(fullPath);
         }
