@@ -5,10 +5,12 @@ namespace DAL
     public sealed class UnitOfWork : IDisposable
     {
         private readonly HDContext _db;
+        private readonly HDMongoContext _mongodb;
 
-        public UnitOfWork(HDContext context = null)
+        public UnitOfWork(HDContext context = null, HDMongoContext mongoContext = null)
         {
             _db = context ?? new HDContext();
+            _mongodb = mongoContext ?? new HDMongoContext();
         }
 
         public static UnitOfWork Create()
@@ -63,6 +65,8 @@ namespace DAL
 
         private ITeamRepository _teamRepository;
 
+        private IMongoDbRepository _mongoRepository;
+
         #endregion
 
         #region PublicRepository
@@ -104,6 +108,8 @@ namespace DAL
         public IAssemblyCacheRepository AssemblyCacheRepository => _assemblyCacheRepository ?? (_assemblyCacheRepository = new AssemblyCacheRepository());
 
         public ITeamRepository TeamRepository => _teamRepository ?? (_teamRepository = new TeamRepository(_db));
+
+        public IMongoDbRepository MongoRepository => _mongoRepository ?? (_mongoRepository = new MongoDbRepository(_mongodb));
 
         #endregion
 
