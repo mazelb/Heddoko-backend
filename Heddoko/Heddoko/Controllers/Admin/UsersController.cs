@@ -149,7 +149,7 @@ namespace Heddoko.Controllers
                     UoW.UserRepository.ClearCache(item);
                 }
 
-                var userID = item.ID;
+                int userID = item.ID;
                 BackgroundJob.Enqueue(() => Services.EmailManager.SendInviteEmail(userID));
 
                 response = Convert(item);

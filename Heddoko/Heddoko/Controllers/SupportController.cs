@@ -37,8 +37,7 @@ namespace Heddoko.Controllers
             {
                 ModelState.AddModelError(string.Empty, Resources.WrongAttachmentSize);
             }
-
-            //Mailer.SendSupportEmail(model);
+            
             BackgroundJob.Enqueue(() => EmailManager.SendSupportEmail(model));
 
             BaseViewModel modelStatus = new BaseViewModel();

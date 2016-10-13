@@ -143,8 +143,7 @@ namespace Services.MailSending
             };
 
             string subject = Resources.EmailActivatedSubject;
-
-            //string body = await Task.Run(() => razorView.RenderViewToString("WelcomeUserEmail", mailModel));
+            
             string body = razorView.RenderViewToString("WelcomeUserEmail", mailModel);
 
             SendGridMail.Send(subject, body, user.Email);

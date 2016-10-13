@@ -408,7 +408,7 @@ namespace Heddoko.Controllers
                     UoW.Save();
                     UoW.UserRepository.SetCache(user);
 
-                    var userID = user.ID;
+                    int userID = user.ID;
                     BackgroundJob.Enqueue(() => Services.EmailManager.SendActivatedEmail(userID));
 
                     model.Flash.Add(new FlashMessage
@@ -560,7 +560,7 @@ namespace Heddoko.Controllers
                     UoW.Save();
                     UoW.UserRepository.SetCache(user);
 
-                    var userID = user.ID;
+                    int userID = user.ID;
                     BackgroundJob.Enqueue(() => Services.EmailManager.SendForgotPasswordEmail(userID));
 
                     baseModel.Flash.Add(new FlashMessage
@@ -602,7 +602,7 @@ namespace Heddoko.Controllers
                 User user = UoW.UserRepository.GetByEmail(model.Email?.Trim());
                 if (user != null)
                 {
-                    var userID = user.ID;
+                    int userID = user.ID;
                     BackgroundJob.Enqueue(() => Services.EmailManager.SendForgotUsernameEmail(userID));
 
                     baseModel.Flash.Add(new FlashMessage
