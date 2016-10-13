@@ -9,7 +9,7 @@ Welcome @Model.FirstName. You're invited to become a member of @Model.Organizati
 <br /><br />
 @if (!string.IsNullOrEmpty(Model.Token)) {
     <text>
-    Click here to activate your account: <a href="@(Config.DashboardSite + string.Format("/invite/{0}", Model.Token))">@(Config.DashboardSite + string.Format("/invite/{0}", Model.Token))</a>
+    Click here to activate your account: <a href="@Model.ActivationUrl">@Model.ActivationUrl</a>
     </text>
 }
 else

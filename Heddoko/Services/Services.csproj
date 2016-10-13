@@ -170,6 +170,7 @@
     <Compile Include="MailSending\Models\EmailViewModel.cs" />
     <Compile Include="MailSending\Models\ForgotPasswordEmailViewModel.cs" />
     <Compile Include="MailSending\Models\InviteAdminUserEmailViewModel.cs" />
+    <Compile Include="MailSending\Models\ISupportEmailViewModel.cs" />
     <Compile Include="MailSending\Models\SupportEmailViewModel.cs" />
     <Compile Include="MailSending\Models\WelcomeEmailViewModel.cs" />
     <Compile Include="MailSending\RazorView.cs" />

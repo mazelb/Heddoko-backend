@@ -39,19 +39,7 @@ namespace Heddoko.Controllers
             }
 
             //Mailer.SendSupportEmail(model);
-
-            var mailModel = new Services.MailSending.Models.SupportEmailViewModel
-            {
-                Type = model.Type,
-                Importance = model.Importance,
-                DetailedDescription = model.DetailedDescription,
-                Email = model.Email,
-                FullName = model.FullName,
-                ShortDescription = model.ShortDescription,
-                Attachments = model.Attachments
-            };
-
-            BackgroundJob.Enqueue(() => EmailManager.SendSupportEmail(mailModel));
+            BackgroundJob.Enqueue(() => EmailManager.SendSupportEmail(model));
 
             BaseViewModel modelStatus = new BaseViewModel();
 

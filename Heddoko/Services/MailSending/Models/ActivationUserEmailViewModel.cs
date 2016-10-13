@@ -4,6 +4,6 @@
     {
         public string FirstName { get; set; }
 
-        public string Token { get; set; }
+        public string ActivationUrl { get; set; }
     }
 }

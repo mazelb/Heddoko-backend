@@ -72,8 +72,9 @@ namespace Heddoko.Controllers.API
                 uow.UserRepository.ClearCache(user);
 
                 Organization organization = uow.OrganizationRepository.GetFull(user.OrganizationID.Value);
-                
-                BackgroundJob.Enqueue(() => EmailManager.SendInviteAdminEmail(organization));
+
+                var organizationID = organization.ID;
+                BackgroundJob.Enqueue(() => EmailManager.SendInviteAdminEmail(organizationID));
             }
 
             return Ok();

@@ -7,5 +7,7 @@
         public string OrganizationName { get; set; }
 
         public string Token { get; set; }
+
+        public string ActivationUrl { get; set; }
     }
 }

@@ -9,7 +9,7 @@ Welcome @Model.FirstName, <br /><br />You're invited to become a Heddoko adminis
 <br />
 @if (!string.IsNullOrEmpty(Model.Token)) {
     <text>
-        Click here to activate your account: <a href="@(Config.DashboardSite + string.Format("/invite/{0}", Model.Token))">@(Config.DashboardSite + string.Format("/invite/{0}", Model.Token))</a>
+        Click here to activate your account: <a href="@Model.ActivationUrl">@Model.ActivationUrl</a>
     </text>
 }
 else

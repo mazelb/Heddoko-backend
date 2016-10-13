@@ -8,45 +8,63 @@ namespace Services
 {
     public class EmailManager
     {
-        [Queue(Constants.HangFireQueue.MailSending)]
-        public static void SendActivationEmail(User user)
+        [Queue(Constants.HangFireQueue.Email)]
+        public static void SendActivationEmail(int userId)
         {
+            UnitOfWork uow = new UnitOfWork();
+            var user = uow.UserRepository.Get(userId);
+
             Mailer.SendActivationEmail(user);
         }
 
-        [Queue(Constants.HangFireQueue.MailSending)]
-        public static void SendInviteAdminEmail(Organization organization)
+        [Queue(Constants.HangFireQueue.Email)]
+        public static void SendInviteAdminEmail(int organizationId)
         {
+            UnitOfWork uow = new UnitOfWork();
+            var organization = uow.OrganizationRepository.Get(organizationId);
+
             Mailer.SendInviteAdminEmail(organization);
         }
 
-        [Queue(Constants.HangFireQueue.MailSending)]
-        public static void SendInviteEmail(User user)
+        [Queue(Constants.HangFireQueue.Email)]
+        public static void SendInviteEmail(int userId)
         {
+            UnitOfWork uow = new UnitOfWork();
+            var user = uow.UserRepository.Get(userId);
+
             Mailer.SendInviteEmail(user);
         }
 
-        [Queue(Constants.HangFireQueue.MailSending)]
-        public static void SendForgotPasswordEmail(User user)
+        [Queue(Constants.HangFireQueue.Email)]
+        public static void SendForgotPasswordEmail(int userId)
         {
+            UnitOfWork uow = new UnitOfWork();
+            var user = uow.UserRepository.Get(userId);
+
             Mailer.SendForgotPasswordEmail(user);
         }
 
-        [Queue(Constants.HangFireQueue.MailSending)]
-        public static void SendForgotUsernameEmail(User user)
+        [Queue(Constants.HangFireQueue.Email)]
+        public static void SendForgotUsernameEmail(int userId)
         {
+            UnitOfWork uow = new UnitOfWork();
+            var user = uow.UserRepository.Get(userId);
+
             Mailer.SendForgotUsernameEmail(user);
         }
 
-        [Queue(Constants.HangFireQueue.MailSending)]
-        public static void SendSupportEmail(SupportEmailViewModel model)
+        [Queue(Constants.HangFireQueue.Email)]
+        public static void SendSupportEmail(ISupportEmailViewModel model)
         {
             Mailer.SendSupportEmail(model);
         }
 
-        [Queue(Constants.HangFireQueue.MailSending)]
-        public static void SendActivatedEmail(User user)
+        [Queue(Constants.HangFireQueue.Email)]
+        public static void SendActivatedEmail(int userId)
         {
+            UnitOfWork uow = new UnitOfWork();
+            var user = uow.UserRepository.Get(userId);
+
             Mailer.SendActivatedEmail(user);
         }
     }

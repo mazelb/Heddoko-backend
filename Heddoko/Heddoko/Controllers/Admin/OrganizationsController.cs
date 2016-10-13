@@ -133,7 +133,8 @@ namespace Heddoko.Controllers
                 Bind(item, model);
                 UoW.OrganizationRepository.Create(item);
 
-                BackgroundJob.Enqueue(() => Services.EmailManager.SendInviteAdminEmail(item));
+                var organizationID = item.ID;
+                BackgroundJob.Enqueue(() => Services.EmailManager.SendInviteAdminEmail(organizationID));
 
                 response = Convert(item);
             }
@@ -384,7 +385,8 @@ namespace Heddoko.Controllers
 
                         if (!string.IsNullOrEmpty(organization.User.ConfirmToken))
                         {
-                            BackgroundJob.Enqueue(() => Services.EmailManager.SendActivationEmail(organization.User));
+                            var userID = organization.User.ID;
+                            BackgroundJob.Enqueue(() => Services.EmailManager.SendActivationEmail(userID));
                         }
                     }
                 }
