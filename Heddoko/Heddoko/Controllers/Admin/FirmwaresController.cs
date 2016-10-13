@@ -24,6 +24,10 @@ namespace Heddoko.Controllers
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
 
+        public FirmwaresController() { }
+
+        public FirmwaresController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+
         public override KendoResponse<IEnumerable<FirmwareAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<Firmware> items = null;
@@ -165,7 +169,7 @@ namespace Heddoko.Controllers
             foreach (MultipartFileData file in provider.FileData)
             {
                 asset.Name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString();
-                string path = AssetManager.Path($"{item.ID}/{asset.Name}", asset.Type);
+                string path = AssetManager.Path($"{item.Id}/{asset.Name}", asset.Type);
 
                 Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
                 File.Delete(file.LocalFileName);
@@ -250,7 +254,7 @@ namespace Heddoko.Controllers
         {
             Firmware item = UoW.FirmwareRepository.Get(id);
 
-            if (item.ID != CurrentUser.ID)
+            if (item.Id != CurrentUser.Id)
             {
                 item.Status = FirmwareStatusType.Inactive;
                 UoW.Save();
@@ -285,7 +289,7 @@ namespace Heddoko.Controllers
 
             return new FirmwareAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 Version = item.Version,
                 Status = item.Status,

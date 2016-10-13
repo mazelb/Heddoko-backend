@@ -21,6 +21,10 @@ namespace Heddoko.Controllers
         private const string SensorSetID = "SensorSetID";
         private const string LinkField = "idView";
 
+        public SensorsController() { }
+
+        public SensorsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+
         public override KendoResponse<IEnumerable<SensorAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<Sensor> items = null;
@@ -209,7 +213,7 @@ namespace Heddoko.Controllers
         {
             Sensor item = UoW.SensorRepository.Get(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<SensorAPIModel>
                 {
@@ -338,7 +342,7 @@ namespace Heddoko.Controllers
 
             return new SensorAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 Type = item.Type,
                 Version = item.Version,

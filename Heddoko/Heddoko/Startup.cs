@@ -14,6 +14,8 @@ namespace Heddoko
     {
         public void Configuration(IAppBuilder app)
         {
+            app.CreatePerOwinContext(UnitOfWork.Create);
+
             GlobalConfiguration.Configuration.UseSqlServerStorage(DAL.Config.ConnectionString);
 
             app.UseHangfireDashboard("/hangfire",
@@ -23,13 +25,6 @@ namespace Heddoko
                     {
                         new HangfireAuthorizationFilter(Constants.Roles.Admin)
                     }
-                    //AuthorizationFilters = new[]
-                    //{
-                    //    new AuthorizationFilter
-                    //    {
-                    //        Roles = Constants.Roles.Admin
-                    //    }
-                    //}
                 });
 
             ConfigureAuth(app);

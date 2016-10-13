@@ -13,6 +13,10 @@ namespace Heddoko.Controllers.API
     [RoutePrefix("api/v1/users")]
     public class UsersAPIController : BaseAPIController
     {
+        public UsersAPIController() { }
+
+        public UsersAPIController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+
         [ApiExplorerSettings(IgnoreApi = true)]
         [Route("{id:int?}")]
         [HttpGet]
@@ -30,7 +34,7 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.UserNotFound, ErrorAPIType.UserNotFound.GetDisplayName());
             }
 
-            if (CurrentUser.ID == id.Value)
+            if (CurrentUser.Id == id.Value)
             {
                 return user;
             }

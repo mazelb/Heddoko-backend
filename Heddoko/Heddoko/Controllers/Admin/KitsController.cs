@@ -24,6 +24,9 @@ namespace Heddoko.Controllers
         private const int NoPantsID = 0;
         private const int NoSensorSetID = 0;
 
+        public KitsController() { }
+
+        public KitsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<KitAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -207,7 +210,7 @@ namespace Heddoko.Controllers
         {
             Kit item = UoW.KitRepository.Get(id);
 
-            if (item.ID != CurrentUser.ID)
+            if (item.Id != CurrentUser.Id)
             {
                 item.Status = EquipmentStatusType.Trash;
                 item.OrganizationID = null;
@@ -394,7 +397,7 @@ namespace Heddoko.Controllers
 
             return new KitAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 Location = item.Location,
                 Status = item.Status,

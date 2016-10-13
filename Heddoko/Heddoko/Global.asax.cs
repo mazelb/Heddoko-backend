@@ -69,7 +69,6 @@ namespace Heddoko
             if (ex is CryptographicException)
             {
                 Server.ClearError();
-                Forms.SignOut();
             }
             ContextSession.LastError = ex;
         }

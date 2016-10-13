@@ -9,7 +9,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using DAL.Models;
-using Heddoko.App_Start;
+using Services;
 
 namespace Heddoko
 {
@@ -17,7 +17,7 @@ namespace Heddoko
     {
         public void ConfigureAuth(IAppBuilder app)
         {
-            app.CreatePerOwinContext(HDContext.Create);
+            app.CreatePerOwinContext(EmailServiceActivator.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
@@ -27,11 +27,9 @@ namespace Heddoko
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider
                 {
-                    OnValidateIdentity = SecurityStampValidator
-                    .OnValidateIdentity<ApplicationUserManager, User, int>(
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, User, int>(
                         validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentityCallback: (manager, user) =>
-                            user.GenerateUserIdentityAsync(manager),
+                        regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager),
                         getUserIdCallback: (id) => (id.GetUserId<int>()))
                 }
             });

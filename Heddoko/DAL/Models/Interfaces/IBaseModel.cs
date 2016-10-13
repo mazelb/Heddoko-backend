@@ -8,7 +8,7 @@ namespace DAL.Models
 {
     public interface IBaseModel
     {
-        int ID { get; set; }
+        int Id { get; set; }
 
         DateTime? Updated { get; set; }
 

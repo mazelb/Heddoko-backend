@@ -25,7 +25,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.Users)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<License> GetByOrganization(int organizationID)
@@ -36,7 +36,7 @@ namespace DAL
         public IEnumerable<License> Search(string search, int? organizationID = null)
         {
             return All().Where(c => !organizationID.HasValue || c.OrganizationID.HasValue && c.OrganizationID.Value == organizationID)
-                        .Where(c => (c.OrganizationID + "-" + c.ID).ToLower().Contains(search.ToLower()));
+                        .Where(c => (c.OrganizationID + "-" + c.Id).ToLower().Contains(search.ToLower()));
         }
 
         public IEnumerable<License> GetAvailableByOrganization(int organizationID, int? id = null)
@@ -46,7 +46,7 @@ namespace DAL
             return DbSet.Include(c => c.Organization)
                         .Where(c => c.OrganizationID.Value == organizationID
                                     && c.Status == LicenseStatusType.Active
-                                    && (c.Users.Count() < c.Amount || c.Users.Any(p => p.ID == id))
+                                    && (c.Users.Count() < c.Amount || c.Users.Any(p => p.Id == id))
                                     && c.ExpirationAt > today)
                         .OrderByDescending(c => c.ExpirationAt);
         }

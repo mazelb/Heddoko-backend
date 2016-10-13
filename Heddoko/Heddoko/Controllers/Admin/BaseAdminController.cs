@@ -8,33 +8,72 @@ using DAL.Models;
 using Heddoko.Helpers.Auth;
 using Heddoko.Models;
 using i18n;
+using Services;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [AuthAPI(Roles = Constants.Roles.Admin)]
+    [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
     public abstract class BaseAdminController<T, TM> : ApiController
         where T : IBaseModel
         where TM : class
     {
-        protected BaseAdminController()
-        {
-            UoW = new UnitOfWork();
-            Mapper.Initialize(cfg =>
-                              {
-                                  cfg.CreateMap<T, TM>();
-                              });
+        private ApplicationUserManager _userManager;
+        private UnitOfWork _uow;
+        private User _currentUser;
 
-            CurrentUser = Forms.ValidateSession(UoW);
-            if (CurrentUser == null)
+        protected BaseAdminController() : base()
+        {
+            Mapper.Initialize(cfg =>
             {
-                ThrowAccessException();
+                cfg.CreateMap<T, TM>();
+            });
+        }
+
+        protected BaseAdminController(ApplicationUserManager userManager, UnitOfWork uow) : this()
+        {
+            UserManager = userManager;
+            UoW = uow;
+        }
+
+        protected ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
             }
         }
 
-        protected UnitOfWork UoW { get; }
+        protected UnitOfWork UoW
+        {
+            get
+            {
+                return _uow ?? HttpContext.Current.GetOwinContext().Get<UnitOfWork>();
+            }
+            private set
+            {
+                _uow = value;
+            }
+        }
 
-        protected User CurrentUser { get; private set; }
+        protected User CurrentUser
+        {
+            get
+            {
+                if (_currentUser == null)
+                {
+                    _currentUser = UserManager.FindByIdCached(User.Identity.GetUserId<int>());
+                }
+                return _currentUser;
+            }
+        }
 
         [Route("")]
         [HttpGet]
@@ -93,11 +132,6 @@ namespace Heddoko.Controllers
         protected virtual TM Convert(T item)
         {
             return Mapper.Map<TM>(item);
-        }
-
-        protected void InvalidateCurrentUser()
-        {
-            CurrentUser = Forms.ValidateSession(UoW, true);
         }
 
         protected void ThrowAccessException()

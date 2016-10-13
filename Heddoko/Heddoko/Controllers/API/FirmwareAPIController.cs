@@ -16,6 +16,10 @@ namespace Heddoko.Controllers.API
     [RoutePrefix("api/v1/firmwares")]
     public class FirmwareAPIController : BaseAPIController
     {
+        public FirmwareAPIController() { }
+
+        public FirmwareAPIController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+
         /// <summary>
         ///     Check firmware
         /// </summary>
@@ -160,7 +164,7 @@ namespace Heddoko.Controllers.API
             foreach (MultipartFileData file in provider.FileData)
             {
                 asset.Name = file.Headers.ContentDisposition.FileName;
-                string path = AssetManager.Path($"{item.ID}/{asset.Name}", asset.Type);
+                string path = AssetManager.Path($"{item.Id}/{asset.Name}", asset.Type);
 
                 Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
                 File.Delete(file.LocalFileName);

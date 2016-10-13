@@ -33,7 +33,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.User)
                         .Include(c => c.Licenses)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Organization> Search(string value, bool isDeleted = false)
@@ -41,7 +41,7 @@ namespace DAL
             return DbSet.Include(c => c.User)
                         .Include(c => c.Licenses)
                         .Where(c => isDeleted ? c.Status == OrganizationStatusType.Deleted : c.Status != OrganizationStatusType.Deleted)
-                        .Where(c => c.ID.ToString().ToLower().Contains(value.ToLower())
+                        .Where(c => c.Id.ToString().ToLower().Contains(value.ToLower())
                                     || c.Name.ToLower().Contains(value.ToLower())
                                     || c.Address.ToLower().Contains(value.ToLower())
                                     || c.Phone.ToLower().Contains(value.ToLower()));

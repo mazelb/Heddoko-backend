@@ -33,7 +33,7 @@ namespace DAL.Models
         #endregion
 
         #region NotMapped
-        public string IDView => $"TM{ID.ToString(Constants.PadZero)}";
+        public string IDView => $"TM{Id.ToString(Constants.PadZero)}";
         #endregion
     }
 }

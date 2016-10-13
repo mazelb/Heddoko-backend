@@ -26,14 +26,14 @@ namespace DAL
                         .Include(c => c.Databoard)
                         .Include(c => c.Kits)
                         .Include(c => c.Powerboard)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Brainpack> GetAvailable(int? id = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
-                        .Where(c => c.Kits.Count == 0 || c.Kits.Any(p => p.ID == id))
-                        .OrderBy(c => c.ID);
+                        .Where(c => c.Kits.Count == 0 || c.Kits.Any(p => p.Id == id))
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<Brainpack> All(bool isDeleted)
@@ -42,7 +42,7 @@ namespace DAL
                         .Include(c => c.Databoard)
                         .Include(c => c.Powerboard)
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<Brainpack> Search(string search, bool isDeleted = false)
@@ -52,12 +52,12 @@ namespace DAL
                         .Include(c => c.Databoard)
                         .Include(c => c.Powerboard)
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                        .Where(c => (c.ID == id)
+                        .Where(c => (c.Id == id)
                                     || c.Version.ToString().ToLower().Contains(search.ToLower())
                                     || c.Location.ToLower().Contains(search.ToLower())
                                     || c.Label.ToLower().Contains(search.ToLower())
                                     || c.Notes.ToLower().Contains(search.ToLower()))
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
 

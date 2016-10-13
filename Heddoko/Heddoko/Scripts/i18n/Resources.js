@@ -422,7 +422,10 @@ i18n.Resources = (function () {
   "CantChangeInvite": "You can't change invite status",
   "CantChangePending": "You can't change pending status",
   "CantSetInvite": "You can't set invite status",
-  "CantSetPending": "You can't set pending status"
+  "CantSetPending": "You can't set pending status",
+  "WrongLockedOut": "You have been locked out.",
+  "RequiresVerification": "RequiresVerification",
+  "WrongConfirm": "Email is not confirmed"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

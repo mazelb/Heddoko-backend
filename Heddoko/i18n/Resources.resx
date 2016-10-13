@@ -1383,4 +1383,13 @@
   <data name="CantSetPending" xml:space="preserve">
     <value>You can't set pending status</value>
   </data>
+  <data name="WrongLockedOut" xml:space="preserve">
+    <value>You have been locked out.</value>
+  </data>
+  <data name="RequiresVerification" xml:space="preserve">
+    <value>RequiresVerification</value>
+  </data>
+  <data name="WrongConfirm" xml:space="preserve">
+    <value>Email is not confirmed</value>
+  </data>
 </root>

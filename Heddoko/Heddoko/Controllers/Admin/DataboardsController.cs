@@ -24,6 +24,10 @@ namespace Heddoko.Controllers
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
 
+        public DataboardsController() { }
+
+        public DataboardsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+
         public override KendoResponse<IEnumerable<DataboardAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<Databoard> items = null;
@@ -185,10 +189,10 @@ namespace Heddoko.Controllers
         {
             Databoard item = UoW.DataboardRepository.Get(id);
 
-            if (item.ID != CurrentUser.ID)
+            if (item.Id != CurrentUser.Id)
             {
                 item.Status = EquipmentStatusType.Trash;
-                UoW.BrainpackRepository.RemoveDataboard(item.ID);
+                UoW.BrainpackRepository.RemoveDataboard(item.Id);
 
                 UoW.Save();
             }
@@ -273,7 +277,7 @@ namespace Heddoko.Controllers
 
             return new DataboardAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 Version = item.Version,
                 Location = item.Location,

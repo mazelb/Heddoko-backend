@@ -14,7 +14,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DAL
 {
-    public class HDContext : IdentityDbContext<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>
+    public class HDContext : IdentityDbContext<User, Models.IdentityRole, int, UserLogin, UserRole, UserClaim>
     {
         public HDContext()
             : base(Constants.ConnectionStringName)

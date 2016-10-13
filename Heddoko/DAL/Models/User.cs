@@ -13,51 +13,17 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class CustomUserRole : IdentityUserRole<int> { }
-    public class CustomUserClaim : IdentityUserClaim<int> { }
-    public class CustomUserLogin : IdentityUserLogin<int> { }
-
-    public class CustomRole : IdentityRole<int, CustomUserRole>
-    {
-        public CustomRole() { }
-        public CustomRole(string name) { Name = name; }
-    }
-
-    public class CustomUserStore : UserStore<User, CustomRole, int,
-        CustomUserLogin, CustomUserRole, CustomUserClaim>
-    {
-        public CustomUserStore(HDContext context)
-            : base(context)
-        {
-        }
-    }
-
-    public class CustomRoleStore : RoleStore<CustomRole, int, CustomUserRole>
-    {
-        public CustomRoleStore(HDContext context)
-            : base(context)
-        {
-        }
-    }
-
-    public class User : IdentityUser<int, CustomUserLogin, CustomUserRole, CustomUserClaim>, IBaseModel
+    public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>, IBaseModel
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
         {
+            SecurityStamp = Guid.NewGuid().ToString();
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
 
             return userIdentity;
         }
 
         #region BaseModel
-        [NotMapped]
-        public int ID
-        {
-            get { return Id; }
-            set { Id = value; }
-        }
-
         [JsonProperty("updatedAt")]
         public DateTime? Updated { get; set; }
 
@@ -65,6 +31,14 @@ namespace DAL.Models
         [JsonProperty("createdAt")]
         public DateTime Created { get; set; }
         #endregion
+
+        [StringLength(100)]
+        [Obsolete("will be removed after migration to Identity")]
+        public string Password { get; set; }
+
+        [StringLength(100)]
+        [Obsolete("will be removed after migration to Identity")]
+        public string Salt { get; set; }
 
         [StringLength(255)]
         public string FirstName { get; set; }
@@ -145,7 +119,7 @@ namespace DAL.Models
 
             LicenseInfo info = new LicenseInfo
             {
-                ID = License.ID,
+                ID = License.Id,
                 ExpiredAt = License.ExpirationAt,
                 Name = License.Name,
                 Status = License.Status,

@@ -24,7 +24,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.Firmware)
                         .Include(c => c.SensorSet)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Sensor> All(bool isDeleted)
@@ -32,14 +32,14 @@ namespace DAL
             return DbSet.Include(c => c.Firmware)
                         .Include(c => c.SensorSet)
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<Sensor> GetAvailable(int? id = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
                         .Where(c => c.SensorSetID == null)
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<Sensor> Search(string search, int? statusFilter = null, bool isDeleted = false)
@@ -52,7 +52,7 @@ namespace DAL
             {
                 int? id = search.ParseID();
                 query = query.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                               .Where(c => (c.ID == id)
+                               .Where(c => (c.Id == id)
                                    || c.Location.ToLower().Contains(search.ToLower())
                                    || c.Type.ToString().ToLower().Contains(search.ToLower())
                                    || c.Label.ToLower().Contains(search.ToLower())
@@ -62,7 +62,7 @@ namespace DAL
             {
                 query = query.Where(c => c.Status == (EquipmentStatusType)statusFilter);
             }
-            query = query.OrderBy(c => c.ID);
+            query = query.OrderBy(c => c.Id);
 
             return query;
         }
@@ -76,7 +76,7 @@ namespace DAL
         public IEnumerable<Sensor> GetBySensorSet(int sensorSetID)
         {
             return DbSet.Where(c => c.SensorSetID == sensorSetID)
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<Sensor> SearchAvailable(string search)
@@ -85,11 +85,11 @@ namespace DAL
             return DbSet
                 .Where(c => c.Status != EquipmentStatusType.Trash)
                 .Where(c => c.SensorSet == null)
-                .Where(c => (c.ID == id)
-                            || c.ID.ToString().ToLower().Contains(search.ToLower())
+                .Where(c => (c.Id == id)
+                            || c.Id.ToString().ToLower().Contains(search.ToLower())
                             || c.Location.ToLower().Contains(search.ToLower())
                             || c.Type.ToString().ToLower().Contains(search.ToLower()))
-                .OrderBy(c => c.ID);
+                .OrderBy(c => c.Id);
         }
 
         public int GetNumReady()

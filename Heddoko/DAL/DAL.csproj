@@ -95,8 +95,32 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sigil, Version=4.7.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab, processorArchitecture=MSIL">
@@ -125,6 +149,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Identity\ApplicationSignInManager.cs" />
+    <Compile Include="Identity\ApplicationUserManager.cs" />
+    <Compile Include="Identity\EmailService.cs" />
+    <Compile Include="Identity\RoleStore.cs" />
+    <Compile Include="Identity\UserClaim.cs" />
+    <Compile Include="Identity\UserLogin.cs" />
+    <Compile Include="Identity\UserRole.cs" />
+    <Compile Include="Identity\UserStore.cs" />
+    <Compile Include="Identity\IdentityRole.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Diagnostics\ColoredConsoleTraceListener.cs" />
@@ -205,6 +238,10 @@
     <Compile Include="Migrations\201609201202151_UserIdentity.Designer.cs">
       <DependentUpon>201609201202151_UserIdentity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610130942452_UserOrganization.cs" />
+    <Compile Include="Migrations\201610130942452_UserOrganization.Designer.cs">
+      <DependentUpon>201610130942452_UserOrganization.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
@@ -227,9 +264,10 @@
     <Compile Include="Models\Enum\ComponentsType.cs" />
     <Compile Include="Models\Enum\EquipmentQAStatusType.cs" />
     <Compile Include="Models\HistoryNotes.cs" />
+    <Compile Include="Models\Interfaces\IMailSender.cs" />
     <Compile Include="Models\Interfaces\ISoftDelete.cs" />
     <Compile Include="Models\Interfaces\IAuditable.cs" />
-    <Compile Include="Models\Interface\IBaseModel.cs" />
+    <Compile Include="Models\Interfaces\IBaseModel.cs" />
     <Compile Include="Models\Pants.cs" />
     <Compile Include="Models\PantsOctopi.cs" />
     <Compile Include="Models\ShirtOctopi.cs" />
@@ -380,6 +418,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609201202151_UserIdentity.resx">
       <DependentUpon>201609201202151_UserIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610130942452_UserOrganization.resx">
+      <DependentUpon>201610130942452_UserOrganization.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

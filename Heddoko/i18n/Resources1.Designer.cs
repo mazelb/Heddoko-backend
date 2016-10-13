@@ -2545,6 +2545,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RequiresVerification.
+        /// </summary>
+        public static string RequiresVerification {
+            get {
+                return ResourceManager.GetString("RequiresVerification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
         public static string Reset {
@@ -3733,6 +3742,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email is not confirmed.
+        /// </summary>
+        public static string WrongConfirm {
+            get {
+                return ResourceManager.GetString("WrongConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wrong confirmation token.
         /// </summary>
         public static string WrongConfirmationToken {
@@ -3801,6 +3819,15 @@ namespace i18n {
         public static string WrongLicenseExpiration {
             get {
                 return ResourceManager.GetString("WrongLicenseExpiration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been locked out..
+        /// </summary>
+        public static string WrongLockedOut {
+            get {
+                return ResourceManager.GetString("WrongLockedOut", resourceCulture);
             }
         }
         

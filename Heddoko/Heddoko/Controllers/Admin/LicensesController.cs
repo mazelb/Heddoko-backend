@@ -20,6 +20,9 @@ namespace Heddoko.Controllers
         private const string OrganizationID = "OrganizationID";
         private const string Used = "Used";
 
+        public LicensesController() { }
+
+        public LicensesController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<LicenseAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -277,7 +280,7 @@ namespace Heddoko.Controllers
                 Name = item.Name,
                 ViewID = item.ViewID,
                 IDView = item.IDView,
-                ID = item.ID,
+                ID = item.Id,
                 Amount = (uint)item.Amount,
                 Status = item.Status,
                 OrganizationID = item.OrganizationID,

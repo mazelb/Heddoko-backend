@@ -17,6 +17,10 @@ namespace Heddoko.Controllers
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
 
+        public ShirtsOctopiController() { }
+
+        public ShirtsOctopiController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+
         public override KendoResponse<IEnumerable<ShirtOctopiAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<ShirtOctopi> items = null;
@@ -175,7 +179,7 @@ namespace Heddoko.Controllers
         {
             ShirtOctopi item = UoW.ShirtOctopiRepository.Get(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<ShirtOctopiAPIModel>
                 {
@@ -185,7 +189,7 @@ namespace Heddoko.Controllers
 
             item.Status = EquipmentStatusType.Trash;
 
-            UoW.ShirtRepository.RemoveShirtOctopi(item.ID);
+            UoW.ShirtRepository.RemoveShirtOctopi(item.Id);
 
             UoW.Save();
 
@@ -260,7 +264,7 @@ namespace Heddoko.Controllers
 
             return new ShirtOctopiAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 Location = item.Location,
                 QAStatus = item.QAStatus,

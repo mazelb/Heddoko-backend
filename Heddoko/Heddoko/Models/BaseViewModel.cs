@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using DAL.Models;
 using i18n;
+using System.Web;
 
 namespace Heddoko.Models
 {
@@ -13,7 +14,7 @@ namespace Heddoko.Models
         public BaseViewModel()
         {
             Flash = new FlashMessagesViewModel();
-            CurrentUser = ContextSession.User;
+            CurrentUser = Auth.CurrentUser;
             Title = Resources.Title;
         }
 

@@ -16,7 +16,7 @@ namespace DAL
         public override Team GetFull(int id)
         {
             return DbSet.Include(c => c.Organization)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Team> All(int? organizationID = null, bool isDeleted = false)
@@ -36,7 +36,7 @@ namespace DAL
             return DbSet.Include(c => c.Organization)
                         .Where(c => c.Status == status)
                         .Where(c => !organizationID.HasValue || c.OrganizationID == organizationID)
-                        .Where(c => c.ID.ToString().ToLower().Contains(search.ToLower())
+                        .Where(c => c.Id.ToString().ToLower().Contains(search.ToLower())
                                     || c.Name.ToLower().Contains(search.ToLower())
                                     || c.Address.ToLower().Contains(search.ToLower()));
         }

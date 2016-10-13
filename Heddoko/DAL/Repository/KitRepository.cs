@@ -55,7 +55,7 @@ namespace DAL
                         .Include(c => c.Pants)
                         .Include(c => c.Shirt)
                         .Include(c => c.User)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Kit> GetAvailable(int? id = null, int? organizationID = null)
@@ -63,7 +63,7 @@ namespace DAL
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
                         .Where(c => c.User == null || c.UserID == id)
                         .Where(c => !organizationID.HasValue || c.OrganizationID == organizationID)
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<Kit> All(bool isDeleted, int? organizationID = null)
@@ -76,7 +76,7 @@ namespace DAL
                         .Include(c => c.User)
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                         .Where(c => !organizationID.HasValue || c.OrganizationID == organizationID)
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<Kit> Search(string search, int? statusFilter = null, bool isDeleted = false, int? organizationID = null)
@@ -94,7 +94,7 @@ namespace DAL
             {
                 int? id = search.ParseID();
                 query = query.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                             .Where(c => (c.ID == id)
+                             .Where(c => (c.Id == id)
                                          || c.Location.ToLower().Contains(search.ToLower())
                                          || c.Label.ToLower().Contains(search.ToLower())
                                          || c.Notes.ToLower().Contains(search.ToLower()));
@@ -104,7 +104,7 @@ namespace DAL
                 query = query.Where(c => c.Status == (EquipmentStatusType)statusFilter);
             }
 
-            query = query.OrderBy(c => c.ID);
+            query = query.OrderBy(c => c.Id);
 
             return query;
         }
@@ -128,7 +128,7 @@ namespace DAL
 
             return DbSet.Include(c => c.User)
                         .Include(c => c.User.Team)
-                        .FirstOrDefault(c => (c.ID == id)
+                        .FirstOrDefault(c => (c.Id == id)
                                              || c.Label.ToLower().Contains(label.ToLower())
                                              || c.Brainpack.Label.ToLower().Contains(label.ToLower()));
         }
@@ -137,7 +137,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.User)
                         .Include(c => c.User.Team)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
     }
 }

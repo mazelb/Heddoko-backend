@@ -21,12 +21,12 @@ namespace DAL
 
         public override void ClearCache(User user)
         {
-            if (user.ID <= 0)
+            if (user.Id <= 0)
             {
                 return;
             }
 
-            base.ClearCache(user.ID.ToString());
+            base.ClearCache(user.Id.ToString());
 
             if (!string.IsNullOrEmpty(user.Email))
             {
@@ -46,12 +46,12 @@ namespace DAL
 
         public override void SetCache(string id, User user, int? hours = null)
         {
-            if (user.ID <= 0)
+            if (user.Id <= 0)
             {
                 return;
             }
 
-            base.SetCache(user.ID.ToString(), user, hours);
+            base.SetCache(user.Id.ToString(), user, hours);
 
             if (!string.IsNullOrEmpty(user.Email))
             {
@@ -73,7 +73,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.License)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<User> All(bool isDeleted = false)
@@ -92,7 +92,7 @@ namespace DAL
                         .Include(c => c.Kits)
                         .Include(c => c.Organization)
                         .Include(c => c.License)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
 
         public User GetByEmailCached(string email)

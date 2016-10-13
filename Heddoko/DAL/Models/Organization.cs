@@ -24,7 +24,7 @@ namespace DAL.Models
         public OrganizationStatusType Status { get; set; }
         #region NotMapped
 
-        public string IDView => $"OR{ID.ToString(Constants.PadZero)}";
+        public string IDView => $"OR{Id.ToString(Constants.PadZero)}";
 
         bool ISoftDelete.IsDeleted => Status == OrganizationStatusType.Deleted;
         #endregion

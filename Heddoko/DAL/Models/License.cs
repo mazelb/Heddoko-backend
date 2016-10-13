@@ -33,9 +33,9 @@ namespace DAL.Models
         #region NotMapped
         bool ISoftDelete.IsDeleted => Status == LicenseStatusType.Deleted;
 
-        public string IDView => $"LI{ID.ToString(Constants.PadZero)}";
+        public string IDView => $"LI{Id.ToString(Constants.PadZero)}";
 
-        public string ViewID => $"{OrganizationID}-{ID}";
+        public string ViewID => $"{OrganizationID}-{Id}";
 
 
         public string Name => $"{Type.GetDisplayName()} {IDView} ({ExpirationAt.ToString("dd/MM/yyyy")})";

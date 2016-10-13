@@ -630,7 +630,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -702,7 +701,7 @@
     <Compile Include="Helpers\Auth\AuthAPIAttribute.cs" />
     <Compile Include="Helpers\Auth\AuthAttribute.cs" />
     <Compile Include="Helpers\Auth\AuthCookie.cs" />
-    <Compile Include="Helpers\Auth\Forms.cs" />
+    <Compile Include="Helpers\Auth\Auth.cs" />
     <Compile Include="Helpers\Config.cs" />
     <Compile Include="Helpers\ContextSession.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />

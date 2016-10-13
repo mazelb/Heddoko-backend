@@ -20,6 +20,9 @@ namespace Heddoko.Controllers
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
 
+        public OrganizationsController() { }
+
+        public OrganizationsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<OrganizationAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -187,7 +190,7 @@ namespace Heddoko.Controllers
             Organization item = UoW.OrganizationRepository.GetFull(id);
             item.Status = OrganizationStatusType.Deleted;
 
-            List<User> users = UoW.UserRepository.GetByOrganization(item.ID).ToList();
+            List<User> users = UoW.UserRepository.GetByOrganization(item.Id).ToList();
 
             foreach (User user in users)
             {
@@ -296,7 +299,7 @@ namespace Heddoko.Controllers
 
             return new OrganizationAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 Name = item.Name,
                 Phone = item.Phone,
                 Address = item.Address,
@@ -332,7 +335,7 @@ namespace Heddoko.Controllers
                     &&
                     organization != null)
                 {
-                    if (organization.ID == user.OrganizationID)
+                    if (organization.Id == user.OrganizationID)
                     {
                         organization.User.Role = organization.User.RoleType;
 

@@ -34,7 +34,7 @@ namespace DAL
             T item = RedisManager.Get<T>(GetCacheKey(id?.ToLower()));
             if (item != null
                 &&
-                item.ID > 0)
+                item.Id > 0)
             {
                 Attach(item);
             }
@@ -49,7 +49,7 @@ namespace DAL
 
         public virtual void ClearCache(T item)
         {
-            ClearCache(item.ID.ToString());
+            ClearCache(item.Id.ToString());
         }
 
         public virtual void ClearCache(string id)
@@ -88,7 +88,7 @@ namespace DAL
                                              .Include(c => c.Properties)
                                              .ToList();
             List<int> ids = logs.Where(c => c.CreatedBy != Constants.SystemUser).Select(c => int.Parse(c.CreatedBy)).ToList();
-            List<User> users = Db.Users.Where(c => ids.Contains(c.ID)).ToList();
+            List<User> users = Db.Users.Where(c => ids.Contains(c.Id)).ToList();
 
             User systemUser = new User();
             systemUser.UserName = Constants.SystemUser;
@@ -97,7 +97,7 @@ namespace DAL
 
             return logs.SelectMany(c => c.Properties.Where(p => p.PropertyName == Constants.AuditFieldName.Notes)).Select(c => new HistoryNotes()
             {
-                User = users.FirstOrDefault(u => u.UserName == c.Parent.CreatedBy || int.Parse(c.Parent.CreatedBy) == u.ID),
+                User = users.FirstOrDefault(u => u.UserName == c.Parent.CreatedBy || int.Parse(c.Parent.CreatedBy) == u.Id),
                 Created = c.Parent.CreatedDate,
                 Notes = c.OldValueFormatted
             }).ToList();
@@ -109,7 +109,7 @@ namespace DAL
 
         public virtual T Get(int id)
         {
-            return DbSet.FirstOrDefault(c => c.ID == id);
+            return DbSet.FirstOrDefault(c => c.Id == id);
         }
 
         public virtual T GetFull(int id)
@@ -179,7 +179,7 @@ namespace DAL
 
         public bool Exists(T entity)
         {
-            return DbSet.Local.Any(e => e.ID == entity.ID);
+            return DbSet.Local.Any(e => e.Id == entity.Id);
         }
 
 

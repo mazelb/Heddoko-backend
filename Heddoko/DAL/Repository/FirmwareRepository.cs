@@ -15,7 +15,7 @@ namespace DAL
         public override Firmware GetFull(int id)
         {
             return DbSet.Include(c => c.Asset)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Firmware> All(bool isDeleted)
@@ -38,7 +38,7 @@ namespace DAL
             int? id = search.ParseID();
             return DbSet.Include(c => c.Asset)
                         .Where(c => isDeleted ? c.Status == FirmwareStatusType.Inactive : c.Status != FirmwareStatusType.Inactive)
-                        .Where(c => (c.ID == id)
+                        .Where(c => (c.Id == id)
                                     || c.Version.ToString().ToLower().Contains(search.ToLower()))
                         .OrderByDescending(c => c.Created);
         }

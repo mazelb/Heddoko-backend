@@ -20,6 +20,10 @@ namespace Heddoko.Controllers.API
     [RoutePrefix("api/v1/assets")]
     public class AssetsAPIController : BaseAPIController
     {
+        public AssetsAPIController() {  }
+
+        public AssetsAPIController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+
         /// <summary>
         ///     Upload files
         /// </summary>
@@ -123,7 +127,7 @@ namespace Heddoko.Controllers.API
             {
                 if (CurrentUser.RoleType == UserRoleType.Worker)
                 {
-                    if (kit.UserID.Value != CurrentUser.ID)
+                    if (kit.UserID.Value != CurrentUser.Id)
                     {
                         throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} kitID");
                     }
@@ -168,7 +172,7 @@ namespace Heddoko.Controllers.API
             foreach (MultipartFileData file in provider.FileData)
             {
                 asset.Name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString();
-                string path = AssetManager.Path($"{CurrentUser.ID}/{DateTime.Now.Ticks.ToString("x")}_{asset.Name}", asset.Type);
+                string path = AssetManager.Path($"{CurrentUser.Id}/{DateTime.Now.Ticks.ToString("x")}_{asset.Name}", asset.Type);
 
                 Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
                 File.Delete(file.LocalFileName);
@@ -207,7 +211,7 @@ namespace Heddoko.Controllers.API
 
             if (CurrentUser.Role == UserRoleType.Worker)
             {
-                userID = CurrentUser.ID;
+                userID = CurrentUser.Id;
             }
 
             return new ListAPIViewModel<Asset>()

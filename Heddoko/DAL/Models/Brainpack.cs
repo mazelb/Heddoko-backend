@@ -31,7 +31,7 @@ namespace DAL.Models
         #region NotMapped
         [JsonIgnore]
         bool ISoftDelete.IsDeleted => Status == EquipmentStatusType.Trash;
-        public string IDView => $"BP{ID.ToString(Constants.PadZero)}";
+        public string IDView => $"BP{Id.ToString(Constants.PadZero)}";
 
         #endregion
 

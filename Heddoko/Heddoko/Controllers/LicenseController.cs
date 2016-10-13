@@ -1,4 +1,6 @@
-﻿using Heddoko.Models;
+﻿using DAL;
+using Heddoko.Models;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,13 @@ namespace Heddoko.Controllers
     [Auth(Roles = DAL.Constants.Roles.Admin)]
     public class LicenseController : BaseController
     {
+        public LicenseController() : base() { }
+
+        public LicenseController(ApplicationUserManager userManager, UnitOfWork uow)
+            : base(userManager, uow)
+        {
+        }
+
         public ActionResult Index()
         {
             BaseViewModel model = new BaseViewModel

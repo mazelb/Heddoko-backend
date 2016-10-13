@@ -20,6 +20,9 @@ namespace Heddoko.Controllers
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
 
+        public TeamsController() { }
+
+        public TeamsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<TeamAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -126,7 +129,7 @@ namespace Heddoko.Controllers
             {
                 Team item = new Team();
                 item = Bind(item, model);
-                if (item.ID == 0)
+                if (item.Id == 0)
                 {
                     UoW.TeamRepository.Create(item);
                 }
@@ -197,7 +200,7 @@ namespace Heddoko.Controllers
         {
             Team item = UoW.TeamRepository.GetFull(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<TeamAPIModel>
                 {
@@ -245,7 +248,7 @@ namespace Heddoko.Controllers
 
             return new TeamAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 Name = item.Name,
                 Status = item.Status,
                 Organization = item.Organization,

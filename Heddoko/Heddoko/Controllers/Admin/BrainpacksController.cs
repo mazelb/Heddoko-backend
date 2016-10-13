@@ -21,6 +21,10 @@ namespace Heddoko.Controllers
         private const int NoPowerboardID = 0;
         private const int NoDataboardID = 0;
 
+        public BrainpacksController() { }
+
+        public BrainpacksController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+
         public override KendoResponse<IEnumerable<BrainpackAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<Brainpack> items = null;
@@ -182,10 +186,10 @@ namespace Heddoko.Controllers
         {
             Brainpack item = UoW.BrainpackRepository.Get(id);
 
-            if (item.ID != CurrentUser.ID)
+            if (item.Id != CurrentUser.Id)
             {
                 item.Status = EquipmentStatusType.Trash;
-                UoW.KitRepository.RemoveBrainpack(item.ID);
+                UoW.KitRepository.RemoveBrainpack(item.Id);
 
                 UoW.Save();
             }
@@ -323,7 +327,7 @@ namespace Heddoko.Controllers
 
             return new BrainpackAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 Version = item.Version,
                 Location = item.Location,

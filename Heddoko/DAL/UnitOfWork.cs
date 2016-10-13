@@ -11,6 +11,13 @@ namespace DAL
             _db = context ?? new HDContext();
         }
 
+        public static UnitOfWork Create()
+        {
+            return new UnitOfWork();
+        }
+
+        public HDContext Context => _db;
+
         public void Save()
         {
             _db.SaveChanges();

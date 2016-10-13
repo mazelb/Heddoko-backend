@@ -24,6 +24,9 @@ namespace Heddoko.Controllers
         private const string License = "License";
         private const string Used = "Used";
 
+        public UsersController() { }
+
+        public UsersController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<UserAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -138,7 +141,7 @@ namespace Heddoko.Controllers
             {
                 User item = new User();
                 item = Bind(item, model);
-                if (item.ID == 0)
+                if (item.Id == 0)
                 {
                     UoW.UserRepository.Create(item);
                 }
@@ -214,7 +217,7 @@ namespace Heddoko.Controllers
         {
             User item = UoW.UserRepository.Get(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<UserAPIModel>
                 {
@@ -252,7 +255,7 @@ namespace Heddoko.Controllers
 
             if (item == null
                 ||
-                item.ID == 0)
+                item.Id == 0)
             {
                 User user = null;
                 if (model.ID.HasValue)
@@ -386,7 +389,7 @@ namespace Heddoko.Controllers
             {
                 if (model.KitID.Value == NoKit)
                 {
-                    UoW.KitRepository.RemoveUser(item.ID);
+                    UoW.KitRepository.RemoveUser(item.Id);
                 }
                 else
                 {
@@ -419,7 +422,7 @@ namespace Heddoko.Controllers
 
             return new UserAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 Name = item.Name,
                 Email = item.Email,
                 Firstname = item.FirstName,
@@ -433,7 +436,7 @@ namespace Heddoko.Controllers
                 OrganizationName = item.Organization?.Name,
                 LicenseStatus = item.License?.Status,
                 ExpirationAt = item.License?.ExpirationAt,
-                KitID = item.Kit?.ID ?? 0,
+                KitID = item.Kit?.Id ?? 0,
                 Kit = item.Kit,
                 TeamID = item.TeamID ?? 0,
                 Team = item.Team

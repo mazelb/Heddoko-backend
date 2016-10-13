@@ -18,6 +18,10 @@ namespace Heddoko.Controllers
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
 
+        public SensorSetsController() { }
+
+        public SensorSetsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+
         public override KendoResponse<IEnumerable<SensorSetsAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<SensorSet> items = null;
@@ -177,15 +181,15 @@ namespace Heddoko.Controllers
         {
             SensorSet item = UoW.SensorSetRepository.Get(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<SensorSetsAPIModel>
                 {
                     Response = Convert(item)
                 };
             }
-            UoW.SensorRepository.RemoveSensorSet(item.ID);
-            UoW.KitRepository.RemoveSensorSet(item.ID);
+            UoW.SensorRepository.RemoveSensorSet(item.Id);
+            UoW.KitRepository.RemoveSensorSet(item.Id);
 
             item.Status = EquipmentStatusType.Trash;
             UoW.Save();
@@ -234,7 +238,7 @@ namespace Heddoko.Controllers
 
                 foreach (int sensor in model.Sensors)
                 {
-                    if (item.Sensors.Any(c => c.ID == sensor))
+                    if (item.Sensors.Any(c => c.Id == sensor))
                     {
                         continue;
                     }
@@ -267,11 +271,11 @@ namespace Heddoko.Controllers
 
             return new SensorSetsAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 QAStatus = item.QAStatus,
                 Kit = item.Kit,
-                KitID = item.Kit?.ID ?? 0,
+                KitID = item.Kit?.Id ?? 0,
                 Status = item.Status,
                 Label = item.Label,
                 Notes = item.Notes,

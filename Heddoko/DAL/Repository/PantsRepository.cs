@@ -17,21 +17,21 @@ namespace DAL
         {
             return DbSet.Include(c => c.PantsOctopi)
                         .Include(c => c.Kits)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Pants> All(bool isDeleted)
         {
             return DbSet.Include(c => c.PantsOctopi)
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<Pants> GetAvailable(int? id = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
-                        .Where(c => c.Kits.Count == 0 || c.Kits.Any(p => p.ID == id))
-                        .OrderBy(c => c.ID);
+                        .Where(c => c.Kits.Count == 0 || c.Kits.Any(p => p.Id == id))
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<Pants> Search(string search, int? statusFilter = null, bool isDeleted = false)
@@ -42,7 +42,7 @@ namespace DAL
             {
                 int? id = search.ParseID();
                 query = query   .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)                               
-                                .Where(c => (c.ID == id)
+                                .Where(c => (c.Id == id)
                                             || c.Size.ToString().ToLower().Contains(search.ToLower())
                                             || c.Location.ToLower().Contains(search.ToLower())
                                             || c.Label.ToLower().Contains(search.ToLower())
@@ -53,7 +53,7 @@ namespace DAL
                 query = query.Where(c => c.Status == (EquipmentStatusType)statusFilter);
             }           
 
-            query = query.OrderBy(c => c.ID);
+            query = query.OrderBy(c => c.Id);
             return query;
         }
 

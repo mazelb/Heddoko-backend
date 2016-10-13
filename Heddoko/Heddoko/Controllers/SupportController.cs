@@ -4,11 +4,19 @@ using DAL;
 using DAL.Models;
 using Heddoko.Models;
 using i18n;
+using Services;
 
 namespace Heddoko.Controllers
 {
     public class SupportController : BaseController
     {
+        public SupportController(): base() { }
+
+        public SupportController(ApplicationUserManager userManager, UnitOfWork uow)
+            : base(userManager, uow)
+        {
+        }
+
         public ActionResult Index()
         {
             SupportIndexViewModel model = new SupportIndexViewModel();

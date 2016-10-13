@@ -13,7 +13,7 @@ namespace DAL.Models
         public FirmwareStatusType Status { get; set; }
 
         #region NotMapped
-        public string IDView => $"FW{ID.ToString(Constants.PadZero)}";
+        public string IDView => $"FW{Id.ToString(Constants.PadZero)}";
 
         public string Url => Asset?.Url;
 

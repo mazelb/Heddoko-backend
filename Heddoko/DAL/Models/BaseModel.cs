@@ -7,7 +7,7 @@ namespace DAL.Models
 {
     public class BaseModel : IBaseModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("updatedAt")]
         public DateTime? Updated { get; set; }

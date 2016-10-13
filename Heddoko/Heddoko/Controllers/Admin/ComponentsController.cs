@@ -17,6 +17,10 @@ namespace Heddoko.Controllers.Admin
         private const string Search = "Search";
         private const string IsDeleted = "IsDeleted";
 
+        public ComponentsController() { }
+
+        public ComponentsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+
         public override KendoResponse<IEnumerable<ComponentsAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<Component> items = null;
@@ -156,7 +160,7 @@ namespace Heddoko.Controllers.Admin
         {
             Component item = UoW.ComponentRepository.GetFull(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<ComponentsAPIModel>
                 {
@@ -198,7 +202,7 @@ namespace Heddoko.Controllers.Admin
 
             return new ComponentsAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 Status = item.Status,
                 Type = item.Type,
                 Quantity = item.Quantity,
