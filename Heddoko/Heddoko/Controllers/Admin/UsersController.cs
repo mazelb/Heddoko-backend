@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Hangfire;
 using Heddoko.Models;
 using i18n;
 
@@ -147,8 +148,8 @@ namespace Heddoko.Controllers
                     UoW.Save();
                     UoW.UserRepository.ClearCache(item);
                 }
-
-                Task.Run(() => Mailer.SendInviteEmail(item));
+                
+                BackgroundJob.Enqueue(() => Services.EmailManager.SendInviteEmail(item));
 
                 response = Convert(item);
             }

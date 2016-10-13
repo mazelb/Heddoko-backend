@@ -1,0 +1,13 @@
+﻿@using DAL
+@model Services.MailSending.Models.ActivationUserEmailViewModel
+
+@{
+    Layout = "_LayoutEmail";
+    var url = Config.DashboardSite + string.Format("/confirm/{0}", Model.Token);
+}
+
+Welcome @Model.FirstName,
+<br /><br />
+Click here to activate your account: <a href="@(url)">@(url)</a>
+<br /><br />
+- The Heddoko Team

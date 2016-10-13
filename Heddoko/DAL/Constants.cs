@@ -62,6 +62,7 @@
         public static class HangFireQueue
         {
             public const string Default = "default";
+            public const string MailSending = "mailsending";
         }
 
         public static class Cache

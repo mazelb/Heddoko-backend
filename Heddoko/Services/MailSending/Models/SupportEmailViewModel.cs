@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using DAL.Models;
 
-namespace Heddoko.Models
+namespace Services.MailSending.Models
 {
     public class SupportEmailViewModel : EmailViewModel
     {

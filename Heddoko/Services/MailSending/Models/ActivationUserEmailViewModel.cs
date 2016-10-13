@@ -1,4 +1,4 @@
-﻿namespace Heddoko.Models
+﻿namespace Services.MailSending.Models
 {
     public class ActivationUserEmailViewModel : EmailViewModel
     {

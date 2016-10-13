@@ -9,11 +9,7 @@ namespace Heddoko
     public class Config : DAL.Config
     {
         public static int EmailForgotTokenExpiration => int.Parse(ConfigurationManager.AppSettings["EmailForgotTokenExpiration"]);
-
-        public static string SendgridKey => ConfigurationManager.AppSettings["SendgridKey"];
-
-        public static string MailFrom => ConfigurationManager.AppSettings["MailFrom"];
-
+        
         public static string CIUploadToken => ConfigurationManager.AppSettings["CIUploadToken"];
 
         #region Host

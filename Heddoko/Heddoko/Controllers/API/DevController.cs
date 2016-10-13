@@ -8,6 +8,7 @@ using Services;
 using System;
 using System.Threading.Tasks;
 using DAL.Models;
+using Hangfire;
 
 namespace Heddoko.Controllers.API
 {
@@ -71,8 +72,8 @@ namespace Heddoko.Controllers.API
                 uow.UserRepository.ClearCache(user);
 
                 Organization organization = uow.OrganizationRepository.GetFull(user.OrganizationID.Value);
-
-                Task.Run(() => Mailer.SendInviteAdminEmail(organization));
+                
+                BackgroundJob.Enqueue(() => EmailManager.SendInviteAdminEmail(organization));
             }
 
             return Ok();

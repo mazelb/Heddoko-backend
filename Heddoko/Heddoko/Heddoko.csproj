@@ -67,18 +67,6 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RazorEngine, Version=3.9.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
-      <HintPath>..\packages\RazorEngine.3.9.0\lib\net45\RazorEngine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SendGrid, Version=8.0.2.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sendgrid.8.0.2\lib\SendGrid.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SendGrid.CSharp.HTTP.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=79219bf4e5ecaaca, processorArchitecture=MSIL">
-      <HintPath>..\packages\SendGrid.CSharp.HTTP.Client.3.0.0\lib\SendGrid.CSharp.HTTP.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
@@ -683,10 +671,6 @@
     <Compile Include="Helpers\Kendo\FilterLogic.cs" />
     <Compile Include="Helpers\Kendo\FilterOperator.cs" />
     <Compile Include="Helpers\Kendo\SortDirection.cs" />
-    <Compile Include="Helpers\Mail\Mail.cs" />
-    <Compile Include="Helpers\Mail\Mailer.cs" />
-    <Compile Include="Helpers\Mail\RazorView.cs" />
-    <Compile Include="Helpers\Mail\SendGridMail.cs" />
     <Compile Include="Helpers\MVC\CompareTodayAttribute.cs" />
     <Compile Include="Helpers\MVC\ContextTempData.cs" />
     <Compile Include="Helpers\MVC\CustomDirectRouteProvider.cs" />
@@ -734,12 +718,6 @@
     <Compile Include="Models\API\SignInAPIViewModel.cs" />
     <Compile Include="Models\Default\DefaultIndexViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
-    <Compile Include="Models\Email\WelcomeEmailViewModel.cs" />
-    <Compile Include="Models\Email\InviteAdminUserEmailViewModel.cs" />
-    <Compile Include="Models\Email\ActivationUserEmailViewModel.cs" />
-    <Compile Include="Models\Email\EmailViewModel.cs" />
-    <Compile Include="Models\Email\ForgotPasswordEmailViewModel.cs" />
-    <Compile Include="Models\Email\SupportEmailViewModel.cs" />
     <Compile Include="Models\Error\API\ErrorAPIViewModel.cs" />
     <Compile Include="Models\Error\ErrorViewModel.cs" />
     <Compile Include="Models\FlashMessagesViewModel.cs" />
@@ -775,11 +753,6 @@
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Shared\_FlashMessages.cshtml" />
-    <Content Include="Views\Shared\_LayoutEmail.cshtml" />
-    <Content Include="Views\Email\Email.cshtml" />
-    <Content Include="Views\Email\ActivationUserEmail.cshtml" />
-    <Content Include="Views\Email\ForgotPasswordEmail.cshtml" />
-    <Content Include="Views\Email\ForgotUsernameEmail.cshtml" />
     <Content Include="Views\Account\Confirm.cshtml" />
     <Content Include="Views\Account\ConfirmStatus.cshtml" />
     <Content Include="Views\Account\Forgot.cshtml" />
@@ -800,18 +773,15 @@
     <Content Include="Views\License\Index.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\License\_Organizations.cshtml" />
-    <Content Include="Views\Email\InviteAdminUserEmail.cshtml" />
     <Content Include="Views\Organization\Index.cshtml" />
     <Content Include="Views\Account\Invite.cshtml" />
     <Content Include="Views\Account\SignUpOrganization.cshtml" />
     <Content Include="Views\Organization\_Users.cshtml" />
     <Content Include="Views\Organization\_Licenses.cshtml" />
-    <Content Include="Views\Email\InviteUserEmail.cshtml" />
     <Content Include="Views\License\_Users.cshtml" />
     <Content Include="Views\Account\Me.cshtml" />
     <Content Include="Views\Support\Index.cshtml" />
     <Content Include="Views\Support\IndexStatus.cshtml" />
-    <Content Include="Views\Email\SupportEmail.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Inventory\_PantsOctopi.cshtml" />
     <Content Include="Views\Shared\_NavigationAdmin.cshtml" />
@@ -835,7 +805,6 @@
     <Content Include="Views\License\_OrganizationPopup.cshtml" />
     <Content Include="Views\Organization\_Teams.cshtml" />
     <Content Include="Views\Inventory\_NotesHistory.cshtml" />
-    <Content Include="Views\Email\WelcomeUserEmail.cshtml" />
     <Content Include="Views\Static\Requirements.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>

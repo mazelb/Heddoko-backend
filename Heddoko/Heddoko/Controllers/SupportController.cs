@@ -2,8 +2,10 @@
 using System.Web.Mvc;
 using DAL;
 using DAL.Models;
+using Hangfire;
 using Heddoko.Models;
 using i18n;
+using Services;
 
 namespace Heddoko.Controllers
 {
@@ -36,7 +38,20 @@ namespace Heddoko.Controllers
                 ModelState.AddModelError(string.Empty, Resources.WrongAttachmentSize);
             }
 
-            Mailer.SendSupportEmail(model);
+            //Mailer.SendSupportEmail(model);
+
+            var mailModel = new Services.MailSending.Models.SupportEmailViewModel
+            {
+                Type = model.Type,
+                Importance = model.Importance,
+                DetailedDescription = model.DetailedDescription,
+                Email = model.Email,
+                FullName = model.FullName,
+                ShortDescription = model.ShortDescription,
+                Attachments = model.Attachments
+            };
+
+            BackgroundJob.Enqueue(() => EmailManager.SendSupportEmail(mailModel));
 
             BaseViewModel modelStatus = new BaseViewModel();
 
