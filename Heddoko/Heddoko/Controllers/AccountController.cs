@@ -291,9 +291,6 @@ namespace Heddoko.Controllers
                 user.Organization = organization;
                 UoW.Save();
 
-                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                UserManager.SendActivationEmail(user.Id, code);
-
                 BaseViewModel modelStatus = new BaseViewModel();
 
                 modelStatus.Flash.Add(new FlashMessage

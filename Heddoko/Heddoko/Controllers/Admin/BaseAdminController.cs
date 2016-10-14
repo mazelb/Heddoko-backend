@@ -75,6 +75,11 @@ namespace Heddoko.Controllers
             }
         }
 
+        protected bool IsAdmin => CurrentUser != null && UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.Admin);
+
+        protected bool IsLicenseAdmin => CurrentUser != null && UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.LicenseAdmin);
+
+
         [Route("")]
         [HttpGet]
         public virtual KendoResponse<IEnumerable<TM>> Get([FromUri] KendoRequest request)

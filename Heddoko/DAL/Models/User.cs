@@ -58,21 +58,26 @@ namespace DAL.Models
 
         [StringLength(100)]
         [JsonIgnore]
+        [Obsolete("will be removed after migration to Identity")]
         public string ConfirmToken { get; set; }
 
         [StringLength(100)]
         [JsonIgnore]
+        [Obsolete("will be removed after migration to Identity")]
         public string RememberToken { get; set; }
 
         [StringLength(100)]
         [JsonIgnore]
+        [Obsolete("will be removed after migration to Identity")]
         public string ForgotToken { get; set; }
 
         [StringLength(100)]
         [JsonIgnore]
+        [Obsolete("will be removed after migration to Identity")]
         public string InviteToken { get; set; }
 
         [JsonIgnore]
+        [Obsolete("will be removed after migration to Identity")]
         public DateTime? ForgotExpiration { get; set; }
 
         #region Relations

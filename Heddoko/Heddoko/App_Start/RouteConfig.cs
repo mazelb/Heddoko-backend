@@ -72,18 +72,19 @@ namespace Heddoko
                 {
                     controller = "Account",
                     action = "SignUpOrganization",
-                    token = UrlParameter.Optional
+                    organizationID = UrlParameter.Optional
                 }
                 );
 
             routes.MapRoute(
                 "Invite",
-                "invite/{token}",
+                "invite/{userId}/{code}",
                 new
                 {
                     controller = "Account",
                     action = "SignUpOrganization",
-                    token = UrlParameter.Optional
+                    userId = UrlParameter.Optional,
+                    code = UrlParameter.Optional
                 }
                 );
 
@@ -101,12 +102,13 @@ namespace Heddoko
 
             routes.MapRoute(
                 "Forgot",
-                "forgot/{token}",
+                "forgot/{userId}/{code}",
                 new
                 {
                     controller = "Account",
                     action = "Forgot",
-                    token = UrlParameter.Optional
+                    userId = UrlParameter.Optional,
+                    code = UrlParameter.Optional
                 }
                 );
 

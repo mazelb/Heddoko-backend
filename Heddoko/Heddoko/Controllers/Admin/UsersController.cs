@@ -38,7 +38,7 @@ namespace Heddoko.Controllers
             bool isDeleted = false;
             int? licenseID = null;
 
-            if (CurrentUser.Role == UserRoleType.LicenseAdmin)
+            if (IsLicenseAdmin)
             {
                 forceOrganization = true;
 
@@ -54,7 +54,7 @@ namespace Heddoko.Controllers
                 KendoFilterItem adminFilter = request.Filter.Get(Admin);
                 if (adminFilter != null)
                 {
-                    if (CurrentUser.Role == UserRoleType.Admin)
+                    if (IsAdmin)
                     {
                         items = UoW.UserRepository.Admins();
                     }
@@ -103,7 +103,7 @@ namespace Heddoko.Controllers
 
             if (items == null)
             {
-                items = CurrentUser.Role == UserRoleType.Admin ? UoW.UserRepository.All(isDeleted) : UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value, isDeleted, licenseID);
+                items = IsAdmin ? UoW.UserRepository.All(isDeleted) : UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value, isDeleted, licenseID);
             }
 
             count = items.Count();
@@ -153,7 +153,8 @@ namespace Heddoko.Controllers
                 }
 
                 int userID = item.Id;
-                BackgroundJob.Enqueue(() => Services.EmailManager.SendInviteEmail(userID));
+
+                UserManager.SendInviteEmail(userID);
 
                 response = Convert(item);
             }

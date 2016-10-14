@@ -13,6 +13,7 @@ namespace DAL
 {
     public class ApplicationUserManager : UserManager<User, int>
     {
+        private const string InviteToken = "Invite";
         public ApplicationUserManager(IUserStore<User, int> store)
             : base(store)
         {
@@ -55,7 +56,10 @@ namespace DAL
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = new DataProtectorTokenProvider<User, int>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider = new DataProtectorTokenProvider<User, int>(dataProtectionProvider.Create("ASP.NET Identity"))
+                {
+                    TokenLifespan = TimeSpan.FromDays(5)
+                };
             }
             return manager;
         }
@@ -81,6 +85,8 @@ namespace DAL
                         user.EmailConfirmed = true;
                     }
 
+                    await AddToRoleAsync(user.Id, Constants.Roles.User);
+
                     await UpdateAsync(user);
 
                     switch (user.Role)
@@ -98,11 +104,6 @@ namespace DAL
                             }
                             break;
                         case UserRoleType.User:
-                            if (!await IsInRoleAsync(user.Id, Constants.Roles.LicenseAdmin))
-                            {
-                                await AddToRoleAsync(user.Id, Constants.Roles.User);
-                            }
-                            break;
                         default:
                             break;
                     }
@@ -132,6 +133,16 @@ namespace DAL
             }
 
             return await base.CheckPasswordAsync(user, password);
+        }
+
+        public async Task<string> GenerateInviteTokenAsync(User user)
+        {
+            return await UserTokenProvider.GenerateAsync(InviteToken, this, user);
+        }
+
+        public async Task<bool> GenerateInviteTokenAsync(User user, string token)
+        {
+            return await UserTokenProvider.ValidateAsync(InviteToken, token, this, user);
         }
 
         public User FindByIdCached(int userId)
