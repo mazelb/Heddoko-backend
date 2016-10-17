@@ -2,6 +2,7 @@
 using DAL;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Hangfire;
 
 namespace Services
 {
@@ -32,6 +33,22 @@ namespace Services
             {
                 blockBlob.UploadFromStream(stream);
             }
+        }
+
+        public static void Download(string url, string container, string path)
+        {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Config.StorageConnectionString);
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+            CloudBlobContainer blobContainer = blobClient.GetContainerReference(container);
+            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(url);
+
+            blockBlob.DownloadToFile(path, FileMode.OpenOrCreate);
+        }
+
+        public static void DeleteFile(string path)
+        {
+            File.Delete(path);
         }
     }
 }
