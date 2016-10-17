@@ -23,7 +23,7 @@ namespace Services.MailSending
             var mailModel = new ActivationUserEmailViewModel
             {
                 FirstName = user.FirstName,
-                ActivationUrl = $"{Config.DashboardSite}/confirm/{user.Id}/{code}"
+                ActivationUrl = $"{Config.DashboardSite}/confirm/{user.Id}/{HttpUtility.UrlEncode(code)}"
             };
 
             string subject = Resources.EmailActivationUserSubject;
@@ -33,16 +33,16 @@ namespace Services.MailSending
             SendGridMail.Send(subject, body, user.Email);
         }
 
-        public static void SendInviteAdminEmail(Organization organization)
+        public static void SendInviteAdminEmail(Organization organization, string inviteToken)
         {
             var mailModel = new InviteAdminUserEmailViewModel
             {
-                Token = organization.User.InviteToken,
+                Token = inviteToken,
                 FirstName = organization.User.Name,
                 OrganizationName = organization.Name
             };
 
-            mailModel.ActivationUrl = $"{Config.DashboardSite}/invite/{mailModel.Token}";
+            mailModel.ActivationUrl = $"{Config.DashboardSite}/invite/{organization.User.Id}/{HttpUtility.UrlEncode(mailModel.Token)}";
 
             string subject = Resources.EmailInviteAdminUserSubject;
 
@@ -51,16 +51,16 @@ namespace Services.MailSending
             SendGridMail.Send(subject, body, organization.User.Email);
         }
 
-        public static void SendInviteEmail(User user)
+        public static void SendInviteEmail(User user, string inviteToken)
         {
             var mailModel = new InviteAdminUserEmailViewModel
             {
-                Token = user.InviteToken,
+                Token = inviteToken,
                 FirstName = user.Name,
                 OrganizationName = user.Organization?.Name
             };
 
-            mailModel.ActivationUrl = $"{Config.DashboardSite}/invite/{mailModel.Token}";
+            mailModel.ActivationUrl = $"{Config.DashboardSite}/invite/{user.Id}/{HttpUtility.UrlEncode(mailModel.Token)}";
 
             string subject = Resources.EmailInviteUserSubject;
 
@@ -69,19 +69,18 @@ namespace Services.MailSending
             SendGridMail.Send(subject, body, user.Email);
         }
 
-        public static void SendForgotPasswordEmail(User user)
+        public static void SendForgotPasswordEmail(User user, string resetPasswordToken)
         {
             var mailModel = new ForgotPasswordEmailViewModel
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                ResetPasswordUrl = $"{Config.DashboardSite}/forgot/{user.ForgotToken}"
+                ResetPasswordUrl = $"{Config.DashboardSite}/forgot/{user.Id}/{HttpUtility.UrlEncode(resetPasswordToken)}"
             };
 
             string subject = Resources.EmailForgotPasswordSubject;
 
             string body = razorView.RenderViewToString("ForgotPasswordEmail", mailModel);
-
 
             SendGridMail.Send(subject, body, user.Email);
         }
@@ -144,7 +143,7 @@ namespace Services.MailSending
             };
 
             string subject = Resources.EmailActivatedSubject;
-            
+
             string body = razorView.RenderViewToString("WelcomeUserEmail", mailModel);
 
             SendGridMail.Send(subject, body, user.Email);

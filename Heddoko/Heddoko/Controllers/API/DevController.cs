@@ -15,8 +15,16 @@ namespace Heddoko.Controllers.API
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("api/v1/development")]
     [AllowAnonymous]
-    public class DevController : ApiController
+    public class DevController : BaseAPIController
     {
+        public DevController()
+        {
+        }
+
+        public DevController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow)
+        {
+        }
+
         [Route("migrate-db")]
         [HttpPost]
         public IHttpActionResult Migrate()
@@ -58,23 +66,21 @@ namespace Heddoko.Controllers.API
 
         [Route("sendadminInvite/{id:int}")]
         [HttpGet]
-        public IHttpActionResult SendAdminInvite(int id)
+        public async Task<IHttpActionResult> SendAdminInvite(int id)
         {
-            UnitOfWork uow = new UnitOfWork(new HDContext());
-
-            User user = uow.UserRepository.Get(id);
+            User user = UoW.UserRepository.Get(id);
 
             if (user.OrganizationID.HasValue)
             {
                 user.Status = UserStatusType.Invited;
-                user.InviteToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString());
-                uow.Save();
-                uow.UserRepository.ClearCache(user);
+                UoW.Save();
+                UoW.UserRepository.ClearCache(user);
 
-                Organization organization = uow.OrganizationRepository.GetFull(user.OrganizationID.Value);
+                Organization organization = UoW.OrganizationRepository.GetFull(user.OrganizationID.Value);
 
                 int organizationID = organization.Id;
-                BackgroundJob.Enqueue(() => EmailManager.SendInviteAdminEmail(organizationID));
+                string inviteToken = await UserManager.GenerateInviteTokenAsync(user);
+                UserManager.SendInviteAdminEmail(organizationID, inviteToken);
             }
 
             return Ok();

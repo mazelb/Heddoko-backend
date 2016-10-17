@@ -425,7 +425,8 @@ i18n.Resources = (function () {
   "CantSetPending": "You can't set pending status",
   "WrongLockedOut": "You have been locked out.",
   "RequiresVerification": "RequiresVerification",
-  "WrongConfirm": "Email is not confirmed"
+  "WrongConfirm": "Email is not confirmed",
+  "UserDoesntExist": "User doesn't exist"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

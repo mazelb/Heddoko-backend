@@ -153,8 +153,8 @@ namespace Heddoko.Controllers
                 }
 
                 int userID = item.Id;
-
-                UserManager.SendInviteEmail(userID);
+                Task<string> inviteToken = UserManager.GenerateInviteTokenAsync(item);
+                UserManager.SendInviteEmail(userID, inviteToken.Result);
 
                 response = Convert(item);
             }

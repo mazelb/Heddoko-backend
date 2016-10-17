@@ -1,12 +1,8 @@
-﻿using DAL;
-using DAL.Models;
+﻿using DAL.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DAL
@@ -14,6 +10,12 @@ namespace DAL
     public class ApplicationUserManager : UserManager<User, int>
     {
         private const string InviteToken = "Invite";
+
+        /// <summary>
+        /// ResetPassword is a private key in UserManager class. In case of error check if they still use this key for reseting pwd.
+        /// </summary>
+        private const string ResetPassword = "ResetPassword";
+
         public ApplicationUserManager(IUserStore<User, int> store)
             : base(store)
         {
@@ -80,7 +82,7 @@ namespace DAL
                     user.Password = null;
 
                     if (user.Status != UserStatusType.Invited
-                     && user.Status != UserStatusType.Pending)
+                        && user.Status != UserStatusType.Pending)
                     {
                         user.EmailConfirmed = true;
                     }
@@ -140,9 +142,14 @@ namespace DAL
             return await UserTokenProvider.GenerateAsync(InviteToken, this, user);
         }
 
-        public async Task<bool> GenerateInviteTokenAsync(User user, string token)
+        public async Task<bool> ValidateInviteTokenAsync(User user, string token)
         {
             return await UserTokenProvider.ValidateAsync(InviteToken, token, this, user);
+        }
+
+        public async Task<bool> ValidateResetPasswordToken(User user, string token)
+        {
+            return await UserTokenProvider.ValidateAsync(ResetPassword, token, this, user);
         }
 
         public User FindByIdCached(int userId)
@@ -165,19 +172,19 @@ namespace DAL
             UserEmailService.Service.SendActivationEmail(userId, code);
         }
 
-        public void SendInviteAdminEmail(int organizationId)
+        public void SendInviteAdminEmail(int organizationId, string inviteToken)
         {
-            UserEmailService.Service.SendInviteAdminEmail(organizationId);
+            UserEmailService.Service.SendInviteAdminEmail(organizationId, inviteToken);
         }
 
-        public void SendInviteEmail(int userId)
+        public void SendInviteEmail(int userId, string inviteToken)
         {
-            UserEmailService.Service.SendInviteEmail(userId);
+            UserEmailService.Service.SendInviteEmail(userId, inviteToken);
         }
 
-        public void SendForgotPasswordEmail(int userId)
+        public void SendForgotPasswordEmail(int userId, string resetPasswordToken)
         {
-            UserEmailService.Service.SendForgotPasswordEmail(userId);
+            UserEmailService.Service.SendForgotPasswordEmail(userId, resetPasswordToken);
         }
 
         public void SendForgotUsernameEmail(int userId)

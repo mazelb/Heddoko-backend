@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using DAL;
 using DAL.Models;
-using Heddoko.Helpers.Auth;
 using Heddoko.Models;
 using i18n;
-using Services;
-using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
-using Services.MailSending;
 
 namespace Heddoko.Controllers
 {
@@ -88,45 +85,57 @@ namespace Heddoko.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult SignUpOrganization(string token)
+        public async Task<ActionResult> SignUpOrganization(int userId, string code)
         {
             BaseViewModel model = new BaseViewModel();
 
-            if (!string.IsNullOrEmpty(token?.Trim()))
+            code = code?.Trim();
+
+            if (!string.IsNullOrEmpty(code))
             {
-                User user = UoW.UserRepository.GetByInviteToken(token?.Trim());
+                User user = UoW.UserRepository.Get(userId);
                 if (user != null)
                 {
-                    bool isNew = string.IsNullOrEmpty(user.PasswordHash);
-
-                    if (isNew)
+                    bool isValidToken = await UserManager.ValidateInviteTokenAsync(user, code);
+                    if (isValidToken)
                     {
-                        SignUpAccountViewModel signup = new SignUpAccountViewModel
+                        bool isNew = string.IsNullOrEmpty(user.PasswordHash);
+
+                        if (isNew)
                         {
-                            Organization = user.Organization,
-                            InviteToken = user.InviteToken,
-                            Email = user.Email.ToLower(),
-                            Username = user.UserName.ToLower(),
-                            FirstName = user.FirstName,
-                            LastName = user.LastName,
-                            Phone = user.PhoneNumber,
-                            Country = user.Country,
-                            Birthday = user.BirthDay,
-                            OrganizationName = user.Organization.Name,
-                            Address = user.Organization.Address
-                        };
+                            SignUpAccountViewModel signup = new SignUpAccountViewModel
+                            {
+                                Organization = user.Organization,
+                                Email = user.Email.ToLower(),
+                                Username = user.UserName.ToLower(),
+                                FirstName = user.FirstName,
+                                LastName = user.LastName,
+                                Phone = user.PhoneNumber,
+                                Country = user.Country,
+                                Birthday = user.BirthDay,
+                                OrganizationName = user.Organization.Name,
+                                Address = user.Organization.Address
+                            };
 
 
-                        return View(signup);
+                            return View(signup);
+                        }
+                        user.Status = UserStatusType.Active;
+                        UoW.Save();
+                        UoW.UserRepository.SetCache(user);
+
+                        if (user.Organization.UserID == user.Id)
+                        {
+                            return RedirectToAction("Index", "Organization");
+                        }
                     }
-                    user.Status = UserStatusType.Active;
-                    user.InviteToken = null;
-                    UoW.Save();
-                    UoW.UserRepository.SetCache(user);
-
-                    if (user.Organization.UserID == user.Id)
+                    else
                     {
-                        return RedirectToAction("Index", "Organization");
+                        model.Flash.Add(new FlashMessage
+                        {
+                            Type = FlashMessageType.Error,
+                            Message = Resources.WrongConfirmationToken
+                        });
                     }
                 }
                 else
@@ -134,7 +143,7 @@ namespace Heddoko.Controllers
                     model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Error,
-                        Message = Resources.WrongConfirmationToken
+                        Message = Resources.UserDoesntExist
                     });
                 }
             }
@@ -424,7 +433,9 @@ namespace Heddoko.Controllers
         {
             BaseViewModel model = new BaseViewModel();
 
-            if (!string.IsNullOrEmpty(code?.Trim()))
+            code = code?.Trim();
+
+            if (!string.IsNullOrEmpty(code))
             {
                 var result = await UserManager.ConfirmEmailAsync(userId, code);
                 if (result.Succeeded)
@@ -458,27 +469,30 @@ namespace Heddoko.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Forgot(string token)
+        public async Task<ActionResult> Forgot(int userId, string code)
         {
             BaseViewModel model = new BaseViewModel();
 
-            if (!string.IsNullOrEmpty(token?.Trim()))
+            code = code?.Trim();
+
+            if (!string.IsNullOrEmpty(code))
             {
-                User user = UoW.UserRepository.GetByForgetToken(token?.Trim());
+                User user = UoW.UserRepository.Get(userId);
                 if (user != null)
                 {
-                    if (user.ForgotExpiration.HasValue
-                        &&
-                        user.ForgotExpiration.Value >= DateTime.Now)
+                    bool isValid = await UserManager.ValidateResetPasswordToken(user, code);
+                    if (isValid)
                     {
                         ForgotViewModel forgetModel = new ForgotViewModel();
-                        forgetModel.ForgetToken = token?.Trim();
+                        forgetModel.ForgetToken = code;
+
                         return View("Forgot", forgetModel);
                     }
+
                     model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Error,
-                        Message = Resources.ExpiredForgotToken
+                        Message = Resources.WrongForgotToken
                     });
                 }
                 else
@@ -486,7 +500,7 @@ namespace Heddoko.Controllers
                     model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Error,
-                        Message = Resources.WrongForgotToken
+                        Message = Resources.UserDoesntExist
                     });
                 }
             }
@@ -505,43 +519,21 @@ namespace Heddoko.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Forgot(ForgotViewModel model)
+        public async Task<ActionResult> Forgot(ForgotViewModel model)
         {
             BaseViewModel baseModel = new BaseViewModel();
 
             if (ModelState.IsValid)
             {
-                User user = UoW.UserRepository.GetByForgetToken(model.ForgetToken?.Trim());
-                if (user != null)
+                IdentityResult result = await UserManager.ResetPasswordAsync(model.UserId, model.ForgetToken, model.Password);
+
+                if (result.Succeeded)
                 {
-                    if (user.ForgotExpiration.HasValue
-                        &&
-                        user.ForgotExpiration.Value >= DateTime.Now)
+                    baseModel.Flash.Add(new FlashMessage
                     {
-                        Passphrase pwd = DAL.PasswordHasher.Hash(model.Password?.Trim());
-                        //TODO Identity
-                        //user.Password = pwd.Hash;
-                        //user.Salt = pwd.Salt;
-                        user.ForgotToken = null;
-                        user.ForgotExpiration = null;
-
-                        UoW.Save();
-                        UoW.UserRepository.SetCache(user);
-
-                        baseModel.Flash.Add(new FlashMessage
-                        {
-                            Type = FlashMessageType.Success,
-                            Message = Resources.PasswordSuccessufullyChanged
-                        });
-                    }
-                    else
-                    {
-                        baseModel.Flash.Add(new FlashMessage
-                        {
-                            Type = FlashMessageType.Error,
-                            Message = Resources.ExpiredForgotToken
-                        });
-                    }
+                        Type = FlashMessageType.Success,
+                        Message = Resources.PasswordSuccessufullyChanged
+                    });
                 }
                 else
                 {
@@ -551,6 +543,8 @@ namespace Heddoko.Controllers
                         Message = Resources.WrongForgotToken
                     });
                 }
+
+
                 return View("ForgotStatus", baseModel);
             }
 
@@ -574,17 +568,11 @@ namespace Heddoko.Controllers
 
             if (ModelState.IsValid)
             {
-                User user = await UserManager.FindByNameAsync(model.Email?.Trim());
+                User user = await UserManager.FindByEmailAsync(model.Email?.Trim());
                 if (user != null)
                 {
-                    //user.ForgotExpiration = DateTime.Now.AddHours(Config.EmailForgotTokenExpiration);
-                    //user.ForgotToken = PasswordHasher.Md5(user.ForgotExpiration.Value.Ticks.ToString());
-
-                    //UoW.Save();
-                    //UoW.UserRepository.SetCache(user);
-
-                    //Task.Run(() => Mailer.SendForgotPasswordEmail(user));
-                    //TODO Identity
+                    string resetPasswordToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                    UserManager.SendForgotPasswordEmail(user.Id, resetPasswordToken);
 
                     baseModel.Flash.Add(new FlashMessage
                     {
@@ -627,7 +615,7 @@ namespace Heddoko.Controllers
                 User user = await UserManager.FindByNameAsync(model.Email?.Trim());
                 if (user != null)
                 {
-                   // Task.Run(() => Mailer.SendForgotUsernameEmail(user));
+                    // Task.Run(() => Mailer.SendForgotUsernameEmail(user));
 
                     baseModel.Flash.Add(new FlashMessage
                     {

@@ -8,11 +8,10 @@ namespace Services.MailSending
     public class RazorView
     {
         private readonly string templateFolderPath;
-        private const string BinFolder = "bin";
 
         public RazorView(string templatesFolder, string layout)
         {
-            templateFolderPath = Path.Combine(Config.BaseDirectory, BinFolder, templatesFolder);
+            templateFolderPath = Path.Combine(Config.BaseDirectory, templatesFolder);
             Engine.Razor.AddTemplate(layout, GetViewContent(layout));
         }
 

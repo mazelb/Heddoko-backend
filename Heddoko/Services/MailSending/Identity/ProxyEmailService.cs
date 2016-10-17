@@ -23,19 +23,20 @@ namespace Services.MailSending
             BackgroundJob.Enqueue(() => EmailManager.SendActivationEmail(userId, code));
         }
 
-        public void SendInviteAdminEmail(int organizationId)
+        public void SendInviteAdminEmail(int organizationId, string inviteToken)
         {
-            BackgroundJob.Enqueue(() => EmailManager.SendInviteAdminEmail(organizationId));
+            BackgroundJob.Enqueue(() => EmailManager.SendInviteAdminEmail(organizationId, inviteToken));
         }
 
-        public void SendInviteEmail(int userId)
+        public void SendInviteEmail(int userId, string inviteToken)
         {
-            BackgroundJob.Enqueue(() => EmailManager.SendInviteEmail(userId));
+            BackgroundJob.Enqueue(() => EmailManager.SendInviteEmail(userId, inviteToken));
         }
 
-        public void SendForgotPasswordEmail(int userId)
+        public void SendForgotPasswordEmail(int userId, string resetPasswordToken)
         {
-            BackgroundJob.Enqueue(() => EmailManager.SendForgotPasswordEmail(userId));
+            BackgroundJob.Enqueue(() => EmailManager.SendForgotPasswordEmail(userId, resetPasswordToken));
+            //EmailManager.SendForgotPasswordEmail(userId, resetPasswordToken);
         }
 
         public void SendForgotUsernameEmail(int userId)

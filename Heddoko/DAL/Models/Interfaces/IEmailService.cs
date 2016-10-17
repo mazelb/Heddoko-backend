@@ -10,11 +10,11 @@ namespace DAL.Models
     {
         void SendActivationEmail(int userId, string code);
 
-        void SendInviteAdminEmail(int organizationId);
+        void SendInviteAdminEmail(int organizationId, string inviteToken);
 
-        void SendInviteEmail(int userId);
+        void SendInviteEmail(int userId, string inviteToken);
 
-        void SendForgotPasswordEmail(int userId);
+        void SendForgotPasswordEmail(int userId, string resetPasswordToken);
 
         void SendForgotUsernameEmail(int userId);
 

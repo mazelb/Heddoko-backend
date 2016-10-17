@@ -1,3 +1,4 @@
+using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using DAL.Models;
@@ -53,6 +54,7 @@ namespace DAL.Migrations
             user.Salt = null;
             user.Password = null;
             user.Role = UserRoleType.Admin;
+            user.SecurityStamp = Guid.NewGuid().ToString("D");
 
             if (user.Id == 0)
             {
@@ -76,6 +78,7 @@ namespace DAL.Migrations
             user.Salt = null;
             user.Password = null;
             user.Role = UserRoleType.Admin;
+            user.SecurityStamp = Guid.NewGuid().ToString("D");
 
             if (user.Id == 0)
             {
@@ -99,6 +102,7 @@ namespace DAL.Migrations
             user.Salt = null;
             user.Password = null;
             user.Role = UserRoleType.Admin;
+            user.SecurityStamp = Guid.NewGuid().ToString("D");
 
             if (user.Id == 0)
             {
@@ -122,6 +126,7 @@ namespace DAL.Migrations
             user.Salt = null;
             user.Password = null;
             user.Role = UserRoleType.Admin;
+            user.SecurityStamp = Guid.NewGuid().ToString("D");
 
             if (user.Id == 0)
             {
