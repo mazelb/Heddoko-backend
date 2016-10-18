@@ -52,6 +52,7 @@ namespace DAL.Models
         public DateTime? BirthDay { get; set; }
 
         [JsonIgnore]
+        [Obsolete("will be removed after migration to Identity")]
         public UserRoleType Role { get; set; }
 
         public UserStatusType Status { get; set; }
