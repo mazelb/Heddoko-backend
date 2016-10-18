@@ -41,36 +41,38 @@ namespace Heddoko.Controllers
                 return View(model);
             }
 
-            User user = await UserManager.FindAsync(model.Username, model.Password);
-
-            if (!user.IsActive)
-            {
-                if (user.IsBanned)
-                {
-                    ModelState.AddModelError(string.Empty, Resources.UserIsBanned);
-                }
-                else if (user.IsNotApproved)
-                {
-                    ModelState.AddModelError(string.Empty, Resources.UserIsNotApproved);
-                }
-                else
-                {
-                    if (!UserManager.IsEmailConfirmed(user.Id))
-                    {
-                        ModelState.AddModelError(string.Empty, Resources.WrongConfirm);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, Resources.UserIsNotActive);
-                    }
-                }
-            }
-
             SignInStatus result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, false, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(model.ReturnUrl);
+
+                    User user = await UserManager.FindAsync(model.Username, model.Password);
+
+                    if (!user.IsActive)
+                    {
+                        if (user.IsBanned)
+                        {
+                            ModelState.AddModelError(string.Empty, Resources.UserIsBanned);
+                        }
+                        else if (user.IsNotApproved)
+                        {
+                            ModelState.AddModelError(string.Empty, Resources.UserIsNotApproved);
+                        }
+                        else
+                        {
+                            if (!UserManager.IsEmailConfirmed(user.Id))
+                            {
+                                ModelState.AddModelError(string.Empty, Resources.WrongConfirm);
+                            }
+                            else
+                            {
+                                ModelState.AddModelError(string.Empty, Resources.UserIsNotActive);
+                            }
+                        }
+                        return View(model);
+                    }
+
+                    return RedirectToLocal(user, model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     ModelState.AddModelError(string.Empty, Resources.WrongLockedOut);
                     return View(model);
@@ -406,14 +408,14 @@ namespace Heddoko.Controllers
             return View(model);
         }
 
-        private ActionResult RedirectToLocal(string returnUrl = null)
+        private ActionResult RedirectToLocal(User user, string returnUrl = null)
         {
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
 
-            switch (CurrentUser.Role)
+            switch (user.Role)
             {
                 case UserRoleType.Admin:
                     return RedirectToAction("Index", "License");

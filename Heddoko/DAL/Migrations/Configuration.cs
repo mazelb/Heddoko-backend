@@ -87,7 +87,7 @@ namespace DAL.Migrations
             }
             else
             {
-                user.PasswordHash = PasswordHash.HashPassword(pwd2);
+                user.PasswordHash = PasswordHash.HashPassword(pwd);
                 manager.Update(user);
             }
 
