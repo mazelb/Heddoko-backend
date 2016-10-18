@@ -9,6 +9,9 @@ using DAL.Models;
 using Hangfire;
 using Heddoko.Models;
 using i18n;
+using Microsoft.AspNet.Identity;
+using Constants = DAL.Constants;
+using PasswordHasher = DAL.PasswordHasher;
 
 namespace Heddoko.Controllers
 {
@@ -144,7 +147,11 @@ namespace Heddoko.Controllers
                 item = Bind(item, model);
                 if (item.Id == 0)
                 {
-                    UoW.UserRepository.Create(item);
+                    IdentityResult result = UserManager.Create(item);
+                    if (result.Succeeded)
+                    {
+                        UserManager.AddToRole(item.Id, Constants.Roles.User);
+                    }
                 }
                 else
                 {
@@ -153,8 +160,8 @@ namespace Heddoko.Controllers
                 }
 
                 int userID = item.Id;
-                Task<string> inviteToken = UserManager.GenerateInviteTokenAsync(item);
-                UserManager.SendInviteEmail(userID, inviteToken.Result);
+                string inviteToken = UserManager.GenerateInviteToken(item.Id);
+                UserManager.SendInviteEmail(userID, inviteToken);
 
                 response = Convert(item);
             }

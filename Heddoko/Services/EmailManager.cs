@@ -22,7 +22,7 @@ namespace Services
         public static void SendInviteAdminEmail(int organizationId, string inviteToken)
         {
             UnitOfWork uow = new UnitOfWork();
-            Organization organization = uow.OrganizationRepository.GetIDCached(organizationId);
+            Organization organization = uow.OrganizationRepository.GetFull(organizationId);
 
             Mailer.SendInviteAdminEmail(organization, inviteToken);
         }
@@ -31,7 +31,7 @@ namespace Services
         public static void SendInviteEmail(int userId, string inviteToken)
         {
             UnitOfWork uow = new UnitOfWork();
-            User user = uow.UserRepository.GetIDCached(userId);
+            User user = uow.UserRepository.GetFull(userId);
 
             Mailer.SendInviteEmail(user, inviteToken);
         }

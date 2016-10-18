@@ -142,6 +142,11 @@ namespace DAL
             return await UserTokenProvider.GenerateAsync(InviteToken, this, user);
         }
 
+        public string GenerateInviteToken(int userId)
+        {
+            return this.GenerateUserToken(InviteToken, userId);
+        }
+
         public async Task<bool> ValidateInviteTokenAsync(User user, string token)
         {
             return await UserTokenProvider.ValidateAsync(InviteToken, token, this, user);
