@@ -296,6 +296,11 @@ var SensorSets = {
                         editor: KendoDS.emptyEditor
                     },
                     {
+                        field: "label",
+                        title: i18n.Resources.Label,
+                        editor: KendoDS.emptyEditor
+                    },
+                    {
                         field: "type",
                         title: i18n.Resources.Type,
                         template: function (e) {
