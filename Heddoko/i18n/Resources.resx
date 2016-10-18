@@ -1392,4 +1392,7 @@
   <data name="WrongConfirm" xml:space="preserve">
     <value>Email is not confirmed</value>
   </data>
+  <data name="UserDoesntExist" xml:space="preserve">
+    <value>User doesn't exist</value>
+  </data>
 </root>

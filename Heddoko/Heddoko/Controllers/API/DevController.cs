@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using DAL.Models;
 using Hangfire;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Heddoko.Controllers.API
 {
@@ -58,23 +59,24 @@ namespace Heddoko.Controllers.API
 
         [Route("sendadminInvite/{id:int}")]
         [HttpGet]
-        public IHttpActionResult SendAdminInvite(int id)
+        public async Task<IHttpActionResult> SendAdminInvite(int id)
         {
             UnitOfWork uow = new UnitOfWork(new HDContext());
-
             User user = uow.UserRepository.Get(id);
 
             if (user.OrganizationID.HasValue)
             {
                 user.Status = UserStatusType.Invited;
-                user.InviteToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString());
                 uow.Save();
                 uow.UserRepository.ClearCache(user);
 
                 Organization organization = uow.OrganizationRepository.GetFull(user.OrganizationID.Value);
 
                 int organizationID = organization.Id;
-                BackgroundJob.Enqueue(() => EmailManager.SendInviteAdminEmail(organizationID));
+                var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+                string inviteToken = await userManager.GenerateInviteTokenAsync(user);
+                userManager.SendInviteAdminEmail(organizationID, inviteToken);
             }
 
             return Ok();

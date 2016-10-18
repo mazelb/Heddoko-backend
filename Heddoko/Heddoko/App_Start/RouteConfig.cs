@@ -78,7 +78,7 @@ namespace Heddoko
 
             routes.MapRoute(
                 "Invite",
-                "invite/{userId}/{code}",
+                "invite/{userId}/{*code}",
                 new
                 {
                     controller = "Account",
@@ -90,7 +90,7 @@ namespace Heddoko
 
             routes.MapRoute(
                 "Confirm",
-                "confirm/{userId}/{code}",
+                "confirm/{userId}/{*code}",
                 new
                 {
                     controller = "Account",
@@ -102,7 +102,7 @@ namespace Heddoko
 
             routes.MapRoute(
                 "Forgot",
-                "forgot/{userId}/{code}",
+                "forgot/{userId}/{*code}",
                 new
                 {
                     controller = "Account",

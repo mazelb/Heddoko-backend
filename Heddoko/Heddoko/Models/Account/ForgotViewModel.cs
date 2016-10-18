@@ -22,5 +22,8 @@ namespace Heddoko.Models
 
         [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
         public string ForgetToken { get; set; }
+
+        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
+        public int UserId { get; set; }
     }
 }

@@ -139,7 +139,8 @@ namespace Heddoko.Controllers
                 UoW.OrganizationRepository.Create(item);
 
                 int organizationID = item.Id;
-                UserManager.SendInviteAdminEmail(organizationID);
+                Task<string> inviteToken = UserManager.GenerateInviteTokenAsync(item.User);
+                UserManager.SendInviteAdminEmail(organizationID, inviteToken.Result);
 
                 response = Convert(item);
             }

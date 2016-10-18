@@ -3436,6 +3436,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User doesn&apos;t exist.
+        /// </summary>
+        public static string UserDoesntExist {
+            get {
+                return ResourceManager.GetString("UserDoesntExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Female.
         /// </summary>
         public static string UserGenderType_Female {

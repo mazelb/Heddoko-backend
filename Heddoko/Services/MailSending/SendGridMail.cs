@@ -72,7 +72,7 @@ namespace Services.MailSending
                     };
                 }
 
-                dynamic response = sendGrid.client.mail.send.post(requestBody: mail.Get());
+                dynamic response = sendGrid.client.mail.send.post(requestBody: mail.Get()).GetAwaiter().GetResult();
                 string result = response.Body.ReadAsStringAsync().Result;
                 if (!string.IsNullOrEmpty(result))
                 {

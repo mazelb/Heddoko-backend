@@ -19,30 +19,30 @@ namespace Services
         }
 
         [Queue(Constants.HangFireQueue.Email)]
-        public static void SendInviteAdminEmail(int organizationId)
+        public static void SendInviteAdminEmail(int organizationId, string inviteToken)
         {
             UnitOfWork uow = new UnitOfWork();
             Organization organization = uow.OrganizationRepository.GetIDCached(organizationId);
 
-            Mailer.SendInviteAdminEmail(organization);
+            Mailer.SendInviteAdminEmail(organization, inviteToken);
         }
 
         [Queue(Constants.HangFireQueue.Email)]
-        public static void SendInviteEmail(int userId)
+        public static void SendInviteEmail(int userId, string inviteToken)
         {
             UnitOfWork uow = new UnitOfWork();
             User user = uow.UserRepository.GetIDCached(userId);
 
-            Mailer.SendInviteEmail(user);
+            Mailer.SendInviteEmail(user, inviteToken);
         }
 
         [Queue(Constants.HangFireQueue.Email)]
-        public static void SendForgotPasswordEmail(int userId)
+        public static void SendForgotPasswordEmail(int userId, string resetPasswordToken)
         {
             UnitOfWork uow = new UnitOfWork();
             User user = uow.UserRepository.GetIDCached(userId);
 
-            Mailer.SendForgotPasswordEmail(user);
+            Mailer.SendForgotPasswordEmail(user,  resetPasswordToken);
         }
 
         [Queue(Constants.HangFireQueue.Email)]
