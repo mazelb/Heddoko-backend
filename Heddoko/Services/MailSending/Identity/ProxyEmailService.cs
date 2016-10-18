@@ -36,7 +36,6 @@ namespace Services.MailSending
         public void SendForgotPasswordEmail(int userId, string resetPasswordToken)
         {
             BackgroundJob.Enqueue(() => EmailManager.SendForgotPasswordEmail(userId, resetPasswordToken));
-            //EmailManager.SendForgotPasswordEmail(userId, resetPasswordToken);
         }
 
         public void SendForgotUsernameEmail(int userId)

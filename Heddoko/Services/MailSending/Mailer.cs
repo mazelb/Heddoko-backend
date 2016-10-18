@@ -39,10 +39,9 @@ namespace Services.MailSending
             {
                 Token = inviteToken,
                 FirstName = organization.User.Name,
-                OrganizationName = organization.Name
+                OrganizationName = organization.Name,
+                ActivationUrl = $"{Config.DashboardSite}/invite/{organization.User.Id}/{HttpUtility.UrlEncode(inviteToken)}"
             };
-
-            mailModel.ActivationUrl = $"{Config.DashboardSite}/invite/{organization.User.Id}/{HttpUtility.UrlEncode(mailModel.Token)}";
 
             string subject = Resources.EmailInviteAdminUserSubject;
 
@@ -57,10 +56,9 @@ namespace Services.MailSending
             {
                 Token = inviteToken,
                 FirstName = user.Name,
-                OrganizationName = user.Organization?.Name
+                OrganizationName = user.Organization?.Name,
+                ActivationUrl = $"{Config.DashboardSite}/invite/{user.Id}/{HttpUtility.UrlEncode(inviteToken)}"
             };
-
-            mailModel.ActivationUrl = $"{Config.DashboardSite}/invite/{user.Id}/{HttpUtility.UrlEncode(mailModel.Token)}";
 
             string subject = Resources.EmailInviteUserSubject;
 

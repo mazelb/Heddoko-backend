@@ -9,22 +9,15 @@ using System;
 using System.Threading.Tasks;
 using DAL.Models;
 using Hangfire;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Heddoko.Controllers.API
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("api/v1/development")]
     [AllowAnonymous]
-    public class DevController : BaseAPIController
+    public class DevController : ApiController
     {
-        public DevController()
-        {
-        }
-
-        public DevController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow)
-        {
-        }
-
         [Route("migrate-db")]
         [HttpPost]
         public IHttpActionResult Migrate()
@@ -68,19 +61,22 @@ namespace Heddoko.Controllers.API
         [HttpGet]
         public async Task<IHttpActionResult> SendAdminInvite(int id)
         {
-            User user = UoW.UserRepository.Get(id);
+            UnitOfWork uow = new UnitOfWork(new HDContext());
+            User user = uow.UserRepository.Get(id);
 
             if (user.OrganizationID.HasValue)
             {
                 user.Status = UserStatusType.Invited;
-                UoW.Save();
-                UoW.UserRepository.ClearCache(user);
+                uow.Save();
+                uow.UserRepository.ClearCache(user);
 
-                Organization organization = UoW.OrganizationRepository.GetFull(user.OrganizationID.Value);
+                Organization organization = uow.OrganizationRepository.GetFull(user.OrganizationID.Value);
 
                 int organizationID = organization.Id;
-                string inviteToken = await UserManager.GenerateInviteTokenAsync(user);
-                UserManager.SendInviteAdminEmail(organizationID, inviteToken);
+                var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+                string inviteToken = await userManager.GenerateInviteTokenAsync(user);
+                userManager.SendInviteAdminEmail(organizationID, inviteToken);
             }
 
             return Ok();
