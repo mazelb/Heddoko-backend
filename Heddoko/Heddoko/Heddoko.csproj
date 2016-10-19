@@ -719,11 +719,9 @@
     <Compile Include="Helpers\ContextSession.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Helpers\Error\APIException.cs" />
-    <Compile Include="Helpers\Error\ElmahWriterTraceListener.cs" />
     <Compile Include="Helpers\Error\ErrorAPIType.cs" />
     <Compile Include="Helpers\Error\ErrorMessage.cs" />
     <Compile Include="Helpers\Error\ExceptionAPIHandler.cs" />
-    <Compile Include="Helpers\Error\ExceptionClasses.cs" />
     <Compile Include="Helpers\Error\ModelStateException.cs" />
     <Compile Include="Helpers\Error\TraceErrorAttribute.cs" />
     <Compile Include="Helpers\Hangfire\HangfireAuthorizationFilter.cs" />

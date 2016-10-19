@@ -4,10 +4,12 @@ using System;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Web.Http.Description;
 using System.Web.Mvc;
 
 namespace Heddoko.Areas.MvcElmahDashboard.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class HomeController : Controller
     {
         private static ElmahErrorCounters EECounters = new ElmahErrorCounters(TimeSpan.FromDays(15));
@@ -93,9 +95,6 @@ namespace Heddoko.Areas.MvcElmahDashboard.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Heartbeat failed");
         }
 
-        /// <summary>
-        /// Used to handle scripts and styles requests.
-        /// </summary>
         protected override void HandleUnknownAction(string actionName)
         {
             this.View(actionName).ExecuteResult(this.ControllerContext);

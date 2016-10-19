@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Heddoko.TraceListener
+namespace Services
 {
     public class ElmahListener : System.Diagnostics.TraceListener
     {
@@ -33,7 +33,7 @@ namespace Heddoko.TraceListener
                     exception = new TraceWrite(message);
                     break;
             }
-            if (HttpContext.Current.Session == null)
+            if (HttpContext.Current == null || HttpContext.Current.Session == null)
             {
                 ErrorLog.GetDefault(null).Log(new Error(exception));
             }

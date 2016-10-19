@@ -118,6 +118,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -135,8 +136,6 @@
     <Compile Include="HeddokoService.Designer.cs">
       <DependentUpon>HeddokoService.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ElmahWriterTraceListener.cs" />
-    <Compile Include="Helpers\ExceptionClasses.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>

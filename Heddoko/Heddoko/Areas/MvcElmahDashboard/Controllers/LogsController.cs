@@ -6,10 +6,12 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Web.Http.Description;
 using System.Web.Mvc;
 
 namespace Heddoko.Areas.MvcElmahDashboard.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class LogsController : Controller
     {
         private static RequeueCache<string, ActionResult> ExternalRequestsCache = new RequeueCache<string, ActionResult>(256);
@@ -198,9 +200,6 @@ namespace Heddoko.Areas.MvcElmahDashboard.Controllers
             }
         }
 
-        /// <summary>
-        /// Used to handle scripts and styles requests.
-        /// </summary>
         protected override void HandleUnknownAction(string actionName)
         {
             this.View(actionName).ExecuteResult(this.ControllerContext);
