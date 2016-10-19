@@ -5,6 +5,7 @@ using System.Web.Http.ExceptionHandling;
 using Heddoko.Helpers.Error;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Elmah.Contrib.WebApi;
 
 namespace Heddoko
 {
@@ -42,6 +43,8 @@ namespace Heddoko
             config.Formatters.Remove(config.Formatters.XmlFormatter);
 
             config.Services.Replace(typeof(IExceptionHandler), new ExceptionAPIHandler());
+
+            config.Services.Add(typeof(IExceptionLogger), new ElmahExceptionLogger());
         }
     }
 }
