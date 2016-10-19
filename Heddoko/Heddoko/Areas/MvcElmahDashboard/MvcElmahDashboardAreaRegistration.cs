@@ -16,7 +16,7 @@ namespace Heddoko.Areas.MvcElmahDashboard
         {
             context.MapRoute(
                 name: "MvcElmahDashboard_default",
-                url: "elmah_dashboard/{controller}/{action}/{id}",
+                url: "elmah-dashboard/{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { "Heddoko.Areas.MvcElmahDashboard.Controllers" }
             );
