@@ -65,8 +65,6 @@ namespace DAL
 
         private ITeamRepository _teamRepository;
 
-        //private IMongoDbRepository _mongoRepository;
-
         private IProcessedFrameRepository _processedFrameRepository;
 
         #endregion
