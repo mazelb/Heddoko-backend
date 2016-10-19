@@ -17,8 +17,11 @@ namespace DAL.Models
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
         {
-            SecurityStamp = Guid.NewGuid().ToString();
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            if (string.IsNullOrEmpty(SecurityStamp))
+            {
+                SecurityStamp = Guid.NewGuid().ToString();
+            }
+            ClaimsIdentity userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
 
             return userIdentity;
         }
@@ -32,12 +35,39 @@ namespace DAL.Models
         public DateTime Created { get; set; }
         #endregion
 
+        #region IdentityUser
+        [JsonIgnore]
+        public override int AccessFailedCount { get; set; }
+        public override string Email { get; set; }
+        [JsonIgnore]
+        public override bool EmailConfirmed { get; set; }
+        public override int Id { get; set; }
+        [JsonIgnore]
+        public override bool LockoutEnabled { get; set; }
+        [JsonIgnore]
+        public override DateTime? LockoutEndDateUtc { get; set; }
+        [JsonIgnore]
+        public override string PasswordHash { get; set; }
+        public override string PhoneNumber { get; set; }
+        [Obsolete("will be removed after migration to Identity")]
+        public string Phone => PhoneNumber;
+        [JsonIgnore]
+        public override bool PhoneNumberConfirmed { get; set; }
+        [JsonIgnore]
+        public override string SecurityStamp { get; set; }
+        [JsonIgnore]
+        public override bool TwoFactorEnabled { get; set; }
+        public override string UserName { get; set; }
+        #endregion
+
         [StringLength(100)]
         [Obsolete("will be removed after migration to Identity")]
+        [JsonIgnore]
         public string Password { get; set; }
 
         [StringLength(100)]
         [Obsolete("will be removed after migration to Identity")]
+        [JsonIgnore]
         public string Salt { get; set; }
 
         [StringLength(255)]

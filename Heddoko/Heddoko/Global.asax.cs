@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
@@ -38,6 +39,25 @@ namespace Heddoko
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
+            string token = Context.Request.Headers[Constants.HeaderToken];
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                UnitOfWork uow = new UnitOfWork();
+                User user = uow.AccessTokenRepository.GetByToken(token)?.User;
+                if (user == null)
+                {
+                    return;
+                }
+
+                if (user.IsActive)
+                {
+                    List<UserRole> roles = uow
+
+
+                    Context.User = new GenericPrincipal(new GenericIdentity(user.Id.ToString()), user.Roles.Select(c => c.RoleId.ToString()).ToArray());
+                }
+            }
         }
 
         protected void Application_EndRequest()

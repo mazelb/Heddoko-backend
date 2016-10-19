@@ -31,5 +31,10 @@ namespace DAL.Models
         {
             return Repository.GetByEmailCached(email);
         }
+
+        public User FindByToken(string token)
+        {
+            return Repository.GetByToken(token);
+        }
     }
 }

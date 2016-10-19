@@ -95,6 +95,15 @@ namespace DAL
                         .FirstOrDefault(c => c.Id == id);
         }
 
+        public User GetByToken(string token)
+        {
+            return DbSet.Include(c => c)
+                        .Include(c => c.Roles)
+                        .Include(c => c.Roles.Select(r => r.RoleId))
+                        .Include(c => c.License)
+                        .FirstOrDefault(c => c.Tokens.Any(t => t.Token == token));
+        }
+
         public User GetByEmailCached(string email)
         {
             User user = GetCached(email);

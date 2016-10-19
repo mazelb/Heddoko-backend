@@ -59,12 +59,23 @@ namespace DAL.Migrations
             if (user.Id == 0)
             {
                 manager.Create(user, pwd);
+                manager.AddToRole(user.Id, Constants.Roles.User);
                 manager.AddToRole(user.Id, Constants.Roles.Admin);
             }
             else
             {
                 user.PasswordHash = PasswordHash.HashPassword(pwd);
                 manager.Update(user);
+
+                if (!manager.IsInRole(user.Id, Constants.Roles.User))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.User);
+                }
+
+                if (!manager.IsInRole(user.Id, Constants.Roles.Admin))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.Admin);
+                }
             }
 
             user = manager.FindByName("heddoko.admin") ?? new User();
@@ -78,17 +89,28 @@ namespace DAL.Migrations
             user.Salt = null;
             user.Password = null;
             user.Role = UserRoleType.Admin;
-            user.SecurityStamp = Guid.NewGuid().ToString();;
+            user.SecurityStamp = Guid.NewGuid().ToString(); ;
 
             if (user.Id == 0)
             {
                 manager.Create(user, pwd);
+                manager.AddToRole(user.Id, Constants.Roles.User);
                 manager.AddToRole(user.Id, Constants.Roles.Admin);
             }
             else
             {
                 user.PasswordHash = PasswordHash.HashPassword(pwd);
                 manager.Update(user);
+
+                if (!manager.IsInRole(user.Id, Constants.Roles.User))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.User);
+                }
+
+                if (!manager.IsInRole(user.Id, Constants.Roles.Admin))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.Admin);
+                }
             }
 
             user = manager.FindByName("heddoko.support") ?? new User();
@@ -102,17 +124,28 @@ namespace DAL.Migrations
             user.Salt = null;
             user.Password = null;
             user.Role = UserRoleType.Admin;
-            user.SecurityStamp = Guid.NewGuid().ToString();;
+            user.SecurityStamp = Guid.NewGuid().ToString(); ;
 
             if (user.Id == 0)
             {
                 manager.Create(user, pwd2);
+                manager.AddToRole(user.Id, Constants.Roles.User);
                 manager.AddToRole(user.Id, Constants.Roles.Admin);
             }
             else
             {
                 user.PasswordHash = PasswordHash.HashPassword(pwd2);
                 manager.Update(user);
+
+                if (!manager.IsInRole(user.Id, Constants.Roles.User))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.User);
+                }
+
+                if (!manager.IsInRole(user.Id, Constants.Roles.Admin))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.Admin);
+                }
             }
 
             user = manager.FindByName("ankit.heddoko") ?? new User();
@@ -126,17 +159,27 @@ namespace DAL.Migrations
             user.Salt = null;
             user.Password = null;
             user.Role = UserRoleType.Admin;
-            user.SecurityStamp = Guid.NewGuid().ToString();;
+            user.SecurityStamp = Guid.NewGuid().ToString(); ;
 
             if (user.Id == 0)
             {
                 manager.Create(user, pwd3);
+                manager.AddToRole(user.Id, Constants.Roles.User);
                 manager.AddToRole(user.Id, Constants.Roles.Admin);
             }
             else
             {
                 user.PasswordHash = PasswordHash.HashPassword(pwd3);
                 manager.Update(user);
+                if (!manager.IsInRole(user.Id, Constants.Roles.User))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.User);
+                }
+
+                if (!manager.IsInRole(user.Id, Constants.Roles.Admin))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.Admin);
+                }
             }
         }
 

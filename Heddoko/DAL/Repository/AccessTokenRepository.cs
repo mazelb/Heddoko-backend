@@ -14,6 +14,7 @@ namespace DAL
         public AccessToken GetByToken(string token)
         {
             return DbSet.Include(c => c.User)
+                        .Include(c => c.User.Roles)
                         .Include(c => c.User.License)
                         .FirstOrDefault(c => c.Token == token);
         }
