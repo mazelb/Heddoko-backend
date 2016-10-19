@@ -35,7 +35,13 @@ namespace Services
             }
         }
 
-        public static void Download(string url, string container, string path)
+        /// <summary>
+        /// Downloads a file from the Azure blob
+        /// </summary>
+        /// <param name="url">Url of Azure block blob reference</param>
+        /// <param name="container">Azure assests container</param>
+        /// <param name="path">path to the target file</param>
+        private static void DownloadToFile(string url, string container, string path)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Config.StorageConnectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
@@ -49,6 +55,14 @@ namespace Services
         public static void DeleteFile(string path)
         {
             File.Delete(path);
+        }
+
+        public static void AddFramesToDatabase(string url, string container, string path)
+        {
+            DownloadToFile(url, container, path);
+            FileParser.AddProcessedFramesToDb(path);
+
+            DeleteFile(path);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Services
             foreach (ProcessedFrame frame in frames)
             {
                 //For each frame, input into DB
-                UoW.MongoRepository.AddOne(frame);
+                UoW.ProcessedFrameRepository.AddOne(frame);
             }
         }
     }

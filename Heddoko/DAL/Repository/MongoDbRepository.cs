@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.ViewModels;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using DAL.Models;
 
 namespace DAL
 {
-    class MongoDbRepository : IMongoDbRepository
+    public class MongoDbRepository<T> : IMongoDbRepository<T> 
     {
 
         private HDMongoContext _mongoDbContext = null;
@@ -20,6 +19,7 @@ namespace DAL
             _mongoDbContext = mongoDbContext != null ? mongoDbContext : new HDMongoContext();
         }
 
+        #region GenericFunctions
         /// <summary>
         /// A generic AddOne method
         /// </summary>
@@ -411,13 +411,14 @@ namespace DAL
             var filter = new FilterDefinitionBuilder<TEntity>().Eq("Id", id);
             return await UpdateOne<TEntity>(filter, update);
         }
-
+        #endregion
+        #region PrivateFunctions
         /// <summary>
         /// private GetCollection function
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        private IMongoCollection<TEntity> GetCollection<TEntity>()
+        public IMongoCollection<TEntity> GetCollection<TEntity>()
         {
             return _mongoDbContext.GetCollection<TEntity>();
         }
@@ -463,5 +464,6 @@ namespace DAL
 
             return sb.ToString();
         }
+        #endregion
     }
 }
