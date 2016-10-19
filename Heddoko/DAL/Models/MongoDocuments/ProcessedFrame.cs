@@ -13,6 +13,7 @@ namespace DAL.Models
 
         public long TimeStamp;
         public int UserID;
+        public string KitID;
 
         [FieldConverter(ConverterKind.Double, ".")]
         public double Longitude;

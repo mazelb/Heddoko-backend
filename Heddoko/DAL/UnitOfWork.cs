@@ -65,7 +65,9 @@ namespace DAL
 
         private ITeamRepository _teamRepository;
 
-        private IMongoDbRepository _mongoRepository;
+        //private IMongoDbRepository _mongoRepository;
+
+        private IProcessedFrameRepository _processedFrameRepository;
 
         #endregion
 
@@ -109,7 +111,7 @@ namespace DAL
 
         public ITeamRepository TeamRepository => _teamRepository ?? (_teamRepository = new TeamRepository(_db));
 
-        public IMongoDbRepository MongoRepository => _mongoRepository ?? (_mongoRepository = new MongoDbRepository(_mongodb));
+        public IProcessedFrameRepository ProcessedFrameRepository => _processedFrameRepository ?? (_processedFrameRepository = new ProcessedFrameRepository(_mongodb));
 
         #endregion
 

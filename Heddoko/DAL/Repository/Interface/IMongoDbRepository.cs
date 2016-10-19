@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
-using DAL.ViewModels;
+using DAL.Models;
 
 namespace DAL
 {
-    public interface IMongoDbRepository
+    public interface IMongoDbRepository<T> 
     {
         /// <summary>
         /// A generic GetOne method
