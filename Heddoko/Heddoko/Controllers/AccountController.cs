@@ -297,6 +297,8 @@ namespace Heddoko.Controllers
             {
                 Email = model.Email?.ToLower().Trim(),
                 UserName = model.Username?.ToLower().Trim(),
+                //TODO REMOVE THAT AFTER Migration all accounts
+                Role = UserRoleType.LicenseAdmin,
                 FirstName = model.FirstName.Trim(),
                 LastName = model.LastName.Trim(),
                 Country = model.Country,

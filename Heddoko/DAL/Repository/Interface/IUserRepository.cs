@@ -19,12 +19,6 @@ namespace DAL
 
         User GetByEmail(string email);
 
-        User GetByConfirmToken(string confirmToken);
-
-        User GetByInviteToken(string inviteToken);
-
-        User GetByForgetToken(string forgetToken);
-
         IEnumerable<User> Admins();
 
         IEnumerable<User> All(bool isDeleted = false);

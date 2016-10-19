@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -7,22 +6,23 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
 using Heddoko.Models;
 using i18n;
 using Newtonsoft.Json;
 using Services;
+using Microsoft.AspNet.Identity;
+using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers.API
 {
     [RoutePrefix("api/v1/assets")]
     public class AssetsAPIController : BaseAPIController
     {
-        public AssetsAPIController() {  }
+        public AssetsAPIController() { }
 
-        public AssetsAPIController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+        public AssetsAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         /// <summary>
         ///     Upload files
@@ -125,7 +125,7 @@ namespace Heddoko.Controllers.API
 
             if (kit.UserID.HasValue)
             {
-                if (CurrentUser.RoleType == UserRoleType.Worker)
+                if (await UserManager.IsInRoleAsync(CurrentUser.Id, Constants.Roles.Worker))
                 {
                     if (kit.UserID.Value != CurrentUser.Id)
                     {
@@ -209,7 +209,7 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.NonAssigned} team");
             }
 
-            if (CurrentUser.Role == UserRoleType.Worker)
+            if (UserManager.IsInRole(CurrentUser.Id, Constants.Roles.Worker))
             {
                 userID = CurrentUser.Id;
             }

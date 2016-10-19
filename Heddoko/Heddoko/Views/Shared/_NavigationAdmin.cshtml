@@ -19,40 +19,35 @@
                     <span>@i18n.Resources.Home</span>
                 </a>
             </li>
-            switch (Model.CurrentUser.Role)
+            if (Model.IsAdmin)
             {
-                case DAL.Models.UserRoleType.Admin:
-                    <li class="@Html.IsCurrentActionLink("Index", "Inventory")" title="@i18n.Resources.Inventory">
-                        <a href="@Url.Action("Index", "Inventory")">
-                            <i class="fa fa-cogs"></i>
-                            <span>  @i18n.Resources.Inventory</span>
-                        </a>
-                    </li>
-                    <li class="@Html.IsCurrentActionLink("Index", "License")" title="@i18n.Resources.LicenseTitle">
-                        <a href="@Url.Action("Index", "License")">
-                            <i class="fa fa-user-plus"></i>
-                            <span> @i18n.Resources.LicenseTitle</span>
-                        </a>
-                    </li>
-                    <li class="@Html.IsCurrentActionLink("Index", "Firmware")" title="@i18n.Resources.SoftwareAndFirmware">
-                        <a href="@Url.Action("Index", "Firmware")">
-                            <i class="fa fa-terminal"></i>
-                            <span> @i18n.Resources.SoftwareAndFirmware</span>
-                        </a>
-                    </li>
-                    break;
-                case DAL.Models.UserRoleType.Analyst:
-                    break;
-                case DAL.Models.UserRoleType.LicenseAdmin:
-                    <li class="@Html.IsCurrentActionLink("Index", "Organization")" title="@i18n.Resources.LicenseTitle">
-                        <a href="@Url.Action("Index", "Organization")">
-                            <i class="fa fa-users"></i>
-                            <span> @i18n.Resources.LicenseTitle</span>
-                        </a>
-                    </li>
-                    break;
-                case DAL.Models.UserRoleType.User:
-                    break;
+                <li class="@Html.IsCurrentActionLink("Index", "Inventory")" title="@i18n.Resources.Inventory">
+                    <a href="@Url.Action("Index", "Inventory")">
+                        <i class="fa fa-cogs"></i>
+                        <span>  @i18n.Resources.Inventory</span>
+                    </a>
+                </li>
+                <li class="@Html.IsCurrentActionLink("Index", "License")" title="@i18n.Resources.LicenseTitle">
+                    <a href="@Url.Action("Index", "License")">
+                        <i class="fa fa-user-plus"></i>
+                        <span> @i18n.Resources.LicenseTitle</span>
+                    </a>
+                </li>
+                <li class="@Html.IsCurrentActionLink("Index", "Firmware")" title="@i18n.Resources.SoftwareAndFirmware">
+                    <a href="@Url.Action("Index", "Firmware")">
+                        <i class="fa fa-terminal"></i>
+                        <span> @i18n.Resources.SoftwareAndFirmware</span>
+                    </a>
+                </li>
+            }
+            else if (Model.IsLicenseAdmin)
+            {
+                <li class="@Html.IsCurrentActionLink("Index", "Organization")" title="@i18n.Resources.LicenseTitle">
+                    <a href="@Url.Action("Index", "Organization")">
+                        <i class="fa fa-users"></i>
+                        <span> @i18n.Resources.LicenseTitle</span>
+                    </a>
+                </li>
             }
 
             <li class="@Html.IsCurrentActionLink("Me", "Account")" title="@i18n.Resources.Profile">

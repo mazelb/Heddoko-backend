@@ -57,30 +57,6 @@ namespace DAL.Models
 
         public UserStatusType Status { get; set; }
 
-        [StringLength(100)]
-        [JsonIgnore]
-        [Obsolete("will be removed after migration to Identity")]
-        public string ConfirmToken { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        [Obsolete("will be removed after migration to Identity")]
-        public string RememberToken { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        [Obsolete("will be removed after migration to Identity")]
-        public string ForgotToken { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        [Obsolete("will be removed after migration to Identity")]
-        public string InviteToken { get; set; }
-
-        [JsonIgnore]
-        [Obsolete("will be removed after migration to Identity")]
-        public DateTime? ForgotExpiration { get; set; }
-
         #region Relations
 
         [JsonIgnore]
@@ -192,9 +168,6 @@ namespace DAL.Models
 
         [JsonIgnore]
         public bool IsActive => Status == UserStatusType.Active;
-
-        [JsonIgnore]
-        public bool IsAdmin => Role == UserRoleType.Admin;
 
         [JsonIgnore]
         public bool IsBanned => Status == UserStatusType.Banned;

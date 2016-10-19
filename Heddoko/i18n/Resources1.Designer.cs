@@ -151,6 +151,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Analyst.
+        /// </summary>
+        public static string Analyst {
+            get {
+                return ResourceManager.GetString("Analyst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anatomical location.
         /// </summary>
         public static string AnatomicalLocation {
@@ -1749,6 +1758,15 @@ namespace i18n {
         public static string License {
             get {
                 return ResourceManager.GetString("License", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License Admin.
+        /// </summary>
+        public static string LicenseAdmin {
+            get {
+                return ResourceManager.GetString("LicenseAdmin", resourceCulture);
             }
         }
         
@@ -3729,6 +3747,15 @@ namespace i18n {
         public static string WhatWouldYouLikeToDO {
             get {
                 return ResourceManager.GetString("WhatWouldYouLikeToDO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Worker.
+        /// </summary>
+        public static string Worker {
+            get {
+                return ResourceManager.GetString("Worker", resourceCulture);
             }
         }
         

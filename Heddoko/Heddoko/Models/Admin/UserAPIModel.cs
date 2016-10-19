@@ -21,7 +21,7 @@ namespace Heddoko.Models
 
         public string Lastname { get; set; }
 
-        public UserRoleType? Role { get; set; }
+        public string Role { get; set; }
 
         public UserStatusType? Status { get; set; }
 

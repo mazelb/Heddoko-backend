@@ -7,6 +7,8 @@ using DAL;
 using DAL.Models;
 using Heddoko.Models;
 using i18n;
+using Microsoft.AspNet.Identity;
+using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers
 {
@@ -26,14 +28,14 @@ namespace Heddoko.Controllers
 
         public KitsController() { }
 
-        public KitsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+        public KitsController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<KitAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<Kit> items = null;
 
             int? organizationID = null;
-            if (CurrentUser.Role == UserRoleType.LicenseAdmin)
+            if (UserManager.IsInRole(CurrentUser.Id, Constants.Roles.LicenseAdmin))
             {
                 if (!CurrentUser.OrganizationID.HasValue)
                 {
@@ -81,7 +83,7 @@ namespace Heddoko.Controllers
                     if (statusInt.HasValue || !string.IsNullOrEmpty(searchFilter?.Value))
                     {
                         items = UoW.KitRepository.Search(searchFilter?.Value, statusInt, isDeleted, organizationID);
-                    }                     
+                    }
                 }
             }
 
@@ -245,12 +247,12 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            if (!CurrentUser.IsAdmin)
+            if (!IsAdmin)
             {
                 throw new Exception(Resources.WrongObjectAccess);
             }
 
-            if (CurrentUser.Role == UserRoleType.LicenseAdmin)
+            if (IsLicenseAdmin)
             {
                 //TODO remove that
                 if (model.UserID.HasValue)

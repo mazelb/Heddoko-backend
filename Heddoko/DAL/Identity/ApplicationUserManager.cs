@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DAL
@@ -205,6 +206,35 @@ namespace DAL
         public void SendActivatedEmail(int userId)
         {
             UserEmailService.Service.SendActivatedEmail(userId);
+        }
+
+        public void ApplyUserRolesForLicense(User user)
+        {
+            if (user.License == null)
+            {
+                this.RemoveFromRoles(user.Id, Constants.Roles.Analyst, Constants.Roles.Worker);
+            }
+            else
+            {
+                if (!this.IsInRole(user.Id, Constants.Roles.Admin) &&
+                    !this.IsInRole(user.Id, Constants.Roles.LicenseAdmin))
+                {
+                    switch (user.License.Type)
+                    {
+                        case LicenseType.DataAnalysis:
+                            this.AddToRole(user.Id, Constants.Roles.Analyst);
+                            break;
+                        case LicenseType.DataCollection:
+                            this.AddToRole(user.Id, Constants.Roles.Worker);
+                            break;
+                    }
+                }
+            }
+        }
+
+        public string GetRole(User user)
+        {
+            return this.GetRoles(user.Id).FirstOrDefault(r => !string.Equals(r, Constants.Roles.User, StringComparison.CurrentCultureIgnoreCase)) ?? Constants.Roles.User;
         }
     }
 }

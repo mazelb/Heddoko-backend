@@ -20,5 +20,16 @@ namespace Heddoko
                 return manager.FindByIdCached(HttpContext.Current.User.Identity.GetUserId<int>());
             }
         }
+
+        public static IList<string> CurrentUserRoles
+        {
+            get
+            {
+                ApplicationUserManager manager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                int currentUserId = HttpContext.Current.User.Identity.GetUserId<int>();
+
+                return manager.GetRoles(currentUserId);
+            }
+        }
     }
 }

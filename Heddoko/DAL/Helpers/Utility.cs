@@ -161,6 +161,14 @@ namespace DAL
             return id;
         }
 
+        public static string GetDisplayName(this string key)
+        {
+            ResourceManager rm = new ResourceManager(typeof(Resources));
+            string resourceDisplayName = rm.GetString(key);
+
+            return string.IsNullOrWhiteSpace(resourceDisplayName) ? key : resourceDisplayName;
+        }
+
         #endregion
 
         #region Enums

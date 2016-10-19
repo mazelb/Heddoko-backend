@@ -126,7 +126,7 @@ namespace DAL.Migrations
             user.Salt = null;
             user.Password = null;
             user.Role = UserRoleType.Admin;
-            user.SecurityStamp = Guid.NewGuid().ToString();;
+            user.SecurityStamp = Guid.NewGuid().ToString();
 
             if (user.Id == 0)
             {

@@ -134,16 +134,6 @@ namespace DAL
                         .FirstOrDefault(c => c.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
-        public User GetByConfirmToken(string confirmToken)
-        {
-            return DbSet.FirstOrDefault(c => c.ConfirmToken.Equals(confirmToken, StringComparison.OrdinalIgnoreCase));
-        }
-
-        public User GetByForgetToken(string forgetToken)
-        {
-            return DbSet.FirstOrDefault(c => c.ForgotToken.Equals(forgetToken, StringComparison.OrdinalIgnoreCase));
-        }
-
         public User GetByUsernameCached(string username)
         {
             User user = GetCached(username);
@@ -163,15 +153,11 @@ namespace DAL
 
         public IEnumerable<User> Admins()
         {
-            return DbSet.Where(c => c.Role == UserRoleType.Admin)
+            IdentityRole role = Db.Roles.FirstOrDefault(c => c.Name == Constants.Roles.Admin);
+
+            return DbSet.Where(c => c.Roles.Any(u => u.RoleId == role.Id))
                         .OrderBy(c => c.FirstName)
                         .ThenBy(c => c.LastName);
-        }
-
-        public User GetByInviteToken(string inviteToken)
-        {
-            return DbSet.Include(c => c.Organization)
-                        .FirstOrDefault(c => c.InviteToken.Equals(inviteToken, StringComparison.OrdinalIgnoreCase));
         }
 
         public IEnumerable<User> GetByOrganization(int organizationID, bool isDeleted = false, int? licenseID = null)

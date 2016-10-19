@@ -19,7 +19,7 @@ namespace DAL
             DbSet = Db.Set<T>();
         }
 
-        private HDContext Db { get; }
+        protected HDContext Db { get; }
         protected string Key { private get; set; }
 
         #region Cache

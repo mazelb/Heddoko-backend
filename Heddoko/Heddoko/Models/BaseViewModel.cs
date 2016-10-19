@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using DAL.Models;
 using i18n;
 using System.Web;
+using DAL;
 
 namespace Heddoko.Models
 {
@@ -16,7 +17,10 @@ namespace Heddoko.Models
             Flash = new FlashMessagesViewModel();
             CurrentUser = Auth.CurrentUser;
             Title = Resources.Title;
+            CurrentUserRoles = IsAuth ? Auth.CurrentUserRoles : new List<string>();
         }
+
+        public IList<string> CurrentUserRoles { get; set; }
 
         public string Title { get; set; }
 
@@ -28,7 +32,11 @@ namespace Heddoko.Models
 
         public bool IsAuth => CurrentUser != null;
 
-        public bool IsAdmin => IsAuth && CurrentUser.Role == UserRoleType.Admin;
+        public bool IsAdmin => IsAuth && CurrentUserRoles.Contains(Constants.Roles.Admin);
+
+        public bool IsLicenseAdmin => IsAuth && CurrentUserRoles.Contains(Constants.Roles.LicenseAdmin);
+
+        public bool IsAnalyst => IsAuth && CurrentUserRoles.Contains(Constants.Roles.Analyst);
 
         public IEnumerable<SelectListItem> ListCountries => _countries ?? (_countries = new List<SelectListItem>
         {
