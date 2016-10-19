@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Web;
@@ -29,7 +31,7 @@ namespace Heddoko
 
         private void Application_BeginRequest(object source, EventArgs e)
         {
-            HttpApplication app = (HttpApplication) source;
+            HttpApplication app = (HttpApplication)source;
             HttpContext context = app.Context;
 
             Config.Initialise(context);
@@ -38,6 +40,33 @@ namespace Heddoko
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
+            string token = Context.Request.Headers[Constants.HeaderToken];
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                HDContext db = HDContext.Create();
+                UnitOfWork uow = new UnitOfWork();
+                User user = uow.AccessTokenRepository.GetByToken(token)?.User;
+                if (user == null)
+                {
+                    return;
+                }
+
+                if (user.IsActive)
+                {
+                    List<IdentityRole> roles = db.Roles.ToList();
+
+                    GenericIdentity identity = new GenericIdentity(user.UserName);
+                    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                    identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+                    foreach (UserRole role in user.Roles)
+                    {
+                        identity.AddClaim(new Claim(ClaimTypes.Role, role.ToString()));
+                    }
+
+                    Context.User = new GenericPrincipal(identity, user.Roles.Select(c => roles.FirstOrDefault(q => q.Id == c.RoleId)?.Name).ToArray());
+                }
+            }
         }
 
         protected void Application_EndRequest()

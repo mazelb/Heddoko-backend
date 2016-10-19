@@ -9,13 +9,18 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using DAL.Models;
+using Heddoko.Helpers.Auth;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.OAuth;
 using Services;
 using Services.MailSending;
+using Microsoft.Owin.Security.DataHandler.Encoder;
 
 namespace Heddoko
 {
     public partial class Startup
     {
+        public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; private set; }
         public void ConfigureAuth(IAppBuilder app)
         {
             app.CreatePerOwinContext(ProxyEmailService.Create);
@@ -34,6 +39,20 @@ namespace Heddoko
                         getUserIdCallback: (id) => (id.GetUserId<int>()))
                 }
             });
+
+            string PublicClientId = "self";
+
+            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/oauth/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
+                Provider = new SimpleAuthorizationServerProvider(PublicClientId)
+            };
+
+            app.UseOAuthAuthorizationServer(OAuthServerOptions);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+
         }
     }
 }

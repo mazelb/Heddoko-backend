@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DAL
@@ -88,7 +89,10 @@ namespace DAL
                         user.EmailConfirmed = true;
                     }
 
-                    await AddToRoleAsync(user.Id, Constants.Roles.User);
+                    if (!await IsInRoleAsync(user.Id, Constants.Roles.User))
+                    {
+                        await AddToRoleAsync(user.Id, Constants.Roles.User);
+                    }
 
                     await UpdateAsync(user);
 
@@ -171,6 +175,11 @@ namespace DAL
         public User FindByEmailCached(string email)
         {
             return UserStore.FindByEmailCached(email);
+        }
+
+        public User FindByToken(string token)
+        {
+            return UserStore.FindByToken(token);
         }
 
         public void SendActivationEmail(int userId, string code)
