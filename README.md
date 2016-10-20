@@ -16,3 +16,13 @@ Update-Database –TargetMigration: $InitialDatabase
 3. Upload sowftware via Powershel script
 
 upload-desktop-app.ps1 -version 1.1 -file c:\users\file.exe -server http://dev.app.heddoko.com
+
+4. Setup elmah
+4.1 Create DB `heddoko_dev_error` for dev OR `heddoko-backend-live-error` for live-error`
+4.2 Grant user previligies for created DB
+4.3 Execute ...\Heddoko\Heddoko\App_Readme\Elmah.SqlServer.sql 
+
+5. URLs
+/hangfire
+/help
+/elmah-dashboard
