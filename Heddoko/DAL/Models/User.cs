@@ -15,6 +15,8 @@ namespace DAL.Models
 {
     public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>, IBaseModel
     {
+        private string _roleName;
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
         {
             if (string.IsNullOrEmpty(SecurityStamp))
@@ -203,6 +205,17 @@ namespace DAL.Models
         public bool IsBanned => Status == UserStatusType.Banned;
         [JsonIgnore]
         public bool IsNotApproved => Status == UserStatusType.Pending;
+
+        [NotMapped]
+        public string RoleName
+        {
+            get
+            {
+                return _roleName ??
+                       (_roleName = Roles.FirstOrDefault(r => r.Role.Name != Constants.Roles.User)?.Role.Name ?? Constants.Roles.User);
+            }
+            set { _roleName = value; }
+        }
 
         #endregion
     }

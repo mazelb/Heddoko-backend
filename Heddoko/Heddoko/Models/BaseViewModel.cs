@@ -17,10 +17,7 @@ namespace Heddoko.Models
             Flash = new FlashMessagesViewModel();
             CurrentUser = Auth.CurrentUser;
             Title = Resources.Title;
-            CurrentUserRoles = IsAuth ? Auth.CurrentUserRoles : new List<string>();
         }
-
-        public IList<string> CurrentUserRoles { get; set; }
 
         public string Title { get; set; }
 
@@ -32,11 +29,11 @@ namespace Heddoko.Models
 
         public bool IsAuth => CurrentUser != null;
 
-        public bool IsAdmin => IsAuth && CurrentUserRoles.Contains(Constants.Roles.Admin);
+        public bool IsAdmin => IsAuth && CurrentUser.RoleName == Constants.Roles.Admin;
 
-        public bool IsLicenseAdmin => IsAuth && CurrentUserRoles.Contains(Constants.Roles.LicenseAdmin);
+        public bool IsLicenseAdmin => IsAuth && CurrentUser.RoleName == Constants.Roles.LicenseAdmin;
 
-        public bool IsAnalyst => IsAuth && CurrentUserRoles.Contains(Constants.Roles.Analyst);
+        public bool IsAnalyst => IsAuth && CurrentUser.RoleName == Constants.Roles.Analyst;
 
         public IEnumerable<SelectListItem> ListCountries => _countries ?? (_countries = new List<SelectListItem>
         {

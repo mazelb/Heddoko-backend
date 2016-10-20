@@ -225,8 +225,7 @@ namespace DAL
             }
             else
             {
-                if (!this.IsInRole(user.Id, Constants.Roles.Admin) &&
-                    !this.IsInRole(user.Id, Constants.Roles.LicenseAdmin))
+                if (!this.IsInRole(user.Id, Constants.Roles.Admin))
                 {
                     switch (user.License.Type)
                     {
@@ -239,11 +238,6 @@ namespace DAL
                     }
                 }
             }
-        }
-
-        public string GetRole(User user)
-        {
-            return this.GetRoles(user.Id).FirstOrDefault(r => !string.Equals(r, Constants.Roles.User, StringComparison.CurrentCultureIgnoreCase)) ?? Constants.Roles.User;
         }
     }
 }

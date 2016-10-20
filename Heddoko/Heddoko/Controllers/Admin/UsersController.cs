@@ -47,7 +47,7 @@ namespace Heddoko.Controllers
                     throw new Exception(Resources.WrongObjectAccess);
                 }
             }
-            
+
             if (request?.Filter != null)
             {
                 KendoFilterItem adminFilter = request.Filter.Get(Admin);
@@ -398,8 +398,6 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            string role = UserManager.GetRole(item);
-
             return new UserAPIModel
             {
                 ID = item.Id,
@@ -408,7 +406,7 @@ namespace Heddoko.Controllers
                 Firstname = item.FirstName,
                 Lastname = item.LastName,
                 Username = item.UserName,
-                Role = role.GetDisplayName(),
+                Role = item.RoleName.GetDisplayName(),
                 Status = item.Status,
                 LicenseID = item.LicenseID ?? 0,
                 Phone = item.PhoneNumber,

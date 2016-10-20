@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+using Jil;
+using Newtonsoft.Json;
 
 namespace DAL.Models
 {
     public class UserRole : IdentityUserRole<int>
     {
+        [ForeignKey("RoleId")]
+        [JilDirective(Ignore = true)]
+        [JsonIgnore]
+        public virtual IdentityRole Role { get; set; }
     }
 }

@@ -73,6 +73,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.License)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.Id == id);
         }
 
@@ -80,6 +81,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.License)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .OrderBy(c => c.FirstName)
                         .ThenBy(c => c.LastName);
@@ -92,6 +94,7 @@ namespace DAL
                         .Include(c => c.Kits)
                         .Include(c => c.Organization)
                         .Include(c => c.License)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.Id == id);
         }
 
@@ -99,7 +102,7 @@ namespace DAL
         {
             return DbSet.Include(c => c)
                         .Include(c => c.Roles)
-                        .Include(c => c.Roles.Select(r => r.RoleId))
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .Include(c => c.License)
                         .FirstOrDefault(c => c.Tokens.Any(t => t.Token == token));
         }
@@ -123,12 +126,14 @@ namespace DAL
         public User GetByEmail(string email)
         {
             return DbSet.Include(c => c.Organization)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
         public User GetByUsername(string username)
         {
             return DbSet.Include(c => c.Organization)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
@@ -140,6 +145,7 @@ namespace DAL
                         .Include(c => c.License)
                         .Include(c => c.Kits)
                         .Include(c => c.Kits.Select(k => k.Brainpack))
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
@@ -162,9 +168,8 @@ namespace DAL
 
         public IEnumerable<User> Admins()
         {
-            IdentityRole role = Db.Roles.FirstOrDefault(c => c.Name == Constants.Roles.Admin);
-
-            return DbSet.Where(c => c.Roles.Any(u => u.RoleId == role.Id))
+            return DbSet.Include(c => c.Roles.Select(r => r.Role))
+                        .Where(c => c.Roles.Any(u => u.Role.Name == Constants.Roles.Admin))
                         .OrderBy(c => c.FirstName)
                         .ThenBy(c => c.LastName);
         }
@@ -175,6 +180,7 @@ namespace DAL
                         .Include(c => c.Kits)
                         .Include(c => c.Team)
                         .Include(c => c.Organization)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => c.OrganizationID.Value == organizationID)
@@ -192,6 +198,7 @@ namespace DAL
                         .Include(c => c.Organization)
                         .Include(c => c.Kits)
                         .Include(c => c.Team)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
                         .Where(c => !organizationID.HasValue || c.OrganizationID.Value == organizationID)
