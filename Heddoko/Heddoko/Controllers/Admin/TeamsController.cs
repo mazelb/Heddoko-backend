@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
 using Heddoko.Models;
 using i18n;
+using Microsoft.AspNet.Identity;
+using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers
 {
@@ -22,7 +23,7 @@ namespace Heddoko.Controllers
 
         public TeamsController() { }
 
-        public TeamsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+        public TeamsController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<TeamAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -33,7 +34,7 @@ namespace Heddoko.Controllers
             bool isDeleted = false;
             bool isUsed = false;
 
-            if (CurrentUser.Role == UserRoleType.LicenseAdmin)
+            if (UserManager.IsInRole(CurrentUser.Id, Constants.Roles.LicenseAdmin))
             {
                 forceOrganization = true;
 
@@ -80,7 +81,7 @@ namespace Heddoko.Controllers
 
             if (items == null)
             {
-                items = CurrentUser.Role == UserRoleType.Admin ? UoW.TeamRepository.All(null, isDeleted) : UoW.TeamRepository.GetByOrganization(CurrentUser.OrganizationID.Value, isDeleted);
+                items = UserManager.IsInRole(CurrentUser.Id, Constants.Roles.Admin) ? UoW.TeamRepository.All(null, isDeleted) : UoW.TeamRepository.GetByOrganization(CurrentUser.OrganizationID.Value, isDeleted);
             }
 
             count = items.Count();

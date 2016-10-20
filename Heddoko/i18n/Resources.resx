@@ -1395,4 +1395,13 @@
   <data name="UserDoesntExist" xml:space="preserve">
     <value>User doesn't exist</value>
   </data>
+  <data name="Analyst" xml:space="preserve">
+    <value>Analyst</value>
+  </data>
+  <data name="LicenseAdmin" xml:space="preserve">
+    <value>License Admin</value>
+  </data>
+  <data name="Worker" xml:space="preserve">
+    <value>Worker</value>
+  </data>
 </root>

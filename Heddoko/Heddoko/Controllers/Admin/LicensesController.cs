@@ -8,6 +8,8 @@ using DAL.Models;
 using Hangfire;
 using Heddoko.Models;
 using i18n;
+using Microsoft.AspNet.Identity;
+using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers
 {
@@ -30,7 +32,7 @@ namespace Heddoko.Controllers
             int count = 0;
 
             bool isForceOrganization = false;
-            if (CurrentUser.Role == UserRoleType.LicenseAdmin)
+            if (UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.LicenseAdmin))
             {
                 isForceOrganization = true;
 
@@ -236,7 +238,7 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            if (!CurrentUser.IsAdmin)
+            if (!IsAdmin)
             {
                 throw new Exception(Resources.WrongObjectAccess);
             }

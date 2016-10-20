@@ -73,6 +73,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.License)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.Id == id);
         }
 
@@ -80,6 +81,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.License)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .OrderBy(c => c.FirstName)
                         .ThenBy(c => c.LastName);
@@ -92,6 +94,7 @@ namespace DAL
                         .Include(c => c.Kits)
                         .Include(c => c.Organization)
                         .Include(c => c.License)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.Id == id);
         }
 
@@ -99,7 +102,7 @@ namespace DAL
         {
             return DbSet.Include(c => c)
                         .Include(c => c.Roles)
-                        .Include(c => c.Roles.Select(r => r.RoleId))
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .Include(c => c.License)
                         .FirstOrDefault(c => c.Tokens.Any(t => t.Token == token));
         }
@@ -123,12 +126,14 @@ namespace DAL
         public User GetByEmail(string email)
         {
             return DbSet.Include(c => c.Organization)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
         public User GetByUsername(string username)
         {
             return DbSet.Include(c => c.Organization)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
@@ -140,17 +145,8 @@ namespace DAL
                         .Include(c => c.License)
                         .Include(c => c.Kits)
                         .Include(c => c.Kits.Select(k => k.Brainpack))
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
-        }
-
-        public User GetByConfirmToken(string confirmToken)
-        {
-            return DbSet.FirstOrDefault(c => c.ConfirmToken.Equals(confirmToken, StringComparison.OrdinalIgnoreCase));
-        }
-
-        public User GetByForgetToken(string forgetToken)
-        {
-            return DbSet.FirstOrDefault(c => c.ForgotToken.Equals(forgetToken, StringComparison.OrdinalIgnoreCase));
         }
 
         public User GetByUsernameCached(string username)
@@ -172,15 +168,10 @@ namespace DAL
 
         public IEnumerable<User> Admins()
         {
-            return DbSet.Where(c => c.Role == UserRoleType.Admin)
+            return DbSet.Include(c => c.Roles.Select(r => r.Role))
+                        .Where(c => c.Roles.Any(u => u.Role.Name == Constants.Roles.Admin))
                         .OrderBy(c => c.FirstName)
                         .ThenBy(c => c.LastName);
-        }
-
-        public User GetByInviteToken(string inviteToken)
-        {
-            return DbSet.Include(c => c.Organization)
-                        .FirstOrDefault(c => c.InviteToken.Equals(inviteToken, StringComparison.OrdinalIgnoreCase));
         }
 
         public IEnumerable<User> GetByOrganization(int organizationID, bool isDeleted = false, int? licenseID = null)
@@ -189,6 +180,7 @@ namespace DAL
                         .Include(c => c.Kits)
                         .Include(c => c.Team)
                         .Include(c => c.Organization)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => c.OrganizationID.Value == organizationID)
@@ -206,6 +198,7 @@ namespace DAL
                         .Include(c => c.Organization)
                         .Include(c => c.Kits)
                         .Include(c => c.Team)
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
                         .Where(c => !organizationID.HasValue || c.OrganizationID.Value == organizationID)

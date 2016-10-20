@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -146,6 +147,11 @@ namespace DAL
             return await UserTokenProvider.GenerateAsync(InviteToken, this, user);
         }
 
+        public string GenerateInviteToken(int userId)
+        {
+            return this.GenerateUserToken(InviteToken, userId);
+        }
+
         public async Task<bool> ValidateInviteTokenAsync(User user, string token)
         {
             return await UserTokenProvider.ValidateAsync(InviteToken, token, this, user);
@@ -209,6 +215,29 @@ namespace DAL
         public void SendActivatedEmail(int userId)
         {
             UserEmailService.Service.SendActivatedEmail(userId);
+        }
+
+        public void ApplyUserRolesForLicense(User user)
+        {
+            if (user.License == null)
+            {
+                this.RemoveFromRoles(user.Id, Constants.Roles.Analyst, Constants.Roles.Worker);
+            }
+            else
+            {
+                if (!this.IsInRole(user.Id, Constants.Roles.Admin))
+                {
+                    switch (user.License.Type)
+                    {
+                        case LicenseType.DataAnalysis:
+                            this.AddToRole(user.Id, Constants.Roles.Analyst);
+                            break;
+                        case LicenseType.DataCollection:
+                            this.AddToRole(user.Id, Constants.Roles.Worker);
+                            break;
+                    }
+                }
+            }
         }
     }
 }

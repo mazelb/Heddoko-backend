@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using DAL.Models;
 using i18n;
 using System.Web;
+using DAL;
 
 namespace Heddoko.Models
 {
@@ -28,7 +29,11 @@ namespace Heddoko.Models
 
         public bool IsAuth => CurrentUser != null;
 
-        public bool IsAdmin => IsAuth && CurrentUser.Role == UserRoleType.Admin;
+        public bool IsAdmin => IsAuth && CurrentUser.RoleName == Constants.Roles.Admin;
+
+        public bool IsLicenseAdmin => IsAuth && CurrentUser.RoleName == Constants.Roles.LicenseAdmin;
+
+        public bool IsAnalyst => IsAuth && CurrentUser.RoleName == Constants.Roles.Analyst;
 
         public IEnumerable<SelectListItem> ListCountries => _countries ?? (_countries = new List<SelectListItem>
         {

@@ -66,5 +66,7 @@ namespace Heddoko.Models
         public string InviteToken { get; set; }
 
         public Organization Organization { get; set; }
+
+        public int UserId { get; set; }
     }
 }

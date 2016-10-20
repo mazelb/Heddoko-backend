@@ -15,6 +15,8 @@ namespace DAL.Models
 {
     public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>, IBaseModel
     {
+        private string _roleName;
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
         {
             if (string.IsNullOrEmpty(SecurityStamp))
@@ -86,30 +88,6 @@ namespace DAL.Models
         public UserRoleType Role { get; set; }
 
         public UserStatusType Status { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        [Obsolete("will be removed after migration to Identity")]
-        public string ConfirmToken { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        [Obsolete("will be removed after migration to Identity")]
-        public string RememberToken { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        [Obsolete("will be removed after migration to Identity")]
-        public string ForgotToken { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        [Obsolete("will be removed after migration to Identity")]
-        public string InviteToken { get; set; }
-
-        [JsonIgnore]
-        [Obsolete("will be removed after migration to Identity")]
-        public DateTime? ForgotExpiration { get; set; }
 
         #region Relations
 
@@ -224,12 +202,20 @@ namespace DAL.Models
         public bool IsActive => Status == UserStatusType.Active;
 
         [JsonIgnore]
-        public bool IsAdmin => Role == UserRoleType.Admin;
-
-        [JsonIgnore]
         public bool IsBanned => Status == UserStatusType.Banned;
         [JsonIgnore]
         public bool IsNotApproved => Status == UserStatusType.Pending;
+
+        [NotMapped]
+        public string RoleName
+        {
+            get
+            {
+                return _roleName ??
+                       (_roleName = Roles.FirstOrDefault(r => r.Role.Name != Constants.Roles.User)?.Role.Name ?? Constants.Roles.User);
+            }
+            set { _roleName = value; }
+        }
 
         #endregion
     }

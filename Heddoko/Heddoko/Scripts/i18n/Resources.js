@@ -426,7 +426,10 @@ i18n.Resources = (function () {
   "WrongLockedOut": "You have been locked out.",
   "RequiresVerification": "RequiresVerification",
   "WrongConfirm": "Email is not confirmed",
-  "UserDoesntExist": "User doesn't exist"
+  "UserDoesntExist": "User doesn't exist",
+  "Analyst": "Analyst",
+  "LicenseAdmin": "License Admin",
+  "Worker": "Worker"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

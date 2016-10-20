@@ -243,6 +243,10 @@
     <Compile Include="Migrations\201610130942452_UserOrganization.Designer.cs">
       <DependentUpon>201610130942452_UserOrganization.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610200954010_RemoveUserTokens.cs" />
+    <Compile Include="Migrations\201610200954010_RemoveUserTokens.Designer.cs">
+      <DependentUpon>201610200954010_RemoveUserTokens.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
@@ -423,6 +427,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610130942452_UserOrganization.resx">
       <DependentUpon>201610130942452_UserOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610200954010_RemoveUserTokens.resx">
+      <DependentUpon>201610200954010_RemoveUserTokens.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
