@@ -192,7 +192,7 @@ var Organizations = {
                             }, {
                                 text: i18n.Resources.Approve,
                                 className: "k-grid-approve",
-                                click: this.onApprove
+                                click: this.onApprove.bind(this)
                             }
                         ],
                         title: i18n.Resources.Actions,
@@ -439,7 +439,7 @@ var Organizations = {
         Ajax.post("/admin/api/organizations/approve",
        {
            organizationID: item.id
-       }).success(Organizations.onApproveSuccess);
+       }).success(this.onApproveSuccess);
     },
     onReset: function (e) {
         this.controls.addModel.set('model', this.getEmptyModel());
@@ -530,7 +530,7 @@ var Organizations = {
         {
             organizationID: organizationID,
             userID: userID
-        }).success(Organizations.onChangeSuccess);
+        }).success(this.onChangeSuccess);
     },
     onApproveSuccess: function(e) {
         if (e) {

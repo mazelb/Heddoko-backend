@@ -264,7 +264,7 @@ var Users = {
                     }, {
                         text: i18n.Resources.ResendActivation,
                         className: "k-grid-resend",
-                        click: this.onResendActivation
+                        click: this.onResendActivation.bind(this)
                     }],
                     title: i18n.Resources.Actions,
                     width: '165px'
@@ -368,7 +368,7 @@ var Users = {
         Ajax.post("/admin/api/users/activation/resend",
        {
            userId: item.id
-       }).success(Users.onResendActivationSuccess);
+       }).success(this.onResendActivationSuccess);
     },
     onResendActivationSuccess: function (e) {
         if (e) {
