@@ -39,7 +39,7 @@
             <div class="alert alert-danger">
                 @Html.Raw(i18n.Resources.Oops)
                 <ul>
-                    @Html.ValidationSummary(true, string.Empty, new { @class = "" })
+                    @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary(true, string.Empty, new { @class = "" }).ToHtmlString()))
                 </ul>
             </div>
             }

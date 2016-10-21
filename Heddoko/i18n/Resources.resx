@@ -1390,7 +1390,7 @@
     <value>RequiresVerification</value>
   </data>
   <data name="WrongConfirm" xml:space="preserve">
-    <value>Email is not confirmed</value>
+    <value>Email is not confirmed. &lt;a href="{0}"&gt;Resend&lt;/a&gt; activation email for user {1}</value>
   </data>
   <data name="UserDoesntExist" xml:space="preserve">
     <value>User doesn't exist</value>
@@ -1403,5 +1403,17 @@
   </data>
   <data name="Worker" xml:space="preserve">
     <value>Worker</value>
+  </data>
+  <data name="EmailHasBeenSent" xml:space="preserve">
+    <value>Email has been sent</value>
+  </data>
+  <data name="ActivationEmailHasBeenSentCheckEmail" xml:space="preserve">
+    <value>Activation email has been successfully sent, please check your email</value>
+  </data>
+  <data name="ResendActivation" xml:space="preserve">
+    <value>Resend activation</value>
+  </data>
+  <data name="UserIsNotInvited" xml:space="preserve">
+    <value>User should be invited</value>
   </data>
 </root>

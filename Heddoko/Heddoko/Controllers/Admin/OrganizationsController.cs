@@ -394,7 +394,7 @@ namespace Heddoko.Controllers
 
                 if (organization?.User.Status == UserStatusType.Pending)
                 {
-                    organization.User.Status = UserStatusType.Active;
+                    organization.User.Status = UserStatusType.Invited;
 
                     organization.Status = OrganizationStatusType.Active;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
@@ -419,6 +420,47 @@ namespace Heddoko.Controllers
                 TeamID = item.TeamID ?? 0,
                 Team = item.Team
             };
+        }
+
+        [Route("activation/resend")]
+        [HttpPost]
+        public async Task<bool> ResendActivationEmail(UserAdminAPIModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = UoW.UserRepository.Get(model.UserId);
+                
+                if (user?.Status == UserStatusType.Invited)
+                {
+                    bool isNew = string.IsNullOrEmpty(user.PasswordHash);
+
+                    if (isNew)
+                    {
+                        string code = await UserManager.GenerateInviteTokenAsync(user);
+                        if (await UserManager.IsInRoleAsync(user.Id, Constants.Roles.LicenseAdmin))
+                        {
+                            UserManager.SendInviteAdminEmail(user.Organization.Id, code);
+                        }
+                        else
+                        {
+                            UserManager.SendInviteEmail(user.Id, code);
+                        }
+                    }
+                    else
+                    {
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        UserManager.SendActivationEmail(user.Id, code);
+                    }
+                }
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+            return true;
         }
     }
 }

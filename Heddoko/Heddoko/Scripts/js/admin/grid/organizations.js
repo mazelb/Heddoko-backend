@@ -439,7 +439,7 @@ var Organizations = {
         Ajax.post("/admin/api/organizations/approve",
        {
            organizationID: item.id
-       }).success(this.onApproveSuccess);
+       }).success(Organizations.onApproveSuccess);
     },
     onReset: function (e) {
         this.controls.addModel.set('model', this.getEmptyModel());
@@ -530,11 +530,12 @@ var Organizations = {
         {
             organizationID: organizationID,
             userID: userID
-        }).success(this.onChangeSuccess);
+        }).success(Organizations.onChangeSuccess);
     },
     onApproveSuccess: function(e) {
         if (e) {
             Datasources.organizations.read();
+            Datasources.users.read();
         } else {
             Notifications.error(e);
         }

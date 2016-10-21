@@ -79,6 +79,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activation email has been successfully sent, please check your email.
+        /// </summary>
+        public static string ActivationEmailHasBeenSentCheckEmail {
+            get {
+                return ResourceManager.GetString("ActivationEmailHasBeenSentCheckEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Add {
@@ -1047,6 +1056,15 @@ namespace i18n {
         public static string EmailForgotUsernameSubject {
             get {
                 return ResourceManager.GetString("EmailForgotUsernameSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email has been sent.
+        /// </summary>
+        public static string EmailHasBeenSent {
+            get {
+                return ResourceManager.GetString("EmailHasBeenSent", resourceCulture);
             }
         }
         
@@ -2572,6 +2590,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resend activation.
+        /// </summary>
+        public static string ResendActivation {
+            get {
+                return ResourceManager.GetString("ResendActivation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
         public static string Reset {
@@ -3526,6 +3553,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User should be invited.
+        /// </summary>
+        public static string UserIsNotInvited {
+            get {
+                return ResourceManager.GetString("UserIsNotInvited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {
@@ -3778,7 +3814,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email is not confirmed.
+        ///   Looks up a localized string similar to Email is not confirmed. &lt;a href=&quot;{0}&quot;&gt;Resend&lt;/a&gt; activation email for user {1}.
         /// </summary>
         public static string WrongConfirm {
             get {
