@@ -14,9 +14,9 @@ namespace Heddoko
     {
         public void Configuration(IAppBuilder app)
         {
-            app.CreatePerOwinContext(UnitOfWork.Create);
-
             GlobalConfiguration.Configuration.UseSqlServerStorage(DAL.Config.ConnectionString);
+            app.CreatePerOwinContext(UnitOfWork.Create);
+            ConfigureAuth(app);
 
             app.UseHangfireDashboard("/hangfire",
                 new DashboardOptions
@@ -26,8 +26,6 @@ namespace Heddoko
                         new HangfireAuthorizationFilter(Constants.Roles.Admin)
                     }
                 });
-
-            ConfigureAuth(app);
         }
     }
 }
