@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using DAL;
 using DAL.Models;
@@ -61,13 +62,16 @@ namespace Heddoko.Controllers
                         {
                             if (!UserManager.IsEmailConfirmed(user.Id))
                             {
-                                ModelState.AddModelError(string.Empty, Resources.WrongConfirm);
+                                ModelState.AddModelError(string.Empty, HttpUtility.HtmlDecode(string.Format(Resources.WrongConfirm, Url.Action("ResendActivationEmail", "Account", new { username = model.Username }), model.Username)));
                             }
                             else
                             {
                                 ModelState.AddModelError(string.Empty, Resources.UserIsNotActive);
                             }
                         }
+
+                        AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
                         return View(model);
                     }
 
@@ -447,6 +451,13 @@ namespace Heddoko.Controllers
                 var result = await UserManager.ConfirmEmailAsync(userId, code);
                 if (result.Succeeded)
                 {
+                    User user = UoW.UserRepository.Get(userId);
+                    user.Status = UserStatusType.Active;
+
+                    UoW.Save();
+
+                    UoW.UserRepository.ClearCache(user);
+
                     UserManager.SendActivatedEmail(userId);
                     model.Flash.Add(new FlashMessage
                     {
@@ -577,6 +588,17 @@ namespace Heddoko.Controllers
                 User user = await UserManager.FindByEmailAsync(model.Email?.Trim());
                 if (user != null)
                 {
+                    if (!user.IsActive && !UserManager.IsEmailConfirmed(user.Id))
+                    {
+                        model.Flash.Add(new FlashMessage
+                        {
+                            Type = FlashMessageType.Error,
+                            Message = HttpUtility.HtmlDecode(string.Format(Resources.WrongConfirm, Url.Action("ResendActivationEmail", "Account", new { username = model.Email?.Trim() }), model.Email))
+                        });
+
+                        return View(model);
+                    }
+
                     string resetPasswordToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                     UserManager.SendForgotPasswordEmail(user.Id, resetPasswordToken);
 
@@ -621,6 +643,17 @@ namespace Heddoko.Controllers
                 User user = await UserManager.FindByEmailAsync(model.Email?.Trim());
                 if (user != null)
                 {
+                    if (!user.IsActive && !UserManager.IsEmailConfirmed(user.Id))
+                    {
+                        model.Flash.Add(new FlashMessage
+                        {
+                            Type = FlashMessageType.Error,
+                            Message = HttpUtility.HtmlDecode(string.Format(Resources.WrongConfirm, Url.Action("ResendActivationEmail", "Account", new { username = model.Email?.Trim() }), model.Email))
+                        });
+
+                        return View(model);
+                    }
+
                     UserManager.SendForgotUsernameEmail(user.Id);
 
                     baseModel.Flash.Add(new FlashMessage
@@ -650,6 +683,65 @@ namespace Heddoko.Controllers
             {
                 ModelState.AddModelError(string.Empty, error);
             }
+        }
+
+
+        [AllowAnonymous]
+        [Route("activation/resend/{username}")]
+        public async Task<ActionResult> ResendActivationEmail(string username)
+        {
+            BaseViewModel baseModel = new BaseViewModel();
+            User user = await UserManager.FindByNameAsync(username) ?? await UserManager.FindByEmailAsync(username);
+
+            if (user == null)
+            {
+                baseModel.Flash.Add(new FlashMessage
+                {
+                    Type = FlashMessageType.Error,
+                    Message = Resources.UserDoesntExist
+                });
+            }
+            else
+            {
+                if (user.Status != UserStatusType.Invited)
+                {
+                    baseModel.Flash.Add(new FlashMessage
+                    {
+                        Type = FlashMessageType.Error,
+                        Message = Resources.UserIsNotInvited
+                    });
+                }
+                else
+                {
+                    bool isNew = string.IsNullOrEmpty(user.PasswordHash);
+
+                    if (isNew)
+                    {
+                        string code = await UserManager.GenerateInviteTokenAsync(user);
+                        if (await UserManager.IsInRoleAsync(user.Id, DAL.Constants.Roles.LicenseAdmin))
+                        {
+                            UserManager.SendInviteAdminEmail(user.Id, code);
+                        }
+                        else
+                        {
+                            UserManager.SendInviteEmail(user.Id, code);
+                        }
+                    }
+                    else
+                    {
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        UserManager.SendActivationEmail(user.Id, code);
+                    }
+
+                    baseModel.Flash.Add(new FlashMessage
+                    {
+                        Type = FlashMessageType.Success,
+                        Message = Resources.ActivationEmailHasBeenSentCheckEmail
+                    });
+                }
+            }
+
+            return View("ConfirmStatus", baseModel);
         }
     }
 }

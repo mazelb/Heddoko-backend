@@ -169,7 +169,7 @@ namespace DAL
         public IEnumerable<User> Admins()
         {
             return DbSet.Include(c => c.Roles.Select(r => r.Role))
-                        .Where(c => c.Roles.Any(u => u.Role.Name == Constants.Roles.Admin))
+                        .Where(c => c.Roles.Any(u => u.Role.Name.Equals(Constants.Roles.Admin, StringComparison.OrdinalIgnoreCase)))
                         .OrderBy(c => c.FirstName)
                         .ThenBy(c => c.LastName);
         }

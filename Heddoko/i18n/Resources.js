@@ -425,11 +425,15 @@ i18n.Resources = (function () {
   "CantSetPending": "You can't set pending status",
   "WrongLockedOut": "You have been locked out.",
   "RequiresVerification": "RequiresVerification",
-  "WrongConfirm": "Email is not confirmed",
+  "WrongConfirm": "Email is not confirmed. <a href=\"{0}\">Resend</a> activation email for user {1}",
   "UserDoesntExist": "User doesn't exist",
   "Analyst": "Analyst",
   "LicenseAdmin": "License Admin",
-  "Worker": "Worker"
+  "Worker": "Worker",
+  "EmailHasBeenSent": "Email has been sent",
+  "ActivationEmailHasBeenSentCheckEmail": "Activation email has been successfully sent, please check your email",
+  "ResendActivation": "Resend activation",
+  "UserIsNotInvited": "User should be invited"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());
