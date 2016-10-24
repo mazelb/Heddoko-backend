@@ -207,12 +207,13 @@ namespace DAL.Models
         public bool IsNotApproved => Status == UserStatusType.Pending;
 
         [NotMapped]
+        [JsonIgnore]
         public string RoleName
         {
             get
             {
                 return _roleName ??
-                       (_roleName = Roles.FirstOrDefault(r => r.Role.Name != Constants.Roles.User)?.Role.Name ?? Constants.Roles.User);
+                       (_roleName = Roles.FirstOrDefault(r => r.Role?.Name != Constants.Roles.User)?.Role.Name ?? Constants.Roles.User);
             }
             set { _roleName = value; }
         }

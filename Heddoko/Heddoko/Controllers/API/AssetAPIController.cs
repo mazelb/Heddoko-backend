@@ -125,7 +125,7 @@ namespace Heddoko.Controllers.API
 
             if (kit.UserID.HasValue)
             {
-                if (await UserManager.IsInRoleAsync(CurrentUser.Id, Constants.Roles.Worker))
+                if (UserManager.IsInRole(CurrentUser.Id, Constants.Roles.Worker))
                 {
                     if (kit.UserID.Value != CurrentUser.Id)
                     {
