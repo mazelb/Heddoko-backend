@@ -168,8 +168,20 @@
                         <span></span>
                     </a>
                 </div>
-
             </div>
+
+            if (Model.UserErgoScore != null)
+            {
+                <div class="row" id="gauge-row">
+                    <div class="col-md-12">
+                        <div id="gauge-container">
+                            <p>ErgoScores</p>
+                            <div id="gauge"></div>
+                        </div>
+                    </div>
+                </div>
+            }
+
         }
     </div>
 

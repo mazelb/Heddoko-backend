@@ -9,5 +9,6 @@ namespace DAL
     {
         Task<double> GetErgoScoreOfUser(int UserID);
         Task<double> GetErgoScoreMultiUser(int[] userIDs);
+        Task<double> GetTotalErgoScore();
     }
 }

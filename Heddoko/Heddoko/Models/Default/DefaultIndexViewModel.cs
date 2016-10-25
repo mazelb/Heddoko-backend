@@ -12,5 +12,9 @@ namespace Heddoko.Models
 
         public Firmware Guide { get; set; }
 
+        public double? UserErgoScore { get; set; }
+
+        public double? OrgErgoScore { get; set; }
+
     }
 }

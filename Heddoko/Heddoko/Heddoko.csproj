@@ -616,6 +616,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\scss\nodes\history-popup.scss" />
+    <Content Include="Content\scss\nodes\linear-gauge.scss" />
     <Content Include="Areas\MvcElmahDashboard\Views\_ViewStart.cshtml" />
     <Content Include="Areas\MvcElmahDashboard\Views\web.config" />
     <Content Include="Areas\MvcElmahDashboard\Views\Shared\_styles.cshtml" />
@@ -655,6 +656,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\account\ergoscore.js" />
     <Content Include="Scripts\js\account\mask.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
@@ -772,6 +774,7 @@
     <Compile Include="Controllers\Admin\TeamsController.cs" />
     <Compile Include="Controllers\API\FirmwareAPIController.cs" />
     <Compile Include="Controllers\API\AssetAPIController.cs" />
+    <Compile Include="Controllers\ErgoScoreController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\Admin\LicensesController.cs" />
     <Compile Include="Controllers\Admin\UsersController.cs" />
@@ -853,6 +856,7 @@
     <Compile Include="Models\Admin\TeamAPIModel.cs" />
     <Compile Include="Models\Admin\UserAdminAPIModel.cs" />
     <Compile Include="Models\Admin\UserAPIModel.cs" />
+    <Compile Include="Models\API\ErgoScoreAPIModel.cs" />
     <Compile Include="Models\API\ListAPIViewModel.cs" />
     <Compile Include="Models\API\FirmwareAPIViewModel.cs" />
     <Compile Include="Models\API\AssetAPIViewModel.cs" />
@@ -875,6 +879,7 @@
     <Folder Include="Content\scss\views\" />
     <Folder Include="Helpers\JWT\" />
     <Folder Include="Views\Assemblies\" />
+    <Folder Include="Views\ErgoScore\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\dev.pubxml" />
