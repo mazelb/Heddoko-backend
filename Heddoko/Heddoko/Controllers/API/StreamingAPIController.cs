@@ -9,11 +9,11 @@ using i18n;
 namespace Heddoko.Controllers.API
 {
     [RoutePrefix("api/v1/stream")]
+    [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
     public class StreamingAPIController : BaseAPIController
     {
         [Route("connections")]
         [HttpGet]
-        [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
         public List<Channel> Connections()
         {
             if (!CurrentUser.TeamID.HasValue)
@@ -26,15 +26,12 @@ namespace Heddoko.Controllers.API
 
         [Route("connections/add")]
         [HttpPost]
-        [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
         public bool AddConnection()
         {
             if (!CurrentUser.TeamID.HasValue)
             {
                 throw new APIException(ErrorAPIType.UserIsNotInTeam, Resources.UserIsNotInTeam);
             }
-
-            UoW.UserRepository.ClearCache(CurrentUser);
 
             if (CurrentUser.Kit == null)
             {
@@ -48,7 +45,6 @@ namespace Heddoko.Controllers.API
 
         [Route("connections/delete")]
         [HttpGet]
-        [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
         public bool RemoveConnection()
         {
             if (!CurrentUser.TeamID.HasValue)
@@ -58,8 +54,7 @@ namespace Heddoko.Controllers.API
 
             List<Channel> connections = UoW.StreamConnectionsCacheRepository.GetCached(CurrentUser.TeamID.Value);
 
-            if (CurrentUser != null &&
-                connections.RemoveAll(c => c.User.Id == CurrentUser.Id) > 0)
+            if (connections.RemoveAll(c => c.User.Id == CurrentUser.Id) > 0)
             {
                 UoW.StreamConnectionsCacheRepository.SetCache(CurrentUser.TeamID.Value, connections);
             }

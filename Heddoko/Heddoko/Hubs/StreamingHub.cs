@@ -20,7 +20,7 @@ namespace Heddoko.Hubs
 
         public void Send(byte[] stream)
         {
-            var currentUser = _unitOfWork.UserRepository.GetIDCached(Context.User.Identity.GetUserId<int>());
+            User currentUser = _unitOfWork.UserRepository.GetIDCached(Context.User.Identity.GetUserId<int>());
 
             CheckUserLicense(currentUser);
 
@@ -41,7 +41,7 @@ namespace Heddoko.Hubs
 
         public async Task JoinGroupByTeam(string groupName)
         {
-            var currentUser = _unitOfWork.UserRepository.GetIDCached(Context.User.Identity.GetUserId<int>());
+            User currentUser = _unitOfWork.UserRepository.GetIDCached(Context.User.Identity.GetUserId<int>());
 
             CheckUserLicense(currentUser);
 

@@ -182,19 +182,21 @@ namespace DAL.Models
         {
             get
             {
-                if (License != null
-                    &&
-                    License.IsActive)
+                if (License == null ||
+                    !License.IsActive)
                 {
-                    switch (License.Type)
-                    {
-                        case LicenseType.DataAnalysis:
-                            return UserRoleType.Analyst;
-                        case LicenseType.DataCollection:
-                            return UserRoleType.Worker;
-                    }
+                    return UserRoleType.User;
                 }
-                return Role;
+
+                switch (License.Type)
+                {
+                    case LicenseType.DataAnalysis:
+                        return UserRoleType.Analyst;
+                    case LicenseType.DataCollection:
+                        return UserRoleType.Worker;
+                    default:
+                        return UserRoleType.User;
+                }
             }
         }
 
