@@ -15,13 +15,13 @@ namespace DAL
         public IEnumerable<SensorSet> All(bool isDeleted)
         {
             return DbSet.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<SensorSet> GetAvailable(int? id = null)
         {
             return DbSet
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<SensorSet> Search(string search, bool isDeleted = false)
@@ -29,18 +29,18 @@ namespace DAL
             int? id = search.ParseID();
             return DbSet
                 .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                .Where(c => (c.ID == id)
+                .Where(c => (c.Id == id)
                             || c.Label.ToLower().Contains(search.ToLower())
                             || c.Notes.ToLower().Contains(search.ToLower()))
                           //  || c.KitID.ToLower().Contains(search.ToLower()))
-                .OrderBy(c => c.ID);
+                .OrderBy(c => c.Id);
         }
 
         public override SensorSet GetFull(int id)
         {
             return DbSet.Include(c => c.Kits)
                         .Include(c => c.Sensors)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
     }
 }
