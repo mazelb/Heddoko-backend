@@ -45,7 +45,7 @@ namespace Heddoko
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/oauth/token"),
+                TokenEndpointPath = new PathString("/oauth2/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
                 Provider = new SimpleAuthorizationServerProvider(PublicClientId)
             };

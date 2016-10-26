@@ -89,12 +89,13 @@ namespace DAL
 
         public override User GetFull(int id)
         {
-            return DbSet.Include(c => c.Tokens)
+            return DbSet.Include(c => c.Organization)
+                        .Include(c => c.Tokens)
                         .Include(c => c.Team)
-                        .Include(c => c.Kits)
-                        .Include(c => c.Organization)
                         .Include(c => c.License)
-                        .Include(c => c.Roles.Select(r => r.Role))
+                        .Include(c => c.Kits)
+                        .Include(c => c.Kits.Select(k => k.Brainpack))
+                        .Include(c => c.Roles.Select(r => r.Role)) 
                         .FirstOrDefault(c => c.Id == id);
         }
 

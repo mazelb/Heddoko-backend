@@ -51,7 +51,9 @@ namespace Heddoko.Controllers.API
         public User Profile()
         {
             CurrentUser.AllowLicenseInfoToken();
-            return CurrentUser;
+            User user = UoW.UserRepository.GetFull(CurrentUser.Id);
+            user.AllowLicenseInfoToken();
+            return user;
         }
 
         /// <summary>
