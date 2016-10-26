@@ -15,18 +15,22 @@ namespace ImportConsole
     {
         public static void ImportSensors(string filename)
         {
-            UnitOfWork uow = new UnitOfWork(new HDContext());
-
+            UnitOfWork uow = new UnitOfWork();
 
             FileStream stream = File.Open(filename, FileMode.Open, FileAccess.Read);
             List<SensorSet> sets = new List<SensorSet>();
             List<Sensor> sensors = new List<Sensor>();
             List<Sensor> sensorValidate = new List<Sensor>();
+            List<Firmware> firmwares = uow.FirmwareRepository.GetByType(FirmwareType.Sensor).ToList();
+
             using (IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream))
             {
                 DataSet dataSet = excelReader.AsDataSet();
 
                 DataTable table = dataSet.Tables["Sensors"];
+
+
+
                 foreach (DataRow row in table.Rows)
                 {
                     string serial = row[0]?.ToString();
@@ -34,6 +38,7 @@ namespace ImportConsole
                     string status = row[2]?.ToString();
                     string sensorSet = row[3]?.ToString();
                     string bodyID = row[4]?.ToString();
+                    string firmware = row[5]?.ToString();
 
                     if (string.IsNullOrEmpty(status)
                       || status.Equals("Status"))
@@ -54,7 +59,7 @@ namespace ImportConsole
                                 Label = sensorSet,
                                 QAStatus = SensorSetQAStatusType.None,
                                 Status = EquipmentStatusType.Ready,
-                                Sensors = new List<Sensor>()
+                                Sensors = new List<Sensor>(),
                             };
                             sets.Add(set);
                         }
@@ -67,7 +72,8 @@ namespace ImportConsole
                         Status = ParseStatus(status),
                         AnatomicalLocation = ParseBodyID(bodyID),
                         QAStatus = SensorQAStatusType.None,
-                        Type = SensorType.NodIMU
+                        Type = SensorType.NodIMU,
+                        Firmware = firmwares.FirstOrDefault(c => c.Version == firmware)
                     };
 
                     if (!string.IsNullOrEmpty(sensorSet))
