@@ -25,6 +25,7 @@ namespace DAL.Models
         public int OrganizationID { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual Organization Organization { get; set; }
 
         [JsonIgnore]

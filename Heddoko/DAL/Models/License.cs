@@ -31,15 +31,19 @@ namespace DAL.Models
         #endregion
 
         #region NotMapped
+        [JilDirective(Ignore = true)]
         bool ISoftDelete.IsDeleted => Status == LicenseStatusType.Deleted;
 
+        [JilDirective(Ignore = true)]
         public string IDView => $"LI{Id.ToString(Constants.PadZero)}";
 
+        [JilDirective(Ignore = true)]
         public string ViewID => $"{OrganizationID}-{Id}";
-
-
+        
+        [JilDirective(Ignore = true)]
         public string Name => $"{Type.GetDisplayName()} {IDView} ({ExpirationAt.ToString("dd/MM/yyyy")})";
 
+        [JilDirective(Ignore = true)]
         public bool IsActive => (Type == LicenseType.DataAnalysis || Type == LicenseType.DataCollection)
                                 && Status == LicenseStatusType.Active
                                 && ExpirationAt >= DateTime.Now;

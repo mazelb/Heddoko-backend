@@ -164,12 +164,13 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Z.EntityFramework.Plus.EF6, Version=1.4.8.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Z.EntityFramework.Plus.EF6.1.4.8\lib\net45\Z.EntityFramework.Plus.EF6.dll</HintPath>
+    <Reference Include="Z.EntityFramework.Plus.EF6, Version=1.4.9.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Z.EntityFramework.Plus.EF6.1.4.9\lib\net45\Z.EntityFramework.Plus.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ChanelHelper.cs" />
     <Compile Include="Identity\ApplicationSignInManager.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Identity\EmailService.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
+    <Compile Include="Models\Streaming\Channel.cs" />
     <Compile Include="Models\Enum\AssetsProccesingType.cs" />
     <Compile Include="Models\Enum\AssembliesType.cs" />
     <Compile Include="Models\Enum\TeamStatusType.cs" />
@@ -349,6 +351,7 @@
     <Compile Include="Repository\Interface\IHistoryRepository.cs" />
     <Compile Include="Repository\Interface\ILicenseRepository.cs" />
     <Compile Include="Repository\Interface\IFirmwareRepository.cs" />
+    <Compile Include="Repository\Interface\IStreamConnectionsCacheRepository.cs" />
     <Compile Include="Repository\Interface\ITeamRepository.cs" />
     <Compile Include="Repository\Interface\IShirtOctopiRepository.cs" />
     <Compile Include="Repository\Interface\ISensorSetRepository.cs" />
@@ -362,6 +365,7 @@
     <Compile Include="Repository\Interface\IBrainpackRepository.cs" />
     <Compile Include="Repository\Interface\IShirtRepository.cs" />
     <Compile Include="Repository\LicenseRepository.cs" />
+    <Compile Include="Repository\StreamConnectionsCacheRepository.cs" />
     <Compile Include="Repository\ProcessedFrameRepository.cs" />
     <Compile Include="Repository\TeamRepository.cs" />
     <Compile Include="Repository\OrganizationRepository.cs" />

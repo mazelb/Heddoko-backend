@@ -1,4 +1,6 @@
 ﻿using System;
+using DAL.Repository;
+using DAL.Repository.Interface;
 
 namespace DAL
 {
@@ -65,6 +67,8 @@ namespace DAL
 
         private ITeamRepository _teamRepository;
 
+        private IStreamConnectionsCacheRepository _streamConnectionsCacheRepository;
+
         private IProcessedFrameRepository _processedFrameRepository;
 
         #endregion
@@ -108,6 +112,8 @@ namespace DAL
         public IAssemblyCacheRepository AssemblyCacheRepository => _assemblyCacheRepository ?? (_assemblyCacheRepository = new AssemblyCacheRepository());
 
         public ITeamRepository TeamRepository => _teamRepository ?? (_teamRepository = new TeamRepository(_db));
+
+        public IStreamConnectionsCacheRepository StreamConnectionsCacheRepository => _streamConnectionsCacheRepository ?? (_streamConnectionsCacheRepository = new StreamConnectionsCacheRepository());
 
         public IProcessedFrameRepository ProcessedFrameRepository => _processedFrameRepository ?? (_processedFrameRepository = new ProcessedFrameRepository(_mongodb));
 

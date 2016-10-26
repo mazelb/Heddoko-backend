@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using i18n;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -73,6 +74,8 @@ namespace DAL
             //TODO Remove that after migration all users. can be done only while Sign In step
             if (!string.IsNullOrEmpty(user.Salt))
             {
+                user = UoW.UserRepository.GetFull(user.Id);
+
                 if (DAL.PasswordHasher.Equals(password?.Trim(), user.Salt, user.Password))
                 {
                     string newPasswordHash = PasswordHasher.HashPassword(password?.Trim());
@@ -132,6 +135,8 @@ namespace DAL
                         default:
                             break;
                     }
+
+                    ApplyUserRolesForLicense(user);
 
                     UoW.UserRepository.ClearCache(user);
 
@@ -219,13 +224,14 @@ namespace DAL
 
         public void ApplyUserRolesForLicense(User user)
         {
-            if (user.License == null)
+            if (user.License == null || !user.License.IsActive)
             {
                 this.RemoveFromRoles(user.Id, Constants.Roles.Analyst, Constants.Roles.Worker);
             }
             else
             {
-                if (!this.IsInRole(user.Id, Constants.Roles.Admin))
+                if (!this.IsInRole(user.Id, Constants.Roles.Admin)
+                    && user.License.IsActive)
                 {
                     switch (user.License.Type)
                     {
@@ -236,6 +242,34 @@ namespace DAL
                             this.AddToRole(user.Id, Constants.Roles.Worker);
                             break;
                     }
+                }
+            }
+        }
+
+        public async Task<IdentityResult> SetEmailConfirmedAsync(User user, bool confirmed)
+        {
+            await UserStore.SetEmailConfirmedAsync(user, confirmed);
+
+            return await UpdateAsync(user);
+        }
+
+        public void CheckUserLicense(User user)
+        {
+            if (!user.License.IsActive)
+            {
+                switch (user.License.Status)
+                {
+                    case LicenseStatusType.Expired:
+                        throw new Exception(Resources.WrongLicenseExpiration);
+                    case LicenseStatusType.Inactive:
+                        throw new Exception(Resources.WrongLicenseActive);
+                    case LicenseStatusType.Deleted:
+                        throw new Exception(Resources.WrongLicenseDeleted);
+                }
+
+                if (user.License.ExpirationAt < DateTime.Now)
+                {
+                    throw new Exception(Resources.WrongLicenseExpiration);
                 }
             }
         }

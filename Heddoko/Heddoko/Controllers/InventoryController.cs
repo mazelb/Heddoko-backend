@@ -23,10 +23,9 @@ namespace Heddoko.Controllers
         {
             InventoryViewModel model = new InventoryViewModel
             {
-                EnableKendo = true
+                EnableKendo = true,
+                Assemblies = Services.AssembliesManager.GetAssemblies()
             };
-
-            model.Assemblies = Services.AssembliesManager.GetAssemblies();
 
             return View(model);
         }

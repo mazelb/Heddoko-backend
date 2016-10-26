@@ -41,6 +41,15 @@ namespace Heddoko.Controllers.API
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
+            try
+            {
+                UserManager.CheckUserLicense(CurrentUser);
+            }
+            catch (Exception e)
+            {
+                throw new APIException(ErrorAPIType.LicenseIsNotReady, e.Message);
+            }
+
             //TODO Moved to CustomMediaTypeFormater
             string root = HttpContext.Current.Server.MapPath("~/App_Data");
             MultipartFormDataStreamProvider provider = new MultipartFormDataStreamProvider(root);
@@ -125,7 +134,7 @@ namespace Heddoko.Controllers.API
 
             if (kit.UserID.HasValue)
             {
-                if (await UserManager.IsInRoleAsync(CurrentUser.Id, Constants.Roles.Worker))
+                if (UserManager.IsInRole(CurrentUser.Id, Constants.Roles.Worker))
                 {
                     if (kit.UserID.Value != CurrentUser.Id)
                     {

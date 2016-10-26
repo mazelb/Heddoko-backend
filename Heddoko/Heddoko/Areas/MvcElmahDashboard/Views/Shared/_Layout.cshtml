@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>ELMAH LogViewer - @(ViewBag.Title)</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
+    @* ReSharper disable once Mvc.ActionNotResolved *@
     <link href="@(Url.Action("_styles", "Shared", new { v = Html.ScriptsVersion() }))" rel="stylesheet" />
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    @* ReSharper disable once Mvc.ActionNotResolved *@
     <script src="@(Url.Action("_scripts", "Shared", new { v = Html.ScriptsVersion() }))"></script>
 @RenderSection("head", false)
 </head>

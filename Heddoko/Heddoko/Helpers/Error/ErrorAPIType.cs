@@ -20,6 +20,7 @@
         LicenseIsNotReady,
         KitID,
         AssetType,
-        UserIsNotApproved
+        UserIsNotApproved,
+        UserIsNotInTeam
     }
 }

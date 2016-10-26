@@ -26,6 +26,8 @@ namespace Heddoko
                         new HangfireAuthorizationFilter(Constants.Roles.Admin)
                     }
                 });
+
+            app.MapSignalR();
         }
     }
 }
