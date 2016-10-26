@@ -433,7 +433,9 @@ i18n.Resources = (function () {
   "EmailHasBeenSent": "Email has been sent",
   "ActivationEmailHasBeenSentCheckEmail": "Activation email has been successfully sent, please check your email",
   "ResendActivation": "Resend activation",
-  "UserIsNotInvited": "User should be invited"
+  "UserIsNotInvited": "User should be invited",
+  "UserDoesntHaveKit": "User should have a kit",
+  "UserIsNotInTeam": "User should be in a team"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

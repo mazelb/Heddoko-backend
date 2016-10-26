@@ -48,6 +48,7 @@ namespace DAL.Models
 
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual ICollection<Kit> Kits { get; set; }
 
 

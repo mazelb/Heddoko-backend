@@ -1416,4 +1416,10 @@
   <data name="UserIsNotInvited" xml:space="preserve">
     <value>User should be invited</value>
   </data>
+  <data name="UserDoesntHaveKit" xml:space="preserve">
+    <value>User should have a kit</value>
+  </data>
+  <data name="UserIsNotInTeam" xml:space="preserve">
+    <value>User should be in a team</value>
+  </data>
 </root>

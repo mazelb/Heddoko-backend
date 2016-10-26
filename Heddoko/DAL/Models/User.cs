@@ -120,6 +120,7 @@ namespace DAL.Models
         [JilDirective(Ignore = true)]
         public virtual ICollection<Kit> Kits { get; set; }
 
+        [JilDirective(Ignore = true)]
         public virtual Kit Kit => Kits?.FirstOrDefault();
         #endregion
 

@@ -250,6 +250,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
+    <Compile Include="Models\Streaming\Channel.cs" />
     <Compile Include="Models\Enum\AssetsProccesingType.cs" />
     <Compile Include="Models\Enum\AssembliesType.cs" />
     <Compile Include="Models\Enum\TeamStatusType.cs" />
@@ -324,6 +325,7 @@
     <Compile Include="Repository\Interface\IHistoryRepository.cs" />
     <Compile Include="Repository\Interface\ILicenseRepository.cs" />
     <Compile Include="Repository\Interface\IFirmwareRepository.cs" />
+    <Compile Include="Repository\Interface\IStreamConnectionsCacheRepository.cs" />
     <Compile Include="Repository\Interface\ITeamRepository.cs" />
     <Compile Include="Repository\Interface\IShirtOctopiRepository.cs" />
     <Compile Include="Repository\Interface\ISensorSetRepository.cs" />
@@ -337,6 +339,7 @@
     <Compile Include="Repository\Interface\IBrainpackRepository.cs" />
     <Compile Include="Repository\Interface\IShirtRepository.cs" />
     <Compile Include="Repository\LicenseRepository.cs" />
+    <Compile Include="Repository\StreamConnectionsCacheRepository.cs" />
     <Compile Include="Repository\TeamRepository.cs" />
     <Compile Include="Repository\OrganizationRepository.cs" />
     <Compile Include="Repository\Interface\IOrganizationRepository.cs" />
