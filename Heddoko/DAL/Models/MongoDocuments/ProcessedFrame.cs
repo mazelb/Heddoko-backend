@@ -4,58 +4,62 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FileHelpers;
+using ProtoBuf;
 
 namespace DAL.Models
 {
-    [DelimitedRecord(",")]
+    // Using both Protobuf and FireHelpers fileParser. Once fully switched to protobuf can remove fieldconverters
+    [ProtoContract][DelimitedRecord(",")]
     public class ProcessedFrame
     {
-
+        [ProtoMember(1)]
         public long TimeStamp;
+        [ProtoMember(2)]
         public int UserID;
+        [ProtoMember(3)]
         public string KitID;
 
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(4)][FieldConverter(ConverterKind.Double, ".")]
         public double Longitude;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(5)][FieldConverter(ConverterKind.Double, ".")]
         public double Latitute;
 
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(6)][FieldConverter(ConverterKind.Double, ".")]
         public double TrunkBendRL;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(7)][FieldConverter(ConverterKind.Double, ".")]
         public double TrunkBendFE;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(8)][FieldConverter(ConverterKind.Double, ".")]
         public double TrunkRotRL;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(9)][FieldConverter(ConverterKind.Double, ".")]
         public double RShoulderFE;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(10)][FieldConverter(ConverterKind.Double, ".")]
         public double LShoulderFE;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(11)][FieldConverter(ConverterKind.Double, ".")]
         public double RShoulderABD;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(12)][FieldConverter(ConverterKind.Double, ".")]
         public double LShoulderABD;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(13)][FieldConverter(ConverterKind.Double, ".")]
         public double RHipFE;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(14)][FieldConverter(ConverterKind.Double, ".")]
         public double LHipFE;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(15)][FieldConverter(ConverterKind.Double, ".")]
         public double RHipABD;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(16)][FieldConverter(ConverterKind.Double, ".")]
         public double LHipABD;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(17)][FieldConverter(ConverterKind.Double, ".")]
         public double RHipIntExtRot;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(18)][FieldConverter(ConverterKind.Double, ".")]
         public double LHipIntExtRot;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(19)][FieldConverter(ConverterKind.Double, ".")]
         public double RElbowFE;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(20)][FieldConverter(ConverterKind.Double, ".")]
         public double LElbowFE;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(21)][FieldConverter(ConverterKind.Double, ".")]
         public double RKneeFE;
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(22)][FieldConverter(ConverterKind.Double, ".")]
         public double LKneeFE;
 
-        [FieldConverter(ConverterKind.Double, ".")]
+        [ProtoMember(23)][FieldConverter(ConverterKind.Double, ".")]
         public double ErgoScore;
     }
 }

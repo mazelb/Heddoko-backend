@@ -772,6 +772,7 @@
     <Compile Include="Controllers\Admin\FirmwaresController.cs" />
     <Compile Include="Controllers\Admin\ShirtsOctopiController.cs" />
     <Compile Include="Controllers\Admin\TeamsController.cs" />
+    <Compile Include="Controllers\API\ErgoScoreAPIController.cs" />
     <Compile Include="Controllers\API\FirmwareAPIController.cs" />
     <Compile Include="Controllers\API\AssetAPIController.cs" />
     <Compile Include="Controllers\ErgoScoreController.cs" />
@@ -879,6 +880,7 @@
     <Folder Include="Content\scss\views\" />
     <Folder Include="Helpers\JWT\" />
     <Folder Include="Views\Assemblies\" />
+    <Folder Include="Views\ErgoScoreAPI\" />
     <Folder Include="Views\ErgoScore\" />
   </ItemGroup>
   <ItemGroup>

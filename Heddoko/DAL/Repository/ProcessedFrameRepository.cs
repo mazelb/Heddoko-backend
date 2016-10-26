@@ -17,11 +17,11 @@ namespace DAL
         }
 
         /// <summary>
-        /// Calculates the ergoscore of a specific user
+        /// Async version of GetUserScore
         /// </summary>
         /// <param name="UserID"></param>
         /// <returns>Calculated ErgoScore</returns>
-        public async Task<double> GetErgoScoreOfUser(int UserID)
+        public async Task<double> GetUserScoreAsync(int UserID)
         {
             var collection = GetCollection<ProcessedFrame>();
 
@@ -36,11 +36,11 @@ namespace DAL
         }
 
         /// <summary>
-        /// Calculates the ergoscore of a list of users
+        /// Async version on GetMultiUserScore
         /// </summary>
         /// <param name="userIDs">an array of the userIDs to calculate ergoscore from</param>
         /// <returns>Calculated ErgoScore</returns>
-        public async Task<double> GetErgoScoreMultiUser(int[] userIDs)
+        public async Task<double> GetMultiUserScoreAsync(int[] userIDs)
         {
             var collection = GetCollection<ProcessedFrame>();
 
@@ -55,10 +55,10 @@ namespace DAL
         }
 
         /// <summary>
-        /// Calculates Total ErgoScore from all users and organizations
+        /// Async version of GetTotalErgoScore
         /// </summary>
         /// <returns></returns>
-        public async Task<double> GetTotalErgoScore()
+        public async Task<double> GetTotalErgoScoreAsync()
         {
             // TODO - BENB - this will not scale well and should be removed, this should be processed separately and stored if we want to keep using it 
             var collection = GetCollection<ProcessedFrame>();
@@ -71,6 +71,62 @@ namespace DAL
 
             return temp.ErgoScore;
         }
+        /// <summary>
+        /// Calculates the ergoscore of a specific user
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public double GetUserScore(int userID)
+        {
+            var collection = GetCollection<ProcessedFrame>();
+
+            var aggregate = collection.Aggregate()
+                .Match(new BsonDocument("UserID", userID))
+                .Group(new BsonDocument { { "_id", "$UserID" }, { "ErgoScore", new BsonDocument("$avg", "$ErgoScore") } });
+
+            var results = aggregate.FirstOrDefault();
+            ErgoScoreResult Score = BsonSerializer.Deserialize<ErgoScoreResult>(results);
+
+            return Score.ErgoScore;
+        }
+
+        /// <summary>
+        /// Calculates the ergoscore of a list of users
+        /// </summary>
+        /// <param name="userIDs"></param>
+        /// <returns></returns>
+        public double GetMultiUserScore(int[] userIDs)
+        {
+            var collection = GetCollection<ProcessedFrame>();
+
+            var aggregate = collection.Aggregate()
+                .Match(new BsonDocument("UserID", new BsonDocument("$in", new BsonArray(userIDs))))
+                .Group(new BsonDocument { { "_id", "null" }, { "ErgoScore", new BsonDocument("$avg", "$ErgoScore") } });
+
+            var results = aggregate.FirstOrDefault();
+            ErgoScoreMultiResult temp = BsonSerializer.Deserialize<ErgoScoreMultiResult>(results);
+
+            return temp.ErgoScore;
+        }
+
+        /// <summary>
+        /// Calculates Total ErgoScore from all users and organizations
+        /// </summary>
+        /// <returns></returns>
+        public double GetTotalErgoScore()
+        {
+            // TODO - BENB - this will not scale well and should be removed, this should be processed separately and stored if we want to keep using it 
+            var collection = GetCollection<ProcessedFrame>();
+
+            var aggregate = collection.Aggregate()
+                .Group(new BsonDocument { { "_id", "null" }, { "ErgoScore", new BsonDocument("$avg", "$ErgoScore") } });
+
+            var results = aggregate.FirstOrDefault();
+            ErgoScoreMultiResult temp = BsonSerializer.Deserialize<ErgoScoreMultiResult>(results);
+
+            return temp.ErgoScore;
+        }
+
     }
 
     public class ErgoScoreResult
