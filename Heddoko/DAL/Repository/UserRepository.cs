@@ -73,6 +73,7 @@ namespace DAL
         {
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.License)
+                        .Include(c => c.Kits)
                         .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.Id == id);
         }

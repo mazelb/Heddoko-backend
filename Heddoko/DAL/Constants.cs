@@ -71,6 +71,7 @@
             public const string KeyAll = "all";
             public const string Users = "users";
             public const string Assembly = "assembly";
+            public const string StreamConnections = "connections";
         }
 
         public static class CacheExpiration

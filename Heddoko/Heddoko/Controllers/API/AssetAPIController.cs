@@ -41,6 +41,15 @@ namespace Heddoko.Controllers.API
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
+            try
+            {
+                UserManager.CheckUserLicense(CurrentUser);
+            }
+            catch (Exception e)
+            {
+                throw new APIException(ErrorAPIType.LicenseIsNotReady, e.Message);
+            }
+
             //TODO Moved to CustomMediaTypeFormater
             string root = HttpContext.Current.Server.MapPath("~/App_Data");
             MultipartFormDataStreamProvider provider = new MultipartFormDataStreamProvider(root);

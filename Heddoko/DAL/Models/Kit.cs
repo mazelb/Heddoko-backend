@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Jil;
 using Newtonsoft.Json;
 
 namespace DAL.Models
@@ -38,12 +39,14 @@ namespace DAL.Models
         public int? OrganizationID { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual Organization Organization { get; set; }
 
         [JsonIgnore]
         public int? UserID { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual User User { get; set; }
 
         [JsonIgnore]

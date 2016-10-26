@@ -3490,6 +3490,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User should have a kit.
+        /// </summary>
+        public static string UserDoesntHaveKit {
+            get {
+                return ResourceManager.GetString("UserDoesntHaveKit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Female.
         /// </summary>
         public static string UserGenderType_Female {
@@ -3549,6 +3558,15 @@ namespace i18n {
         public static string UserIsNotApproved {
             get {
                 return ResourceManager.GetString("UserIsNotApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User should be in a team.
+        /// </summary>
+        public static string UserIsNotInTeam {
+            get {
+                return ResourceManager.GetString("UserIsNotInTeam", resourceCulture);
             }
         }
         
@@ -3927,6 +3945,15 @@ namespace i18n {
         public static string WrongSize {
             get {
                 return ResourceManager.GetString("WrongSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User is in the wrong team.
+        /// </summary>
+        public static string WrongTeam {
+            get {
+                return ResourceManager.GetString("WrongTeam", resourceCulture);
             }
         }
         

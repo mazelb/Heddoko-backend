@@ -210,6 +210,9 @@ namespace Heddoko.Controllers
                             else
                             {
                                 UoW.Save();
+
+                                await UserManager.SetEmailConfirmedAsync(user, true);
+
                                 UoW.UserRepository.SetCache(user);
 
                                 BaseViewModel modelStatus = new BaseViewModel();
