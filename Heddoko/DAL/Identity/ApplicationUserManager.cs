@@ -239,5 +239,12 @@ namespace DAL
                 }
             }
         }
+
+        public async Task<IdentityResult> SetEmailConfirmedAsync(User user, bool confirmed)
+        {
+            await UserStore.SetEmailConfirmedAsync(user, confirmed);
+
+            return await UpdateAsync(user);
+        }
     }
 }
