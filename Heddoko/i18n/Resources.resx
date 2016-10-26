@@ -1422,4 +1422,7 @@
   <data name="UserIsNotInTeam" xml:space="preserve">
     <value>User should be in a team</value>
   </data>
+  <data name="WrongTeam" xml:space="preserve">
+    <value>User is in the wrong team</value>
+  </data>
 </root>

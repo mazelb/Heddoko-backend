@@ -13,9 +13,13 @@ namespace Heddoko.Controllers.API
     [RoutePrefix("api/v1/users")]
     public class UsersAPIController : BaseAPIController
     {
-        public UsersAPIController() { }
+        public UsersAPIController()
+        {
+        }
 
-        public UsersAPIController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+        public UsersAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow)
+        {
+        }
 
         [ApiExplorerSettings(IgnoreApi = true)]
         [Route("{id:int?}")]
@@ -107,22 +111,13 @@ namespace Heddoko.Controllers.API
                     UoW.UserRepository.ClearCache(user);
                 }
 
-                if (!user.License.IsActive)
+                try
                 {
-                    switch (user.License.Status)
-                    {
-                        case LicenseStatusType.Expired:
-                            throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.WrongLicenseExpiration);
-                        case LicenseStatusType.Inactive:
-                            throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.WrongLicenseActive);
-                        case LicenseStatusType.Deleted:
-                            throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.WrongLicenseDeleted);
-                    }
-
-                    if (user.License.ExpirationAt < DateTime.Now)
-                    {
-                        throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.WrongLicenseExpiration);
-                    }
+                    UserManager.CheckUserLicense(user);
+                }
+                catch (Exception e)
+                {
+                    throw new APIException(ErrorAPIType.LicenseIsNotReady, e.Message);
                 }
 
                 if (user.AllowToken())

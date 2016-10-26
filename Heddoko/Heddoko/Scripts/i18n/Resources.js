@@ -435,7 +435,8 @@ i18n.Resources = (function () {
   "ResendActivation": "Resend activation",
   "UserIsNotInvited": "User should be invited",
   "UserDoesntHaveKit": "User should have a kit",
-  "UserIsNotInTeam": "User should be in a team"
+  "UserIsNotInTeam": "User should be in a team",
+  "WrongTeam": "User is in the wrong team"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

@@ -3949,6 +3949,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User is in the wrong team.
+        /// </summary>
+        public static string WrongTeam {
+            get {
+                return ResourceManager.GetString("WrongTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to These credentials do not match our records..
         /// </summary>
         public static string WrongUsernameOrPassword {

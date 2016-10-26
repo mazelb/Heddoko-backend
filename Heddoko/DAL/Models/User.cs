@@ -117,7 +117,6 @@ namespace DAL.Models
         public virtual ICollection<Asset> Assets { get; set; }
 
         [JsonIgnore]
-        [JilDirective(Ignore = true)]
         public virtual ICollection<Kit> Kits { get; set; }
 
         [JilDirective(Ignore = true)]

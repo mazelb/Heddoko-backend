@@ -5,10 +5,10 @@ namespace DAL.Repository.Interface
 {
     public interface IStreamConnectionsCacheRepository : ICacheRepository<List<Channel>>
     {
-        List<Channel> GetCached();
+        List<Channel> GetCached(int teamId);
 
-        void ClearCache();
+        void SetCache(int teamId, List<Channel> connections);
 
-        void SetCache(List<Channel> connections);
+        Channel CreateChannel(string channelName, User user);
     }
 }

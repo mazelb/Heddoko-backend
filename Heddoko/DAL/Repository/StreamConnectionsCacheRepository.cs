@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using DAL.Helpers;
 using DAL.Models;
 using DAL.Repository.Interface;
 
@@ -6,27 +8,40 @@ namespace DAL.Repository
 {
     public class StreamConnectionsCacheRepository : BaseCacheRepository<List<Channel>>, IStreamConnectionsCacheRepository
     {
-        private readonly string _cacheKey;
-
         public StreamConnectionsCacheRepository()
         {
             Key = Constants.Cache.StreamConnections;
-            _cacheKey = GetCacheKey(string.Empty);
         }
 
-        public List<Channel> GetCached()
+        public List<Channel> GetCached(int teamId)
         {
-            return GetCached(_cacheKey);
+            return GetCached(teamId.ToString()) ?? new List<Channel>();
         }
 
-        public void ClearCache()
+        public void SetCache(int teamId, List<Channel> connections)
         {
-            ClearCache(_cacheKey);
+            SetCache(teamId.ToString(), connections);
         }
 
-        public void SetCache(List<Channel> connections)
+        public Channel CreateChannel(string channelName, User user)
         {
-            SetCache(_cacheKey, connections);
+            Channel channel = null;
+            if (user.TeamID != null)
+            {
+                List<Channel> connections = GetCached(user.TeamID.Value);
+
+                channel = connections.FirstOrDefault(c => c.User.Id == user.Id);
+
+                if (channel == null)
+                {
+                    channel = new Channel { Name = channelName, User = user };
+                    connections.Add(channel);
+
+                    SetCache(user.TeamID.Value, connections);
+                }
+            }
+
+            return channel;
         }
     }
 }

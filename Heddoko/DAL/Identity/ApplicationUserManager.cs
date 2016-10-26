@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using i18n;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -245,6 +246,27 @@ namespace DAL
             await UserStore.SetEmailConfirmedAsync(user, confirmed);
 
             return await UpdateAsync(user);
+        }
+
+        public void CheckUserLicense(User user)
+        {
+            if (!user.License.IsActive)
+            {
+                switch (user.License.Status)
+                {
+                    case LicenseStatusType.Expired:
+                        throw new Exception(Resources.WrongLicenseExpiration);
+                    case LicenseStatusType.Inactive:
+                        throw new Exception(Resources.WrongLicenseActive);
+                    case LicenseStatusType.Deleted:
+                        throw new Exception(Resources.WrongLicenseDeleted);
+                }
+
+                if (user.License.ExpirationAt < DateTime.Now)
+                {
+                    throw new Exception(Resources.WrongLicenseExpiration);
+                }
+            }
         }
     }
 }
