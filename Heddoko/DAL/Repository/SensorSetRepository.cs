@@ -14,7 +14,7 @@ namespace DAL
 
         public IEnumerable<SensorSet> All(bool isDeleted)
         {
-            return DbSet
+            return DbSet.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                         .OrderBy(c => c.ID);
         }
 
@@ -28,6 +28,7 @@ namespace DAL
         {
             int? id = search.ParseID();
             return DbSet
+                .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                 .Where(c => (c.ID == id)
                             || c.Label.ToLower().Contains(search.ToLower())
                             || c.Notes.ToLower().Contains(search.ToLower()))
