@@ -17,13 +17,13 @@ namespace DAL.Models
     {
         private string _roleName;
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager, string authenticationType = DefaultAuthenticationTypes.ApplicationCookie)
         {
             if (string.IsNullOrEmpty(SecurityStamp))
             {
                 SecurityStamp = Guid.NewGuid().ToString();
             }
-            ClaimsIdentity userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            ClaimsIdentity userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
 
             return userIdentity;
         }
@@ -208,12 +208,13 @@ namespace DAL.Models
         public bool IsNotApproved => Status == UserStatusType.Pending;
 
         [NotMapped]
+        [JsonIgnore]
         public string RoleName
         {
             get
             {
                 return _roleName ??
-                       (_roleName = Roles.FirstOrDefault(r => r.Role.Name != Constants.Roles.User)?.Role.Name ?? Constants.Roles.User);
+                       (_roleName = Roles.FirstOrDefault(r => r.Role?.Name != Constants.Roles.User)?.Role.Name ?? Constants.Roles.User);
             }
             set { _roleName = value; }
         }

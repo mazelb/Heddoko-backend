@@ -3,6 +3,7 @@
 }
 @section head
 {
+    @* ReSharper disable once Mvc.ActionNotResolved *@
     <script src="@(Url.Action("Index_scripts", new { v = Html.ScriptsVersion() }))"></script>
     @if (HeartBeatService.Default.IsMonitoring)
     {

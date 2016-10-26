@@ -51,7 +51,7 @@ namespace Heddoko.Helpers.Auth
                 return;
             }
 
-            ClaimsIdentity identity = await userManager.CreateIdentityAsync(user, OAuthDefaults.AuthenticationType);
+            ClaimsIdentity identity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             foreach (UserRole role in user.Roles)
             {
