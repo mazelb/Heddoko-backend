@@ -623,13 +623,6 @@
     <Content Include="Areas\MvcElmahDashboard\Views\Home\Index.cshtml" />
     <Content Include="Areas\MvcElmahDashboard\Views\Home\HourlyStats.cshtml" />
     <Content Include="Areas\MvcElmahDashboard\Views\Home\DailyStats.cshtml" />
-    <None Include="Scripts\jquery-3.1.0.intellisense.js" />
-    <Content Include="Scripts\jquery-3.1.0.js" />
-    <Content Include="Scripts\jquery-3.1.0.min.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.0.min.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
