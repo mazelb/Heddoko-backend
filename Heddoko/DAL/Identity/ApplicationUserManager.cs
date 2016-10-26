@@ -74,6 +74,8 @@ namespace DAL
             //TODO Remove that after migration all users. can be done only while Sign In step
             if (!string.IsNullOrEmpty(user.Salt))
             {
+                user = UoW.UserRepository.GetFull(user.Id);
+
                 if (DAL.PasswordHasher.Equals(password?.Trim(), user.Salt, user.Password))
                 {
                     string newPasswordHash = PasswordHasher.HashPassword(password?.Trim());
@@ -133,6 +135,8 @@ namespace DAL
                         default:
                             break;
                     }
+
+                    ApplyUserRolesForLicense(user);
 
                     UoW.UserRepository.ClearCache(user);
 
@@ -220,13 +224,14 @@ namespace DAL
 
         public void ApplyUserRolesForLicense(User user)
         {
-            if (user.License == null)
+            if (user.License == null || !user.License.IsActive)
             {
                 this.RemoveFromRoles(user.Id, Constants.Roles.Analyst, Constants.Roles.Worker);
             }
             else
             {
-                if (!this.IsInRole(user.Id, Constants.Roles.Admin))
+                if (!this.IsInRole(user.Id, Constants.Roles.Admin)
+                    && user.License.IsActive)
                 {
                     switch (user.License.Type)
                     {
