@@ -11,6 +11,6 @@ namespace DAL
 
         IEnumerable<License> GetAvailableByOrganization(int organizationID, int? id = null);
 
-        void Check();
+        IEnumerable<License> Check();
     }
 }

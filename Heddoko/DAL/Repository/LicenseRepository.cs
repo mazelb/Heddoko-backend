@@ -51,21 +51,29 @@ namespace DAL
                         .OrderByDescending(c => c.ExpirationAt);
         }
 
-        public void Check()
+        public IEnumerable<License> Check()
         {
             DateTime today = DateTime.Now.StartOfDay();
 
-            DbSet.Where(c => c.ExpirationAt < today
-                        && (c.Status != LicenseStatusType.Expired || c.Status != LicenseStatusType.Deleted)).Update(c => new License()
-                        {
-                            Status = LicenseStatusType.Expired
-                        });
+            IQueryable<License> expired = DbSet.Where(c => c.ExpirationAt < today && (c.Status != LicenseStatusType.Expired && c.Status != LicenseStatusType.Deleted))
+                               .Include(c => c.Organization);
+            
+            IQueryable<License> activated = DbSet.Where(c => c.ExpirationAt > today && (c.Status == LicenseStatusType.Expired))
+                               .Include(c => c.Users);
 
-            DbSet.Where(c => c.ExpirationAt > today
-                        && (c.Status == LicenseStatusType.Expired)).Update(c => new License()
-                        {
-                            Status = LicenseStatusType.Active
-                        });
+            List<License> result = expired.Concat(activated).ToList();
+
+            expired.Update(c => new License
+            {
+                Status = LicenseStatusType.Expired
+            });
+
+            activated.Update(c => new License
+            {
+                Status = LicenseStatusType.Active
+            });
+
+            return result;
         }
     }
 }

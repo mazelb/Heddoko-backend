@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL;
+using DAL.Models;
 
 namespace Services
 {
@@ -15,9 +14,15 @@ namespace Services
             try
             {
                 UnitOfWork uow = new UnitOfWork();
-                uow.LicenseRepository.Check();
-
+                IEnumerable<License> updatedLicenses = uow.LicenseRepository.Check();
+                
                 uow.Save();
+
+                var manager = new ApplicationUserManager(new UserStore(new HDContext()));
+                foreach (User user in updatedLicenses.SelectMany(l => l.Users ?? new List<User>()))
+                {
+                    manager.ApplyUserRolesForLicense(user);
+                }
             }
             catch (Exception ex)
             {
