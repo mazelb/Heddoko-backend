@@ -39,13 +39,9 @@ namespace Heddoko.Controllers.API
             
             if (user.OrganizationID.HasValue)
             {
-                Organization org = UoW.OrganizationRepository.GetIDCached(user.OrganizationID.Value);
-                int[] users = new int[org.Users.Count];
-                for (int i = 0; i < users.Length; i++)
-                {
-                    users[i] = org.Users.ToArray()[i].Id;
-                }
-                ergoScore.OrgScore = UoW.ProcessedFrameRepository.GetMultiUserScore(users);
+                Organization org = UoW.OrganizationRepository.Get(user.OrganizationID.Value);
+                IEnumerable<int> users = org.Users.Select(x => x.Id).Distinct();
+                ergoScore.OrgScore = UoW.ProcessedFrameRepository.GetMultiUserScore(users.ToArray());
             }
             else
             {
@@ -54,6 +50,27 @@ namespace Heddoko.Controllers.API
 
 
             return ergoScore;
+        }
+
+        [Route("get")]
+        [HttpPost]
+        public ErgoScoreAPIModel GetErgoScoreModel()
+        {
+            ErgoScoreAPIModel scores = new ErgoScoreAPIModel();
+
+            scores.UserScore = UoW.ProcessedFrameRepository.GetUserScore(CurrentUser.Id);
+            scores.OrgScore = 0;
+
+            if (CurrentUser.OrganizationID.HasValue)
+            {
+                Organization org = UoW.OrganizationRepository.Get(CurrentUser.OrganizationID.Value);
+                if (org.Users != null)
+                {
+                    IEnumerable<int> users = org.Users.Select(x => x.Id).Distinct();
+                    scores.OrgScore = UoW.ProcessedFrameRepository.GetMultiUserScore(users.ToArray());
+                }   
+            }
+            return scores;
         }
     }
 }

@@ -85,9 +85,15 @@ namespace DAL
                 .Group(new BsonDocument { { "_id", "$UserID" }, { "ErgoScore", new BsonDocument("$avg", "$ErgoScore") } });
 
             var results = aggregate.FirstOrDefault();
-            ErgoScoreResult Score = BsonSerializer.Deserialize<ErgoScoreResult>(results);
-
-            return Score.ErgoScore;
+            if (results != null)
+            {
+                ErgoScoreResult Score = BsonSerializer.Deserialize<ErgoScoreResult>(results);
+                return Score.ErgoScore;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         /// <summary>

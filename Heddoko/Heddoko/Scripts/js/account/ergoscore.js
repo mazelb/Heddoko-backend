@@ -4,27 +4,17 @@
 
 var ErgoScore = {
 
-    getData: function () {
-        // TODO - Benb - actually get the ERGOSCORES from the controller
-        var userScore = 46;
-        var orgScore = 24;
-
-        return { userScore, orgScore};
-    },
-
     init: function () {
-        ErgoScore.createGauge();
+        Ajax.post("/api/v1/ergoscore/get").success(this.onGetSuccess);
     },
 
     createGauge: function () {
-        var values = ErgoScore.getData();
-
         $("#gauge").kendoLinearGauge({
             pointer: [{
-                value: values.userScore,
+                value: userScore,
                 color: "#c30000"
             }, {
-                value: values.orgScore,
+                value: orgScore,
                 margin: 10
             }
             ],
@@ -37,5 +27,15 @@ var ErgoScore = {
                 vertical: true
             }
         });  
+    },
+
+    onGetSuccess: function (e) {
+        if(e)
+        {
+            userScore = e.userScore
+            orgScore = e.orgScore
+        }
+        ErgoScore.createGauge();
     }
+
 };
