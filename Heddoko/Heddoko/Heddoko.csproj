@@ -852,6 +852,8 @@
     <Compile Include="Models\Error\ErrorViewModel.cs" />
     <Compile Include="Models\FlashMessagesViewModel.cs" />
     <Compile Include="Models\Organization\OrganizationIndexViewModel.cs" />
+    <Compile Include="Models\Streaming\StreamMessage.cs" />
+    <Compile Include="Models\Streaming\StreamMessageType.cs" />
     <Compile Include="Models\Support\SupportIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
