@@ -36,7 +36,14 @@ namespace Heddoko
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, User, int>(
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager),
-                        getUserIdCallback: (id) => (id.GetUserId<int>()))
+                        getUserIdCallback: (id) => (id.GetUserId<int>())),
+                    OnApplyRedirect = ctx =>
+                    {
+                        if (!IsApiOrSignalRRequest(ctx.Request))
+                        {
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                        }
+                    }
                 }
             });
 
@@ -53,6 +60,13 @@ namespace Heddoko
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
+        }
+
+        private static bool IsApiOrSignalRRequest(IOwinRequest request)
+        {
+            string apiPath = VirtualPathUtility.ToAbsolute("~/api/");
+            string signalrPath = VirtualPathUtility.ToAbsolute("~/signalr/");
+            return request.Uri.LocalPath.StartsWith(apiPath) || request.Uri.LocalPath.StartsWith(signalrPath);
         }
     }
 }
