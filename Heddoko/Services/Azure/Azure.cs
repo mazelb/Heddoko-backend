@@ -54,7 +54,10 @@ namespace Services
 
         public static void DeleteFile(string path)
         {
-            File.Delete(path);
+            if(File.Exists(path))
+            {
+                File.Delete(path);
+            }      
         }
 
         public static void AddFramesToDatabase(string url, string container, string path)

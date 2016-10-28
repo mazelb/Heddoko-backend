@@ -8,13 +8,13 @@ var ErgoScore = {
         Ajax.post("/api/v1/ergoscore/get").success(this.onGetSuccess);
     },
 
-    createGauge: function () {
+    createGauge: function (data) {
         $("#gauge").kendoLinearGauge({
             pointer: [{
-                value: userScore,
+                value: data.userScore,
                 color: "#c30000"
             }, {
-                value: orgScore,
+                value: data.orgScore,
                 margin: 10
             }
             ],
@@ -32,10 +32,9 @@ var ErgoScore = {
     onGetSuccess: function (e) {
         if(e)
         {
-            userScore = e.userScore
-            orgScore = e.orgScore
+            ErgoScore.createGauge(e);
         }
-        ErgoScore.createGauge();
+        
     }
 
 };
