@@ -1,0 +1,9 @@
+﻿@model Services.MailSending.Models.LicenseExpiringEmailViewModel
+
+@{
+    Layout = "_LayoutEmail";
+}
+
+Hello @Model.Name,
+<br />
+The lisence @Model.LicenseName for organization @Model.OrganizationName is expiring in @Model.Days days at @Model.ExpirationAt.ToString("R")
