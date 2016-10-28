@@ -33,7 +33,7 @@ namespace Heddoko.Controllers
         public ActionResult AccessDenied(string url)
         {
             ErrorViewModel model = new ErrorViewModel();
-            Response.StatusCode = 401;
+            Response.StatusCode = 403;
             return View(model);
         }
 
