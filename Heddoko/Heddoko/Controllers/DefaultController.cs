@@ -21,7 +21,9 @@ namespace Heddoko.Controllers
             DefaultIndexViewModel model = new DefaultIndexViewModel()
             {
                 Software = UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Software),
-                Guide = UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Guide)
+                Guide = UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Guide),
+                UserErgoScore = UoW.ProcessedFrameRepository.GetUserScore(CurrentUser.Id),
+                EnableKendo = true
             };
 
             return View(model);

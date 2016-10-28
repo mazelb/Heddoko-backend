@@ -2,6 +2,7 @@
 using DAL;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Hangfire;
 
 namespace Services
 {
@@ -32,6 +33,39 @@ namespace Services
             {
                 blockBlob.UploadFromStream(stream);
             }
+        }
+
+        /// <summary>
+        /// Downloads a file from the Azure blob
+        /// </summary>
+        /// <param name="url">Url of Azure block blob reference</param>
+        /// <param name="container">Azure assests container</param>
+        /// <param name="path">path to the target file</param>
+        private static void DownloadToFile(string url, string container, string path)
+        {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Config.StorageConnectionString);
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+            CloudBlobContainer blobContainer = blobClient.GetContainerReference(container);
+            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(url);
+
+            blockBlob.DownloadToFile(path, FileMode.OpenOrCreate);
+        }
+
+        public static void DeleteFile(string path)
+        {
+            if(File.Exists(path))
+            {
+                File.Delete(path);
+            }      
+        }
+
+        public static void AddFramesToDatabase(string url, string container, string path)
+        {
+            DownloadToFile(url, container, path);
+            FileParser.AddProcessedFramesToDb(path);
+
+            DeleteFile(path);
         }
     }
 }

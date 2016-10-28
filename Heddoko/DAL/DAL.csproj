@@ -79,6 +79,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FileHelpers, Version=3.1.5.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+      <HintPath>..\packages\FileHelpers.3.1.5\lib\net45\FileHelpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Jil, Version=2.14.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Jil.2.14.5\lib\net45\Jil.dll</HintPath>
       <Private>True</Private>
@@ -115,12 +119,28 @@
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.3.0\lib\net45\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.3.0\lib\net45\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.3.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.1.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.1.0\lib\net451\protobuf-net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sigil, Version=4.7.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab, processorArchitecture=MSIL">
@@ -167,11 +187,11 @@
     <Compile Include="HDContext.cs" />
     <Compile Include="Helpers\AssetManager.cs" />
     <Compile Include="Helpers\CustomSqlServerMigrationSqlGenerator.cs" />
-    <Compile Include="Helpers\JwtHelper.cs" />
-    <Compile Include="Helpers\Utility.cs" />
+    <Compile Include="Helpers\JWTHelper.cs" />
     <Compile Include="Helpers\PasswordHasher.cs" />
     <Compile Include="Helpers\RedisManager.cs" />
     <Compile Include="Helpers\StringValueAttribute.cs" />
+    <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Migrations\201604261253470_Init.cs" />
     <Compile Include="Migrations\201604261253470_Init.Designer.cs">
       <DependentUpon>201604261253470_Init.cs</DependentUpon>
@@ -278,6 +298,7 @@
     <Compile Include="Models\Interfaces\ISupportEmailViewModel.cs" />
     <Compile Include="Models\Pants.cs" />
     <Compile Include="Models\PantsOctopi.cs" />
+    <Compile Include="Models\MongoDocuments\ProcessedFrame.cs" />
     <Compile Include="Models\ShirtOctopi.cs" />
     <Compile Include="Models\Shirt.cs" />
     <Compile Include="Models\Enum\SensorType.cs" />
@@ -319,9 +340,13 @@
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Enum\UserGenderType.cs" />
+    <Compile Include="HDMongoContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AssetRepository.cs" />
     <Compile Include="Repository\BaseCacheRepository.cs" />
+    <Compile Include="Repository\Interface\IProcessedFrameRepository.cs" />
+    <Compile Include="Repository\MongoDbRepository.cs" />
+    <Compile Include="Repository\Interface\IMongoDbRepository.cs" />
     <Compile Include="Repository\Interface\IAssemblyCacheRepositoy.cs" />
     <Compile Include="Repository\Interface\IHistoryRepository.cs" />
     <Compile Include="Repository\Interface\ILicenseRepository.cs" />
@@ -341,6 +366,7 @@
     <Compile Include="Repository\Interface\IShirtRepository.cs" />
     <Compile Include="Repository\LicenseRepository.cs" />
     <Compile Include="Repository\StreamConnectionsCacheRepository.cs" />
+    <Compile Include="Repository\ProcessedFrameRepository.cs" />
     <Compile Include="Repository\TeamRepository.cs" />
     <Compile Include="Repository\OrganizationRepository.cs" />
     <Compile Include="Repository\Interface\IOrganizationRepository.cs" />
@@ -366,6 +392,7 @@
     <Compile Include="Repository\AssemblyCacheRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
+    <Compile Include="Models\MongoDocuments\Results.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

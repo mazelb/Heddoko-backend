@@ -7,10 +7,12 @@ namespace DAL
     public sealed class UnitOfWork : IDisposable
     {
         private readonly HDContext _db;
+        private readonly HDMongoContext _mongodb;
 
-        public UnitOfWork(HDContext context = null)
+        public UnitOfWork(HDContext context = null, HDMongoContext mongoContext = null)
         {
             _db = context ?? new HDContext();
+            _mongodb = mongoContext ?? new HDMongoContext();
         }
 
         public static UnitOfWork Create()
@@ -67,6 +69,8 @@ namespace DAL
 
         private IStreamConnectionsCacheRepository _streamConnectionsCacheRepository;
 
+        private IProcessedFrameRepository _processedFrameRepository;
+
         #endregion
 
         #region PublicRepository
@@ -110,6 +114,8 @@ namespace DAL
         public ITeamRepository TeamRepository => _teamRepository ?? (_teamRepository = new TeamRepository(_db));
 
         public IStreamConnectionsCacheRepository StreamConnectionsCacheRepository => _streamConnectionsCacheRepository ?? (_streamConnectionsCacheRepository = new StreamConnectionsCacheRepository());
+
+        public IProcessedFrameRepository ProcessedFrameRepository => _processedFrameRepository ?? (_processedFrameRepository = new ProcessedFrameRepository(_mongodb));
 
         #endregion
 
