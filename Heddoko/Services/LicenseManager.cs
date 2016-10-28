@@ -14,12 +14,13 @@ namespace Services
         {
             try
             {
-                UnitOfWork uow = new UnitOfWork();
+                HDContext context = new HDContext();
+                UnitOfWork uow = new UnitOfWork(context);
                 IEnumerable<License> updatedLicenses = uow.LicenseRepository.Check();
 
                 uow.Save();
 
-                var manager = new ApplicationUserManager(new UserStore(new HDContext()));
+                var manager = new ApplicationUserManager(new UserStore(context));
                 foreach (User user in updatedLicenses.SelectMany(l => l.Users ?? new List<User>()))
                 {
                     manager.ApplyUserRolesForLicense(user);

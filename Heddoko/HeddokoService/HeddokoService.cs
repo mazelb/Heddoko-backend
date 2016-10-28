@@ -22,10 +22,7 @@ namespace HeddokoService
         private const string AssembliesManagerCheck = "AssembliesManager.GetAssemblies";
         private const string LicenseManagerCheckExpiring = "LicenseManager.CheckExpiring";
         private const string LicenseManagerCheckExpiringForAdmins = "LicenseManager.CheckExpiringForAdmins";
-
-        private const int DaysOnExpiringOrganizations = 10;
-        private const int DaysOnExpiringAdmins = 5;
-
+        
         public HeddokoService()
         {
             InitializeComponent();
@@ -50,8 +47,8 @@ namespace HeddokoService
             RecurringJob.AddOrUpdate(LicenseManagerCheck, () => Services.LicenseManager.Check(), Cron.Hourly());
             RecurringJob.AddOrUpdate(AssembliesManagerCheck, () => Services.AssembliesManager.GetAssemblies(true), Cron.Daily());
 
-            RecurringJob.AddOrUpdate(LicenseManagerCheckExpiring, () => Services.LicenseManager.CheckExpiring(DaysOnExpiringOrganizations), Cron.Daily());
-            RecurringJob.AddOrUpdate(LicenseManagerCheckExpiringForAdmins, () => Services.LicenseManager.CheckExpiringForAdmins(DaysOnExpiringAdmins), Cron.Daily());
+            RecurringJob.AddOrUpdate(LicenseManagerCheckExpiring, () => Services.LicenseManager.CheckExpiring(Config.DaysOnExpiringOrganizationsEmail), Cron.Daily());
+            RecurringJob.AddOrUpdate(LicenseManagerCheckExpiringForAdmins, () => Services.LicenseManager.CheckExpiringForAdmins(Config.DaysOnExpiringAdminsEmail), Cron.Daily());
 
             Thread = new Thread(Run)
             {
