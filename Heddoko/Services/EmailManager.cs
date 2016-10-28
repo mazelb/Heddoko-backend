@@ -1,9 +1,7 @@
-﻿using System.Web;
-using DAL;
+﻿using DAL;
 using DAL.Models;
 using Hangfire;
 using Services.MailSending;
-using Services.MailSending.Models;
 
 namespace Services
 {
@@ -42,7 +40,7 @@ namespace Services
             UnitOfWork uow = new UnitOfWork();
             User user = uow.UserRepository.GetIDCached(userId);
 
-            Mailer.SendForgotPasswordEmail(user,  resetPasswordToken);
+            Mailer.SendForgotPasswordEmail(user, resetPasswordToken);
         }
 
         [Queue(Constants.HangFireQueue.Email)]
@@ -67,6 +65,25 @@ namespace Services
             User user = uow.UserRepository.GetIDCached(userId);
 
             Mailer.SendActivatedEmail(user);
+        }
+
+        [Queue(Constants.HangFireQueue.Email)]
+        public static void SendLicenseExpiringToOrganization(int licenseId)
+        {
+            UnitOfWork uow = new UnitOfWork();
+            License expiringLicense = uow.LicenseRepository.GetFull(licenseId);
+
+            Mailer.SendLicenseExpiringEmail(expiringLicense);
+        }
+
+        [Queue(Constants.HangFireQueue.Email)]
+        public static void SendLicenseExpiringToAdmin(int userId, int licenseId)
+        {
+            UnitOfWork uow = new UnitOfWork();
+            License expiringLicense = uow.LicenseRepository.GetFull(licenseId);
+            User user = uow.UserRepository.GetIDCached(userId);
+
+            Mailer.SendLicenseExpiringAdminEmail(user, expiringLicense);
         }
     }
 }

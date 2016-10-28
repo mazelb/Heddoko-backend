@@ -12,5 +12,7 @@ namespace DAL
         IEnumerable<License> GetAvailableByOrganization(int organizationID, int? id = null);
 
         IEnumerable<License> Check();
+
+        IEnumerable<License> GetByDaysToExpire(int days);
     }
 }
