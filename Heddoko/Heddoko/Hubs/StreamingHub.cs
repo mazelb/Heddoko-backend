@@ -6,6 +6,7 @@ using System.Web;
 using DAL;
 using DAL.Helpers;
 using DAL.Models;
+using Heddoko.Models.Streaming;
 using i18n;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -18,7 +19,7 @@ namespace Heddoko.Hubs
     {
         private readonly UnitOfWork _unitOfWork = new UnitOfWork();
 
-        public void Send(byte[] stream)
+        public void Send(StreamMessage message)
         {
             User currentUser = _unitOfWork.UserRepository.GetIDCached(Context.User.Identity.GetUserId<int>());
 
@@ -36,7 +37,7 @@ namespace Heddoko.Hubs
 
             Channel channel = _unitOfWork.StreamConnectionsCacheRepository.CreateChannel(ChanelHelper.GetChannelName(currentUser), currentUser);
 
-            Clients.Group(channel.Name).GetData(stream);
+            Clients.Group(channel.Name).GetData(message);
         }
 
         public async Task JoinGroupByTeam(string groupName)
