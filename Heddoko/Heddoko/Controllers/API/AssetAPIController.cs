@@ -12,6 +12,7 @@ using Heddoko.Models;
 using i18n;
 using Newtonsoft.Json;
 using Services;
+using Hangfire;
 using Microsoft.AspNet.Identity;
 using Constants = DAL.Constants;
 
@@ -185,6 +186,10 @@ namespace Heddoko.Controllers.API
 
                 Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
                 File.Delete(file.LocalFileName);
+                if(asset.Type == AssetType.Record)
+                {
+                    BackgroundJob.Enqueue(() => Azure.AddFramesToDatabase(path, DAL.Config.AssetsContainer, file.LocalFileName + "temp"));
+                }
 
                 asset.Image = $"/{path}";
                 break;
