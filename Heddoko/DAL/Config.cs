@@ -25,6 +25,8 @@ namespace DAL
 
         public static string MongoDbName => ConfigurationManager.AppSettings["MongoDbName"];
 
+        public static string MongoDbConnectionString => ConfigurationManager.ConnectionStrings["MongoDb"].ToString();
+
         #region JWT
 
         public static string JwtSecret => ConfigurationManager.AppSettings["JWTSecret"];

@@ -1,20 +1,21 @@
-﻿using System;
-using System.Configuration;
-using System.Collections.Generic;
-using MongoDB.Driver;
-using DAL.Models;
+﻿using MongoDB.Driver;
 
 namespace DAL
 {
     public class HDMongoContext
     {
-        private static readonly IMongoClient _client;
-        private static readonly IMongoDatabase _database;
+        private readonly IMongoClient _client;
+        private readonly IMongoDatabase _database;
 
-        static HDMongoContext()
+        public HDMongoContext()
+            : this(new MongoClient(Config.MongoDbConnectionString), Config.MongoDbName)
         {
-            _client = new MongoClient();
-            _database = _client.GetDatabase(Config.MongoDbName);
+        }
+
+        public HDMongoContext(IMongoClient client, string dbName)
+        {
+            _client = client;
+            _database = _client.GetDatabase(dbName);
         }
 
         /// <summary>
@@ -26,6 +27,11 @@ namespace DAL
         public IMongoCollection<TEntity> GetCollection<TEntity>()
         {
             return _database.GetCollection<TEntity>(typeof(TEntity).Name.ToLower() + "s");
+        }
+
+        public IMongoCollection<TEntity> GetCollection<TEntity>(string name)
+        {
+            return _database.GetCollection<TEntity>(name);
         }
     }
 }

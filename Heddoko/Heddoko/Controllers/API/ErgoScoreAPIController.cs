@@ -15,7 +15,7 @@ namespace Heddoko.Controllers.API
     {
         public ErgoScoreAPIController() { }
 
-        public ErgoScoreAPIController(ApplicationUserManager userManager, UnitOfWork UoW) : base(userManager, UoW) { }
+        public ErgoScoreAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         [ApiExplorerSettings(IgnoreApi = true)]
         [Route("{id:int?}")]

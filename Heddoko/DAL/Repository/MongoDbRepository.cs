@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -10,28 +9,29 @@ using DAL.Models;
 
 namespace DAL
 {
-    public class MongoDbRepository<T> : IMongoDbRepository<T> 
+    public class MongoDbRepository<TEntity> : IMongoDbRepository<TEntity> where TEntity : class, new()
     {
+        private readonly HDMongoContext _mongoDbContext;
 
-        private HDMongoContext _mongoDbContext = null;
         public MongoDbRepository(HDMongoContext mongoDbContext = null)
         {
-            _mongoDbContext = mongoDbContext != null ? mongoDbContext : new HDMongoContext();
+            _mongoDbContext = mongoDbContext ?? new HDMongoContext();
         }
 
         #region GenericFunctions
+
         /// <summary>
         /// A generic AddOne method
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="item"></param>
         /// <returns></returns>
-        public async Task<Result> AddOne<TEntity>(TEntity item) where TEntity : class, new()
+        public async Task<Result> AddOne(TEntity item)
         {
             var res = new Result();
             try
             {
-                var collection = GetCollection<TEntity>();
+                var collection = GetCollection();
                 await collection.InsertOneAsync(item);
                 res.Success = true;
                 res.Message = "OK";
@@ -50,9 +50,9 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public async Task<long> Count<TEntity>(FilterDefinition<TEntity> filter) where TEntity : class, new()
+        public async Task<long> Count(FilterDefinition<TEntity> filter)
         {
-            var collection = GetCollection<TEntity>();
+            var collection = GetCollection();
             var cursor = collection.Find(filter);
             var count = await cursor.CountAsync();
             return count;
@@ -64,10 +64,10 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<long> Count<TEntity>(string id) where TEntity : class, new()
+        public async Task<long> Count(string id)
         {
             var filter = new FilterDefinitionBuilder<TEntity>().Eq("Id", id);
-            return await Count<TEntity>(filter);
+            return await Count(filter);
         }
 
         /// <summary>
@@ -76,10 +76,10 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public async Task<Result> DeleteMany<TEntity>(IEnumerable<string> ids) where TEntity : class, new()
+        public async Task<Result> DeleteMany(IEnumerable<string> ids)
         {
             var filter = new FilterDefinitionBuilder<TEntity>().In("Id", ids);
-            return await DeleteMany<TEntity>(filter);
+            return await DeleteMany(filter);
         }
 
         /// <summary>
@@ -88,17 +88,16 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public async Task<Result> DeleteMany<TEntity>(FilterDefinition<TEntity> filter) where TEntity : class, new()
+        public async Task<Result> DeleteMany(FilterDefinition<TEntity> filter)
         {
             var result = new Result();
             try
             {
-                var collection = GetCollection<TEntity>();
+                var collection = GetCollection();
                 var deleteRes = await collection.DeleteManyAsync(filter);
                 if (deleteRes.DeletedCount < 1)
                 {
-                    var ex = new Exception();
-                    result.Message = "DeleteMany could not delete items";
+                    result.Message = NotifyErrorMessage("DeleteMany", "Could not delete many items " + typeof(TEntity));
                     return result;
                 }
                 result.Success = true;
@@ -117,21 +116,27 @@ namespace DAL
         /// A generic DeleteOne method
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
-        /// <param name="item"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Result> DeleteOne<TEntity>(string id) where TEntity : class, new()
+        public async Task<Result> DeleteOne(string id)
         {
             var filter = new FilterDefinitionBuilder<TEntity>().Eq("Id", id);
-            return await DeleteOne<TEntity>(filter);
+            return await DeleteOne(filter);
         }
 
-        public async Task<Result> DeleteOne<TEntity>(FilterDefinition<TEntity> filter) where TEntity : class, new()
+        public async Task<Result> DeleteOne(FilterDefinition<TEntity> filter)
         {
             var result = new Result();
             try
             {
-                var collection = GetCollection<TEntity>();
-                var deleteRes = await collection.DeleteOneAsync(filter);
+                var collection = GetCollection();
+                DeleteResult deleteRes = await collection.DeleteOneAsync(filter);
+                if (deleteRes.DeletedCount < 1)
+                {
+                    result.Message = NotifyErrorMessage("DeleteOne", "Could not delete one " + typeof(TEntity));
+                    result.ErrorCode = 600;
+                    return result;
+                }
                 result.Success = true;
                 result.Message = "OK";
                 return result;
@@ -150,9 +155,9 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<bool> Exists<TEntity>(string id) where TEntity : class, new()
+        public async Task<bool> Exists(string id)
         {
-            var collection = GetCollection<TEntity>();
+            var collection = GetCollection();
             var query = new BsonDocument("Id", id);
             var cursor = collection.Find(query);
             var count = await cursor.CountAsync();
@@ -165,9 +170,9 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public IFindFluent<TEntity, TEntity> FindCursor<TEntity>(FilterDefinition<TEntity> filter) where TEntity : class, new()
+        public IFindFluent<TEntity, TEntity> FindCursor(FilterDefinition<TEntity> filter)
         {
-            var collection = GetCollection<TEntity>();
+            var collection = GetCollection();
             var cursor = collection.Find(filter);
             return cursor;
         }
@@ -177,12 +182,12 @@ namespace DAL
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        public async Task<GetManyResults<TEntity>> GetAll<TEntity>() where TEntity : class, new()
+        public async Task<GetManyResults<TEntity>> GetAll()
         {
             var res = new GetManyResults<TEntity>();
             try
             {
-                var collection = GetCollection<TEntity>();
+                var collection = GetCollection();
                 var entities = await collection.Find(new BsonDocument()).ToListAsync();
                 if (entities != null)
                 {
@@ -208,12 +213,13 @@ namespace DAL
         /// <param name="update"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<GetOneResult<TEntity>> GetAndUpdateOne<TEntity>(FilterDefinition<TEntity> filter, UpdateDefinition<TEntity> update, FindOneAndUpdateOptions<TEntity, TEntity> options) where TEntity : class, new()
+        public async Task<GetOneResult<TEntity>> GetAndUpdateOne(FilterDefinition<TEntity> filter,
+            UpdateDefinition<TEntity> update, FindOneAndUpdateOptions<TEntity, TEntity> options)
         {
             var result = new GetOneResult<TEntity>();
             try
             {
-                var collection = GetCollection<TEntity>();
+                var collection = GetCollection();
                 result.Entity = await collection.FindOneAndUpdateAsync(filter, update, options);
                 result.Success = true;
                 result.Message = "OK";
@@ -221,7 +227,8 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                result.Message = NotifyException("GetAndUpdateOne", "Exception getting and updating one " + typeof(TEntity), ex);
+                result.Message = NotifyException("GetAndUpdateOne",
+                    "Exception getting and updating one " + typeof(TEntity), ex);
                 result.ErrorCode = 600;
                 return result;
             }
@@ -233,12 +240,12 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public async Task<GetManyResults<TEntity>> GetMany<TEntity>(FilterDefinition<TEntity> filter) where TEntity : class, new()
+        public async Task<GetManyResults<TEntity>> GetMany(FilterDefinition<TEntity> filter)
         {
             var res = new GetManyResults<TEntity>();
             try
             {
-                var collection = GetCollection<TEntity>();
+                var collection = GetCollection();
                 var entities = await collection.Find(filter).ToListAsync();
                 if (entities != null)
                 {
@@ -262,13 +269,12 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public async Task<GetManyResults<TEntity>> GetMany<TEntity>(IEnumerable<string> ids) where TEntity : class, new()
+        public async Task<GetManyResults<TEntity>> GetMany(IEnumerable<string> ids)
         {
             try
             {
-                var collection = GetCollection<TEntity>();
                 var filter = Builders<TEntity>.Filter.Eq("Id", ids);
-                return await GetMany<TEntity>(filter);
+                return await GetMany(filter);
             }
             catch (Exception ex)
             {
@@ -285,10 +291,10 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<GetOneResult<TEntity>> GetOne<TEntity>(string id) where TEntity : class, new()
+        public async Task<GetOneResult<TEntity>> GetOne(string id)
         {
             var filter = Builders<TEntity>.Filter.Eq("Id", id);
-            return await GetOne<TEntity>(filter);
+            return await GetOne(filter);
         }
 
         /// <summary>
@@ -297,12 +303,12 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public async Task<GetOneResult<TEntity>> GetOne<TEntity>(FilterDefinition<TEntity> filter) where TEntity : class, new()
+        public async Task<GetOneResult<TEntity>> GetOne(FilterDefinition<TEntity> filter)
         {
             var res = new GetOneResult<TEntity>();
             try
             {
-                var collection = GetCollection<TEntity>();
+                var collection = GetCollection();
                 var entity = await collection.Find(filter).SingleOrDefaultAsync();
                 if (entity != null)
                 {
@@ -327,17 +333,16 @@ namespace DAL
         /// <param name="filter"></param>
         /// <param name="update"></param>
         /// <returns></returns>
-        public async Task<Result> UpdateMany<TEntity>(FilterDefinition<TEntity> filter, UpdateDefinition<TEntity> update) where TEntity : class, new()
+        public async Task<Result> UpdateMany(FilterDefinition<TEntity> filter, UpdateDefinition<TEntity> update)
         {
             var result = new Result();
             try
             {
-                var collection = GetCollection<TEntity>();
+                var collection = GetCollection();
                 var updateRes = await collection.UpdateManyAsync(filter, update);
                 if (updateRes.ModifiedCount < 1)
                 {
-                    var ex = new Exception();
-                    result.Message = NotifyException("UpdateMany", "Exception updating many " + typeof(TEntity), ex);
+                    result.Message = NotifyErrorMessage("UpdateMany", "Could not update many " + typeof(TEntity));
                     result.ErrorCode = 600;
                     return result;
                 }
@@ -360,10 +365,10 @@ namespace DAL
         /// <param name="ids"></param>
         /// <param name="update"></param>
         /// <returns></returns>
-        public async Task<Result> UpdateMany<TEntity>(IEnumerable<string> ids, UpdateDefinition<TEntity> update) where TEntity : class, new()
+        public async Task<Result> UpdateMany(IEnumerable<string> ids, UpdateDefinition<TEntity> update)
         {
             var filter = new FilterDefinitionBuilder<TEntity>().In("Id", ids);
-            return await UpdateMany<TEntity>(filter, update);
+            return await UpdateMany(filter, update);
         }
 
         /// <summary>
@@ -373,17 +378,16 @@ namespace DAL
         /// <param name="filter"></param>
         /// <param name="update"></param>
         /// <returns></returns>
-        public async Task<Result> UpdateOne<TEntity>(FilterDefinition<TEntity> filter, UpdateDefinition<TEntity> update) where TEntity : class, new()
+        public async Task<Result> UpdateOne(FilterDefinition<TEntity> filter, UpdateDefinition<TEntity> update)
         {
             var result = new Result();
             try
             {
-                var collection = GetCollection<TEntity>();
+                var collection = GetCollection();
                 var updateRes = await collection.UpdateOneAsync(filter, update);
                 if (updateRes.ModifiedCount < 1)
                 {
-                    var ex = new Exception();
-                    result.Message = NotifyException("UpdateOne", "Exception updating one " + typeof(TEntity), ex);
+                    result.Message = NotifyErrorMessage("UpdateOne", "Could not update one " + typeof(TEntity));
                     result.ErrorCode = 600;
                     return result;
                 }
@@ -406,64 +410,53 @@ namespace DAL
         /// <param name="id"></param>
         /// <param name="update"></param>
         /// <returns></returns>
-        public async Task<Result> UpdateOne<TEntity>(string id, UpdateDefinition<TEntity> update) where TEntity : class, new()
+        public async Task<Result> UpdateOne(string id, UpdateDefinition<TEntity> update)
         {
             var filter = new FilterDefinitionBuilder<TEntity>().Eq("Id", id);
-            return await UpdateOne<TEntity>(filter, update);
+            return await UpdateOne(filter, update);
         }
-        #endregion
-        #region PrivateFunctions
+
         /// <summary>
         /// private GetCollection function
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        public IMongoCollection<TEntity> GetCollection<TEntity>()
+        public virtual IMongoCollection<TEntity> GetCollection()
         {
             return _mongoDbContext.GetCollection<TEntity>();
         }
 
+        #endregion
+
+        #region PrivateFunctions
+
+        private string NotifyErrorMessage(string functionName, string context)
+        {
+            return NotifyException(functionName, context, null);
+        }
+
         private string NotifyException(string functionName, string context, Exception ex)
         {
-            string source = functionName + ": " + context;
+            string source = "MongoDbRepository." + functionName + ": " + context;
             source = GetAllInfo(ex, source);
-            Debug.WriteLine(source);
+
+            Trace.TraceError(source);
+
             return source;
         }
 
         private string GetAllInfo(Exception ex, string source)
         {
-            var sb = new StringBuilder();
-            sb.AppendLine("******** " + DateTime.Now.ToLongDateString() + " **********");
+            var sb = new StringBuilder(source);
 
-            while (ex != null)
+            if (ex != null)
             {
-                sb.AppendLine("Inner Exception Type: ");
-                sb.AppendLine(ex.InnerException.GetType().ToString());
-                sb.AppendLine("Inner Exception: ");
-                sb.AppendLine(ex.InnerException.Message);
-                sb.AppendLine("Inner Source: ");
-                sb.AppendLine(ex.InnerException.Source);
-                if (ex.InnerException.StackTrace != null)
-                {
-                    sb.AppendLine("Inner Stack Trace: ");
-                    sb.AppendLine(ex.InnerException.StackTrace);
-                }
-                sb.AppendLine("Exception Type: ");
-                sb.AppendLine(sb.GetType().ToString());
-                sb.AppendLine("Exception: " + ex.Message);
-                sb.AppendLine("Source: " + source);
-                sb.AppendLine("Stack Trace: ");
-                if (ex.StackTrace != null)
-                {
-                    sb.AppendLine(ex.StackTrace);
-                    sb.AppendLine();
-                }
-                ex = ex.InnerException;
+                sb.AppendLine(ex.GetBaseException().ToString());
             }
 
             return sb.ToString();
         }
+
         #endregion
     }
 }

@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using DAL.Models;
 
 namespace DAL
 {
-    public interface IMongoDbRepository<T> 
+    public interface IMongoDbRepository<TEntity> where TEntity : class, new()
     {
         /// <summary>
         /// A generic GetOne method
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
-        /// <param name="id"></param>
+        /// <param name="filter"></param>
         /// <returns></returns>
-        Task<GetOneResult<TEntity>> GetOne<TEntity>(FilterDefinition<TEntity> filter) where TEntity : class, new();
+        Task<GetOneResult<TEntity>> GetOne(FilterDefinition<TEntity> filter);
 
         /// <summary>
         /// A generic GetOne method
@@ -24,7 +21,7 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<GetOneResult<TEntity>> GetOne<TEntity>(string id) where TEntity : class, new();
+        Task<GetOneResult<TEntity>> GetOne(string id);
 
         /// <summary>
         /// A Generic get many method
@@ -32,7 +29,7 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="ids"></param>
         /// <returns></returns>
-        Task<GetManyResults<TEntity>> GetMany<TEntity>(IEnumerable<string> ids) where TEntity : class, new();
+        Task<GetManyResults<TEntity>> GetMany(IEnumerable<string> ids);
 
         /// <summary>
         /// a generic get many method with filter
@@ -40,7 +37,7 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        Task<GetManyResults<TEntity>> GetMany<TEntity>(FilterDefinition<TEntity> filter) where TEntity : class, new();
+        Task<GetManyResults<TEntity>> GetMany(FilterDefinition<TEntity> filter);
 
         /// <summary>
         /// GetMany with filter and projection
@@ -48,14 +45,14 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        IFindFluent<TEntity, TEntity> FindCursor<TEntity>(FilterDefinition<TEntity> filter) where TEntity : class, new();
+        IFindFluent<TEntity, TEntity> FindCursor(FilterDefinition<TEntity> filter);
 
         /// <summary>
         /// a generic get all method
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        Task<GetManyResults<TEntity>> GetAll<TEntity>() where TEntity : class, new();
+        Task<GetManyResults<TEntity>> GetAll();
 
         /// <summary>
         /// a generic Exists method
@@ -63,7 +60,7 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<bool> Exists<TEntity>(string id) where TEntity : class, new();
+        Task<bool> Exists(string id);
 
         /// <summary>
         /// A generic count method
@@ -71,7 +68,7 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<long> Count<TEntity>(string id) where TEntity : class, new();
+        Task<long> Count(string id);
 
         /// <summary>
         /// A generic count method
@@ -79,7 +76,7 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        Task<long> Count<TEntity>(FilterDefinition<TEntity> filter) where TEntity : class, new();
+        Task<long> Count(FilterDefinition<TEntity> filter);
 
         /// <summary>
         /// A generic Add One method
@@ -87,7 +84,7 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="item"></param>
         /// <returns></returns>
-        Task<Result> AddOne<TEntity>(TEntity item) where TEntity : class, new();
+        Task<Result> AddOne(TEntity item);
 
         /// <summary>
         /// a generic delete one method
@@ -95,7 +92,7 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="item"></param>
         /// <returns></returns>
-        Task<Result> DeleteOne<TEntity>(string id) where TEntity : class, new();
+        Task<Result> DeleteOne(string id);
 
         /// <summary>
         /// a generic delete many method
@@ -103,7 +100,7 @@ namespace DAL
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="ids"></param>
         /// <returns></returns>
-        Task<Result> DeleteMany<TEntity>(IEnumerable<string> ids) where TEntity : class, new();
+        Task<Result> DeleteMany(IEnumerable<string> ids);
 
         #region Update
         /// <summary>
@@ -113,7 +110,7 @@ namespace DAL
         /// <param name="id"></param>
         /// <param name="update"></param>
         /// <returns></returns>
-        Task<Result> UpdateOne<TEntity>(string id, UpdateDefinition<TEntity> update) where TEntity : class, new();
+        Task<Result> UpdateOne(string id, UpdateDefinition<TEntity> update);
 
         /// <summary>
         /// UpdateOne with filter
@@ -122,7 +119,7 @@ namespace DAL
         /// <param name="filter"></param>
         /// <param name="update"></param>
         /// <returns></returns>
-        Task<Result> UpdateOne<TEntity>(FilterDefinition<TEntity> filter, UpdateDefinition<TEntity> update) where TEntity : class, new();
+        Task<Result> UpdateOne(FilterDefinition<TEntity> filter, UpdateDefinition<TEntity> update);
 
         /// <summary>
         /// UpdateMany with Ids
@@ -131,7 +128,7 @@ namespace DAL
         /// <param name="ids"></param>
         /// <param name="update"></param>
         /// <returns></returns>
-        Task<Result> UpdateMany<TEntity>(IEnumerable<string> ids, UpdateDefinition<TEntity> update) where TEntity : class, new();
+        Task<Result> UpdateMany(IEnumerable<string> ids, UpdateDefinition<TEntity> update);
 
         /// <summary>
         /// Update with filter
@@ -140,7 +137,7 @@ namespace DAL
         /// <param name="filter"></param>
         /// <param name="update"></param>
         /// <returns></returns>
-        Task<Result> UpdateMany<TEntity>(FilterDefinition<TEntity> filter, UpdateDefinition<TEntity> update) where TEntity : class, new();
+        Task<Result> UpdateMany(FilterDefinition<TEntity> filter, UpdateDefinition<TEntity> update);
         #endregion Update
 
         #region Find And Update
@@ -153,7 +150,7 @@ namespace DAL
         /// <param name="update"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        Task<GetOneResult<TEntity>> GetAndUpdateOne<TEntity>(FilterDefinition<TEntity> filter, UpdateDefinition<TEntity> update, FindOneAndUpdateOptions<TEntity, TEntity> options) where TEntity : class, new();
+        Task<GetOneResult<TEntity>> GetAndUpdateOne(FilterDefinition<TEntity> filter, UpdateDefinition<TEntity> update, FindOneAndUpdateOptions<TEntity, TEntity> options);
         #endregion Find And Update
     }
 }
