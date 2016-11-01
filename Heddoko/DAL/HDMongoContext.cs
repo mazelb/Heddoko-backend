@@ -1,18 +1,19 @@
-﻿using MongoDB.Driver;
+﻿using System;
+using MongoDB.Driver;
 
 namespace DAL
 {
     public class HDMongoContext
     {
-        private static readonly HDMongoContext instance = new HDMongoContext();
+        private static readonly Lazy<HDMongoContext> LazyContext = new Lazy<HDMongoContext>(() => new HDMongoContext());
 
         private readonly IMongoClient _client;
         private readonly IMongoDatabase _database;
 
-        public static HDMongoContext Instance => instance;
+        public static HDMongoContext Instance => LazyContext.Value;
 
         private HDMongoContext()
-            : this(new MongoClient(Config.MongoDbConnectionString), Config.MongoDbName)
+            : this(new MongoClient(Config.MongoDbConnectionString), MongoUrl.Create(Config.MongoDbConnectionString).DatabaseName)
         {
         }
 

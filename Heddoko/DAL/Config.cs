@@ -23,8 +23,6 @@ namespace DAL
 
         public static string WrikeEmail => ConfigurationManager.AppSettings["WrikeEmail"];
 
-        public static string MongoDbName => ConfigurationManager.AppSettings["MongoDbName"];
-
         public static string MongoDbConnectionString => ConfigurationManager.ConnectionStrings["MongoDb"].ToString();
 
         #region JWT
