@@ -12,7 +12,7 @@ namespace DAL
         public UnitOfWork(HDContext context = null, HDMongoContext mongoContext = null)
         {
             _db = context ?? new HDContext();
-            _mongodb = mongoContext ?? new HDMongoContext();
+            _mongodb = mongoContext ?? HDMongoContext.Instance;
         }
 
         public static UnitOfWork Create()

@@ -96,7 +96,7 @@ namespace DAL
                         .Include(c => c.License)
                         .Include(c => c.Kits)
                         .Include(c => c.Kits.Select(k => k.Brainpack))
-                        .Include(c => c.Roles.Select(r => r.Role)) 
+                        .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.Id == id);
         }
 
@@ -188,6 +188,13 @@ namespace DAL
                         .Where(c => c.OrganizationID.Value == organizationID)
                         .OrderBy(c => c.FirstName)
                         .ThenBy(c => c.LastName);
+        }
+
+        public IEnumerable<int> GetIdsByOrganization(int organizationID, bool isDeleted = false)
+        {
+            return DbSet.Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
+                        .Where(c => c.OrganizationID.Value == organizationID)
+                        .Select(c => c.Id);
         }
 
         public IEnumerable<User> Search(

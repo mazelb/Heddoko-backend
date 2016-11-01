@@ -15,7 +15,7 @@ namespace DAL
 
         public MongoDbRepository(HDMongoContext mongoDbContext = null)
         {
-            _mongoDbContext = mongoDbContext ?? new HDMongoContext();
+            _mongoDbContext = mongoDbContext ?? HDMongoContext.Instance;
         }
 
         #region GenericFunctions

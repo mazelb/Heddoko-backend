@@ -39,8 +39,7 @@ namespace Heddoko.Controllers.API
             
             if (user.OrganizationID.HasValue)
             {
-                Organization org = UoW.OrganizationRepository.Get(user.OrganizationID.Value);
-                IEnumerable<int> users = org.Users.Select(x => x.Id).Distinct();
+                IEnumerable<int> users = UoW.UserRepository.GetIdsByOrganization(user.OrganizationID.Value);
                 ergoScore.OrgScore = UoW.ProcessedFrameRepository.GetMultiUserScore(users.ToArray());
             }
             else
@@ -63,12 +62,8 @@ namespace Heddoko.Controllers.API
 
             if (CurrentUser.OrganizationID.HasValue)
             {
-                Organization org = UoW.OrganizationRepository.Get(CurrentUser.OrganizationID.Value);
-                if (org.Users != null)
-                {
-                    IEnumerable<int> users = org.Users.Select(x => x.Id).Distinct();
-                    scores.OrgScore = UoW.ProcessedFrameRepository.GetMultiUserScore(users.ToArray());
-                }   
+                IEnumerable<int> users = UoW.UserRepository.GetIdsByOrganization(CurrentUser.OrganizationID.Value);
+                scores.OrgScore = UoW.ProcessedFrameRepository.GetMultiUserScore(users.ToArray());
             }
             return scores;
         }

@@ -4,15 +4,19 @@ namespace DAL
 {
     public class HDMongoContext
     {
+        private static readonly HDMongoContext instance = new HDMongoContext();
+
         private readonly IMongoClient _client;
         private readonly IMongoDatabase _database;
 
-        public HDMongoContext()
+        public static HDMongoContext Instance => instance;
+
+        private HDMongoContext()
             : this(new MongoClient(Config.MongoDbConnectionString), Config.MongoDbName)
         {
         }
 
-        public HDMongoContext(IMongoClient client, string dbName)
+        private HDMongoContext(IMongoClient client, string dbName)
         {
             _client = client;
             _database = _client.GetDatabase(dbName);
