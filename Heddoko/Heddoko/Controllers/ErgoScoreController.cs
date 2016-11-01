@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
-using DAL;
-using DAL.Models;
-using Hangfire;
 using Heddoko.Models;
-using i18n;
-using Microsoft.AspNet.Identity;
 
 namespace Heddoko.Controllers
 {
@@ -24,8 +17,7 @@ namespace Heddoko.Controllers
 
             if (CurrentUser.OrganizationID.HasValue)
             {
-                Organization org = UoW.OrganizationRepository.Get(CurrentUser.OrganizationID.Value);
-                IEnumerable<int> users = org.Users.Select(x => x.Id).Distinct();
+                IEnumerable<int> users = UoW.UserRepository.GetIdsByOrganization(CurrentUser.OrganizationID.Value);
                 scores.OrgScore = await UoW.ProcessedFrameRepository.GetMultiUserScoreAsync(users.ToArray());
             }
             else
