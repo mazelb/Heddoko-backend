@@ -5,7 +5,7 @@ namespace DAL
 {
     public class Config
     {
-        public static string ConnectionString => ConfigurationManager.ConnectionStrings["HDContext"].ToString();
+        public static string ConnectionString => ConfigurationManager.ConnectionStrings["HDContext"]?.ToString();
 
         public static bool AllowInitData => bool.Parse(ConfigurationManager.AppSettings["AllowInitData"]);
 
@@ -23,7 +23,7 @@ namespace DAL
 
         public static string WrikeEmail => ConfigurationManager.AppSettings["WrikeEmail"];
 
-        public static string MongoDbConnectionString => ConfigurationManager.ConnectionStrings["MongoDb"].ToString();
+        public static string MongoDbConnectionString => ConfigurationManager.ConnectionStrings["MongoDb"]?.ToString();
 
         #region JWT
 
