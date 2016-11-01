@@ -15,7 +15,7 @@ namespace Services
         /// <summary>
         /// Parses file into ErgoScoreFrames and inputs frames into the DB
         /// </summary>
-        /// <param name="fileName">filename of the csv file (including path)</param>
+        /// <param name="filePath">filename of the csv file (including path)</param>
         public static void AddProcessedFramesToDb(string filePath)
         {
             UnitOfWork UoW = new UnitOfWork();

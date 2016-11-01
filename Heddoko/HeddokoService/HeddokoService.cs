@@ -20,8 +20,9 @@ namespace HeddokoService
 
         private const string LicenseManagerCheck = "LicenseManager.Check";
         private const string AssembliesManagerCheck = "AssembliesManager.GetAssemblies";
-
-
+        private const string LicenseManagerCheckExpiring = "LicenseManager.CheckExpiring";
+        private const string LicenseManagerCheckExpiringForAdmins = "LicenseManager.CheckExpiringForAdmins";
+        
         public HeddokoService()
         {
             InitializeComponent();
@@ -46,6 +47,8 @@ namespace HeddokoService
             RecurringJob.AddOrUpdate(LicenseManagerCheck, () => Services.LicenseManager.Check(), Cron.Hourly());
             RecurringJob.AddOrUpdate(AssembliesManagerCheck, () => Services.AssembliesManager.GetAssemblies(true), Cron.Daily());
 
+            RecurringJob.AddOrUpdate(LicenseManagerCheckExpiring, () => Services.LicenseManager.CheckExpiring(Config.DaysOnExpiringOrganizationsEmail), Cron.Daily());
+            RecurringJob.AddOrUpdate(LicenseManagerCheckExpiringForAdmins, () => Services.LicenseManager.CheckExpiringForAdmins(Config.DaysOnExpiringAdminsEmail), Cron.Daily());
 
             Thread = new Thread(Run)
             {
@@ -62,6 +65,8 @@ namespace HeddokoService
         {
             RecurringJob.RemoveIfExists(LicenseManagerCheck);
             RecurringJob.RemoveIfExists(AssembliesManagerCheck);
+            RecurringJob.RemoveIfExists(LicenseManagerCheckExpiring);
+            RecurringJob.RemoveIfExists(LicenseManagerCheckExpiringForAdmins);
 
             ShutdownEvent.Set();
             if (!Thread.Join(3000))

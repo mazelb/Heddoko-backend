@@ -24,6 +24,7 @@ namespace DAL
         public override License GetFull(int id)
         {
             return DbSet.Include(c => c.Organization)
+                        .Include(c => c.Organization.User)
                         .Include(c => c.Users)
                         .FirstOrDefault(c => c.Id == id);
         }
@@ -51,21 +52,38 @@ namespace DAL
                         .OrderByDescending(c => c.ExpirationAt);
         }
 
-        public void Check()
+        public IEnumerable<License> Check()
         {
             DateTime today = DateTime.Now.StartOfDay();
 
-            DbSet.Where(c => c.ExpirationAt < today
-                        && (c.Status != LicenseStatusType.Expired || c.Status != LicenseStatusType.Deleted)).Update(c => new License()
-                        {
-                            Status = LicenseStatusType.Expired
-                        });
+            IQueryable<License> expired = DbSet.Include(c => c.Users)
+                                               .Where(c => c.ExpirationAt < today && c.Status != LicenseStatusType.Expired && c.Status != LicenseStatusType.Deleted);
 
-            DbSet.Where(c => c.ExpirationAt > today
-                        && (c.Status == LicenseStatusType.Expired)).Update(c => new License()
-                        {
-                            Status = LicenseStatusType.Active
-                        });
+            IQueryable<License> activated = DbSet.Include(c => c.Users)
+                                                 .Where(c => c.ExpirationAt > today && (c.Status == LicenseStatusType.Expired));
+
+            List<License> result = expired.Concat(activated).ToList();
+
+            expired.Update(c => new License
+            {
+                Status = LicenseStatusType.Expired
+            });
+
+            activated.Update(c => new License
+            {
+                Status = LicenseStatusType.Active
+            });
+
+            return result;
+        }
+
+        public IEnumerable<License> GetByDaysToExpire(int days)
+        {
+            DateTime expirationDate = DateTime.Now.Date.AddDays(days);
+            
+            return DbSet.Include(c => c.Organization.User)
+                        .Where(c => c.Status != LicenseStatusType.Expired && c.Status != LicenseStatusType.Deleted
+                                    && DbFunctions.TruncateTime(c.ExpirationAt) == expirationDate);
         }
     }
 }

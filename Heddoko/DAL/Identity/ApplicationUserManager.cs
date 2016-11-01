@@ -226,7 +226,15 @@ namespace DAL
         {
             if (user.License == null || !user.License.IsActive)
             {
-                this.RemoveFromRoles(user.Id, Constants.Roles.Analyst, Constants.Roles.Worker);
+                if (this.IsInRole(user.Id, Constants.Roles.Analyst))
+                {
+                    this.RemoveFromRole(user.Id, Constants.Roles.Analyst);
+                }
+
+                if (this.IsInRole(user.Id, Constants.Roles.Worker))
+                {
+                    this.RemoveFromRole(user.Id, Constants.Roles.Worker);
+                }
             }
             else
             {

@@ -14,5 +14,9 @@ namespace HeddokoService
         public static string ServiceName => ConfigurationManager.AppSettings["ServiceName"];
 
         public static int WaitMiliSeconds => int.Parse(ConfigurationManager.AppSettings["WaitMiliSeconds"]);
+
+        public static int DaysOnExpiringOrganizationsEmail => int.Parse(ConfigurationManager.AppSettings["DaysOnExpiringOrganizationsEmail"]);
+
+        public static int DaysOnExpiringAdminsEmail => int.Parse(ConfigurationManager.AppSettings["DaysOnExpiringAdminsEmail"]);
     }
 }
