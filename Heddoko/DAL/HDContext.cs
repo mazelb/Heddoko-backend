@@ -51,7 +51,10 @@ namespace DAL
         public DbSet<Firmware> Firmware { get; set; }
 
         public DbSet<AuditEntry> AuditEntries { get; set; }
+
         public DbSet<AuditEntryProperty> AuditEntryProperties { get; set; }
+
+        public DbSet<Organization> Organizations { get; set; }
 
         public void DisableChangedAndValidation()
         {
@@ -111,7 +114,7 @@ namespace DAL
             }
 
             return rowAffecteds;
-            }
+        }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
@@ -135,9 +138,9 @@ namespace DAL
         }
 
         public override Task<int> SaveChangesAsync()
-            {
+        {
             return SaveChangesAsync(CancellationToken.None);
-            }
+        }
 
         private static void DebugEntityValidationErrors(DbEntityValidationException ex)
         {

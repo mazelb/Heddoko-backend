@@ -32,12 +32,14 @@ namespace DAL
         public T GetCached(string id)
         {
             T item = RedisManager.Get<T>(GetCacheKey(id?.ToLower()));
-            if (item != null
-                &&
-                item.Id > 0)
-            {
-                Attach(item);
-            }
+
+            //BLOCK UPDATING CACHED ITEMS
+            //if (item != null
+            //    &&
+            //    item.Id > 0)
+            //{
+            //    Attach(item);
+            //}
 
             return item;
         }
