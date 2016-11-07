@@ -1,16 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Text;
-using Newtonsoft.Json;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Threading.Tasks;
 using Services.Authorization.Models;
 
 namespace Services.Authorization
 {
     public class HeddokoClient
     {
-        private const string ApplicationXwwwFormUrlEncoded = "application/x-www-form-urlencoded";
         private const string Bearer = "Bearer ";
 
         private readonly string _oauthUrl;
@@ -29,62 +28,46 @@ namespace Services.Authorization
 
         public bool SignIn(UserRequest request)
         {
-            OauthResponse token = SendPostXWwwForm<OauthResponse>(request);
+            request.GrantType = "password";
 
-            _token = token.AccessToken;
-            _expiresAt = DateTime.Now.AddSeconds(token.ExpiresIn);
+            OauthResponse token = SendPostXWwwForm<OauthResponse>(request).Result;
+
+            if (token != null)
+            {
+                _token = token.AccessToken;
+                _expiresAt = DateTime.Now.AddSeconds(token.ExpiresIn);
+            }
 
             return IsAuthorized;
         }
 
-        private T SendPostXWwwForm<T>(UserRequest request)
+        private async Task<T> SendPostXWwwForm<T>(UserRequest request)
         {
-            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(_oauthUrl);
-            httpWebRequest.Method = "POST";
-            httpWebRequest.ContentType = ApplicationXwwwFormUrlEncoded;
-            try
+            using (var client = new HttpClient())
             {
-                string postData = $"grant_type=password&username={Uri.EscapeUriString(request.Username)}&password={Uri.EscapeUriString(request.Password)}";
-                byte[] data = Encoding.ASCII.GetBytes(postData);
-
-                httpWebRequest.ContentLength = data.Length;
-
-                using (Stream stream = httpWebRequest.GetRequestStream())
+                var postData = new Dictionary<string, string>
                 {
-                    stream.Write(data, 0, data.Length);
-                    stream.Flush();
-                    stream.Close();
+                    { "grant_type", "password" },
+                    { "username", Uri.EscapeUriString(request.Username) },
+                    { "password", Uri.EscapeUriString(request.Password) }
+                };
+
+                var content = new FormUrlEncodedContent(postData);
+                HttpResponseMessage response = await client.PostAsync(_oauthUrl, content).ConfigureAwait(false);
+
+                T result = default(T);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    result = await response.Content.ReadAsAsync<T>().ConfigureAwait(false);
+                }
+                else
+                {
+                    ErrorOauth error = await response.Content.ReadAsAsync<ErrorOauth>();
+                    Trace.TraceError("HeddokoClient.SendPostXWwwForm : Error code: {0}, error description: {1}", response.StatusCode, error);
                 }
 
-                HttpWebResponse httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                string result;
-                using (StreamReader streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                {
-                    result = streamReader.ReadToEnd();
-                }
-
-                return JsonConvert.DeserializeObject<T>(result);
-            }
-            catch (WebException ex)
-            {
-                using (WebResponse response = ex.Response)
-                {
-                    HttpWebResponse httpResponse = (HttpWebResponse)response;
-
-                    using (Stream data = response.GetResponseStream())
-                    {
-                        using (StreamReader reader = new StreamReader(data))
-                        {
-                            string text = reader.ReadToEnd();
-
-                            string error = JsonConvert.DeserializeObject<ErrorOauth>(text).ErrorDescription;
-
-                            Trace.TraceError("HeddokoClient.SendPostXWwwForm : Error code: {0}, error description: {1}", httpResponse.StatusCode, error);
-
-                            throw new Exception(error);
-                        }
-                    }
-                }
+                return result;
             }
         }
     }
