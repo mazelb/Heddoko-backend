@@ -133,16 +133,29 @@
                 @if (Model.Guide != null)
                 {
                     <div class="col-md-3"></div>
-                        <div class="col-md-2">
-                            <a href="@Model.Guide.Asset.Url" target="_blank" class="btn-dashboard">
-                                <i class="fa fa-2x fa-info-circle"></i>
-                                <span>
-                                    @i18n.Resources.Download @i18n.Resources.Guide
-                                </span>
-                                <span></span>
-                            </a>
-                            <p class="text-center">@i18n.Resources.Version: @Model.Guide.Version</p>
-                        </div>
+                    <div class="col-md-2">
+                        <a href="@Model.Guide.Asset.Url" target="_blank" class="btn-dashboard">
+                            <i class="fa fa-2x fa-info-circle"></i>
+                            <span>
+                                @i18n.Resources.Download @i18n.Resources.Guide
+                            </span>
+                            <span></span>
+                        </a>
+                        <p class="text-center">@i18n.Resources.Version: @Model.Guide.Version</p>
+                    </div>
+                }
+                else if (Model.IsAnalyst)
+                {
+                    <div class="col-md-3"></div>
+                    <div class="col-md-2">
+                        <a href="@Url.Action("Index", "Ergoscore")" class="btn-dashboard">
+                            <i class="fa fa-2x fa-industry"></i>
+                            <span>
+                                @i18n.Resources.Ergoscore
+                            </span>
+                            <span></span>
+                        </a>
+                    </div>
                 }
                 else
                 {
@@ -170,7 +183,7 @@
                 </div>
             </div>
 
-            if (Model.UserErgoScore != null && Model.UserErgoScore != 0)
+            if (!Model.IsAnalyst && Model.UserErgoScore != null && Model.UserErgoScore != 0)
             {
                 <div class="row" id="gauge-row">
                     <div class="col-md-12">
@@ -181,7 +194,6 @@
                     </div>
                 </div>
             }
-
         }
     </div>
 

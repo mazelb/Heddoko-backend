@@ -437,6 +437,7 @@ i18n.Resources = (function () {
   "UserDoesntHaveKit": "User should have a kit",
   "UserIsNotInTeam": "User should be in a team",
   "WrongTeam": "User is in the wrong team",
+  "Ergoscore": "Ergoscore",
   "LicenseIsExpiring": "License is expiring"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
