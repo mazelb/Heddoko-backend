@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using DAL;
 using DAL.Helpers;
 using DAL.Models;
 using i18n;
+using Services;
 
 namespace Heddoko.Controllers.API
 {
@@ -12,6 +12,20 @@ namespace Heddoko.Controllers.API
     [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
     public class StreamingAPIController : BaseAPIController
     {
+        private readonly StreamConnectionsService _streamConnectionsService;
+
+        public StreamingAPIController()
+        {
+            //TODO: get rid of this after adding IoC container
+            _streamConnectionsService = new StreamConnectionsService(UoW);
+        }
+
+        public StreamingAPIController(ApplicationUserManager userManager, UnitOfWork uow, StreamConnectionsService streamConnectionsService)
+            : base(userManager, uow)
+        {
+            _streamConnectionsService = streamConnectionsService;
+        }
+
         [Route("connections")]
         [HttpGet]
         public List<Channel> Connections()
@@ -38,7 +52,7 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.KitID, Resources.UserDoesntHaveKit);
             }
 
-            UoW.StreamConnectionsCacheRepository.CreateChannel(ChanelHelper.GetChannelName(CurrentUser), CurrentUser);
+            _streamConnectionsService.CreateChannel(ChanelHelper.GetChannelName(CurrentUser), CurrentUser);
 
             return true;
         }
@@ -52,12 +66,7 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.UserIsNotInTeam, Resources.UserIsNotInTeam);
             }
 
-            List<Channel> connections = UoW.StreamConnectionsCacheRepository.GetCached(CurrentUser.TeamID.Value);
-
-            if (connections.RemoveAll(c => c.User.Id == CurrentUser.Id) > 0)
-            {
-                UoW.StreamConnectionsCacheRepository.SetCache(CurrentUser.TeamID.Value, connections);
-            }
+            _streamConnectionsService.RemoveChannel(CurrentUser);
 
             return true;
         }

@@ -11,11 +11,11 @@ namespace DAL
 {
     public class MongoDbRepository<TEntity> : IMongoDbRepository<TEntity> where TEntity : class, new()
     {
-        private readonly HDMongoContext _mongoDbContext;
+        protected readonly HDMongoContext MongoDbContext;
 
         public MongoDbRepository(HDMongoContext mongoDbContext = null)
         {
-            _mongoDbContext = mongoDbContext ?? HDMongoContext.Instance;
+            MongoDbContext = mongoDbContext ?? HDMongoContext.Instance;
         }
 
         #region GenericFunctions
@@ -423,7 +423,7 @@ namespace DAL
         /// <returns></returns>
         public virtual IMongoCollection<TEntity> GetCollection()
         {
-            return _mongoDbContext.GetCollection<TEntity>();
+            return MongoDbContext.GetCollection<TEntity>();
         }
 
         #endregion

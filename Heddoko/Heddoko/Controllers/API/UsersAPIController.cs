@@ -5,7 +5,10 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using DAL.Models.Enum;
+using DAL.Models.MongoDocuments.Notifications;
 using Heddoko.Models;
+using Heddoko.Models.API;
 using i18n;
 
 namespace Heddoko.Controllers.API
@@ -180,6 +183,93 @@ namespace Heddoko.Controllers.API
             {
                 Collection = UoW.UserRepository.GetByOrganizationAPI(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value, take, skip).ToList(),
                 TotalCount = UoW.UserRepository.GetByOrganizationAPICount(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value)
+            };
+        }
+
+        [Route("activity/{take:int}/{skip:int}")]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.All)]
+        public ListAPIViewModel<UserEvent> Activity(int take = 100, int skip = 0)
+        {
+            List<UserEvent> latestActivity = UoW.UserActivityRepository.GetLatestUserActivity(CurrentUser.Id, take, skip).ToList();
+
+            UoW.UserActivityRepository.UpdateMany(latestActivity.Where(e => e.ReadStatus == ReadStatus.Unread).Select(e => e.Id).ToList(), ReadStatus.Read, DateTime.Now);
+
+            return new ListAPIViewModel<UserEvent>
+            {
+                Collection = latestActivity,
+                TotalCount = (int)UoW.UserActivityRepository.Count(CurrentUser.Id)
+            };
+        }
+
+        [Route("activity/unread/{take:int}/{skip:int}")]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.All)]
+        public ListAPIViewModel<UserEvent> UnreadActivity(int take = 100, int skip = 0)
+        {
+            List<UserEvent> latestActivity = UoW.UserActivityRepository.GetUnreadUserActivity(CurrentUser.Id, take, skip).ToList();
+
+            UoW.UserActivityRepository.UpdateMany(latestActivity.Select(e => e.Id).ToList(), ReadStatus.Read, DateTime.Now);
+
+            return new ListAPIViewModel<UserEvent>
+            {
+                Collection = latestActivity,
+                TotalCount = (int)UoW.UserActivityRepository.UnreadCount(CurrentUser.Id)
+            };
+        }
+
+        [Route("subscribe")]
+        [HttpPost]
+        [AuthAPI(Roles = Constants.Roles.All)]
+        public bool Subscribe(SubscribeTokenAPIViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Device device = UoW.DeviceRepository.GetByToken(model.Token.NormalizeToken());
+                if (device != null)
+                {
+                    UoW.DeviceRepository.Delete(device);
+                }
+
+                device = new Device
+                {
+                    Status = DeviceStatus.Active,
+                    Type = model.Type,
+                    Token = model.Token.NormalizeToken(),
+                    UserID = CurrentUser.Id
+                };
+
+                UoW.DeviceRepository.Create(device);
+
+                return true;
+            }
+
+            throw new ModelStateException
+            {
+                ModelState = ModelState
+            };
+        }
+
+        [Route("unsubscribe")]
+        [HttpPost]
+        [AuthAPI(Roles = Constants.Roles.All)]
+        public bool UnSubscribe(UnsubscribeTokenAPIViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Device device = UoW.DeviceRepository.GetByToken(model.Token.NormalizeToken());
+                if (device != null)
+                {
+                    UoW.DeviceRepository.Delete(device);
+                    return true;
+                }
+
+                return false;
+            }
+
+            throw new ModelStateException
+            {
+                ModelState = ModelState
             };
         }
     }

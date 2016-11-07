@@ -1428,4 +1428,10 @@
   <data name="LicenseIsExpiring" xml:space="preserve">
     <value>License is expiring</value>
   </data>
+  <data name="StreamChannelOpened" xml:space="preserve">
+    <value>Channel for receiving stream was opened for your team</value>
+  </data>
+  <data name="StreamChannelClosed" xml:space="preserve">
+    <value>Channel for receiving stream was closed for your team</value>
+  </data>
 </root>

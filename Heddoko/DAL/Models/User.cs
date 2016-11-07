@@ -121,6 +121,9 @@ namespace DAL.Models
 
         [JilDirective(Ignore = true)]
         public virtual Kit Kit => Kits?.FirstOrDefault();
+
+        [JsonIgnore]
+        public virtual ICollection<Device> Devices { get; set; }
         #endregion
 
         #region NotMapped

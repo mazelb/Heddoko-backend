@@ -44,7 +44,8 @@
             public const string LicenseAdmin = "LicenseAdmin";
             public const string Worker = "Worker";
             public const string Admin = "Admin";
-            public const string All = "User,Analyst,Admin,LicenseAdmin,Worker";
+            public const string ServiceAdmin = "ServiceAdmin";
+            public const string All = "User,Analyst,Admin,LicenseAdmin,Worker,ServiceAdmin";
             public const string UserAndAdmin = "User,Admin";
             public const string AnalystAndAdmin = "Analyst,Admin";
             public const string LicenseAdminAndAdmin = "LicenseAdmin,Admin";
@@ -63,6 +64,7 @@
         {
             public const string Default = "default";
             public const string Email = "email";
+            public const string Notifications = "notifications";
         }
 
         public static class Cache

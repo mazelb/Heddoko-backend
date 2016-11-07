@@ -181,6 +181,40 @@ namespace DAL.Migrations
                     manager.AddToRole(user.Id, Constants.Roles.Admin);
                 }
             }
+
+            user = manager.FindByName("service.admin") ?? new User();
+
+            user.Email = "service.admin@heddoko.com";
+            user.UserName = "service.admin";
+            user.Status = UserStatusType.Active;
+            user.EmailConfirmed = true;
+            user.FirstName = "Service";
+            user.LastName = "Admin";
+            user.Salt = null;
+            user.Password = null;
+            user.Role = UserRoleType.ServiceAdmin;
+            user.SecurityStamp = Guid.NewGuid().ToString();
+
+            if (user.Id == 0)
+            {
+                manager.Create(user, pwd);
+                manager.AddToRole(user.Id, Constants.Roles.User);
+                manager.AddToRole(user.Id, Constants.Roles.ServiceAdmin);
+            }
+            else
+            {
+                user.PasswordHash = PasswordHash.HashPassword(pwd);
+                manager.Update(user);
+                if (!manager.IsInRole(user.Id, Constants.Roles.User))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.User);
+                }
+
+                if (!manager.IsInRole(user.Id, Constants.Roles.ServiceAdmin))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.ServiceAdmin);
+                }
+            }
         }
 
         private static void Roles(HDContext context)
@@ -228,6 +262,15 @@ namespace DAL.Migrations
                 Models.IdentityRole role = new Models.IdentityRole()
                 {
                     Name = Constants.Roles.Worker
+                };
+                roleManager.Create(role);
+            }
+
+            if (!roleManager.RoleExists(Constants.Roles.ServiceAdmin))
+            {
+                Models.IdentityRole role = new Models.IdentityRole()
+                {
+                    Name = Constants.Roles.ServiceAdmin
                 };
                 roleManager.Create(role);
             }

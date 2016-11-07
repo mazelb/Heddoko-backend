@@ -8,7 +8,5 @@ namespace DAL.Repository.Interface
         List<Channel> GetCached(int teamId);
 
         void SetCache(int teamId, List<Channel> connections);
-
-        Channel CreateChannel(string channelName, User user);
     }
 }
