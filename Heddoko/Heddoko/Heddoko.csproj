@@ -663,6 +663,8 @@
     <Content Include="Scripts\js\account\mask.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
+    <Content Include="Scripts\js\admin\grid\developmentsApprove.js" />
+    <Content Include="Scripts\js\admin\grid\developments.js" />
     <Content Include="Scripts\js\admin\grid\teams.js" />
     <Content Include="Scripts\js\admin\grid\historyPopup.js" />
     <Content Include="Scripts\js\admin\grid\organizationKits.js" />
@@ -760,6 +762,8 @@
     <Compile Include="Areas\MvcElmahDashboard\Models\Logs\ItemsModel.cs" />
     <Compile Include="Areas\MvcElmahDashboard\Models\Logs\PrevNextRequest.cs" />
     <Compile Include="Areas\MvcElmahDashboard\MvcElmahDashboardAreaRegistration.cs" />
+    <Compile Include="Controllers\API\DevelopmentApiController.cs" />
+    <Compile Include="Controllers\DevelopmentController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\ComponentsController.cs" />
     <Compile Include="Controllers\Admin\KitsController.cs" />
@@ -805,6 +809,7 @@
     <Compile Include="Helpers\Auth\AuthCookie.cs" />
     <Compile Include="Helpers\Auth\Auth.cs" />
     <Compile Include="Helpers\Auth\SimpleAuthorizationServerProvider.cs" />
+    <Compile Include="Helpers\SubdomainRoute.cs" />
     <Compile Include="Helpers\Config.cs" />
     <Compile Include="Helpers\ContextSession.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
@@ -863,6 +868,7 @@
     <Compile Include="Models\Admin\UserAdminAPIModel.cs" />
     <Compile Include="Models\Admin\UserAPIModel.cs" />
     <Compile Include="Models\API\ErgoScoreAPIModel.cs" />
+    <Compile Include="Models\API\DevelopmentAPIViewModel.cs" />
     <Compile Include="Models\API\ListAPIViewModel.cs" />
     <Compile Include="Models\API\FirmwareAPIViewModel.cs" />
     <Compile Include="Models\API\AssetAPIViewModel.cs" />
@@ -961,6 +967,8 @@
     <Content Include="Views\Organization\_Teams.cshtml" />
     <Content Include="Views\Inventory\_NotesHistory.cshtml" />
     <Content Include="Views\Static\Requirements.cshtml" />
+    <Content Include="Views\Development\Index.cshtml" />
+    <Content Include="Views\Development\Approve.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

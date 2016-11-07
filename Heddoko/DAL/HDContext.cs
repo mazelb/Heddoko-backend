@@ -50,6 +50,8 @@ namespace DAL
 
         public DbSet<Firmware> Firmware { get; set; }
 
+        public DbSet<Development> Development { get; set; }
+
         public DbSet<AuditEntry> AuditEntries { get; set; }
 
         public DbSet<AuditEntryProperty> AuditEntryProperties { get; set; }

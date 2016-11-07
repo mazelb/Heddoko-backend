@@ -391,5 +391,11 @@
 
             return '<span class="k-grid-showText">' + item + '</span>';
         }
+    },
+    developments: {
+        enabled: function (item) {
+            item = item ? 'Enabled' : 'Disabled';
+            return '<span class="k-grid-showText">' + item + '</span>';
+        }
     }
 };

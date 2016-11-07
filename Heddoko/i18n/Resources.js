@@ -437,7 +437,12 @@ i18n.Resources = (function () {
   "UserDoesntHaveKit": "User should have a kit",
   "UserIsNotInTeam": "User should be in a team",
   "WrongTeam": "User is in the wrong team",
-  "LicenseIsExpiring": "License is expiring"
+  "LicenseIsExpiring": "License is expiring",
+  "Development": "Development",
+  "Client": "Client",
+  "Secret": "Secret",
+  "Disable": "Disable",
+  "Enable": "Enable"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

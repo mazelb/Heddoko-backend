@@ -10,6 +10,8 @@ namespace Heddoko
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapMvcAttributeRoutes();
 
+            routes.Add(new SubdomainRoute());
+
             routes.MapRoute(
                 "Admin",
                 "admin",
@@ -28,6 +30,17 @@ namespace Heddoko
                 {
                     controller = "Inventory",
                     action = "Index",
+                    token = UrlParameter.Optional
+                }
+                );
+
+            routes.MapRoute(
+                "Approve",
+                "approve",
+                new
+                {
+                    controller = "Development",
+                    action = "Approve",
                     token = UrlParameter.Optional
                 }
                 );

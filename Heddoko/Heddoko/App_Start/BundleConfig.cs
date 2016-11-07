@@ -84,6 +84,7 @@ namespace Heddoko
                 "~/Scripts/js/admin/grid/organization.js",
                 "~/Scripts/js/admin/grid/organizationKits.js",
                 "~/Scripts/js/admin/grid/teams.js",
+                "~/Scripts/js/admin/grid/developments.js",             
                 "~/Scripts/js/account/ergoscore.js"
                 );
 
@@ -105,7 +106,8 @@ namespace Heddoko
                 "~/Scripts/js/admin/grid/components.js",
                 "~/Scripts/js/admin/grid/sensors.js",
                 "~/Scripts/js/admin/grid/sensorSets.js",
-                "~/Scripts/js/admin/grid/historyPopup.js"
+                "~/Scripts/js/admin/grid/historyPopup.js",
+                "~/Scripts/js/admin/grid/developmentsApprove.js"
             );
 
             bundles.Add(adminScriptsBundle);
