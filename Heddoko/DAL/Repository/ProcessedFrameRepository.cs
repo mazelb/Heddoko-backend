@@ -4,6 +4,8 @@ using DAL.Models.MongoDocuments;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DAL
 {
@@ -24,13 +26,24 @@ namespace DAL
             return aggregate;
         }
 
-        private IAggregateFluent<BsonDocument> GetAggregateMultiUserScore(int[] userIDs)
+        private IAggregateFluent<BsonDocument> GetAggregateTeamScore(int[] userIDs)
         {
             var collection = GetCollection();
 
             var aggregate = collection.Aggregate()
                 .Match(new BsonDocument("UserID", new BsonDocument("$in", new BsonArray(userIDs))))
                 .Group(new BsonDocument { { "_id", "null" }, { "ErgoScore", new BsonDocument("$avg", "$ErgoScore") } });
+            return aggregate;
+        }
+
+        private IAggregateFluent<BsonDocument> GetAggregateMuiltUserScore(int[] userIDs)
+        {
+            var collection = GetCollection();
+
+            var aggregate = collection.Aggregate()
+                .Match(new BsonDocument("UserID", new BsonDocument("$in", new BsonArray(userIDs))))
+                .Group(new BsonDocument { { "_id", "$UserID" }, { "ErgoScore", new BsonDocument("$avg", "$ErgoScore") } })
+                .Sort(new BsonDocument( "ErgoScore", -1 ));
             return aggregate;
         }
 
@@ -64,23 +77,46 @@ namespace DAL
         }
 
         /// <summary>
-        /// Async version on GetMultiUserScore
+        /// Async version of GetTeamScore
         /// </summary>
         /// <param name="userIDs">an array of the userIDs to calculate ergoscore from</param>
         /// <returns>Calculated ErgoScore</returns>
-        public async Task<double> GetMultiUserScoreAsync(int[] userIDs)
+        public async Task<double> GetTeamScoreAsync(int[] userIDs)
         {
-            var aggregate = GetAggregateMultiUserScore(userIDs);
+            var aggregate = GetAggregateTeamScore(userIDs);
 
             var results = await aggregate.FirstOrDefaultAsync();
             if (results != null)
             {
-                ErgoScoreMultiResult temp = BsonSerializer.Deserialize<ErgoScoreMultiResult>(results);
+                ErgoScoreTeamResult temp = BsonSerializer.Deserialize<ErgoScoreTeamResult>(results);
 
                 return temp.ErgoScore;
             }
 
             return 0;
+        }
+
+        /// <summary>
+        /// Async version of GetMulipleUserScores
+        /// </summary>
+        /// <param name="userIDs"></param>
+        /// <returns>List of UserIDs and ErgoScores</returns>
+        public async Task<List<ErgoScore>> GetMultipleUserScoresAsync(int[] userIDs)
+        {
+            List<ErgoScore> scores = new List<ErgoScore>();
+
+            var aggregate = GetAggregateMuiltUserScore(userIDs);
+
+            var results = await aggregate.ToListAsync();
+            if (results != null)
+            {
+                foreach (BsonDocument result in results)
+                {
+                    scores.Add(BsonSerializer.Deserialize<ErgoScoreResult>(result).ToErgoScore());
+                }
+            }
+
+            return scores;
         }
 
         /// <summary>
@@ -94,7 +130,7 @@ namespace DAL
             var results = await aggregate.FirstOrDefaultAsync();
             if (results != null)
             {
-                ErgoScoreMultiResult temp = BsonSerializer.Deserialize<ErgoScoreMultiResult>(results);
+                ErgoScoreTeamResult temp = BsonSerializer.Deserialize<ErgoScoreTeamResult>(results);
 
                 return temp.ErgoScore;
             }
@@ -126,19 +162,42 @@ namespace DAL
         /// </summary>
         /// <param name="userIDs"></param>
         /// <returns></returns>
-        public double GetMultiUserScore(int[] userIDs)
+        public double GetTeamScore(int[] userIDs)
         {
-            var aggregate = GetAggregateMultiUserScore(userIDs);
+            var aggregate = GetAggregateTeamScore(userIDs);
 
             var results = aggregate.FirstOrDefault();
             if (results != null)
             {
-                ErgoScoreMultiResult temp = BsonSerializer.Deserialize<ErgoScoreMultiResult>(results);
+                ErgoScoreTeamResult temp = BsonSerializer.Deserialize<ErgoScoreTeamResult>(results);
 
                 return temp.ErgoScore;
             }
 
             return 0;
+        }
+
+        /// <summary>
+        /// Caluculates ErgoScores for a list of users
+        /// </summary>
+        /// <param name="userIDs"></param>
+        /// <returns>List of UserIDs and ErgoScore</returns>
+        public List<ErgoScore> GetMultipleUserScores(int[] userIDs)
+        {
+            List<ErgoScore> scores = new List<ErgoScore>();
+
+            var aggregate = GetAggregateMuiltUserScore(userIDs);
+
+            var results = aggregate.ToList();
+            if (results != null)
+            {
+                foreach (BsonDocument result in results)
+                {
+                    scores.Add(BsonSerializer.Deserialize<ErgoScoreResult>(result).ToErgoScore());
+                }
+            }
+
+            return scores;
         }
 
         /// <summary>
@@ -152,7 +211,7 @@ namespace DAL
             var results = aggregate.FirstOrDefault();
             if (results != null)
             {
-                ErgoScoreMultiResult temp = BsonSerializer.Deserialize<ErgoScoreMultiResult>(results);
+                ErgoScoreTeamResult temp = BsonSerializer.Deserialize<ErgoScoreTeamResult>(results);
 
                 return temp.ErgoScore;
             }

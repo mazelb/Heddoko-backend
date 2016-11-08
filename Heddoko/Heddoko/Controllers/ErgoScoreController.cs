@@ -13,26 +13,6 @@ namespace Heddoko.Controllers
 {
     public class ErgoScoreController : BaseController
     {
-        public async Task<KendoResponse<double>> Get(int id)
-        {
-            double score = await UoW.ProcessedFrameRepository.GetUserScoreAsync(id);
-
-            return new KendoResponse<double>
-            {
-                Response = score
-            };
-        }
-
-        public async Task<KendoResponse<double>> Get(int[] ids)
-        {
-            double score = await UoW.ProcessedFrameRepository.GetMultiUserScoreAsync(ids);
-
-            return new KendoResponse<double>
-            {
-                Response = score
-            };
-        }
-
         public ActionResult Index()
         {
             ErgoScoreViewModel model = new ErgoScoreViewModel()

@@ -272,7 +272,7 @@
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
     <Compile Include="Models\ErgoScore.cs" />
-    <Compile Include="Models\MongoDocuments\ErgoScoreMultiResult.cs" />
+    <Compile Include="Models\MongoDocuments\ErgoScoreTeamResult.cs" />
     <Compile Include="Models\MongoDocuments\ErgoScoreResult.cs" />
     <Compile Include="Models\Streaming\Channel.cs" />
     <Compile Include="Models\Enum\AssetsProccesingType.cs" />

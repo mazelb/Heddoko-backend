@@ -8,7 +8,7 @@ namespace Heddoko.Models
     public class ErgoScoreAPIModel
     {
         // Users Personal score
-        public double ErgoScore { get; set; }
+        public double Score { get; set; }
         public int ID { get; set; }
     }
 }

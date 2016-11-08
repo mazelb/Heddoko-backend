@@ -61,7 +61,7 @@ var TeamScores = {
                         title: i18n.Resources.ID
                     },
                     {
-                        field: "ergoScore",
+                        field: "score",
                         title: i18n.Resources.Ergoscore
                     }
                 ]

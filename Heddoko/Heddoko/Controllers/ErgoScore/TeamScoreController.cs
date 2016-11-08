@@ -22,23 +22,34 @@ namespace Heddoko.Controllers
 
             if (CurrentUser.OrganizationID.HasValue)
             {
-                List<User> Users = UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value).ToList();
-                ErgoScoreAPIModel temp;
-                foreach (User user in Users)
+                List<User> users = UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value).ToList();
+                IEnumerable<int> ids = users.Select(x => x.Id).Distinct();
+
+                var results = UoW.ProcessedFrameRepository.GetMultipleUserScores(ids.ToArray());
+
+                foreach (ErgoScore result in results)
                 {
-                    if (user.RoleType == UserRoleType.Worker)
-                    {
-                        temp = new ErgoScoreAPIModel();
-                        temp.ErgoScore = UoW.ProcessedFrameRepository.GetUserScore(user.Id);
-                        temp.ID = user.Id;
-                        scores.Add(temp);
-                    }
+                    scores.Add(Convert(result));
                 }
             }
 
             return new KendoResponse<IEnumerable<ErgoScoreAPIModel>>
             {
                 Response = scores
+            };
+        }
+
+        protected override ErgoScoreAPIModel Convert(ErgoScore item)
+        {
+            if (item == null)
+            {
+                return null;
+            }
+
+            return new ErgoScoreAPIModel
+            {
+                ID = item.ID,
+                Score = item.Score
             };
         }
     }

@@ -188,7 +188,7 @@ namespace Heddoko.Controllers.API
                 File.Delete(file.LocalFileName);
                 if(asset.Type == AssetType.Record)
                 {
-                    BackgroundJob.Enqueue(() => Azure.AddFramesToDatabase(path, DAL.Config.AssetsContainer, file.LocalFileName + "temp"));
+                    BackgroundJob.Enqueue(() => Azure.AddFramesToDatabase(asset.Id, DAL.Config.AssetsContainer, asset.Name + "temp"));
                 }
 
                 asset.Image = $"/{path}";

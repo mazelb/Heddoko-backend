@@ -1,7 +1,7 @@
 ﻿
 namespace DAL.Models.MongoDocuments
 {
-    public class ErgoScoreMultiResult
+    public class ErgoScoreTeamResult
     {
         public string _id { get; set; }
         public double ErgoScore { get; set; }
