@@ -31,6 +31,8 @@ namespace DAL
 
         public static string NotificationsHub => ConfigurationManager.AppSettings["NotificationsHub"];
 
+        public static string GcmSenderId => ConfigurationManager.AppSettings["GcmSenderId"];
+
         public static string GcmSenderAuthToken => ConfigurationManager.AppSettings["GcmSenderAuthToken"];
 
         #region JWT
