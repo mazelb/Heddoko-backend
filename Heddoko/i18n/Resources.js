@@ -437,7 +437,9 @@ i18n.Resources = (function () {
   "UserDoesntHaveKit": "User should have a kit",
   "UserIsNotInTeam": "User should be in a team",
   "WrongTeam": "User is in the wrong team",
-  "LicenseIsExpiring": "License is expiring"
+  "LicenseIsExpiring": "License is expiring",
+  "StreamChannelOpened": "Channel for receiving stream was opened for your team",
+  "StreamChannelClosed": "Channel for receiving stream was closed for your team"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

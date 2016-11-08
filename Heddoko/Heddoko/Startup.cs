@@ -1,13 +1,14 @@
 ﻿using DAL;
 using Hangfire;
-using Hangfire.Dashboard;
 using Heddoko;
 using Heddoko.Helpers.Hangfire;
+using Heddoko.Hubs;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Owin;
+using Services;
 
 [assembly: OwinStartup(typeof(Startup))]
-
 namespace Heddoko
 {
     public partial class Startup
@@ -26,6 +27,11 @@ namespace Heddoko
                         new HangfireAuthorizationFilter(Constants.Roles.Admin)
                     }
                 });
+
+
+            GlobalHost.DependencyResolver.Register(
+                typeof(StreamingHub),
+                () => new StreamingHub(new StreamConnectionsService(new UnitOfWork())));
 
             app.MapSignalR();
         }

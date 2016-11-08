@@ -3337,6 +3337,24 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Channel for receiving stream was closed for your team.
+        /// </summary>
+        public static string StreamChannelClosed {
+            get {
+                return ResourceManager.GetString("StreamChannelClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel for receiving stream was opened for your team.
+        /// </summary>
+        public static string StreamChannelOpened {
+            get {
+                return ResourceManager.GetString("StreamChannelOpened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
         public static string Submit {
