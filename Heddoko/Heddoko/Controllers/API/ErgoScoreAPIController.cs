@@ -39,15 +39,17 @@ namespace Heddoko.Controllers.API
             GroupErgoScoreAPIModel model = new GroupErgoScoreAPIModel();
 
             Organization org = UoW.OrganizationRepository.Get(orgId);
-            ErgoScore temp = new ErgoScore();
-            foreach (User user in org.Users)
+            IEnumerable<int> ids = org.Users.Select(x => x.Id).Distinct();
+
+            var results = UoW.ProcessedFrameRepository.GetMultipleUserScores(ids.ToArray());
+
+            foreach (ErgoScore result in results)
             {
-                temp.Score = UoW.ProcessedFrameRepository.GetUserScore(user.Id);
-                temp.ID = user.Id;
-                model.userScores.Add(temp);
+                model.userScores.Add(result);
             }
 
-            model.groupScore = GetOrgScore(orgId);
+            model.groupScore.Score = UoW.ProcessedFrameRepository.GetTeamScore(ids.ToArray());
+            model.groupScore.ID = orgId;
 
             return model;
         }
@@ -82,7 +84,7 @@ namespace Heddoko.Controllers.API
             }
 
             model.groupScore.Score = UoW.ProcessedFrameRepository.GetTeamScore(ids.ToArray());
-            model.groupScore.ID = team.Id;
+            model.groupScore.ID = teamId;
 
             return model;
         }
