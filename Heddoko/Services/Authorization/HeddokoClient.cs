@@ -28,8 +28,6 @@ namespace Services.Authorization
 
         public bool SignIn(UserRequest request)
         {
-            request.GrantType = "password";
-
             OauthResponse token = SendPostXWwwForm<OauthResponse>(request).Result;
 
             if (token != null)
