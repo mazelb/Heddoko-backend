@@ -36,7 +36,7 @@ namespace Services
 
         private static GcmConfiguration ConfigGcm()
         {
-            return new GcmConfiguration(DAL.Config.GcmSenderId, DAL.Config.GcmSenderAuthToken, null);
+            return new GcmConfiguration(DAL.Config.GcmSenderAuthToken);
         }
 
         private static JObject BuildPayloadForApns(string message, UserEventType type, string id)
