@@ -31,8 +31,7 @@ namespace Services
 
                 foreach (License license in updatedLicenses.Where(l => l.ExpirationAt < today && l.OrganizationID.HasValue))
                 {
-                    Organization organization = uow.OrganizationRepository.Get(license.OrganizationID.Value);
-                    BackgroundJob.Enqueue(() => ActivityService.SendNew(organization.UserID, UserEventType.LicenseExpired, license.Id));
+                    BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiredToOrganization(license.OrganizationID.Value, license.Id));
                 }
             }
             catch (Exception ex)
@@ -53,7 +52,7 @@ namespace Services
                 {
                     BackgroundJob.Enqueue(() => EmailManager.SendLicenseExpiringToOrganization(license.Id));
 
-                    BackgroundJob.Enqueue(() => ActivityService.SendNew(license.Organization.UserID, UserEventType.LicenseExpiring, license.Id));
+                    BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiringToOrganization(license.OrganizationID.Value, license.Id));
                 }
 
             }

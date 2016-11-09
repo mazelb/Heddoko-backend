@@ -26,7 +26,7 @@ namespace Heddoko.Controllers
 
         public LicensesController() { }
 
-        public LicensesController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+        public LicensesController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<LicenseAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -157,7 +157,7 @@ namespace Heddoko.Controllers
 
                 // Task.Run(() => Mailer.SendInviteAdminEmail(item));
                 BackgroundJob.Enqueue(() => LicenseManager.Check());
-                BackgroundJob.Enqueue(() => ActivityService.SendNew(item.Organization.UserID, UserEventType.LicenseAddedToOrganization, item.Id));
+                BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseAddedToOrganization(item.Organization.Id, item.Id));
 
                 response = Convert(item);
             }
@@ -230,8 +230,7 @@ namespace Heddoko.Controllers
 
             if (item.OrganizationID != null)
             {
-                Organization organization = UoW.OrganizationRepository.Get(item.OrganizationID.Value);
-                BackgroundJob.Enqueue(() => ActivityService.SendNew(organization.UserID, UserEventType.LicenseRemovedFromOrganization, item.Id));
+                BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseRemovedFromOrganization(item.OrganizationID.Value, item.Id));
             }
 
             return new KendoResponse<LicenseAPIModel>

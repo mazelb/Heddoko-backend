@@ -117,7 +117,7 @@ namespace Heddoko.Controllers.API
 
                     if (user.License.Status == LicenseStatusType.Expired)
                     {
-                        BackgroundJob.Enqueue(() => ActivityService.SendNew(user.License.Organization.UserID, UserEventType.LicenseExpired, user.License.Id));
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiredToOrganization(user.License.OrganizationID.Value, user.License.Id));
                     }
                 }
 

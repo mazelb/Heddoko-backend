@@ -212,16 +212,16 @@ namespace Heddoko.Controllers
                 {
                     if (item.LicenseID != null)
                     {
-                        BackgroundJob.Enqueue(() => ActivityService.SendNew(item.Id, UserEventType.LicenseAddedToUser, item.LicenseID));
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseAddedToUser(item.Id, item.LicenseID.Value));
                     }
                 }
                 else if (item.LicenseID == null)
                 {
-                    BackgroundJob.Enqueue(() => ActivityService.SendNew(item.Id, UserEventType.LicenseRemovedFromUser, licenseId));
+                    BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseRemovedFromUser(item.Id, licenseId.Value));
                 }
                 else if (licenseId != item.LicenseID)
                 {
-                    BackgroundJob.Enqueue(() => ActivityService.SendNew(item.Id, UserEventType.LicenseChangedForUser, item.LicenseID));
+                    BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseChangedForUser(item.Id, item.LicenseID.Value));
                 }
 
                 UoW.UserRepository.ClearCache(item);

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Resources;
 using AutoMapper;
 using DAL;
@@ -22,88 +21,100 @@ namespace Services
             });
         }
 
-        private static string BuildMessage(UserEvent userEvent)
-        {
-            switch (userEvent.Type)
-            {
-                case UserEventType.StreamChannelOpened:
-                    return Resources.StreamChannelOpened;
-                case UserEventType.StreamChannelClosed:
-                    return Resources.StreamChannelClosed;
-                case UserEventType.LicenseAddedToOrganization:
-                case UserEventType.LicenseRemovedFromOrganization:
-                case UserEventType.LicenseExpiring:
-                case UserEventType.LicenseExpired:
-                case UserEventType.LicenseAddedToUser:
-                case UserEventType.LicenseRemovedFromUser:
-                case UserEventType.LicenseChangedForUser:
-                    var license = userEvent.Entity as License;
-
-                    ResourceManager rm = new ResourceManager(typeof(Resources));
-                    string message = rm.GetString(userEvent.Type.ToString());
-
-                    if (message != null)
-                    {
-                        return string.Format(message, license?.Name, license?.ExpirationAt);
-                    }
-
-                    return userEvent.Type.ToString();
-            }
-
-            return string.Empty;
-        }
-
         [Queue(Constants.HangFireQueue.Notifications)]
-        public static void SendForTeam(int teamId, UserEventType eventType, int? entityId)
+        public static void NotifyStreamChannelOpenedToTeam(int teamId)
         {
             UnitOfWork unitOfWork = new UnitOfWork();
             Team team = unitOfWork.TeamRepository.GetFull(teamId);
 
             foreach (User user in team.Users)
             {
-                SendNew(user, eventType, entityId, unitOfWork);
+                UserEvent userEvent = CreateUserEventWithoutEntity(user.Id, UserEventType.StreamChannelOpened, unitOfWork);
+
+                SendUserEvent(userEvent, unitOfWork);
             }
         }
 
         [Queue(Constants.HangFireQueue.Notifications)]
-        public static void SendNew(int userId, UserEventType eventType, int? entityId)
+        public static void NotifyStreamChannelClosedToTeam(int teamId)
         {
-            var unitOfWork = new UnitOfWork();
-            User user = unitOfWork.UserRepository.GetFull(userId);
+            UnitOfWork unitOfWork = new UnitOfWork();
+            Team team = unitOfWork.TeamRepository.GetFull(teamId);
 
-            SendNew(user, eventType, entityId, unitOfWork);
+            foreach (User user in team.Users)
+            {
+                UserEvent userEvent = CreateUserEventWithoutEntity(user.Id, UserEventType.StreamChannelClosed, unitOfWork);
+
+                SendUserEvent(userEvent, unitOfWork);
+            }
         }
 
         [Queue(Constants.HangFireQueue.Notifications)]
-        public static void Resend(string eventId)
+        public static void NotifyLicenseAddedToOrganization(int organizationId, int licenseId)
         {
-            var unitOfWork = new UnitOfWork();
-            UserEvent userEvent = unitOfWork.UserActivityRepository.GetEvent(eventId);
+            UnitOfWork unitOfWork = new UnitOfWork();
+            Organization organization = unitOfWork.OrganizationRepository.Get(organizationId);
+
+            var userEvent = CreateLicenseEvent(licenseId, organization.UserID, UserEventType.LicenseAddedToOrganization, unitOfWork);
 
             SendUserEvent(userEvent, unitOfWork);
         }
 
-        private static void SendNew(User user, UserEventType eventType, int? entityId, UnitOfWork unitOfWork = null)
+        [Queue(Constants.HangFireQueue.Notifications)]
+        public static void NotifyLicenseRemovedFromOrganization(int organizationId, int licenseId)
         {
-            if (unitOfWork == null)
-                unitOfWork = new UnitOfWork();
+            UnitOfWork unitOfWork = new UnitOfWork();
+            Organization organization = unitOfWork.OrganizationRepository.Get(organizationId);
 
-            UserEvent userEvent = new UserEvent
-            {
-                Created = DateTime.Now,
-                ReadStatus = ReadStatus.Unread,
-                UserId = user.Id,
-                Status = UserEventStatus.New,
-                Type = eventType,
-                Entity = GetEntity(entityId, eventType, unitOfWork),
-                EntityId = entityId
-            };
-
-            userEvent.Message = BuildMessage(userEvent);
-
-            unitOfWork.UserActivityRepository.Add(userEvent);
+            var userEvent = CreateLicenseEvent(licenseId, organization.UserID, UserEventType.LicenseRemovedFromOrganization, unitOfWork);
 
             SendUserEvent(userEvent, unitOfWork);
+        }
+
+        [Queue(Constants.HangFireQueue.Notifications)]
+        public static void NotifyLicenseExpiringToOrganization(int organizationId, int licenseId)
+        {
+            UnitOfWork unitOfWork = new UnitOfWork();
+            Organization organization = unitOfWork.OrganizationRepository.Get(organizationId);
+
+            var userEvent = CreateLicenseEvent(licenseId, organization.UserID, UserEventType.LicenseExpiring, unitOfWork);
+
+            SendUserEvent(userEvent, unitOfWork);
+        }
+
+        [Queue(Constants.HangFireQueue.Notifications)]
+        public static void NotifyLicenseExpiredToOrganization(int organizationId, int licenseId)
+        {
+            UnitOfWork unitOfWork = new UnitOfWork();
+            Organization organization = unitOfWork.OrganizationRepository.Get(organizationId);
+
+            var userEvent = CreateLicenseEvent(licenseId, organization.UserID, UserEventType.LicenseExpired, unitOfWork);
+
+            SendUserEvent(userEvent, unitOfWork);
+        }
+
+        [Queue(Constants.HangFireQueue.Notifications)]
+        public static void NotifyLicenseAddedToUser(int userId, int licenseId)
+        {
+            var userEvent = CreateLicenseEvent(licenseId, userId, UserEventType.LicenseAddedToUser);
+
+            SendUserEvent(userEvent);
+        }
+
+        [Queue(Constants.HangFireQueue.Notifications)]
+        public static void NotifyLicenseRemovedFromUser(int userId, int licenseId)
+        {
+            var userEvent = CreateLicenseEvent(licenseId, userId, UserEventType.LicenseRemovedFromUser);
+
+            SendUserEvent(userEvent);
+        }
+
+        [Queue(Constants.HangFireQueue.Notifications)]
+        public static void NotifyLicenseChangedForUser(int userId, int licenseId)
+        {
+            var userEvent = CreateLicenseEvent(licenseId, userId, UserEventType.LicenseChangedForUser);
+
+            SendUserEvent(userEvent);
         }
 
         private static void SendUserEvent(UserEvent userEvent, UnitOfWork unitOfWork = null)
@@ -146,26 +157,68 @@ namespace Services
             }
         }
 
-        private static object GetEntity(int? entityId, UserEventType eventType, UnitOfWork unitOfWork)
+        private static UserEvent CreateUserEventWithoutEntity(int userId, UserEventType eventType, UnitOfWork unitOfWork = null)
         {
-            if (!entityId.HasValue)
-                return null;
+            if (unitOfWork == null)
+                unitOfWork = new UnitOfWork();
 
-            switch (eventType)
+            UserEvent userEvent = new UserEvent
             {
-                case UserEventType.LicenseAddedToOrganization:
-                case UserEventType.LicenseRemovedFromOrganization:
-                case UserEventType.LicenseExpiring:
-                case UserEventType.LicenseExpired:
-                case UserEventType.LicenseAddedToUser:
-                case UserEventType.LicenseRemovedFromUser:
-                case UserEventType.LicenseChangedForUser:
-                    License proxyLicense = unitOfWork.LicenseRepository.Get(entityId.Value);
+                Created = DateTime.Now,
+                ReadStatus = ReadStatus.Unread,
+                UserId = userId,
+                Status = UserEventStatus.New,
+                Type = eventType,
+                Message = BuildMessage(eventType)
+            };
 
-                    return Mapper.Map<License>(proxyLicense);
-                default:
-                    return null;
+            unitOfWork.UserActivityRepository.Add(userEvent);
+
+            return userEvent;
+        }
+
+        private static UserEvent CreateLicenseEvent(int licenseId, int userId, UserEventType eventType, UnitOfWork unitOfWork = null)
+        {
+            if (unitOfWork == null)
+                unitOfWork = new UnitOfWork();
+
+            License proxyLicense = unitOfWork.LicenseRepository.Get(licenseId);
+
+            License license = Mapper.Map<License>(proxyLicense);
+
+            UserEvent userEvent = new UserEvent
+            {
+                Created = DateTime.Now,
+                ReadStatus = ReadStatus.Unread,
+                UserId = userId,
+                Status = UserEventStatus.New,
+                Type = eventType,
+                Entity = license,
+                EntityId = license.Id,
+                Message = BuildMessageForLicence(license, eventType)
+            };
+
+            unitOfWork.UserActivityRepository.Add(userEvent);
+
+            return userEvent;
+        }
+
+        private static string BuildMessageForLicence(License license, UserEventType eventType)
+        {
+            return BuildMessage(eventType, license?.Name, license?.ExpirationAt);
+        }
+
+        private static string BuildMessage(UserEventType eventType, params object[] args)
+        {
+            ResourceManager rm = new ResourceManager(typeof(Resources));
+            string message = rm.GetString(eventType.ToString());
+
+            if (message != null)
+            {
+                return string.Format(message, args);
             }
+
+            return eventType.ToString();
         }
     }
 }
