@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Jil;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 
 namespace DAL.Models
@@ -22,10 +23,12 @@ namespace DAL.Models
 
         [JsonIgnore]
         [JilDirective(Ignore = true)]
+        [BsonIgnore]
         public virtual Organization Organization { get; set; }
 
         [JsonIgnore]
         [JilDirective(Ignore = true)]
+        [BsonIgnore]
         public virtual ICollection<User> Users { get; set; }
 
         #endregion

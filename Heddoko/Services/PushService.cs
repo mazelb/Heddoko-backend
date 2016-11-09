@@ -23,6 +23,8 @@ namespace Services
         private static HubConnection _hubConnection;
         private static IHubProxy _notificationsHubProxy;
 
+        private static readonly object LockHubConnection = new object();
+
         public static DateTime? RetryGcmAfterUtc { get; private set; }
 
         private static ApnsConfiguration ConfigApns()
@@ -280,12 +282,18 @@ namespace Services
             {
                 if (_hubConnection == null || _hubConnection.State != ConnectionState.Connected)
                 {
-                    _hubConnection = new HubConnection(DAL.Config.DashboardSite);
-                    _hubConnection.Headers.Add(Config.TokenHeaderName, AuthorizationManager.Instance.GetToken());
+                    lock (LockHubConnection)
+                    {
+                        if (_hubConnection == null || _hubConnection.State != ConnectionState.Connected)
+                        {
+                            _hubConnection = new HubConnection(DAL.Config.DashboardSite);
+                            _hubConnection.Headers.Add(Config.TokenHeaderName, AuthorizationManager.Instance.GetToken());
 
-                    _notificationsHubProxy = _hubConnection.CreateHubProxy(DAL.Config.NotificationsHub);
+                            _notificationsHubProxy = _hubConnection.CreateHubProxy(DAL.Config.NotificationsHub);
 
-                    _hubConnection.Start().Wait();
+                            _hubConnection.Start().Wait();
+                        }
+                    }
                 }
 
                 _notificationsHubProxy.Invoke("Send", message, token, type).ContinueWith(task =>

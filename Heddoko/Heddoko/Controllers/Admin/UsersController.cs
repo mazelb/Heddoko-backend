@@ -6,9 +6,12 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using DAL.Models.Enum;
+using Hangfire;
 using Heddoko.Models;
 using i18n;
 using Microsoft.AspNet.Identity;
+using Services;
 using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers
@@ -201,8 +204,25 @@ namespace Heddoko.Controllers
 
             if (ModelState.IsValid)
             {
+                int? licenseId = item.LicenseID;
                 Bind(item, model);
                 UoW.Save();
+
+                if (licenseId == null)
+                {
+                    if (item.LicenseID != null)
+                    {
+                        BackgroundJob.Enqueue(() => ActivityService.SendNew(item.Id, UserEventType.LicenseAddedToUser, item.LicenseID));
+                    }
+                }
+                else if (item.LicenseID == null)
+                {
+                    BackgroundJob.Enqueue(() => ActivityService.SendNew(item.Id, UserEventType.LicenseRemovedFromUser, licenseId));
+                }
+                else if (licenseId != item.LicenseID)
+                {
+                    BackgroundJob.Enqueue(() => ActivityService.SendNew(item.Id, UserEventType.LicenseChangedForUser, item.LicenseID));
+                }
 
                 UoW.UserRepository.ClearCache(item);
                 UserManager.ApplyUserRolesForLicense(item);
@@ -429,7 +449,7 @@ namespace Heddoko.Controllers
             if (ModelState.IsValid)
             {
                 User user = UoW.UserRepository.Get(model.UserId);
-                
+
                 if (user?.Status == UserStatusType.Invited)
                 {
                     bool isNew = string.IsNullOrEmpty(user.PasswordHash);

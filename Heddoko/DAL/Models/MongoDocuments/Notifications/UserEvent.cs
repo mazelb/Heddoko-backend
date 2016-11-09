@@ -25,5 +25,11 @@ namespace DAL.Models.MongoDocuments.Notifications
         public ReadStatus ReadStatus { get; set; }
 
         public UserEventStatus Status { get; set; }
+
+        public object Entity { get; set; }
+
+        public int? EntityId { get; set; }
+
+        public string Message { get; set; }
     }
 }

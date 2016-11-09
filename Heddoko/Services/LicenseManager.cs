@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using DAL;
 using DAL.Models;
+using DAL.Models.Enum;
 using Hangfire;
 
 namespace Services
@@ -16,7 +17,7 @@ namespace Services
             {
                 HDContext context = new HDContext();
                 UnitOfWork uow = new UnitOfWork(context);
-                IEnumerable<License> updatedLicenses = uow.LicenseRepository.Check();
+                List<License> updatedLicenses = uow.LicenseRepository.Check().ToList();
 
                 uow.Save();
 
@@ -24,6 +25,14 @@ namespace Services
                 foreach (User user in updatedLicenses.SelectMany(l => l.Users ?? new List<User>()))
                 {
                     manager.ApplyUserRolesForLicense(user);
+                }
+
+                DateTime today = DateTime.Now.StartOfDay();
+
+                foreach (License license in updatedLicenses.Where(l => l.ExpirationAt < today && l.OrganizationID.HasValue))
+                {
+                    Organization organization = uow.OrganizationRepository.Get(license.OrganizationID.Value);
+                    BackgroundJob.Enqueue(() => ActivityService.SendNew(organization.UserID, UserEventType.LicenseExpired, license.Id));
                 }
             }
             catch (Exception ex)
@@ -43,6 +52,8 @@ namespace Services
                 foreach (License license in expiringLicenses)
                 {
                     BackgroundJob.Enqueue(() => EmailManager.SendLicenseExpiringToOrganization(license.Id));
+
+                    BackgroundJob.Enqueue(() => ActivityService.SendNew(license.Organization.UserID, UserEventType.LicenseExpiring, license.Id));
                 }
 
             }

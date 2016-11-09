@@ -1434,4 +1434,25 @@
   <data name="StreamChannelClosed" xml:space="preserve">
     <value>Channel for receiving stream was closed for your team</value>
   </data>
+  <data name="LicenseAddedToOrganization" xml:space="preserve">
+    <value>License {0} has been added to your organization</value>
+  </data>
+  <data name="LicenseExpired" xml:space="preserve">
+    <value>License {0} is expired</value>
+  </data>
+  <data name="LicenseExpiring" xml:space="preserve">
+    <value>License {0} is expiring at {1}</value>
+  </data>
+  <data name="LicenseRemovedFromOrganization" xml:space="preserve">
+    <value>License {0} has been removed from your organization</value>
+  </data>
+  <data name="LicenseAddedToUser" xml:space="preserve">
+    <value>License {0} has been assigned to you</value>
+  </data>
+  <data name="LicenseChangedForUser" xml:space="preserve">
+    <value>Your license has been changed to {0}</value>
+  </data>
+  <data name="LicenseRemovedFromUser" xml:space="preserve">
+    <value>License {0} has been unassigned from you</value>
+  </data>
 </root>

@@ -5,10 +5,12 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using DAL.Models.Enum;
 using Hangfire;
 using Heddoko.Models;
 using i18n;
 using Microsoft.AspNet.Identity;
+using Services;
 using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers
@@ -154,7 +156,8 @@ namespace Heddoko.Controllers
                 UoW.LicenseRepository.Create(item);
 
                 // Task.Run(() => Mailer.SendInviteAdminEmail(item));
-                BackgroundJob.Enqueue(() => Services.LicenseManager.Check());
+                BackgroundJob.Enqueue(() => LicenseManager.Check());
+                BackgroundJob.Enqueue(() => ActivityService.SendNew(item.Organization.UserID, UserEventType.LicenseAddedToOrganization, item.Id));
 
                 response = Convert(item);
             }
@@ -224,6 +227,12 @@ namespace Heddoko.Controllers
             License item = UoW.LicenseRepository.Get(id);
             item.Status = LicenseStatusType.Deleted;
             UoW.Save();
+
+            if (item.OrganizationID != null)
+            {
+                Organization organization = UoW.OrganizationRepository.Get(item.OrganizationID.Value);
+                BackgroundJob.Enqueue(() => ActivityService.SendNew(organization.UserID, UserEventType.LicenseRemovedFromOrganization, item.Id));
+            }
 
             return new KendoResponse<LicenseAPIModel>
             {
