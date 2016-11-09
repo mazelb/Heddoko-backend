@@ -18,7 +18,7 @@ var TeamScores = {
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport("analyst/api/teamscore"),
+            transport: KendoDS.buildTransport("api/teamscore"),
             schema: {
                 data: "response",
                 total: "total",

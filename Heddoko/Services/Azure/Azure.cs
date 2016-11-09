@@ -42,14 +42,13 @@ namespace Services
         /// <param name="url">Url of Azure block blob reference</param>
         /// <param name="container">Azure assests container</param>
         /// <param name="path">path to the target file</param>
-        private static void DownloadToFile(int assetId, string container, string path)
+        private static void DownloadToFile(string url, string container, string path)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Config.StorageConnectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer blobContainer = blobClient.GetContainerReference(container);
-
-            Asset asset = new UnitOfWork().AssetRepository.Get(assetId);
-            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(asset.Url);
+            
+            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(url);
 
             blockBlob.DownloadToFile(path, FileMode.OpenOrCreate);
         }
@@ -62,9 +61,13 @@ namespace Services
             }      
         }
 
-        public static void AddFramesToDatabase(int assetId, string container, string path)
+        public static void AddFramesToDatabase(int assetId, string container)
         {
-            DownloadToFile(assetId, container, path);
+            UnitOfWork UoW = new UnitOfWork();
+            Asset asset = UoW.AssetRepository.Get(assetId);
+            string path = asset.Name + "temp";
+
+            DownloadToFile(asset.Url, container, path);
             FileParser.AddProcessedFramesToDb(path);
 
             DeleteFile(path);
