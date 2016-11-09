@@ -7,9 +7,11 @@ using DAL;
 using DAL.Models;
 using DAL.Models.Enum;
 using DAL.Models.MongoDocuments.Notifications;
+using Hangfire;
 using Heddoko.Models;
 using Heddoko.Models.API;
 using i18n;
+using Services;
 
 namespace Heddoko.Controllers.API
 {
@@ -112,6 +114,11 @@ namespace Heddoko.Controllers.API
                 {
                     UoW.Save();
                     UoW.UserRepository.ClearCache(user);
+
+                    if (user.License.Status == LicenseStatusType.Expired)
+                    {
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiredToOrganization(user.License.OrganizationID.Value, user.License.Id));
+                    }
                 }
 
                 try

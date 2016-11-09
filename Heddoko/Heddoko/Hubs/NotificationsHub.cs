@@ -10,7 +10,7 @@ namespace Heddoko.Hubs
         [Authorize(Roles = DAL.Constants.Roles.ServiceAdmin)]
         public void Send(string message, string token, UserEventType type)
         {
-            Clients.Group(token).ShowNotification(new NotificationMessage { Message = message, Type = type });
+            Clients.Group(token).ShowNotification(new NotificationMessage { Text = message, Type = type });
         }
 
         [Authorize(Roles = DAL.Constants.Roles.All)]

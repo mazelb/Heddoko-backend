@@ -6,6 +6,6 @@ namespace Heddoko.Models.Notifications
     {
         public UserEventType Type { get; set; }
 
-        public string Message { get; set; }
+        public string Text { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace Services
                         _unitOfWork.StreamConnectionsCacheRepository.SetCache(user.TeamID.Value, connections);
 
                         int teamId = user.TeamID.Value;
-                        BackgroundJob.Enqueue(() => ActivityService.SendForTeam(teamId, UserEventType.StreamChannelOpened));
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyStreamChannelOpenedToTeam(teamId));
                     }
                 }
             }
@@ -58,7 +58,7 @@ namespace Services
                         _unitOfWork.StreamConnectionsCacheRepository.SetCache(user.TeamID.Value, connections);
 
                         int teamId = user.TeamID.Value;
-                        BackgroundJob.Enqueue(() => ActivityService.SendForTeam(teamId, UserEventType.StreamChannelClosed));
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyStreamChannelClosedToTeam(teamId));
                     }
                 }
             }

@@ -3,6 +3,13 @@
     public enum UserEventType
     {
         StreamChannelOpened,
-        StreamChannelClosed
+        StreamChannelClosed,
+        LicenseAddedToOrganization,
+        LicenseRemovedFromOrganization,
+        LicenseAddedToUser,
+        LicenseRemovedFromUser,
+        LicenseChangedForUser,
+        LicenseExpiring,
+        LicenseExpired
     }
 }
