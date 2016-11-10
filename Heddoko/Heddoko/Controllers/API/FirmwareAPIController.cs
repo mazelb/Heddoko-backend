@@ -111,18 +111,9 @@ namespace Heddoko.Controllers.API
         [HttpGet]
         public ListAPIViewModel<Firmware> List(FirmwareType type, int take = 100, int? skip = 0)
         {
-            IEnumerable<Firmware> firmwares = UoW.FirmwareRepository.GetByType(type);
-
-            if (skip.HasValue)
-            {
-                firmwares = firmwares.Skip(skip.Value);
-            }
-
-            firmwares = firmwares.Take(take);
-
             return new ListAPIViewModel<Firmware>
             {
-                Collection = firmwares.ToList(),
+                Collection = UoW.FirmwareRepository.GetByType(type, take, skip).ToList(),
                 TotalCount = UoW.FirmwareRepository.GetCountByType(type)
             };
         }

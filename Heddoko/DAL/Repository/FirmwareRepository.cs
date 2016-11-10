@@ -25,12 +25,25 @@ namespace DAL
                         .OrderByDescending(c => c.Created);
         }
 
-        public IEnumerable<Firmware> GetByType(FirmwareType type)
+        public IEnumerable<Firmware> GetByType(FirmwareType type, int? take = null, int? skip = null)
         {
-            return DbSet.Include(c => c.Asset)
-                        .Where(c => c.Status == FirmwareStatusType.Active)
-                        .Where(c => c.Type == type)
-                        .OrderByDescending(c => c.Created);
+            IQueryable<Firmware> query = DbSet.Include(c => c.Asset)
+                                  .Where(c => c.Status == FirmwareStatusType.Active)
+                                  .Where(c => c.Type == type)
+                                  .OrderByDescending(c => c.Created);
+
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return query;
         }
 
         public IEnumerable<Firmware> Search(string search, bool isDeleted = false)

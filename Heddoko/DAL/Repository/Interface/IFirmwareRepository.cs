@@ -7,7 +7,7 @@ namespace DAL
     {
         IEnumerable<Firmware> All(bool isDeleted);
         IEnumerable<Firmware> Search(string value, bool isDeleted);
-        IEnumerable<Firmware> GetByType(FirmwareType type);
+        IEnumerable<Firmware> GetByType(FirmwareType type, int? take = null, int? skip = null);
         Firmware LastFirmwareByType(FirmwareType software);
         int GetCountByType(FirmwareType type);
     }
