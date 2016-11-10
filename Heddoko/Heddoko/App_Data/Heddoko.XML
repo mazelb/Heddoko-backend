@@ -503,7 +503,7 @@
             <param name="kitID">The id of kit. optional</param>
             <param name="type">The type of upload. required</param>
         </member>
-        <member name="M:Heddoko.Controllers.API.AssetsAPIController.List(System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},DAL.Models.AssetType)">
+        <member name="M:Heddoko.Controllers.API.AssetsAPIController.List(System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
                 List of files by organization
             </summary>

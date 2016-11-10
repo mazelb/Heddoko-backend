@@ -189,10 +189,9 @@ namespace Heddoko.Controllers.API
         /// <param name="skip">The amoun of skip entries</param>
         [Route("list/{take:int}/{skip:int?}")]
         [Route("list/{userID:int?}/{take:int}/{skip:int?}")]
-        [Route("list/{userID:int?}/{type:int}/{take:int}/{skip:int?}")]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
-        public ListAPIViewModel<Asset> List(int take = 100, int? userID = null, int? skip = 0, AssetType type = AssetType.Record)
+        public ListAPIViewModel<Asset> List(int take = 100, int? userID = null, int? skip = 0)
         {
             if (!CurrentUser.OrganizationID.HasValue)
             {
@@ -214,6 +213,18 @@ namespace Heddoko.Controllers.API
             {
                 Collection = UoW.AssetRepository.GetRecordByOrganization(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value, take, skip, userID).ToList(),
                 TotalCount = UoW.AssetRepository.GetRecordByOrganizationCount(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value, userID)
+            };
+        }
+
+        [Route("defaultrecords/{take:int}/{skip:int?}")]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
+        public ListAPIViewModel<Asset> DefaultRecords(int take = 100, int? skip = 0)
+        {
+            return new ListAPIViewModel<Asset>
+            {
+                Collection = UoW.AssetRepository.GetDefaultRecords(take, skip).ToList(),
+                TotalCount = UoW.AssetRepository.GetDefaultRecordsCount()
             };
         }
     }

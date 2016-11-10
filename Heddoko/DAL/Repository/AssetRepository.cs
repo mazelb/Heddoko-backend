@@ -20,7 +20,7 @@ namespace DAL
         public IEnumerable<Asset> GetRecordByOrganization(int organizationID, int teamID, int take, int? skip = 0, int? userID = null)
         {
             IQueryable<Asset> query = DbSet.Include(c => c.User)
-                                           .Where(c => c.Type == type)
+                                           .Where(c => c.Type == AssetType.Record)
                                            .Where(c => c.Status == UploadStatusType.Uploaded)
                                            .Where(c => c.User.OrganizationID == organizationID)
                                            .Where(c => c.User.TeamID == teamID)
@@ -43,7 +43,7 @@ namespace DAL
 
         public int GetRecordByOrganizationCount(int organizationID, int teamID, int? userID = null)
         {
-            IQueryable<Asset> query = DbSet.Where(c => c.Type == type)
+            IQueryable<Asset> query = DbSet.Where(c => c.Type == AssetType.Record)
                                            .Where(c => c.Status == UploadStatusType.Uploaded)
                                            .Where(c => c.User.OrganizationID == organizationID)
                                            .Where(c => c.User.TeamID == teamID);
@@ -52,6 +52,31 @@ namespace DAL
             {
                 query = query.Where(c => c.UserID == userID);
             }
+
+            return query.Count();
+        }
+
+        public IEnumerable<Asset> GetDefaultRecords(int take, int? skip)
+        {
+            IQueryable<Asset> query = DbSet.Where(c => c.Type == AssetType.DefaultRecords)
+                                           .Where(c => c.Status == UploadStatusType.Uploaded)
+                                           .OrderByDescending(c => c.Created);
+
+            query = query.Take(take);
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            return query;
+        }
+
+        public int GetDefaultRecordsCount()
+        {
+            IQueryable<Asset> query = DbSet.Where(c => c.Type == AssetType.DefaultRecords)
+                                           .Where(c => c.Status == UploadStatusType.Uploaded)
+                                           .OrderByDescending(c => c.Created);
 
             return query.Count();
         }
