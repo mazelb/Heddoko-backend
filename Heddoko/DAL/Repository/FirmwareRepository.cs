@@ -50,5 +50,10 @@ namespace DAL
                         .OrderByDescending(c => c.Created)
                         .FirstOrDefault(c => c.Type == type);
         }
+
+        public int GetCountByType(FirmwareType type)
+        {
+            return DbSet.Count(c => c.Status == FirmwareStatusType.Active && c.Type == type);
+        }
     }
 }

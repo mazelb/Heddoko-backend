@@ -9,5 +9,6 @@ namespace DAL
         IEnumerable<Firmware> Search(string value, bool isDeleted);
         IEnumerable<Firmware> GetByType(FirmwareType type);
         Firmware LastFirmwareByType(FirmwareType software);
+        int GetCountByType(FirmwareType type);
     }
 }
