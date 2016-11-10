@@ -260,7 +260,6 @@
     <Content Include="Content\css\kendo.min.css">
       <DependentUpon>kendo.css</DependentUpon>
     </Content>
-    <Content Include="Content\css\styles.css" />
     <Content Include="Content\demo\aslr\analysis\sagittal.mp4" />
     <Content Include="Content\demo\aslr\left\coronal.mp4" />
     <Content Include="Content\demo\aslr\left\sagittal.mp4" />
@@ -689,7 +688,6 @@
     <Content Include="Scripts\js\admin\validator.js" />
     <Content Include="Scripts\js\app.js" />
     <Content Include="Scripts\js\general.js" />
-    <Content Include="Scripts\js\scripts.js" />
     <Content Include="Scripts\kendo\angular.min.js" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.en.min.js" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.en.min.js.map" />
@@ -925,7 +923,6 @@
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\Shared\_LayoutAngular.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Analyst\Index.cshtml" />
