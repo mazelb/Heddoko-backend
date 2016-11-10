@@ -92,8 +92,7 @@ namespace Heddoko.Controllers.API
                             if (model.Type != AssetType.Log &&
                                 model.Type != AssetType.Record &&
                                 model.Type != AssetType.Setting &&
-                                model.Type != AssetType.SystemLog &&
-                                model.Type != AssetType.DefaultRecords)
+                                model.Type != AssetType.SystemLog)
                             {
                                 throw new APIException(ErrorAPIType.AssetType, $"{Resources.Wrong} type");
                             }
@@ -190,9 +189,10 @@ namespace Heddoko.Controllers.API
         /// <param name="skip">The amoun of skip entries</param>
         [Route("list/{take:int}/{skip:int?}")]
         [Route("list/{userID:int?}/{take:int}/{skip:int?}")]
+        [Route("list/{userID:int?}/{type:int}/{take:int}/{skip:int?}")]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
-        public ListAPIViewModel<Asset> List(int take = 100, int? userID = null, int? skip = 0)
+        public ListAPIViewModel<Asset> List(int take = 100, int? userID = null, int? skip = 0, AssetType type = AssetType.Record)
         {
             if (!CurrentUser.OrganizationID.HasValue)
             {
@@ -210,7 +210,7 @@ namespace Heddoko.Controllers.API
                 userID = CurrentUser.ID;
             }
 
-            return new ListAPIViewModel<Asset>()
+            return new ListAPIViewModel<Asset>
             {
                 Collection = UoW.AssetRepository.GetRecordByOrganization(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value, take, skip, userID).ToList(),
                 TotalCount = UoW.AssetRepository.GetRecordByOrganizationCount(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value, userID)
