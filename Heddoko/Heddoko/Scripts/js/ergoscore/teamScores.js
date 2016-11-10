@@ -62,7 +62,10 @@ var TeamScores = {
                     },
                     {
                         field: "score",
-                        title: i18n.Resources.Ergoscore
+                        title: i18n.Resources.Ergoscore,
+                        template: function(e) {
+                            return Format.ergoscore.score(e.score);
+                        }
                     }
                 ]
             }).data("kendoGrid");

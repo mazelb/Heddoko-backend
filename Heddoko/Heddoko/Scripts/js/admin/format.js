@@ -391,5 +391,12 @@
 
             return '<span class="k-grid-showText">' + item + '</span>';
         }
+    },
+    ergoscore: {
+        score: function (item) {
+            item = item != null ? item.toFixed(2) : "";
+
+            return item;
+        }
     }
 };
