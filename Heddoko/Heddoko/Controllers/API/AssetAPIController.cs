@@ -229,17 +229,5 @@ namespace Heddoko.Controllers.API
                 TotalCount = UoW.AssetRepository.GetRecordByOrganizationCount(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value, userID)
             };
         }
-
-        [Route("defaultrecords/{take:int}/{skip:int?}")]
-        [HttpGet]
-        [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
-        public ListAPIViewModel<Asset> DefaultRecords(int take = 100, int? skip = 0)
-        {
-            return new ListAPIViewModel<Asset>
-            {
-                Collection = UoW.AssetRepository.GetDefaultRecords(take, skip).ToList(),
-                TotalCount = UoW.AssetRepository.GetDefaultRecordsCount()
-            };
-        }
     }
 }
