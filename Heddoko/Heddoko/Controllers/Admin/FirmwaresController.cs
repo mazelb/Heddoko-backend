@@ -155,9 +155,20 @@ namespace Heddoko.Controllers
 
             UoW.FirmwareRepository.Create(item);
 
+            AssetType assetType;
+            switch (item.Type)
+            {
+                case FirmwareType.DefaultRecords:
+                    assetType = AssetType.DefaultRecords;
+                    break;
+                default:
+                    assetType = AssetType.Firmware;
+                    break;
+            }
+
             Asset asset = new Asset
             {
-                Type = AssetType.Firmware,
+                Type = assetType,
                 Proccessing = AssetProccessingType.None,
                 Status = UploadStatusType.New
             };
