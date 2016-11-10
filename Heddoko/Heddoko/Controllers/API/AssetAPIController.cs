@@ -92,7 +92,8 @@ namespace Heddoko.Controllers.API
                             if (model.Type != AssetType.Log &&
                                 model.Type != AssetType.Record &&
                                 model.Type != AssetType.Setting &&
-                                model.Type != AssetType.SystemLog)
+                                model.Type != AssetType.SystemLog &&
+                                model.Type != AssetType.DefaultRecords)
                             {
                                 throw new APIException(ErrorAPIType.AssetType, $"{Resources.Wrong} type");
                             }
