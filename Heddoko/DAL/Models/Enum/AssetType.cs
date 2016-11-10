@@ -21,6 +21,8 @@
         [StringValue(Constants.Assets.Record)]
         Record = 8,
         [StringValue(Constants.Assets.DefaultRecords)]
-        DefaultRecords = 9
+        DefaultRecords = 9,
+        [StringValue(Constants.Assets.Guide)]
+        Guide = 10
     }
 }

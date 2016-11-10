@@ -162,6 +162,9 @@ namespace Heddoko.Controllers
             AssetType assetType;
             switch (item.Type)
             {
+                case FirmwareType.Guide:
+                    assetType = AssetType.Guide;
+                    break;
                 case FirmwareType.DefaultRecords:
                     assetType = AssetType.DefaultRecords;
                     break;
