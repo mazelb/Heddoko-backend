@@ -65,7 +65,7 @@ namespace Services
         {
             UnitOfWork UoW = new UnitOfWork();
             Asset asset = UoW.AssetRepository.Get(assetId);
-            string path = Config.BaseDirectory + "/tempFrames/" + asset.Name + "temp";
+            string path = Path.Combine(Config.BaseDirectory, "Download", "Frames", asset.Name + "temp");
 
             DownloadToFile(asset.Url, container, path);
             FileParser.AddProcessedFramesToDb(path);
