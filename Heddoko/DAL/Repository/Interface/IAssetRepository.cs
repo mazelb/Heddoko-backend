@@ -9,5 +9,9 @@ namespace DAL
         IEnumerable<Asset> GetRecordByOrganization(int organizationID, int teamID, int take, int? skip = 0, int? userID = null);
 
         int GetRecordByOrganizationCount(int organizationID, int teamID, int? userID = null);
+
+        IEnumerable<Asset> GetDefaultRecords(int take, int? skip = 0);
+
+        int GetDefaultRecordsCount();
     }
 }
