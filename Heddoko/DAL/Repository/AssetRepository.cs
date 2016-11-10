@@ -75,8 +75,7 @@ namespace DAL
         public int GetDefaultRecordsCount()
         {
             IQueryable<Asset> query = DbSet.Where(c => c.Type == AssetType.DefaultRecords)
-                                           .Where(c => c.Status == UploadStatusType.Uploaded)
-                                           .OrderByDescending(c => c.Created);
+                                           .Where(c => c.Status == UploadStatusType.Uploaded);
 
             return query.Count();
         }
