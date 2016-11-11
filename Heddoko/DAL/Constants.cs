@@ -36,6 +36,7 @@
             public const string Setting = "settings";
             public const string Record = "records";
             public const string DefaultRecords = "defaultrecords";
+            public const string Guide = "guide";
         }
 
         public static class Roles
