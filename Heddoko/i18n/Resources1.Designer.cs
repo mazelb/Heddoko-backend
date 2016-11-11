@@ -1366,6 +1366,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ergoscore.
+        /// </summary>
+        public static string Ergoscore {
+            get {
+                return ResourceManager.GetString("Ergoscore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {

@@ -446,7 +446,8 @@ i18n.Resources = (function () {
   "LicenseRemovedFromOrganization": "License {0} has been removed from your organization",
   "LicenseAddedToUser": "License {0} has been assigned to you",
   "LicenseChangedForUser": "Your license has been changed to {0}",
-  "LicenseRemovedFromUser": "License {0} has been unassigned from you"
+  "LicenseRemovedFromUser": "License {0} has been unassigned from you",
+  "Ergoscore": "Ergoscore"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

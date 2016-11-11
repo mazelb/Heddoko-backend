@@ -280,6 +280,8 @@
     <Compile Include="Models\Enum\DeviceType.cs" />
     <Compile Include="Models\Enum\ReadStatus.cs" />
     <Compile Include="Models\MongoDocuments\ErgoScoreMultiResult.cs" />
+    <Compile Include="Models\ErgoScore.cs" />
+    <Compile Include="Models\MongoDocuments\ErgoScoreTeamResult.cs" />
     <Compile Include="Models\MongoDocuments\ErgoScoreResult.cs" />
     <Compile Include="Models\MongoDocuments\Notifications\UserEvent.cs" />
     <Compile Include="Models\Enum\UserEventStatus.cs" />

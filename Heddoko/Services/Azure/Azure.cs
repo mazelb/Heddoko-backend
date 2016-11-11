@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using DAL;
+using DAL.Models;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Hangfire;
@@ -45,8 +46,8 @@ namespace Services
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Config.StorageConnectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
             CloudBlobContainer blobContainer = blobClient.GetContainerReference(container);
+            
             CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(url);
 
             blockBlob.DownloadToFile(path, FileMode.OpenOrCreate);
@@ -60,9 +61,13 @@ namespace Services
             }      
         }
 
-        public static void AddFramesToDatabase(string url, string container, string path)
+        public static void AddFramesToDatabase(int assetId, string container)
         {
-            DownloadToFile(url, container, path);
+            UnitOfWork UoW = new UnitOfWork();
+            Asset asset = UoW.AssetRepository.Get(assetId);
+            string path = Path.Combine(Config.BaseDirectory, "Download", "Frames", asset.Name + "temp");
+
+            DownloadToFile(asset.Url, container, path);
             FileParser.AddProcessedFramesToDb(path);
 
             DeleteFile(path);
