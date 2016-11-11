@@ -5,10 +5,12 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using DAL.Models.Enum;
 using Hangfire;
 using Heddoko.Models;
 using i18n;
 using Microsoft.AspNet.Identity;
+using Services;
 using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers
@@ -24,7 +26,7 @@ namespace Heddoko.Controllers
 
         public LicensesController() { }
 
-        public LicensesController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+        public LicensesController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<LicenseAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -154,7 +156,8 @@ namespace Heddoko.Controllers
                 UoW.LicenseRepository.Create(item);
 
                 // Task.Run(() => Mailer.SendInviteAdminEmail(item));
-                BackgroundJob.Enqueue(() => Services.LicenseManager.Check());
+                BackgroundJob.Enqueue(() => LicenseManager.Check());
+                BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseAddedToOrganization(item.Organization.Id, item.Id));
 
                 response = Convert(item);
             }
@@ -224,6 +227,11 @@ namespace Heddoko.Controllers
             License item = UoW.LicenseRepository.Get(id);
             item.Status = LicenseStatusType.Deleted;
             UoW.Save();
+
+            if (item.OrganizationID != null)
+            {
+                BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseRemovedFromOrganization(item.OrganizationID.Value, item.Id));
+            }
 
             return new KendoResponse<LicenseAPIModel>
             {

@@ -1789,11 +1789,56 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to License {0} has been added to your organization.
+        /// </summary>
+        public static string LicenseAddedToOrganization {
+            get {
+                return ResourceManager.GetString("LicenseAddedToOrganization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License {0} has been assigned to you.
+        /// </summary>
+        public static string LicenseAddedToUser {
+            get {
+                return ResourceManager.GetString("LicenseAddedToUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License Admin.
         /// </summary>
         public static string LicenseAdmin {
             get {
                 return ResourceManager.GetString("LicenseAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your license has been changed to {0}.
+        /// </summary>
+        public static string LicenseChangedForUser {
+            get {
+                return ResourceManager.GetString("LicenseChangedForUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License {0} is expired.
+        /// </summary>
+        public static string LicenseExpired {
+            get {
+                return ResourceManager.GetString("LicenseExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License {0} is expiring at {1}.
+        /// </summary>
+        public static string LicenseExpiring {
+            get {
+                return ResourceManager.GetString("LicenseExpiring", resourceCulture);
             }
         }
         
@@ -1812,6 +1857,24 @@ namespace i18n {
         public static string LicenseIsNotReady {
             get {
                 return ResourceManager.GetString("LicenseIsNotReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License {0} has been removed from your organization.
+        /// </summary>
+        public static string LicenseRemovedFromOrganization {
+            get {
+                return ResourceManager.GetString("LicenseRemovedFromOrganization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License {0} has been unassigned from you.
+        /// </summary>
+        public static string LicenseRemovedFromUser {
+            get {
+                return ResourceManager.GetString("LicenseRemovedFromUser", resourceCulture);
             }
         }
         
@@ -3342,6 +3405,24 @@ namespace i18n {
         public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel for receiving stream was closed for your team.
+        /// </summary>
+        public static string StreamChannelClosed {
+            get {
+                return ResourceManager.GetString("StreamChannelClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel for receiving stream was opened for your team.
+        /// </summary>
+        public static string StreamChannelOpened {
+            get {
+                return ResourceManager.GetString("StreamChannelOpened", resourceCulture);
             }
         }
         

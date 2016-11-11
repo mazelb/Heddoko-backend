@@ -97,6 +97,7 @@ namespace DAL
                         .Include(c => c.Kits)
                         .Include(c => c.Kits.Select(k => k.Brainpack))
                         .Include(c => c.Roles.Select(r => r.Role))
+                        .Include(c => c.Devices)
                         .FirstOrDefault(c => c.Id == id);
         }
 

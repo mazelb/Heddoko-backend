@@ -268,12 +268,24 @@
     <Compile Include="Migrations\201610200954010_RemoveUserTokens.Designer.cs">
       <DependentUpon>201610200954010_RemoveUserTokens.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611021554468_AddUserDevices.cs" />
+    <Compile Include="Migrations\201611021554468_AddUserDevices.Designer.cs">
+      <DependentUpon>201611021554468_AddUserDevices.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
+    <Compile Include="Models\Device.cs" />
+    <Compile Include="Models\Enum\DeviceStatus.cs" />
+    <Compile Include="Models\Enum\DeviceType.cs" />
+    <Compile Include="Models\Enum\ReadStatus.cs" />
+    <Compile Include="Models\MongoDocuments\ErgoScoreMultiResult.cs" />
     <Compile Include="Models\ErgoScore.cs" />
     <Compile Include="Models\MongoDocuments\ErgoScoreTeamResult.cs" />
     <Compile Include="Models\MongoDocuments\ErgoScoreResult.cs" />
+    <Compile Include="Models\MongoDocuments\Notifications\UserEvent.cs" />
+    <Compile Include="Models\Enum\UserEventStatus.cs" />
+    <Compile Include="Models\Enum\UserEventType.cs" />
     <Compile Include="Models\Streaming\Channel.cs" />
     <Compile Include="Models\Enum\AssetsProccesingType.cs" />
     <Compile Include="Models\Enum\AssembliesType.cs" />
@@ -347,7 +359,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AssetRepository.cs" />
     <Compile Include="Repository\BaseCacheRepository.cs" />
+    <Compile Include="Repository\DeviceRepository.cs" />
+    <Compile Include="Repository\Interface\IDeviceRepository.cs" />
     <Compile Include="Repository\Interface\IProcessedFrameRepository.cs" />
+    <Compile Include="Repository\Interface\IUserActivityRepository.cs" />
     <Compile Include="Repository\MongoDbRepository.cs" />
     <Compile Include="Repository\Interface\IMongoDbRepository.cs" />
     <Compile Include="Repository\Interface\IAssemblyCacheRepositoy.cs" />
@@ -393,6 +408,7 @@
     <Compile Include="Repository\Interface\IAssetRepository.cs" />
     <Compile Include="Repository\Interface\IUserRepository.cs" />
     <Compile Include="Repository\AssemblyCacheRepository.cs" />
+    <Compile Include="Repository\UserActivityRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Models\MongoDocuments\Results.cs" />
@@ -464,6 +480,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610200954010_RemoveUserTokens.resx">
       <DependentUpon>201610200954010_RemoveUserTokens.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611021554468_AddUserDevices.resx">
+      <DependentUpon>201611021554468_AddUserDevices.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

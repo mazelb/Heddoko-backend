@@ -383,12 +383,14 @@ namespace Heddoko.Controllers
                 }
                 else
                 {
-                    CurrentUser.FirstName = model.FirstName?.Trim();
-                    CurrentUser.UserName = model.Username?.Trim().ToLower();
-                    CurrentUser.LastName = model.LastName?.Trim();
-                    CurrentUser.PhoneNumber = model.Phone?.Trim();
-                    CurrentUser.Country = model.Country?.Trim();
-                    CurrentUser.BirthDay = model.Birthday;
+                    User currentUser = UoW.UserRepository.Get(CurrentUser.Id);
+
+                    currentUser.FirstName = model.FirstName?.Trim();
+                    currentUser.UserName = model.Username?.Trim().ToLower();
+                    currentUser.LastName = model.LastName?.Trim();
+                    currentUser.PhoneNumber = model.Phone?.Trim();
+                    currentUser.Country = model.Country?.Trim();
+                    currentUser.BirthDay = model.Birthday;
 
                     if (!string.IsNullOrEmpty(model.NewPassord))
                     {
@@ -403,11 +405,11 @@ namespace Heddoko.Controllers
 
                     if (await UserManager.IsInRoleAsync(CurrentUser.Id, DAL.Constants.Roles.LicenseAdmin))
                     {
-                        CurrentUser.Organization.Address = model.Address;
+                        currentUser.Organization.Address = model.Address;
                     }
 
                     UoW.Save();
-                    UoW.UserRepository.SetCache(CurrentUser);
+                    UoW.UserRepository.SetCache(currentUser);
 
                     model.Flash.Add(new FlashMessage
                     {

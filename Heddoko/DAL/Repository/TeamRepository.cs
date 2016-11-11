@@ -16,6 +16,8 @@ namespace DAL
         public override Team GetFull(int id)
         {
             return DbSet.Include(c => c.Organization)
+                        .Include(c => c.Users)
+                        .Include(c => c.Users.Select(u => u.Devices))
                         .FirstOrDefault(c => c.Id == id);
         }
 

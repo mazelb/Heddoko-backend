@@ -228,7 +228,7 @@ namespace Heddoko.Controllers.API
                 userID = CurrentUser.Id;
             }
 
-            return new ListAPIViewModel<Asset>()
+            return new ListAPIViewModel<Asset>
             {
                 Collection = UoW.AssetRepository.GetRecordByOrganization(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value, take, skip, userID).ToList(),
                 TotalCount = UoW.AssetRepository.GetRecordByOrganizationCount(CurrentUser.OrganizationID.Value, CurrentUser.TeamID.Value, userID)

@@ -72,6 +72,8 @@ namespace DAL.Migrations
             RenameColumn("dbo.AspNetUsers", "Username", "UserName");
             AlterColumn("dbo.AspNetUsers", "UserName", c => c.String(nullable: false, maxLength: 256));
             CreateIndex("dbo.AspNetUsers", "UserName", unique: true, name: "UserNameIndex");
+
+            Sql("UPDATE dbo.AspNetUsers SET SecurityStamp = NEWID() WHERE SecurityStamp IS NULL");
         }
 
         public override void Down()

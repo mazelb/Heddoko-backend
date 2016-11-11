@@ -260,7 +260,6 @@
     <Content Include="Content\css\kendo.min.css">
       <DependentUpon>kendo.css</DependentUpon>
     </Content>
-    <Content Include="Content\css\styles.css" />
     <Content Include="Content\demo\aslr\analysis\sagittal.mp4" />
     <Content Include="Content\demo\aslr\left\coronal.mp4" />
     <Content Include="Content\demo\aslr\left\sagittal.mp4" />
@@ -690,7 +689,6 @@
     <Content Include="Scripts\js\admin\validator.js" />
     <Content Include="Scripts\js\app.js" />
     <Content Include="Scripts\js\general.js" />
-    <Content Include="Scripts\js\scripts.js" />
     <Content Include="Scripts\kendo\angular.min.js" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.en.min.js" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.en.min.js.map" />
@@ -827,6 +825,7 @@
     <Compile Include="Helpers\MVC\IsCurrentAction.cs" />
     <Compile Include="Helpers\MVC\PosivitiveNumberAttribute.cs" />
     <Compile Include="Helpers\Utility.cs" />
+    <Compile Include="Hubs\NotificationsHub.cs" />
     <Compile Include="Hubs\StreamingHub.cs" />
     <Compile Include="Models\Account\InviteViewModel.cs" />
     <Compile Include="Models\Account\ConfirmViewModel.cs" />
@@ -870,12 +869,15 @@
     <Compile Include="Models\API\AssetAPIViewModel.cs" />
     <Compile Include="Models\API\GroupErgoScoreAPIModel.cs" />
     <Compile Include="Models\API\SignInAPIViewModel.cs" />
+    <Compile Include="Models\API\SubscribeTokenAPIViewModel.cs" />
+    <Compile Include="Models\API\UnsubscribeTokenAPIViewModel.cs" />
     <Compile Include="Models\Default\DefaultIndexViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\ErgoScore\ErgoScoreViewModel.cs" />
     <Compile Include="Models\Error\API\ErrorAPIViewModel.cs" />
     <Compile Include="Models\Error\ErrorViewModel.cs" />
     <Compile Include="Models\FlashMessagesViewModel.cs" />
+    <Compile Include="Models\Notifications\NotificationMessage.cs" />
     <Compile Include="Models\Organization\OrganizationIndexViewModel.cs" />
     <Compile Include="Models\Streaming\StreamMessage.cs" />
     <Compile Include="Models\Streaming\StreamMessageType.cs" />
@@ -924,7 +926,6 @@
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\Shared\_LayoutAngular.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Analyst\Index.cshtml" />

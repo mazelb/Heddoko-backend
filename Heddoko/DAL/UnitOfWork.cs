@@ -71,6 +71,10 @@ namespace DAL
 
         private IProcessedFrameRepository _processedFrameRepository;
 
+        private IUserActivityRepository _userActivityRepository;
+
+        private IDeviceRepository _deviceRepository;
+
         #endregion
 
         #region PublicRepository
@@ -116,6 +120,10 @@ namespace DAL
         public IStreamConnectionsCacheRepository StreamConnectionsCacheRepository => _streamConnectionsCacheRepository ?? (_streamConnectionsCacheRepository = new StreamConnectionsCacheRepository());
 
         public IProcessedFrameRepository ProcessedFrameRepository => _processedFrameRepository ?? (_processedFrameRepository = new ProcessedFrameRepository(_mongodb));
+
+        public IUserActivityRepository UserActivityRepository => _userActivityRepository ?? (_userActivityRepository = new UserActivityRepository(_mongodb));
+
+        public IDeviceRepository DeviceRepository => _deviceRepository ?? (_deviceRepository = new DeviceRepository(_db));
 
         #endregion
 

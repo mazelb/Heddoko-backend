@@ -169,6 +169,11 @@ namespace DAL
             return string.IsNullOrWhiteSpace(resourceDisplayName) ? key : resourceDisplayName;
         }
 
+        public static string NormalizeToken(this string value)
+        {
+            return value?.Replace(" ", string.Empty).Replace("<", string.Empty).Replace(">", string.Empty);
+        }
+
         #endregion
 
         #region Enums
@@ -182,9 +187,9 @@ namespace DAL
 
             foreach (object enumValue in values)
             {
-                if (value.HasFlag((Enum) enumValue))
+                if (value.HasFlag((Enum)enumValue))
                 {
-                    result.Add(((Enum) enumValue).ToString().ToLower());
+                    result.Add(((Enum)enumValue).ToString().ToLower());
                 }
             }
 
@@ -199,9 +204,9 @@ namespace DAL
 
             foreach (object enumValue in values)
             {
-                if (value.HasFlag((Enum) enumValue))
+                if (value.HasFlag((Enum)enumValue))
                 {
-                    result.Add(((Enum) enumValue).GetDisplayName());
+                    result.Add(((Enum)enumValue).GetDisplayName());
                 }
             }
 
