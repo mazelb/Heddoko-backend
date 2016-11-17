@@ -52,5 +52,25 @@ namespace DAL
                         .Where(c => c.OrganizationID == organizationID)
                         .OrderBy(c => c.Name);
         }
+
+        public IEnumerable<Team> GetAllAPI(int take, int? skip = 0)
+        {
+            IQueryable<Team> query = DbSet.Where(c => c.Status != TeamStatusType.Deleted)
+                                          .OrderBy(c => c.Name);
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            query = query.Take(take);
+
+            return query;
+        }
+
+        public int GetAllAPICount()
+        {
+            return DbSet.Count(c => c.Status != TeamStatusType.Deleted);
+        }
     }
 }

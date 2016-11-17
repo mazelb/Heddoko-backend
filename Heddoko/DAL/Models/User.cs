@@ -197,6 +197,8 @@ namespace DAL.Models
                         return UserRoleType.Analyst;
                     case LicenseType.DataCollection:
                         return UserRoleType.Worker;
+                    case LicenseType.Universal:
+                        return UserRoleType.LicenseUniversal;
                     default:
                         return UserRoleType.User;
                 }

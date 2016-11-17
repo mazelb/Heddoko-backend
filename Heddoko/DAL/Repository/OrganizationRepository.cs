@@ -46,5 +46,25 @@ namespace DAL
                                     || c.Address.ToLower().Contains(value.ToLower())
                                     || c.Phone.ToLower().Contains(value.ToLower()));
         }
+
+        public IEnumerable<Organization> GetAllAPI(int take, int? skip = 0)
+        {
+            IQueryable<Organization> query = DbSet.Where(c => c.Status != OrganizationStatusType.Deleted)
+                                                  .OrderBy(c => c.Name);
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            query = query.Take(take);
+
+            return query;
+        }
+
+        public int GetAllAPICount()
+        {
+            return DbSet.Count(c => c.Status != OrganizationStatusType.Deleted);
+        }
     }
 }

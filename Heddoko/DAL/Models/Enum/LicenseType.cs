@@ -4,6 +4,7 @@
     {
         No = 0,
         DataCollection = 1,
-        DataAnalysis = 2
+        DataAnalysis = 2,
+        Universal = 3
     }
 }

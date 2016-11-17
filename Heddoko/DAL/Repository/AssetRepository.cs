@@ -55,5 +55,28 @@ namespace DAL
 
             return query.Count();
         }
+
+        public IEnumerable<Asset> GetAllRecords(int take, int? skip)
+        {
+            IQueryable<Asset> query = DbSet.Include(c => c.User)
+                                           .Where(c => c.Type == AssetType.Record)
+                                           .Where(c => c.Status == UploadStatusType.Uploaded)
+                                           .OrderByDescending(c => c.Created);
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            query = query.Take(take);
+
+            return query;
+        }
+
+        public int GetAllRecordsCount()
+        {
+            return DbSet.Count(c => c.Type == AssetType.Record &&
+                                    c.Status == UploadStatusType.Uploaded);
+        }
     }
 }
