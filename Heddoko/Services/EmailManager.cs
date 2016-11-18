@@ -73,7 +73,10 @@ namespace Services
             UnitOfWork uow = new UnitOfWork();
             License expiringLicense = uow.LicenseRepository.GetFull(licenseId);
 
-            Mailer.SendLicenseExpiringEmail(expiringLicense);
+            if (expiringLicense.Organization != null)
+            {
+                Mailer.SendLicenseExpiringOrganizationEmail(expiringLicense);
+            }
         }
 
         [Queue(Constants.HangFireQueue.Email)]
@@ -84,6 +87,16 @@ namespace Services
             User user = uow.UserRepository.GetIDCached(userId);
 
             Mailer.SendLicenseExpiringAdminEmail(user, expiringLicense);
+        }
+
+        [Queue(Constants.HangFireQueue.Email)]
+        public static void SendLicenseExpiringToUser(int userId, int licenseId)
+        {
+            UnitOfWork uow = new UnitOfWork();
+            License expiringLicense = uow.LicenseRepository.GetFull(licenseId);
+            User user = uow.UserRepository.GetIDCached(userId);
+
+            Mailer.SendLicenseExpiringUserEmail(user, expiringLicense);
         }
     }
 }

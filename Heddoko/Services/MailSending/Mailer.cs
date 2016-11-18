@@ -147,7 +147,7 @@ namespace Services.MailSending
             SendGridMail.Send(subject, body, user.Email);
         }
 
-        public static void SendLicenseExpiringEmail(License license)
+        public static void SendLicenseExpiringOrganizationEmail(License license)
         {
             var mailModel = new LicenseExpiringEmailViewModel
             {
@@ -168,6 +168,11 @@ namespace Services.MailSending
 
         public static void SendLicenseExpiringAdminEmail(User admin, License license)
         {
+            if (admin.RoleName != Constants.Roles.Admin)
+            {
+                return;
+            }
+
             var mailModel = new LicenseExpiringEmailViewModel
             {
                 Name = admin.Name,
@@ -183,6 +188,29 @@ namespace Services.MailSending
             string body = razorView.RenderViewToString("LicenseExpiringAdminEmail", mailModel);
 
             SendGridMail.Send(subject, body, admin.Email);
+        }
+
+        public static void SendLicenseExpiringUserEmail(User user, License license)
+        {
+            if (user.LicenseID != license.Id)
+            {
+                return;
+            }
+
+            var mailModel = new LicenseExpiringEmailViewModel
+            {
+                Name = user.Name,
+                Days = (license.ExpirationAt.Date - DateTime.Now.Date).Days,
+                LicenseName = license.Name,
+                ExpirationAt = license.ExpirationAt,
+                Email = user.Email
+            };
+
+            string subject = Resources.LicenseIsExpiring;
+
+            string body = razorView.RenderViewToString("LicenseExpiringEmail", mailModel);
+
+            SendGridMail.Send(subject, body, user.Email);
         }
     }
 }

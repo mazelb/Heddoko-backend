@@ -29,9 +29,17 @@ namespace Services
 
                 DateTime today = DateTime.Now.StartOfDay();
 
-                foreach (License license in updatedLicenses.Where(l => l.ExpirationAt < today && l.OrganizationID.HasValue))
+                foreach (License license in updatedLicenses.Where(l => l.ExpirationAt < today))
                 {
-                    BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiredToOrganization(license.OrganizationID.Value, license.Id));
+                    if (license.OrganizationID.HasValue)
+                    {
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiredToOrganization(license.OrganizationID.Value, license.Id));
+                    }
+
+                    foreach (User user in license.Users)
+                    {
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiredToUser(user.Id, license.Id));
+                    }
                 }
             }
             catch (Exception ex)
@@ -52,7 +60,16 @@ namespace Services
                 {
                     BackgroundJob.Enqueue(() => EmailManager.SendLicenseExpiringToOrganization(license.Id));
 
-                    BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiringToOrganization(license.OrganizationID.Value, license.Id));
+                    if (license.OrganizationID.HasValue)
+                    {
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiringToOrganization(license.OrganizationID.Value, license.Id));
+                    }
+
+                    foreach (User user in license.Users)
+                    {
+                        BackgroundJob.Enqueue(() => EmailManager.SendLicenseExpiringToUser(user.Id, license.Id));
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiringToUser(user.Id, license.Id));
+                    }
                 }
 
             }

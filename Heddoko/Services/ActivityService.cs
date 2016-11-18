@@ -117,6 +117,22 @@ namespace Services
             SendUserEvent(userEvent);
         }
 
+        [Queue(Constants.HangFireQueue.Notifications)]
+        public static void NotifyLicenseExpiringToUser(int userId, int licenseId)
+        {
+            var userEvent = CreateLicenseEvent(licenseId, userId, UserEventType.LicenseExpiring);
+
+            SendUserEvent(userEvent);
+        }
+
+        [Queue(Constants.HangFireQueue.Notifications)]
+        public static void NotifyLicenseExpiredToUser(int userId, int licenseId)
+        {
+            var userEvent = CreateLicenseEvent(licenseId, userId, UserEventType.LicenseExpired);
+
+            SendUserEvent(userEvent);
+        }
+
         private static void SendUserEvent(UserEvent userEvent, UnitOfWork unitOfWork = null)
         {
             if (unitOfWork == null)

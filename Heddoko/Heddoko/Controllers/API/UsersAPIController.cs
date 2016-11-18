@@ -115,7 +115,7 @@ namespace Heddoko.Controllers.API
                     UoW.Save();
                     UoW.UserRepository.ClearCache(user);
 
-                    if (user.License.Status == LicenseStatusType.Expired)
+                    if (user.License.Status == LicenseStatusType.Expired && user.License.OrganizationID.HasValue)
                     {
                         BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiredToOrganization(user.License.OrganizationID.Value, user.License.Id));
                     }
