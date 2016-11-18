@@ -447,7 +447,10 @@ i18n.Resources = (function () {
   "LicenseAddedToUser": "License {0} has been assigned to you",
   "LicenseChangedForUser": "Your license has been changed to {0}",
   "LicenseRemovedFromUser": "License {0} has been unassigned from you",
-  "Ergoscore": "Ergoscore"
+  "Ergoscore": "Ergoscore",
+  "LicenseRemovedFromUser": "License {0} has been unassigned from you",
+  "IsInvalidMessage": "{0} is invalid",
+  "WrongFilesCount": "The number of files must be greater than or or equal to {0} and less than or equal to {1}"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

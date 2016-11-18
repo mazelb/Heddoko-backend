@@ -10,5 +10,9 @@ namespace DAL
         IEnumerable<Organization> All(bool isDeleted = false);
 
         IEnumerable<Organization> Search(string search, bool isDeleted = false);
+
+        IEnumerable<Organization> GetAllAPI(int take, int? skip = 0);
+
+        int GetAllAPICount();
     }
 }

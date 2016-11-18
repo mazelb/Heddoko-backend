@@ -75,6 +75,8 @@ namespace DAL
 
         private IDeviceRepository _deviceRepository;
 
+        private IRecordRepository _recordRepository;
+
         #endregion
 
         #region PublicRepository
@@ -124,6 +126,8 @@ namespace DAL
         public IUserActivityRepository UserActivityRepository => _userActivityRepository ?? (_userActivityRepository = new UserActivityRepository(_mongodb));
 
         public IDeviceRepository DeviceRepository => _deviceRepository ?? (_deviceRepository = new DeviceRepository(_db));
+
+        public IRecordRepository RecordRepository => _recordRepository ?? (_recordRepository = new RecordRepository(_db));
 
         #endregion
 

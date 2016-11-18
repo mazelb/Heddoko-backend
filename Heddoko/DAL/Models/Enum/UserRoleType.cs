@@ -13,6 +13,8 @@
         [StringValue(Constants.Roles.Worker)]
         Worker = 4,
         [StringValue(Constants.Roles.ServiceAdmin)]
-        ServiceAdmin = 5
+        ServiceAdmin = 5,
+        [StringValue(Constants.Roles.LicenseUniversal)]
+        LicenseUniversal = 6
     }
 }

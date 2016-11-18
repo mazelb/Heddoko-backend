@@ -45,6 +45,11 @@ namespace DAL.Models
         [JsonIgnore]
         public virtual Kit Kit { get; set; }
 
+        public int? RecordID { get; set; }
+
+        [JsonIgnore]
+        public virtual Record Record { get; set; }
+
         #endregion
     }
 }

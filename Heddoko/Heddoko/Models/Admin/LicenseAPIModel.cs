@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using DAL.Models;
+using Heddoko.Helpers.MVC;
 using i18n;
 
 namespace Heddoko.Models
@@ -11,6 +12,7 @@ namespace Heddoko.Models
 
         public uint Amount { get; set; }
 
+        [DisallowEnumValue(typeof(LicenseType), LicenseType.Universal, ErrorMessageResourceName = "IsInvalidMessage", ErrorMessageResourceType = typeof(Resources))]
         public LicenseType Type { get; set; }
 
         [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]

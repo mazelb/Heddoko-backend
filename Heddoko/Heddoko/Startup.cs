@@ -1,10 +1,12 @@
 ﻿using DAL;
+using DAL.Models;
 using Hangfire;
 using Heddoko;
 using Heddoko.Helpers.Hangfire;
 using Heddoko.Hubs;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
+using MongoDB.Bson.Serialization;
 using Owin;
 using Services;
 
@@ -34,6 +36,8 @@ namespace Heddoko
                 () => new StreamingHub(new StreamConnectionsService(new UnitOfWork())));
 
             app.MapSignalR();
+
+            BsonClassMap.RegisterClassMap<License>();
         }
     }
 }

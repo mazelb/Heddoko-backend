@@ -1645,6 +1645,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} is invalid.
+        /// </summary>
+        public static string IsInvalidMessage {
+            get {
+                return ResourceManager.GetString("IsInvalidMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show stopper.
         /// </summary>
         public static string IssueImportance_High {
@@ -3963,6 +3972,15 @@ namespace i18n {
         public static string WrongExpirationAtDate {
             get {
                 return ResourceManager.GetString("WrongExpirationAtDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of files must be greater than or or equal to {0} and less than or equal to {1}.
+        /// </summary>
+        public static string WrongFilesCount {
+            get {
+                return ResourceManager.GetString("WrongFilesCount", resourceCulture);
             }
         }
         
