@@ -7,7 +7,7 @@ using Heddoko.Models;
 namespace Heddoko.Controllers.API
 {
     [AuthAPI(Roles = Constants.Roles.LicenseUniversal)]
-    [RoutePrefix("api/v1")]
+    [RoutePrefix("api/v1/universal")]
     public class LicenseUniversalAPIController : BaseAPIController
     {
         [Route("organizations/{take:int}/{skip:int?}")]
@@ -21,7 +21,7 @@ namespace Heddoko.Controllers.API
             };
         }
 
-        [Route("teams/{organizationId:int}/{take:int}/{skip:int?}")]
+        [Route("organizations/{organizationId:int}/teams/{take:int}/{skip:int?}")]
         [HttpGet]
         public ListAPIViewModel<Team> Teams(int organizationId, int take = 100, int? skip = 0)
         {
@@ -32,7 +32,7 @@ namespace Heddoko.Controllers.API
             };
         }
 
-        [Route("records/{teamId:int}/{take:int}/{skip:int?}")]
+        [Route("teams/{teamId:int}/records/{take:int}/{skip:int?}")]
         [HttpGet]
         public ListAPIViewModel<Record> Records(int teamId, int take = 100, int? skip = 0)
         {
