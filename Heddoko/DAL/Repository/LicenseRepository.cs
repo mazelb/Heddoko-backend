@@ -45,7 +45,7 @@ namespace DAL
             DateTime today = DateTime.Now.StartOfDay();
 
             return DbSet.Include(c => c.Organization)
-                        .Where(c => c.OrganizationID.Value == organizationID
+                        .Where(c => c.OrganizationID == organizationID
                                     && c.Status == LicenseStatusType.Active
                                     && (c.Users.Count() < c.Amount || c.Users.Any(p => p.Id == id))
                                     && c.ExpirationAt > today)
@@ -82,6 +82,7 @@ namespace DAL
             DateTime expirationDate = DateTime.Now.Date.AddDays(days);
             
             return DbSet.Include(c => c.Organization.User)
+                        .Include(c => c.Users)
                         .Where(c => c.Status != LicenseStatusType.Expired && c.Status != LicenseStatusType.Deleted
                                     && DbFunctions.TruncateTime(c.ExpirationAt) == expirationDate);
         }

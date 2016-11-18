@@ -400,7 +400,7 @@ namespace Heddoko.Controllers
                         throw new Exception(Resources.WrongObjectAccess);
                     }
 
-                    if (kit.User != null)
+                    if (kit.User != null && kit.User.Id != item.Id)
                     {
                         throw new Exception($"{Resources.Kit} {Resources.AlreadyUsed}");
                     }

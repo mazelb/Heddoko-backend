@@ -776,6 +776,7 @@
     <Compile Include="Controllers\API\ErgoScoreAPIController.cs" />
     <Compile Include="Controllers\API\FirmwareAPIController.cs" />
     <Compile Include="Controllers\API\AssetAPIController.cs" />
+    <Compile Include="Controllers\API\LicenseUniversalAPIController.cs" />
     <Compile Include="Controllers\API\StreamingAPIController.cs" />
     <Compile Include="Controllers\ErgoScoreController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
@@ -820,6 +821,7 @@
     <Compile Include="Helpers\MVC\CompareTodayAttribute.cs" />
     <Compile Include="Helpers\MVC\ContextTempData.cs" />
     <Compile Include="Helpers\MVC\CustomDirectRouteProvider.cs" />
+    <Compile Include="Helpers\MVC\DisallowEnumValueAttribute.cs" />
     <Compile Include="Helpers\MVC\IsCurrentAction.cs" />
     <Compile Include="Helpers\MVC\PosivitiveNumberAttribute.cs" />
     <Compile Include="Helpers\Utility.cs" />
@@ -865,6 +867,7 @@
     <Compile Include="Models\API\ListAPIViewModel.cs" />
     <Compile Include="Models\API\FirmwareAPIViewModel.cs" />
     <Compile Include="Models\API\AssetAPIViewModel.cs" />
+    <Compile Include="Models\API\RecordAPIViewModel.cs" />
     <Compile Include="Models\API\SignInAPIViewModel.cs" />
     <Compile Include="Models\API\SubscribeTokenAPIViewModel.cs" />
     <Compile Include="Models\API\UnsubscribeTokenAPIViewModel.cs" />

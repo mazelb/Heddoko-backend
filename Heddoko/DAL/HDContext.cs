@@ -58,6 +58,8 @@ namespace DAL
         
         public DbSet<Device> Devices { get; set; }
 
+        public DbSet<Record> Records { get; set; }
+
         public void DisableChangedAndValidation()
         {
             Configuration.AutoDetectChangesEnabled = false;

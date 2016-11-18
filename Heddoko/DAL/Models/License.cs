@@ -42,12 +42,12 @@ namespace DAL.Models
 
         [JilDirective(Ignore = true)]
         public string ViewID => $"{OrganizationID}-{Id}";
-        
+
         [JilDirective(Ignore = true)]
         public string Name => $"{Type.GetDisplayName()} {IDView} ({ExpirationAt.ToString("dd/MM/yyyy")})";
 
         [JilDirective(Ignore = true)]
-        public bool IsActive => (Type == LicenseType.DataAnalysis || Type == LicenseType.DataCollection)
+        public bool IsActive => (Type == LicenseType.DataAnalysis || Type == LicenseType.DataCollection || Type == LicenseType.Universal)
                                 && Status == LicenseStatusType.Active
                                 && ExpirationAt >= DateTime.Now;
 

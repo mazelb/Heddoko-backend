@@ -1455,4 +1455,10 @@
   <data name="LicenseRemovedFromUser" xml:space="preserve">
     <value>License {0} has been unassigned from you</value>
   </data>
+  <data name="IsInvalidMessage" xml:space="preserve">
+    <value>{0} is invalid</value>
+  </data>
+  <data name="WrongFilesCount" xml:space="preserve">
+    <value>The number of files must be greater than or or equal to {0} and less than or equal to {1}</value>
+  </data>
 </root>
