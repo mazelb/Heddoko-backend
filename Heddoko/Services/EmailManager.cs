@@ -73,10 +73,7 @@ namespace Services
             UnitOfWork uow = new UnitOfWork();
             License expiringLicense = uow.LicenseRepository.GetFull(licenseId);
 
-            if (expiringLicense.Organization != null)
-            {
-                Mailer.SendLicenseExpiringOrganizationEmail(expiringLicense);
-            }
+            Mailer.SendLicenseExpiringOrganizationEmail(expiringLicense);
         }
 
         [Queue(Constants.HangFireQueue.Email)]

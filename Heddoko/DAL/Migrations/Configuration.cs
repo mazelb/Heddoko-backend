@@ -250,19 +250,7 @@ namespace DAL.Migrations
             }
 
             var now = DateTime.Now;
-
-            var organization = user.Organization ?? new Organization { Created = now };
-
-            organization.User = user;
-            organization.Name = "Universal Organization";
-            organization.Status = OrganizationStatusType.Active;
-
-            if (organization.Id == 0)
-            {
-                unitOfWork.OrganizationRepository.Create(organization);
-                user.Organization = organization;
-            }
-
+            
             var license = user.License ?? new License { Created = now };
 
             license.Amount = 1;
@@ -270,7 +258,6 @@ namespace DAL.Migrations
             license.ExpirationAt = new DateTime(2020, now.Month, now.Day).EndOfDay();
             license.Status = LicenseStatusType.Active;
             license.Type = LicenseType.Universal;
-            license.Organization = organization;
 
             if (license.Id == 0)
             {

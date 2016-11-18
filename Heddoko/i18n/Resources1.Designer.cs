@@ -1636,6 +1636,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} is invalid.
+        /// </summary>
+        public static string IsInvalidMessage {
+            get {
+                return ResourceManager.GetString("IsInvalidMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show stopper.
         /// </summary>
         public static string IssueImportance_High {

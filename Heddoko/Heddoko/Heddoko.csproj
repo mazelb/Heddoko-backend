@@ -821,6 +821,7 @@
     <Compile Include="Helpers\MVC\CompareTodayAttribute.cs" />
     <Compile Include="Helpers\MVC\ContextTempData.cs" />
     <Compile Include="Helpers\MVC\CustomDirectRouteProvider.cs" />
+    <Compile Include="Helpers\MVC\DisallowEnumValueAttribute.cs" />
     <Compile Include="Helpers\MVC\IsCurrentAction.cs" />
     <Compile Include="Helpers\MVC\PosivitiveNumberAttribute.cs" />
     <Compile Include="Helpers\Utility.cs" />

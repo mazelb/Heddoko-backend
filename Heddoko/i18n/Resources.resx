@@ -1455,4 +1455,7 @@
   <data name="LicenseRemovedFromUser" xml:space="preserve">
     <value>License {0} has been unassigned from you</value>
   </data>
+  <data name="IsInvalidMessage" xml:space="preserve">
+    <value>{0} is invalid</value>
+  </data>
 </root>

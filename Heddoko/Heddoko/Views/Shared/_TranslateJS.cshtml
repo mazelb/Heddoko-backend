@@ -155,15 +155,18 @@
     Enums.LicenseType.array = {};
     @foreach (DAL.Models.LicenseType type in (DAL.Models.LicenseType[])Enum.GetValues(typeof(DAL.Models.LicenseType)))
     {
-        <text>
+        if (type != DAL.Models.LicenseType.Universal)
+        {
+            <text>
 
-    Enums.LicenseType.enum["@type.GetDisplayName()"] = @((int)type);
+                Enums.LicenseType.enum["@type.GetDisplayName()"] = @((int) type);
 
-    Enums.LicenseType.array[@((int)type)] = {
-        "value": @((int)type),
-        "text": "@type.GetDisplayName()"
-    };
-    </text>
+                Enums.LicenseType.array[@((int) type)] = {
+                    "value": @((int) type),
+                    "text": "@type.GetDisplayName()"
+                };
+            </text>
+        }
     }
 
 
