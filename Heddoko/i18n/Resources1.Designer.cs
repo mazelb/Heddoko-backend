@@ -3967,6 +3967,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The number of files must be greater than or or equal to {0} and less than or equal to {1}.
+        /// </summary>
+        public static string WrongFilesCount {
+            get {
+                return ResourceManager.GetString("WrongFilesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid forgot token.
         /// </summary>
         public static string WrongForgotToken {

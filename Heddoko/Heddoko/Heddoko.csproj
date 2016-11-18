@@ -777,6 +777,7 @@
     <Compile Include="Controllers\API\FirmwareAPIController.cs" />
     <Compile Include="Controllers\API\AssetAPIController.cs" />
     <Compile Include="Controllers\API\LicenseUniversalAPIController.cs" />
+    <Compile Include="Controllers\API\RecordsAPIController.cs" />
     <Compile Include="Controllers\API\StreamingAPIController.cs" />
     <Compile Include="Controllers\ErgoScoreController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
@@ -867,6 +868,7 @@
     <Compile Include="Models\API\ListAPIViewModel.cs" />
     <Compile Include="Models\API\FirmwareAPIViewModel.cs" />
     <Compile Include="Models\API\AssetAPIViewModel.cs" />
+    <Compile Include="Models\API\RecordAPIViewModel.cs" />
     <Compile Include="Models\API\SignInAPIViewModel.cs" />
     <Compile Include="Models\API\SubscribeTokenAPIViewModel.cs" />
     <Compile Include="Models\API\UnsubscribeTokenAPIViewModel.cs" />

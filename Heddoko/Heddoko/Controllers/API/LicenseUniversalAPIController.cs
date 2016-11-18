@@ -34,12 +34,12 @@ namespace Heddoko.Controllers.API
 
         [Route("records/{teamId:int}/{take:int}/{skip:int?}")]
         [HttpGet]
-        public ListAPIViewModel<Asset> Records(int teamId, int take = 100, int? skip = 0)
+        public ListAPIViewModel<Record> Records(int teamId, int take = 100, int? skip = 0)
         {
-            return new ListAPIViewModel<Asset>
+            return new ListAPIViewModel<Record>
             {
-                Collection = UoW.AssetRepository.GetRecordsByTeam(teamId, take, skip).ToList(),
-                TotalCount = UoW.AssetRepository.GetRecordsByTeamCount(teamId)
+                Collection = UoW.RecordRepository.GetRecordsByTeam(teamId, take, skip).ToList(),
+                TotalCount = UoW.RecordRepository.GetRecordsByTeamCount(teamId)
             };
         }
     }

@@ -21,6 +21,7 @@
         KitID,
         AssetType,
         UserIsNotApproved,
-        UserIsNotInTeam
+        UserIsNotInTeam,
+        FileData
     }
 }

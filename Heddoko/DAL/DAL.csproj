@@ -272,6 +272,10 @@
     <Compile Include="Migrations\201611021554468_AddUserDevices.Designer.cs">
       <DependentUpon>201611021554468_AddUserDevices.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611181429315_AddRecord.cs" />
+    <Compile Include="Migrations\201611181429315_AddRecord.Designer.cs">
+      <DependentUpon>201611181429315_AddRecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
@@ -284,6 +288,7 @@
     <Compile Include="Models\MongoDocuments\Notifications\UserEvent.cs" />
     <Compile Include="Models\Enum\UserEventStatus.cs" />
     <Compile Include="Models\Enum\UserEventType.cs" />
+    <Compile Include="Models\Record.cs" />
     <Compile Include="Models\Streaming\Channel.cs" />
     <Compile Include="Models\Enum\AssetsProccesingType.cs" />
     <Compile Include="Models\Enum\AssembliesType.cs" />
@@ -360,6 +365,7 @@
     <Compile Include="Repository\DeviceRepository.cs" />
     <Compile Include="Repository\Interface\IDeviceRepository.cs" />
     <Compile Include="Repository\Interface\IProcessedFrameRepository.cs" />
+    <Compile Include="Repository\Interface\IRecordRepository.cs" />
     <Compile Include="Repository\Interface\IUserActivityRepository.cs" />
     <Compile Include="Repository\MongoDbRepository.cs" />
     <Compile Include="Repository\Interface\IMongoDbRepository.cs" />
@@ -381,6 +387,7 @@
     <Compile Include="Repository\Interface\IBrainpackRepository.cs" />
     <Compile Include="Repository\Interface\IShirtRepository.cs" />
     <Compile Include="Repository\LicenseRepository.cs" />
+    <Compile Include="Repository\RecordRepository.cs" />
     <Compile Include="Repository\StreamConnectionsCacheRepository.cs" />
     <Compile Include="Repository\ProcessedFrameRepository.cs" />
     <Compile Include="Repository\TeamRepository.cs" />
@@ -481,6 +488,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611021554468_AddUserDevices.resx">
       <DependentUpon>201611021554468_AddUserDevices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611181429315_AddRecord.resx">
+      <DependentUpon>201611181429315_AddRecord.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
