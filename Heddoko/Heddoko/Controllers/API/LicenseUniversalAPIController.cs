@@ -21,25 +21,25 @@ namespace Heddoko.Controllers.API
             };
         }
 
-        [Route("teams/{take:int}/{skip:int?}")]
+        [Route("teams/{organizationId:int}/{take:int}/{skip:int?}")]
         [HttpGet]
-        public ListAPIViewModel<Team> Teams(int take = 100, int? skip = 0)
+        public ListAPIViewModel<Team> Teams(int organizationId, int take = 100, int? skip = 0)
         {
             return new ListAPIViewModel<Team>
             {
-                Collection = UoW.TeamRepository.GetAllAPI(take, skip).ToList(),
-                TotalCount = UoW.TeamRepository.GetAllAPICount()
+                Collection = UoW.TeamRepository.GetByOrganizationAPI(organizationId, take, skip).ToList(),
+                TotalCount = UoW.TeamRepository.GetByOrganizationCount(organizationId)
             };
         }
 
-        [Route("records/{take:int}/{skip:int?}")]
+        [Route("records/{teamId:int}/{take:int}/{skip:int?}")]
         [HttpGet]
-        public ListAPIViewModel<Asset> Records(int take = 100, int? skip = 0)
+        public ListAPIViewModel<Asset> Records(int teamId, int take = 100, int? skip = 0)
         {
             return new ListAPIViewModel<Asset>
             {
-                Collection = UoW.AssetRepository.GetAllRecords(take, skip).ToList(),
-                TotalCount = UoW.AssetRepository.GetAllRecordsCount()
+                Collection = UoW.AssetRepository.GetRecordsByTeam(teamId, take, skip).ToList(),
+                TotalCount = UoW.AssetRepository.GetRecordsByTeamCount(teamId)
             };
         }
     }

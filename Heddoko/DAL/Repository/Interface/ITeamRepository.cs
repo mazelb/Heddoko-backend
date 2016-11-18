@@ -11,8 +11,8 @@ namespace DAL
 
         IEnumerable<Team> Search(string search, int? organizationID = null, bool isDeleted = false);
 
-        IEnumerable<Team> GetAllAPI(int take, int? skip = 0);
+        IEnumerable<Team> GetByOrganizationAPI(int organizationId, int take, int? skip = 0);
 
-        int GetAllAPICount();
+        int GetByOrganizationCount(int organizationId);
     }
 }

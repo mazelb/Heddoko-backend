@@ -56,7 +56,7 @@ namespace DAL
             return query.Count();
         }
 
-        public IEnumerable<Asset> GetAllRecords(int take, int? skip)
+        public IEnumerable<Asset> GetRecordsByTeam(int teamId, int take, int? skip = 0)
         {
             IQueryable<Asset> query = DbSet.Include(c => c.User)
                                            .Where(c => c.Type == AssetType.Record)
@@ -73,7 +73,7 @@ namespace DAL
             return query;
         }
 
-        public int GetAllRecordsCount()
+        public int GetRecordsByTeamCount(int teamId)
         {
             return DbSet.Count(c => c.Type == AssetType.Record &&
                                     c.Status == UploadStatusType.Uploaded);

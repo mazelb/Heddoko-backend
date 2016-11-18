@@ -53,9 +53,10 @@ namespace DAL
                         .OrderBy(c => c.Name);
         }
 
-        public IEnumerable<Team> GetAllAPI(int take, int? skip = 0)
+        public IEnumerable<Team> GetByOrganizationAPI(int organizationId, int take, int? skip = 0)
         {
             IQueryable<Team> query = DbSet.Where(c => c.Status != TeamStatusType.Deleted)
+                                          .Where(c => c.OrganizationID == organizationId)
                                           .OrderBy(c => c.Name);
 
             if (skip.HasValue)
@@ -68,9 +69,10 @@ namespace DAL
             return query;
         }
 
-        public int GetAllAPICount()
+        public int GetByOrganizationCount(int organizationId)
         {
-            return DbSet.Count(c => c.Status != TeamStatusType.Deleted);
+            return DbSet.Count(c => c.Status != TeamStatusType.Deleted &&
+                                    c.OrganizationID == organizationId);
         }
     }
 }

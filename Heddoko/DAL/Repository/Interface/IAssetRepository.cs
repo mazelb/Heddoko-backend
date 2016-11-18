@@ -11,8 +11,8 @@ namespace DAL
 
         int GetRecordByOrganizationCount(int organizationID, int teamID, int? userID = null);
 
-        IEnumerable<Asset> GetAllRecords(int take, int? skip = 0);
+        IEnumerable<Asset> GetRecordsByTeam(int teamId, int take, int? skip = 0);
 
-        int GetAllRecordsCount();
+        int GetRecordsByTeamCount(int teamId);
     }
 }
