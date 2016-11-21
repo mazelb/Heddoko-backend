@@ -449,6 +449,16 @@ namespace Heddoko.Controllers.API
 
             foreach (MultipartFileData file in provider.FileData)
             {
+                string name;
+                try
+                {
+                    name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString();
+                }
+                catch (JsonReaderException)
+                {
+                    name = file.Headers.ContentDisposition.FileName;
+                }
+
                 Asset asset = new Asset
                 {
                     Type = AssetType.Record,
@@ -457,7 +467,7 @@ namespace Heddoko.Controllers.API
                     Kit = kit,
                     User = kit.User,
                     Record = record,
-                    Name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString()
+                    Name = name
                 };
 
                 string path = AssetManager.Path($"{CurrentUser.Id}/{DateTime.Now.Ticks:x}_{asset.Name}", asset.Type);
