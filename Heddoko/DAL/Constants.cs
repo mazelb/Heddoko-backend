@@ -37,6 +37,9 @@
             public const string Record = "records";
             public const string DefaultRecords = "defaultrecords";
             public const string Guide = "guide";
+            public const string ProcessedFrameData = "processedFrameData";
+            public const string AnalysisFrameData = "analysisFrameData";
+            public const string RawFrameData = "rawFrameData";
         }
 
         public static class Roles

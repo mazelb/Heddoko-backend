@@ -863,6 +863,7 @@
     <Compile Include="Models\Admin\TeamAPIModel.cs" />
     <Compile Include="Models\Admin\UserAdminAPIModel.cs" />
     <Compile Include="Models\Admin\UserAPIModel.cs" />
+    <Compile Include="Models\API\AssetFileAPIViewModel.cs" />
     <Compile Include="Models\API\ErgoScoreAPIModel.cs" />
     <Compile Include="Models\API\ListAPIViewModel.cs" />
     <Compile Include="Models\API\FirmwareAPIViewModel.cs" />

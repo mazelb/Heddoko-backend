@@ -287,7 +287,7 @@ namespace Heddoko.Controllers.API
                 ModelState = ModelState
             };
         }
-        
+
         /// <summary>
         ///     List of records by organization
         /// </summary>
@@ -375,6 +375,24 @@ namespace Heddoko.Controllers.API
                         case "label":
                             model.Label = val;
                             break;
+                        case "files":
+                            model.FileTypes = JsonConvert.DeserializeObject<List<AssetFileAPIViewModel>>(val);
+
+                            foreach (AssetFileAPIViewModel file in model.FileTypes)
+                            {
+                                if (file.Type != AssetType.Log &&
+                                    file.Type != AssetType.Record &&
+                                    file.Type != AssetType.Setting &&
+                                    file.Type != AssetType.SystemLog &&
+                                    file.Type != AssetType.ProcessedFrameData &&
+                                    file.Type != AssetType.AnalysisFrameData &&
+                                    file.Type != AssetType.RawFrameData)
+                                {
+                                    throw new APIException(ErrorAPIType.AssetType, $"{Resources.Wrong} type");
+                                }
+                            }
+
+                            break;
                     }
                 }
             }
@@ -447,8 +465,10 @@ namespace Heddoko.Controllers.API
 
             UoW.RecordRepository.Create(record);
 
-            foreach (MultipartFileData file in provider.FileData)
+            for (int i = 0; i < provider.FileData.Count; i++)
             {
+                MultipartFileData file = provider.FileData[i];
+
                 string name;
                 try
                 {
@@ -459,9 +479,14 @@ namespace Heddoko.Controllers.API
                     name = file.Headers.ContentDisposition.FileName;
                 }
 
+                if (model.FileTypes[i].FileName != name)
+                {
+                    throw new APIException(ErrorAPIType.FileData, $"{Resources.Wrong} file data");
+                }
+
                 Asset asset = new Asset
                 {
-                    Type = AssetType.Record,
+                    Type = model.FileTypes[i].Type,
                     Proccessing = AssetProccessingType.New,
                     Status = UploadStatusType.New,
                     Kit = kit,
