@@ -381,9 +381,7 @@ namespace Heddoko.Controllers.API
                             foreach (AssetFileAPIViewModel file in model.FileTypes)
                             {
                                 if (file.Type != AssetType.Log &&
-                                    file.Type != AssetType.Record &&
                                     file.Type != AssetType.Setting &&
-                                    file.Type != AssetType.SystemLog &&
                                     file.Type != AssetType.ProcessedFrameData &&
                                     file.Type != AssetType.AnalysisFrameData &&
                                     file.Type != AssetType.RawFrameData)
@@ -452,7 +450,7 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.KitID, $"{Resources.NonAssigned} kitID");
             }
 
-            if (provider.FileData.Count < 1 || provider.FileData.Count > 3)
+            if (provider.FileData.Count < 1 || provider.FileData.Count > 5)
             {
                 throw new APIException(ErrorAPIType.FileData, string.Format(Resources.WrongFilesCount, 1, 3));
             }
@@ -460,7 +458,8 @@ namespace Heddoko.Controllers.API
             Record record = new Record
             {
                 Kit = kit,
-                User = kit.User
+                User = kit.User,
+                Type = RecordType.Record
             };
 
             UoW.RecordRepository.Create(record);

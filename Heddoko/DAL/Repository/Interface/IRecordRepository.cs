@@ -12,5 +12,6 @@ namespace DAL.Repository.Interface
         IEnumerable<Record> GetRecordsByTeam(int teamId, int take, int? skip = 0);
 
         int GetRecordsByTeamCount(int teamId);
+        Record GetDefaultRecord();
     }
 }

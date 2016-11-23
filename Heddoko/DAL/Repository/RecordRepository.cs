@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using DAL.Models;
+using DAL.Models.Enum;
 using DAL.Repository.Interface;
 
 namespace DAL.Repository
@@ -16,6 +17,7 @@ namespace DAL.Repository
         {
             IQueryable<Record> query = DbSet.Include(c => c.User)
                                             .Include(c => c.Assets)
+                                            .Where(c => c.Type == RecordType.Record)
                                             .Where(c => c.User.OrganizationID == organizationID)
                                             .Where(c => c.User.TeamID == teamID)
                                             .OrderByDescending(c => c.Created);
@@ -37,7 +39,8 @@ namespace DAL.Repository
 
         public int GetRecordByOrganizationCount(int organizationID, int teamID, int? userID = null)
         {
-            IQueryable<Record> query = DbSet.Where(c => c.User.OrganizationID == organizationID)
+            IQueryable<Record> query = DbSet.Where(c => c.Type == RecordType.Record)
+                                            .Where(c => c.User.OrganizationID == organizationID)
                                             .Where(c => c.User.TeamID == teamID);
 
             if (userID.HasValue)
@@ -52,6 +55,7 @@ namespace DAL.Repository
         {
             IQueryable<Record> query = DbSet.Include(c => c.User)
                                             .Include(c => c.Assets)
+                                            .Where(c => c.Type == RecordType.Record)
                                             .Where(c => c.User.TeamID == teamId)
                                             .OrderByDescending(c => c.Created);
 
@@ -67,7 +71,14 @@ namespace DAL.Repository
 
         public int GetRecordsByTeamCount(int teamId)
         {
-            return DbSet.Count(c => c.User.TeamID == teamId);
+            return DbSet.Count(c => c.Type == RecordType.Record && c.User.TeamID == teamId);
+        }
+
+        public Record GetDefaultRecord()
+        {
+            return DbSet.Include(c => c.User)
+                .Include(c => c.Assets)
+                .FirstOrDefault(c => c.Type == RecordType.DefaultRecord);
         }
     }
 }
