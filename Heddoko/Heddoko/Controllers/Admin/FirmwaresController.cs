@@ -174,7 +174,7 @@ namespace Heddoko.Controllers
 
             Bind(item, model);
 
-            UoW.FirmwareRepository.Create(item);
+            UoW.FirmwareRepository.Add(item);
 
             if (item.Type == FirmwareType.DefaultRecords)
             {
@@ -188,7 +188,7 @@ namespace Heddoko.Controllers
                     Type = RecordType.DefaultRecord
                 };
 
-                UoW.RecordRepository.Create(record);
+                UoW.RecordRepository.Add(record);
                 item.Record = record;
 
                 for (int i = 0; i < provider.FileData.Count; i++)
