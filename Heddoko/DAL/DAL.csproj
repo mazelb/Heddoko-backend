@@ -156,6 +156,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -283,13 +284,18 @@
     <Compile Include="Models\Enum\DeviceStatus.cs" />
     <Compile Include="Models\Enum\DeviceType.cs" />
     <Compile Include="Models\Enum\ReadStatus.cs" />
-    <Compile Include="Models\MongoDocuments\ErgoScoreMultiResult.cs" />
+    <Compile Include="Models\Enum\SensorPositions.cs" />
     <Compile Include="Models\ErgoScore.cs" />
     <Compile Include="Models\MongoDocuments\ErgoScoreTeamResult.cs" />
     <Compile Include="Models\MongoDocuments\ErgoScoreResult.cs" />
+    <Compile Include="Models\MongoDocuments\Proto\AnalysisFrame.cs" />
+    <Compile Include="Models\MongoDocuments\Proto\heddokoPacket.cs" />
     <Compile Include="Models\MongoDocuments\Notifications\UserEvent.cs" />
     <Compile Include="Models\Enum\UserEventStatus.cs" />
     <Compile Include="Models\Enum\UserEventType.cs" />
+    <Compile Include="Models\MongoDocuments\Proto\ProcessedFrame.cs" />
+    <Compile Include="Models\MongoDocuments\Proto\RawPacket.cs" />
+    <Compile Include="Models\MongoDocuments\RawFrame.cs" />
     <Compile Include="Models\Record.cs" />
     <Compile Include="Models\Streaming\Channel.cs" />
     <Compile Include="Models\Enum\AssetsProccesingType.cs" />
@@ -318,7 +324,6 @@
     <Compile Include="Models\Interfaces\ISupportEmailViewModel.cs" />
     <Compile Include="Models\Pants.cs" />
     <Compile Include="Models\PantsOctopi.cs" />
-    <Compile Include="Models\MongoDocuments\ProcessedFrame.cs" />
     <Compile Include="Models\ShirtOctopi.cs" />
     <Compile Include="Models\Shirt.cs" />
     <Compile Include="Models\Enum\SensorType.cs" />
@@ -362,11 +367,14 @@
     <Compile Include="Models\Enum\UserGenderType.cs" />
     <Compile Include="HDMongoContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AnalysisFrameRepository.cs" />
     <Compile Include="Repository\AssetRepository.cs" />
     <Compile Include="Repository\BaseCacheRepository.cs" />
     <Compile Include="Repository\DeviceRepository.cs" />
+    <Compile Include="Repository\Interface\IAnalysisFrameRepository.cs" />
     <Compile Include="Repository\Interface\IDeviceRepository.cs" />
     <Compile Include="Repository\Interface\IProcessedFrameRepository.cs" />
+    <Compile Include="Repository\Interface\IRawFrameRepository.cs" />
     <Compile Include="Repository\Interface\IRecordRepository.cs" />
     <Compile Include="Repository\Interface\IUserActivityRepository.cs" />
     <Compile Include="Repository\MongoDbRepository.cs" />
@@ -389,6 +397,7 @@
     <Compile Include="Repository\Interface\IBrainpackRepository.cs" />
     <Compile Include="Repository\Interface\IShirtRepository.cs" />
     <Compile Include="Repository\LicenseRepository.cs" />
+    <Compile Include="Repository\RawFrameRepository.cs" />
     <Compile Include="Repository\RecordRepository.cs" />
     <Compile Include="Repository\StreamConnectionsCacheRepository.cs" />
     <Compile Include="Repository\ProcessedFrameRepository.cs" />
@@ -422,6 +431,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Models\MongoDocuments\Proto\AnalysisFrame.proto" />
+    <None Include="Models\MongoDocuments\Proto\heddokoPacket V0.3.proto" />
+    <None Include="Models\MongoDocuments\Proto\ProcessedFrame.proto" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

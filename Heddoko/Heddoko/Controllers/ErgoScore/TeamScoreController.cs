@@ -25,7 +25,7 @@ namespace Heddoko.Controllers
                 List<User> users = UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value).ToList();
                 IEnumerable<int> ids = users.Select(x => x.Id).Distinct();
 
-                var results = UoW.ProcessedFrameRepository.GetMultipleUserScores(ids.ToArray());
+                var results = UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
 
                 foreach (ErgoScore result in results)
                 {
