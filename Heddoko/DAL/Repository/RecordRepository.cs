@@ -74,11 +74,26 @@ namespace DAL.Repository
             return DbSet.Count(c => c.Type == RecordType.Record && c.User.TeamID == teamId);
         }
 
-        public Record GetDefaultRecord()
+        public IEnumerable<Record> GetDefaultRecords(int take, int? skip = 0)
         {
-            return DbSet.Include(c => c.User)
-                .Include(c => c.Assets)
-                .FirstOrDefault(c => c.Type == RecordType.DefaultRecord);
+            IQueryable<Record> query = DbSet.Include(c => c.User)
+                                            .Include(c => c.Assets)
+                                            .Where(c => c.Type == RecordType.DefaultRecord)
+                                            .OrderByDescending(c => c.Created);
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            query = query.Take(take);
+
+            return query;
+        }
+
+        public int GetDefaultRecordsCount()
+        {
+            return DbSet.Count(c => c.Type == RecordType.DefaultRecord);
         }
     }
 }

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Http;
 using DAL;
 using DAL.Models;
+using Heddoko.Models;
 
 namespace Heddoko.Controllers.API
 {
@@ -20,11 +18,15 @@ namespace Heddoko.Controllers.API
         {
         }
 
-        [Route("default")]
+        [Route("default/{take:int}/{skip:int?}")]
         [HttpGet]
-        public Record DefaultRecord()
+        public ListAPIViewModel<Record> DefaultRecords(int take = 100, int? skip = 0)
         {
-            return UoW.RecordRepository.GetDefaultRecord();
+            return new ListAPIViewModel<Record>
+            {
+                Collection = UoW.RecordRepository.GetDefaultRecords(take, skip).ToList(),
+                TotalCount = UoW.RecordRepository.GetDefaultRecordsCount()
+            };
         }
     }
 }
