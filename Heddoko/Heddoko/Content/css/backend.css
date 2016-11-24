@@ -203,3 +203,10 @@ div.k-edit-form-container {
 #gauge-row {
   height: 200px; }
 
+.asset-files {
+    margin: -0.167em -0.167em -0.167em -0.8em;
+}
+
+.asset-file-name {
+    min-width: 50%;
+}

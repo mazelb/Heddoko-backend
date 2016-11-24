@@ -835,6 +835,7 @@
     <Compile Include="Models\Account\ProfileAccountViewModel.cs" />
     <Compile Include="Models\Account\SignUpAccountViewModel.cs" />
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
+    <Compile Include="Models\Admin\AssetFileAPIModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
     <Compile Include="Models\Admin\InventoryViewModel.cs" />

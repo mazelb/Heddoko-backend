@@ -50,7 +50,7 @@
                                         data-text-field="text"
                                         data-option-label="@i18n.Resources.Select @i18n.Resources.Type"
                                         data-value-field="value"
-                                        data-bind="value: model.type, source: types"></select>
+                                        data-bind="value: model.type, source: types, events: { change: typeChanged }"></select>
                             </div>
 
                             <div class="col-sm-2">
@@ -83,7 +83,7 @@
                                        name="firmwarefile"
                                        data-role="upload"
                                        data-multiple="false"
-                                       data-async="{ saveUrl : '/admin/api/firmwares/upload', autoUpload: false }"
+                                       data-async="{ saveUrl : '/admin/api/firmwares/upload', autoUpload: false, batch: true }"
                                        validationMessage="@i18n.Resources.Required"
                                        class="form-control"
                                        data-bind="{ events: { select: select, upload: upload, success: success }}" />
@@ -104,6 +104,32 @@
 
     </div>
 </div>
+
+<script id="file-records-template" type="text/x-kendo-template">
+    <span class='k-progress'></span>
+    <ul data-template="asset-files-template" data-bind="source: files" class="k-reset asset-files">
+    </ul>
+    <strong class="k-upload-status"></strong>
+</script>
+
+
+<script id="asset-files-template" type="text/x-kendo-template">
+    
+    <li class="k-file">
+        <span class="k-icon"></span>
+        <span class="k-filename asset-file-name" data-bind="text: name"></span>
+        <select class="form-control"
+                required
+                name="asset-type"
+                validationMessage="@i18n.Resources.Required"
+                data-role="dropdownlist"
+                data-value-primitive="true"
+                data-text-field="text"
+                data-option-label="@i18n.Resources.Select Asset Type"
+                data-value-field="value"
+                data-bind="value: assetType, source: assetTypes"></select>
+    </li>
+</script>
 
 
 @section Body {

@@ -226,7 +226,7 @@
     {
         <text>
 
-    Enums.FirmwareType.enum["@type.GetDisplayName()"] = @((int)type);
+    Enums.FirmwareType.enum["@type.ToString()"] = @((int)type);
 
     Enums.FirmwareType.array[@((int)type)] = {
         "value": @((int)type),
@@ -492,5 +492,33 @@
         "text": "@type.GetDisplayName()"
     };
     </text>
+    }
+
+    Enums.AssetType = {};
+    Enums.AssetType.enum = {};
+    Enums.AssetType.array = {};
+    Enums.AssetType.recordsarray = {};
+    @foreach (DAL.Models.AssetType type in (DAL.Models.AssetType[])Enum.GetValues(typeof(DAL.Models.AssetType)))
+    {
+
+            <text>
+
+            Enums.AssetType.enum["@type.ToString()"] = @((int) type);
+
+            Enums.AssetType.array[@((int) type)] = {
+                "value": @((int) type),
+                "text": "@type.GetDisplayName()"
+                        };  
+            </text>
+
+    if (type.IsRecordType())
+        {
+            <text>
+            Enums.AssetType.recordsarray[@((int) type)] = {
+                "value": @((int) type),
+                "text": "@type.GetDisplayName()"
+            };
+    </text>
+        }
     }
 </script>

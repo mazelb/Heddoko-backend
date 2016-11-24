@@ -380,11 +380,7 @@ namespace Heddoko.Controllers.API
 
                             foreach (AssetFileAPIViewModel file in model.FileTypes)
                             {
-                                if (file.Type != AssetType.Log &&
-                                    file.Type != AssetType.Setting &&
-                                    file.Type != AssetType.ProcessedFrameData &&
-                                    file.Type != AssetType.AnalysisFrameData &&
-                                    file.Type != AssetType.RawFrameData)
+                                if (!file.Type.IsRecordType())
                                 {
                                     throw new APIException(ErrorAPIType.AssetType, $"{Resources.Wrong} type");
                                 }
@@ -452,7 +448,7 @@ namespace Heddoko.Controllers.API
 
             if (provider.FileData.Count < 1 || provider.FileData.Count > 5)
             {
-                throw new APIException(ErrorAPIType.FileData, string.Format(Resources.WrongFilesCount, 1, 3));
+                throw new APIException(ErrorAPIType.FileData, string.Format(Resources.WrongFilesCount, 1, 5));
             }
 
             Record record = new Record
