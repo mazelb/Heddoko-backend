@@ -82,17 +82,9 @@ namespace DAL.Repository
             {
                 Trace.TraceError($"UserActivityRepository.Update id:{userEvent.Id}, IsAcknowledged:{res.IsAcknowledged}");
             }
-            else
+            else if (res.MatchedCount < 1)
             {
-                if (res.MatchedCount < 1)
-                {
-                    Trace.TraceError($"UserActivityRepository.Update id:{userEvent.Id}, MatchedCount:{res.MatchedCount}");
-                }
-
-                if (res.ModifiedCount < 1)
-                {
-                    Trace.TraceError($"UserActivityRepository.Update id:{userEvent.Id}, ModifiedCount:{res.ModifiedCount}");
-                }
+                Trace.TraceError($"UserActivityRepository.Update id:{userEvent.Id}, MatchedCount:{res.MatchedCount}");
             }
         }
 
