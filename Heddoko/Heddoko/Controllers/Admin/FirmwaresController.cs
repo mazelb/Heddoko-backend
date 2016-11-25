@@ -178,9 +178,9 @@ namespace Heddoko.Controllers
 
             if (item.Type == FirmwareType.DefaultRecords)
             {
-                if (provider.FileData.Count < 1 || provider.FileData.Count > 5)
+                if (provider.FileData.Count < Constants.Records.MinFilesCount || provider.FileData.Count > Constants.Records.MaxFilesCount)
                 {
-                    throw new Exception(string.Format(Resources.WrongFilesCount, 1, 5));
+                    throw new Exception(string.Format(Resources.WrongFilesCount, Constants.Records.MinFilesCount, Constants.Records.MaxFilesCount));
                 }
 
                 Record record = new Record

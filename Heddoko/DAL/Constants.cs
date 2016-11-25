@@ -91,5 +91,11 @@
         {
             public const string Notes = "Notes";
         }
+
+        public static class Records
+        {
+            public const int MinFilesCount = 1;
+            public const int MaxFilesCount = 5;
+        }
     }
 }

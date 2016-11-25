@@ -446,9 +446,9 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.KitID, $"{Resources.NonAssigned} kitID");
             }
 
-            if (provider.FileData.Count < 1 || provider.FileData.Count > 5)
+            if (provider.FileData.Count < Constants.Records.MinFilesCount || provider.FileData.Count > Constants.Records.MaxFilesCount)
             {
-                throw new APIException(ErrorAPIType.FileData, string.Format(Resources.WrongFilesCount, 1, 5));
+                throw new APIException(ErrorAPIType.FileData, string.Format(Resources.WrongFilesCount, Constants.Records.MinFilesCount, Constants.Records.MaxFilesCount));
             }
 
             Record record = new Record

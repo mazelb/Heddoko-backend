@@ -313,6 +313,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Asset Type.
+        /// </summary>
+        public static string AssetType {
+            get {
+                return ResourceManager.GetString("AssetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Analysis frame data.
         /// </summary>
         public static string AssetType_AnalysisFrameData {
