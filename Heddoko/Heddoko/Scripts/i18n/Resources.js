@@ -452,7 +452,8 @@ i18n.Resources = (function () {
   "AssetType_AnalysisFrameData": "Analysis frame data",
   "AssetType_ProcessedFrameData": "Processed frame data",
   "AssetType_RawFrameData": "Raw frame data",
-  "FirmwareType_DefaultRecords": "Default records"
+  "FirmwareType_DefaultRecords": "Default records",
+  "AssetType": "Asset Type"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());
