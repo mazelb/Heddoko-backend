@@ -497,7 +497,7 @@
     Enums.AssetType = {};
     Enums.AssetType.enum = {};
     Enums.AssetType.array = {};
-    Enums.AssetType.recordsarray = {};
+    Enums.AssetType.RecordTypes = {};
     @foreach (DAL.Models.AssetType type in (DAL.Models.AssetType[])Enum.GetValues(typeof(DAL.Models.AssetType)))
     {
 
@@ -514,7 +514,7 @@
     if (type.IsRecordType())
         {
             <text>
-            Enums.AssetType.recordsarray[@((int) type)] = {
+            Enums.AssetType.RecordTypes[@((int) type)] = {
                 "value": @((int) type),
                 "text": "@type.GetDisplayName()"
             };

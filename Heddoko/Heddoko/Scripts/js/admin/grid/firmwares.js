@@ -43,7 +43,7 @@ var Firmwares = {
         this.firmwareStatusTypes.read();
 
         this.assetTypes = new kendo.data.DataSource({
-            data: _.values(Enums.AssetType.recordsarray)
+            data: _.values(Enums.AssetType.RecordTypes)
         });
 
         this.assetTypes.read();
