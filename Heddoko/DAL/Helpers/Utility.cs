@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
+using DAL.Models;
 using i18n;
 
 namespace DAL
@@ -264,6 +265,15 @@ namespace DAL
                 fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
 
             return attribs != null && attribs.Length > 0 ? attribs[0].StringValue : null;
+        }
+
+        public static bool IsRecordType(this AssetType assetType)
+        {
+            return assetType == AssetType.Log ||
+                   assetType == AssetType.Setting ||
+                   assetType == AssetType.ProcessedFrameData ||
+                   assetType == AssetType.AnalysisFrameData ||
+                   assetType == AssetType.RawFrameData;
         }
 
         #endregion

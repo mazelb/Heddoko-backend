@@ -276,6 +276,14 @@
     <Compile Include="Migrations\201611181429315_AddRecord.Designer.cs">
       <DependentUpon>201611181429315_AddRecord.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611231355448_AddDefaultRecords.cs" />
+    <Compile Include="Migrations\201611231355448_AddDefaultRecords.Designer.cs">
+      <DependentUpon>201611231355448_AddDefaultRecords.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611231552514_AddRecordToFirmware.cs" />
+    <Compile Include="Migrations\201611231552514_AddRecordToFirmware.Designer.cs">
+      <DependentUpon>201611231552514_AddRecordToFirmware.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
@@ -283,6 +291,7 @@
     <Compile Include="Models\Enum\DeviceStatus.cs" />
     <Compile Include="Models\Enum\DeviceType.cs" />
     <Compile Include="Models\Enum\ReadStatus.cs" />
+    <Compile Include="Models\Enum\RecordType.cs" />
     <Compile Include="Models\MongoDocuments\ErgoScoreMultiResult.cs" />
     <Compile Include="Models\MongoDocuments\ErgoScoreResult.cs" />
     <Compile Include="Models\MongoDocuments\Notifications\UserEvent.cs" />
@@ -491,6 +500,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611181429315_AddRecord.resx">
       <DependentUpon>201611181429315_AddRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611231355448_AddDefaultRecords.resx">
+      <DependentUpon>201611231355448_AddDefaultRecords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611231552514_AddRecordToFirmware.resx">
+      <DependentUpon>201611231552514_AddRecordToFirmware.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace DAL.Models
@@ -28,6 +29,12 @@ namespace DAL.Models
 
         [JsonIgnore]
         public virtual Asset Asset { get; set; }
+
+        [JsonIgnore]
+        public int? RecordID { get; set; }
+
+        [JsonIgnore]
+        public virtual Record Record { get; set; }
 
         #endregion
     }

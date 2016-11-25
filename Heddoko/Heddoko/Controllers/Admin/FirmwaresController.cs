@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,7 +10,11 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using DAL.Models.Enum;
 using Heddoko.Models;
+using Heddoko.Models.Admin;
+using Heddoko.Models.API;
+using i18n;
 using Newtonsoft.Json;
 using Services;
 
@@ -26,7 +31,7 @@ namespace Heddoko.Controllers
 
         public FirmwaresController() { }
 
-        public FirmwaresController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+        public FirmwaresController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<FirmwareAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -149,6 +154,18 @@ namespace Heddoko.Controllers
                         case "status":
                             model.Status = (FirmwareStatusType)int.Parse(val);
                             break;
+                        case "files":
+                            model.Files = JsonConvert.DeserializeObject<List<AssetFileAPIModel>>(val);
+
+                            foreach (AssetFileAPIModel file in model.Files)
+                            {
+                                if (!file.Type.IsRecordType())
+                                {
+                                    throw new APIException(ErrorAPIType.AssetType, $"{Resources.Wrong} type");
+                                }
+                            }
+
+                            break;
                     }
                 }
             }
@@ -157,46 +174,92 @@ namespace Heddoko.Controllers
 
             Bind(item, model);
 
-            UoW.FirmwareRepository.Create(item);
+            UoW.FirmwareRepository.Add(item);
 
-            AssetType assetType;
-            switch (item.Type)
+            if (item.Type == FirmwareType.DefaultRecords)
             {
-                case FirmwareType.Guide:
-                    assetType = AssetType.Guide;
-                    break;
-                case FirmwareType.DefaultRecords:
-                    assetType = AssetType.DefaultRecords;
-                    break;
-                default:
-                    assetType = AssetType.Firmware;
-                    break;
+                if (provider.FileData.Count < Constants.Records.MinFilesCount || provider.FileData.Count > Constants.Records.MaxFilesCount)
+                {
+                    throw new Exception(string.Format(Resources.WrongFilesCount, Constants.Records.MinFilesCount, Constants.Records.MaxFilesCount));
+                }
+
+                Record record = new Record
+                {
+                    Type = RecordType.DefaultRecord
+                };
+
+                UoW.RecordRepository.Add(record);
+                item.Record = record;
+
+                for (int i = 0; i < provider.FileData.Count; i++)
+                {
+                    MultipartFileData file = provider.FileData[i];
+
+                    string name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString();
+
+                    if (model.Files[i].FileName != name)
+                    {
+                        throw new Exception($"{Resources.Wrong} file data");
+                    }
+
+                    Asset asset = new Asset
+                    {
+                        Name = name,
+                        Type = model.Files[i].Type,
+                        Proccessing = AssetProccessingType.None,
+                        Status = UploadStatusType.New,
+                        Record = record
+                    };
+
+                    string path = AssetManager.Path($"{item.Id}/{asset.Name}", asset.Type);
+
+                    Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
+                    File.Delete(file.LocalFileName);
+
+                    asset.Image = $"/{path}";
+
+                    asset.Status = UploadStatusType.Uploaded;
+                    UoW.AssetRepository.Add(asset);
+                }
             }
-
-            Asset asset = new Asset
+            else
             {
-                Type = assetType,
-                Proccessing = AssetProccessingType.None,
-                Status = UploadStatusType.New
-            };
 
-            foreach (MultipartFileData file in provider.FileData)
-            {
-                asset.Name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString();
-                string path = AssetManager.Path($"{item.Id}/{asset.Name}", asset.Type);
+                AssetType assetType;
+                switch (item.Type)
+                {
+                    case FirmwareType.Guide:
+                        assetType = AssetType.Guide;
+                        break;
+                    default:
+                        assetType = AssetType.Firmware;
+                        break;
+                }
 
-                Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
-                File.Delete(file.LocalFileName);
+                Asset asset = new Asset
+                {
+                    Type = assetType,
+                    Proccessing = AssetProccessingType.None,
+                    Status = UploadStatusType.New
+                };
 
-                asset.Image = $"/{path}";
-                break;
+                foreach (MultipartFileData file in provider.FileData)
+                {
+                    asset.Name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString();
+                    string path = AssetManager.Path($"{item.Id}/{asset.Name}", asset.Type);
+
+                    Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
+                    File.Delete(file.LocalFileName);
+
+                    asset.Image = $"/{path}";
+                    break;
+                }
+                asset.Status = UploadStatusType.Uploaded;
+                UoW.AssetRepository.Add(asset);
+                item.Asset = asset;
             }
-            asset.Status = UploadStatusType.Uploaded;
-            UoW.AssetRepository.Add(asset);
-            item.Asset = asset;
 
             UoW.Save();
-
 
             return new KendoResponse<FirmwareAPIModel>
             {
@@ -308,7 +371,8 @@ namespace Heddoko.Controllers
                 Version = item.Version,
                 Status = item.Status,
                 Type = item.Type,
-                Url = item.Asset?.Url
+                Url = item.Asset?.Url,
+                Files = item.Record?.Assets.Select(a => new AssetFileAPIModel { Type = a.Type, Url = a.Url, FileName = a.Name }).ToList()
             };
         }
     }

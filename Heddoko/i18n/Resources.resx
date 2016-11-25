@@ -1461,4 +1461,19 @@
   <data name="WrongFilesCount" xml:space="preserve">
     <value>The number of files must be greater than or or equal to {0} and less than or equal to {1}</value>
   </data>
+  <data name="AssetType_AnalysisFrameData" xml:space="preserve">
+    <value>Analysis frame data</value>
+  </data>
+  <data name="AssetType_ProcessedFrameData" xml:space="preserve">
+    <value>Processed frame data</value>
+  </data>
+  <data name="AssetType_RawFrameData" xml:space="preserve">
+    <value>Raw frame data</value>
+  </data>
+  <data name="FirmwareType_DefaultRecords" xml:space="preserve">
+    <value>Default records</value>
+  </data>
+  <data name="AssetType" xml:space="preserve">
+    <value>Asset Type</value>
+  </data>
 </root>

@@ -777,6 +777,7 @@
     <Compile Include="Controllers\API\FirmwareAPIController.cs" />
     <Compile Include="Controllers\API\AssetAPIController.cs" />
     <Compile Include="Controllers\API\LicenseUniversalAPIController.cs" />
+    <Compile Include="Controllers\API\RecordsAPIController.cs" />
     <Compile Include="Controllers\API\StreamingAPIController.cs" />
     <Compile Include="Controllers\ErgoScoreController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
@@ -834,6 +835,7 @@
     <Compile Include="Models\Account\ProfileAccountViewModel.cs" />
     <Compile Include="Models\Account\SignUpAccountViewModel.cs" />
     <Compile Include="Models\Account\SignInAccountViewModel.cs" />
+    <Compile Include="Models\Admin\AssetFileAPIModel.cs" />
     <Compile Include="Models\Admin\BaseAPIModel.cs" />
     <Compile Include="Models\Admin\BaseListAPIResponse.cs" />
     <Compile Include="Models\Admin\InventoryViewModel.cs" />
@@ -863,6 +865,7 @@
     <Compile Include="Models\Admin\TeamAPIModel.cs" />
     <Compile Include="Models\Admin\UserAdminAPIModel.cs" />
     <Compile Include="Models\Admin\UserAPIModel.cs" />
+    <Compile Include="Models\API\AssetFileAPIViewModel.cs" />
     <Compile Include="Models\API\ErgoScoreAPIModel.cs" />
     <Compile Include="Models\API\ListAPIViewModel.cs" />
     <Compile Include="Models\API\FirmwareAPIViewModel.cs" />
