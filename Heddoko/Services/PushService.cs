@@ -291,6 +291,8 @@ namespace Services
 
                             _notificationsHubProxy = _hubConnection.CreateHubProxy(DAL.Config.NotificationsHub);
 
+                            _hubConnection.StateChanged += HubConnectionOnStateChanged;
+
                             _hubConnection.Start().Wait();
                         }
                     }
@@ -315,6 +317,18 @@ namespace Services
             {
                 Trace.TraceError($"SignalR Notification Failed : {e.GetBaseException()}");
                 SetEventStatusFailed(eventId);
+            }
+        }
+
+        private static void HubConnectionOnStateChanged(StateChange stateChange)
+        {
+            if (stateChange.NewState == ConnectionState.Connected)
+            {
+                Trace.TraceInformation($"Hub connection connected to {_hubConnection?.Url}");
+            }
+            else if (stateChange.NewState == ConnectionState.Disconnected)
+            {
+                Trace.TraceInformation($"Hub connection disconnected from {_hubConnection?.Url}");
             }
         }
 
