@@ -13,6 +13,7 @@ namespace Services
     public static class FileParser
     {
         private const int BufferSize = 4096;
+        private const int HeaderSize = 4;
         private const byte ProtoBufByte = 0x04;
 
         /// <summary>
@@ -25,17 +26,32 @@ namespace Services
             {
                 UnitOfWork UoW = new UnitOfWork();
                 FileStream fStream = new FileStream(filePath, FileMode.Open);
-                // Header for Frames are 4 bytes
-                byte[] buffer = new byte[4];
-                int frameLength;
-                ProcessedFrame curFrame = new ProcessedFrame();
-                while (fStream.Read(buffer, 0, buffer.Length) > 0)
+                MemoryStream memStream = new MemoryStream();
+                byte[] byteArrayBuffer = new byte[BufferSize];
+                ProcessedFrame processedFrame = new ProcessedFrame();
+                byte[] headerBuffer = new byte[HeaderSize];
+                int frameSize;
+
+                while (fStream.CanRead)
                 {
-                    //Use header to determine length of frame
-                    frameLength = BitConverter.ToInt32(buffer, 0);
-                    //Read in frame and add to DB
-                    curFrame = Serializer.Deserialize<ProcessedFrame>(fStream);
-                    UoW.ProcessedFrameRepository.AddOne(curFrame);
+                    int numberofByteRead = fStream.Read(headerBuffer, 0, HeaderSize);
+                    if (numberofByteRead == 0)
+                    {
+                        break;
+                    }
+                    frameSize = GetPayloadSize(headerBuffer);
+                    Array.Resize(ref byteArrayBuffer, frameSize);
+
+                    //read frame from file
+                    fStream.Read(byteArrayBuffer, 0, frameSize);
+                    memStream.Seek(0, SeekOrigin.Begin);
+                    memStream.Write(byteArrayBuffer, 0, frameSize);
+                    memStream.Seek(0, SeekOrigin.Begin);
+                    processedFrame = Serializer.Deserialize<ProcessedFrame>(memStream);
+
+                    //Add to the database
+                    UoW.ProcessedFrameRepository.AddOne(processedFrame);
+                    memStream.SetLength(0);
                 }
             }
             catch (Exception ex)
@@ -54,17 +70,33 @@ namespace Services
             {
                 UnitOfWork UoW = new UnitOfWork();
                 FileStream fStream = new FileStream(filePath, FileMode.Open);
-                // Header for Frames are 4 bytes
-                byte[] buffer = new byte[4];
-                int frameLength;
-                AnalysisFrame curFrame = new AnalysisFrame();
-                while (fStream.Read(buffer, 0, buffer.Length) > 0)
+                MemoryStream memStream = new MemoryStream();
+                byte[] byteArrayBuffer = new byte[BufferSize];
+                AnalysisFrame analysisFrame = new AnalysisFrame();
+                byte[] headerBuffer = new byte[HeaderSize];
+                int frameSize;
+
+                while (fStream.CanRead)
                 {
-                    //Use header to determine length of frame
-                    frameLength = BitConverter.ToInt32(buffer, 0);
-                    //Read in frame and add to DB
-                    curFrame = Serializer.Deserialize<AnalysisFrame>(fStream);
-                    UoW.AnalysisFrameRepository.AddOne(curFrame);
+                    int numberofByteRead = fStream.Read(headerBuffer, 0, HeaderSize);
+                    if (numberofByteRead == 0)
+                    {
+                        break;
+                    }
+                    // Get Size of frame
+                    frameSize = GetPayloadSize(headerBuffer);
+                    Array.Resize(ref byteArrayBuffer, frameSize);
+
+                    //read frame from file
+                    fStream.Read(byteArrayBuffer, 0, frameSize);
+                    memStream.Seek(0, SeekOrigin.Begin);
+                    memStream.Write(byteArrayBuffer, 0, frameSize);
+                    memStream.Seek(0, SeekOrigin.Begin);
+                    analysisFrame = Serializer.Deserialize<AnalysisFrame>(memStream);
+
+                    //Add to the database
+                    UoW.AnalysisFrameRepository.AddOne(analysisFrame);
+                    memStream.SetLength(0);
                 }
             }
             catch (Exception ex)
@@ -99,7 +131,6 @@ namespace Services
                     for (int vI = 0; vI < numberOfByteRead; vI++)
                     {
                         byte vByte = byteArrayBuffer[vI];
-                        //the byte is 0, this means that the current array buffer has received an incomplete amount of bytes
                         PacketStatus packetStatus = rawPacket.ProcessByte(vByte);
                         if (packetStatus == PacketStatus.PacketComplete)
                         {
@@ -134,9 +165,9 @@ namespace Services
             }
         }
 
-        public static void TestFunction()
+        private static int GetPayloadSize(byte[] header)
         {
-            AddRawFramesToDb(Path.Combine(Config.BaseDirectory, "Download", "Frames", "testRawFile.hsm"), 1);
+            return BitConverter.ToInt32(header, 0);
         }
     }
 }
