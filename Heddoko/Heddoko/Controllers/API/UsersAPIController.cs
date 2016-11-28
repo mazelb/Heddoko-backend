@@ -287,7 +287,7 @@ namespace Heddoko.Controllers.API
                 ModelState = ModelState
             };
         }
-        
+
         /// <summary>
         ///     List of records by organization
         /// </summary>
@@ -375,6 +375,18 @@ namespace Heddoko.Controllers.API
                         case "label":
                             model.Label = val;
                             break;
+                        case "files":
+                            model.FileTypes = JsonConvert.DeserializeObject<List<AssetFileAPIViewModel>>(val);
+
+                            foreach (AssetFileAPIViewModel file in model.FileTypes)
+                            {
+                                if (!file.Type.IsRecordType())
+                                {
+                                    throw new APIException(ErrorAPIType.AssetType, $"{Resources.Wrong} type");
+                                }
+                            }
+
+                            break;
                     }
                 }
             }
@@ -434,30 +446,48 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.KitID, $"{Resources.NonAssigned} kitID");
             }
 
-            if (provider.FileData.Count < 1 || provider.FileData.Count > 3)
+            if (provider.FileData.Count < Constants.Records.MinFilesCount || provider.FileData.Count > Constants.Records.MaxFilesCount)
             {
-                throw new APIException(ErrorAPIType.FileData, string.Format(Resources.WrongFilesCount, 1, 3));
+                throw new APIException(ErrorAPIType.FileData, string.Format(Resources.WrongFilesCount, Constants.Records.MinFilesCount, Constants.Records.MaxFilesCount));
             }
 
             Record record = new Record
             {
                 Kit = kit,
-                User = kit.User
+                User = kit.User,
+                Type = RecordType.Record
             };
 
             UoW.RecordRepository.Create(record);
 
-            foreach (MultipartFileData file in provider.FileData)
+            for (int i = 0; i < provider.FileData.Count; i++)
             {
+                MultipartFileData file = provider.FileData[i];
+
+                string name;
+                try
+                {
+                    name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString();
+                }
+                catch (JsonReaderException)
+                {
+                    name = file.Headers.ContentDisposition.FileName;
+                }
+
+                if (model.FileTypes[i].FileName != name)
+                {
+                    throw new APIException(ErrorAPIType.FileData, $"{Resources.Wrong} file data");
+                }
+
                 Asset asset = new Asset
                 {
-                    Type = AssetType.Record,
+                    Type = model.FileTypes[i].Type,
                     Proccessing = AssetProccessingType.New,
                     Status = UploadStatusType.New,
                     Kit = kit,
                     User = kit.User,
                     Record = record,
-                    Name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString()
+                    Name = name
                 };
 
                 string path = AssetManager.Path($"{CurrentUser.Id}/{DateTime.Now.Ticks:x}_{asset.Name}", asset.Type);

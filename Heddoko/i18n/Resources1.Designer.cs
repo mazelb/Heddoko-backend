@@ -313,6 +313,42 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Asset Type.
+        /// </summary>
+        public static string AssetType {
+            get {
+                return ResourceManager.GetString("AssetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analysis frame data.
+        /// </summary>
+        public static string AssetType_AnalysisFrameData {
+            get {
+                return ResourceManager.GetString("AssetType_AnalysisFrameData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Processed frame data.
+        /// </summary>
+        public static string AssetType_ProcessedFrameData {
+            get {
+                return ResourceManager.GetString("AssetType_ProcessedFrameData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raw frame data.
+        /// </summary>
+        public static string AssetType_RawFrameData {
+            get {
+                return ResourceManager.GetString("AssetType_RawFrameData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attachments.
         /// </summary>
         public static string Attachments {
@@ -1434,6 +1470,15 @@ namespace i18n {
         public static string Find {
             get {
                 return ResourceManager.GetString("Find", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default records.
+        /// </summary>
+        public static string FirmwareType_DefaultRecords {
+            get {
+                return ResourceManager.GetString("FirmwareType_DefaultRecords", resourceCulture);
             }
         }
         
