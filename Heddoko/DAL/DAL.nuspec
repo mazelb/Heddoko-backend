@@ -8,7 +8,7 @@
   </metadata>
   <files>
     <file src="bin\Dev\*.*"/>
-    <file src="..\..\packages\EntityFramework.6.1.3\tools\migrate.exe" />
+    <file src="..\..\Heddoko\packages\EntityFramework.6.1.3\tools\migrate.exe" />
     <file src="*.ps1" />
   </files>
 </package>  
