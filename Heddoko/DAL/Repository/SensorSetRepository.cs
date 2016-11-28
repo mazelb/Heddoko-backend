@@ -24,16 +24,25 @@ namespace DAL
                         .OrderBy(c => c.Id);
         }
 
-        public IEnumerable<SensorSet> Search(string search, bool isDeleted = false)
+        public IEnumerable<SensorSet> Search(string search, int? statusFilter, bool isDeleted = false)
         {
-            int? id = search.ParseID();
-            return DbSet
-                .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                .Where(c => (c.Id == id)
-                            || c.Label.ToLower().Contains(search.ToLower())
-                            || c.Notes.ToLower().Contains(search.ToLower()))
-                          //  || c.KitID.ToLower().Contains(search.ToLower()))
-                .OrderBy(c => c.Id);
+            IQueryable<SensorSet> query = DbSet.Include(c => c.Id);
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                int? id = search.ParseID();
+                query = query.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
+                                .Where(c => (c.Id == id)
+                                    || c.Label.ToLower().Contains(search.ToLower())
+                                    || c.Notes.ToLower().Contains(search.ToLower()));
+            }
+            if (statusFilter.HasValue)
+            {
+                query = query.Where(c => c.Status == (EquipmentStatusType)statusFilter);
+            }
+            query = query.OrderBy(c => c.Id);
+
+            return query;
         }
 
         public override SensorSet GetFull(int id)
