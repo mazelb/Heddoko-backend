@@ -428,9 +428,6 @@
     <Compile Include="Models\MongoDocuments\Results.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DAL.dll.dev.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
