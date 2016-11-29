@@ -45,19 +45,30 @@ namespace DAL
                         .OrderBy(c => c.Id);
         }
 
-        public IEnumerable<Brainpack> Search(string search, bool isDeleted = false)
+        public IEnumerable<Brainpack> Search(string search, int? statusFilter = null, bool isDeleted = false)
         {
-            int? id = search.ParseID();
-            return DbSet.Include(c => c.Firmware)
-                        .Include(c => c.Databoard)
-                        .Include(c => c.Powerboard)
-                        .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                        .Where(c => (c.Id == id)
+            IQueryable<Brainpack> query = DbSet.Include(c => c.Firmware)
+                                               .Include(c => c.Databoard)
+                                               .Include(c => c.Powerboard);
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                int? id = search.ParseID();
+                query = query.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
+                             .Where(c => (c.Id == id)
                                     || c.Version.ToString().ToLower().Contains(search.ToLower())
                                     || c.Location.ToLower().Contains(search.ToLower())
                                     || c.Label.ToLower().Contains(search.ToLower())
-                                    || c.Notes.ToLower().Contains(search.ToLower()))
-                        .OrderBy(c => c.Id);
+                                    || c.Notes.ToLower().Contains(search.ToLower()));
+            }
+            if (statusFilter.HasValue)
+            {
+                query = query.Where(c => c.Status == (EquipmentStatusType)statusFilter);
+            }
+
+            query = query.OrderBy(c => c.Id);
+
+            return query;
         }
 
 
