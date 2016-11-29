@@ -1,3 +1,2 @@
-$connectionString = $OctopusParameters["SQL.Heddoko.DeployConnectionString"]
 
-.\migrate.exe DAL.dll /connectionString="$($connectionString)" /connectionProviderName="System.Data.SqlClient"
+.\migrate.exe DAL.dll /startupConfigurationFile="DAL.dll.config" /verbose
