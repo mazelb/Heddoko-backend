@@ -456,7 +456,7 @@ var Brainpacks = {
     buildFilter: function(search) {
         Notifications.clear();
         search = this.controls.filterModel.search;
-        statusFilter = this.controls.filterModel.statusFilter;
+        var statusFilter = this.controls.filterModel.statusFilter;
 
         var filters = [];
 
