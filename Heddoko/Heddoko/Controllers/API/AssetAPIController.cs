@@ -194,10 +194,6 @@ namespace Heddoko.Controllers.API
 
                 Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
                 File.Delete(file.LocalFileName);
-                if(asset.Type == AssetType.Record)
-                {
-                    BackgroundJob.Enqueue(() => Azure.AddFramesToDatabase(asset.Id, DAL.Config.AssetsContainer));
-                }
 
                 asset.Image = $"/{path}";
                 break;

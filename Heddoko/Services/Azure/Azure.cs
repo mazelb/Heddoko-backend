@@ -42,11 +42,11 @@ namespace Services
         /// <param name="url">Url of Azure block blob reference</param>
         /// <param name="container">Azure assests container</param>
         /// <param name="path">path to the target file</param>
-        private static void DownloadToFile(string url, string container, string path)
+        private static void DownloadToFile(string url, string path)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Config.StorageConnectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer blobContainer = blobClient.GetContainerReference(container);
+            CloudBlobContainer blobContainer = blobClient.GetContainerReference(DAL.Config.AssetsContainer);
             
             CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(url);
 
@@ -61,16 +61,45 @@ namespace Services
             }      
         }
 
-        public static void AddFramesToDatabase(int assetId, string container)
+        public static void AddRecordToDatabase(int recordId)
         {
             UnitOfWork UoW = new UnitOfWork();
-            Asset asset = UoW.AssetRepository.Get(assetId);
-            string path = Path.Combine(Config.BaseDirectory, "Download", "Frames", asset.Name + "temp");
+            Record record = UoW.RecordRepository.Get(recordId);
+            string path;
 
-            DownloadToFile(asset.Url, container, path);
-            FileParser.AddProcessedFramesToDb(path);
-
-            DeleteFile(path);
+            foreach (Asset asset in record.Assets)
+            {
+                try
+                {
+                    switch (asset.Type)
+                    {
+                        case AssetType.ProcessedFrameData:
+                            path = Path.Combine(Config.BaseDirectory, "Download", "Frames", asset.Name + "processed");
+                            DownloadToFile(asset.Url, path);
+                            FileParser.AddProcessedFramesToDb(path);
+                            DeleteFile(path);
+                            break;
+                        case AssetType.RawFrameData:
+                            path = Path.Combine(Config.BaseDirectory, "Download", "Frames", asset.Name + "raw");
+                            DownloadToFile(asset.Url, path);
+                            FileParser.AddRawFramesToDb(path, record.User.Id);
+                            DeleteFile(path);
+                            break;
+                        case AssetType.AnalysisFrameData:
+                            path = Path.Combine(Config.BaseDirectory, "Download", "Frames", asset.Name + "analysis");
+                            DownloadToFile(asset.Url, path);
+                            FileParser.AddAnalysisFramesToDb(path);
+                            DeleteFile(path);
+                            break;
+                        default:
+                            continue;         
+                    }
+                }
+                catch (FileNotFoundException ex)
+                {
+                    continue; // Do nothing for now
+                }
+            }
         }
     }
 }
