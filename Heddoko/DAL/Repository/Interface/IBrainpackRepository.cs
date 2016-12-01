@@ -9,7 +9,7 @@ namespace DAL
         void RemoveDataboard(int databoardID);
         void RemovePowerboard(int id);
         IEnumerable<Brainpack> GetAvailable(int? usedID);
-        IEnumerable<Brainpack> Search(string value, bool isDeleted);
+        IEnumerable<Brainpack> Search(string value, int? statusFilter = null, bool isDeleted = false);
         IEnumerable<Brainpack> All(bool isDeleted);
         int GetNumReady();
     }

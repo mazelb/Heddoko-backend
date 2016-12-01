@@ -1042,7 +1042,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have been activated.
+        ///   Looks up a localized string similar to Your account has been activated.
         /// </summary>
         public static string EmailActivatedBody {
             get {
@@ -1087,7 +1087,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remind username.
+        ///   Looks up a localized string similar to Username reminder.
         /// </summary>
         public static string EmailForgotUsernameSubject {
             get {
@@ -1177,7 +1177,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter a MAC address, a physical location, or a serial #.
+        ///   Looks up a localized string similar to Enter a MAC address, a physical location or a serial #.
         /// </summary>
         public static string EnterComplexEquipment {
             get {
@@ -1186,7 +1186,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the serial # or location or mac address of an equipment.
+        ///   Looks up a localized string similar to Enter the serial #, location or mac address of an equipment.
         /// </summary>
         public static string EnterEquipment {
             get {
@@ -1222,7 +1222,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the name or id or phone of organization.
+        ///   Looks up a localized string similar to Enter the name, id or phone of organization.
         /// </summary>
         public static string EnterOrganization {
             get {
@@ -1258,7 +1258,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the firstname or lastname or email of user.
+        ///   Looks up a localized string similar to Enter the firstname, lastname or email of user.
         /// </summary>
         public static string EnterUser {
             get {
@@ -1438,7 +1438,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to License will be expired soon.
+        ///   Looks up a localized string similar to License is almost expired.
         /// </summary>
         public static string ExpiredSoon {
             get {
@@ -1672,7 +1672,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use this form to apply you invite.
+        ///   Looks up a localized string similar to Use this form to complete your invitation.
         /// </summary>
         public static string InviteMessage {
             get {
@@ -1870,6 +1870,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Organization can&apos;t have less licenses than amount in use.
+        /// </summary>
+        public static string LicenseAmountUsed {
+            get {
+                return ResourceManager.GetString("LicenseAmountUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your license has been changed to {0}.
         /// </summary>
         public static string LicenseChangedForUser {
@@ -1906,7 +1915,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to License is not assigned on you. Please notify organization admin..
+        ///   Looks up a localized string similar to You don&apos;t seem to have a Heddoko License assigned to you. Please notify organization admin..
         /// </summary>
         public static string LicenseIsNotReady {
             get {
@@ -2010,15 +2019,6 @@ namespace i18n {
         public static string LicenseUsed {
             get {
                 return ResourceManager.GetString("LicenseUsed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to License amount can&apos;t be less than used.
-        /// </summary>
-        public static string LiceseAmountUsed {
-            get {
-                return ResourceManager.GetString("LiceseAmountUsed", resourceCulture);
             }
         }
         
@@ -2275,7 +2275,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The name of organization in use..
+        ///   Looks up a localized string similar to There is already an organization with that name..
         /// </summary>
         public static string OrganizationNameUsed {
             get {
@@ -2509,7 +2509,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We have sent an email with a link to reset a password.
+        ///   Looks up a localized string similar to We have sent you an email with a link to reset a password.
         /// </summary>
         public static string PasswordSuccessufullySent {
             get {
@@ -2617,7 +2617,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You profile have been updated.
+        ///   Looks up a localized string similar to Your profile has been updated.
         /// </summary>
         public static string ProfileSaveMessage {
             get {
@@ -2833,7 +2833,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select a equipments.
+        ///   Looks up a localized string similar to Select equipments.
         /// </summary>
         public static string SelectEquipment {
             get {
@@ -3517,7 +3517,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We have sent an email with your support request. Soon we will contact with you..
+        ///   Looks up a localized string similar to Thank you! We have sent an email with your request to our support team..
         /// </summary>
         public static string SupportSent {
             get {
@@ -3625,7 +3625,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User used in another Organization.
+        ///   Looks up a localized string similar to User is already in another Organization.
         /// </summary>
         public static string UserAlreadyInOrganizations {
             get {
@@ -3751,7 +3751,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We have sent an email with your username..
+        ///   Looks up a localized string similar to We have sent you an email with your username..
         /// </summary>
         public static string UsernameSuccessufullySent {
             get {
@@ -3814,7 +3814,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User have been created. We have sent request to administration, please check when your account will be approved.
+        ///   Looks up a localized string similar to User has been created. We have sent a request to the administration, please check back when your account has been approved.
         /// </summary>
         public static string UserSignupMessage {
             get {
@@ -3823,7 +3823,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have been updated. Now you can use your organization.
+        ///   Looks up a localized string similar to Your account has been updated. Your organization is now active.
         /// </summary>
         public static string UserSignupOrganizationMessage {
             get {
@@ -3832,7 +3832,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have been updated. Ask admin of your organization for license..
+        ///   Looks up a localized string similar to Your account has been updated. Ask admin of your organization for license!.
         /// </summary>
         public static string UserSignupUserNonLicenseOrganizationMessage {
             get {
@@ -3841,7 +3841,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have been updated. Now you can use your account in application..
+        ///   Looks up a localized string similar to Your account has been updated. You can now use your account in the Heddoko app!.
         /// </summary>
         public static string UserSignupUserOrganizationMessage {
             get {
@@ -4012,7 +4012,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expiration date should be more than today.
+        ///   Looks up a localized string similar to Expiration date cannot be set to the past!.
         /// </summary>
         public static string WrongExpirationAtDate {
             get {
@@ -4021,7 +4021,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The number of files must be greater than or or equal to {0} and less than or equal to {1}.
+        ///   Looks up a localized string similar to The number of files must be greater than or equal to {0} and less than or equal to {1}.
         /// </summary>
         public static string WrongFilesCount {
             get {
@@ -4048,7 +4048,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Admin can&apos;t be a license admin.
+        ///   Looks up a localized string similar to Admin can&apos;t also be a license admin.
         /// </summary>
         public static string WrongLicenseAdmin {
             get {
@@ -4084,7 +4084,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You don&apos;t access to that object.
+        ///   Looks up a localized string similar to You don&apos;t have access to that.
         /// </summary>
         public static string WrongObjectAccess {
             get {

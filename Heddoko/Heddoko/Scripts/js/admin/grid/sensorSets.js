@@ -214,7 +214,10 @@ var SensorSets = {
             this.controls.filterModel = kendo.observable({
                 find: this.onFilter.bind(this),
                 search: null,
-                keyup: this.onEnter(this)
+                keyup: this.onEnter(this),
+                statusFilter: null,
+                filterStatus: this.onFilter.bind(this),
+                statuses: Datasources.equipmentStatusTypes
             });
 
             kendo.bind(filter, this.controls.filterModel);
@@ -535,6 +538,7 @@ var SensorSets = {
     buildFilter: function (search) {
         Notifications.clear();
         search = this.controls.filterModel.search;
+        var statusFilter = this.controls.filterModel.statusFilter;
 
         var filters = [];
 
@@ -544,6 +548,14 @@ var SensorSets = {
                 operator: "eq",
                 value: search
             });
+        }
+
+        if (typeof (statusFilter) === "number") {
+            filters.push({
+                field: "Status",
+                operator: "eq",
+                value: statusFilter
+            })
         }
 
         if (this.isDeleted) {
