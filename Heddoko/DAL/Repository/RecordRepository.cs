@@ -13,6 +13,13 @@ namespace DAL.Repository
         {
         }
 
+        public override Record Get(int id)
+        {
+            return DbSet.Include(c => c.User)
+                        .Include(c => c.Assets)
+                        .FirstOrDefault(c => c.Id == id);
+        }
+
         public IEnumerable<Record> GetRecordByOrganization(int organizationID, int teamID, int take, int? skip, int? userID)
         {
             IQueryable<Record> query = DbSet.Include(c => c.User)
