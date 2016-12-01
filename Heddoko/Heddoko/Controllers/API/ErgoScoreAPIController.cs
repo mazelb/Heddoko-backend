@@ -34,19 +34,12 @@ namespace Heddoko.Controllers.API
         [Route("org/{id:int?}")]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.AnalystAndAdmin)]
-        public GroupErgoScoreAPIModel GetOrgScores(int orgId)
+        public List<ErgoScore> GetOrgScores(int orgId)
         {
-            GroupErgoScoreAPIModel model = new GroupErgoScoreAPIModel();
-
             Organization org = UoW.OrganizationRepository.Get(orgId);
             IEnumerable<int> ids = org.Users.Select(x => x.Id).Distinct();
 
-            model.userScores = UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
-
-            model.groupScore.Score = UoW.AnalysisFrameRepository.GetTeamScore(ids.ToArray());
-            model.groupScore.ID = orgId;
-
-            return model;
+            return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
         }
 
         [Route("get")]
@@ -64,27 +57,15 @@ namespace Heddoko.Controllers.API
         [Route("team/{id:int?}")]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
-        public GroupErgoScoreAPIModel GetTeamScores(int teamId)
+        public List<ErgoScore> GetTeamScores(int teamId)
         {
-            GroupErgoScoreAPIModel model = new GroupErgoScoreAPIModel();
-
             Team team = UoW.TeamRepository.Get(teamId);
             IEnumerable<int> ids = team.Users.Select(x => x.Id).Distinct();
 
-            var results = UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
-
-            foreach (ErgoScore result in results)
-            {
-                model.userScores.Add(result);
-            }
-
-            model.groupScore.Score = UoW.AnalysisFrameRepository.GetTeamScore(ids.ToArray());
-            model.groupScore.ID = teamId;
-
-            return model;
+            return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
         }
 
-        private ErgoScore GetOrgScore(int orgId)
+        public ErgoScore GetOrgScore(int orgId)
         {
             ErgoScore ergoScore = new ErgoScore();
 
@@ -99,7 +80,7 @@ namespace Heddoko.Controllers.API
             return ergoScore;
         }
 
-        private ErgoScore GetTeamScore(int teamId)
+        public ErgoScore GetTeamScore(int teamId)
         {
             ErgoScore ergoScore = new ErgoScore();
 
