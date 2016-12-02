@@ -968,13 +968,13 @@
     <Content Include="Views\Organization\_Teams.cshtml" />
     <Content Include="Views\Inventory\_NotesHistory.cshtml" />
     <Content Include="Views\Static\Requirements.cshtml" />
-    <None Include="Web.dev.config">
+    <Content Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.prod.config">
+    </Content>
+    <Content Include="Web.prod.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
