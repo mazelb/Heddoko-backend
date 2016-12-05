@@ -48,8 +48,6 @@ namespace Heddoko.Controllers
             bool isDeleted = false;
             bool isUsed = false;
 
-            Services.FileParser.TestFunction();
-
             if (request?.Filter != null)
             {
                 KendoFilterItem isUsedFilter = request.Filter.Get(Used);

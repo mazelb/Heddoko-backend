@@ -292,7 +292,6 @@
     <Compile Include="Models\Enum\DeviceStatus.cs" />
     <Compile Include="Models\Enum\DeviceType.cs" />
     <Compile Include="Models\Enum\ReadStatus.cs" />
-    <Compile Include="Models\Enum\SensorPositions.cs" />
     <Compile Include="Models\ErgoScore.cs" />
     <Compile Include="Models\MongoDocuments\ErgoScoreTeamResult.cs" />
     <Compile Include="Models\Enum\RecordType.cs" />
