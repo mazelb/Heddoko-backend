@@ -10,7 +10,5 @@ namespace DAL.Models
     {
         [JsonIgnore]
         public double Score { get; set; }
-        [JsonIgnore]
-        public int ID { get; set; }
     }
 }

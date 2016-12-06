@@ -71,29 +71,10 @@ namespace Services
             {
                 try
                 {
-                    switch (asset.Type)
-                    {
-                        case AssetType.ProcessedFrameData:
-                            path = Path.Combine(Config.BaseDirectory, "Download", "Frames", asset.Name + "processed");
-                            DownloadToFile(asset.Url, path);
-                            FileParser.AddProcessedFramesToDb(path);
-                            DeleteFile(path);
-                            break;
-                        case AssetType.RawFrameData:
-                            path = Path.Combine(Config.BaseDirectory, "Download", "Frames", asset.Name + "raw");
-                            DownloadToFile(asset.Url, path);
-                            FileParser.AddRawFramesToDb(path, record.User.Id);
-                            DeleteFile(path);
-                            break;
-                        case AssetType.AnalysisFrameData:
-                            path = Path.Combine(Config.BaseDirectory, "Download", "Frames", asset.Name + "analysis");
-                            DownloadToFile(asset.Url, path);
-                            FileParser.AddAnalysisFramesToDb(path);
-                            DeleteFile(path);
-                            break;
-                        default:
-                            continue;         
-                    }
+                    path = Path.Combine(Config.BaseDirectory, "Download", "Frames", asset.Name + asset.Type.ToString());
+                    DownloadToFile(asset.Url, path);
+                    FileParser.AddFileToDb(path, asset.Type, record.User.Id);
+                    DeleteFile(path);
                 }
                 catch (FileNotFoundException ex)
                 {

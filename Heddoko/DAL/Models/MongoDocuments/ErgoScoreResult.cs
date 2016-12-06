@@ -11,7 +11,7 @@ namespace DAL.Models.MongoDocuments
         {
             return new ErgoScore
             {
-                ID = _id,
+                Id = _id,
                 Score = ErgoScore
             };
         }

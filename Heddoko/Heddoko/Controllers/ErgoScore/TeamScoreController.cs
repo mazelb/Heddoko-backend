@@ -27,10 +27,7 @@ namespace Heddoko.Controllers
 
                 var results = UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
 
-                foreach (ErgoScore result in results)
-                {
-                    scores.Add(Convert(result));
-                }
+                scores.AddRange(results.ToList().Select(Convert));
             }
 
             return new KendoResponse<IEnumerable<ErgoScoreAPIModel>>
@@ -48,7 +45,7 @@ namespace Heddoko.Controllers
 
             return new ErgoScoreAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 Score = item.Score
             };
         }

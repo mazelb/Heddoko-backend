@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using DAL.Models;
 using DAL.Models.MongoDocuments;
 using ProtoBuf;
 
@@ -15,6 +16,27 @@ namespace Services
         private const int BufferSize = 4096;
         private const int HeaderSize = 4;
         private const byte ProtoBufByte = 0x04;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="fileType"></param>
+        public static void AddFileToDb(string filePath, AssetType fileType, int id)
+        {
+            switch (fileType)
+            {
+                case AssetType.ProcessedFrameData:
+                    AddProcessedFramesToDb(filePath);
+                    break;
+                case AssetType.RawFrameData:
+                    AddRawFramesToDb(filePath, id);
+                    break;
+                case AssetType.AnalysisFrameData:
+                    AddAnalysisFramesToDb(filePath);
+                    break;
+            }
+        }
 
         /// <summary>
         /// Parses file into ProcessedFrames and inputs frames into the DB
