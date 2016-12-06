@@ -1,28 +1,47 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
 public class SubdomainRoute : RouteBase
 {
+    private readonly string _subDomain;
+    private readonly RouteValueDictionary _routeData;
+
+    public SubdomainRoute(string subDomain, object routeData) :
+        this(subDomain, new RouteValueDictionary(routeData))
+    { }
+
+    public SubdomainRoute(string subDomain, RouteValueDictionary routeData)
+    {
+        _subDomain = subDomain;
+        _routeData = routeData;
+    }
 
     public override RouteData GetRouteData(HttpContextBase httpContext)
     {
-        var host = httpContext.Request.Url.Host;
-        var index = host.IndexOf(".");
-        string[] segments = httpContext.Request.Url.PathAndQuery.Split('/');
+        var url = httpContext.Request.Headers["HOST"];
 
+        var index = url.IndexOf(".", StringComparison.Ordinal);
         if (index < 0)
+        {
             return null;
+        }
 
-        var subdomain = host.Substring(0, index);
-        string controller = (segments.Length > 0) ? segments[0] : "Home";
-        string action = (segments.Length > 1) ? segments[1] : "Index";
+        var firstDomain = url.Split('.')[0];
+        if (!firstDomain.Equals(_subDomain))
+        {
+            return null;
+        }
 
-        var routeData = new RouteData(this, new MvcRouteHandler());
-        routeData.Values.Add("controller", controller); 
-        routeData.Values.Add("action", action); 
-        routeData.Values.Add("subdomain", subdomain); 
-        return routeData;
+        var handler = new MvcRouteHandler();
+        var result = new RouteData { RouteHandler = handler };
+        foreach (var route in _routeData)
+        {
+            result.Values.Add(route.Key, route.Value);
+        }
+
+        return result;
     }
 
     public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values)

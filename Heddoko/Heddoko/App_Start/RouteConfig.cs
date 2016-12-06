@@ -10,7 +10,7 @@ namespace Heddoko
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapMvcAttributeRoutes();
 
-            routes.Add(new SubdomainRoute());
+            routes.Add(new SubdomainRoute("test", new { controller = "TestAPI", action = "Test", id = UrlParameter.Optional }));
 
             routes.MapRoute(
                 "Admin",
