@@ -17,13 +17,27 @@ namespace Heddoko.Helpers.Auth
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
+        private Development client;
+
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             string clientId;
             string clientSecret;
             context.TryGetFormCredentials(out clientId, out clientSecret);
 
-            if (clientId != string.Empty && clientSecret != string.Empty)
+            var UoW = context.OwinContext.Get<UnitOfWork>();
+            client = UoW.DevelopmentRepository.GetByClient(clientId, clientSecret);
+
+            if (client == null)
+            {
+                context.SetError("invalid_grant", "The cliet or secret is incorrect.");
+            }
+            else if (!client.Enabled)
+            {
+                context.SetError("invalid_grant", "This client is disabled.");
+            }
+
+            if (!context.HasError)
             {
                 context.Validated(clientId);
             }
@@ -32,24 +46,9 @@ namespace Heddoko.Helpers.Auth
         }
 
         public override Task GrantClientCredentials(OAuthGrantClientCredentialsContext context)
-        {
-            var UoW = context.OwinContext.Get<UnitOfWork>();
-            var client = UoW.DevelopmentRepository.GetByClient(context.ClientId);
-
-            if (client == null)
-            {
-                context.SetError("invalid_grant", "The cliet or secret is incorrect.");
-                throw new HttpException(403, Resources.YouAreNotAuthorized);
-            }
-
-            if (!client.Enabled)
-            {
-                context.SetError("invalid_grant", "This client is disabled.");
-                throw new HttpException(403, Resources.YouAreNotAuthorized);
-            }
-
+        {          
             var oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
-            oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, client.Name));
+            oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, context.ClientId));
             var ticket = new AuthenticationTicket(oAuthIdentity, new AuthenticationProperties());
             context.Validated(ticket);
             return base.GrantClientCredentials(context);

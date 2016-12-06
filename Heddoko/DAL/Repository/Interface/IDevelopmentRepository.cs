@@ -7,7 +7,7 @@ namespace DAL
     {
         IEnumerable<Development> All(bool isDeleted);
 
-        Development GetByClient(string client);
+        Development GetByClient(string client, string secret);
 
         IEnumerable<Development> GetByUserId(int UserId);
     }
