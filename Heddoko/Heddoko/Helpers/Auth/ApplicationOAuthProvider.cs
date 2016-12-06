@@ -11,22 +11,21 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Infrastructure;
 using Microsoft.Owin.Security;
+using i18n;
 
 namespace Heddoko.Helpers.Auth
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
-        private DevelopmentRepository clientService;
-
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            string client;
-            string secret;
-            context.TryGetFormCredentials(out client, out secret);
+            string clientId;
+            string clientSecret;
+            context.TryGetFormCredentials(out clientId, out clientSecret);
 
-            if (client == "1234" && secret == "12345")
+            if (clientId != string.Empty && clientSecret != string.Empty)
             {
-                context.Validated(client);
+                context.Validated(clientId);
             }
 
             return base.ValidateClientAuthentication(context);
@@ -34,7 +33,21 @@ namespace Heddoko.Helpers.Auth
 
         public override Task GrantClientCredentials(OAuthGrantClientCredentialsContext context)
         {
-            var client = clientService.GetByClient(context.ClientId);
+            var UoW = context.OwinContext.Get<UnitOfWork>();
+            var client = UoW.DevelopmentRepository.GetByClient(context.ClientId);
+
+            if (client == null)
+            {
+                context.SetError("invalid_grant", "The cliet or secret is incorrect.");
+                throw new HttpException(403, Resources.YouAreNotAuthorized);
+            }
+
+            if (!client.Enabled)
+            {
+                context.SetError("invalid_grant", "This client is disabled.");
+                throw new HttpException(403, Resources.YouAreNotAuthorized);
+            }
+
             var oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
             oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, client.Name));
             var ticket = new AuthenticationTicket(oAuthIdentity, new AuthenticationProperties());
