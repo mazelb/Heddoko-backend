@@ -1,14 +1,22 @@
-﻿using System.Web.Mvc;
-using DAL;
-using Heddoko.Controllers.API;
+﻿using DAL;
+using System.Web.Http;
 
 namespace Heddoko.Controllers.DevelopmentAPI
 {
-    public class TestAPIController : Controller
+    [Authorize]
+    public class TestAPIController : ApiController
     {
-        public string Test(string subdomain)
+        [Route("test")]
+        [HttpPost]
+        public IHttpActionResult Test()
         {
-            return subdomain;
+            return null;
+        }
+
+        [Route("index")]
+        public IHttpActionResult Index()
+        {
+            return null;
         }
     }
 }
