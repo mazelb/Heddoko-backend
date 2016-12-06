@@ -60,13 +60,25 @@ namespace Heddoko
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
-        }
 
+            OAuthAuthorizationServerOptions OAuthOptions = new OAuthAuthorizationServerOptions
+            {
+                TokenEndpointPath = new PathString("/token"),
+                Provider = new ApplicationOAuthProvider(),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60),
+                AllowInsecureHttp = true,
+                AuthenticationMode = AuthenticationMode.Active
+            };
+
+            app.UseOAuthBearerTokens(OAuthOptions);
+        }
+            
         private static bool IsApiOrSignalRRequest(IOwinRequest request)
         {
             string apiPath = VirtualPathUtility.ToAbsolute("~/api/");
+            string openApiPath = VirtualPathUtility.ToAbsolute("~/openApi/");
             string signalrPath = VirtualPathUtility.ToAbsolute("~/signalr/");
-            return request.Uri.LocalPath.StartsWith(apiPath) || request.Uri.LocalPath.StartsWith(signalrPath);
+            return request.Uri.LocalPath.StartsWith(apiPath) || request.Uri.LocalPath.StartsWith(signalrPath) || request.Uri.LocalPath.StartsWith(openApiPath);
         }
     }
 }

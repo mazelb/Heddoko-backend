@@ -17,16 +17,19 @@ namespace DAL
             return DbSet.FirstOrDefault(c => c.Id == id);
         }
 
+        public Development GetByClient(string client)
+        {
+            return DbSet.FirstOrDefault(c => c.Client == client);
+        }
+
         public IEnumerable<Development> All(bool isDeleted)
         {
-            return DbSet.Include(c => c.UserID)
-                        .OrderByDescending(c => c.Created);
+            return DbSet.OrderByDescending(c => c.Created);
         }
 
         public IEnumerable<Development> GetByUserId(int userId)
         {
-            return DbSet.Include(c => c.UserID)
-                        .Where(c => c.UserID == userId)
+            return DbSet.Where(c => c.UserID == userId)
                         .OrderByDescending(c => c.Created);
         }
     }

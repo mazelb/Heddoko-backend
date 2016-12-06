@@ -808,6 +808,7 @@
     <Compile Include="Helpers\Auth\AuthAttribute.cs" />
     <Compile Include="Helpers\Auth\AuthCookie.cs" />
     <Compile Include="Helpers\Auth\Auth.cs" />
+    <Compile Include="Helpers\Auth\ApplicationOAuthProvider.cs" />
     <Compile Include="Helpers\Auth\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Helpers\SubdomainRoute.cs" />
     <Compile Include="Helpers\Config.cs" />
@@ -1060,7 +1061,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50664</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
