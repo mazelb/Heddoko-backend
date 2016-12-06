@@ -763,7 +763,6 @@
     <Compile Include="Areas\MvcElmahDashboard\Models\Logs\PrevNextRequest.cs" />
     <Compile Include="Areas\MvcElmahDashboard\MvcElmahDashboardAreaRegistration.cs" />
     <Compile Include="Controllers\API\DevelopmentApiController.cs" />
-    <Compile Include="Controllers\API\TestClaimAPIController.cs" />
     <Compile Include="Controllers\DevelopmentAPI\TestAPIController.cs" />
     <Compile Include="Controllers\DevelopmentController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
