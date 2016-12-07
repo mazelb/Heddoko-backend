@@ -4,6 +4,8 @@ using DAL.Models;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Hangfire;
+using ImportConsole;
+using System.Diagnostics;
 
 namespace Services
 {
@@ -65,20 +67,21 @@ namespace Services
         {
             UnitOfWork UoW = new UnitOfWork();
             Record record = UoW.RecordRepository.Get(recordId);
-            string path;
 
             foreach (Asset asset in record.Assets)
             {
                 try
                 {
-                    path = Path.Combine(Config.BaseDirectory, "Download", "Frames", asset.Name + asset.Type.ToString());
+                    string downloadPath = Utils.DownloadPath();
+
+                    string path = Path.Combine(downloadPath, asset.Name);
                     DownloadToFile(asset.Url, path);
-                    FileParser.AddFileToDb(path, asset.Type, record.User.Id);
+                    FileParser.AddFileToDb(path, asset.Type, UoW, record.User.Id);
                     DeleteFile(path);
                 }
                 catch (FileNotFoundException ex)
                 {
-                    continue; // Do nothing for now
+                    Trace.TraceError($"LicenseManager.Check.Exception ex:{ex.GetOriginalException()}");
                 }
             }
         }

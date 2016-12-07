@@ -8,6 +8,7 @@ using DAL;
 using DAL.Models;
 using DAL.Models.MongoDocuments;
 using ProtoBuf;
+using System.Diagnostics;
 
 namespace Services
 {
@@ -18,22 +19,22 @@ namespace Services
         private const byte ProtoBufByte = 0x04;
 
         /// <summary>
-        /// 
+        /// Adding Files to the DB
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="fileType"></param>
-        public static void AddFileToDb(string filePath, AssetType fileType, int id)
+        public static void AddFileToDb(string filePath, AssetType fileType, UnitOfWork UoW, int id)
         {
             switch (fileType)
             {
                 case AssetType.ProcessedFrameData:
-                    AddProcessedFramesToDb(filePath);
+                    AddProcessedFramesToDb(filePath, UoW);
                     break;
                 case AssetType.RawFrameData:
-                    AddRawFramesToDb(filePath, id);
+                    AddRawFramesToDb(filePath, UoW, id);
                     break;
                 case AssetType.AnalysisFrameData:
-                    AddAnalysisFramesToDb(filePath);
+                    AddAnalysisFramesToDb(filePath, UoW);
                     break;
             }
         }
@@ -42,11 +43,10 @@ namespace Services
         /// Parses file into ProcessedFrames and inputs frames into the DB
         /// </summary>
         /// <param name="filePath">filepath of the proto file</param>
-        public static void AddProcessedFramesToDb(string filePath)
+        private static void AddProcessedFramesToDb(string filePath, UnitOfWork UoW)
         {
             try
             {
-                UnitOfWork UoW = new UnitOfWork();
                 FileStream fStream = new FileStream(filePath, FileMode.Open);
                 MemoryStream memStream = new MemoryStream();
                 byte[] byteArrayBuffer = new byte[BufferSize];
@@ -78,7 +78,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                // TODO: Benb: Fill this in
+                Trace.TraceError($"LicenseManager.Check.Exception ex: {ex.GetOriginalException()}");
             }
         }
 
@@ -86,11 +86,10 @@ namespace Services
         /// Parses protofile into AnalysisFrames and adds them to the DB
         /// </summary>
         /// <param name="filePath">filepath of the proto file</param>
-        public static void AddAnalysisFramesToDb(string filePath)
+        private static void AddAnalysisFramesToDb(string filePath, UnitOfWork UoW)
         {
             try
             {
-                UnitOfWork UoW = new UnitOfWork();
                 FileStream fStream = new FileStream(filePath, FileMode.Open);
                 MemoryStream memStream = new MemoryStream();
                 byte[] byteArrayBuffer = new byte[BufferSize];
@@ -123,7 +122,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                // TODO : Benb : Handle File errors
+                Trace.TraceError($"LicenseManager.Check.Exception ex: {ex.GetOriginalException()}");
             }
         }
 
@@ -131,11 +130,10 @@ namespace Services
         /// Parses protofile into RawFrames and adds them to the DB
         /// </summary>
         /// <param name="filePath">filepath of the proto file</param>
-        public static void AddRawFramesToDb(string filePath, int userId)
+        private static void AddRawFramesToDb(string filePath, UnitOfWork UoW, int userId)
         {
             try
             {
-                UnitOfWork UoW = new UnitOfWork();
                 FileStream fStream = new FileStream(filePath, FileMode.Open);
                 MemoryStream memStream = new MemoryStream();
                 byte[] byteArrayBuffer = new byte[BufferSize];
@@ -182,8 +180,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                // TODO: BENB : Handle file errors
-                Console.Write(ex.Data);
+                Trace.TraceError($"LicenseManager.Check.Exception ex: {ex.GetOriginalException()}");
             }
         }
 

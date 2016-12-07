@@ -12,7 +12,7 @@ using Heddoko.Models;
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [System.Web.Http.RoutePrefix("api/teamscore")]
+    [System.Web.Http.RoutePrefix("admin/api/teamscore")]
     [AuthAPI(Roles = Constants.Roles.All)]
     public class TeamScoreController : BaseAdminController<ErgoScore, ErgoScoreAPIModel>
     {
@@ -45,7 +45,7 @@ namespace Heddoko.Controllers
 
             return new ErgoScoreAPIModel
             {
-                ID = item.Id,
+                ID = item.Id.Value,
                 Score = item.Score
             };
         }

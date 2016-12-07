@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DAL.Models
 {
-    public class ErgoScore : BaseModel
+    public class ErgoScore
     {
-        [JsonIgnore]
+        [BsonId]
+        public int? Id { get; set; }
         public double Score { get; set; }
     }
 }

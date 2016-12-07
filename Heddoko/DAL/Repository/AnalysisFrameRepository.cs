@@ -68,11 +68,11 @@ namespace DAL
         {
             var aggregate = GetAggregateUserScore(userID);
 
-            var results = await aggregate.FirstOrDefaultAsync();
-            if (results != null)
+            var result = await aggregate.FirstOrDefaultAsync();
+            if (result != null)
             {
-                ErgoScoreResult score = BsonSerializer.Deserialize<ErgoScoreResult>(results);
-                return score.ErgoScore;
+                ErgoScore score = BsonSerializer.Deserialize<ErgoScore>(result);
+                return score.Score;
             }
 
             return 0;
@@ -90,9 +90,9 @@ namespace DAL
             var results = await aggregate.FirstOrDefaultAsync();
             if (results != null)
             {
-                ErgoScoreTeamResult temp = BsonSerializer.Deserialize<ErgoScoreTeamResult>(results);
+                ErgoScore temp = BsonSerializer.Deserialize<ErgoScore>(results);
 
-                return temp.ErgoScore;
+                return temp.Score;
             }
 
             return 0;
@@ -109,13 +109,10 @@ namespace DAL
 
             var aggregate = GetAggregateMuiltUserScore(userIDs);
 
-            var results = await aggregate.ToListAsync();
+            var results = aggregate.ToBsonDocument();
             if (results != null)
             {
-                foreach (BsonDocument result in results)
-                {
-                    scores.Add(BsonSerializer.Deserialize<ErgoScoreResult>(result).ToErgoScore());
-                }
+                scores.AddRange(BsonSerializer.Deserialize<List<ErgoScore>>(results));
             }
 
             return scores;
@@ -132,9 +129,9 @@ namespace DAL
             var results = await aggregate.FirstOrDefaultAsync();
             if (results != null)
             {
-                ErgoScoreTeamResult temp = BsonSerializer.Deserialize<ErgoScoreTeamResult>(results);
+                ErgoScore temp = BsonSerializer.Deserialize<ErgoScore>(results);
 
-                return temp.ErgoScore;
+                return temp.Score;
             }
 
             return 0;
@@ -152,8 +149,8 @@ namespace DAL
             var results = aggregate.FirstOrDefault();
             if (results != null)
             {
-                ErgoScoreResult score = BsonSerializer.Deserialize<ErgoScoreResult>(results);
-                return score.ErgoScore;
+                ErgoScore score = BsonSerializer.Deserialize<ErgoScore>(results);
+                return score.Score;
             }
 
             return 0;
@@ -171,9 +168,9 @@ namespace DAL
             var results = aggregate.FirstOrDefault();
             if (results != null)
             {
-                ErgoScoreTeamResult temp = BsonSerializer.Deserialize<ErgoScoreTeamResult>(results);
+                ErgoScore temp = BsonSerializer.Deserialize<ErgoScore>(results);
 
-                return temp.ErgoScore;
+                return temp.Score;
             }
 
             return 0;
@@ -190,13 +187,10 @@ namespace DAL
 
             var aggregate = GetAggregateMuiltUserScore(userIDs);
 
-            var results = aggregate.ToList();
+            var results = aggregate.ToBsonDocument();
             if (results != null)
             {
-                foreach (BsonDocument result in results)
-                {
-                    scores.Add(BsonSerializer.Deserialize<ErgoScoreResult>(result).ToErgoScore());
-                }
+                scores.AddRange(BsonSerializer.Deserialize<List<ErgoScore>>(results));
             }
 
             return scores;
@@ -213,9 +207,9 @@ namespace DAL
             var results = aggregate.FirstOrDefault();
             if (results != null)
             {
-                ErgoScoreTeamResult temp = BsonSerializer.Deserialize<ErgoScoreTeamResult>(results);
+                ErgoScore temp = BsonSerializer.Deserialize<ErgoScore>(results);
 
-                return temp.ErgoScore;
+                return temp.Score;
             }
 
             return 0;
