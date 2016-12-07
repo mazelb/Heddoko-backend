@@ -397,7 +397,7 @@
     <value>Username already used</value>
   </data>
   <data name="UserSignupMessage" xml:space="preserve">
-    <value>User has been created. We have sent a request to the administration, please check back when your account has been approved</value>
+    <value>User has been created. We have sent a request to the administrator, please check back when your account has been approved</value>
   </data>
   <data name="And" xml:space="preserve">
     <value>and</value>
