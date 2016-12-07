@@ -10,6 +10,7 @@ using DAL;
 using Services;
 using System.IO;
 using System.Threading.Tasks;
+using Heddoko.Helpers.DomainRouting.Http;
 
 namespace Heddoko.Controllers.API
 {
@@ -25,7 +26,7 @@ namespace Heddoko.Controllers.API
         /// </summary>
         /// <param name="id">The id of brainpack or databoard or powerboard</param>
         /// <param name="type">The type of firmware.</param>
-        [Route("check")]
+        [DomainRoute("check", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public Firmware CheckFirmware(FirmwareAPIViewModel model)
         {
@@ -43,7 +44,7 @@ namespace Heddoko.Controllers.API
         /// <param name="id">The id of brainpack or databoard or powerboard</param>
         /// <param name="firmwareID">The id of firmware</param>
         /// <param name="type">The type of firmware.</param>
-        [Route("update")]
+        [DomainRoute("update", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public Firmware UpdateFirmware(FirmwareAPIViewModel model)
         {
@@ -109,14 +110,14 @@ namespace Heddoko.Controllers.API
         /// <summary>
         ///     Check software
         /// </summary>
-        [Route("software")]
+        [DomainRoute("software", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public Firmware CheckSoftware()
         {
             return UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Software);
         }
 
-        [Route("upload/{token}/{version}")]
+        [DomainRoute("upload/{token}/{version}", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         [AllowAnonymous]
         public async Task<bool> UploadSoftware(string token, string version)

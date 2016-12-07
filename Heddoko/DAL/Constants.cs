@@ -83,5 +83,12 @@
         {
             public const string Notes = "Notes";
         }
+
+        public static class ConfigKeyName
+        {
+            public const string DashboardSite = "DashboardSite";
+            public const string PublicApiSite = "PublicApiSite";
+            public const string AllSites = "DashboardSite,PublicApiSite";
+        }
     }
 }

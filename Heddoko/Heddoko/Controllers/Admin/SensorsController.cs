@@ -5,6 +5,7 @@ using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
 using Hangfire;
+using Heddoko.Helpers.DomainRouting.Http;
 using Heddoko.Models;
 
 namespace Heddoko.Controllers
@@ -231,7 +232,7 @@ namespace Heddoko.Controllers
             };
         }
 
-        [Route("{id:int}/unlink")]
+        [DomainRoute("{id:int}/unlink", Constants.ConfigKeyName.DashboardSite)]
         public KendoResponse<SensorAPIModel> Unlink(int id)
         {
             Sensor item = UoW.SensorRepository.GetFull(id);

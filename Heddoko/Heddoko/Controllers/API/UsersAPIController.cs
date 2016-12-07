@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Heddoko.Helpers.DomainRouting.Http;
 using Heddoko.Models;
 using i18n;
 
@@ -22,7 +23,7 @@ namespace Heddoko.Controllers.API
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        [Route("{id:int?}")]
+        [DomainRoute("{id:int?}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
         public User Get(int? id = null)
@@ -49,7 +50,7 @@ namespace Heddoko.Controllers.API
         /// <summary>
         ///     Get profile of current user
         /// </summary>
-        [Route("profile")]
+        [DomainRoute("profile", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
         public User Profile()
@@ -65,7 +66,7 @@ namespace Heddoko.Controllers.API
         /// </summary>
         /// <param name="username">The username of user.</param>
         /// <param name="password">The password of user.</param>
-        [Route("signin")]
+        [DomainRoute("signin", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public User Signin(SignInAPIViewModel model)
         {
@@ -145,7 +146,7 @@ namespace Heddoko.Controllers.API
         /// <summary>
         ///     Check if token is valid
         /// </summary>
-        [Route("check")]
+        [DomainRoute("check", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
         public object Check()
@@ -161,7 +162,7 @@ namespace Heddoko.Controllers.API
         /// </summary>
         /// <param name="take">The amount of take entries</param>
         /// <param name="skip">The amoun of skip entries</param>
-        [Route("list/{take:int}/{skip:int?}")]
+        [DomainRoute("list/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.Analyst)]
         public ListAPIViewModel<User> List(int take = 100, int? skip = 0)

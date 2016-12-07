@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Heddoko.Helpers.DomainRouting.Http;
 using Heddoko.Models;
 using i18n;
 
@@ -18,7 +19,7 @@ namespace Heddoko.Controllers.API
         public ErgoScoreAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        [Route("{id:int?}")]
+        [DomainRoute("{id:int?}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
         public ErgoScoreAPIModel Get(int? id = null)
@@ -51,7 +52,7 @@ namespace Heddoko.Controllers.API
             return ergoScore;
         }
 
-        [Route("get")]
+        [DomainRoute("get", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public ErgoScoreAPIModel GetErgoScoreModel()
         {

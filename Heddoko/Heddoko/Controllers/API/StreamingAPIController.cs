@@ -4,6 +4,7 @@ using System.Web.Http;
 using DAL;
 using DAL.Helpers;
 using DAL.Models;
+using Heddoko.Helpers.DomainRouting.Http;
 using i18n;
 
 namespace Heddoko.Controllers.API
@@ -12,7 +13,7 @@ namespace Heddoko.Controllers.API
     [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
     public class StreamingAPIController : BaseAPIController
     {
-        [Route("connections")]
+        [DomainRoute("connections", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public List<Channel> Connections()
         {
@@ -24,7 +25,7 @@ namespace Heddoko.Controllers.API
             return UoW.StreamConnectionsCacheRepository.GetCached(CurrentUser.TeamID.Value);
         }
 
-        [Route("connections/add")]
+        [DomainRoute("connections/add", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public bool AddConnection()
         {
@@ -43,7 +44,7 @@ namespace Heddoko.Controllers.API
             return true;
         }
 
-        [Route("connections/delete")]
+        [DomainRoute("connections/delete", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public bool RemoveConnection()
         {

@@ -6,6 +6,7 @@ using Heddoko.Helpers.Error;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Elmah.Contrib.WebApi;
+using Heddoko.Helpers.DomainRouting;
 
 namespace Heddoko
 {
@@ -21,6 +22,10 @@ namespace Heddoko
                 new
                 {
                     id = RouteParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
                 }
                 );
 
@@ -30,6 +35,10 @@ namespace Heddoko
                 new
                 {
                     id = RouteParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
                 }
                 );
 

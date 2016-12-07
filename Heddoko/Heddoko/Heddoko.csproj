@@ -763,7 +763,7 @@
     <Compile Include="Areas\MvcElmahDashboard\Models\Logs\PrevNextRequest.cs" />
     <Compile Include="Areas\MvcElmahDashboard\MvcElmahDashboardAreaRegistration.cs" />
     <Compile Include="Controllers\API\DevelopmentApiController.cs" />
-    <Compile Include="Controllers\DevelopmentAPI\TestAPIController.cs" />
+    <Compile Include="Controllers\PublicAPI\TestAPIController.cs" />
     <Compile Include="Controllers\DevelopmentController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\ComponentsController.cs" />
@@ -811,10 +811,11 @@
     <Compile Include="Helpers\Auth\Auth.cs" />
     <Compile Include="Helpers\Auth\ApplicationOAuthProvider.cs" />
     <Compile Include="Helpers\Auth\SimpleAuthorizationServerProvider.cs" />
-    <Compile Include="Helpers\SubdomainRoute.cs" />
+    <Compile Include="Helpers\DomainRouting\Http\DomainRouteAttribute.cs" />
     <Compile Include="Helpers\Config.cs" />
     <Compile Include="Helpers\ContextSession.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
+    <Compile Include="Helpers\DomainRouting\Mvc\DomainRouteAttribute.cs" />
     <Compile Include="Helpers\Error\APIException.cs" />
     <Compile Include="Helpers\Error\ErrorAPIType.cs" />
     <Compile Include="Helpers\Error\ErrorMessage.cs" />
@@ -831,6 +832,8 @@
     <Compile Include="Helpers\MVC\CustomDirectRouteProvider.cs" />
     <Compile Include="Helpers\MVC\IsCurrentAction.cs" />
     <Compile Include="Helpers\MVC\PosivitiveNumberAttribute.cs" />
+    <Compile Include="Helpers\DomainRouting\DomainRouteConstraint.cs" />
+    <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Hubs\StreamingHub.cs" />
     <Compile Include="Models\Account\InviteViewModel.cs" />

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Heddoko.Helpers.DomainRouting;
 
 namespace Heddoko
 {
@@ -8,9 +9,8 @@ namespace Heddoko
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.MapMvcAttributeRoutes();
 
-            routes.Add(new SubdomainRoute("test", new { controller = "TestAPI", action = "Test", id = UrlParameter.Optional }));
+            routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
                 "Admin",
@@ -20,6 +20,10 @@ namespace Heddoko
                     controller = "Admin",
                     action = "Index",
                     token = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
                 }
                 );
 
@@ -31,6 +35,10 @@ namespace Heddoko
                     controller = "Inventory",
                     action = "Index",
                     token = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
                 }
                 );
 
@@ -42,6 +50,10 @@ namespace Heddoko
                     controller = "Development",
                     action = "Approve",
                     token = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
                 }
                 );
 
@@ -53,6 +65,10 @@ namespace Heddoko
                     controller = "Account",
                     action = "SignIn",
                     token = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
                 }
                 );
 
@@ -64,6 +80,10 @@ namespace Heddoko
                     controller = "Account",
                     action = "SignOut",
                     token = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
                 }
                 );
 
@@ -75,6 +95,10 @@ namespace Heddoko
                     controller = "Account",
                     action = "SignUp",
                     token = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
                 }
                 );
 
@@ -86,6 +110,10 @@ namespace Heddoko
                     controller = "Account",
                     action = "SignUpOrganization",
                     organizationID = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
                 }
                 );
 
@@ -98,6 +126,10 @@ namespace Heddoko
                     action = "SignUpOrganization",
                     userId = UrlParameter.Optional,
                     code = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
                 }
                 );
 
@@ -110,6 +142,10 @@ namespace Heddoko
                     action = "Confirm",
                     userId = UrlParameter.Optional,
                     code = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
                 }
                 );
 
@@ -122,6 +158,24 @@ namespace Heddoko
                     action = "Forgot",
                     userId = UrlParameter.Optional,
                     code = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                }
+                );
+
+            routes.MapRoute(
+                "Error",
+                "Error/{action}/{url}",
+                new
+                {
+                    controller = "Error",
+                    url = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain, Config.PublicApiSiteDomain)
                 }
                 );
 
@@ -133,6 +187,10 @@ namespace Heddoko
                     controller = "Default",
                     action = "Index",
                     id = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
                 }
                 );
         }
