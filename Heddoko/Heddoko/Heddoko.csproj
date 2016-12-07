@@ -972,7 +972,6 @@
     <Content Include="Views\Static\Requirements.cshtml" />
     <Content Include="Views\ErgoScore\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAnalyst.cshtml" />
-    <None Include="Web.dev.config">
     <Content Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
