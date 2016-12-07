@@ -21,12 +21,12 @@ namespace Heddoko.Controllers.API
         [Route("{id:int}")]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
-        public ErgoScore Get(int? id = null)
+        public ErgoScore Get(int id)
         {
             ErgoScore ergoScore = new ErgoScore();
 
-            ergoScore.Score = UoW.AnalysisFrameRepository.GetUserScore(id.Value);
-            ergoScore.Id = id.Value;
+            ergoScore.Score = UoW.AnalysisFrameRepository.GetUserScore(id);
+            ergoScore.Id = id;
 
             return ergoScore;
         }

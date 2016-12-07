@@ -13,7 +13,7 @@ namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [System.Web.Http.RoutePrefix("admin/api/teamscore")]
-    [AuthAPI(Roles = Constants.Roles.All)]
+    [AuthAPI(Roles = Constants.Roles.AnalystAndAdmin)]
     public class TeamScoreController : BaseAdminController<ErgoScore, ErgoScoreAPIModel>
     {
         public override KendoResponse<IEnumerable<ErgoScoreAPIModel>> Get([FromUri] KendoRequest request)
