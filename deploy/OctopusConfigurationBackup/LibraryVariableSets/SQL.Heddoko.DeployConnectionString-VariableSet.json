@@ -1,0 +1,7 @@
+{
+  "$type": "Octopus.Core.Model.Variables.VariableSet, Octopus.Core",
+  "Id": "variableset-LibraryVariableSets-1",
+  "OwnerId": "LibraryVariableSets-1",
+  "Variables": [],
+  "RelatedDocumentIds": []
+}
