@@ -438,7 +438,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Models\MongoDocuments\Proto\AnalysisFrame.proto" />
-    <None Include="Models\MongoDocuments\Proto\heddokoPacket V0.3.proto" />
+    <None Include="Models\MongoDocuments\Proto\heddokoPacket_V0.3.proto" />
     <None Include="Models\MongoDocuments\Proto\ProcessedFrame.proto" />
     <None Include="packages.config" />
   </ItemGroup>
