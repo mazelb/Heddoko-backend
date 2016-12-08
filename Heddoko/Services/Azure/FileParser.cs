@@ -28,109 +28,86 @@ namespace Services
             switch (fileType)
             {
                 case AssetType.ProcessedFrameData:
-                    AddProcessedFramesToDb(filePath, UoW);
-                    break;
-                case AssetType.RawFrameData:
-                    AddRawFramesToDb(filePath, UoW, id);
+                    ProcessFile<ProcessedFrame>(filePath, UoW.ProcessedFrameRepository.AddOne);
                     break;
                 case AssetType.AnalysisFrameData:
-                    AddAnalysisFramesToDb(filePath, UoW);
+                    ProcessFile<AnalysisFrame>(filePath, UoW.AnalysisFrameRepository.AddOne);
+                    break;
+                case AssetType.RawFrameData:
+                    // Raw Frames are different
+                    ProcessRawFrames(filePath, UoW, id);
                     break;
             }
         }
-
+ 
         /// <summary>
-        /// Parses file into ProcessedFrames and inputs frames into the DB
+        /// Reads a single frame fromthe proto file
         /// </summary>
-        /// <param name="filePath">filepath of the proto file</param>
-        private static void AddProcessedFramesToDb(string filePath, UnitOfWork UoW)
+        /// <param name="memStream"></param>
+        /// <param name="fStream"></param>
+        /// <returns> MemoryStream containing the frame </returns>
+        private static MemoryStream ReadFrame(MemoryStream memStream, FileStream fStream)
         {
-            try
+            byte[] headerBuffer = new byte[HeaderSize];
+            int numberofByteRead = fStream.Read(headerBuffer, 0, HeaderSize);
+            if (numberofByteRead == 0)
             {
-                FileStream fStream = new FileStream(filePath, FileMode.Open);
-                MemoryStream memStream = new MemoryStream();
-                byte[] byteArrayBuffer = new byte[BufferSize];
-                ProcessedFrame processedFrame = new ProcessedFrame();
-                byte[] headerBuffer = new byte[HeaderSize];
-                int frameSize;
-
-                while (fStream.CanRead)
-                {
-                    int numberofByteRead = fStream.Read(headerBuffer, 0, HeaderSize);
-                    if (numberofByteRead == 0)
-                    {
-                        break;
-                    }
-                    frameSize = GetPayloadSize(headerBuffer);
-                    Array.Resize(ref byteArrayBuffer, frameSize);
-
-                    //read frame from file
-                    fStream.Read(byteArrayBuffer, 0, frameSize);
-                    memStream.Seek(0, SeekOrigin.Begin);
-                    memStream.Write(byteArrayBuffer, 0, frameSize);
-                    memStream.Seek(0, SeekOrigin.Begin);
-                    processedFrame = Serializer.Deserialize<ProcessedFrame>(memStream);
-
-                    //Add to the database
-                    UoW.ProcessedFrameRepository.AddOne(processedFrame);
-                    memStream.SetLength(0);
-                }
+                // return empty memstream
+                memStream.SetLength(0);
+                return memStream;
             }
-            catch (Exception ex)
-            {
-                Trace.TraceError($"FileParser.AddProcessedFramesToDb.Exception ex: {ex.GetOriginalException()}");
-            }
+
+            // Get Size of frame
+            int frameSize = GetPayloadSize(headerBuffer);
+            byte[] byteArrayBuffer = new byte[frameSize];
+            
+            //read frame from file
+            fStream.Read(byteArrayBuffer, 0, frameSize);
+            memStream.Seek(0, SeekOrigin.Begin);
+            memStream.Write(byteArrayBuffer, 0, frameSize);
+            memStream.Seek(0, SeekOrigin.Begin);
+
+            return memStream;
         }
 
         /// <summary>
-        /// Parses protofile into AnalysisFrames and adds them to the DB
+        /// Process proto files and add them to the DB
+        /// !!! Cannont Process RawFrames file, for that use ProcessRawFrames
         /// </summary>
-        /// <param name="filePath">filepath of the proto file</param>
-        private static void AddAnalysisFramesToDb(string filePath, UnitOfWork UoW)
+        /// <typeparam name="T"> Type of Frame </typeparam>
+        /// <param name="filePath"> </param>
+        /// <param name="save"> Function used to save frames in the DB </param>
+        private static void ProcessFile<T>(string filePath, Func<T,Task<Result>> save)
         {
             try
             {
-                FileStream fStream = new FileStream(filePath, FileMode.Open);
-                MemoryStream memStream = new MemoryStream();
-                byte[] byteArrayBuffer = new byte[BufferSize];
-                AnalysisFrame analysisFrame = new AnalysisFrame();
-                byte[] headerBuffer = new byte[HeaderSize];
-                int frameSize;
-
-                while (fStream.CanRead)
+                using (FileStream fStream = new FileStream(filePath, FileMode.Open))
                 {
-                    int numberofByteRead = fStream.Read(headerBuffer, 0, HeaderSize);
-                    if (numberofByteRead == 0)
+                    MemoryStream memStream = new MemoryStream();
+                    
+                    while (fStream.CanRead)
                     {
-                        break;
+                        memStream = ReadFrame(memStream, fStream);
+                        if(memStream.Length != 0)
+                        {
+                            T item = Serializer.Deserialize<T>(memStream);
+                            save(item);
+                            memStream.SetLength(0);
+                        }
                     }
-                    // Get Size of frame
-                    frameSize = GetPayloadSize(headerBuffer);
-                    Array.Resize(ref byteArrayBuffer, frameSize);
-
-                    //read frame from file
-                    fStream.Read(byteArrayBuffer, 0, frameSize);
-                    memStream.Seek(0, SeekOrigin.Begin);
-                    memStream.Write(byteArrayBuffer, 0, frameSize);
-                    memStream.Seek(0, SeekOrigin.Begin);
-                    analysisFrame = Serializer.Deserialize<AnalysisFrame>(memStream);
-
-                    //Add to the database
-                    UoW.AnalysisFrameRepository.AddOne(analysisFrame);
-                    memStream.SetLength(0);
                 }
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"FileParser.AddAnalysisFramesToDb.Exception ex: {ex.GetOriginalException()}");
+                Trace.TraceError($"FileParser.ProcessFile.Exception ex: {ex.GetOriginalException()}");
             }
         }
 
         /// <summary>
         /// Parses protofile into RawFrames and adds them to the DB
         /// </summary>
-        /// <param name="filePath">filepath of the proto file</param>
-        private static void AddRawFramesToDb(string filePath, UnitOfWork UoW, int userId)
+        /// <param name="filePath"> filepath of the proto file </param>
+        private static void ProcessRawFrames(string filePath, UnitOfWork UoW, int userId)
         {
             try
             {
