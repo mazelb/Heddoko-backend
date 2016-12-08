@@ -19,6 +19,16 @@
         [StringValue(Constants.Assets.Setting)]
         Setting = 7,
         [StringValue(Constants.Assets.Record)]
-        Record = 8
+        Record = 8,
+        [StringValue(Constants.Assets.DefaultRecords)]
+        DefaultRecords = 9,
+        [StringValue(Constants.Assets.Guide)]
+        Guide = 10,
+        [StringValue(Constants.Assets.ProcessedFrameData)]
+        ProcessedFrameData = 11,
+        [StringValue(Constants.Assets.AnalysisFrameData)]
+        AnalysisFrameData = 12,
+        [StringValue(Constants.Assets.RawFrameData)]
+        RawFrameData = 13
     }
 }

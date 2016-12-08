@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Jil;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 
 namespace DAL.Models
@@ -22,10 +23,12 @@ namespace DAL.Models
 
         [JsonIgnore]
         [JilDirective(Ignore = true)]
+        [BsonIgnore]
         public virtual Organization Organization { get; set; }
 
         [JsonIgnore]
         [JilDirective(Ignore = true)]
+        [BsonIgnore]
         public virtual ICollection<User> Users { get; set; }
 
         #endregion
@@ -39,12 +42,12 @@ namespace DAL.Models
 
         [JilDirective(Ignore = true)]
         public string ViewID => $"{OrganizationID}-{Id}";
-        
+
         [JilDirective(Ignore = true)]
         public string Name => $"{Type.GetDisplayName()} {IDView} ({ExpirationAt.ToString("dd/MM/yyyy")})";
 
         [JilDirective(Ignore = true)]
-        public bool IsActive => (Type == LicenseType.DataAnalysis || Type == LicenseType.DataCollection)
+        public bool IsActive => (Type == LicenseType.DataAnalysis || Type == LicenseType.DataCollection || Type == LicenseType.Universal)
                                 && Status == LicenseStatusType.Active
                                 && ExpirationAt >= DateTime.Now;
 

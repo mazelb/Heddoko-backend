@@ -1,0 +1,9 @@
+{
+  "$type": "Octopus.Core.Model.NuGet.NuGetFeed, Octopus.Core",
+  "Id": "feeds-teamcity-packages",
+  "Name": "TeamCity packages",
+  "FeedUri": "http://localhost:666/httpAuth/app/nuget/v1/FeedService.svc/",
+  "Username": "teamcity",
+  "Password": "she3ZD4ax4lw8R6OKRAEoQ==|AAAAAAAAAAAAAAAAAAAAAA==",
+  "FeedType": "NuGet"
+}

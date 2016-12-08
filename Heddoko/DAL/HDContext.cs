@@ -57,6 +57,10 @@ namespace DAL
         public DbSet<AuditEntryProperty> AuditEntryProperties { get; set; }
 
         public DbSet<Organization> Organizations { get; set; }
+        
+        public DbSet<Device> Devices { get; set; }
+
+        public DbSet<Record> Records { get; set; }
 
         public void DisableChangedAndValidation()
         {

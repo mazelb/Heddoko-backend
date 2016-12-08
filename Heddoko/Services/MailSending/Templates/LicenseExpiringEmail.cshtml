@@ -4,9 +4,16 @@
     Layout = "_LayoutEmail";
 }
 
-Hello @Model.Name,
+Dear @Model.Name,
 <br />
-Your lisence @Model.LicenseName for organization @Model.OrganizationName is expiring in @Model.Days days at @Model.ExpirationAt.ToString("R")
+@if (string.IsNullOrEmpty(Model.OrganizationName))
+{
+    <text>Your lisence @Model.LicenseName is expiring in @Model.Days days at @Model.ExpirationAt.ToString("R")</text>
+}
+else
+{
+    <text>Your lisence @Model.LicenseName for organization @Model.OrganizationName is expiring in @Model.Days days at @Model.ExpirationAt.ToString("R")</text>
+}
 <br />
 <br />
 Looking forward to seeing you again!

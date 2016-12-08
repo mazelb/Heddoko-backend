@@ -73,6 +73,12 @@ namespace DAL
 
         private IDevelopmentRepository _developmentRepository;
 
+        private IUserActivityRepository _userActivityRepository;
+
+        private IDeviceRepository _deviceRepository;
+
+        private IRecordRepository _recordRepository;
+
         #endregion
 
         #region PublicRepository
@@ -120,6 +126,12 @@ namespace DAL
         public IProcessedFrameRepository ProcessedFrameRepository => _processedFrameRepository ?? (_processedFrameRepository = new ProcessedFrameRepository(_mongodb));
 
         public IDevelopmentRepository DevelopmentRepository => _developmentRepository ?? (_developmentRepository = new DevelopmentRepository(_db));
+
+        public IUserActivityRepository UserActivityRepository => _userActivityRepository ?? (_userActivityRepository = new UserActivityRepository(_mongodb));
+
+        public IDeviceRepository DeviceRepository => _deviceRepository ?? (_deviceRepository = new DeviceRepository(_db));
+
+        public IRecordRepository RecordRepository => _recordRepository ?? (_recordRepository = new RecordRepository(_db));
 
         #endregion
 

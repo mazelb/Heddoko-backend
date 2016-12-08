@@ -11,6 +11,10 @@
         [StringValue(Constants.Roles.LicenseAdmin)]
         LicenseAdmin = 3,
         [StringValue(Constants.Roles.Worker)]
-        Worker = 4
+        Worker = 4,
+        [StringValue(Constants.Roles.ServiceAdmin)]
+        ServiceAdmin = 5,
+        [StringValue(Constants.Roles.LicenseUniversal)]
+        LicenseUniversal = 6
     }
 }

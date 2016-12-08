@@ -1,4 +1,7 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using DAL;
 using DAL.Models;
 using Heddoko.Models;
 using i18n;
@@ -14,12 +17,13 @@ using Heddoko.Helpers.DomainRouting.Http;
 
 namespace Heddoko.Controllers.API
 {
+    [AuthAPI(Roles = Constants.Roles.All)]
     [RoutePrefix("api/v1/firmwares")]
     public class FirmwareAPIController : BaseAPIController
     {
         public FirmwareAPIController() { }
 
-        public FirmwareAPIController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+        public FirmwareAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         /// <summary>
         ///     Check firmware
@@ -117,8 +121,18 @@ namespace Heddoko.Controllers.API
             return UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Software);
         }
 
-        [DomainRoute("upload/{token}/{version}", Constants.ConfigKeyName.DashboardSite)]
-        [HttpPost]
+        [DomainRoute("list/{type}/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
+        [HttpGet]
+        public ListAPIViewModel<Firmware> List(FirmwareType type, int take = 100, int? skip = 0)
+        {
+            return new ListAPIViewModel<Firmware>
+            {
+                Collection = UoW.FirmwareRepository.GetByType(type, take, skip).ToList(),
+                TotalCount = UoW.FirmwareRepository.GetCountByType(type)
+            };
+        }
+
+        [DomainRoute("upload/{token}/{version}", Constants.ConfigKeyName.DashboardSite)]        [HttpPost]
         [AllowAnonymous]
         public async Task<bool> UploadSoftware(string token, string version)
         {

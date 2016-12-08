@@ -22,15 +22,7 @@ namespace Heddoko
                 );
 
             bundles.Add(commonStylesBundle);
-
-
-            Bundle angularStylesBundle = new Bundle("~/Bundles/AngularCss");
-            angularStylesBundle.Include(
-                "~/Content/css/styles.css"
-                );
-
-            bundles.Add(angularStylesBundle);
-
+            
             ScriptBundle commonScriptsBundle = new ScriptBundle("~/Bundles/CommonJs");
             commonScriptsBundle.Include(
                 "~/Scripts/lodash.min.js",
@@ -43,13 +35,6 @@ namespace Heddoko
                 "~/Scripts/js/account/mask.js"
                 );
             bundles.Add(commonScriptsBundle);
-
-
-            ScriptBundle angularScriptsBundle = new ScriptBundle("~/Bundles/AngularJs");
-            angularScriptsBundle.Include(
-                "~/Scripts/js/scripts.js"
-                );
-            bundles.Add(angularScriptsBundle);
 
             ScriptBundle validateScriptsBundle = new ScriptBundle("~/Bundles/ValidateJs");
             validateScriptsBundle.Include(

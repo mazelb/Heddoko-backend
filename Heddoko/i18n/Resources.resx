@@ -172,7 +172,7 @@
     <value>Email</value>
   </data>
   <data name="EmailActivatedBody" xml:space="preserve">
-    <value>You have been activated</value>
+    <value>Your account has been activated</value>
   </data>
   <data name="EmailActivatedSubject" xml:space="preserve">
     <value>Activated!</value>
@@ -184,7 +184,7 @@
     <value>Forgot password</value>
   </data>
   <data name="EmailForgotUsernameSubject" xml:space="preserve">
-    <value>Remind username</value>
+    <value>Username reminder</value>
   </data>
   <data name="EmptyConfirmationToken" xml:space="preserve">
     <value>Empty confirmation token</value>
@@ -382,13 +382,13 @@
     <value>Mobile</value>
   </data>
   <data name="PasswordSuccessufullySent" xml:space="preserve">
-    <value>We have sent an email with a link to reset a password</value>
+    <value>We have sent you an email with a link to reset a password</value>
   </data>
   <data name="ResetPasswordMessage" xml:space="preserve">
     <value>Use this form to reset your password.</value>
   </data>
   <data name="UsernameSuccessufullySent" xml:space="preserve">
-    <value>We have sent an email with your username.</value>
+    <value>We have sent you an email with your username.</value>
   </data>
   <data name="EmailUsed" xml:space="preserve">
     <value>Email already used</value>
@@ -397,7 +397,7 @@
     <value>Username already used</value>
   </data>
   <data name="UserSignupMessage" xml:space="preserve">
-    <value>User have been created. We have sent request to administration, please check when your account will be approved</value>
+    <value>User has been created. We have sent a request to the administration, please check back when your account has been approved</value>
   </data>
   <data name="And" xml:space="preserve">
     <value>and</value>
@@ -451,7 +451,7 @@
     <value>Sign out</value>
   </data>
   <data name="WrongObjectAccess" xml:space="preserve">
-    <value>You don't access to that object</value>
+    <value>You don't have access to that</value>
   </data>
   <data name="AddANew" xml:space="preserve">
     <value>Add a new</value>
@@ -535,7 +535,7 @@
     <value>use</value>
   </data>
   <data name="EnterEquipment" xml:space="preserve">
-    <value>Enter the serial # or location or mac address of an equipment</value>
+    <value>Enter the serial #, location or mac address of an equipment</value>
   </data>
   <data name="Notes" xml:space="preserve">
     <value>Notes</value>
@@ -613,7 +613,7 @@
     <value>Suits</value>
   </data>
   <data name="EnterComplexEquipment" xml:space="preserve">
-    <value>Enter a MAC address, a physical location, or a serial #</value>
+    <value>Enter a MAC address, a physical location or a serial #</value>
   </data>
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
@@ -634,7 +634,7 @@
     <value>Save</value>
   </data>
   <data name="SelectEquipment" xml:space="preserve">
-    <value>Select a equipments</value>
+    <value>Select equipments</value>
   </data>
   <data name="Address" xml:space="preserve">
     <value>Address</value>
@@ -649,7 +649,7 @@
     <value>Phone</value>
   </data>
   <data name="EnterOrganization" xml:space="preserve">
-    <value>Enter the name or id or phone of organization</value>
+    <value>Enter the name, id or phone of organization</value>
   </data>
   <data name="UserIsExists" xml:space="preserve">
     <value>User already exists</value>
@@ -658,16 +658,16 @@
     <value>Welcome to Heddoko!</value>
   </data>
   <data name="UserAlreadyInOrganizations" xml:space="preserve">
-    <value>User used in another Organization</value>
+    <value>User is already in another Organization</value>
   </data>
   <data name="InviteMessage" xml:space="preserve">
-    <value>Use this form to apply you invite</value>
+    <value>Use this form to complete your invitation</value>
   </data>
   <data name="InviteToken" xml:space="preserve">
     <value>Invite token</value>
   </data>
   <data name="UserSignupOrganizationMessage" xml:space="preserve">
-    <value>You have been updated. Now you can use your organization</value>
+    <value>Your account has been updated. Your organization is now active</value>
   </data>
   <data name="Amount" xml:space="preserve">
     <value>Amount</value>
@@ -681,17 +681,17 @@
   <data name="LicenseUsed" xml:space="preserve">
     <value>License already used</value>
   </data>
-  <data name="LiceseAmountUsed" xml:space="preserve">
-    <value>License amount can't be less than used</value>
+  <data name="LicenseAmountUsed" xml:space="preserve">
+    <value>Organization can't have less licenses than amount in use</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
   </data>
   <data name="UserSignupUserNonLicenseOrganizationMessage" xml:space="preserve">
-    <value>You have been updated. Ask admin of your organization for license.</value>
+    <value>Your account has been updated. Ask admin of your organization for license!</value>
   </data>
   <data name="UserSignupUserOrganizationMessage" xml:space="preserve">
-    <value>You have been updated. Now you can use your account in application.</value>
+    <value>Your account has been updated. You can now use your account in the Heddoko app!</value>
   </data>
   <data name="LicenseType_DataAnalysis" xml:space="preserve">
     <value>Data analysis</value>
@@ -712,7 +712,7 @@
     <value>Used</value>
   </data>
   <data name="OrganizationNameUsed" xml:space="preserve">
-    <value>The name of organization in use.</value>
+    <value>There is already an organization with that name.</value>
   </data>
   <data name="Licenses" xml:space="preserve">
     <value>Licenses</value>
@@ -727,7 +727,7 @@
     <value>Enter the id of license</value>
   </data>
   <data name="EnterUser" xml:space="preserve">
-    <value>Enter the firstname or lastname or email of user</value>
+    <value>Enter the firstname, lastname or email of user</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>
@@ -745,7 +745,7 @@
     <value>Old password</value>
   </data>
   <data name="ProfileSaveMessage" xml:space="preserve">
-    <value>You profile have been updated</value>
+    <value>Your profile has been updated</value>
   </data>
   <data name="WrongLicenseActive" xml:space="preserve">
     <value>License is not active</value>
@@ -757,7 +757,7 @@
     <value>License is expired</value>
   </data>
   <data name="WrongExpirationAtDate" xml:space="preserve">
-    <value>Expiration date should be more than today</value>
+    <value>Expiration date cannot be set to the past!</value>
   </data>
   <data name="Restore" xml:space="preserve">
     <value>Restore</value>
@@ -766,7 +766,7 @@
     <value>Show deleted</value>
   </data>
   <data name="WrongLicenseAdmin" xml:space="preserve">
-    <value>Admin can't be a license admin</value>
+    <value>Admin can't also be a license admin</value>
   </data>
   <data name="Attachments" xml:space="preserve">
     <value>Attachments</value>
@@ -811,7 +811,7 @@
     <value>Support</value>
   </data>
   <data name="SupportSent" xml:space="preserve">
-    <value>We have sent an email with your support request. Soon we will contact with you.</value>
+    <value>Thank you! We have sent an email with your request to our support team.</value>
   </data>
   <data name="WrongAttachmentSize" xml:space="preserve">
     <value>Total size can't be more than 20 mb.</value>
@@ -820,7 +820,7 @@
     <value>All</value>
   </data>
   <data name="ExpiredSoon" xml:space="preserve">
-    <value>License will be expired soon</value>
+    <value>License is almost expired</value>
   </data>
   <data name="LicenseStatusType_Active" xml:space="preserve">
     <value>Active</value>
@@ -1357,7 +1357,7 @@
     <value>Date</value>
   </data>
   <data name="LicenseIsNotReady" xml:space="preserve">
-    <value>License is not assigned on you. Please notify organization admin.</value>
+    <value>You don't seem to have a Heddoko License assigned to you. Please notify organization admin.</value>
   </data>
   <data name="Guide" xml:space="preserve">
     <value>Guide</value>
@@ -1428,6 +1428,54 @@
   <data name="LicenseIsExpiring" xml:space="preserve">
     <value>License is expiring</value>
   </data>
+  <data name="StreamChannelOpened" xml:space="preserve">
+    <value>Channel for receiving stream was opened for your team</value>
+  </data>
+  <data name="StreamChannelClosed" xml:space="preserve">
+    <value>Channel for receiving stream was closed for your team</value>
+  </data>
+  <data name="LicenseAddedToOrganization" xml:space="preserve">
+    <value>License {0} has been added to your organization</value>
+  </data>
+  <data name="LicenseExpired" xml:space="preserve">
+    <value>License {0} is expired</value>
+  </data>
+  <data name="LicenseExpiring" xml:space="preserve">
+    <value>License {0} is expiring at {1}</value>
+  </data>
+  <data name="LicenseRemovedFromOrganization" xml:space="preserve">
+    <value>License {0} has been removed from your organization</value>
+  </data>
+  <data name="LicenseAddedToUser" xml:space="preserve">
+    <value>License {0} has been assigned to you</value>
+  </data>
+  <data name="LicenseChangedForUser" xml:space="preserve">
+    <value>Your license has been changed to {0}</value>
+  </data>
+  <data name="LicenseRemovedFromUser" xml:space="preserve">
+    <value>License {0} has been unassigned from you</value>
+  </data>
+  <data name="IsInvalidMessage" xml:space="preserve">
+    <value>{0} is invalid</value>
+  </data>
+  <data name="WrongFilesCount" xml:space="preserve">
+    <value>The number of files must be greater than or equal to {0} and less than or equal to {1}</value>
+  </data>
+  <data name="AssetType_AnalysisFrameData" xml:space="preserve">
+    <value>Analysis frame data</value>
+  </data>
+  <data name="AssetType_ProcessedFrameData" xml:space="preserve">
+    <value>Processed frame data</value>
+  </data>
+  <data name="AssetType_RawFrameData" xml:space="preserve">
+    <value>Raw frame data</value>
+  </data>
+  <data name="FirmwareType_DefaultRecords" xml:space="preserve">
+    <value>Default records</value>
+  </data>
+  <data name="AssetType" xml:space="preserve">
+    <value>Asset Type</value>
+  </data>
   <data name="Development" xml:space="preserve">
     <value>Development</value>
   </data>
@@ -1442,5 +1490,4 @@
   </data>
   <data name="Enable" xml:space="preserve">
     <value>Enable</value>
-  </data>
-</root>
+  </data></root>

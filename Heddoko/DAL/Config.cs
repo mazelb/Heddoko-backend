@@ -27,6 +27,16 @@ namespace DAL
 
         public static string MongoDbConnectionString => ConfigurationManager.ConnectionStrings["MongoDb"]?.ToString();
 
+        public static bool IOSSandbox => bool.Parse(ConfigurationManager.AppSettings["IOSSandbox"]);
+
+        public static string IOSCertificate => ConfigurationManager.AppSettings["IOSCertificate"];
+
+        public static string NotificationsHub => ConfigurationManager.AppSettings["NotificationsHub"];
+
+        public static string GcmSenderId => ConfigurationManager.AppSettings["GcmSenderId"];
+
+        public static string GcmSenderAuthToken => ConfigurationManager.AppSettings["GcmSenderAuthToken"];
+
         #region JWT
 
         public static string JwtSecret => ConfigurationManager.AppSettings["JWTSecret"];

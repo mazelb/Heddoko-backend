@@ -35,6 +35,11 @@
             public const string SystemLog = "systemLogs";
             public const string Setting = "settings";
             public const string Record = "records";
+            public const string DefaultRecords = "defaultrecords";
+            public const string Guide = "guide";
+            public const string ProcessedFrameData = "processedFrameData";
+            public const string AnalysisFrameData = "analysisFrameData";
+            public const string RawFrameData = "rawFrameData";
         }
 
         public static class Roles
@@ -44,7 +49,9 @@
             public const string LicenseAdmin = "LicenseAdmin";
             public const string Worker = "Worker";
             public const string Admin = "Admin";
-            public const string All = "User,Analyst,Admin,LicenseAdmin,Worker";
+            public const string ServiceAdmin = "ServiceAdmin";
+            public const string LicenseUniversal = "LicenseUniversal";
+            public const string All = "User,Analyst,Admin,LicenseAdmin,Worker,ServiceAdmin,LicenseUniversal";
             public const string UserAndAdmin = "User,Admin";
             public const string AnalystAndAdmin = "Analyst,Admin";
             public const string LicenseAdminAndAdmin = "LicenseAdmin,Admin";
@@ -63,6 +70,7 @@
         {
             public const string Default = "default";
             public const string Email = "email";
+            public const string Notifications = "notifications";
         }
 
         public static class Cache
@@ -82,6 +90,12 @@
         public static class AuditFieldName
         {
             public const string Notes = "Notes";
+        }
+
+        public static class Records
+        {
+            public const int MinFilesCount = 1;
+            public const int MaxFilesCount = 5;
         }
 
         public static class ConfigKeyName

@@ -181,6 +181,98 @@ namespace DAL.Migrations
                     manager.AddToRole(user.Id, Constants.Roles.Admin);
                 }
             }
+
+            user = manager.FindByName("service.admin") ?? new User();
+
+            user.Email = "service.admin@heddoko.com";
+            user.UserName = "service.admin";
+            user.Status = UserStatusType.Active;
+            user.EmailConfirmed = true;
+            user.FirstName = "Service";
+            user.LastName = "Admin";
+            user.Salt = null;
+            user.Password = null;
+            user.Role = UserRoleType.ServiceAdmin;
+            user.SecurityStamp = Guid.NewGuid().ToString();
+
+            if (user.Id == 0)
+            {
+                manager.Create(user, pwd);
+                manager.AddToRole(user.Id, Constants.Roles.User);
+                manager.AddToRole(user.Id, Constants.Roles.ServiceAdmin);
+            }
+            else
+            {
+                user.PasswordHash = PasswordHash.HashPassword(pwd);
+                manager.Update(user);
+                if (!manager.IsInRole(user.Id, Constants.Roles.User))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.User);
+                }
+
+                if (!manager.IsInRole(user.Id, Constants.Roles.ServiceAdmin))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.ServiceAdmin);
+                }
+            }
+
+            CreateLicenseUniversal(manager, new UnitOfWork(context));
+        }
+
+        private static void CreateLicenseUniversal(ApplicationUserManager manager, UnitOfWork unitOfWork)
+        {
+            string pwd = "H3dd0k0_universal$";
+            User user = manager.FindByName("heddoko.universal") ?? new User();
+
+            user.Email = "heddoko.universal@heddoko.com";
+            user.UserName = "heddoko.universal";
+            user.Status = UserStatusType.Active;
+            user.EmailConfirmed = true;
+            user.FirstName = "License";
+            user.LastName = "Universal";
+            user.Salt = null;
+            user.Password = null;
+            user.Role = UserRoleType.User;
+            user.SecurityStamp = Guid.NewGuid().ToString();
+
+            if (user.Id == 0)
+            {
+                manager.Create(user, pwd);
+                manager.AddToRole(user.Id, Constants.Roles.User);
+            }
+            else
+            {
+                manager.Update(user);
+                if (!manager.IsInRole(user.Id, Constants.Roles.User))
+                {
+                    manager.AddToRole(user.Id, Constants.Roles.User);
+                }
+            }
+
+            var now = DateTime.Now;
+            
+            var license = user.License ?? new License { Created = now };
+
+            license.Amount = 1;
+            license.Created = now;
+            license.ExpirationAt = new DateTime(2020, now.Month, now.Day).EndOfDay();
+            license.Status = LicenseStatusType.Active;
+            license.Type = LicenseType.Universal;
+
+            if (license.Id == 0)
+            {
+                unitOfWork.LicenseRepository.Create(license);
+                user.License = license;
+            }
+
+            user.Role = UserRoleType.LicenseUniversal;
+
+            unitOfWork.Save();
+
+            if (!manager.IsInRole(user.Id, Constants.Roles.LicenseUniversal))
+            {
+                manager.AddToRole(user.Id, Constants.Roles.LicenseUniversal);
+            }
         }
 
         private static void Roles(HDContext context)
@@ -228,6 +320,24 @@ namespace DAL.Migrations
                 Models.IdentityRole role = new Models.IdentityRole()
                 {
                     Name = Constants.Roles.Worker
+                };
+                roleManager.Create(role);
+            }
+
+            if (!roleManager.RoleExists(Constants.Roles.ServiceAdmin))
+            {
+                Models.IdentityRole role = new Models.IdentityRole()
+                {
+                    Name = Constants.Roles.ServiceAdmin
+                };
+                roleManager.Create(role);
+            }
+
+            if (!roleManager.RoleExists(Constants.Roles.LicenseUniversal))
+            {
+                Models.IdentityRole role = new Models.IdentityRole
+                {
+                    Name = Constants.Roles.LicenseUniversal
                 };
                 roleManager.Create(role);
             }

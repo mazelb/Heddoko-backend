@@ -7,9 +7,12 @@ using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
 using Heddoko.Helpers.DomainRouting.Http;
+using DAL.Models.Enum;
+using Hangfire;
 using Heddoko.Models;
 using i18n;
 using Microsoft.AspNet.Identity;
+using Services;
 using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers
@@ -202,8 +205,25 @@ namespace Heddoko.Controllers
 
             if (ModelState.IsValid)
             {
+                int? licenseId = item.LicenseID;
                 Bind(item, model);
                 UoW.Save();
+
+                if (licenseId == null)
+                {
+                    if (item.LicenseID != null)
+                    {
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseAddedToUser(item.Id, item.LicenseID.Value));
+                    }
+                }
+                else if (item.LicenseID == null)
+                {
+                    BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseRemovedFromUser(item.Id, licenseId.Value));
+                }
+                else if (licenseId != item.LicenseID)
+                {
+                    BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseChangedForUser(item.Id, item.LicenseID.Value));
+                }
 
                 UoW.UserRepository.ClearCache(item);
                 UserManager.ApplyUserRolesForLicense(item);
@@ -381,7 +401,7 @@ namespace Heddoko.Controllers
                         throw new Exception(Resources.WrongObjectAccess);
                     }
 
-                    if (kit.User != null)
+                    if (kit.User != null && kit.User.Id != item.Id)
                     {
                         throw new Exception($"{Resources.Kit} {Resources.AlreadyUsed}");
                     }
@@ -430,7 +450,7 @@ namespace Heddoko.Controllers
             if (ModelState.IsValid)
             {
                 User user = UoW.UserRepository.Get(model.UserId);
-                
+
                 if (user?.Status == UserStatusType.Invited)
                 {
                     bool isNew = string.IsNullOrEmpty(user.PasswordHash);

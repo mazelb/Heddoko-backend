@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using DAL.Models;
+using Heddoko.Models.Admin;
 using i18n;
 
 namespace Heddoko.Models
@@ -31,5 +32,7 @@ namespace Heddoko.Models
         public string Url { get; set; }
 
         public string Name => IsEmpty ? $"{Resources.No} {Resources.SoftwareOrFirmware}" : $"{Version}";
+
+        public List<AssetFileAPIModel> Files { get; set; }
     }
 }

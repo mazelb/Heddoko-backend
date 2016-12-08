@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
+using DAL.Models;
 using i18n;
 
 namespace DAL
@@ -169,6 +170,11 @@ namespace DAL
             return string.IsNullOrWhiteSpace(resourceDisplayName) ? key : resourceDisplayName;
         }
 
+        public static string NormalizeToken(this string value)
+        {
+            return value?.Replace(" ", string.Empty).Replace("<", string.Empty).Replace(">", string.Empty);
+        }
+
         #endregion
 
         #region Enums
@@ -182,9 +188,9 @@ namespace DAL
 
             foreach (object enumValue in values)
             {
-                if (value.HasFlag((Enum) enumValue))
+                if (value.HasFlag((Enum)enumValue))
                 {
-                    result.Add(((Enum) enumValue).ToString().ToLower());
+                    result.Add(((Enum)enumValue).ToString().ToLower());
                 }
             }
 
@@ -199,9 +205,9 @@ namespace DAL
 
             foreach (object enumValue in values)
             {
-                if (value.HasFlag((Enum) enumValue))
+                if (value.HasFlag((Enum)enumValue))
                 {
-                    result.Add(((Enum) enumValue).GetDisplayName());
+                    result.Add(((Enum)enumValue).GetDisplayName());
                 }
             }
 
@@ -259,6 +265,15 @@ namespace DAL
                 fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
 
             return attribs != null && attribs.Length > 0 ? attribs[0].StringValue : null;
+        }
+
+        public static bool IsRecordType(this AssetType assetType)
+        {
+            return assetType == AssetType.Log ||
+                   assetType == AssetType.Setting ||
+                   assetType == AssetType.ProcessedFrameData ||
+                   assetType == AssetType.AnalysisFrameData ||
+                   assetType == AssetType.RawFrameData;
         }
 
         #endregion

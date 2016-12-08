@@ -1,0 +1,97 @@
+{
+  "$type": "Octopus.Core.Model.Variables.VariableSet, Octopus.Core",
+  "Id": "variableset-Projects-1",
+  "OwnerId": "Projects-1",
+  "Version": 14,
+  "Variables": [
+    {
+      "Id": "f551f9e3-a9fa-0029-6cc9-344af911af67",
+      "Name": "Heddoko.ConnectionString",
+      "Value": "Data Source=heddoko;Initial Catalog=heddoko_dev;Persist Security Info=True;User ID=heddoko;Password=heddoko_pwd; MultipleActiveResultSets=True",
+      "Scope": {
+        "Environment": [
+          "Environments-1"
+        ]
+      }
+    },
+    {
+      "Id": "7da5d2b7-1ea0-ad3f-388d-6176afd4c1d7",
+      "Name": "Heddoko.GetLastMigrationQuery",
+      "Value": "SELECT TOP 1 [MigrationId] FROM [__MigrationHistory] ORDER BY [MigrationId] DESC"
+    },
+    {
+      "Id": "5722ed49-3313-3ce9-5e5e-49908b69f7d6",
+      "Name": "ServiceName",
+      "Value": "HeddokoService",
+      "Scope": {
+        "Environment": [
+          "Environments-2"
+        ]
+      }
+    },
+    {
+      "Id": "3f35832b-1fe4-9b9f-470f-bd4f5ed8b820",
+      "Name": "ServiceName",
+      "Value": "HeddokoServiceDev",
+      "Scope": {
+        "Environment": [
+          "Environments-1"
+        ]
+      }
+    },
+    {
+      "Id": "2e2037a7-2002-c88a-ad5a-b85412dec386",
+      "Name": "Heddoko.WebSite.HostName",
+      "Value": "localhost",
+      "Scope": {
+        "Environment": [
+          "Environments-1"
+        ]
+      }
+    },
+    {
+      "Id": "925f4173-013b-8a72-a19b-52eb9d289351",
+      "Name": "Heddoko.WebSite.HostName",
+      "Value": "localhost",
+      "Scope": {
+        "Environment": [
+          "Environments-2"
+        ]
+      }
+    },
+    {
+      "Id": "8bf4b174-bb91-16f9-bce9-58e989acf680",
+      "Name": "Heddoko.WebSite.Port",
+      "Value": "777",
+      "Scope": {
+        "Environment": [
+          "Environments-1"
+        ]
+      }
+    },
+    {
+      "Id": "d2822289-1b03-7af5-6156-fb32d1dc1142",
+      "Name": "Heddoko.WebSite.Port",
+      "Value": "111",
+      "Scope": {
+        "Environment": [
+          "Environments-2"
+        ]
+      }
+    },
+    {
+      "Id": "ce83f84d-266c-866d-75d9-6925ac0f33dd",
+      "Name": "Heddoko.ConnectionString",
+      "Value": "Data Source=heddoko;Initial Catalog=heddoko_dev;Persist Security Info=True;User ID=heddoko;Password=heddoko_pwd; MultipleActiveResultSets=True",
+      "Scope": {
+        "Environment": [
+          "Environments-2"
+        ]
+      }
+    }
+  ],
+  "RelatedDocumentIds": [
+    "Environments-1",
+    "Environments-2"
+  ]
+}

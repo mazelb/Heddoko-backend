@@ -1,13 +1,16 @@
 ﻿using DAL;
+using DAL.Models;
 using Hangfire;
-using Hangfire.Dashboard;
 using Heddoko;
 using Heddoko.Helpers.Hangfire;
+using Heddoko.Hubs;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
+using MongoDB.Bson.Serialization;
 using Owin;
+using Services;
 
 [assembly: OwinStartup(typeof(Startup))]
-
 namespace Heddoko
 {
     public partial class Startup
@@ -27,7 +30,14 @@ namespace Heddoko
                     }
                 });
 
+
+            GlobalHost.DependencyResolver.Register(
+                typeof(StreamingHub),
+                () => new StreamingHub(new StreamConnectionsService(new UnitOfWork())));
+
             app.MapSignalR();
+
+            BsonClassMap.RegisterClassMap<License>();
         }
     }
 }

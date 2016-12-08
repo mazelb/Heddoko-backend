@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using DAL;
 using DAL.Models;
+using DAL.Models.Enum;
 using Hangfire;
 
 namespace Services
@@ -16,7 +17,7 @@ namespace Services
             {
                 HDContext context = new HDContext();
                 UnitOfWork uow = new UnitOfWork(context);
-                IEnumerable<License> updatedLicenses = uow.LicenseRepository.Check();
+                List<License> updatedLicenses = uow.LicenseRepository.Check().ToList();
 
                 uow.Save();
 
@@ -24,6 +25,21 @@ namespace Services
                 foreach (User user in updatedLicenses.SelectMany(l => l.Users ?? new List<User>()))
                 {
                     manager.ApplyUserRolesForLicense(user);
+                }
+
+                DateTime today = DateTime.Now.StartOfDay();
+
+                foreach (License license in updatedLicenses.Where(l => l.ExpirationAt < today))
+                {
+                    if (license.OrganizationID.HasValue)
+                    {
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiredToOrganization(license.OrganizationID.Value, license.Id));
+                    }
+
+                    foreach (User user in license.Users)
+                    {
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiredToUser(user.Id, license.Id));
+                    }
                 }
             }
             catch (Exception ex)
@@ -43,6 +59,17 @@ namespace Services
                 foreach (License license in expiringLicenses)
                 {
                     BackgroundJob.Enqueue(() => EmailManager.SendLicenseExpiringToOrganization(license.Id));
+
+                    if (license.OrganizationID.HasValue)
+                    {
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiringToOrganization(license.OrganizationID.Value, license.Id));
+                    }
+
+                    foreach (User user in license.Users)
+                    {
+                        BackgroundJob.Enqueue(() => EmailManager.SendLicenseExpiringToUser(user.Id, license.Id));
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiringToUser(user.Id, license.Id));
+                    }
                 }
 
             }

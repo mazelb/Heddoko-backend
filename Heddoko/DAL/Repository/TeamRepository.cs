@@ -16,6 +16,8 @@ namespace DAL
         public override Team GetFull(int id)
         {
             return DbSet.Include(c => c.Organization)
+                        .Include(c => c.Users)
+                        .Include(c => c.Users.Select(u => u.Devices))
                         .FirstOrDefault(c => c.Id == id);
         }
 
@@ -49,6 +51,28 @@ namespace DAL
                         .Where(c => c.Status == status)
                         .Where(c => c.OrganizationID == organizationID)
                         .OrderBy(c => c.Name);
+        }
+
+        public IEnumerable<Team> GetByOrganizationAPI(int organizationId, int take, int? skip = 0)
+        {
+            IQueryable<Team> query = DbSet.Where(c => c.Status != TeamStatusType.Deleted)
+                                          .Where(c => c.OrganizationID == organizationId)
+                                          .OrderBy(c => c.Name);
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            query = query.Take(take);
+
+            return query;
+        }
+
+        public int GetByOrganizationCount(int organizationId)
+        {
+            return DbSet.Count(c => c.Status != TeamStatusType.Deleted &&
+                                    c.OrganizationID == organizationId);
         }
     }
 }

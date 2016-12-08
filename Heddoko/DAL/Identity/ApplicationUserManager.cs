@@ -235,6 +235,11 @@ namespace DAL
                 {
                     this.RemoveFromRole(user.Id, Constants.Roles.Worker);
                 }
+
+                if (this.IsInRole(user.Id, Constants.Roles.LicenseUniversal))
+                {
+                    this.RemoveFromRole(user.Id, Constants.Roles.LicenseUniversal);
+                }
             }
             else
             {
@@ -248,6 +253,9 @@ namespace DAL
                             break;
                         case LicenseType.DataCollection:
                             this.AddToRole(user.Id, Constants.Roles.Worker);
+                            break;
+                        case LicenseType.Universal:
+                            this.AddToRole(user.Id, Constants.Roles.LicenseUniversal);
                             break;
                     }
                 }

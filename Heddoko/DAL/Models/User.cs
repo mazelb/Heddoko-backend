@@ -121,6 +121,9 @@ namespace DAL.Models
 
         [JilDirective(Ignore = true)]
         public virtual Kit Kit => Kits?.FirstOrDefault();
+
+        [JsonIgnore]
+        public virtual ICollection<Device> Devices { get; set; }
         #endregion
 
         #region NotMapped
@@ -194,6 +197,8 @@ namespace DAL.Models
                         return UserRoleType.Analyst;
                     case LicenseType.DataCollection:
                         return UserRoleType.Worker;
+                    case LicenseType.Universal:
+                        return UserRoleType.LicenseUniversal;
                     default:
                         return UserRoleType.User;
                 }

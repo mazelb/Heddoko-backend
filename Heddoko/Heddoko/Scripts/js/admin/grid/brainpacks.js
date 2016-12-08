@@ -279,7 +279,10 @@ var Brainpacks = {
             this.controls.filterModel = kendo.observable({
                 find: this.onFilter.bind(this),
                 search: null,
-                keyup: this.onEnter.bind(this)
+                keyup: this.onEnter.bind(this),
+                statusFilter: null,
+                filterStatus: this.onFilter.bind(this),
+                statuses: Datasources.equipmentStatusTypes
             });
 
             kendo.bind(filter, this.controls.filterModel);
@@ -453,6 +456,7 @@ var Brainpacks = {
     buildFilter: function(search) {
         Notifications.clear();
         search = this.controls.filterModel.search;
+        var statusFilter = this.controls.filterModel.statusFilter;
 
         var filters = [];
 
@@ -461,6 +465,14 @@ var Brainpacks = {
                 field: "Search",
                 operator: "eq",
                 value: search
+            });
+        }
+
+        if (typeof (statusFilter) === "number") {
+            filters.push({
+                field: "Status",
+                operator: "eq",
+                value: statusFilter
             });
         }
 

@@ -31,7 +31,8 @@ namespace HeddokoService
                 WorkerCount = Config.WorkerCount,
                 Queues = new[] {
                     DAL.Constants.HangFireQueue.Default,
-                    DAL.Constants.HangFireQueue.Email
+                    DAL.Constants.HangFireQueue.Email,
+                    DAL.Constants.HangFireQueue.Notifications
                 }
             };
 
