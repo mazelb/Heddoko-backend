@@ -9,7 +9,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using Newtonsoft.Json;
-using DAL;
 using Services;
 using System.IO;
 using System.Threading.Tasks;

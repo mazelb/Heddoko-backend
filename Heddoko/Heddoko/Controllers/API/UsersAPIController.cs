@@ -202,7 +202,7 @@ namespace Heddoko.Controllers.API
             };
         }
 
-        [Route("activity/{take:int}/{skip:int}")]
+        [DomainRoute("activity/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
         public ListAPIViewModel<UserEvent> Activity(int take = 100, int skip = 0)
@@ -218,7 +218,7 @@ namespace Heddoko.Controllers.API
             };
         }
 
-        [Route("activity/unread/{take:int}/{skip:int}")]
+        [DomainRoute("activity/unread/{take:int}/{skip:int}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
         public ListAPIViewModel<UserEvent> UnreadActivity(int take = 100, int skip = 0)
@@ -234,7 +234,7 @@ namespace Heddoko.Controllers.API
             };
         }
 
-        [Route("subscribe")]
+        [DomainRoute("subscribe", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         [AuthAPI(Roles = Constants.Roles.All)]
         public bool Subscribe(SubscribeTokenAPIViewModel model)
@@ -266,7 +266,7 @@ namespace Heddoko.Controllers.API
             };
         }
 
-        [Route("unsubscribe")]
+        [DomainRoute("unsubscribe", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         [AuthAPI(Roles = Constants.Roles.All)]
         public bool UnSubscribe(UnsubscribeTokenAPIViewModel model)
@@ -295,8 +295,8 @@ namespace Heddoko.Controllers.API
         /// <param name="userID">The filter by userID</param>
         /// <param name="take">The amount of take entries</param>
         /// <param name="skip">The amoun of skip entries</param>
-        [Route("records/{take:int}/{skip:int?}")]
-        [Route("{userID:int?}/records/{take:int}/{skip:int?}")]
+        [DomainRoute("records/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
+        [DomainRoute("{userID:int?}/records/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
         public ListAPIViewModel<Record> List(int take = 100, int? userID = null, int? skip = 0)
@@ -323,7 +323,7 @@ namespace Heddoko.Controllers.API
             };
         }
 
-        [Route("records/upload")]
+        [DomainRoute("records/upload", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
         public async Task<Record> Upload()

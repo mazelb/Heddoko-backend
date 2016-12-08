@@ -13,7 +13,6 @@ namespace Heddoko.Controllers.API
     [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
     public class StreamingAPIController : BaseAPIController
     {
-        [Route("connections")]
         private readonly StreamConnectionsService _streamConnectionsService;
 
         public StreamingAPIController()

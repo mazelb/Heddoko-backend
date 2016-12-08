@@ -94,7 +94,7 @@ i18n.Resources = (function () {
   "UsernameSuccessufullySent": "We have sent you an email with your username.",
   "EmailUsed": "Email already used",
   "UsernameUsed": "Username already used",
-  "UserSignupMessage": "User has been created. We have sent a request to the administrator, please check back when your account has been approved",
+  "UserSignupMessage": "User has been created. We have sent a request to the administration, please check back when your account has been approved",
   "And": "and",
   "Privacy": "privacy policy",
   "SignInInviteMessage": "Already have an account?",
@@ -453,12 +453,12 @@ i18n.Resources = (function () {
   "AssetType_ProcessedFrameData": "Processed frame data",
   "AssetType_RawFrameData": "Raw frame data",
   "FirmwareType_DefaultRecords": "Default records",
-  "AssetType": "Asset Type"
-  "LicenseIsExpiring": "License is expiring",
+  "AssetType": "Asset Type",
   "Development": "Development",
   "Client": "Client",
   "Secret": "Secret",
   "Disable": "Disable",
-  "Enable": "Enable"};
+  "Enable": "Enable"
+};
 	return $.extend({}, i18n.Resources || {}, strings);
 }());
