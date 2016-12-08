@@ -1,0 +1,151 @@
+// @file heddokoPacket.proto
+// @brief Contains the heddokoPacket protobuffer file definition
+// @author Sean Cloghesy (sean@heddoko.com)
+// @date July 2016
+// @version 1.0
+// Copyright Heddoko(TM) 2016, all rights reserved
+syntax = "proto2";
+package heddoko;
+
+enum PacketType 
+{
+	StatusRequest = 0;
+	StatusResponse = 1; 
+	SetWifiConfiguration = 2; 
+	RecordingsListRequest = 3; 
+	RecordingListReponse = 4;
+	FileDownloadRequest = 5;
+	FileDownloadReponse = 6;
+	ClearBrainpackRequest = 7;
+	CalibrationRequest = 8;
+	CalibrationResponse = 9;
+	StartDataStream = 10;
+	StopDataStream = 11;
+	ConfigureRecordingSettings = 12;
+	DataFrame = 13;
+	RecordingInformation = 14;
+	LastCalibrationRequest = 15;
+	LastCalibrationResponse = 16;
+	AdvertisingPacket = 17;
+	UpdateFirmwareRequest = 18;
+	UpdatedFirmwareResponse = 19;
+	SetTimeRequest = 20;
+	MessageStatus = 21;
+}
+
+enum BrainpackState
+{
+	Initializing = 0;
+	Idle = 1;
+	Recording = 2;
+	Streaming = 3;
+	Error = 4;
+}
+
+enum ChargeState
+{
+	BatteryLow = 0;
+	BatteryNominal = 1;
+	BatteryFull = 2;
+	Charging = 3;
+}
+
+enum ReportType
+{
+	pain = 0;
+	concern = 1;
+}
+
+enum WifiSecurityType
+{
+	WEP = 0;
+	WPA = 1;
+	Open = 3;
+}
+
+message ImuDataFrame
+{
+	required uint32 imuId = 1; 
+	optional uint32 sensorMask = 2;	
+	optional float quat_x_yaw = 3;
+	optional float quat_y_pitch = 4;
+	optional float quat_z_roll = 5;
+	optional float quat_w = 6;
+	optional sint32 Mag_x = 7; 	
+	optional sint32 Mag_y = 8;
+	optional sint32 Mag_z = 9;
+	optional sint32 Accel_x = 10;
+	optional sint32 Accel_y = 11;
+	optional sint32 Accel_z = 12; 	
+	optional sint32 Rot_x = 14;
+	optional sint32 Rot_y = 15;
+	optional sint32 Rot_z = 16;
+}
+
+message FullDataFrame
+{
+	required uint32 timeStamp = 1;
+	repeated ImuDataFrame imuDataFrame = 2; 
+	optional ReportType reportType = 3;
+	optional string gpsCoordinates = 4;
+	optional uint32 calibrationId = 5;
+}
+
+message Endpoint
+{
+	required string address = 1;
+	required uint32 port = 2;
+} 
+
+message WifiConfiguration
+{
+	required string ssid = 1; 
+	required WifiSecurityType securityType = 2;
+	required bool wifiState = 3;
+	optional string passphrase = 4;
+	optional uint32 udpBroadcastPort = 5;
+	optional uint32 connectionTimeout = 6;
+}
+
+message RecordingsResponse
+{
+	required uint32 recordingsCount = 1;
+	required uint32 calibrationCount = 2;
+	repeated string recordingFilename = 3;
+	repeated string calibrationFilename = 4; 
+}
+
+message FileDownload
+{
+	required Endpoint downloadEndpoint = 1; 
+	required string downloadFilename = 2;	
+}
+
+message FirmwareUpdate
+{
+	required Endpoint fwEndpoint = 1;
+	required string fwFilename = 2; 
+}
+
+message Packet 
+{
+	required PacketType type = 1;
+	optional BrainpackState brainpackState = 2; 
+	optional string firmwareVersion = 3;
+	optional string serialNumber = 4;
+	optional uint32 batteryLevel = 5;
+	optional ChargeState chargeState = 6;
+	optional bool messageStatus = 7;
+	optional string calibrationFilename = 8;
+	optional uint32 recordingRate = 9;
+	optional string recordingFilename = 10;
+	optional string dateTime = 11;
+	optional uint32 configurationPort = 12;
+	optional uint32 sensorMask = 13; 
+	optional WifiConfiguration wifiConfiguration = 14;
+	optional RecordingsResponse recordingsResponse = 15;
+	optional FileDownload fileDownload = 16;
+	optional FirmwareUpdate firmwareUpdate = 17;
+	optional FullDataFrame fullDataFrame = 18;	
+	optional Endpoint endpoint = 19; 
+}

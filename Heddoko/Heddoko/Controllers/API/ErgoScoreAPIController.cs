@@ -10,62 +10,83 @@ using i18n;
 
 namespace Heddoko.Controllers.API
 {
-    [RoutePrefix("api/v1/ergoscore")]
+    [RoutePrefix("admin/api/ergoscore")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ErgoScoreAPIController : BaseAPIController
     {
         public ErgoScoreAPIController() { }
 
         public ErgoScoreAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
-        [ApiExplorerSettings(IgnoreApi = true)]
-        [Route("{id:int?}")]
+        [Route("{id:int}")]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
-        public ErgoScoreAPIModel Get(int? id = null)
+        public ErgoScore Get(int id)
         {
-            ErgoScoreAPIModel ergoScore = new ErgoScoreAPIModel();
-            User user;
+            ErgoScore ergoScore = new ErgoScore();
 
-            if (!id.HasValue)
-            {
-                id = CurrentUser.Id;
-                user = CurrentUser;
-            }
-            else
-            {
-                user = UoW.UserRepository.GetIDCached(id.Value);
-            }
-            ergoScore.UserScore = UoW.ProcessedFrameRepository.GetUserScore(id.Value);
-            
-            if (user.OrganizationID.HasValue)
-            {
-                IEnumerable<int> users = UoW.UserRepository.GetIdsByOrganization(user.OrganizationID.Value);
-                ergoScore.OrgScore = UoW.ProcessedFrameRepository.GetMultiUserScore(users.ToArray());
-            }
-            else
-            {
-                ergoScore.OrgScore = 0;
-            }
-
+            ergoScore.Score = UoW.AnalysisFrameRepository.GetUserScore(id);
+            ergoScore.Id = id;
 
             return ergoScore;
         }
 
-        [Route("get")]
-        [HttpPost]
-        public ErgoScoreAPIModel GetErgoScoreModel()
+        [Route("org/{id:int}")]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.LicenseUniversal)]
+        public List<ErgoScore> GetOrgScores(int orgId)
         {
-            ErgoScoreAPIModel scores = new ErgoScoreAPIModel();
+            Organization org = UoW.OrganizationRepository.Get(orgId);
+            IEnumerable<int> ids = org.Users.Select(x => x.Id).Distinct();
 
-            scores.UserScore = UoW.ProcessedFrameRepository.GetUserScore(CurrentUser.Id);
-            scores.OrgScore = 0;
+            return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
+        }
 
-            if (CurrentUser.OrganizationID.HasValue)
+        [Route("team/{id:int?}")]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.AnalystAndAdmin)]
+        public List<ErgoScore> GetTeamScores(int teamId)
+        {
+            Team team = UoW.TeamRepository.Get(teamId);
+            IEnumerable<int> ids = team.Users.Select(x => x.Id).Distinct();
+
+            return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
+        }
+
+        [Route("orgScore")]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.All)]
+        public ErgoScore GetCurrentOrgScore()
+        {
+            ErgoScore ergoScore = new ErgoScore();
+
+            Organization org = UoW.OrganizationRepository.Get(CurrentUser.OrganizationID.Value);
+            if (org.Users != null)
             {
-                IEnumerable<int> users = UoW.UserRepository.GetIdsByOrganization(CurrentUser.OrganizationID.Value);
-                scores.OrgScore = UoW.ProcessedFrameRepository.GetMultiUserScore(users.ToArray());
+                IEnumerable<int> users = org.Users.Select(x => x.Id).ToList();
+                ergoScore.Score = UoW.AnalysisFrameRepository.GetTeamScore(users.ToArray());
+                ergoScore.Id = org.Id;
             }
-            return scores;
+
+            return ergoScore;
+        }
+
+        [Route("teamScore")]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.All)]
+        public ErgoScore GetCurrentTeamScore(int teamId)
+        {
+            ErgoScore ergoScore = new ErgoScore();
+
+            Team team = UoW.TeamRepository.Get(teamId);
+            if(team.Users != null)
+            {
+                IEnumerable<int> users = team.Users.Select(x => x.Id).ToList();
+                ergoScore.Score = UoW.AnalysisFrameRepository.GetTeamScore(users.ToArray());
+                ergoScore.Id = teamId;
+            }
+
+            return ergoScore;
         }
     }
 }

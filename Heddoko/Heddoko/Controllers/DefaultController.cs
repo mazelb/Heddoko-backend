@@ -22,7 +22,7 @@ namespace Heddoko.Controllers
             {
                 Software = UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Software),
                 Guide = UoW.FirmwareRepository.LastFirmwareByType(FirmwareType.Guide),
-                UserErgoScore = UoW.ProcessedFrameRepository.GetUserScore(CurrentUser.Id),
+                UserErgoScore = UoW.AnalysisFrameRepository.GetUserScore(CurrentUser.Id),
                 EnableKendo = true
             };
 

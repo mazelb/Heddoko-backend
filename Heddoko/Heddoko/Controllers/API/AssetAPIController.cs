@@ -12,6 +12,7 @@ using Heddoko.Models;
 using i18n;
 using Newtonsoft.Json;
 using Services;
+using Hangfire;
 using Microsoft.AspNet.Identity;
 using Constants = DAL.Constants;
 

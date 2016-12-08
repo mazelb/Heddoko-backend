@@ -1425,6 +1425,9 @@
   <data name="WrongTeam" xml:space="preserve">
     <value>User is in the wrong team</value>
   </data>
+  <data name="Ergoscore" xml:space="preserve">
+    <value>Ergoscore</value>
+  </data>
   <data name="LicenseIsExpiring" xml:space="preserve">
     <value>License is expiring</value>
   </data>
