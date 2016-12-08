@@ -95,6 +95,7 @@ namespace Services
                             memStream.SetLength(0);
                         }
                     }
+                    memStream.Dispose();
                 }
             }
             catch (Exception ex)
