@@ -78,7 +78,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"LicenseManager.Check.Exception ex: {ex.GetOriginalException()}");
+                Trace.TraceError($"FileParser.AddProcessedFramesToDb.Exception ex: {ex.GetOriginalException()}");
             }
         }
 
@@ -122,7 +122,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"LicenseManager.Check.Exception ex: {ex.GetOriginalException()}");
+                Trace.TraceError($"FileParser.AddAnalysisFramesToDb.Exception ex: {ex.GetOriginalException()}");
             }
         }
 
@@ -180,7 +180,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"LicenseManager.Check.Exception ex: {ex.GetOriginalException()}");
+                Trace.TraceError($"FileParser.AddRawFramesToDb.Exception ex: {ex.GetOriginalException()}");
             }
         }
 

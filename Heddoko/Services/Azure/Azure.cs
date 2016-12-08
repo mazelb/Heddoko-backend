@@ -80,7 +80,7 @@ namespace Services
                 }
                 catch (FileNotFoundException ex)
                 {
-                    Trace.TraceError($"LicenseManager.Check.Exception ex:{ex.GetOriginalException()}");
+                    Trace.TraceError($"Azure.AddRecordToDatabase.FileNotFoundException ex:{ex.GetOriginalException()}");
                 }
             }
         }
