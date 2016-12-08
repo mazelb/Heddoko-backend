@@ -217,6 +217,12 @@ var KendoDS = {
     textAreaDDEditor: function (container, options) {
         $('<textarea data-bind="value: ' + options.field + '"></textarea>').appendTo(container);
     },
+    emailEditor: function (container, options) {
+        $('<input type="email" class="k-input k-textbox" name="' + options.field + '" data-bind="value: ' + options.field + '"></input>').appendTo(container);
+    },
+    phoneEditor: function (container, options) {
+        $('<input type="text" class="k-input k-textbox phone-mask" name="' + options.field + '" data-bind="value: ' + options.field + '"></input>').appendTo(container);
+    },
     dateEditor: function (container, options) {
         $('<input name="' + options.field + '" data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
             .appendTo(container)
