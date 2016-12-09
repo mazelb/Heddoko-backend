@@ -97,5 +97,10 @@
             public const int MinFilesCount = 1;
             public const int MaxFilesCount = 5;
         }
+
+        public static class ClaimTypes
+        {
+            public const string ParentLoggedInUser = "ParentLoggedInUser";
+        }
     }
 }
