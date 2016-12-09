@@ -10,7 +10,7 @@ using i18n;
 
 namespace Heddoko.Controllers.API
 {
-    [RoutePrefix("admin/api/ergoscore")]
+    [RoutePrefix("api/v1/ergoscore")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ErgoScoreAPIController : BaseAPIController
     {
