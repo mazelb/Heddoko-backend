@@ -81,6 +81,32 @@
             }
         }
     },
+    user: {
+        firstname: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'firstname', Validator.organization.notes.maxSize);
+            }
+        },
+        lastname: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'lastname', Validator.organization.address.maxSize);
+            }
+        },
+        phone: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'phone', Validator.organization.phone.maxSize);
+            }
+        },
+        email: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'email', Validator.organization.email.maxSize);
+            }
+        }
+    },
     license: {
         expirationAt: {
             expirationAtValidation: function (input) {
