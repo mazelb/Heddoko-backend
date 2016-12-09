@@ -115,6 +115,8 @@ namespace Heddoko.Controllers
                 {
                     ID = 0
                 });
+
+                count++; //Since we are adding something to the list
             }
 
             itemsDefault.AddRange(items.ToList().Select(Convert));

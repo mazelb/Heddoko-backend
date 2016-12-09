@@ -397,7 +397,7 @@
     <value>Username already used</value>
   </data>
   <data name="UserSignupMessage" xml:space="preserve">
-    <value>User has been created. We have sent a request to the administration, please check back when your account has been approved</value>
+    <value>User has been created. We have sent a request to the administrator, please check back when your account has been approved</value>
   </data>
   <data name="And" xml:space="preserve">
     <value>and</value>
@@ -1424,6 +1424,9 @@
   </data>
   <data name="WrongTeam" xml:space="preserve">
     <value>User is in the wrong team</value>
+  </data>
+  <data name="Ergoscore" xml:space="preserve">
+    <value>Ergoscore</value>
   </data>
   <data name="LicenseIsExpiring" xml:space="preserve">
     <value>License is expiring</value>

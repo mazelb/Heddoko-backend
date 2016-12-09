@@ -1,8 +1,10 @@
 ﻿using System.IO;
 using DAL;
+using DAL.Models;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Hangfire;
+using System.Diagnostics;
 
 namespace Services
 {
@@ -41,12 +43,12 @@ namespace Services
         /// <param name="url">Url of Azure block blob reference</param>
         /// <param name="container">Azure assests container</param>
         /// <param name="path">path to the target file</param>
-        private static void DownloadToFile(string url, string container, string path)
+        private static void DownloadToFile(string url, string path)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Config.StorageConnectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-            CloudBlobContainer blobContainer = blobClient.GetContainerReference(container);
+            CloudBlobContainer blobContainer = blobClient.GetContainerReference(DAL.Config.AssetsContainer);
+            
             CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(url);
 
             blockBlob.DownloadToFile(path, FileMode.OpenOrCreate);
@@ -60,12 +62,27 @@ namespace Services
             }      
         }
 
-        public static void AddFramesToDatabase(string url, string container, string path)
+        public static void AddRecordToDatabase(int recordId)
         {
-            DownloadToFile(url, container, path);
-            FileParser.AddProcessedFramesToDb(path);
+            UnitOfWork UoW = new UnitOfWork();
+            Record record = UoW.RecordRepository.Get(recordId);
 
-            DeleteFile(path);
+            foreach (Asset asset in record.Assets)
+            {
+                try
+                {
+                    string downloadPath = Utils.DownloadPath();
+
+                    string path = Path.Combine(downloadPath, asset.Name);
+                    DownloadToFile(asset.Url, path);
+                    FileParser.AddFileToDb(path, asset.Type, UoW, record.User.Id);
+                    DeleteFile(path);
+                }
+                catch (FileNotFoundException ex)
+                {
+                    Trace.TraceError($"Azure.AddRecordToDatabase.FileNotFoundException ex:{ex.GetOriginalException()}");
+                }
+            }
         }
     }
 }

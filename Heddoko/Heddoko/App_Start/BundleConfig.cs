@@ -70,8 +70,9 @@ namespace Heddoko
                 "~/Scripts/js/admin/grid/organizationKits.js",
                 "~/Scripts/js/admin/grid/teams.js",
                 "~/Scripts/js/admin/grid/developments.js",             
-                "~/Scripts/js/account/ergoscore.js"
-                );
+                "~/Scripts/js/account/ergoscore.js",
+                "~/Scripts/js/ergoscore/ergoscoreGauge.js"               
+            );
 
             bundles.Add(kendoScriptsBundle);
 
@@ -96,6 +97,13 @@ namespace Heddoko
             );
 
             bundles.Add(adminScriptsBundle);
+
+            Bundle analystScriptsBundle = new Bundle("~/Bundles/AnalystJs");
+            analystScriptsBundle.Include(
+                "~/Scripts/js/ergoscore/teamScores.js"
+            );
+
+            bundles.Add(analystScriptsBundle);
 
             bundles.Add(new ScriptBundle("~/Bundles/i18nEn")
                 .Include(

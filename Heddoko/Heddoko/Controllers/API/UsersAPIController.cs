@@ -502,6 +502,8 @@ namespace Heddoko.Controllers.API
                 UoW.AssetRepository.Create(asset);
             }
 
+            BackgroundJob.Enqueue(() => Azure.AddRecordToDatabase(record.Id));
+
             return record;
         }
     }

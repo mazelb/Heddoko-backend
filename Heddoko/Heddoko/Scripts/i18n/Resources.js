@@ -437,6 +437,7 @@ i18n.Resources = (function () {
   "UserDoesntHaveKit": "User should have a kit",
   "UserIsNotInTeam": "User should be in a team",
   "WrongTeam": "User is in the wrong team",
+  "Ergoscore": "Ergoscore",
   "LicenseIsExpiring": "License is expiring",
   "StreamChannelOpened": "Channel for receiving stream was opened for your team",
   "StreamChannelClosed": "Channel for receiving stream was closed for your team",
@@ -453,12 +454,12 @@ i18n.Resources = (function () {
   "AssetType_ProcessedFrameData": "Processed frame data",
   "AssetType_RawFrameData": "Raw frame data",
   "FirmwareType_DefaultRecords": "Default records",
-  "AssetType": "Asset Type"
-  "LicenseIsExpiring": "License is expiring",
+  "AssetType": "Asset Type",
   "Development": "Development",
   "Client": "Client",
   "Secret": "Secret",
   "Disable": "Disable",
-  "Enable": "Enable"};
+  "Enable": "Enable"
+};
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

@@ -1438,6 +1438,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ergoscore.
+        /// </summary>
+        public static string Ergoscore {
+            get {
+                return ResourceManager.GetString("Ergoscore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
@@ -3850,7 +3859,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User has been created. We have sent a request to the administration, please check back when your account has been approved.
+        ///   Looks up a localized string similar to User has been created. We have sent a request to the administrator, please check back when your account has been approved.
         /// </summary>
         public static string UserSignupMessage {
             get {
