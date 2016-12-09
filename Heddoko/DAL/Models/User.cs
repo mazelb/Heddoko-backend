@@ -233,7 +233,7 @@ namespace DAL.Models
         [NotMapped]
         [JsonIgnore]
         [JilDirective(Ignore = true)]
-        public int? ParentLoggedInUser { get; set; }
+        public int? ParentLoggedInUserId { get; set; }
 
         #endregion
     }
