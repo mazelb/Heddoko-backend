@@ -430,7 +430,7 @@ namespace Heddoko.Controllers
             if (ModelState.IsValid)
             {
                 User user = UoW.UserRepository.Get(model.UserID);
-                user.ParentLoggedInUser = CurrentUser.Id;
+                user.ParentLoggedInUserId = CurrentUser.Id;
 
                 await SignInManager.SignInAsync(user, false, false);
             }

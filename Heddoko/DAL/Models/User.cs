@@ -25,9 +25,9 @@ namespace DAL.Models
             }
             ClaimsIdentity userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
 
-            if (ParentLoggedInUser.HasValue)
+            if (ParentLoggedInUserId.HasValue)
             {
-                userIdentity.AddClaim(new Claim(Constants.ClaimTypes.ParentLoggedInUser, ParentLoggedInUser.ToString()));
+                userIdentity.AddClaim(new Claim(Constants.ClaimTypes.ParentLoggedInUser, ParentLoggedInUserId.ToString()));
             }
 
             return userIdentity;
