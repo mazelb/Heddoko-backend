@@ -864,6 +864,7 @@
     <Compile Include="Models\Admin\Kendo\KendoRequest.cs" />
     <Compile Include="Models\Admin\Kendo\KendoResponse.cs" />
     <Compile Include="Models\Admin\Kendo\KendoSort.cs" />
+    <Compile Include="Models\Admin\SinginAPIResponse.cs" />
     <Compile Include="Models\Admin\TeamAPIModel.cs" />
     <Compile Include="Models\Admin\UserAdminAPIModel.cs" />
     <Compile Include="Models\Admin\UserAPIModel.cs" />

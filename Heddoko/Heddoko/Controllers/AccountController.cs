@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
@@ -340,8 +342,18 @@ namespace Heddoko.Controllers
         }
 
         [Auth]
-        public ActionResult SignOut()
+        public async Task<ActionResult> SignOut()
         {
+            Claim loggedInUserClaim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault(c => c.Type == DAL.Constants.ClaimTypes.ParentLoggedInUser);
+
+            if (loggedInUserClaim != null)
+            {
+                User user = UoW.UserRepository.Get(int.Parse(loggedInUserClaim.Value));
+                await SignInManager.SignInAsync(user, false, false);
+
+                return RedirectToAction("Index", "Default");
+            }
+
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("SignIn", "Account");
         }

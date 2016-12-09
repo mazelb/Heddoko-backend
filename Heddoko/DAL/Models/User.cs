@@ -25,6 +25,11 @@ namespace DAL.Models
             }
             ClaimsIdentity userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
 
+            if (ParentLoggedInUser.HasValue)
+            {
+                userIdentity.AddClaim(new Claim(Constants.ClaimTypes.ParentLoggedInUser, ParentLoggedInUser.ToString()));
+            }
+
             return userIdentity;
         }
 
@@ -224,6 +229,11 @@ namespace DAL.Models
             }
             set { _roleName = value; }
         }
+
+        [NotMapped]
+        [JsonIgnore]
+        [JilDirective(Ignore = true)]
+        public int? ParentLoggedInUser { get; set; }
 
         #endregion
     }

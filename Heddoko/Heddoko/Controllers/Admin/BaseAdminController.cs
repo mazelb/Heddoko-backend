@@ -21,6 +21,7 @@ namespace Heddoko.Controllers
         where T : class
         where TM : class
     {
+        private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private UnitOfWork _uow;
         private User _currentUser;
@@ -37,6 +38,26 @@ namespace Heddoko.Controllers
         {
             UserManager = userManager;
             UoW = uow;
+        }
+
+        protected BaseAdminController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, UnitOfWork uow)
+            : this(userManager, uow)
+        {
+            SignInManager = signInManager;
+        }
+
+
+
+        protected ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
         }
 
         protected ApplicationUserManager UserManager
