@@ -9,23 +9,23 @@ namespace DAL.Models.MongoDocuments
 {
     public class RawFrame
     {
-        public uint timeStamp { get; set; }
-        public List<ImuDataFrame> imuDataFrames { get; set; }
-        public ReportType? reportType { get; set; }
-        public string gpsCoordinates { get; set; }
-        public uint? calibrationId { get; set; }
-        public int userId { get; set; }
+        public uint TimeStamp { get; set; }
+        public List<ImuDataFrame> ImuDataFrames { get; set; }
+        public ReportType? ReportType { get; set; }
+        public string GPSCoordinates { get; set; }
+        public uint? CalibrationId { get; set; }
+        public int UserId { get; set; }
 
         public static RawFrame toRawFrame(FullDataFrame dataFrame, int userID)
         {
             RawFrame newFrame = new RawFrame()
             {
-                timeStamp = dataFrame.timeStamp,
-                imuDataFrames = dataFrame.imuDataFrame,
-                reportType = dataFrame.reportType,
-                gpsCoordinates = dataFrame.gpsCoordinates,
-                calibrationId = dataFrame.calibrationId,
-                userId = userID
+                TimeStamp = dataFrame.timeStamp,
+                ImuDataFrames = dataFrame.imuDataFrame,
+                ReportType = dataFrame.reportType,
+                GPSCoordinates = dataFrame.gpsCoordinates,
+                CalibrationId = dataFrame.calibrationId,
+                UserId = userID
             };
 
             return newFrame;

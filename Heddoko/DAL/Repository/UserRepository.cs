@@ -198,6 +198,26 @@ namespace DAL
                         .Select(c => c.Id);
         }
 
+        public IEnumerable<User> GetByTeam(int teamId, bool isDeleted = false)
+        {
+            return DbSet.Include(c => c.License)
+                        .Include(c => c.Kits)
+                        .Include(c => c.Team)
+                        .Include(c => c.Organization)
+                        .Include(c => c.Roles.Select(r => r.Role))
+                        .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
+                        .Where(c => c.TeamID.Value == teamId)
+                        .OrderBy(c => c.FirstName)
+                        .ThenBy(c => c.LastName);
+        }
+
+        public IEnumerable<int> GetIdsByTeam(int teamID, bool isDeleted = false)
+        {
+            return DbSet.Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
+                        .Where(c => c.TeamID.Value == teamID)
+                        .Select(c => c.Id);
+        }
+
         public IEnumerable<User> Search(
             string search,
             int? organizationID = null,
