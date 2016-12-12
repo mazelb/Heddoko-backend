@@ -198,14 +198,13 @@ namespace DAL
                         .Select(c => c.Id);
         }
 
-        public IEnumerable<User> GetByTeam(int teamId, bool isDeleted = false, int? licenseID = null)
+        public IEnumerable<User> GetByTeam(int teamId, bool isDeleted = false)
         {
             return DbSet.Include(c => c.License)
                         .Include(c => c.Kits)
                         .Include(c => c.Team)
                         .Include(c => c.Organization)
                         .Include(c => c.Roles.Select(r => r.Role))
-                        .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => c.TeamID.Value == teamId)
                         .OrderBy(c => c.FirstName)
