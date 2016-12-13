@@ -8,6 +8,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using DAL;
 using Hangfire;
 
 namespace HeddokoService
@@ -22,7 +23,7 @@ namespace HeddokoService
         private const string AssembliesManagerCheck = "AssembliesManager.GetAssemblies";
         private const string LicenseManagerCheckExpiring = "LicenseManager.CheckExpiring";
         private const string LicenseManagerCheckExpiringForAdmins = "LicenseManager.CheckExpiringForAdmins";
-        
+
         public HeddokoService()
         {
             InitializeComponent();
@@ -44,6 +45,23 @@ namespace HeddokoService
 
         protected override void OnStart(string[] args)
         {
+            if (args != null)
+            {
+                foreach (string arg in args)
+                {
+                    switch (arg)
+                    {
+                        case "-flush":
+                            Trace.TraceInformation("FLUSHALL is started");
+
+                            RedisManager.Flush();
+
+                            Trace.TraceInformation("FLUSHALL is stoped");
+                            break;
+                    }
+                }
+            }
+
             RecurringJob.AddOrUpdate(LicenseManagerCheck, () => Services.LicenseManager.Check(), Cron.Hourly());
             RecurringJob.AddOrUpdate(AssembliesManagerCheck, () => Services.AssembliesManager.GetAssemblies(true), Cron.Daily());
 
