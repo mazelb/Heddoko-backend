@@ -2,7 +2,7 @@
   "$type": "Octopus.Core.Model.Projects.DeploymentProcess, Octopus.Core",
   "Id": "deploymentprocess-Projects-1",
   "OwnerId": "Projects-1",
-  "Version": 61,
+  "Version": 63,
   "Steps": [
     {
       "Id": "5fea41c0-660f-48d8-9640-0d50173780ee",
@@ -15,7 +15,9 @@
           "Id": "631f68ba-e6a4-4529-81ff-aef4ffccbc59",
           "Name": "Confirm Deployment",
           "ActionType": "Octopus.Manual",
-          "Environments": [],
+          "Environments": [
+            "Environments-2"
+          ],
           "Channels": [],
           "TenantTags": [],
           "Properties": {
@@ -121,7 +123,8 @@
             "Octopus.Action.Package.PackageId": "HeddokoService",
             "Octopus.Action.WindowsService.ExecutablePath": "HeddokoService.exe",
             "Octopus.Action.WindowsService.ServiceName": "#{ServiceName}",
-            "Octopus.Action.Package.AdditionalXmlConfigurationTransforms": "App.#{Octopus.Environment.Name}.config => HeddokoService.exe.config"
+            "Octopus.Action.Package.AdditionalXmlConfigurationTransforms": "App.#{Octopus.Environment.Name}.config => HeddokoService.exe.config",
+            "Octopus.Action.WindowsService.Arguments": "-flush"
           }
         }
       ],
@@ -181,5 +184,7 @@
       }
     }
   ],
-  "RelatedDocumentIds": []
+  "RelatedDocumentIds": [
+    "Environments-2"
+  ]
 }
