@@ -2,7 +2,7 @@
   "$type": "Octopus.Core.Model.Projects.DeploymentProcess, Octopus.Core",
   "Id": "deploymentprocess-Projects-1",
   "OwnerId": "Projects-1",
-  "Version": 63,
+  "Version": 71,
   "Steps": [
     {
       "Id": "5fea41c0-660f-48d8-9640-0d50173780ee",
@@ -15,6 +15,7 @@
           "Id": "631f68ba-e6a4-4529-81ff-aef4ffccbc59",
           "Name": "Confirm Deployment",
           "ActionType": "Octopus.Manual",
+          "IsDisabled": false,
           "Environments": [
             "Environments-2"
           ],
@@ -38,6 +39,7 @@
           "Id": "64236593-59e2-41a1-a8c2-edcb1337b992",
           "Name": "Migrate Database",
           "ActionType": "Octopus.TentaclePackage",
+          "IsDisabled": false,
           "Environments": [],
           "Channels": [],
           "TenantTags": [],
@@ -68,13 +70,14 @@
           "Id": "aae0dff4-a58a-485f-94b8-836ccd6c3828",
           "Name": "Deploy Admin Website",
           "ActionType": "Octopus.IIS",
+          "IsDisabled": false,
           "Environments": [],
           "Channels": [],
           "TenantTags": [],
           "Properties": {
             "Octopus.Action.IISWebSite.DeploymentType": "webSite",
             "Octopus.Action.IISWebSite.CreateOrUpdateWebSite": "True",
-            "Octopus.Action.IISWebSite.Bindings": "[{\"protocol\":\"http\",\"ipAddress\":\"*\",\"port\":\"#{Heddoko.WebSite.Port}\",\"host\":\"#{Heddoko.WebSite.HostName}\",\"thumbprint\":\"\",\"requireSni\":false,\"enabled\":true}]",
+            "Octopus.Action.IISWebSite.Bindings": "[{\"protocol\":\"http\",\"ipAddress\":\"*\",\"port\":\"#{WebSite.Port}\",\"host\":\"#{WebSite.HostName}\",\"thumbprint\":\"\",\"requireSni\":false,\"enabled\":true},{\"protocol\":\"https\",\"ipAddress\":\"*\",\"port\":\"443\",\"host\":\"#{WebSite.HostName}\",\"thumbprint\":\"#{WebSite.SSLThumbprint}\",\"requireSni\":false,\"enabled\":\"#{WebSite.EnableHttpsBinding}\"}]",
             "Octopus.Action.IISWebSite.ApplicationPoolFrameworkVersion": "v4.0",
             "Octopus.Action.IISWebSite.ApplicationPoolIdentityType": "ApplicationPoolIdentity",
             "Octopus.Action.IISWebSite.EnableAnonymousAuthentication": "True",
@@ -88,8 +91,8 @@
             "Octopus.Action.Package.FeedId": "feeds-teamcity-packages",
             "Octopus.Action.Package.DownloadOnTentacle": "False",
             "Octopus.Action.Package.PackageId": "Heddoko",
-            "Octopus.Action.IISWebSite.WebSiteName": "Heddoko",
-            "Octopus.Action.IISWebSite.ApplicationPoolName": "Heddoko"
+            "Octopus.Action.IISWebSite.WebSiteName": "#{WebSite.Name}",
+            "Octopus.Action.IISWebSite.ApplicationPoolName": "#{WebSite.ApplicationPoolName}"
           }
         }
       ],
@@ -108,6 +111,7 @@
           "Id": "3662582c-e9a6-4e94-bdc0-bd007f2fde6f",
           "Name": "Deploy Windows Service",
           "ActionType": "Octopus.WindowsService",
+          "IsDisabled": false,
           "Environments": [],
           "Channels": [],
           "TenantTags": [],
@@ -143,6 +147,7 @@
           "Id": "dd2739c4-20ab-4b2f-998e-3baa75548268",
           "Name": "Rollback Database",
           "ActionType": "Octopus.TentaclePackage",
+          "IsDisabled": false,
           "Environments": [],
           "Channels": [],
           "TenantTags": [],
@@ -160,12 +165,13 @@
           "Id": "f7f77ff1-3858-4ad6-9b7a-fe66f54ec9be",
           "Name": "Deploy last successful release",
           "ActionType": "Octopus.Script",
+          "IsDisabled": false,
           "Environments": [],
           "Channels": [],
           "TenantTags": [],
           "Properties": {
             "Chain_ApiKey": {
-              "SensitiveValue": "ESO7a2n3FuBrHh3/elHYnW111bq0fTLmCL0cM98KtQA=|AAAAAAAAAAAAAAAAAAAAAA=="
+              "SensitiveValue": "A9N+CUmu6c7CwTD7AbJcGKbSzINlMYrxXlH9NKRNqbI=|AAAAAAAAAAAAAAAAAAAAAA=="
             },
             "Octopus.Action.Script.Syntax": "PowerShell",
             "Octopus.Action.Script.ScriptSource": "Inline",
@@ -175,7 +181,7 @@
             "Chain_DeployTo": "#{Octopus.Environment.Name}",
             "Chain_WaitForDeployment": "False",
             "Octopus.Action.Template.Id": "ActionTemplates-1",
-            "Octopus.Action.Template.Version": "23"
+            "Octopus.Action.Template.Version": "0"
           }
         }
       ],
