@@ -25,7 +25,7 @@ namespace Heddoko.Controllers.API
         {
             ErgoScore ergoScore = new ErgoScore();
 
-            ergoScore.Score = UoW.AnalysisFrameRepository.GetUserScore(id);
+            ergoScore.Score = UoW.ErgoScoreRecordRepository.GetUserScore(id);
             ergoScore.Id = id;
 
             return ergoScore;
@@ -38,7 +38,7 @@ namespace Heddoko.Controllers.API
         {
             IEnumerable<int> ids = UoW.UserRepository.GetIdsByTeam(teamId);
 
-            return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
+            return UoW.ErgoScoreRecordRepository.GetMultipleUserScores(ids.ToArray());
         }
 
         [Route("teamScore")]
@@ -49,7 +49,7 @@ namespace Heddoko.Controllers.API
             ErgoScore ergoScore = new ErgoScore();
 
             IEnumerable<int> users = UoW.UserRepository.GetIdsByTeam(teamId);
-            ergoScore.Score = UoW.AnalysisFrameRepository.GetTeamScore(users.ToArray());
+            ergoScore.Score = UoW.ErgoScoreRecordRepository.GetTeamScore(users.ToArray());
             ergoScore.Id = teamId;
 
             return ergoScore;

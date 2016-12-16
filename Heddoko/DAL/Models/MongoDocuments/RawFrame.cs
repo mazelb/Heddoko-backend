@@ -15,8 +15,9 @@ namespace DAL.Models.MongoDocuments
         public string GPSCoordinates { get; set; }
         public uint? CalibrationId { get; set; }
         public int UserId { get; set; }
+        public int RecordId { get; set; }
 
-        public static RawFrame toRawFrame(FullDataFrame dataFrame, int userID)
+        public static RawFrame toRawFrame(FullDataFrame dataFrame, int userID, int recordId)
         {
             RawFrame newFrame = new RawFrame()
             {
@@ -25,7 +26,8 @@ namespace DAL.Models.MongoDocuments
                 ReportType = dataFrame.reportType,
                 GPSCoordinates = dataFrame.gpsCoordinates,
                 CalibrationId = dataFrame.calibrationId,
-                UserId = userID
+                UserId = userID,
+                RecordId = recordId
             };
 
             return newFrame;

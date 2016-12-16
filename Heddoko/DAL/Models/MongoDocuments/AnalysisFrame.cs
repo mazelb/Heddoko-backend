@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace DAL.Models.MongoDocuments
 {
-    public class HourlyScore
+    public partial class AnalysisFrame
     {
         public int Hour { get; set; }
-        public int Score { get; set; }
-        public int NumFrames { get; set; }
+        public int Minute { get; set; }
+        public int DayOfMonth { get; set; }
+        public int RecordId { get; set; }
     }
 }

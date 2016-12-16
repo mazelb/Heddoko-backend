@@ -24,7 +24,7 @@ namespace Heddoko.Controllers
             {
                 List<int> users = UoW.UserRepository.GetIdsByTeam(CurrentUser.TeamID.Value).ToList();
 
-                var results = UoW.AnalysisFrameRepository.GetMultipleUserScores(users.ToArray());
+                var results = UoW.ErgoScoreRecordRepository.GetMultipleUserScores(users.ToArray());
 
                 scores.AddRange(results.ToList().Select(Convert));
             }

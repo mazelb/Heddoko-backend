@@ -94,7 +94,7 @@ i18n.Resources = (function () {
   "UsernameSuccessufullySent": "We have sent you an email with your username.",
   "EmailUsed": "Email already used",
   "UsernameUsed": "Username already used",
-  "UserSignupMessage": "User has been created. We have sent a request to the administrator, please check back when your account has been approved",
+  "UserSignupMessage": "User has been created. We have sent a request to the administration, please check back when your account has been approved",
   "And": "and",
   "Privacy": "privacy policy",
   "SignInInviteMessage": "Already have an account?",

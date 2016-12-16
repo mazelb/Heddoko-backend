@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace DAL.Models.MongoDocuments
 {
-    public class HourlyScore
+    public partial class ProcessedFrame
     {
-        public int Hour { get; set; }
-        public int Score { get; set; }
-        public int NumFrames { get; set; }
+        public int RecordId { get; set; }
     }
 }
