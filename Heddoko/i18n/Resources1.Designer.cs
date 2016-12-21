@@ -2734,6 +2734,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Redirect URL.
+        /// </summary>
+        public static string RedirectUrl {
+            get {
+                return ResourceManager.GetString("RedirectUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to required.
         /// </summary>
         public static string Required {

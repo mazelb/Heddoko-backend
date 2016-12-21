@@ -71,7 +71,7 @@ namespace DAL
 
         private IProcessedFrameRepository _processedFrameRepository;
 
-        private IDevelopmentRepository _developmentRepository;
+        private IApplicationRepository _applicationRepository;
 
         private IAnalysisFrameRepository _analysisFrameRepository;
 
@@ -129,7 +129,7 @@ namespace DAL
 
         public IProcessedFrameRepository ProcessedFrameRepository => _processedFrameRepository ?? (_processedFrameRepository = new ProcessedFrameRepository(_mongodb));
 
-        public IDevelopmentRepository DevelopmentRepository => _developmentRepository ?? (_developmentRepository = new DevelopmentRepository(_db));
+        public IApplicationRepository ApplicationRepository => _applicationRepository ?? (_applicationRepository = new ApplicationRepository(_db));
 
         public IAnalysisFrameRepository AnalysisFrameRepository => _analysisFrameRepository ?? (_analysisFrameRepository = new AnalysisFrameRepository(_mongodb));
 

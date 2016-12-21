@@ -1493,4 +1493,8 @@
   </data>
   <data name="Enable" xml:space="preserve">
     <value>Enable</value>
-  </data></root>
+  </data>
+  <data name="RedirectUrl" xml:space="preserve">
+    <value>Redirect URL</value>
+  </data>
+</root>

@@ -1,8 +1,8 @@
 ﻿$(function() {
-    Developments.init();
+    Applications.init();
 });
 
-var Developments = {
+var Applications = {
     isDeleted: false,
     controls: {
         form: null,
@@ -18,7 +18,7 @@ var Developments = {
 
     datasources: function() {
         //Datasources context
-        this.developments = Developments.getDatasource();
+        this.applications = Applications.getDatasource();
     },
 
     getDatasource: function(id) {
@@ -27,7 +27,7 @@ var Developments = {
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport('api/v1/developments'),
+            transport: KendoDS.buildTransport('api/v1/applications'),
             schema: {
                 data: "response",
                 total: "total",
@@ -51,6 +51,10 @@ var Developments = {
                             nullable: false,
                             type: "string"
                         },
+                        redirectUrl: {
+                            nullable: false,
+                            type: "string"
+                        },
                         enabled: {
                             editable: true,
                             type: "boolean"
@@ -62,12 +66,12 @@ var Developments = {
     },
 
     init: function() {
-        var control = $('#developmentsGrid');
-        this.controls.form = $('.developmentsForm');
+        var control = $('#applicationsGrid');
+        this.controls.form = $('.applicationsForm');
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                    dataSource: Datasources.developments,
+                    dataSource: Datasources.applications,
                     sortable: false,
                     editable: "popup",
                     selectable: false,
@@ -94,11 +98,16 @@ var Developments = {
                             editor: KendoDS.emptyEditor
                         },
                         {
+                            field: 'redirectUrl',
+                            title: i18n.Resources.RedirectUrl,
+                            editor: KendoDS.emptyEditor
+                        },
+                        {
                             filed: 'enabled',
                             editable: true,
                             title: i18n.Resources.Status,
                             template: function (ed) {
-                                return Format.developments.enabled(ed.enabled);
+                                return Format.applications.enabled(ed.enabled);
                             },
                             editor: KendoDS.emptyEditor
                         },
@@ -143,6 +152,7 @@ var Developments = {
             name: null,
             client: null,
             secret: null,
+            redirectUrl: null,
             enabled: false
         };
     },
@@ -167,4 +177,4 @@ var Developments = {
     },
 };
 
-Datasources.bind(Developments.datasources);
+Datasources.bind(Applications.datasources);

@@ -18,33 +18,33 @@ using System.Security.Cryptography;
 namespace Heddoko.Controllers.API
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [RoutePrefix("api/v1/developments")]
+    [RoutePrefix("api/v1/applications")]
     [AllowAnonymous]
-    public class DevelopmentApiController : BaseAdminController<Development, DevelopmentAPIViewModel>
+    public class ApplicationApiController : BaseAdminController<Application, ApplicationAPIViewModel>
     {
         private const int secretLength = 24;
 
         private const int clientLength = 10;
-        public DevelopmentApiController() { }
+        public ApplicationApiController() { }
 
-        public DevelopmentApiController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+        public ApplicationApiController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
-        public override KendoResponse<IEnumerable<DevelopmentAPIViewModel>> Get([FromUri] KendoRequest request)
+        public override KendoResponse<IEnumerable<ApplicationAPIViewModel>> Get([FromUri] KendoRequest request)
         {
             int count = 0;
-            IEnumerable<Development> items = null;
+            IEnumerable<Application> items = null;
 
             if (IsAdmin)
             {
-                items = UoW.DevelopmentRepository.All();
+                items = UoW.ApplicationRepository.All();
             }
             else
             {
-                items = UoW.DevelopmentRepository.GetByUserId(CurrentUser.Id);
+                items = UoW.ApplicationRepository.GetByUserId(CurrentUser.Id);
             }
             
 
-            List<DevelopmentAPIViewModel> itemsDefault = new List<DevelopmentAPIViewModel>();
+            List<ApplicationAPIViewModel> itemsDefault = new List<ApplicationAPIViewModel>();
 
             if (request?.Take != null)
             {
@@ -55,26 +55,26 @@ namespace Heddoko.Controllers.API
             count = items.Count();
             itemsDefault.AddRange(items.ToList().Select(Convert));
 
-            return new KendoResponse<IEnumerable<DevelopmentAPIViewModel>>
+            return new KendoResponse<IEnumerable<ApplicationAPIViewModel>>
             {
                 Response = itemsDefault,
                 Total = count
             };
         }
 
-        public override KendoResponse<DevelopmentAPIViewModel> Post(DevelopmentAPIViewModel model)
+        public override KendoResponse<ApplicationAPIViewModel> Post(ApplicationAPIViewModel model)
         {
-            DevelopmentAPIViewModel response;
+            ApplicationAPIViewModel response;
 
             if (ModelState.IsValid)
             {                         
-                Development item = new Development();
+                Application item = new Application();
                 item.Enabled = false;
                 item.Client = GetHash(clientLength);
                 item.Secret = GetHash(secretLength);
 
                 Bind(item, model);
-                UoW.DevelopmentRepository.Create(item);
+                UoW.ApplicationRepository.Create(item);
 
                 response = Convert(item);
             }
@@ -86,19 +86,19 @@ namespace Heddoko.Controllers.API
                 };
             }
 
-            return new KendoResponse<DevelopmentAPIViewModel>
+            return new KendoResponse<ApplicationAPIViewModel>
             {
                 Response = response
             };
         }
 
-        public override KendoResponse<DevelopmentAPIViewModel> Put(DevelopmentAPIViewModel model)
+        public override KendoResponse<ApplicationAPIViewModel> Put(ApplicationAPIViewModel model)
         {
-            DevelopmentAPIViewModel response = new DevelopmentAPIViewModel();
+            ApplicationAPIViewModel response = new ApplicationAPIViewModel();
 
-            if (model.ID.HasValue)
+            if (model.Id.HasValue)
             {
-                Development item = UoW.DevelopmentRepository.GetFull(model.ID.Value);
+                Application item = UoW.ApplicationRepository.GetFull(model.Id.Value);
                 if (item != null)
                 {
                     if (ModelState.IsValid)
@@ -123,13 +123,13 @@ namespace Heddoko.Controllers.API
                 }
             }
 
-            return new KendoResponse<DevelopmentAPIViewModel>
+            return new KendoResponse<ApplicationAPIViewModel>
             {
                 Response = response
             };
         }
 
-        protected override Development Bind(Development item, DevelopmentAPIViewModel model)
+        protected override Application Bind(Application item, ApplicationAPIViewModel model)
         {
             if (model == null)
             {
@@ -138,24 +138,26 @@ namespace Heddoko.Controllers.API
 
             item.Name = model.Name;
             item.UserID = CurrentUser.Id;
+            item.RedirectUrl = model.RedirectUrl;
 
             return item;
         }
 
-        protected override DevelopmentAPIViewModel Convert(Development item)
+        protected override ApplicationAPIViewModel Convert(Application item)
         {
             if (item == null)
             {
                 return null;
             }
 
-            return new DevelopmentAPIViewModel
+            return new ApplicationAPIViewModel
             {
-                ID = item.Id,
+                Id = item.Id,
                 Name = item.Name,
                 Client = item.Client,
                 Secret = item.Secret,
-                Enabled = item.Enabled
+                Enabled = item.Enabled,
+                RedirectUrl = item.RedirectUrl
             };
         }
 

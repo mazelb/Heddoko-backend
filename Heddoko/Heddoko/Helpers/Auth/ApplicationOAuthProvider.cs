@@ -12,46 +12,37 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Infrastructure;
 using Microsoft.Owin.Security;
 using i18n;
+using System.Security.Principal;
 
 namespace Heddoko.Helpers.Auth
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
-        private Development client;
+        private Application client;
 
-        public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+        public override Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
         {
-            string clientId;
-            string clientSecret;
-            context.TryGetFormCredentials(out clientId, out clientSecret);
-
             var UoW = context.OwinContext.Get<UnitOfWork>();
-            client = UoW.DevelopmentRepository.GetByClient(clientId, clientSecret);
+
+            client = UoW.ApplicationRepository.GetByClient(context.ClientId);
 
             if (client == null)
             {
-                context.SetError("invalid_grant", "The cliet or secret is incorrect.");
+                context.SetError("invalid_grant", "The cliet is incorrect.");
+                context.Rejected();
             }
             else if (!client.Enabled)
             {
                 context.SetError("invalid_grant", "This client is disabled.");
+                context.Rejected();
             }
 
             if (!context.HasError)
             {
-                context.Validated(clientId);
+                context.Validated(client.RedirectUrl);
             }
 
-            return base.ValidateClientAuthentication(context);
-        }
-
-        public override Task GrantClientCredentials(OAuthGrantClientCredentialsContext context)
-        {          
-            var oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
-            oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, context.ClientId));
-            var ticket = new AuthenticationTicket(oAuthIdentity, new AuthenticationProperties());
-            context.Validated(ticket);
-            return base.GrantClientCredentials(context);
+            return Task.FromResult(0);
         }
     }
 }

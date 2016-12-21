@@ -663,8 +663,8 @@
     <Content Include="Scripts\js\account\mask.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
-    <Content Include="Scripts\js\admin\grid\developmentsApprove.js" />
-    <Content Include="Scripts\js\admin\grid\developments.js" />
+    <Content Include="Scripts\js\admin\grid\applicationsApprove.js" />
+    <Content Include="Scripts\js\admin\grid\applications.js" />
     <Content Include="Scripts\js\admin\grid\teams.js" />
     <Content Include="Scripts\js\admin\grid\historyPopup.js" />
     <Content Include="Scripts\js\admin\grid\organizationKits.js" />
@@ -707,6 +707,9 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\OAuth\Authorize.cshtml" />
+    <Content Include="Views\OAuth\AuthorizeError.cshtml" />
+    <Content Include="Views\OAuthAccount\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -761,7 +764,9 @@
     <Compile Include="Areas\MvcElmahDashboard\Models\Logs\ItemsModel.cs" />
     <Compile Include="Areas\MvcElmahDashboard\Models\Logs\PrevNextRequest.cs" />
     <Compile Include="Areas\MvcElmahDashboard\MvcElmahDashboardAreaRegistration.cs" />
-    <Compile Include="Controllers\API\DevelopmentApiController.cs" />
+    <Compile Include="Controllers\API\ApplicationApiController.cs" />
+    <Compile Include="Controllers\PublicAPI\OAuthAccountController.cs" />
+    <Compile Include="Controllers\PublicAPI\OAuthController.cs" />
     <Compile Include="Controllers\PublicAPI\TestAPIController.cs" />
     <Compile Include="Controllers\DevelopmentController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -808,6 +813,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Auth\AuthAPIAttribute.cs" />
+    <Compile Include="Helpers\Auth\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="Helpers\Auth\AuthAttribute.cs" />
     <Compile Include="Helpers\Auth\AuthCookie.cs" />
     <Compile Include="Helpers\Auth\Auth.cs" />
@@ -879,7 +885,7 @@
     <Compile Include="Models\Admin\UserAPIModel.cs" />
     <Compile Include="Models\API\AssetFileAPIViewModel.cs" />
     <Compile Include="Models\API\ErgoScoreAPIModel.cs" />
-    <Compile Include="Models\API\DevelopmentAPIViewModel.cs" />
+    <Compile Include="Models\API\ApplicationAPIViewModel.cs" />
     <Compile Include="Models\API\ListAPIViewModel.cs" />
     <Compile Include="Models\API\FirmwareAPIViewModel.cs" />
     <Compile Include="Models\API\AssetAPIViewModel.cs" />
@@ -983,7 +989,8 @@
     <Content Include="Views\Static\Requirements.cshtml" />
     <Content Include="Views\Development\Index.cshtml" />
     <Content Include="Views\Development\Approve.cshtml" />
-    <Content Include="Views\ErgoScore\Index.cshtml" />    <Content Include="Web.dev.config">
+    <Content Include="Views\ErgoScore\Index.cshtml" />
+    <Content Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.prod.config">

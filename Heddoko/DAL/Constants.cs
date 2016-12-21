@@ -104,5 +104,11 @@
             public const string PublicApiSite = "PublicApiSite";
             public const string AllSites = "DashboardSite,PublicApiSite";
         }
+
+        public static class OpenAPIClaims
+        {
+            public const string ClaimType = "heddoko:open:api";
+            public const string ClaimValue = "authorized";
+        }
     }
 }

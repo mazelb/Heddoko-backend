@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class Development : BaseModel, IAuditable
+    public class Application : BaseModel, IAuditable
     {
         [StringLength(255)]
         public string Name { get; set; }
@@ -13,6 +13,9 @@ namespace DAL.Models
 
         [StringLength(255)]
         public string Secret { get; set; }
+
+        [StringLength(2048)]
+        public string RedirectUrl { get; set; }       
 
         public bool Enabled { get; set; }
 

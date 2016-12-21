@@ -10,7 +10,7 @@
     <div>
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-success developmentsForm">
+                <div class="panel panel-success applicationsForm">
                     <div class="panel-heading clearfix">
                         <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.Client</h3>
                         <div class="btn-group pull-right" role="group">
@@ -29,6 +29,15 @@
                                        class="form-control"
                                        data-bind="value: model.name" />
                             </div>
+                            <div class="col-sm-2">
+                                <input type="text"
+                                       required
+                                       name="redirectUrl"
+                                       validationMessage="@i18n.Resources.Required"
+                                       placeholder="@i18n.Resources.RedirectUrl"
+                                       class="form-control"
+                                       data-bind="value: model.redirectUrl" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -36,7 +45,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div id="developmentsGrid">
+                <div id="applicationsGrid">
                 </div>
             </div>
         </div>

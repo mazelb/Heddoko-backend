@@ -1,8 +1,8 @@
 ﻿$(function() {
-    DevelopmentsApprove.init();
+    ApplicationsApprove.init();
 });
 
-var DevelopmentsApprove = {
+var ApplicationsApprove = {
     isDeleted: false,
     controls: {
         grid: null
@@ -14,8 +14,8 @@ var DevelopmentsApprove = {
 
     datasources: function() {
         //Datasources context
-        this.developments = DevelopmentsApprove.getDatasource();
-        this.developmentsDD = DevelopmentsApprove.getDatasourceDD();
+        this.applicationsApprove = ApplicationsApprove.getDatasource();
+        this.applicationsDD = ApplicationsApprove.getDatasourceDD();
     },
 
     getDatasource: function(id) {
@@ -24,7 +24,7 @@ var DevelopmentsApprove = {
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport('api/v1/developments'),
+            transport: KendoDS.buildTransport('/api/v1/applications'),
             schema: {
                 data: "response",
                 total: "total",
@@ -57,6 +57,13 @@ var DevelopmentsApprove = {
                                 required: true
                             }
                         },
+                        redirectUrl: {
+                            nullable: false,
+                            type: "string",
+                            validation: {
+                                required: true
+                            }
+                        },
                         enabled: {
                             type: "boolean",
                             validation: {
@@ -82,16 +89,16 @@ var DevelopmentsApprove = {
             dataTextField: "text",
             dataValueField: "value",
             autoBind: true,
-            dataSource: Datasources.developmentsDD
+            dataSource: Datasources.applicationsDD
         });
     },
 
     init: function() {
-        var control = $('#developmentsApproveGrid');
+        var control = $('#applicationsApproveGrid');
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                    dataSource: Datasources.developments,
+                    dataSource: Datasources.applicationsApprove,
                     sortable: false,
                     editable: "popup",
                     selectable: false,
@@ -119,12 +126,17 @@ var DevelopmentsApprove = {
                             editor: KendoDS.emptyEditor
                         },
                         {
+                            field: 'redirectUrl',
+                            title: i18n.Resources.RedirectUrl,
+                            editor: KendoDS.emptyEditor
+                        },
+                        {
                             filed: 'enabled',
                             title: i18n.Resources.Status,
                             template: function (e) {
-                                return Format.developments.enabled(e.enabled);
+                                return Format.applications.enabled(e.enabled);
                             },
-                            editor: DevelopmentsApprove.statusDDEditor
+                            editor: ApplicationsApprove.statusDDEditor
                         },
                         {
                             command: [                            
@@ -157,7 +169,7 @@ var DevelopmentsApprove = {
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
 
-        var grid = DevelopmentsApprove.controls.grid;
+        var grid = ApplicationsApprove.controls.grid;
         
         $(".k-grid-enable", grid.element)
             .each(function () {
@@ -179,16 +191,16 @@ var DevelopmentsApprove = {
     },
 
     onEnable: function (e) {
-        var item = DevelopmentsApprove.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        var item = ApplicationsApprove.controls.grid.dataItem($(e.currentTarget).closest("tr"));
         item.set('enabled', true);
-        DevelopmentsApprove.controls.grid.dataSource.sync();
+        ApplicationsApprove.controls.grid.dataSource.sync();
     },
 
     onDisable: function (e) {
-        var item = DevelopmentsApprove.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        var item = ApplicationsApprove.controls.grid.dataItem($(e.currentTarget).closest("tr"));
         item.set('enabled', false);
-        DevelopmentsApprove.controls.grid.dataSource.sync();
+        ApplicationsApprove.controls.grid.dataSource.sync();
     }
 };
 
-Datasources.bind(Developments.datasources);
+Datasources.bind(ApplicationsApprove.datasources);

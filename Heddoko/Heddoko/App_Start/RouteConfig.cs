@@ -13,6 +13,21 @@ namespace Heddoko
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
+                "Authorize",
+                "authorize",
+                new
+                {
+                    controller = "OAuth",
+                    action = "Authorize",
+                    token = UrlParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(Config.PublicApiSiteDomain)
+                }
+                );
+
+            routes.MapRoute(
                 "Admin",
                 "admin",
                 new

@@ -1,10 +1,12 @@
 ﻿using System.Web.Http;
 using DAL;
 using Heddoko.Helpers.DomainRouting.Http;
+using Heddoko.Helpers.Auth;
+using static DAL.Constants;
 
 namespace Heddoko.Controllers.PublicAPI
 {
-    [Authorize]
+    [ClaimsAuthorization(ClaimType = OpenAPIClaims.ClaimType, ClaimValue = OpenAPIClaims.ClaimValue)]
     [RoutePrefix("openApi")]
     public class TestAPIController : ApiController
     {

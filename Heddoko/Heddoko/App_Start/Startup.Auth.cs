@@ -30,7 +30,7 @@ namespace Heddoko
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Signin"),
+                LoginPath = new PathString("/login"),
                 Provider = new CookieAuthenticationProvider
                 {
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, User, int>(
@@ -60,25 +60,24 @@ namespace Heddoko
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
-
-            OAuthAuthorizationServerOptions OAuthOptions = new OAuthAuthorizationServerOptions
+            OAuthAuthorizationServerOptions OpenAPIOAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
+                AuthorizeEndpointPath = new PathString("/authorize"),
                 TokenEndpointPath = new PathString("/token"),
-                Provider = new ApplicationOAuthProvider(),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
+                ApplicationCanDisplayErrors = true,
                 AllowInsecureHttp = true,
-                AuthenticationMode = AuthenticationMode.Active
+                Provider = new ApplicationOAuthProvider()
             };
 
-            app.UseOAuthBearerTokens(OAuthOptions);
+            app.UseOAuthAuthorizationServer(OpenAPIOAuthServerOptions);
         }
             
         private static bool IsApiOrSignalRRequest(IOwinRequest request)
         {
             string apiPath = VirtualPathUtility.ToAbsolute("~/api/");
-            string openApiPath = VirtualPathUtility.ToAbsolute("~/openApi/");
             string signalrPath = VirtualPathUtility.ToAbsolute("~/signalr/");
-            return request.Uri.LocalPath.StartsWith(apiPath) || request.Uri.LocalPath.StartsWith(signalrPath) || request.Uri.LocalPath.StartsWith(openApiPath);
+            return request.Uri.LocalPath.StartsWith(apiPath) || request.Uri.LocalPath.StartsWith(signalrPath);
         }
     }
 }

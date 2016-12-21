@@ -459,7 +459,8 @@ i18n.Resources = (function () {
   "Client": "Client",
   "Secret": "Secret",
   "Disable": "Disable",
-  "Enable": "Enable"
+  "Enable": "Enable",
+  "RedirectUrl": "Redirect URL"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

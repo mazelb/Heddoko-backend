@@ -268,10 +268,6 @@
     <Compile Include="Migrations\201610200954010_RemoveUserTokens.Designer.cs">
       <DependentUpon>201610200954010_RemoveUserTokens.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611031152064_Development.cs" />
-    <Compile Include="Migrations\201611031152064_Development.Designer.cs">
-      <DependentUpon>201611031152064_Development.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201611021554468_AddUserDevices.cs" />
     <Compile Include="Migrations\201611021554468_AddUserDevices.Designer.cs">
       <DependentUpon>201611021554468_AddUserDevices.cs</DependentUpon>
@@ -288,10 +284,18 @@
     <Compile Include="Migrations\201611231552514_AddRecordToFirmware.Designer.cs">
       <DependentUpon>201611231552514_AddRecordToFirmware.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612091215457_Development.cs" />
+    <Compile Include="Migrations\201612091215457_Development.Designer.cs">
+      <DependentUpon>201612091215457_Development.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612141352407_Application.cs" />
+    <Compile Include="Migrations\201612141352407_Application.Designer.cs">
+      <DependentUpon>201612141352407_Application.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
-    <Compile Include="Models\Development.cs" />
+    <Compile Include="Models\Application.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\Enum\DeviceStatus.cs" />
     <Compile Include="Models\Enum\DeviceType.cs" />
@@ -380,8 +384,8 @@
     <Compile Include="Repository\AnalysisFrameRepository.cs" />
     <Compile Include="Repository\AssetRepository.cs" />
     <Compile Include="Repository\BaseCacheRepository.cs" />
-    <Compile Include="Repository\DevelopmentRepository.cs" />
-    <Compile Include="Repository\Interface\IDevelopmentRepository.cs" />
+    <Compile Include="Repository\ApplicationRepository.cs" />
+    <Compile Include="Repository\Interface\IApplicationRepository.cs" />
     <Compile Include="Repository\DeviceRepository.cs" />
     <Compile Include="Repository\Interface\IAnalysisFrameRepository.cs" />
     <Compile Include="Repository\Interface\IDeviceRepository.cs" />
@@ -522,9 +526,6 @@
     <EmbeddedResource Include="Migrations\201610200954010_RemoveUserTokens.resx">
       <DependentUpon>201610200954010_RemoveUserTokens.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611031152064_Development.resx">
-      <DependentUpon>201611031152064_Development.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611021554468_AddUserDevices.resx">
       <DependentUpon>201611021554468_AddUserDevices.cs</DependentUpon>
     </EmbeddedResource>
@@ -536,6 +537,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611231552514_AddRecordToFirmware.resx">
       <DependentUpon>201611231552514_AddRecordToFirmware.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612091215457_Development.resx">
+      <DependentUpon>201612091215457_Development.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612141352407_Application.resx">
+      <DependentUpon>201612141352407_Application.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
