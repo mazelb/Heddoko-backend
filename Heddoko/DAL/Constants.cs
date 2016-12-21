@@ -110,5 +110,9 @@
             public const string ClaimType = "heddoko:open:api";
             public const string ClaimValue = "authorized";
         }
-    }
+
+        public static class ClaimTypes
+        {
+            public const string ParentLoggedInUser = "ParentLoggedInUser";
+        }    }
 }
