@@ -12,6 +12,21 @@ namespace DAL
         {
         }
 
+        public IEnumerable<Application> All(int? take = null, int? skip = null)
+        {
+            IQueryable<Application> query = DbSet.OrderByDescending(c => c.Created);
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+            return query;
+        }
         public override Application GetFull(int id)
         {
             return DbSet.FirstOrDefault(c => c.Id == id);
@@ -27,10 +42,21 @@ namespace DAL
             return DbSet.FirstOrDefault(c => c.Client == client && c.Secret == secret);
         }
 
-        public IEnumerable<Application> GetByUserId(int userId)
+        public IEnumerable<Application> GetByUserId(int userId, int? take = null, int? skip = null)
         {
-            return DbSet.Where(c => c.UserID == userId)
+            IQueryable<Application> query = DbSet.Where(c => c.UserID == userId)
                         .OrderByDescending(c => c.Created);
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+            return query;
         }
     }
 }

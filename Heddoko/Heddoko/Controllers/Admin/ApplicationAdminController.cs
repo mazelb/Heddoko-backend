@@ -33,16 +33,10 @@ namespace Heddoko.Controllers.API
 
             if (IsAdmin)
             {
-                items = UoW.ApplicationRepository.All();
+                items = UoW.ApplicationRepository.All(request.Take.Value, request.Skip.Value);
             }           
 
             List<ApplicationAPIViewModel> itemsDefault = new List<ApplicationAPIViewModel>();
-
-            if (request?.Take != null)
-            {
-                items = items.Skip(request.Skip.Value)
-                             .Take(request.Take.Value);
-            }
 
             count = items.Count();
             itemsDefault.AddRange(items.ToList().Select(Convert));
