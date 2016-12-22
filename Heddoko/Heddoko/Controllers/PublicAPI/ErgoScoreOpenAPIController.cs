@@ -8,22 +8,24 @@ using DAL.Models;
 using Heddoko.Helpers.DomainRouting.Http;
 using Heddoko.Models;
 using i18n;
+using Heddoko.Helpers.Auth;
+using static DAL.Constants;
 
 namespace Heddoko.Controllers.API
 {
-    [RoutePrefix("admin/api/ergoscore")]
+    [ClaimsAuthorization(ClaimType = OpenAPIClaims.ClaimType, ClaimValue = OpenAPIClaims.ClaimValue)]
+    [RoutePrefix("api/v1/ergoscore")]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class ErgoScoreAPIController : BaseAPIController
+    public class ErgoScoreOpenAPIController : BaseAPIController
     {
-        public ErgoScoreAPIController() { }
+        public ErgoScoreOpenAPIController() { }
 
-        public ErgoScoreAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
+        public ErgoScoreOpenAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        [DomainRoute("{id:int?}", Constants.ConfigKeyName.DashboardSite)]
+        [DomainRoute("{id:int?}", ConfigKeyName.PublicApiSite)]
         [HttpGet]
-        [AuthAPI(Roles = Constants.Roles.All)]
         public ErgoScore Get(int? id = null)
         {
             if (!id.HasValue)
@@ -39,9 +41,8 @@ namespace Heddoko.Controllers.API
             return ergoScore;
         }
 
-        [DomainRoute("org/{id:int}", Constants.ConfigKeyName.DashboardSite)]
+        [DomainRoute("org/{id:int}", ConfigKeyName.PublicApiSite)]
         [HttpGet]
-        [AuthAPI(Roles = Constants.Roles.LicenseUniversal)]
         public List<ErgoScore> GetOrgScores(int orgId)
         {
             Organization org = UoW.OrganizationRepository.Get(orgId);
@@ -50,9 +51,8 @@ namespace Heddoko.Controllers.API
             return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
         }
 
-        [DomainRoute("team/{id:int?}", Constants.ConfigKeyName.DashboardSite)]
+        [DomainRoute("team/{id:int?}", ConfigKeyName.PublicApiSite)]
         [HttpGet]
-        [AuthAPI(Roles = Constants.Roles.AnalystAndAdmin)]
         public List<ErgoScore> GetTeamScores(int teamId)
         {
             Team team = UoW.TeamRepository.Get(teamId);
@@ -61,9 +61,8 @@ namespace Heddoko.Controllers.API
             return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
         }
 
-        [DomainRoute("orgScore", Constants.ConfigKeyName.DashboardSite)]
+        [DomainRoute("orgScore", ConfigKeyName.PublicApiSite)]
         [HttpGet]
-        [AuthAPI(Roles = Constants.Roles.All)]
         public ErgoScore GetCurrentOrgScore()
         {
             ErgoScore ergoScore = new ErgoScore();
@@ -79,9 +78,8 @@ namespace Heddoko.Controllers.API
             return ergoScore;
         }
 
-        [DomainRoute("teamScore", Constants.ConfigKeyName.DashboardSite)]
+        [DomainRoute("teamScore", ConfigKeyName.DashboardSite)]
         [HttpGet]
-        [AuthAPI(Roles = Constants.Roles.All)]
         public ErgoScore GetCurrentTeamScore(int teamId)
         {
             ErgoScore ergoScore = new ErgoScore();

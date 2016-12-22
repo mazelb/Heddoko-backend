@@ -10,14 +10,14 @@ namespace Heddoko.Controllers.PublicAPI
     [RoutePrefix("openApi")]
     public class TestAPIController : ApiController
     {
-        [DomainRoute("test", Constants.ConfigKeyName.PublicApiSite)]
+        [DomainRoute("test", ConfigKeyName.PublicApiSite)]
         [HttpPost]
         public IHttpActionResult Test()
         {
             return null;
         }
         
-        [DomainRoute("index", Constants.ConfigKeyName.PublicApiSite)]
+        [DomainRoute("index", ConfigKeyName.PublicApiSite)]
         [HttpGet]
         public IHttpActionResult Index()
         {
