@@ -765,7 +765,7 @@
     <Compile Include="Areas\MvcElmahDashboard\Models\Logs\PrevNextRequest.cs" />
     <Compile Include="Areas\MvcElmahDashboard\MvcElmahDashboardAreaRegistration.cs" />
     <Compile Include="Controllers\Admin\ApplicationAdminController.cs" />
-    <Compile Include="Controllers\API\ApplicationApiController.cs" />
+    <Compile Include="Controllers\Admin\ApplicationApiController.cs" />
     <Compile Include="Controllers\PublicAPI\OAuthController.cs" />
     <Compile Include="Controllers\PublicAPI\TestAPIController.cs" />
     <Compile Include="Controllers\DevelopmentController.cs" />
