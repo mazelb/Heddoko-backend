@@ -39,6 +39,12 @@
                         <span> @i18n.Resources.SoftwareAndFirmware</span>
                     </a>
                 </li>
+                <li class="@Html.IsCurrentActionLink("Approve", "Development")" title="@i18n.Resources.ApproveApplication">
+                    <a href="@Url.Action("Approve", "Development")">
+                        <i class="fa fa-check-square"></i>
+                        <span> @i18n.Resources.ApproveApplication</span>
+                    </a>
+                </li>
             }
             else if (Model.IsLicenseAdmin)
             {
@@ -49,7 +55,13 @@
                     </a>
                 </li>
             }
-
+            
+            <li class="@Html.IsCurrentActionLink("Index", "Development")" title="@i18n.Resources.Development">
+                <a href="@Url.Action("Index", "Development")">
+                    <i class="fa fa-code"></i>
+                    <span> @i18n.Resources.Development</span>
+                </a>
+            </li>
             <li class="@Html.IsCurrentActionLink("Me", "Account")" title="@i18n.Resources.Profile">
                 <a href="@Url.Action("Me", "Account")">
                     <i class="fa fa-user"></i>

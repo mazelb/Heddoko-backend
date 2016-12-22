@@ -304,6 +304,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approve Application.
+        /// </summary>
+        public static string ApproveApplication {
+            get {
+                return ResourceManager.GetString("ApproveApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assemblies.
         /// </summary>
         public static string Assemblies {
@@ -3567,6 +3576,15 @@ namespace i18n {
         public static string StreamChannelOpened {
             get {
                 return ResourceManager.GetString("StreamChannelOpened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String {
+            get {
+                return ResourceManager.GetString("String", resourceCulture);
             }
         }
         

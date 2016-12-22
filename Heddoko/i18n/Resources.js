@@ -464,7 +464,9 @@ i18n.Resources = (function () {
   "ApplicationDescription": "A third party application want to access your data",
   "Authorization": "Authorization",
   "Cancel": "Cancel",
-  "Grant": "Grant"
+  "Grant": "Grant",
+  "ApproveApplication": "Approve Application",
+  "String": ""
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

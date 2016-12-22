@@ -1509,4 +1509,10 @@
   <data name="Grant" xml:space="preserve">
     <value>Grant</value>
   </data>
+  <data name="ApproveApplication" xml:space="preserve">
+    <value>Approve Application</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value />
+  </data>
 </root>
