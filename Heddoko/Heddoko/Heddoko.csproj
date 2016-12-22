@@ -901,6 +901,7 @@
     <Compile Include="Models\Error\ErrorViewModel.cs" />
     <Compile Include="Models\FlashMessagesViewModel.cs" />
     <Compile Include="Models\Notifications\NotificationMessage.cs" />
+    <Compile Include="Models\OAuth\AuthorizeViewModel.cs" />
     <Compile Include="Models\Organization\OrganizationIndexViewModel.cs" />
     <Compile Include="Models\Streaming\StreamMessage.cs" />
     <Compile Include="Models\Streaming\StreamMessageType.cs" />

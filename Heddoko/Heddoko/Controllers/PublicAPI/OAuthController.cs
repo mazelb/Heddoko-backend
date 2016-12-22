@@ -24,7 +24,7 @@ namespace Heddoko.AuthorizationServer.Controllers
         }
 
         [HttpGet]
-        public ActionResult Authorize()
+        public ActionResult Authorize(string client_id, string secret)
         {
             ErrorViewModel errModel = new ErrorViewModel();
 
@@ -33,10 +33,7 @@ namespace Heddoko.AuthorizationServer.Controllers
                 return View("AuthorizeError", errModel);
             }
 
-            string clientId = Request.QueryString.Get("client_id");
-            string clientSecret = Request.QueryString.Get("secret");
-
-            Application client = UoW.ApplicationRepository.GetByClientAndSecret(clientId, clientSecret);
+            Application client = UoW.ApplicationRepository.GetByClientAndSecret(client_id, secret);
 
             if (client == null)
             {
@@ -52,15 +49,16 @@ namespace Heddoko.AuthorizationServer.Controllers
                 return new HttpUnauthorizedResult();
             }
 
-            BaseViewModel model = new BaseViewModel
+            AuthorizeViewModel model = new AuthorizeViewModel
             {
-                Title = i18n.Resources.Development
+                Client = client_id,
+                ClientSecret = secret
             };
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Authorize(BaseViewModel model)
+        public ActionResult Authorize(AuthorizeViewModel model)
         {
             ErrorViewModel errModel = new ErrorViewModel();
 
@@ -69,10 +67,7 @@ namespace Heddoko.AuthorizationServer.Controllers
                 return View("AuthorizeError", errModel);
             }
 
-            string clientId = Request.QueryString.Get("client_id");
-            string clientSecret = Request.QueryString.Get("secret");
-
-            Application client = UoW.ApplicationRepository.GetByClientAndSecret(clientId, clientSecret);
+            Application client = UoW.ApplicationRepository.GetByClientAndSecret(model.Client, model.ClientSecret);
 
             if (client == null)
             {
