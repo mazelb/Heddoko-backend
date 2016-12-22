@@ -6,20 +6,27 @@
     var ticket = authentication.AuthenticateAsync(DefaultAuthenticationTypes.ApplicationCookie).Result;
     var identity = ticket != null ? ticket.Identity : null;
 }
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Authorize</title>
-</head>
-<body>
-    <h1>Authorization</h1>
+<div class="main-body col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
     <form method="POST">
-        <p>Hello, @identity.Name</p>
-        <p>A third party application want to access your data</p>
-        <p>
-            <input type="submit" name="submit.Grant" value="Grant" />
-            <input type="submit" name="submit.Login" value="Sign in as different user" />
-        </p>
+        <div class="form-group" style="margin:60px 0 25px 0;">
+            <h2>
+                @i18n.Resources.Authorization
+            </h2>
+        </div>
+        <div class="form-group">
+            @i18n.Resources.ApplicationDescription
+        </div>
+        <div class="form-group">
+            <input type="submit"
+                   class="btn btn-default"
+                   name="submit.Grant"
+                   value="@i18n.Resources.Grant">
+        </div>
+        <div class="form-group">
+            <input type="submit"
+                   class="btn btn-default"
+                   name="submit.Login"
+                   value="@i18n.Resources.Cancel">
+        </div>
     </form>
-</body>
-</html>
+</div>

@@ -18,21 +18,23 @@ using System.Security.Cryptography;
 namespace Heddoko.Controllers.API
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [RoutePrefix("api/v1/applications")]
-    [AuthAPI(Roles = Constants.Roles.All)]
-    public class ApplicationApiController : BaseAdminController<Application, ApplicationAPIViewModel>
+    [RoutePrefix("admin/api/applications")]
+    [AuthAPI(Roles = Constants.Roles.Admin)]
+    public class ApplicationAdminController : BaseAdminController<Application, ApplicationAPIViewModel>
     {
-        private const int secretLength = 24;
+        public ApplicationAdminController() { }
 
-        private const int clientLength = 10;
-        public ApplicationApiController() { }
-
-        public ApplicationApiController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
+        public ApplicationAdminController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<ApplicationAPIViewModel>> Get([FromUri] KendoRequest request)
         {
             int count = 0;
-            IEnumerable<Application> items = UoW.ApplicationRepository.GetByUserId(CurrentUser.Id);          
+            IEnumerable<Application> items = null;
+
+            if (IsAdmin)
+            {
+                items = UoW.ApplicationRepository.All();
+            }           
 
             List<ApplicationAPIViewModel> itemsDefault = new List<ApplicationAPIViewModel>();
 
@@ -52,36 +54,6 @@ namespace Heddoko.Controllers.API
             };
         }
 
-        public override KendoResponse<ApplicationAPIViewModel> Post(ApplicationAPIViewModel model)
-        {
-            ApplicationAPIViewModel response;
-
-            if (ModelState.IsValid)
-            {                         
-                Application item = new Application();
-                item.Enabled = false;
-                item.Client = GetHash(clientLength);
-                item.Secret = GetHash(secretLength);
-
-                Bind(item, model);
-                UoW.ApplicationRepository.Create(item);
-
-                response = Convert(item);
-            }
-            else
-            {
-                throw new ModelStateException
-                {
-                    ModelState = ModelState
-                };
-            }
-
-            return new KendoResponse<ApplicationAPIViewModel>
-            {
-                Response = response
-            };
-        }
-
         public override KendoResponse<ApplicationAPIViewModel> Put(ApplicationAPIViewModel model)
         {
             ApplicationAPIViewModel response = new ApplicationAPIViewModel();
@@ -93,7 +65,10 @@ namespace Heddoko.Controllers.API
                 {
                     if (ModelState.IsValid)
                     {
-                        Bind(item, model);
+                        if (IsAdmin)
+                        {
+                            item.Enabled = model.Enabled;
+                        }
 
                         UoW.Save();
 
@@ -113,20 +88,6 @@ namespace Heddoko.Controllers.API
             {
                 Response = response
             };
-        }
-
-        protected override Application Bind(Application item, ApplicationAPIViewModel model)
-        {
-            if (model == null)
-            {
-                return null;
-            }
-
-            item.Name = model.Name;
-            item.UserID = CurrentUser.Id;
-            item.RedirectUrl = model.RedirectUrl;
-
-            return item;
         }
 
         protected override ApplicationAPIViewModel Convert(Application item)

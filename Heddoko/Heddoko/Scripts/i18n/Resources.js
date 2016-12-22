@@ -460,7 +460,11 @@ i18n.Resources = (function () {
   "Secret": "Secret",
   "Disable": "Disable",
   "Enable": "Enable",
-  "RedirectUrl": "Redirect URL"
+  "RedirectUrl": "Redirect URL",
+  "ApplicationDescription": "A third party application want to access your data",
+  "Authorization": "Authorization",
+  "Cancel": "Cancel",
+  "Grant": "Grant"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

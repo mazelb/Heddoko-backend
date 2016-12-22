@@ -708,8 +708,8 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\OAuth\Authorize.cshtml" />
-    <Content Include="Views\OAuth\AuthorizeError.cshtml" />
-    <Content Include="Views\OAuthAccount\Login.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Static\Help.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -764,8 +764,8 @@
     <Compile Include="Areas\MvcElmahDashboard\Models\Logs\ItemsModel.cs" />
     <Compile Include="Areas\MvcElmahDashboard\Models\Logs\PrevNextRequest.cs" />
     <Compile Include="Areas\MvcElmahDashboard\MvcElmahDashboardAreaRegistration.cs" />
+    <Compile Include="Controllers\Admin\ApplicationAdminController.cs" />
     <Compile Include="Controllers\API\ApplicationApiController.cs" />
-    <Compile Include="Controllers\PublicAPI\OAuthAccountController.cs" />
     <Compile Include="Controllers\PublicAPI\OAuthController.cs" />
     <Compile Include="Controllers\PublicAPI\TestAPIController.cs" />
     <Compile Include="Controllers\DevelopmentController.cs" />
@@ -946,7 +946,7 @@
     <Content Include="Views\Static\Terms.cshtml" />
     <Content Include="Views\Account\SignUpStatus.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
-    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\OAuth\AuthorizeError.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />

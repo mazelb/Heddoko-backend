@@ -5,8 +5,6 @@ namespace DAL
 {
     public interface IApplicationRepository : IBaseRepository<Application>
     {
-        IEnumerable<Application> All(bool isDeleted);
-
         Application GetByClient(string client);
 
         Application GetByClientAndSecret(string client, string secret);

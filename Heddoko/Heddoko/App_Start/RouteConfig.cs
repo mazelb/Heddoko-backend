@@ -83,7 +83,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain, Config.PublicApiSiteDomain)
                 }
                 );
 
@@ -98,7 +98,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(Config.MainSiteDomain, Config.PublicApiSiteDomain)
                 }
                 );
 

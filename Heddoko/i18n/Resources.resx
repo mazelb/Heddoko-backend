@@ -1497,4 +1497,16 @@
   <data name="RedirectUrl" xml:space="preserve">
     <value>Redirect URL</value>
   </data>
+  <data name="ApplicationDescription" xml:space="preserve">
+    <value>A third party application want to access your data</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Authorization</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Grant" xml:space="preserve">
+    <value>Grant</value>
+  </data>
 </root>

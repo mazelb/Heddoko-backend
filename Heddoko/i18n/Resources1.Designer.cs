@@ -286,6 +286,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A third party application want to access your data.
+        /// </summary>
+        public static string ApplicationDescription {
+            get {
+                return ResourceManager.GetString("ApplicationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Approve.
         /// </summary>
         public static string Approve {
@@ -354,6 +363,15 @@ namespace i18n {
         public static string Attachments {
             get {
                 return ResourceManager.GetString("Attachments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization.
+        /// </summary>
+        public static string Authorization {
+            get {
+                return ResourceManager.GetString("Authorization", resourceCulture);
             }
         }
         
@@ -615,6 +633,15 @@ namespace i18n {
         public static string Brainpacks {
             get {
                 return ResourceManager.GetString("Brainpacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -1587,6 +1614,15 @@ namespace i18n {
         public static string GoodMorning {
             get {
                 return ResourceManager.GetString("GoodMorning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grant.
+        /// </summary>
+        public static string Grant {
+            get {
+                return ResourceManager.GetString("Grant", resourceCulture);
             }
         }
         

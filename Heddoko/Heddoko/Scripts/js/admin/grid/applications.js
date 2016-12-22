@@ -4,6 +4,7 @@
 
 var Applications = {
     isDeleted: false,
+    isEdit: false,
     controls: {
         form: null,
         grid: null,
@@ -56,7 +57,7 @@ var Applications = {
                             type: "string"
                         },
                         enabled: {
-                            editable: true,
+                            editable: false,
                             type: "boolean"
                         }
                     }
@@ -86,6 +87,10 @@ var Applications = {
                         {
                             field: 'name',
                             title: i18n.Resources.Name                         
+                        },                
+                        {
+                            field: 'redirectUrl',
+                            title: i18n.Resources.RedirectUrl
                         },
                         {
                             field: 'client',
@@ -98,18 +103,11 @@ var Applications = {
                             editor: KendoDS.emptyEditor
                         },
                         {
-                            field: 'redirectUrl',
-                            title: i18n.Resources.RedirectUrl,
-                            editor: KendoDS.emptyEditor
-                        },
-                        {
                             filed: 'enabled',
-                            editable: true,
                             title: i18n.Resources.Status,
                             template: function (ed) {
                                 return Format.applications.enabled(ed.enabled);
-                            },
-                            editor: KendoDS.emptyEditor
+                            }
                         },
                         {
                             command: [
@@ -123,6 +121,7 @@ var Applications = {
                             width: '165px'
                         }
                     ],
+                    edit: Applications.onEdit,
                     save: KendoDS.onSave,
                     dataBound: this.onDataBound
                 })
@@ -158,6 +157,10 @@ var Applications = {
     },
     onReset: function (e) {
         this.controls.addModel.set('model', this.getEmptyModel());
+    },
+    onEdit: function (e) {
+        e.container.find(".k-edit-label:last").hide();
+        e.container.find(".k-edit-field:last").hide();
     },
     onAdd: function (e) {
         Notifications.clear();

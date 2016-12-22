@@ -27,11 +27,6 @@ namespace DAL
             return DbSet.FirstOrDefault(c => c.Client == client && c.Secret == secret);
         }
 
-        public IEnumerable<Application> All(bool isDeleted)
-        {
-            return DbSet.OrderByDescending(c => c.Created);
-        }
-
         public IEnumerable<Application> GetByUserId(int userId)
         {
             return DbSet.Where(c => c.UserID == userId)

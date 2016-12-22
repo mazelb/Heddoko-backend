@@ -1,0 +1,37 @@
+﻿@model Heddoko.Models.BaseViewModel
+
+<div class="main-body col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+    <div class="form-group">
+        <h2>
+            Heddoko OpenAPI
+        </h2>
+    </div>
+    <ol type="1">
+        <li>
+            <p>Register your application on development page <a href="/development">[navigate]</a>.</p>
+        </li>
+        <li>
+            <p>Submit new Client by providing Name and Redirect URL.</p>
+        </li>
+        <li>
+            <p>After application approvement process Client become enabled and ready for use.</p>
+        </li>
+        <li>
+            <p>In your application create button "Sign In with Heddokko". Button should navigate or open popup with url in format:</p>
+            <p>
+                @System.Configuration.ConfigurationManager.AppSettings["PublicApiSite"]/authorize?client_id={client_id}&secret={secret_id}&response_type=token
+            </p>
+        </li>
+        <li>
+            <p>After granting access you will be navigated to Redirect URL that provided in Client registration form.</p>
+            <p>In url will be passed access token, token type and expiration time in next format:</p>
+            <p>{RedirectURL}#access_token={access_token}&token_type={token_type}&expires_in={expires_in}</p>
+        </li>
+        <li>
+            <p>Use this access token and token type to create Authorization Header:</p>
+            <p>Authorization: {token_type} {access_token}</p>
+            <p>Request Open API methods with Authorization Header. Example:</p>
+            <p>@System.Configuration.ConfigurationManager.AppSettings["PublicApiSite"]/test</p>
+        </li>
+    </ol>
+</div>

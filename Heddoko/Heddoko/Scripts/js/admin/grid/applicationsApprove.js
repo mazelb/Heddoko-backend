@@ -24,7 +24,7 @@ var ApplicationsApprove = {
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport('/api/v1/applications'),
+            transport: KendoDS.buildTransport('/admin/api/applications'),
             schema: {
                 data: "response",
                 total: "total",

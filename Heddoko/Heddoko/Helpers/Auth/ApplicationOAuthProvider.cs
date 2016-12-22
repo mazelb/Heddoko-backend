@@ -37,7 +37,7 @@ namespace Heddoko.Helpers.Auth
                 context.Rejected();
             }
 
-            if (!context.HasError)
+            if (context.Error == null)
             {
                 context.Validated(client.RedirectUrl);
             }
