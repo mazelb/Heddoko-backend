@@ -63,7 +63,6 @@ namespace Heddoko
             OAuthAuthorizationServerOptions OpenAPIOAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AuthorizeEndpointPath = new PathString("/authorize"),
-                TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
                 ApplicationCanDisplayErrors = true,
                 AllowInsecureHttp = true,
