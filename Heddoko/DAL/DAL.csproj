@@ -284,13 +284,9 @@
     <Compile Include="Migrations\201611231552514_AddRecordToFirmware.Designer.cs">
       <DependentUpon>201611231552514_AddRecordToFirmware.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612091215457_Development.cs" />
-    <Compile Include="Migrations\201612091215457_Development.Designer.cs">
-      <DependentUpon>201612091215457_Development.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612141352407_Application.cs" />
-    <Compile Include="Migrations\201612141352407_Application.Designer.cs">
-      <DependentUpon>201612141352407_Application.cs</DependentUpon>
+    <Compile Include="Migrations\201612221303570_Application.cs" />
+    <Compile Include="Migrations\201612221303570_Application.Designer.cs">
+      <DependentUpon>201612221303570_Application.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
@@ -538,11 +534,8 @@
     <EmbeddedResource Include="Migrations\201611231552514_AddRecordToFirmware.resx">
       <DependentUpon>201611231552514_AddRecordToFirmware.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612091215457_Development.resx">
-      <DependentUpon>201612091215457_Development.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612141352407_Application.resx">
-      <DependentUpon>201612141352407_Application.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612221303570_Application.resx">
+      <DependentUpon>201612221303570_Application.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
