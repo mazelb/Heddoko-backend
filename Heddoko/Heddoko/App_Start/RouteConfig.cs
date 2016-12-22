@@ -12,6 +12,9 @@ namespace Heddoko
 
             routes.MapMvcAttributeRoutes();
 
+            var mainSiteDomain = Helpers.UrlHelper.GetHost(DAL.Config.DashboardSite);
+            var openApiDomain = Helpers.UrlHelper.GetHost(DAL.Config.PublicApiSite);
+
             routes.MapRoute(
                 "Authorize",
                 "authorize",
@@ -23,7 +26,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.PublicApiSiteDomain)
+                    domain = new DomainRouteConstraint(openApiDomain)
                 }
                 );
 
@@ -38,7 +41,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
@@ -53,7 +56,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
@@ -68,7 +71,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
@@ -83,7 +86,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain, Config.PublicApiSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain, openApiDomain)
                 }
                 );
 
@@ -98,7 +101,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain, Config.PublicApiSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain, openApiDomain)
                 }
                 );
 
@@ -113,7 +116,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
@@ -128,7 +131,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
@@ -144,7 +147,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
@@ -160,7 +163,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
@@ -176,7 +179,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
@@ -190,7 +193,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain, Config.PublicApiSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain, openApiDomain)
                 }
                 );
 
@@ -205,7 +208,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
         }

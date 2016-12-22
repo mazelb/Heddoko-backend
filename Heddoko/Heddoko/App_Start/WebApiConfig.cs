@@ -16,6 +16,8 @@ namespace Heddoko
         {
             config.MapHttpAttributeRoutes(new CustomDirectRouteProvider());
 
+            var mainSiteDomain = Helpers.UrlHelper.GetHost(DAL.Config.DashboardSite);
+
             config.Routes.MapHttpRoute(
                 "AdminDefaultApi",
                 "admin/api/{controller}/{id}",
@@ -25,7 +27,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
@@ -38,7 +40,7 @@ namespace Heddoko
                 },
                 constraints: new
                 {
-                    domain = new DomainRouteConstraint(Config.MainSiteDomain)
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
