@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Heddoko.Helpers.DomainRouting.Http;
 using Heddoko.Models;
 using i18n;
 
@@ -18,7 +19,9 @@ namespace Heddoko.Controllers.API
 
         public ErgoScoreAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
-        [Route("{id:int}")]
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [DomainRoute("{id:int}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
         public ErgoScore Get(int id)
@@ -31,7 +34,7 @@ namespace Heddoko.Controllers.API
             return ergoScore;
         }
 
-        [Route("org/{id:int}")]
+        [DomainRoute("org/{id:int}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.LicenseUniversal)]
         public List<ErgoScore> GetOrgScores(int orgId)
@@ -42,7 +45,7 @@ namespace Heddoko.Controllers.API
             return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
         }
 
-        [Route("team/{id:int?}")]
+        [DomainRoute("team/{id:int?}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.AnalystAndAdmin)]
         public List<ErgoScore> GetTeamScores(int teamId)
@@ -53,7 +56,7 @@ namespace Heddoko.Controllers.API
             return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
         }
 
-        [Route("orgScore")]
+        [DomainRoute("orgScore", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
         public ErgoScore GetCurrentOrgScore()
@@ -71,7 +74,7 @@ namespace Heddoko.Controllers.API
             return ergoScore;
         }
 
-        [Route("teamScore")]
+        [DomainRoute("teamScore", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
         public ErgoScore GetCurrentTeamScore(int teamId)

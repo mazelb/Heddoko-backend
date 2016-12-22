@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using DAL.Models;
 using Hangfire;
+using Heddoko.Helpers.DomainRouting.Http;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace Heddoko.Controllers.API
@@ -18,7 +19,7 @@ namespace Heddoko.Controllers.API
     [AllowAnonymous]
     public class DevController : ApiController
     {
-        [Route("migrate-db")]
+        [DomainRoute("migrate-db", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public IHttpActionResult Migrate()
         {
@@ -26,7 +27,7 @@ namespace Heddoko.Controllers.API
             return Ok();
         }
 
-        [Route("init-db")]
+        [DomainRoute("init-db", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public IHttpActionResult Init()
         {
@@ -34,7 +35,7 @@ namespace Heddoko.Controllers.API
             return Ok();
         }
 
-        [Route("version-db/{version}")]
+        [DomainRoute("version-db/{version}", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public IHttpActionResult Version(string version)
         {
@@ -42,14 +43,14 @@ namespace Heddoko.Controllers.API
             return Ok();
         }
 
-        [Route("pending-db")]
+        [DomainRoute("pending-db", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public IHttpActionResult Pending()
         {
             return Ok(Migrator.GetPending());
         }
 
-        [Route("flush")]
+        [DomainRoute("flush", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public IHttpActionResult Flush()
         {
@@ -57,7 +58,7 @@ namespace Heddoko.Controllers.API
             return Ok();
         }
 
-        [Route("sendadminInvite/{id:int}")]
+        [DomainRoute("sendadminInvite/{id:int}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public async Task<IHttpActionResult> SendAdminInvite(int id)
         {
@@ -82,7 +83,7 @@ namespace Heddoko.Controllers.API
             return Ok();
         }
 
-        [Route("seed-images")]
+        [DomainRoute("seed-images", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public IHttpActionResult SeedImages()
         {

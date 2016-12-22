@@ -3,6 +3,7 @@ using System.Web.Http;
 using DAL;
 using DAL.Models;
 using Heddoko.Models;
+using Heddoko.Helpers.DomainRouting.Http;
 
 namespace Heddoko.Controllers.API
 {
@@ -18,7 +19,7 @@ namespace Heddoko.Controllers.API
         {
         }
 
-        [Route("default/{take:int}/{skip:int?}")]
+        [DomainRoute("default/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public ListAPIViewModel<Record> DefaultRecords(int take = 100, int? skip = 0)
         {

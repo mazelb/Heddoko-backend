@@ -7,6 +7,7 @@ using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
 using Hangfire;
+using Heddoko.Helpers.DomainRouting.Http;
 using Heddoko.Models;
 using Heddoko.Models.Admin;
 using i18n;
@@ -346,7 +347,7 @@ namespace Heddoko.Controllers
             };
         }
 
-        [Route("change")]
+        [DomainRoute("change", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public bool Change(OrganizationAdminAPIModel model)
         {
@@ -390,7 +391,7 @@ namespace Heddoko.Controllers
             return true;
         }
 
-        [Route("approve")]
+        [DomainRoute("approve", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public async Task<bool> Approve(OrganizationAdminAPIModel model)
         {

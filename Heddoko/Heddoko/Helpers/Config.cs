@@ -11,7 +11,7 @@ namespace Heddoko
         public static int EmailForgotTokenExpiration => int.Parse(ConfigurationManager.AppSettings["EmailForgotTokenExpiration"]);
         
         public static string CIUploadToken => ConfigurationManager.AppSettings["CIUploadToken"];
-
+        
         #region Host
 
         private static string Host { get; set; }

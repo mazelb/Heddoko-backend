@@ -663,6 +663,8 @@
     <Content Include="Scripts\js\account\mask.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
+    <Content Include="Scripts\js\admin\grid\applicationsApprove.js" />
+    <Content Include="Scripts\js\admin\grid\applications.js" />
     <Content Include="Scripts\js\admin\grid\teams.js" />
     <Content Include="Scripts\js\admin\grid\historyPopup.js" />
     <Content Include="Scripts\js\admin\grid\organizationKits.js" />
@@ -705,6 +707,9 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\OAuth\Authorize.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Static\Help.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -759,6 +764,11 @@
     <Compile Include="Areas\MvcElmahDashboard\Models\Logs\ItemsModel.cs" />
     <Compile Include="Areas\MvcElmahDashboard\Models\Logs\PrevNextRequest.cs" />
     <Compile Include="Areas\MvcElmahDashboard\MvcElmahDashboardAreaRegistration.cs" />
+    <Compile Include="Controllers\Admin\ApplicationAdminController.cs" />
+    <Compile Include="Controllers\Admin\ApplicationApiController.cs" />
+    <Compile Include="Controllers\PublicAPI\OAuthController.cs" />
+    <Compile Include="Controllers\PublicAPI\TestAPIController.cs" />
+    <Compile Include="Controllers\DevelopmentController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\ComponentsController.cs" />
     <Compile Include="Controllers\Admin\KitsController.cs" />
@@ -803,13 +813,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Auth\AuthAPIAttribute.cs" />
+    <Compile Include="Helpers\Auth\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="Helpers\Auth\AuthAttribute.cs" />
     <Compile Include="Helpers\Auth\AuthCookie.cs" />
     <Compile Include="Helpers\Auth\Auth.cs" />
+    <Compile Include="Helpers\Auth\ApplicationOAuthProvider.cs" />
     <Compile Include="Helpers\Auth\SimpleAuthorizationServerProvider.cs" />
+    <Compile Include="Helpers\DomainRouting\Http\DomainRouteAttribute.cs" />
     <Compile Include="Helpers\Config.cs" />
     <Compile Include="Helpers\ContextSession.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
+    <Compile Include="Helpers\DomainRouting\Mvc\DomainRouteAttribute.cs" />
     <Compile Include="Helpers\Error\APIException.cs" />
     <Compile Include="Helpers\Error\ErrorAPIType.cs" />
     <Compile Include="Helpers\Error\ErrorMessage.cs" />
@@ -827,6 +841,8 @@
     <Compile Include="Helpers\MVC\DisallowEnumValueAttribute.cs" />
     <Compile Include="Helpers\MVC\IsCurrentAction.cs" />
     <Compile Include="Helpers\MVC\PosivitiveNumberAttribute.cs" />
+    <Compile Include="Helpers\DomainRouting\DomainRouteConstraint.cs" />
+    <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Hubs\NotificationsHub.cs" />
     <Compile Include="Hubs\StreamingHub.cs" />
@@ -870,6 +886,7 @@
     <Compile Include="Models\Admin\UserAPIModel.cs" />
     <Compile Include="Models\API\AssetFileAPIViewModel.cs" />
     <Compile Include="Models\API\ErgoScoreAPIModel.cs" />
+    <Compile Include="Models\API\ApplicationAPIViewModel.cs" />
     <Compile Include="Models\API\ListAPIViewModel.cs" />
     <Compile Include="Models\API\FirmwareAPIViewModel.cs" />
     <Compile Include="Models\API\AssetAPIViewModel.cs" />
@@ -884,6 +901,7 @@
     <Compile Include="Models\Error\ErrorViewModel.cs" />
     <Compile Include="Models\FlashMessagesViewModel.cs" />
     <Compile Include="Models\Notifications\NotificationMessage.cs" />
+    <Compile Include="Models\OAuth\AuthorizeViewModel.cs" />
     <Compile Include="Models\Organization\OrganizationIndexViewModel.cs" />
     <Compile Include="Models\Streaming\StreamMessage.cs" />
     <Compile Include="Models\Streaming\StreamMessageType.cs" />
@@ -929,7 +947,7 @@
     <Content Include="Views\Static\Terms.cshtml" />
     <Content Include="Views\Account\SignUpStatus.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
-    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\OAuth\AuthorizeError.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
@@ -971,6 +989,8 @@
     <Content Include="Views\Organization\_Teams.cshtml" />
     <Content Include="Views\Inventory\_NotesHistory.cshtml" />
     <Content Include="Views\Static\Requirements.cshtml" />
+    <Content Include="Views\Development\Index.cshtml" />
+    <Content Include="Views\Development\Approve.cshtml" />
     <Content Include="Views\ErgoScore\Index.cshtml" />
     <Content Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1063,7 +1083,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50664</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

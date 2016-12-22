@@ -406,6 +406,12 @@
             return '<span class="k-grid-showText">' + item + '</span>';
         }
     },
+    applications: {
+        enabled: function (item) {
+            item = item ? 'Enabled' : 'Disabled';
+            return '<span class="k-grid-showText">' + item + '</span>';
+        }
+    },
     ergoscore: {
         score: function (item) {
             item = item != null ? item.toFixed(2) : "";

@@ -284,9 +284,14 @@
     <Compile Include="Migrations\201611231552514_AddRecordToFirmware.Designer.cs">
       <DependentUpon>201611231552514_AddRecordToFirmware.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612221303570_Application.cs" />
+    <Compile Include="Migrations\201612221303570_Application.Designer.cs">
+      <DependentUpon>201612221303570_Application.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
+    <Compile Include="Models\Application.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\Enum\DeviceStatus.cs" />
     <Compile Include="Models\Enum\DeviceType.cs" />
@@ -375,6 +380,8 @@
     <Compile Include="Repository\AnalysisFrameRepository.cs" />
     <Compile Include="Repository\AssetRepository.cs" />
     <Compile Include="Repository\BaseCacheRepository.cs" />
+    <Compile Include="Repository\ApplicationRepository.cs" />
+    <Compile Include="Repository\Interface\IApplicationRepository.cs" />
     <Compile Include="Repository\DeviceRepository.cs" />
     <Compile Include="Repository\Interface\IAnalysisFrameRepository.cs" />
     <Compile Include="Repository\Interface\IDeviceRepository.cs" />
@@ -526,6 +533,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611231552514_AddRecordToFirmware.resx">
       <DependentUpon>201611231552514_AddRecordToFirmware.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612221303570_Application.resx">
+      <DependentUpon>201612221303570_Application.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

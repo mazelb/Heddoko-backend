@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using DAL;
 using DAL.Models;
+using Heddoko.Helpers.DomainRouting.Mvc;
 using Heddoko.Models;
 using i18n;
 using Microsoft.AspNet.Identity.Owin;
@@ -704,7 +705,7 @@ namespace Heddoko.Controllers
 
 
         [AllowAnonymous]
-        [Route("activation/resend/{username}")]
+        [DomainRoute("activation/resend/{username}", DAL.Constants.ConfigKeyName.DashboardSite)]
         public async Task<ActionResult> ResendActivationEmail(string username)
         {
             BaseViewModel baseModel = new BaseViewModel();

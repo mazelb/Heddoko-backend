@@ -9,12 +9,13 @@
         <a href="@Url.Action("Index", "Inventory")">@i18n.Resources.Inventory</a>
         <a href="@Url.Action("Index", "License")">@i18n.Resources.LicenseTitle</a>
         <a href="@Url.Action("Index", "Firmware")">@i18n.Resources.SoftwareAndFirmware</a>
+        <a href="@Url.Action("Approve", "Development")">@i18n.Resources.ApproveApplication</a>
     }
     else if (Model.IsLicenseAdmin)
     {
         <a href="@Url.Action("Index", "Organization")">@i18n.Resources.LicenseTitle</a>
     }
-
+    <a href="@Url.Action("Index", "Development")">@i18n.Resources.Development</a>
     <a href="@Url.Action("Me", "Account")">@i18n.Resources.Profile</a>
     <a href="@Url.Action("Index", "Support")">@i18n.Resources.Support</a>
     <a href="@Url.Action("Signout", "Account")">@i18n.Resources.SignOut</a>

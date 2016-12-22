@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Heddoko.Helpers.DomainRouting.Http;
 using DAL.Models.Enum;
 using Hangfire;
 using Heddoko.Models;
@@ -453,7 +454,7 @@ namespace Heddoko.Controllers
             };
         }
 
-        [Route("activation/resend")]
+        [DomainRoute("activation/resend", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public async Task<bool> ResendActivationEmail(UserAdminAPIModel model)
         {

@@ -454,7 +454,19 @@ i18n.Resources = (function () {
   "AssetType_ProcessedFrameData": "Processed frame data",
   "AssetType_RawFrameData": "Raw frame data",
   "FirmwareType_DefaultRecords": "Default records",
-  "AssetType": "Asset Type"
+  "AssetType": "Asset Type",
+  "Development": "Development",
+  "Client": "Client",
+  "Secret": "Secret",
+  "Disable": "Disable",
+  "Enable": "Enable",
+  "RedirectUrl": "Redirect URL",
+  "ApplicationDescription": "A third party application want to access your data",
+  "Authorization": "Authorization",
+  "Cancel": "Cancel",
+  "Grant": "Grant",
+  "ApproveApplication": "Approve Application",
+  "String": ""
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

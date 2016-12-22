@@ -1479,4 +1479,40 @@
   <data name="AssetType" xml:space="preserve">
     <value>Asset Type</value>
   </data>
+  <data name="Development" xml:space="preserve">
+    <value>Development</value>
+  </data>
+  <data name="Client" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="Secret" xml:space="preserve">
+    <value>Secret</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="RedirectUrl" xml:space="preserve">
+    <value>Redirect URL</value>
+  </data>
+  <data name="ApplicationDescription" xml:space="preserve">
+    <value>A third party application want to access your data</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Authorization</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Grant" xml:space="preserve">
+    <value>Grant</value>
+  </data>
+  <data name="ApproveApplication" xml:space="preserve">
+    <value>Approve Application</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value />
+  </data>
 </root>
