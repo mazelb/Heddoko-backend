@@ -25,7 +25,7 @@ namespace Heddoko.Controllers.API
 
         public ErgoScoreAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow)
         {
-            ergoScoreService = new ErgoScoreService(UoW, CurrentUser);
+            ergoScoreService = new ErgoScoreService(uow, CurrentUser);
         }
 
 
