@@ -12,12 +12,17 @@ using System.Collections.Generic;
 
 namespace Services
 {
-    public static class ErgoScoreService
+    public class ErgoScoreService
     {
         private static UnitOfWork UoW = new UnitOfWork();
-        private static User CurrentUser = GetCurrentUser();
+        private static User CurrentUser;
 
-        public static ErgoScore Get(int? id = null)
+        public ErgoScoreService()
+        {
+            CurrentUser = GetCurrentUser();
+        }      
+
+        public ErgoScore Get(int? id = null)
         {
             if (!id.HasValue)
             {                
@@ -32,7 +37,7 @@ namespace Services
             return ergoScore;
         }
 
-        public static List<ErgoScore> GetOrgScores(int orgId)
+        public List<ErgoScore> GetOrgScores(int orgId)
         {
             Organization org = UoW.OrganizationRepository.Get(orgId);
             IEnumerable<int> ids = org.Users.Select(x => x.Id).Distinct();
@@ -40,7 +45,7 @@ namespace Services
             return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
         }
 
-        public static List<ErgoScore> GetTeamScores(int teamId)
+        public List<ErgoScore> GetTeamScores(int teamId)
         {
             Team team = UoW.TeamRepository.Get(teamId);
             IEnumerable<int> ids = team.Users.Select(x => x.Id).Distinct();
@@ -48,7 +53,7 @@ namespace Services
             return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
         }
 
-        public static ErgoScore GetCurrentOrgScore()
+        public ErgoScore GetCurrentOrgScore()
         {
             ErgoScore ergoScore = new ErgoScore();
 
@@ -62,7 +67,7 @@ namespace Services
 
             return ergoScore;
         }
-        public static ErgoScore GetCurrentTeamScore(int teamId)
+        public ErgoScore GetCurrentTeamScore(int teamId)
         {
             ErgoScore ergoScore = new ErgoScore();
 
@@ -77,20 +82,9 @@ namespace Services
             return ergoScore;
         }
 
-        private static User GetCurrentUser()
+        private User GetCurrentUser()
         {
-            int id = 0;
-            var claimsIdentity = System.Web.HttpContext.Current.User.Identity as ClaimsIdentity;
-            if (claimsIdentity != null)
-            {
-                var userIdClaim = claimsIdentity.Claims
-                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-
-                if (userIdClaim != null)
-                {
-                    id = Convert.ToInt32(userIdClaim.Value);
-                }
-            }
+            int id = HttpContext.Current.User.Identity.GetUserId<int>();
 
             User user = UoW.UserRepository.Get(id);
 
