@@ -244,6 +244,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErgoScoreService.cs" />
     <Compile Include="ActivityService.cs" />
     <Compile Include="AssembliesManager.cs" />
     <Compile Include="Authorization\AuthorizationManager.cs" />
