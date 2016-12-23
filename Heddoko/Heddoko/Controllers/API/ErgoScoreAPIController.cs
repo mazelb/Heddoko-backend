@@ -38,7 +38,7 @@ namespace Heddoko.Controllers.API
             return ergoScoreService.Get(id);
         }
 
-        [DomainRoute("org/{id:int}", Constants.ConfigKeyName.DashboardSite)]
+        [DomainRoute("org/{orgId:int}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.LicenseUniversal)]
         public List<ErgoScore> GetOrgScores(int orgId)
@@ -46,7 +46,7 @@ namespace Heddoko.Controllers.API
             return ergoScoreService.GetOrgScores(orgId);
         }
 
-        [DomainRoute("team/{id:int?}", Constants.ConfigKeyName.DashboardSite)]
+        [DomainRoute("team/{teamId:int}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.AnalystAndAdmin)]
         public List<ErgoScore> GetTeamScores(int teamId)
@@ -65,9 +65,9 @@ namespace Heddoko.Controllers.API
         [DomainRoute("teamScore", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
-        public ErgoScore GetCurrentTeamScore(int teamId)
+        public ErgoScore GetCurrentTeamScore()
         {
-            return ergoScoreService.GetCurrentTeamScore(teamId);
+            return ergoScoreService.GetCurrentTeamScore();
         }
     }
 }

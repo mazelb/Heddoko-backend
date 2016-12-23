@@ -24,7 +24,7 @@ namespace DAL
 
             var aggregate = collection.Aggregate()
                 .Match(new BsonDocument("UserID", userID))
-                .Group(new BsonDocument { { "_id", "$UserID" }, { "ErgoScore", new BsonDocument("$avg", "$ErgoScore") } });
+                .Group(new BsonDocument { { "_id", "$UserID" }, { "Score", new BsonDocument("$avg", "$ErgoScore") } });
             return aggregate;
         }
 
@@ -34,7 +34,7 @@ namespace DAL
 
             var aggregate = collection.Aggregate()
                 .Match(new BsonDocument("UserID", new BsonDocument("$in", new BsonArray(userIDs))))
-                .Group(new BsonDocument { { "_id", "null" }, { "ErgoScore", new BsonDocument("$avg", "$ErgoScore") } });
+                .Group(new BsonDocument { { "_id", "null" }, { "Score", new BsonDocument("$avg", "$ErgoScore") } });
             return aggregate;
         }
 
@@ -44,8 +44,8 @@ namespace DAL
 
             var aggregate = collection.Aggregate()
                 .Match(new BsonDocument("UserID", new BsonDocument("$in", new BsonArray(userIDs))))
-                .Group(new BsonDocument { { "_id", "$UserID" }, { "ErgoScore", new BsonDocument("$avg", "$ErgoScore") } })
-                .Sort(new BsonDocument("ErgoScore", -1));
+                .Group(new BsonDocument { { "_id", "$UserID" }, { "Score", new BsonDocument("$avg", "$ErgoScore") } })
+                .Sort(new BsonDocument("Score", -1));
             return aggregate;
         }
 
@@ -55,7 +55,7 @@ namespace DAL
             var collection = GetCollection();
 
             var aggregate = collection.Aggregate()
-                .Group(new BsonDocument { { "_id", "null" }, { "ErgoScore", new BsonDocument("$avg", "$ErgoScore") } });
+                .Group(new BsonDocument { { "_id", "null" }, { "Score", new BsonDocument("$avg", "$ErgoScore") } });
             return aggregate;
         }
 
@@ -105,17 +105,9 @@ namespace DAL
         /// <returns>List of UserIDs and ErgoScores</returns>
         public async Task<List<ErgoScore>> GetMultipleUserScoresAsync(int[] userIDs)
         {
-            List<ErgoScore> scores = new List<ErgoScore>();
-
             var aggregate = GetAggregateMuiltUserScore(userIDs);
 
-            var results = aggregate.ToBsonDocument();
-            if (results != null)
-            {
-                scores.AddRange(BsonSerializer.Deserialize<List<ErgoScore>>(results));
-            }
-
-            return scores;
+            return aggregate.ToList().Select(score => BsonSerializer.Deserialize<ErgoScore>(score)).ToList();
         }
 
         /// <summary>
@@ -183,17 +175,9 @@ namespace DAL
         /// <returns>List of UserIDs and ErgoScore</returns>
         public List<ErgoScore> GetMultipleUserScores(int[] userIDs)
         {
-            List<ErgoScore> scores = new List<ErgoScore>();
-
             var aggregate = GetAggregateMuiltUserScore(userIDs);
 
-            var results = aggregate.ToBsonDocument();
-            if (results != null)
-            {
-                scores.AddRange(BsonSerializer.Deserialize<List<ErgoScore>>(results));
-            }
-
-            return scores;
+            return aggregate.ToList().Select(score => BsonSerializer.Deserialize<ErgoScore>(score)).ToList();
         }
 
         /// <summary>

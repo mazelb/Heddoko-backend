@@ -41,14 +41,14 @@ namespace Heddoko.Controllers.PublicAPI
             return ergoScoreService.Get(id);
         }
 
-        [DomainRoute("org/{id:int}", ConfigKeyName.PublicApiSite)]
+        [DomainRoute("org/{orgId:int}", ConfigKeyName.PublicApiSite)]
         [HttpGet]
         public List<ErgoScore> GetOrgScores(int orgId)
         {
             return ergoScoreService.GetOrgScores(orgId);
         }
 
-        [DomainRoute("team/{id:int?}", ConfigKeyName.PublicApiSite)]
+        [DomainRoute("team/{teamId:int}", ConfigKeyName.PublicApiSite)]
         [HttpGet]
         public List<ErgoScore> GetTeamScores(int teamId)
         {
@@ -62,11 +62,11 @@ namespace Heddoko.Controllers.PublicAPI
             return ergoScoreService.GetCurrentOrgScore();
         }
 
-        [DomainRoute("teamScore", ConfigKeyName.DashboardSite)]
+        [DomainRoute("teamScore", ConfigKeyName.PublicApiSite)]
         [HttpGet]
-        public ErgoScore GetCurrentTeamScore(int teamId)
+        public ErgoScore GetCurrentTeamScore()
         {
-            return ergoScoreService.GetCurrentTeamScore(teamId);
+            return ergoScoreService.GetCurrentTeamScore();
         }
     }
 }

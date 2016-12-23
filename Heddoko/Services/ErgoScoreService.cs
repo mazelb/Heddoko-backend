@@ -40,15 +40,14 @@ namespace Services
 
         public List<ErgoScore> GetOrgScores(int orgId)
         {
-            Organization org = UoW.OrganizationRepository.Get(orgId);
-            IEnumerable<int> ids = org.Users.Select(x => x.Id).Distinct();
+            IEnumerable<int> ids = UoW.UserRepository.GetIdsByOrganization(orgId);
 
             return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
         }
 
         public List<ErgoScore> GetTeamScores(int teamId)
         {
-            Team team = UoW.TeamRepository.Get(teamId);
+            Team team = UoW.TeamRepository.GetFull(teamId);
             IEnumerable<int> ids = team.Users.Select(x => x.Id).Distinct();
 
             return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
@@ -68,16 +67,16 @@ namespace Services
 
             return ergoScore;
         }
-        public ErgoScore GetCurrentTeamScore(int teamId)
+        public ErgoScore GetCurrentTeamScore()
         {
             ErgoScore ergoScore = new ErgoScore();
 
-            Team team = UoW.TeamRepository.Get(teamId);
+            Team team = UoW.TeamRepository.Get(CurrentUser.TeamID.Value);
             if (team.Users != null)
             {
                 IEnumerable<int> users = team.Users.Select(x => x.Id).ToList();
                 ergoScore.Score = UoW.AnalysisFrameRepository.GetTeamScore(users.ToArray());
-                ergoScore.Id = teamId;
+                ergoScore.Id = CurrentUser.TeamID.Value;
             }
 
             return ergoScore;
