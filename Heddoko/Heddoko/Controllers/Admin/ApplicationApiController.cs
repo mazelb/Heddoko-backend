@@ -14,6 +14,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Heddoko.Models;
 using Heddoko.Controllers;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Heddoko.Controllers.API
 {
@@ -143,12 +144,25 @@ namespace Heddoko.Controllers.API
 
         protected string GetHash(int length)
         {
-            RandomNumberGenerator cryptoRandomDataGenerator = new RNGCryptoServiceProvider();
-            byte[] buffer = new byte[length];
-            cryptoRandomDataGenerator.GetBytes(buffer);
-            string uniq = System.Convert.ToBase64String(buffer);
+            char[] chars = new char[62];
+            chars =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
+            byte[] data = new byte[1];
 
-            return uniq;
+            using (RNGCryptoServiceProvider crypto = new RNGCryptoServiceProvider())
+            {
+                crypto.GetNonZeroBytes(data);
+                data = new byte[length];
+                crypto.GetNonZeroBytes(data);
+            }
+
+            StringBuilder result = new StringBuilder(length);
+            foreach (byte b in data)
+            {
+                result.Append(chars[b % (chars.Length)]);
+            }
+
+            return result.ToString();
         }
     }
 }
