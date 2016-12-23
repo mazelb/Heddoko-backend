@@ -14,12 +14,13 @@ namespace Services
 {
     public class ErgoScoreService
     {
-        private static UnitOfWork UoW = new UnitOfWork();
+        private static UnitOfWork UoW;
         private static User CurrentUser;
 
-        public ErgoScoreService()
+        public ErgoScoreService(UnitOfWork uow, User user)
         {
-            CurrentUser = GetCurrentUser();
+            UoW = uow;
+            CurrentUser = user;
         }      
 
         public ErgoScore Get(int? id = null)
@@ -80,15 +81,6 @@ namespace Services
             }
 
             return ergoScore;
-        }
-
-        private User GetCurrentUser()
-        {
-            int id = HttpContext.Current.User.Identity.GetUserId<int>();
-
-            User user = UoW.UserRepository.Get(id);
-
-            return user;
         }
     }
 }
