@@ -434,6 +434,8 @@ namespace Heddoko.Controllers
                 user.ParentLoggedInUserId = CurrentUser.Id;
 
                 await SignInManager.SignInAsync(user, false, false);
+
+                await UserManager.UpdateToIdentityRoles(user);
             }
             else
             {
