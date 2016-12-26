@@ -86,65 +86,70 @@ namespace DAL
                     user.Salt = null;
                     user.Password = null;
 
-                    if (user.Status != UserStatusType.Invited
-                        && user.Status != UserStatusType.Pending)
-                    {
-                        user.EmailConfirmed = true;
-                    }
-
-                    if (!await IsInRoleAsync(user.Id, Constants.Roles.User))
-                    {
-                        await AddToRoleAsync(user.Id, Constants.Roles.User);
-                    }
-
-                    await UpdateAsync(user);
-
-                    switch (user.Role)
-                    {
-                        case UserRoleType.Admin:
-                            if (!await IsInRoleAsync(user.Id, Constants.Roles.Admin))
-                            {
-                                await AddToRoleAsync(user.Id, Constants.Roles.Admin);
-                            }
-                            break;
-                        case UserRoleType.LicenseAdmin:
-                            if (!await IsInRoleAsync(user.Id, Constants.Roles.LicenseAdmin))
-                            {
-                                await AddToRoleAsync(user.Id, Constants.Roles.LicenseAdmin);
-                            }
-                            break;
-                        case UserRoleType.User:
-                        default:
-                            break;
-                    }
-
-                    switch (user.RoleType)
-                    {
-                        case UserRoleType.Worker:
-                            if (!await IsInRoleAsync(user.Id, Constants.Roles.Worker))
-                            {
-                                await AddToRoleAsync(user.Id, Constants.Roles.Worker);
-                            }
-                            break;
-                        case UserRoleType.Analyst:
-                            if (!await IsInRoleAsync(user.Id, Constants.Roles.Analyst))
-                            {
-                                await AddToRoleAsync(user.Id, Constants.Roles.Analyst);
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-
-                    ApplyUserRolesForLicense(user);
-
-                    UoW.UserRepository.ClearCache(user);
+                    await UpdateToIdentityRoles(user);
 
                     return true;
                 }
             }
 
             return await base.CheckPasswordAsync(user, password);
+        }
+
+        public async Task UpdateToIdentityRoles(User user)
+        {
+            if (user.Status != UserStatusType.Invited
+                && user.Status != UserStatusType.Pending)
+            {
+                user.EmailConfirmed = true;
+            }
+
+            if (!await IsInRoleAsync(user.Id, Constants.Roles.User))
+            {
+                await AddToRoleAsync(user.Id, Constants.Roles.User);
+            }
+
+            await UpdateAsync(user);
+
+            switch (user.Role)
+            {
+                case UserRoleType.Admin:
+                    if (!await IsInRoleAsync(user.Id, Constants.Roles.Admin))
+                    {
+                        await AddToRoleAsync(user.Id, Constants.Roles.Admin);
+                    }
+                    break;
+                case UserRoleType.LicenseAdmin:
+                    if (!await IsInRoleAsync(user.Id, Constants.Roles.LicenseAdmin))
+                    {
+                        await AddToRoleAsync(user.Id, Constants.Roles.LicenseAdmin);
+                    }
+                    break;
+                case UserRoleType.User:
+                default:
+                    break;
+            }
+
+            switch (user.RoleType)
+            {
+                case UserRoleType.Worker:
+                    if (!await IsInRoleAsync(user.Id, Constants.Roles.Worker))
+                    {
+                        await AddToRoleAsync(user.Id, Constants.Roles.Worker);
+                    }
+                    break;
+                case UserRoleType.Analyst:
+                    if (!await IsInRoleAsync(user.Id, Constants.Roles.Analyst))
+                    {
+                        await AddToRoleAsync(user.Id, Constants.Roles.Analyst);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            ApplyUserRolesForLicense(user);
+
+            UoW.UserRepository.ClearCache(user);
         }
 
         public async Task<string> GenerateInviteTokenAsync(User user)
