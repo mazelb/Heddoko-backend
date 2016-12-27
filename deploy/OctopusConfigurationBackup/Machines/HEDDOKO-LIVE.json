@@ -1,12 +1,11 @@
 {
   "$type": "Octopus.Core.Model.Environments.Machine, Octopus.Core",
-  "Id": "Machines-21",
-  "Name": "ProductionMachine",
+  "Id": "Machines-41",
+  "Name": "HEDDOKO-LIVE",
   "Endpoint": {
-    "$type": "Octopus.Core.Model.Environments.Endpoints.ListeningTentacleEndpoint, Octopus.Core",
-    "ProxyId": null,
-    "Thumbprint": "ACDD2A7969639B774AB4B9842CDD8336A29FC98F",
-    "Uri": "https://localhost:10933/",
+    "$type": "Octopus.Core.Model.Environments.Endpoints.PollingTentacleEndpoint, Octopus.Core",
+    "Thumbprint": "454C23534164E760FCE555AFA4F3E28210E19B27",
+    "Uri": "poll://76tjx7wfnypb3c8cer26/",
     "UpgradeLocked": false
   },
   "IsDisabled": false,

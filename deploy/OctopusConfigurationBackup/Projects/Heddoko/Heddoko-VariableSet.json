@@ -2,7 +2,7 @@
   "$type": "Octopus.Core.Model.Variables.VariableSet, Octopus.Core",
   "Id": "variableset-Projects-1",
   "OwnerId": "Projects-1",
-  "Version": 14,
+  "Version": 23,
   "Variables": [
     {
       "Id": "f551f9e3-a9fa-0029-6cc9-344af911af67",
@@ -41,8 +41,8 @@
     },
     {
       "Id": "2e2037a7-2002-c88a-ad5a-b85412dec386",
-      "Name": "Heddoko.WebSite.HostName",
-      "Value": "localhost",
+      "Name": "WebSite.HostName",
+      "Value": "dev.app.heddoko.com",
       "Scope": {
         "Environment": [
           "Environments-1"
@@ -51,8 +51,8 @@
     },
     {
       "Id": "925f4173-013b-8a72-a19b-52eb9d289351",
-      "Name": "Heddoko.WebSite.HostName",
-      "Value": "localhost",
+      "Name": "WebSite.HostName",
+      "Value": "app.heddoko.com",
       "Scope": {
         "Environment": [
           "Environments-2"
@@ -61,8 +61,8 @@
     },
     {
       "Id": "8bf4b174-bb91-16f9-bce9-58e989acf680",
-      "Name": "Heddoko.WebSite.Port",
-      "Value": "777",
+      "Name": "WebSite.Port",
+      "Value": "80",
       "Scope": {
         "Environment": [
           "Environments-1"
@@ -71,8 +71,8 @@
     },
     {
       "Id": "d2822289-1b03-7af5-6156-fb32d1dc1142",
-      "Name": "Heddoko.WebSite.Port",
-      "Value": "111",
+      "Name": "WebSite.Port",
+      "Value": "80",
       "Scope": {
         "Environment": [
           "Environments-2"
@@ -82,7 +82,77 @@
     {
       "Id": "ce83f84d-266c-866d-75d9-6925ac0f33dd",
       "Name": "Heddoko.ConnectionString",
-      "Value": "Data Source=heddoko;Initial Catalog=heddoko_dev;Persist Security Info=True;User ID=heddoko;Password=heddoko_pwd; MultipleActiveResultSets=True",
+      "Value": "Server=tcp:heddoko-backend.database.windows.net,1433;Data Source=heddoko-backend.database.windows.net;Initial Catalog=heddoko-backend-live;Persist Security Info=False;User ID=heddoko;Password=P@ssWord@09;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+      "Scope": {
+        "Environment": [
+          "Environments-2"
+        ]
+      }
+    },
+    {
+      "Id": "68b41558-9e51-5fc8-0d22-ab3a8385cf64",
+      "Name": "WebSite.Name",
+      "Value": "dev.app.heddoko.com",
+      "Scope": {
+        "Environment": [
+          "Environments-1"
+        ]
+      }
+    },
+    {
+      "Id": "95077d1c-a35d-bc35-0f16-4c05aabc2c2a",
+      "Name": "WebSite.Name",
+      "Value": "app.heddoko.com",
+      "Scope": {
+        "Environment": [
+          "Environments-2"
+        ]
+      }
+    },
+    {
+      "Id": "db5a55d8-6fdb-784e-0195-f205e77c8a12",
+      "Name": "WebSite.ApplicationPoolName",
+      "Value": "dev.app.heddoko.com",
+      "Scope": {
+        "Environment": [
+          "Environments-1"
+        ]
+      }
+    },
+    {
+      "Id": "f3052681-765d-0520-8b00-6a02bd864bc8",
+      "Name": "WebSite.ApplicationPoolName",
+      "Value": "app.heddoko.com",
+      "Scope": {
+        "Environment": [
+          "Environments-2"
+        ]
+      }
+    },
+    {
+      "Id": "847f825a-70d9-8854-f0c1-84c28a112664",
+      "Name": "WebSite.EnableHttpsBinding",
+      "Value": "true",
+      "Scope": {
+        "Environment": [
+          "Environments-2"
+        ]
+      }
+    },
+    {
+      "Id": "838cb3e7-73ad-ad9e-8091-ab572bff2840",
+      "Name": "WebSite.EnableHttpsBinding",
+      "Value": "false",
+      "Scope": {
+        "Environment": [
+          "Environments-1"
+        ]
+      }
+    },
+    {
+      "Id": "598b1138-acd5-d8c5-f42d-9e2093f4cdd9",
+      "Name": "WebSite.SSLThumbprint",
+      "Value": "app.heddoko.com 2016/11/28 3:22:31 PM",
       "Scope": {
         "Environment": [
           "Environments-2"
