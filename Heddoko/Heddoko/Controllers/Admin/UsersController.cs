@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Heddoko.Helpers.DomainRouting.Http;
 using DAL.Models.Enum;
 using Hangfire;
 using Heddoko.Models;
@@ -327,6 +328,17 @@ namespace Heddoko.Controllers
                         throw new Exception(Resources.WrongObjectAccess);
                     }
                 }
+
+                User user = UoW.UserRepository.GetByEmail(model.Email?.ToLower().Trim());
+                if (user != null && user.Id != item.Id)
+                {
+                    throw new Exception(Resources.EmailUsed);
+                }
+
+                item.Email = model.Email?.ToLower().Trim();
+                item.FirstName = model.Firstname?.Trim();
+                item.LastName = model.Lastname?.Trim();
+                item.PhoneNumber = model.Phone;
             }
 
             if (model.Status.HasValue
@@ -442,7 +454,7 @@ namespace Heddoko.Controllers
             };
         }
 
-        [Route("activation/resend")]
+        [DomainRoute("activation/resend", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public async Task<bool> ResendActivationEmail(UserAdminAPIModel model)
         {

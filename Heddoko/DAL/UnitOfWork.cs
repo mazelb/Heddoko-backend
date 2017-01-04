@@ -71,6 +71,8 @@ namespace DAL
 
         private IProcessedFrameRepository _processedFrameRepository;
 
+        private IApplicationRepository _applicationRepository;
+
         private IAnalysisFrameRepository _analysisFrameRepository;
 
         private IRawFrameRepository _rawFrameRepository;
@@ -128,6 +130,8 @@ namespace DAL
         public IStreamConnectionsCacheRepository StreamConnectionsCacheRepository => _streamConnectionsCacheRepository ?? (_streamConnectionsCacheRepository = new StreamConnectionsCacheRepository());
 
         public IProcessedFrameRepository ProcessedFrameRepository => _processedFrameRepository ?? (_processedFrameRepository = new ProcessedFrameRepository(_mongodb));
+
+        public IApplicationRepository ApplicationRepository => _applicationRepository ?? (_applicationRepository = new ApplicationRepository(_db));
 
         public IAnalysisFrameRepository AnalysisFrameRepository => _analysisFrameRepository ?? (_analysisFrameRepository = new AnalysisFrameRepository(_mongodb));
 

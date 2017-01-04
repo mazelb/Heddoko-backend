@@ -217,6 +217,30 @@ var KendoDS = {
     textAreaDDEditor: function (container, options) {
         $('<textarea data-bind="value: ' + options.field + '"></textarea>').appendTo(container);
     },
+    emailEditor: function (container, options) {
+        var input = $("<input/>");
+        input.attr("type", "email");
+        input.attr("name", options.field);
+        input.attr("data-bind", "value: " + options.field);
+        input.attr("class", "k-input k-textbox");
+        if (options.model.parent().type.fields[options.field].validation.required) {
+            input.attr("required", "required");
+        }
+
+        input.appendTo(container);
+    },
+    phoneEditor: function (container, options) {
+        var input = $("<input/>");
+        input.attr("type", "text");
+        input.attr("name", options.field);
+        input.attr("data-bind", "value: " + options.field);
+        input.attr("class", "k-input k-textbox phone-mask");
+        if (options.model.parent().type.fields[options.field].validation.required) {
+            input.attr("required", "required");
+        }
+
+        input.appendTo(container);
+    },
     dateEditor: function (container, options) {
         $('<input name="' + options.field + '" data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
             .appendTo(container)

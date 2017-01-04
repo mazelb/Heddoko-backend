@@ -5,8 +5,10 @@
 var ErgoScoreGauge = {
 
     init: function () {
+        Ajax.get("/admin/api/ergoscore/get").success(this.onGetSuccess);
         // TODO - Reimplement once ErgoScoreController is properly implemented
         //Ajax.get("/admin/api/ergoscore/get").success(this.onGetSuccess);
+        //Ajax.get("/api/v1/ergoscore").success(this.onGetSuccess);
     },
 
     createGauge: function (data) {

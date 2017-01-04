@@ -15,7 +15,9 @@ namespace DAL
 
         public static string HomeSite => ConfigurationManager.AppSettings["HomeSite"];
 
-        public static string DashboardSite => ConfigurationManager.AppSettings["DashboardSite"];
+        public static string DashboardSite => ConfigurationManager.AppSettings[Constants.ConfigKeyName.DashboardSite];
+
+        public static string PublicApiSite => ConfigurationManager.AppSettings[Constants.ConfigKeyName.PublicApiSite];
 
         public static string SendgridKey => ConfigurationManager.AppSettings["SendgridKey"];
 

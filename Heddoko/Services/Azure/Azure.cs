@@ -82,14 +82,13 @@ namespace Services
                     DownloadToFile(asset.Url, path);
                     FileParser.AddFileToDb(path, asset.Type, UoW, recordId, record.User.Id);
                     DeleteFile(path);
+                    CreateErgoscoreRecord(recordId, UoW);
                 }
                 catch (FileNotFoundException ex)
                 {
                     Trace.TraceError($"Azure.AddRecordToDatabase.FileNotFoundException ex:{ex.GetOriginalException()}");
                 }
             }
-
-            CreateErgoscoreRecord(recordId, UoW);
         }
 
         private static void CreateErgoscoreRecord(int recordId, UnitOfWork UoW)

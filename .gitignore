@@ -21,3 +21,5 @@
 /Heddoko/ImportConsole/obj
 /Heddoko/ImportConsole/bin
 /Heddoko/ImportConsole/ImportConsole.csproj.user
+/Heddoko/Heddoko/bower_components
+/Heddoko/Heddoko/node_modules

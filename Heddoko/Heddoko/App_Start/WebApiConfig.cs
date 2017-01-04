@@ -6,6 +6,7 @@ using Heddoko.Helpers.Error;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Elmah.Contrib.WebApi;
+using Heddoko.Helpers.DomainRouting;
 
 namespace Heddoko
 {
@@ -15,12 +16,18 @@ namespace Heddoko
         {
             config.MapHttpAttributeRoutes(new CustomDirectRouteProvider());
 
+            var mainSiteDomain = Helpers.UrlHelper.GetHost(DAL.Config.DashboardSite);
+
             config.Routes.MapHttpRoute(
                 "AdminDefaultApi",
                 "admin/api/{controller}/{id}",
                 new
                 {
                     id = RouteParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
@@ -30,6 +37,10 @@ namespace Heddoko
                 new
                 {
                     id = RouteParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 

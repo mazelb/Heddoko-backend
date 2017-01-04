@@ -12,13 +12,18 @@ namespace Heddoko.Models
         public string Name { get; set; }
 
         [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
         [EmailAddress(ErrorMessage = null, ErrorMessageResourceName = "ValidateEmailMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Email { get; set; }
 
         public string Username { get; set; }
 
+        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
+        [MaxLength(50)]
         public string Firstname { get; set; }
 
+        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
+        [MaxLength(50)]
         public string Lastname { get; set; }
 
         public string Role { get; set; }
@@ -33,6 +38,8 @@ namespace Heddoko.Models
 
         public DateTime? ExpirationAt { get; set; }
 
+        [MaxLength(50)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessageResourceName = "InvalidPhone", ErrorMessageResourceType = typeof(Resources))]
         public string Phone { get; set; }
 
         public int? KitID { get; set; }

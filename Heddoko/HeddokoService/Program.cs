@@ -7,6 +7,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
+using DAL;
 using Hangfire;
 using Services;
 
@@ -73,6 +74,13 @@ namespace HeddokoService
                                 List<string> migros = DatabaseManager.Pending().ToList();
 
                                 migros.ForEach(Console.WriteLine);
+                                break;
+                            case "-flush":
+                                Trace.TraceInformation("FLUSHALL is started");
+
+                                RedisManager.Flush();
+
+                                Trace.TraceInformation("FLUSHALL is stoped");
                                 break;
                         }
                     }

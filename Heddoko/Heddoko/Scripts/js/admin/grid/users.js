@@ -97,7 +97,8 @@ var Users = {
                             nullable: false,
                             type: "string",
                             validation: {
-                                required: true
+                                required: true,
+                                maxLengthValidation: Validator.user.email.maxLengthValidation
                             }
                         },
                         username: {
@@ -111,21 +112,24 @@ var Users = {
                             nullable: false,
                             type: "string",
                             validation: {
-                                required: true
+                                required: true,
+                                maxLengthValidation: Validator.user.firstname.maxLengthValidation
                             }
                         },
                         lastname: {
                             nullable: false,
                             type: "string",
                             validation: {
-                                required: true
+                                required: true,
+                                maxLengthValidation: Validator.user.lastname.maxLengthValidation
                             }
                         },
                         phone: {
                             nullable: false,
                             type: "string",
                             validation: {
-                                required: true
+                                required: true,
+                                maxLengthValidation: Validator.user.phone.maxLengthValidation
                             }
                         },
                         licenseID: {
@@ -195,9 +199,17 @@ var Users = {
                     title: i18n.Resources.Name,
                     editor: KendoDS.emptyEditor
                 }, {
+                    field: 'firstname',
+                    hidden: true,
+                    title: i18n.Resources.Firstname
+                }, {
+                    field: 'lastname',
+                    hidden: true,
+                    title: i18n.Resources.Lastname
+                }, {
                     field: 'phone',
                     title: i18n.Resources.Phone,
-                    editor: KendoDS.emptyEditor
+                    editor: KendoDS.phoneEditor
                 }, {
                     field: 'username',
                     title: i18n.Resources.Username,
@@ -205,7 +217,7 @@ var Users = {
                 }, {
                     field: 'email',
                     title: i18n.Resources.Email,
-                    editor: KendoDS.emptyEditor
+                    editor: KendoDS.emailEditor
                 }, {
                     field: 'role',
                     title: i18n.Resources.Role,

@@ -7,7 +7,9 @@ using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
 using Hangfire;
+using Heddoko.Helpers.DomainRouting.Http;
 using Heddoko.Models;
+using Heddoko.Models.Admin;
 using i18n;
 using Microsoft.AspNet.Identity;
 using Constants = DAL.Constants;
@@ -26,6 +28,11 @@ namespace Heddoko.Controllers
         public OrganizationsController() { }
 
         public OrganizationsController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
+
+        public OrganizationsController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, UnitOfWork uow)
+            : base(userManager, signInManager, uow)
+        {
+        }
 
         public override KendoResponse<IEnumerable<OrganizationAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -340,7 +347,7 @@ namespace Heddoko.Controllers
             };
         }
 
-        [Route("change")]
+        [DomainRoute("change", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public bool Change(OrganizationAdminAPIModel model)
         {
@@ -384,7 +391,7 @@ namespace Heddoko.Controllers
             return true;
         }
 
-        [Route("approve")]
+        [DomainRoute("approve", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public async Task<bool> Approve(OrganizationAdminAPIModel model)
         {
@@ -415,6 +422,33 @@ namespace Heddoko.Controllers
                 };
             }
             return true;
+        }
+
+        [Route("login")]
+        [HttpPost]
+        public async Task<SinginAPIResponse> SignInAsOrganization(OrganizationAdminAPIModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = UoW.UserRepository.Get(model.UserID);
+                user.ParentLoggedInUserId = CurrentUser.Id;
+
+                await SignInManager.SignInAsync(user, false, false);
+
+                await UserManager.UpdateToIdentityRoles(user);
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+
+            return new SinginAPIResponse
+            {
+                RedirectUrl = Url.Link("Default", new { controller = "Default", action = "Index" })
+            };
         }
     }
 }

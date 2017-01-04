@@ -286,11 +286,29 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A third party application want to access your data.
+        /// </summary>
+        public static string ApplicationDescription {
+            get {
+                return ResourceManager.GetString("ApplicationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Approve.
         /// </summary>
         public static string Approve {
             get {
                 return ResourceManager.GetString("Approve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Approve Application.
+        /// </summary>
+        public static string ApproveApplication {
+            get {
+                return ResourceManager.GetString("ApproveApplication", resourceCulture);
             }
         }
         
@@ -354,6 +372,15 @@ namespace i18n {
         public static string Attachments {
             get {
                 return ResourceManager.GetString("Attachments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization.
+        /// </summary>
+        public static string Authorization {
+            get {
+                return ResourceManager.GetString("Authorization", resourceCulture);
             }
         }
         
@@ -619,6 +646,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t add duplicate.
         /// </summary>
         public static string CannotAddDuplicate {
@@ -678,6 +714,15 @@ namespace i18n {
         public static string Change {
             get {
                 return ResourceManager.GetString("Change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client.
+        /// </summary>
+        public static string Client {
+            get {
+                return ResourceManager.GetString("Client", resourceCulture);
             }
         }
         
@@ -1015,6 +1060,24 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Development.
+        /// </summary>
+        public static string Development {
+            get {
+                return ResourceManager.GetString("Development", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable.
+        /// </summary>
+        public static string Disable {
+            get {
+                return ResourceManager.GetString("Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download.
         /// </summary>
         public static string Download {
@@ -1164,6 +1227,15 @@ namespace i18n {
         public static string EmptyLicense {
             get {
                 return ResourceManager.GetString("EmptyLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable.
+        /// </summary>
+        public static string Enable {
+            get {
+                return ResourceManager.GetString("Enable", resourceCulture);
             }
         }
         
@@ -1551,6 +1623,15 @@ namespace i18n {
         public static string GoodMorning {
             get {
                 return ResourceManager.GetString("GoodMorning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grant.
+        /// </summary>
+        public static string Grant {
+            get {
+                return ResourceManager.GetString("Grant", resourceCulture);
             }
         }
         
@@ -2698,6 +2779,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Redirect URL.
+        /// </summary>
+        public static string RedirectUrl {
+            get {
+                return ResourceManager.GetString("RedirectUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to required.
         /// </summary>
         public static string Required {
@@ -2802,6 +2892,15 @@ namespace i18n {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secret.
+        /// </summary>
+        public static string Secret {
+            get {
+                return ResourceManager.GetString("Secret", resourceCulture);
             }
         }
         
@@ -3481,6 +3580,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String {
+            get {
+                return ResourceManager.GetString("String", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
         public static string Submit {
@@ -3814,7 +3922,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User has been created. We have sent a request to the administration, please check back when your account has been approved.
+        ///   Looks up a localized string similar to User has been created. We have sent a request to the administrator, please check back when your account has been approved.
         /// </summary>
         public static string UserSignupMessage {
             get {

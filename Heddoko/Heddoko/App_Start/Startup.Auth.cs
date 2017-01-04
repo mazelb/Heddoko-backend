@@ -30,7 +30,7 @@ namespace Heddoko
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Signin"),
+                LoginPath = new PathString("/login"),
                 Provider = new CookieAuthenticationProvider
                 {
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, User, int>(
@@ -60,8 +60,18 @@ namespace Heddoko
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
-        }
+            OAuthAuthorizationServerOptions OpenAPIOAuthServerOptions = new OAuthAuthorizationServerOptions()
+            {
+                AuthorizeEndpointPath = new PathString("/authorize"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
+                ApplicationCanDisplayErrors = true,
+                AllowInsecureHttp = true,
+                Provider = new ApplicationOAuthProvider()
+            };
 
+            app.UseOAuthAuthorizationServer(OpenAPIOAuthServerOptions);
+        }
+            
         private static bool IsApiOrSignalRRequest(IOwinRequest request)
         {
             string apiPath = VirtualPathUtility.ToAbsolute("~/api/");

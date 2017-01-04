@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Http;
 using DAL;
 using DAL.Models;
+using Heddoko.Helpers.DomainRouting.Http;
 using Heddoko.Models;
 using i18n;
 using Newtonsoft.Json;
@@ -30,7 +31,7 @@ namespace Heddoko.Controllers.API
         /// </summary>
         /// <param name="kitID">The id of kit. optional</param>
         /// <param name="type">The type of upload. required</param>
-        [Route("upload")]
+        [DomainRoute("upload", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
         public async Task<Asset> Upload()
@@ -210,8 +211,8 @@ namespace Heddoko.Controllers.API
         /// <param name="userID">The filter by userID</param>
         /// <param name="take">The amount of take entries</param>
         /// <param name="skip">The amoun of skip entries</param>
-        [Route("list/{take:int}/{skip:int?}")]
-        [Route("list/{userID:int?}/{take:int}/{skip:int?}")]
+        [DomainRoute("list/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
+        [DomainRoute("list/{userID:int?}/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
         public ListAPIViewModel<Asset> List(int take = 100, int? userID = null, int? skip = 0)

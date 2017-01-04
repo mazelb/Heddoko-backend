@@ -2,6 +2,7 @@
 using Heddoko.Models;
 using Services;
 using DAL;
+using Heddoko.Helpers.DomainRouting.Mvc;
 
 namespace Heddoko.Controllers
 {
@@ -25,6 +26,12 @@ namespace Heddoko.Controllers
         }
 
         public ActionResult Requirements()
+        {
+            return View(new BaseViewModel());
+        }
+
+        [DomainRoute("", Constants.ConfigKeyName.PublicApiSite)]
+        public ActionResult Help()
         {
             return View(new BaseViewModel());
         }

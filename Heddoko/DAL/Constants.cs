@@ -97,5 +97,22 @@
             public const int MinFilesCount = 1;
             public const int MaxFilesCount = 5;
         }
-    }
+
+        public static class ConfigKeyName
+        {
+            public const string DashboardSite = "DashboardSite";
+            public const string PublicApiSite = "PublicApiSite";
+            public const string AllSites = "DashboardSite,PublicApiSite";
+        }
+
+        public static class OpenAPIClaims
+        {
+            public const string ClaimType = "heddoko:open:api";
+            public const string ClaimValue = "authorized";
+        }
+
+        public static class ClaimTypes
+        {
+            public const string ParentLoggedInUser = "ParentLoggedInUser";
+        }    }
 }

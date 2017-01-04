@@ -3,6 +3,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using i18n;
+using ClaimsPrincipal = System.Security.Claims.ClaimsPrincipal;
+using static DAL.Constants;
 
 namespace Heddoko
 {
@@ -23,6 +25,13 @@ namespace Heddoko
             }
 
             if (filterContext.HttpContext.User == null)
+            {
+                HandleUnauthorizedRequest(filterContext);
+                return;
+            }
+
+            var user = filterContext.HttpContext.User as ClaimsPrincipal;
+            if (user.HasClaim(OpenAPIClaims.ClaimType, OpenAPIClaims.ClaimValue))
             {
                 HandleUnauthorizedRequest(filterContext);
                 return;

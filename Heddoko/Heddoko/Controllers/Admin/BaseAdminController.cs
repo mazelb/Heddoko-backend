@@ -10,6 +10,7 @@ using Heddoko.Models;
 using i18n;
 using Services;
 using System.Web;
+using Heddoko.Helpers.DomainRouting.Http;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 
@@ -21,6 +22,7 @@ namespace Heddoko.Controllers
         where T : class
         where TM : class
     {
+        private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private UnitOfWork _uow;
         private User _currentUser;
@@ -37,6 +39,26 @@ namespace Heddoko.Controllers
         {
             UserManager = userManager;
             UoW = uow;
+        }
+
+        protected BaseAdminController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, UnitOfWork uow)
+            : this(userManager, uow)
+        {
+            SignInManager = signInManager;
+        }
+
+
+
+        protected ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
         }
 
         protected ApplicationUserManager UserManager
@@ -80,49 +102,49 @@ namespace Heddoko.Controllers
         protected bool IsLicenseAdmin => CurrentUser != null && UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.LicenseAdmin);
 
 
-        [Route("")]
+        [DomainRoute("", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public virtual KendoResponse<IEnumerable<TM>> Get([FromUri] KendoRequest request)
         {
             throw new NotSupportedException();
         }
 
-        [Route("{id:int}")]
+        [DomainRoute("{id:int}", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public virtual KendoResponse<TM> Get(int id)
         {
             throw new NotSupportedException();
         }
 
-        [Route("history/{id:int}")]
+        [DomainRoute("history/{id:int}", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public virtual KendoResponse<IEnumerable<HistoryNotes>> History(int id)
         {
             throw new NotSupportedException();
         }
 
-        [Route("")]
+        [DomainRoute("", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public virtual KendoResponse<TM> Post(TM model)
         {
             throw new NotSupportedException();
         }
 
-        [Route("bulk")]
+        [DomainRoute("bulk", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpPatch]
         public virtual KendoResponse<IEnumerable<TM>> Bulk(KendoRequest model)
         {
             throw new NotSupportedException();
         }
 
-        [Route("{id:int?}")]
+        [DomainRoute("{id:int?}", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpPut]
         public virtual KendoResponse<TM> Put(TM model)
         {
             throw new NotSupportedException();
         }
 
-        [Route("{id:int}")]
+        [DomainRoute("{id:int}", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpDelete]
         public virtual KendoResponse<TM> Delete(int id)
         {

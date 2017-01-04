@@ -3,6 +3,7 @@ using System.Web.Http;
 using DAL;
 using DAL.Models;
 using Heddoko.Models;
+using Heddoko.Helpers.DomainRouting.Http;
 
 namespace Heddoko.Controllers.API
 {
@@ -10,7 +11,7 @@ namespace Heddoko.Controllers.API
     [RoutePrefix("api/v1/universal")]
     public class LicenseUniversalAPIController : BaseAPIController
     {
-        [Route("organizations/{take:int}/{skip:int?}")]
+        [DomainRoute("organizations/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public ListAPIViewModel<Organization> Organizations(int take = 100, int? skip = 0)
         {
@@ -21,7 +22,7 @@ namespace Heddoko.Controllers.API
             };
         }
 
-        [Route("organizations/{organizationId:int}/teams/{take:int}/{skip:int?}")]
+        [DomainRoute("organizations/{organizationId:int}/teams/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public ListAPIViewModel<Team> Teams(int organizationId, int take = 100, int? skip = 0)
         {
@@ -32,7 +33,7 @@ namespace Heddoko.Controllers.API
             };
         }
 
-        [Route("teams/{teamId:int}/records/{take:int}/{skip:int?}")]
+        [DomainRoute("teams/{teamId:int}/records/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public ListAPIViewModel<Record> Records(int teamId, int take = 100, int? skip = 0)
         {

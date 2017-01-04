@@ -5,8 +5,10 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Heddoko.Helpers.DomainRouting.Http;
 using Heddoko.Models;
 using i18n;
+using Services;
 
 namespace Heddoko.Controllers.API
 {
@@ -14,45 +16,58 @@ namespace Heddoko.Controllers.API
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ErgoScoreAPIController : BaseAPIController
     {
-        public ErgoScoreAPIController() { }
+        private ErgoScoreService ergoScoreService;
 
-        public ErgoScoreAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
-
-        [Route("{id:int}")]
-        [HttpGet]
-        [AuthAPI(Roles = Constants.Roles.All)]
-        public ErgoScore Get(int id)
+        public ErgoScoreAPIController()
         {
-            ErgoScore ergoScore = new ErgoScore();
-
-            ergoScore.Score = UoW.ErgoScoreRecordRepository.GetUserScore(id);
-            ergoScore.Id = id;
-
-            return ergoScore;
+            ergoScoreService = new ErgoScoreService(UoW, CurrentUser);
         }
 
-        [Route("team/{id:int?}")]
+        public ErgoScoreAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow)
+        {
+            ergoScoreService = new ErgoScoreService(uow, CurrentUser);
+        }
+
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [DomainRoute("{id:int?}", Constants.ConfigKeyName.DashboardSite)]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.All)]
+        public ErgoScore Get(int? id = null)
+        {
+            return ergoScoreService.Get(id);
+        }
+
+        [DomainRoute("org/{orgId:int}", Constants.ConfigKeyName.DashboardSite)]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.LicenseUniversal)]
+        public List<ErgoScore> GetOrgScores(int orgId)
+        {
+            return ergoScoreService.GetOrgScores(orgId);
+        }
+
+        [DomainRoute("team/{teamId:int}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.AnalystAndAdmin)]
         public List<ErgoScore> GetTeamScores(int teamId)
         {
-            IEnumerable<int> ids = UoW.UserRepository.GetIdsByTeam(teamId);
-
-            return UoW.ErgoScoreRecordRepository.GetMultipleUserScores(ids.ToArray());
+            return ergoScoreService.GetTeamScores(teamId);
         }
 
-        [Route("teamScore")]
+        [DomainRoute("orgScore", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.All)]
-        public ErgoScore GetTeamErgoScore(int teamId)
+        public ErgoScore GetCurrentOrgScore()
         {
-            ErgoScore ergoScore = new ErgoScore();
+            return ergoScoreService.GetCurrentOrgScore();
+        }
 
-            IEnumerable<int> users = UoW.UserRepository.GetIdsByTeam(teamId);
-            ergoScore.Score = UoW.ErgoScoreRecordRepository.GetTeamScore(users.ToArray());
-            ergoScore.Id = teamId;
-
-            return ergoScore;
+        [DomainRoute("teamScore", Constants.ConfigKeyName.DashboardSite)]
+        [HttpGet]
+        [AuthAPI(Roles = Constants.Roles.All)]
+        public ErgoScore GetCurrentTeamScore()
+        {
+            return ergoScoreService.GetCurrentTeamScore();
         }
     }
 }

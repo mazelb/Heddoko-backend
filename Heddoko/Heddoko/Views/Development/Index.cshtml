@@ -1,0 +1,56 @@
+﻿@model Heddoko.Models.BaseViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="page">
+    <div class="header clearfix">
+        <h3>@Html.Raw(i18n.Resources.Development)</h3>
+    </div>
+    @Html.Partial("_FlashMessages", Model.Flash)
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success applicationsForm">
+                    <div class="panel-heading clearfix">
+                        <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.Client</h3>
+                        <div class="btn-group pull-right" role="group">
+                            <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
+                            <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row margin010">
+                            <div class="col-sm-2">
+                                <input type="text"
+                                       required
+                                       name="name"
+                                       validationMessage="@i18n.Resources.Required"
+                                       placeholder="@i18n.Resources.Name"
+                                       class="form-control"
+                                       data-bind="value: model.name" />
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text"
+                                       required
+                                       name="redirectUrl"
+                                       validationMessage="@i18n.Resources.Required"
+                                       placeholder="@i18n.Resources.RedirectUrl"
+                                       class="form-control"
+                                       data-bind="value: model.redirectUrl" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="applicationsGrid">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Body {
+}
