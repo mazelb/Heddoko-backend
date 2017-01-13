@@ -86,9 +86,9 @@ namespace DAL.Models.MongoDocuments
       get { return _mappedOrientation; }
     }
   
-    private ulong _TimeStamp;
+    private uint _TimeStamp;
     [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"TimeStamp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public ulong TimeStamp
+    public uint TimeStamp
     {
       get { return _TimeStamp; }
       set { _TimeStamp = value; }

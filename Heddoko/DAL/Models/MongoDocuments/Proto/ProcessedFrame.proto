@@ -18,7 +18,7 @@ message MappedOrientation{
 }
 message ProcessedFrame{
 	repeated MappedOrientation mappedOrientation = 1; 
-	required uint64 TimeStamp = 2;
+	required uint32 TimeStamp = 2;
 	required uint32 UserID = 3;
 	required string KitID =4;
 	required double Longitude = 5;

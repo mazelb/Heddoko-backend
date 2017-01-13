@@ -12,7 +12,7 @@ using Heddoko.Models;
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [System.Web.Http.RoutePrefix("admin/api/teamscore")]
+    [System.Web.Http.RoutePrefix("admin/api/ergoscore")]
     [AuthAPI(Roles = Constants.Roles.AnalystAndAdmin)]
     public class TeamScoreController : BaseAdminController<ErgoScore, ErgoScoreAPIModel>
     {
@@ -20,12 +20,11 @@ namespace Heddoko.Controllers
         {
             List<ErgoScoreAPIModel> scores = new List<ErgoScoreAPIModel>();
 
-            if (CurrentUser.OrganizationID.HasValue)
+            if (CurrentUser.TeamID.HasValue)
             {
-                List<User> users = UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value).ToList();
-                IEnumerable<int> ids = users.Select(x => x.Id).Distinct();
+                List<int> users = UoW.UserRepository.GetIdsByTeam(CurrentUser.TeamID.Value).ToList();
 
-                var results = UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
+                var results = UoW.ErgoScoreRecordRepository.GetMultipleUserScores(users.ToArray());
 
                 scores.AddRange(results.ToList().Select(Convert));
             }

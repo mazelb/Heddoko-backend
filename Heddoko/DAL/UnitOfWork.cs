@@ -83,6 +83,8 @@ namespace DAL
 
         private IRecordRepository _recordRepository;
 
+        private IErgoScoreRecordRepository _ergoScoreRecordRepository;
+
         #endregion
 
         #region PublicRepository
@@ -140,6 +142,8 @@ namespace DAL
         public IDeviceRepository DeviceRepository => _deviceRepository ?? (_deviceRepository = new DeviceRepository(_db));
 
         public IRecordRepository RecordRepository => _recordRepository ?? (_recordRepository = new RecordRepository(_db));
+
+        public IErgoScoreRecordRepository ErgoScoreRecordRepository => _ergoScoreRecordRepository ?? (_ergoScoreRecordRepository = new ErgoScoreRecordRepository(_mongodb));
 
         #endregion
 

@@ -70,8 +70,7 @@ namespace Heddoko
                 "~/Scripts/js/admin/grid/organizationKits.js",
                 "~/Scripts/js/admin/grid/teams.js",
                 "~/Scripts/js/admin/grid/applications.js",             
-                "~/Scripts/js/account/ergoscore.js",
-                "~/Scripts/js/ergoscore/ergoscoreGauge.js"               
+                "~/Scripts/js/account/ergoscore.js"           
             );
 
             bundles.Add(kendoScriptsBundle);

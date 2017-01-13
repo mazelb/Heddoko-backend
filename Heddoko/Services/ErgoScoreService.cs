@@ -32,7 +32,7 @@ namespace Services
 
             ErgoScore ergoScore = new ErgoScore();
 
-            ergoScore.Score = UoW.AnalysisFrameRepository.GetUserScore(id.Value);
+            ergoScore.Score = UoW.ErgoScoreRecordRepository.GetUserScore(id.Value);
             ergoScore.Id = id.Value;
 
             return ergoScore;
@@ -42,7 +42,7 @@ namespace Services
         {
             IEnumerable<int> ids = UoW.UserRepository.GetIdsByOrganization(orgId);
 
-            return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
+            return UoW.ErgoScoreRecordRepository.GetMultipleUserScores(ids.ToArray());
         }
 
         public List<ErgoScore> GetTeamScores(int teamId)
@@ -50,7 +50,7 @@ namespace Services
             Team team = UoW.TeamRepository.GetFull(teamId);
             IEnumerable<int> ids = team.Users.Select(x => x.Id).Distinct();
 
-            return UoW.AnalysisFrameRepository.GetMultipleUserScores(ids.ToArray());
+            return UoW.ErgoScoreRecordRepository.GetMultipleUserScores(ids.ToArray());
         }
 
         public ErgoScore GetCurrentOrgScore()
@@ -61,7 +61,7 @@ namespace Services
             if (org.Users != null)
             {
                 IEnumerable<int> users = org.Users.Select(x => x.Id).ToList();
-                ergoScore.Score = UoW.AnalysisFrameRepository.GetTeamScore(users.ToArray());
+                ergoScore.Score = UoW.ErgoScoreRecordRepository.GetTeamScore(users.ToArray());
                 ergoScore.Id = org.Id;
             }
 
@@ -75,7 +75,7 @@ namespace Services
             if (team.Users != null)
             {
                 IEnumerable<int> users = team.Users.Select(x => x.Id).ToList();
-                ergoScore.Score = UoW.AnalysisFrameRepository.GetTeamScore(users.ToArray());
+                ergoScore.Score = UoW.ErgoScoreRecordRepository.GetTeamScore(users.ToArray());
                 ergoScore.Id = CurrentUser.TeamID.Value;
             }
 

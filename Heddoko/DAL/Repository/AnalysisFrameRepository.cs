@@ -18,185 +18,94 @@ namespace DAL
         {
         }
 
-        private IAggregateFluent<BsonDocument> GetAggregateUserScore(int userID)
+        private IAggregateFluent<BsonDocument> GetRecordScoreAggregate(int recordId)
         {
             var collection = GetCollection();
 
             var aggregate = collection.Aggregate()
-                .Match(new BsonDocument("UserID", userID))
-                .Group(new BsonDocument { { "_id", "$UserID" }, { "Score", new BsonDocument("$avg", "$ErgoScore") } });
+                .Match(new BsonDocument("RecordId", recordId))
+                .Group(new BsonDocument { { "_id", "RecordId" }, { "Score", new BsonDocument("$avg", "$ErgoScore") } });
             return aggregate;
         }
 
-        private IAggregateFluent<BsonDocument> GetAggregateTeamScore(int[] userIDs)
+        private IAggregateFluent<BsonDocument> GetErgoScoreRecordAggregate(int recordId)
         {
             var collection = GetCollection();
 
             var aggregate = collection.Aggregate()
-                .Match(new BsonDocument("UserID", new BsonDocument("$in", new BsonArray(userIDs))))
-                .Group(new BsonDocument { { "_id", "null" }, { "Score", new BsonDocument("$avg", "$ErgoScore") } });
+                .Match(new BsonDocument("RecordId", recordId))
+                .Group(new BsonDocument {   { "_id", "$Hour" }, { "Score", new BsonDocument("$avg", "$ErgoScore") },
+                                            { "NumFrames", new BsonDocument("$sum", 1)}, { "UserId", new BsonDocument("$first", "$UserId") },
+                                            { "StartTime", new BsonDocument("$min", "$TimeStamp") }, { "RecordId", new BsonDocument("$first", "$RecordId")}
+                                        })
+                .Group(new BsonDocument {   { "_id", "$RecordId" }, { "RecordScore", new BsonDocument("$avg", "$Score") },
+                                            { "NumFrames", new BsonDocument("$sum", "$NumFrames")}, { "UserId", new BsonDocument("$first", "$UserId") },
+                                            { "StartTime", new BsonDocument("$min", "$StartTime") },
+                                            { "HourlyScores", new BsonDocument( "$push" ,
+                                                    new BsonDocument { { "Hour", "$_id" },
+                                                        { "Score", "$Score" },
+                                                        { "NumFrames", "$NumFrames" }
+                                                    }
+                                                )
+                                            }
+                                        })
+                .Project(new BsonDocument { { "_id", 0 }, { "RecordId", "$_id" }, { "RecordScore", 1 }, { "NumFrames", 1 }, { "UserId", 1 },
+                                            { "StartTime", 1 }, { "HourlyScores", 1 } } );
             return aggregate;
         }
 
-        private IAggregateFluent<BsonDocument> GetAggregateMuiltUserScore(int[] userIDs)
+        public double GetRecordScore(int recordId)
         {
-            var collection = GetCollection();
-
-            var aggregate = collection.Aggregate()
-                .Match(new BsonDocument("UserID", new BsonDocument("$in", new BsonArray(userIDs))))
-                .Group(new BsonDocument { { "_id", "$UserID" }, { "Score", new BsonDocument("$avg", "$ErgoScore") } })
-                .Sort(new BsonDocument("Score", -1));
-            return aggregate;
-        }
-
-        private IAggregateFluent<BsonDocument> GetAggregateTotalScore()
-        {
-            // TODO - BENB - this will not scale well and should be removed, this should be processed separately and stored if we want to keep using it 
-            var collection = GetCollection();
-
-            var aggregate = collection.Aggregate()
-                .Group(new BsonDocument { { "_id", "null" }, { "Score", new BsonDocument("$avg", "$ErgoScore") } });
-            return aggregate;
-        }
-
-        /// <summary>
-        /// Async version of GetUserScore
-        /// </summary>
-        /// <param name="userID"></param>
-        /// <returns>Calculated ErgoScore</returns>
-        public async Task<double> GetUserScoreAsync(int userID)
-        {
-            var aggregate = GetAggregateUserScore(userID);
-
-            var result = await aggregate.FirstOrDefaultAsync();
-            if (result != null)
-            {
-                ErgoScore score = BsonSerializer.Deserialize<ErgoScore>(result);
-                return score.Score;
-            }
-
-            return 0;
-        }
-
-        /// <summary>
-        /// Async version of GetTeamScore
-        /// </summary>
-        /// <param name="userIDs">an array of the userIDs to calculate ergoscore from</param>
-        /// <returns>Calculated ErgoScore</returns>
-        public async Task<double> GetTeamScoreAsync(int[] userIDs)
-        {
-            var aggregate = GetAggregateTeamScore(userIDs);
-
-            var results = await aggregate.FirstOrDefaultAsync();
-            if (results != null)
-            {
-                ErgoScore temp = BsonSerializer.Deserialize<ErgoScore>(results);
-
-                return temp.Score;
-            }
-
-            return 0;
-        }
-
-        /// <summary>
-        /// Async version of GetMulipleUserScores
-        /// </summary>
-        /// <param name="userIDs"></param>
-        /// <returns>List of UserIDs and ErgoScores</returns>
-        public async Task<List<ErgoScore>> GetMultipleUserScoresAsync(int[] userIDs)
-        {
-            var aggregate = GetAggregateMuiltUserScore(userIDs);
-
-            return aggregate.ToList().Select(score => BsonSerializer.Deserialize<ErgoScore>(score)).ToList();
-        }
-
-        /// <summary>
-        /// Async version of GetTotalErgoScore
-        /// </summary>
-        /// <returns></returns>
-        public async Task<double> GetTotalErgoScoreAsync()
-        {
-            var aggregate = GetAggregateTotalScore();
-
-            var results = await aggregate.FirstOrDefaultAsync();
-            if (results != null)
-            {
-                ErgoScore temp = BsonSerializer.Deserialize<ErgoScore>(results);
-
-                return temp.Score;
-            }
-
-            return 0;
-        }
-
-        /// <summary>
-        /// Calculates the ergoscore of a specific user
-        /// </summary>
-        /// <param name="userID"></param>
-        /// <returns></returns>
-        public double GetUserScore(int userID)
-        {
-            var aggregate = GetAggregateUserScore(userID);
+            var aggregate = GetRecordScoreAggregate(recordId);
 
             var results = aggregate.FirstOrDefault();
+            if(results != null)
+            {
+                ErgoScore score = BsonSerializer.Deserialize<ErgoScore>(results);
+                return score.Score;
+            }
+            return 0;
+        }
+
+        public async Task<double> GetRecordScoreAsync(int recordId)
+        {
+            var aggregate = GetRecordScoreAggregate(recordId);
+
+            var results = await aggregate.FirstOrDefaultAsync();
             if (results != null)
             {
                 ErgoScore score = BsonSerializer.Deserialize<ErgoScore>(results);
                 return score.Score;
             }
-
             return 0;
         }
 
-        /// <summary>
-        /// Calculates the ergoscore of a list of users
-        /// </summary>
-        /// <param name="userIDs"></param>
-        /// <returns></returns>
-        public double GetTeamScore(int[] userIDs)
+        public ErgoScoreRecord GetErgoScoreRecord(int recordId)
         {
-            var aggregate = GetAggregateTeamScore(userIDs);
+            ErgoScoreRecord record = new ErgoScoreRecord();
+            var aggregate = GetErgoScoreRecordAggregate(recordId);
 
             var results = aggregate.FirstOrDefault();
             if (results != null)
             {
-                ErgoScore temp = BsonSerializer.Deserialize<ErgoScore>(results);
-
-                return temp.Score;
+                record = BsonSerializer.Deserialize<ErgoScoreRecord>(results);
             }
 
-            return 0;
+            return record;
         }
 
-        /// <summary>
-        /// Caluculates ErgoScores for a list of users
-        /// </summary>
-        /// <param name="userIDs"></param>
-        /// <returns>List of UserIDs and ErgoScore</returns>
-        public List<ErgoScore> GetMultipleUserScores(int[] userIDs)
+        public async Task<ErgoScoreRecord> GetErgoScoreRecordAsync(int recordId)
         {
-            var aggregate = GetAggregateMuiltUserScore(userIDs);
+            ErgoScoreRecord record = new ErgoScoreRecord();
+            var aggregate = GetErgoScoreRecordAggregate(recordId);
 
-            return aggregate.ToList().Select(score => BsonSerializer.Deserialize<ErgoScore>(score)).ToList();
-        }
-
-        /// <summary>
-        /// Calculates Total ErgoScore from all users and organizations
-        /// </summary>
-        /// <returns></returns>
-        public double GetTotalErgoScore()
-        {
-            var aggregate = GetAggregateTotalScore();
-
-            var results = aggregate.FirstOrDefault();
+            var results = await aggregate.FirstOrDefaultAsync();
             if (results != null)
             {
-                ErgoScore temp = BsonSerializer.Deserialize<ErgoScore>(results);
-
-                return temp.Score;
+                record = BsonSerializer.Deserialize<ErgoScoreRecord>(results);
             }
 
-            return 0;
+            return record;
         }
     }
 }
