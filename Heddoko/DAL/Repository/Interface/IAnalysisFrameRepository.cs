@@ -12,8 +12,6 @@ namespace DAL
     {
         double GetRecordScore(int recordID);
         Task<double> GetRecordScoreAsync(int recordID);
-        List<HourlyScore> GetHourlyScores(int recordID);
-        Task<List<HourlyScore>> GetHourlyScoresAsync(int recordID);
         ErgoScoreRecord GetErgoScoreRecord(int recordId);
         Task<ErgoScoreRecord> GetErgoScoreRecordAsync(int recordId);
     }
