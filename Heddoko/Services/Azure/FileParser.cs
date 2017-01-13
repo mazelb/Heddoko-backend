@@ -23,19 +23,19 @@ namespace Services
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="fileType"></param>
-        public static void AddFileToDb(string filePath, AssetType fileType, UnitOfWork UoW, int recordId, int UserId)
+        public static void AddFileToDb(string filePath, AssetType fileType, UnitOfWork uoW, int recordId, int userId)
         {
             switch (fileType)
             {
                 case AssetType.ProcessedFrameData:
-                    ProcessFile<ProcessedFrame>(filePath, SaveProcessedFrame, UoW, recordId);
+                    ProcessFile<ProcessedFrame>(filePath, SaveProcessedFrame, uoW, recordId);
                     break;
                 case AssetType.AnalysisFrameData:
-                    ProcessFile<AnalysisFrame>(filePath, SaveAnalysisFrame, UoW, recordId);
+                    ProcessFile<AnalysisFrame>(filePath, SaveAnalysisFrame, uoW, recordId);
                     break;
                 case AssetType.RawFrameData:
                     // Raw Frames are different
-                    ProcessRawFrames(filePath, UoW, UserId, recordId);
+                    ProcessRawFrames(filePath, uoW, userId, recordId);
                     break;
             }
         }
@@ -77,7 +77,7 @@ namespace Services
         /// <typeparam name="T"> Type of Frame </typeparam>
         /// <param name="filePath"> </param>
         /// <param name="save"> Function used to save frames in the DB </param>
-        private static void ProcessFile<T>(string filePath, Action<T, UnitOfWork, int> save, UnitOfWork UoW, int recordId)
+        private static void ProcessFile<T>(string filePath, Action<T, UnitOfWork, int> save, UnitOfWork uoW, int recordId)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace Services
                         if(memStream.Length != 0)
                         {
                             T item = Serializer.Deserialize<T>(memStream);
-                            save(item, UoW, recordId);
+                            save(item, uoW, recordId);
                             memStream.SetLength(0);
                         }
                     }
@@ -109,7 +109,7 @@ namespace Services
         /// Parses protofile into RawFrames and adds them to the DB
         /// </summary>
         /// <param name="filePath"> filepath of the proto file </param>
-        private static void ProcessRawFrames(string filePath, UnitOfWork UoW, int userId, int recordId)
+        private static void ProcessRawFrames(string filePath, UnitOfWork uoW, int userId, int recordId)
         {
             try
             {
@@ -143,7 +143,7 @@ namespace Services
                                 memStream.Write(packetCopy.Payload, 1, packetCopy.PayloadSize - 1);
                                 memStream.Seek(0, SeekOrigin.Begin);
                                 packet = Serializer.Deserialize<Packet>(memStream);
-                                UoW.RawFrameRepository.AddOne(RawFrame.toRawFrame(packet.fullDataFrame, userId, recordId));
+                                uoW.RawFrameRepository.AddOne(RawFrame.toRawFrame(packet.fullDataFrame, userId, recordId));
                                 memStream.SetLength(0);
                             }
                             rawPacket.ResetPacket();
@@ -163,21 +163,21 @@ namespace Services
             }
         }
 
-        private static void SaveProcessedFrame(ProcessedFrame frame, UnitOfWork UoW, int recordId)
+        private static void SaveProcessedFrame(ProcessedFrame frame, UnitOfWork uoW, int recordId)
         {
             frame.RecordId = recordId;
-            UoW.ProcessedFrameRepository.AddOne(frame);
+            uoW.ProcessedFrameRepository.AddOne(frame);
         }
 
-        private static void SaveAnalysisFrame(AnalysisFrame frame, UnitOfWork UoW, int recordId)
+        private static void SaveAnalysisFrame(AnalysisFrame frame, UnitOfWork uoW, int recordId)
         {
-            DateTime time = DateTime.FromBinary(Convert.ToInt64(frame.TimeStamp));
+            DateTime time = Utils.ConvertFromUnixTimestamp(frame.TimeStamp);
             frame.DayOfMonth = time.Day;
             frame.Hour = time.Hour;
             frame.Minute = time.Minute;
             frame.RecordId = recordId;
 
-            UoW.AnalysisFrameRepository.AddOne(frame);
+            uoW.AnalysisFrameRepository.AddOne(frame);
         }
 
         private static int GetPayloadSize(byte[] header)

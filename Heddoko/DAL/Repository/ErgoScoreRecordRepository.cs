@@ -35,7 +35,7 @@ namespace DAL.Repository
             var collection = GetCollection();
 
             var aggregate = collection.Aggregate()
-                .Match(new BsonDocument("UserID", new BsonDocument("$in", new BsonArray(userIDs))))
+                .Match(new BsonDocument("UserId", new BsonDocument("$in", new BsonArray(userIDs))))
                 .Project(new BsonDocument { { "UserId", 1 }, { "CalcScore", new BsonDocument("$multiply", new BsonArray { "$RecordScore", "$NumFrames" }) }, { "NumFrames", 1 } })
                 .Group(new BsonDocument { { "_id", null }, { "CalcScore", new BsonDocument("$sum", "$CalcScore") }, { "NumFrames", new BsonDocument("$sum", "$NumFrames") } })
                 .Project(new BsonDocument { { "Score", new BsonDocument("$divide", new BsonArray { "$CalcScore", "$NumFrames" }) } });
@@ -47,8 +47,8 @@ namespace DAL.Repository
             var collection = GetCollection();
 
             var aggregate = collection.Aggregate()
-                .Match(new BsonDocument("UserID", new BsonDocument("$in", new BsonArray(userIds))))
-                .Project(new BsonDocument { { "UserId", 1 }, { "CalcScore", new BsonDocument("$multiply", new BsonArray { "RecordScore", "NumFrames" }) }, { "NumFrames", 1 } })
+                .Match(new BsonDocument("UserId", new BsonDocument("$in", new BsonArray(userIds))))
+                .Project(new BsonDocument { { "UserId", 1 }, { "CalcScore", new BsonDocument("$multiply", new BsonArray { "$RecordScore", "$NumFrames" }) }, { "NumFrames", 1 } })
                 .Group(new BsonDocument { { "_id", "$UserId" }, { "CalcScore", new BsonDocument("$sum", "$CalcScore") }, { "NumFrames", new BsonDocument("$sum", "$NumFrames") } })
                 .Project(new BsonDocument { { "_id", 1 }, { "Score", new BsonDocument("$divide", new BsonArray { "$CalcScore", "$NumFrames" }) } })
                 .Sort(new BsonDocument("Score", -1));
@@ -60,12 +60,23 @@ namespace DAL.Repository
             var collection = GetCollection();
 
             var aggregate = collection.Aggregate()
-                .Match(new BsonDocument("UserID", new BsonDocument("$in", new BsonArray(userIds))))
+                .Match(new BsonDocument("UserId", new BsonDocument("$in", new BsonArray(userIds))))
                 .Unwind(x => x.HourlyScores)
                 .Project(new BsonDocument { { "Hour", "$HourlyScore.Hour" }, { "CalcScore", new BsonDocument("$multiply", new BsonArray { "$HourlyScore.Score", "$HourlyScore.NumFrames" }) }, { "NumFrames", "$HourlyScore.NumFrames" } })
                 .Group(new BsonDocument { { "_id", "$Hour" }, { "CalcScore", new BsonDocument("$sum", "$CalcScore") }, { "NumFrames", new BsonDocument("$sum", "$NumFrames") } })
+                .Project(new BsonDocument { { "Hour", "$_id"}, { "Score", "$CalcScore"}, { "NumFrames", 1} })
                 .Match(new BsonDocument("Hour", new BsonDocument { { "$gte", hourStart }, { "$lte", hourEnd } }))
                 .Sort(new BsonDocument("Hour", 1));
+            return aggregate;
+        }
+
+        private IAggregateFluent<BsonDocument> GetAggregateRecords(int[] userIds)
+        {
+            var collection = GetCollection();
+
+            var aggregate = collection.Aggregate()
+                .Match(new BsonDocument("UserId", new BsonDocument("$in", new BsonArray(userIds))))
+                .Project(new BsonDocument { { "_id", 1 }, { "UserId", 1 }, { "RecordScore", 1 }, { "StartTime", 1 }, { "HourlyScores", 1 } });
             return aggregate;
         }
 
@@ -80,10 +91,10 @@ namespace DAL.Repository
 
             var aggregate = GetAggregateMuiltUserScore(userIDs);
 
-            var results = aggregate.ToBsonDocument();
+            var results = aggregate.ToList();
             if (results != null)
             {
-                scores.AddRange(BsonSerializer.Deserialize<List<ErgoScore>>(results));
+                scores = results.Select(score => BsonSerializer.Deserialize<ErgoScore>(score)).ToList();
             }
 
             return scores;
@@ -190,21 +201,35 @@ namespace DAL.Repository
             return 0;
         }
 
+        /// <summary>
+        /// Get users hourly scores from hour = hourStart to hour = hourend
+        /// </summary>
+        /// <param name="userIds"></param>
+        /// <param name="hourStart"></param>
+        /// <param name="hourEnd"></param>
+        /// <returns></returns>
         public List<HourlyScore> GetHourlyScoresForUsers(int[] userIds, int hourStart, int hourEnd)
         {
             List<HourlyScore> scores = new List<HourlyScore>();
             var aggregate = GetAggregateHourlyScores(userIds, hourStart, hourEnd);
 
-            var results = aggregate.ToBsonDocument();
+            var results = aggregate.ToList();
             if (results != null)
             {
-                scores.AddRange(BsonSerializer.Deserialize<List<HourlyScore>>(results));
+                scores = results.Select(score => BsonSerializer.Deserialize<HourlyScore>(score)).ToList();
             }
 
             return new List<HourlyScore>();
         }
 
-        public async Task<List<HourlyScore>> GetHourlyScoreForUsers(int[] userIds, int hourStart, int hourEnd)
+        /// <summary>
+        /// Async version of GetHourlyScoresForUsers
+        /// </summary>
+        /// <param name="userIds"></param>
+        /// <param name="hourStart"></param>
+        /// <param name="hourEnd"></param>
+        /// <returns></returns>
+        public async Task<List<HourlyScore>> GetHourlyScoresForUsersAsync(int[] userIds, int hourStart, int hourEnd)
         {
             List<HourlyScore> scores = new List<HourlyScore>();
             var aggregate = GetAggregateHourlyScores(userIds, hourStart, hourEnd);
@@ -218,6 +243,37 @@ namespace DAL.Repository
                 });
             }
             return scores;
+        }
+
+        public List<ErgoScoreRecord> GetTeamErgoScoreRecords(int[] userIDs)
+        {
+            List<ErgoScoreRecord> records = new List<ErgoScoreRecord>();
+            var aggregate = GetAggregateRecords(userIDs);
+
+            var results = aggregate.ToList();
+            if (results != null)
+            {
+                records = results.Select(score => BsonSerializer.Deserialize<ErgoScoreRecord>(score)).ToList();
+            }
+
+            return records;
+        }
+
+        public async Task<List<ErgoScoreRecord>> GetTeamErgoScoreRecordsAsync(int[] userIDs)
+        {
+            List<ErgoScoreRecord> records = new List<ErgoScoreRecord>();
+            var aggregate = GetAggregateRecords(userIDs);
+
+            var results = await aggregate.ToCursorAsync();
+            if (results != null)
+            {
+                await results.ForEachAsync(delegate (BsonDocument result)
+                {
+                    records.Add(BsonSerializer.Deserialize<ErgoScoreRecord>(result));
+                });
+            }
+
+            return records;
         }
     }
 }

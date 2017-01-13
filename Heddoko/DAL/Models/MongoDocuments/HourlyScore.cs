@@ -9,7 +9,7 @@ namespace DAL.Models.MongoDocuments
     public class HourlyScore
     {
         public int Hour { get; set; }
-        public int Score { get; set; }
+        public double Score { get; set; }
         public int NumFrames { get; set; }
     }
 }
