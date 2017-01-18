@@ -1,4 +1,11 @@
-﻿using System.Linq;
+﻿/**
+ * @file AccountController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;

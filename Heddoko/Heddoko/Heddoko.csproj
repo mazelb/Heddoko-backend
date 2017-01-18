@@ -710,6 +710,7 @@
     <Content Include="Views\OAuth\Authorize.cshtml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Static\Help.cshtml" />
+    <Content Include="Services.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />

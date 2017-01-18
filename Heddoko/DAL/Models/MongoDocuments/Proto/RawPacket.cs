@@ -1,11 +1,10 @@
 ﻿/**
-* @file RawPacket.cs
-* @brief Contains the RawPacket class
-* @author Mohammed Haider( mohammed@heddoko.com )
-* @date June 2016
-* Copyright Heddoko(TM) 2016,  all rights reserved
+ * @file RawPacket.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 12 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
 */
-
 using System;
 
 namespace DAL.Models.MongoDocuments

@@ -157,6 +157,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="README.md" />
+    <None Include="Services.licenseheader" />
     <None Include="update.dev.cmd" />
     <None Include="update.master.cmd" />
   </ItemGroup>
