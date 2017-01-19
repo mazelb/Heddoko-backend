@@ -235,6 +235,8 @@ namespace DAL
         {
             IQueryable<User> query = DbSet.Where(c => c.OrganizationID == organizationID
                                                    && c.TeamID == teamID)
+                                          .Include(c => c.Kits.Select(k => k.Brainpack))
+                                          .Include(c => c.Team)
                                           .OrderBy(c => c.FirstName)
                                           .ThenBy(c => c.LastName);
             if (skip.HasValue)
