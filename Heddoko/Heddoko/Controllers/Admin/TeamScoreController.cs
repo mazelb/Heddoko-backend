@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
 using Heddoko.Models;
+using DAL.Models.MongoDocuments;
+using Heddoko.Helpers.DomainRouting.Http;
 
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [System.Web.Http.RoutePrefix("admin/api/ergoscore")]
+    [RoutePrefix("admin/api/teamscore")]
     [AuthAPI(Roles = Constants.Roles.AnalystAndAdmin)]
     public class TeamScoreController : BaseAdminController<ErgoScore, ErgoScoreAPIModel>
     {
@@ -23,15 +24,17 @@ namespace Heddoko.Controllers
             if (CurrentUser.TeamID.HasValue)
             {
                 List<int> users = UoW.UserRepository.GetIdsByTeam(CurrentUser.TeamID.Value).ToList();
-
                 var results = UoW.ErgoScoreRecordRepository.GetMultipleUserScores(users.ToArray());
 
                 scores.AddRange(results.ToList().Select(Convert));
             }
 
+            int count = scores.Count();
+
             return new KendoResponse<IEnumerable<ErgoScoreAPIModel>>
             {
-                Response = scores
+                Response = scores,
+                Total = count
             };
         }
 
@@ -45,7 +48,8 @@ namespace Heddoko.Controllers
             return new ErgoScoreAPIModel
             {
                 ID = item.Id.Value,
-                Score = item.Score
+                Score = item.Score,
+                Name = UoW.UserRepository.Get(item.Id.Value).Name
             };
         }
     }

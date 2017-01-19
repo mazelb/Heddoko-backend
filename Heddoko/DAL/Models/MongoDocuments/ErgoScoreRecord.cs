@@ -9,7 +9,7 @@ namespace DAL.Models.MongoDocuments
 {
     public class ErgoScoreRecord
     {
-        public ObjectId Id { get; set; } //Synced to the ID of the corresponding record 
+        public ObjectId Id { get; set; }
         public int UserId { get; set; }
         public int RecordId { get; set; }
         public uint StartTime { get; set; }

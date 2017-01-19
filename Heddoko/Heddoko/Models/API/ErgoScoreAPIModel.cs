@@ -10,5 +10,6 @@ namespace Heddoko.Models
         // Users Personal score
         public double Score { get; set; }
         public int ID { get; set; }
+        public string Name { get; set; }
     }
 }

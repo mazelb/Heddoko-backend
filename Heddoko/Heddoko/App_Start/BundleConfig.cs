@@ -99,7 +99,8 @@ namespace Heddoko
 
             Bundle analystScriptsBundle = new Bundle("~/Bundles/AnalystJs");
             analystScriptsBundle.Include(
-                "~/Scripts/js/ergoscore/teamScores.js"
+                "~/Scripts/js/ergoscore/teamScores.js",
+                "~/Scripts/js/ergoscore/ergoscoreBarChart.js"
             );
 
             bundles.Add(analystScriptsBundle);

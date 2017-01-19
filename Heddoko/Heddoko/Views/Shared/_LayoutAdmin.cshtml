@@ -61,6 +61,10 @@
         {
             @Scripts.Render("~/Bundles/AdminJs")
         }
+        else if (Model.IsAnalyst)
+        {
+            @Scripts.Render("~/Bundles/AnalystJs")
+        }
     }
 
     @RenderSection("Scripts", required: false)

@@ -415,6 +415,8 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Compile Include="Controllers\Admin\ErgoScoreRecordController.cs" />
+    <Compile Include="Models\API\ErgoScoreRecordAPIModel.cs" />
     <Content Include="MvcElmahDashboard_Readme.html" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
@@ -662,7 +664,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\js\ergoscore\ergoscoreGauge.js" />
+    <Content Include="Scripts\js\ergoscore\ergoscoreBarChart.js" />
     <Content Include="Scripts\js\ergoscore\teamScores.js" />
     <Content Include="Scripts\js\account\mask.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
@@ -923,6 +925,7 @@
     <Folder Include="Controllers\ErgoScore\" />
     <Folder Include="Helpers\JWT\" />
     <Folder Include="Views\Assemblies\" />
+    <Folder Include="Views\ErgoScoreRecord\" />
     <Folder Include="Views\TeamScore\" />
   </ItemGroup>
   <ItemGroup>

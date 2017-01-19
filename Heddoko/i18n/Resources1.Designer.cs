@@ -2239,6 +2239,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string NameOfUser {
+            get {
+                return ResourceManager.GetString("NameOfUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New password.
         /// </summary>
         public static string NewPassword {
