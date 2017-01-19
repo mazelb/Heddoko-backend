@@ -6,7 +6,8 @@ var ErgoscoreBarChart = {
 
     controls: {
         chart: null,
-        filterModel: null
+        filterModel: null,
+        baseUnitInputs: null
     },
 
     datasources: function() {
@@ -53,6 +54,7 @@ var ErgoscoreBarChart = {
     init: function () {
         var control = $("#ergoscoreBarChart");
         var filter = $(".ergoscoreChartFilter");
+        var baseUnits = $(".baseUnitOptions");
 
         if (control.length > 0) {
             this.controls.chart = control.kendoChart({
@@ -93,6 +95,8 @@ var ErgoscoreBarChart = {
             });
 
             kendo.bind(filter, this.controls.filterModel);
+
+            baseUnits.bind("change", this.refresh);            
         }
     },
 
@@ -124,7 +128,10 @@ var ErgoscoreBarChart = {
 
     // Call after chart options have been changed
     refresh: function () {
-        var chart = this.controls.chart;
+        var chart = ErgoscoreBarChart.controls.chart;
+        var baseUnitInputs = $("input:radio[name=baseUnit]");
+
+        chart.options.categoryAxis.baseUnit = baseUnitInputs.filter(":checked").val();
 
         chart.refresh();
     }
