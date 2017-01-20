@@ -80,6 +80,11 @@ namespace Services
                 {
                     string downloadPath = Utils.DownloadPath();
 
+                    if (!Directory.Exists(downloadPath))
+                    {
+                        Directory.CreateDirectory(downloadPath);
+                    }
+
                     string path = Path.Combine(downloadPath, asset.Name);
                     DownloadToFile(asset.Url, path);
                     FileParser.AddFileToDb(path, asset.Type, UoW, record.User.Id);
