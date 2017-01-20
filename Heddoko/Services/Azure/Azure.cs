@@ -57,7 +57,7 @@ namespace Services
             
             CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(url);
 
-            blockBlob.DownloadToFile(path, FileMode.OpenOrCreate);
+            blockBlob.DownloadToFile(path?.TrimStart('/'), FileMode.OpenOrCreate);
         }
 
         public static void DeleteFile(string path)
