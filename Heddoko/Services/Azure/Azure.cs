@@ -48,7 +48,6 @@ namespace Services
         /// Downloads a file from the Azure blob
         /// </summary>
         /// <param name="url">Url of Azure block blob reference</param>
-        /// <param name="container">Azure assests container</param>
         /// <param name="path">path to the target file</param>
         private static void DownloadToFile(string url, string path)
         {
@@ -86,7 +85,7 @@ namespace Services
                     }
 
                     string path = Path.Combine(downloadPath, asset.Name);
-                    DownloadToFile(asset.Url, path);
+                    DownloadToFile(asset.Image, path);
                     FileParser.AddFileToDb(path, asset.Type, UoW, record.User.Id);
                     DeleteFile(path);
                 }
