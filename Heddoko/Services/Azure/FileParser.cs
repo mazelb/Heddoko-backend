@@ -92,7 +92,7 @@ namespace Services
                 {
                     MemoryStream memStream = new MemoryStream();
                     
-                    while (fStream.CanRead)
+                    while (fStream.CanRead && fStream.Length > 0)
                     {
                         memStream = ReadFrame(memStream, fStream);
                         if(memStream.Length != 0)
