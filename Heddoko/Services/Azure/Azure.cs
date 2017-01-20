@@ -55,9 +55,9 @@ namespace Services
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer blobContainer = blobClient.GetContainerReference(DAL.Config.AssetsContainer);
             
-            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(url);
+            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(url?.TrimStart('/'));
 
-            blockBlob.DownloadToFile(path?.TrimStart('/'), FileMode.OpenOrCreate);
+            blockBlob.DownloadToFile(path, FileMode.OpenOrCreate);
         }
 
         public static void DeleteFile(string path)
