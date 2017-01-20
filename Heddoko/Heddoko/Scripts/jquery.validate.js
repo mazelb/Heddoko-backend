@@ -1,11 +1,10 @@
-/*!
- * jQuery Validation Plugin v1.16.0
- *
- * http://jqueryvalidation.org/
- *
- * Copyright (c) 2016 Jörn Zaefferer
- * Released under the MIT license
- */
+/**
+ * @file jquery.validate.js
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
 		define( ["jquery"], factory );

@@ -1,4 +1,11 @@
-﻿var Format = {
+﻿/**
+ * @file format.js
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+var Format = {
     image: function (url) {
         return url ? '<img class="img-grid" src="' + url + '" />' : '&nbsp;';
     },

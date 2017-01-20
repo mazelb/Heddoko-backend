@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file FileParser.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 12 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,7 +92,7 @@ namespace Services
                 {
                     MemoryStream memStream = new MemoryStream();
                     
-                    while (fStream.CanRead)
+                    while (fStream.CanRead && fStream.Length > 0)
                     {
                         memStream = ReadFrame(memStream, fStream);
                         if(memStream.Length != 0)

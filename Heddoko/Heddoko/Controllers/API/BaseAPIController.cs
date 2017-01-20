@@ -1,4 +1,11 @@
-﻿using System.Web.Http;
+﻿/**
+ * @file BaseAPIController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Web.Http;
 using DAL;
 using DAL.Models;
 using Services;

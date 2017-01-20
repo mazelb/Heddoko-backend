@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Services.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources.js" />

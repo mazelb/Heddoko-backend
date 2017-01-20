@@ -1,3 +1,10 @@
+/**
+ * @file 201607222340125_RemoveOld.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
 using System.Data.Entity.Migrations;
 
 namespace DAL.Migrations

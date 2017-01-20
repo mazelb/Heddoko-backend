@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file UserRepository.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -248,6 +255,8 @@ namespace DAL
         {
             IQueryable<User> query = DbSet.Where(c => c.OrganizationID == organizationID
                                                    && c.TeamID == teamID)
+                                          .Include(c => c.Kits.Select(k => k.Brainpack))
+                                          .Include(c => c.Team)
                                           .OrderBy(c => c.FirstName)
                                           .ThenBy(c => c.LastName);
             if (skip.HasValue)

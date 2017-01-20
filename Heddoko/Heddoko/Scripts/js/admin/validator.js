@@ -1,4 +1,11 @@
-﻿var Validator = {
+﻿/**
+ * @file validator.js
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+var Validator = {
     equipment: {
         notes: {
             maxSize: 1024,

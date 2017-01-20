@@ -1,4 +1,11 @@
-﻿using System.IO;
+﻿/**
+ * @file Azure.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.IO;
 using DAL;
 using DAL.Models;
 using DAL.Models.MongoDocuments;
@@ -42,7 +49,6 @@ namespace Services
         /// Downloads a file from the Azure blob
         /// </summary>
         /// <param name="url">Url of Azure block blob reference</param>
-        /// <param name="container">Azure assests container</param>
         /// <param name="path">path to the target file</param>
         private static void DownloadToFile(string url, string path)
         {
@@ -50,7 +56,7 @@ namespace Services
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer blobContainer = blobClient.GetContainerReference(DAL.Config.AssetsContainer);
             
-            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(url);
+            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(url?.TrimStart('/'));
 
             blockBlob.DownloadToFile(path, FileMode.OpenOrCreate);
         }
@@ -78,8 +84,13 @@ namespace Services
                 {
                     string downloadPath = Utils.DownloadPath();
 
+                    if (!Directory.Exists(downloadPath))
+                    {
+                        Directory.CreateDirectory(downloadPath);
+                    }
+
                     string path = Path.Combine(downloadPath, asset.Name);
-                    DownloadToFile(asset.Url, path);
+                    DownloadToFile(asset.Image, path);
                     FileParser.AddFileToDb(path, asset.Type, UoW, recordId, record.User.Id);
                     DeleteFile(path);
                     CreateErgoscoreRecord(recordId, UoW);
