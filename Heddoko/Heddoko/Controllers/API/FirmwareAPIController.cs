@@ -138,7 +138,8 @@ namespace Heddoko.Controllers.API
             };
         }
 
-        [DomainRoute("upload/{token}/{version}", Constants.ConfigKeyName.DashboardSite)]        [HttpPost]
+        [DomainRoute("upload/{token}/{version}", Constants.ConfigKeyName.DashboardSite)]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<bool> UploadSoftware(string token, string version)
         {
