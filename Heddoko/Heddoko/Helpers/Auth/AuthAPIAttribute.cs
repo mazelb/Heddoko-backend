@@ -81,10 +81,13 @@ namespace Heddoko
 
             return isAuthroized;
         }
+
         private static bool SkipAuthorization(HttpActionContext actionContext)
         {
             if (!actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any())
+            {
                 return actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any();
+            }
 
             return true;
         }
