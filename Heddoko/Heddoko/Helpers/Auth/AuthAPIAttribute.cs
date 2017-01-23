@@ -25,6 +25,11 @@ namespace Heddoko
             {
                 throw new Exception("actionContext");
             }
+            
+            if (SkipAuthorization(context))
+            {
+                return;
+            }
 
             if (context.RequestContext.Principal?.Identity == null || !context.RequestContext.Principal.Identity.IsAuthenticated)
             {
@@ -75,6 +80,13 @@ namespace Heddoko
             bool isAuthroized = base.IsAuthorized(actionContext);
 
             return isAuthroized;
+        }
+        private static bool SkipAuthorization(HttpActionContext actionContext)
+        {
+            if (!actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any())
+                return actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any();
+
+            return true;
         }
     }
 }
