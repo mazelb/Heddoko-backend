@@ -336,7 +336,7 @@ namespace DAL
         {
             DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime();
             TimeSpan diff = date - origin;
-            return (uint)Math.Floor(diff.TotalSeconds);
+            return Convert.ToUInt32(diff.TotalSeconds);
         }
 
         #endregion
