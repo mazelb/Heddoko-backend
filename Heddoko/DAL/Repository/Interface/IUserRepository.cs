@@ -34,6 +34,10 @@ namespace DAL
 
         IEnumerable<int> GetIdsByOrganization(int organizationID, bool isDeleted = false);
 
+        IEnumerable<User> GetByTeam(int value, bool isDeleted = false);
+
+        IEnumerable<int> GetIdsByTeam(int teamID, bool isDeleted = false);
+
         IEnumerable<User> Search(string search, int? organizationID = null, bool isDeleted = false, int? licenseID = null);
 
         IEnumerable<User> GetByOrganizationAPI(int organizationID, int teamID, int take, int? skip = 0);

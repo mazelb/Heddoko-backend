@@ -302,6 +302,10 @@
     <Compile Include="Models\Enum\ReadStatus.cs" />
     <Compile Include="Models\ErgoScore.cs" />
     <Compile Include="Models\Enum\RecordType.cs" />
+    <Compile Include="Models\MongoDocuments\AnalysisFrame.cs" />
+    <Compile Include="Models\MongoDocuments\ErgoScoreRecord.cs" />
+    <Compile Include="Models\MongoDocuments\HourlyScore.cs" />
+    <Compile Include="Models\MongoDocuments\ProcessedFrame.cs" />
     <Compile Include="Models\MongoDocuments\Proto\AnalysisFrame.cs" />
     <Compile Include="Models\MongoDocuments\Proto\heddokoPacket.cs" />
     <Compile Include="Models\MongoDocuments\Notifications\UserEvent.cs" />
@@ -387,8 +391,10 @@
     <Compile Include="Repository\ApplicationRepository.cs" />
     <Compile Include="Repository\Interface\IApplicationRepository.cs" />
     <Compile Include="Repository\DeviceRepository.cs" />
+    <Compile Include="Repository\ErgoScoreRecordRepository.cs" />
     <Compile Include="Repository\Interface\IAnalysisFrameRepository.cs" />
     <Compile Include="Repository\Interface\IDeviceRepository.cs" />
+    <Compile Include="Repository\Interface\IErgoScoreRecordRepository.cs" />
     <Compile Include="Repository\Interface\IProcessedFrameRepository.cs" />
     <Compile Include="Repository\Interface\IRawFrameRepository.cs" />
     <Compile Include="Repository\Interface\IRecordRepository.cs" />

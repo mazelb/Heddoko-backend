@@ -8,6 +8,7 @@
 using System.IO;
 using DAL;
 using DAL.Models;
+using DAL.Models.MongoDocuments;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Hangfire;
@@ -68,6 +69,10 @@ namespace Services
             }      
         }
 
+        /// <summary>
+        /// Adds a record into the database, parsing each file by frame
+        /// </summary>
+        /// <param name="recordId"></param>
         public static void AddRecordToDatabase(int recordId)
         {
             UnitOfWork UoW = new UnitOfWork();
@@ -86,14 +91,22 @@ namespace Services
 
                     string path = Path.Combine(downloadPath, asset.Name);
                     DownloadToFile(asset.Image, path);
-                    FileParser.AddFileToDb(path, asset.Type, UoW, record.User.Id);
+                    FileParser.AddFileToDb(path, asset.Type, UoW, recordId, record.User.Id);
                     DeleteFile(path);
+                    CreateErgoscoreRecord(recordId, UoW);
                 }
                 catch (FileNotFoundException ex)
                 {
                     Trace.TraceError($"Azure.AddRecordToDatabase.FileNotFoundException ex:{ex.GetOriginalException()}");
                 }
             }
+        }
+
+        private static void CreateErgoscoreRecord(int recordId, UnitOfWork UoW)
+        {
+            ErgoScoreRecord record = UoW.AnalysisFrameRepository.GetErgoScoreRecord(recordId);
+
+            UoW.ErgoScoreRecordRepository.AddOne(record);
         }
     }
 }

@@ -1,19 +1,62 @@
 ﻿@model Heddoko.Models.BaseViewModel
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div class="page">
     <div class="header clearfix">
         <h3>@Html.Raw(i18n.Resources.Ergoscore)</h3>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div id="ergoscoreGrid">
+    <div class="col-md-2">
+        <div id="ergoscoreGrid">
+
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="ergoscoreChartFilter">
+                <div class="col-md-4">
+                    <label for="usersTeamFilter" class="control-label">@i18n.Resources.Users</label>
+                    <select id="usersTeamFilter"
+                            name="teamscores-userFilter"
+                            class="form-control"
+                            data-role="multiselect"
+                            data-value-primitive="true"
+                            data-text-field="name"
+                            data-option-label="@i18n.Resources.Users"
+                            data-value-field="id"
+                            data-bind="value: usersFilter, source: users"
+                            multiple></select>
+                </div>
+                <button class="btn btn-primary" data-bind="click: find">@i18n.Resources.Filter</button>
+                
+             </div>
+            <br /><br />
+        </div>
+        <div class="row">
+            <div id="ergoscoreBarChart">
 
             </div>
-        </div>
+
+            <div class="baseUnitOptions">
+                <input id="baseUnitAuto" name="baseUnit"
+                       type="radio" value="" checked="checked" autocomplete="off" />
+                <label for="baseUnitAuto">Automatic (default)</label>
+                <input id="baseUnitYears" name="baseUnit"
+                       type="radio" value="years" autocomplete="off" />
+                <label for="baseUnitYears">Years</label>
+                <input id="baseUnitMonths" name="baseUnit"
+                       type="radio" value="months" autocomplete="off" />
+                <label for="baseUnitMonths">Months</label>
+                <input id="baseUnitWeeks" name="baseUnit"
+                       type="radio" value="weeks" autocomplete="off" />
+                <label for="baseUnitWeeks">Weeks</label>
+                <input id="baseUnitDays" name="baseUnit"
+                       type="radio" value="days" autocomplete="off" />
+                <label for="baseUnitDays">Days</label>
+            </div>
+        </div>     
     </div>
 </div>
 

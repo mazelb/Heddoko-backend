@@ -17,6 +17,8 @@ var TeamScores = {
 
     datasources: function() {
         this.teamScores = TeamScores.getDatasource();
+
+        this.teamScoresDD = TeamScores.getDatasourceDD();
     },
 
     getDatasource: function() {
@@ -25,7 +27,7 @@ var TeamScores = {
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport("admin/api/teamscore"),
+            transport: KendoDS.buildTransport('/admin/api/teamscore'),
             schema: {
                 data: "response",
                 total: "total",
@@ -40,8 +42,29 @@ var TeamScores = {
                         score: {
                             editable: false,
                             type: "number"
+                        },
+                        name: {
+                            editable: false,
+                            type: "string"
                         }
                     }
+                }
+            }
+        });
+    },
+
+    getDatasourceDD: function() {
+        return new kendo.data.DataSource({
+            serverPaging: false,
+            serverFiltering: true,
+            serverSorting: false,
+            transport: KendoDS.buildTransport('/admin/api/teamscore'),
+            schema: {
+                data: "response",
+                total: "total",
+                errors: "Errors",
+                model: {
+                    id: "id"
                 }
             }
         });
@@ -64,8 +87,8 @@ var TeamScores = {
                 },
                 columns: [
                     {
-                        field: "id",
-                        title: i18n.Resources.ID
+                        field: "name",
+                        title: i18n.Resources.NameOfUser
                     },
                     {
                         field: "score",
@@ -77,7 +100,7 @@ var TeamScores = {
                 ]
             }).data("kendoGrid");
         }
-    }
+    },
 };
 
 Datasources.bind(TeamScores.datasources);

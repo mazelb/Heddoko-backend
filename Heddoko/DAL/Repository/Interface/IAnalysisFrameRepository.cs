@@ -17,13 +17,9 @@ namespace DAL
 {
     public interface IAnalysisFrameRepository : IMongoDbRepository<AnalysisFrame>
     {
-        Task<double> GetUserScoreAsync(int userID);
-        Task<double> GetTeamScoreAsync(int[] userIDs);
-        Task<List<ErgoScore>> GetMultipleUserScoresAsync(int[] userIDs);
-        Task<double> GetTotalErgoScoreAsync();
-        double GetUserScore(int userID);
-        double GetTeamScore(int[] userIDs);
-        List<ErgoScore> GetMultipleUserScores(int[] userIDs);
-        double GetTotalErgoScore();
+        double GetRecordScore(int recordID);
+        Task<double> GetRecordScoreAsync(int recordID);
+        ErgoScoreRecord GetErgoScoreRecord(int recordId);
+        Task<ErgoScoreRecord> GetErgoScoreRecordAsync(int recordId);
     }
 }
