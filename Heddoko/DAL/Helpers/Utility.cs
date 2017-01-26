@@ -334,7 +334,7 @@ namespace DAL
 
         public static uint ConvertToUnixTimestamp(this DateTime date)
         {
-            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime();
             TimeSpan diff = date - origin;
             return (uint)Math.Floor(diff.TotalSeconds);
         }
@@ -344,8 +344,8 @@ namespace DAL
         #region uint
         public static DateTime ConvertFromUnixTimestamp(this uint timestamp)
         {
-            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return origin.AddSeconds(timestamp);
+            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            return origin.AddSeconds(timestamp).ToLocalTime();
         }
 
         #endregion
