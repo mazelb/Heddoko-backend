@@ -69,6 +69,20 @@ var UsersAdmin = {
                     template: function (e) {
                         return Format.license.name(e.licenseName);
                     }
+                },{
+                    field: 'kitID',
+                    title: i18n.Resources.Kit,
+                    editor: KendoDS.emptyEditor,
+                    template: function (e) {
+                        return Format.user.kit(e);
+                    }
+                }, {
+                    field: 'teamID',
+                    title: i18n.Resources.Team,
+                    editor: KendoDS.emptyEditor,
+                    template: function (e) {
+                        return Format.user.team(e);
+                    }
                 }, {
                     field: 'status',
                     title: i18n.Resources.Status,
