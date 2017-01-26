@@ -332,6 +332,22 @@ namespace DAL
             return new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(1).AddDays(-1);
         }
 
+        public static uint ConvertToUnixTimestamp(this DateTime date)
+        {
+            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            TimeSpan diff = date - origin;
+            return (uint)Math.Floor(diff.TotalSeconds);
+        }
+
+        #endregion
+
+        #region uint
+        public static DateTime ConvertFromUnixTimestamp(this uint timestamp)
+        {
+            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return origin.AddSeconds(timestamp);
+        }
+
         #endregion
     }
 }

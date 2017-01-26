@@ -64,7 +64,7 @@ namespace Heddoko.Controllers
                 UserId = item.UserId,
                 RecordScore = item.RecordScore,
                 HourlyScores = item.HourlyScores,
-                Date = Utils.ConvertFromUnixTimestamp(item.StartTime)
+                Date = item.StartTime.ConvertFromUnixTimestamp()
             };
         }
     }

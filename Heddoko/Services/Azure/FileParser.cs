@@ -178,7 +178,7 @@ namespace Services
 
         private static void SaveAnalysisFrame(AnalysisFrame frame, UnitOfWork uoW, int recordId)
         {
-            DateTime time = Utils.ConvertFromUnixTimestamp(frame.TimeStamp);
+            DateTime time = frame.TimeStamp.ConvertFromUnixTimestamp();
             frame.DayOfMonth = time.Day;
             frame.Hour = time.Hour;
             frame.Minute = time.Minute;

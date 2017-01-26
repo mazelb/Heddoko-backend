@@ -20,7 +20,7 @@ var ErgoscoreBarChart = {
             serverPaging: true,
             serverFiltering: true,
             serverSorting: false,
-            transport: KendoDS.buildTransport("admin/api/ergoscorerecord"),
+            transport: KendoDS.buildTransport("/admin/api/ergoscorerecord"),
             schema: {
                 data: "response",
                 total: "total",
