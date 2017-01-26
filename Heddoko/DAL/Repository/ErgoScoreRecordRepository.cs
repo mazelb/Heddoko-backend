@@ -18,6 +18,14 @@ namespace DAL.Repository
         {
         }
 
+        // ErgoScoreRecord Fields
+        private const string UserId = "UserId";
+        private const string StartTime = "StartTime";
+        private const string NumFrames = "NumFrames";
+        private const string RecordScore = "RecordScore";
+        private const string HourlyScores = "HourlyScores";
+
+        // Aggregate builders
         private IAggregateFluent<BsonDocument> GetAggregateUserScore(int userId)
         {
             var collection = GetCollection();
@@ -77,8 +85,107 @@ namespace DAL.Repository
             var aggregate = collection.Aggregate()
                 .Match(new BsonDocument("UserId", new BsonDocument("$in", new BsonArray(userIds))))
                 .Project(new BsonDocument { { "_id", 1 }, { "UserId", 1 }, { "RecordScore", 1 }, { "StartTime", 1 }, { "HourlyScores", 1 } });
+
             return aggregate;
         }
+
+        // Pipeline Builders
+
+        // BenB - This function can be expanded upon to include more filters later on
+        private BsonDocument[] GetFilteredRecordsPipeline(int[] userIds, int? startDate, int? endDate)
+        {
+            List<BsonDocument> pipeline = new List<BsonDocument>();
+
+            pipeline.Add(GetMatchForUsersArray(userIds));
+            if (startDate.HasValue)
+            {
+                pipeline.Add(GetMatchForStartDate(startDate.Value));
+            }
+            if (endDate.HasValue)
+            {
+                pipeline.Add(GetMatchForEndDate(endDate.Value));
+            }
+            pipeline.Add(GetProjectForRecords());
+
+            return pipeline.ToArray();
+        }
+
+        private BsonDocument GetMatchForUsersArray(int[] userIds)
+        {
+            return new BsonDocument
+            {
+                {
+                    "$match",
+                    new BsonDocument
+                    {
+                        { UserId,
+                            new BsonDocument
+                            {
+                                { "$in", new BsonArray(userIds) }
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        private BsonDocument GetMatchForStartDate(int startDate)
+        {
+            return new BsonDocument
+            {
+                {
+                    "$match",
+                    new BsonDocument
+                    {
+                        {
+                            StartTime,
+                            new BsonDocument {
+                                {
+                                    "$gte", startDate
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        private BsonDocument GetMatchForEndDate(int endDate)
+        {
+            return new BsonDocument
+            {
+                {
+                    "$match",
+                    new BsonDocument
+                    {
+                        {
+                            StartTime,
+                            new BsonDocument {
+                                {
+                                    "$lte", endDate
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        private BsonDocument GetProjectForRecords()
+        {
+            return new BsonDocument
+            {
+                {
+                    "$project",
+                    new BsonDocument
+                    {
+                        { "_id", 1 }, { "UserId", 1 }, { "RecordScore", 1 }, { "StartTime", 1 }, { "HourlyScores", 1 }
+                    }
+                }
+            };
+        }
+
+        // Public Functions
 
         /// <summary>
         /// Caluculates ErgoScores for a list of users
@@ -265,6 +372,42 @@ namespace DAL.Repository
             var aggregate = GetAggregateRecords(userIDs);
 
             var results = await aggregate.ToCursorAsync();
+            if (results != null)
+            {
+                await results.ForEachAsync(delegate (BsonDocument result)
+                {
+                    records.Add(BsonSerializer.Deserialize<ErgoScoreRecord>(result));
+                });
+            }
+
+            return records;
+        }     
+
+        public List<ErgoScoreRecord> GetFilteredErgoScoreRecords(int[] userIDs, int?[] dates = null)
+        {
+            List<ErgoScoreRecord> records = new List<ErgoScoreRecord>();
+
+            var pipeline = GetFilteredRecordsPipeline(userIDs, dates[0], dates[1]);
+
+            var results = GetCollection().Aggregate<BsonDocument>(pipeline.ToArray()).ToList();
+
+            if (results != null)
+            {
+                records = results.Select(score => BsonSerializer.Deserialize<ErgoScoreRecord>(score)).ToList();
+            }
+
+            return records;
+        }
+
+        public async Task<List<ErgoScoreRecord>> GetFilteredErgoScoreRecordsAsync(int[] userIDs, int?[] dates = null)
+        {
+            List<ErgoScoreRecord> records = new List<ErgoScoreRecord>();
+
+            var pipeline = GetFilteredRecordsPipeline(userIDs, dates[0], dates[1]);
+
+            // Make this async
+            var results = GetCollection().Aggregate<BsonDocument>(pipeline.ToArray());
+
             if (results != null)
             {
                 await results.ForEachAsync(delegate (BsonDocument result)

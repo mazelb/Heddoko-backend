@@ -1240,6 +1240,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End Date.
+        /// </summary>
+        public static string EndDate {
+            get {
+                return ResourceManager.GetString("EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter.
         /// </summary>
         public static string Enter {
@@ -3558,6 +3567,15 @@ namespace i18n {
         public static string SoftwareOrFirmware {
             get {
                 return ResourceManager.GetString("SoftwareOrFirmware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Date.
+        /// </summary>
+        public static string StartDate {
+            get {
+                return ResourceManager.GetString("StartDate", resourceCulture);
             }
         }
         

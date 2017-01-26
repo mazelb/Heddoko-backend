@@ -1518,4 +1518,10 @@
   <data name="NameOfUser" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
 </root>

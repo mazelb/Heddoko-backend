@@ -467,7 +467,9 @@ i18n.Resources = (function () {
   "Grant": "Grant",
   "ApproveApplication": "Approve Application",
   "String": "",
-  "NameOfUser": "Name"
+  "NameOfUser": "Name",
+  "StartDate": "Start Date",
+  "EndDate": "End Date"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());
