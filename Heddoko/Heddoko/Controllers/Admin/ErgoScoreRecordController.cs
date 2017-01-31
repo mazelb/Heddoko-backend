@@ -16,7 +16,8 @@ namespace Heddoko.Controllers
     [AuthAPI(Roles = Constants.Roles.AnalystAndAdmin)]
     public class ErgoScoreRecordController : BaseAdminController<ErgoScoreRecord, ErgoScoreRecordAPIModel>
     {
-        private const string Search = "Search";
+        private const string Users = "Users";
+        private const string Dates = "Dates";
 
         public override KendoResponse<IEnumerable<ErgoScoreRecordAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -24,23 +25,38 @@ namespace Heddoko.Controllers
 
             if (CurrentUser.TeamID.HasValue)
             {
-                int[] users = new int[0];
+                List<int> users = null;
+                List<int?> dates = new List<int?> { null, null };
 
                 if (request?.Filter != null)
                 {
-                    KendoFilterItem searchFilter = request.Filter.Get(Search);
-                    if (!string.IsNullOrEmpty(searchFilter?.Value))
+                    KendoFilterItem usersFilter = request.Filter.Get(Users);
+                    if (!string.IsNullOrEmpty(usersFilter?.Value))
                     {
-                        string[] tempIDs = searchFilter.Value.Split(',');
-                        users = tempIDs.Select(userID => Int32.Parse(userID)).ToArray();
-                    }                  
+                        string[] tempIDs = usersFilter.Value.Split(',');
+                        users = tempIDs.Select(userID => Int32.Parse(userID)).ToList();
+                    }
+
+                    KendoFilterItem datesFilter = request.Filter.Get(Dates);
+                    if (!string.IsNullOrEmpty(datesFilter?.Value))
+                    {
+                        //datesFilter.Value is an array [start, end] either can be null
+                        string[] tempDates = datesFilter.Value.Split(',');
+                        for (int i = 0; i < 2; i++)
+                        {
+                            if(!(tempDates[i].IsNullOrEmpty() || tempDates[i] == "null"))
+                            {
+                                dates[i] = Int32.Parse(tempDates[i]);
+                            }
+                        }
+                    }        
                 }
-                else
+                if (users == null)
                 {
-                    users = UoW.UserRepository.GetIdsByTeam(CurrentUser.TeamID.Value).ToArray();                
+                    users = UoW.UserRepository.GetIdsByTeam(CurrentUser.TeamID.Value).ToList();
                 }
 
-                var results = UoW.ErgoScoreRecordRepository.GetTeamErgoScoreRecords(users);
+                var results = UoW.ErgoScoreRecordRepository.GetFilteredErgoScoreRecords(users.ToArray(), dates.ToArray());
 
                 records.AddRange(results.ToList().Select(Convert));
             }

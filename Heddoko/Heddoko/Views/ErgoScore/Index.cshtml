@@ -28,12 +28,22 @@
                             data-value-field="id"
                             data-bind="value: usersFilter, source: users"
                             multiple></select>
+
+                    <button class="btn btn-primary" data-bind="click: find">@i18n.Resources.Filter</button>
+                    
                 </div>
-                <button class="btn btn-primary" data-bind="click: find">@i18n.Resources.Filter</button>
-                
+                <div class="col-md-3">
+                    <label for="startDate" class="control-label">@i18n.Resources.StartDate</label>
+                    <input id="startDate"/>
+                </div>
+                <div class="col-md-3">
+                    <label for="endDate" class="control-label">@i18n.Resources.EndDate</label>
+                    <input id="endDate"/>
+                </div>                
              </div>
-            <br /><br />
+            
         </div>
+        <br /><br />
         <div class="row">
             <div id="ergoscoreBarChart">
 
