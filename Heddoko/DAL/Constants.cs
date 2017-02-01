@@ -62,6 +62,7 @@ namespace DAL
             public const string UserAndAdmin = "User,Admin";
             public const string AnalystAndAdmin = "Analyst,Admin";
             public const string LicenseAdminAndAdmin = "LicenseAdmin,Admin";
+            public const string LicenseAdminAndAnalystAndAdmin = "LicenseAdmin,Analyst,Admin";
             public const string LicenseAdminAndWorkerAndAnalyst = "LicenseAdmin,Analyst,Worker";
             public const string LicenseAdminAndWorkerAndAnalystAndAdmin = "LicenseAdmin,Analyst,Worker,Admin";
             public const string WorkerAndAdmin = "Worker,Admin";

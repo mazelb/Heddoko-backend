@@ -1,11 +1,12 @@
 ﻿$(function () {
-    ErgoscoreBarChart.init();
+    Ergoscores.init();
 });
 
-var ErgoscoreBarChart = {
+var Ergoscores = {
 
     controls: {
         chart: null,
+        grid: null,
         filterModel: null,
         baseUnitInputs: null,
         startDatePicker: null,
@@ -13,10 +14,14 @@ var ErgoscoreBarChart = {
     },
 
     datasources: function() {
-        this.ergoscoreBarChart = ErgoscoreBarChart.getDatasource();
+        this.ergoscoreBarChart = Ergoscores.getChartDatasource();
+
+        this.ergoscoreLeaderboard = Ergoscores.getLeaderboardDatasource();
+
+        this.ergoscoreUsersDD = Ergoscores.getDatasourceDD();
     },
 
-    getDatasource: function() {
+    getChartDatasource: function() {
         return new kendo.data.DataSource({
             pageSize: KendoDS.pageSize,
             serverPaging: true,
@@ -53,15 +58,65 @@ var ErgoscoreBarChart = {
         });
     },
 
+    getLeaderboardDatasource: function() {
+        return new kendo.data.DataSource({
+            pageSize: KendoDS.pageSize,
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: false,
+            transport: KendoDS.buildTransport('/admin/api/ergoscoreLeaderboard'),
+            schema: {
+                data: "response",
+                total: "total",
+                errors: "Errors",
+                model: {
+                    id: "id",
+                    fields: {
+                        id: {
+                            editable: false,
+                            nullable: true
+                        },
+                        score: {
+                            editable: false,
+                            type: "number"
+                        },
+                        name: {
+                            editable: false,
+                            type: "string"
+                        }
+                    }
+                }
+            }
+        });
+    },
+
+    getDatasourceDD: function () {
+        return new kendo.data.DataSource({
+            serverPaging: false,
+            serverFiltering: true,
+            serverSorting: false,
+            transport: KendoDS.buildTransport('/admin/api/ergoscoreLeaderboard'),
+            schema: {
+                data: "response",
+                total: "total",
+                errors: "Errors",
+                model: {
+                    id: "id"
+                }
+            }
+        });
+    },
+
     init: function () {
-        var control = $("#ergoscoreBarChart");
-        var filter = $(".ergoscoreChartFilter");
+        var chart = $("#ergoscoreBarChart");
+        var grid = $("#ergoscoreLeaderboard");
+        var filter = $(".ergoscoreFilter");
         var baseUnits = $(".baseUnitOptions");
         var startDate = $("#startDate");
         var endDate = $("#endDate");
 
-        if (control.length > 0) {
-            this.controls.chart = control.kendoChart({
+        if (chart.length > 0) {
+            this.controls.chart = chart.kendoChart({
                 dataSource: Datasources.ergoscoreBarChart,
                 title: {
                     text: "Team ErgoScores"
@@ -107,27 +162,63 @@ var ErgoscoreBarChart = {
             }).data("kendoDateTimePicker");
 
             this.controls.filterModel = kendo.observable({
-                users: Datasources.teamScoresDD,
+                users: Datasources.ergoscoreUsersDD,
                 usersFilter: [],
                 startDateSelected: this.controls.startDatePicker.value,
                 endDateSelected: this.controls.endDatePicker.value,
-                find: this.onFilter.bind(this),
+                find: this.onFilter.bind(this)
             });
 
             kendo.bind(filter, this.controls.filterModel);
 
             baseUnits.bind("change", this.refresh);            
         }
-    },
 
-    onFilter: function (e) {
-        var filters = this.buildFilter();
-        if (filters) {
-            this.controls.chart.dataSource.filter(filters);
+        if (grid.length > 0)
+        {
+            this.controls.grid = grid.kendoGrid({
+                dataSource: Datasources.ergoscoreLeaderboard,
+                sortable: false,
+                selectable: false,
+                scrollable: false,
+                resizeable: true,
+                autoBind: true,
+                pageable: {
+                    refresh: true,
+                    pageSize: [10, 50, 100]
+                },
+                columns: [
+                    {
+                        field: "name",
+                        title: i18n.Resources.NameOfUser
+                    },
+                    {
+                        field: "score",
+                        title: i18n.Resources.Ergoscore,
+                        template: function (e) {
+                            return Format.ergoscore.score(e.score);
+                        }
+                    }
+                ]
+            }).data("kendoGrid");
+
+            KendoDS.bind(this.controls.grid, true);
         }
     },
 
-    buildFilter: function (usersFilter) {
+    onFilter: function (e) {
+        var chartFilters = this.buildChartFilter();
+        if (chartFilters) {
+            this.controls.chart.dataSource.filter(chartFilters);
+        }
+
+        var gridFilters = this.buildGridFilter();
+        if (gridFilters) {
+            this.controls.grid.dataSource.filter(gridFilters);
+        }
+    },
+
+    buildChartFilter: function (usersFilter) {
         usersFilter = this.controls.filterModel.usersFilter;
         var dateFilter = {
             start: this.controls.startDatePicker.value(),
@@ -169,9 +260,28 @@ var ErgoscoreBarChart = {
         return filters.length === 0 ? {} : filters;
     },
 
+    buildGridFilter: function(usersFilter) {
+        usersFilter = this.controls.filterModel.usersFilter;
+        var filters = [];
+
+        if (typeof (usersFilter) !== "undefined" && usersFilter.length !== 0 && usersFilter !== null) {
+            var userIDs = [];
+            usersFilter.forEach(function (element) {
+                userIDs.push(element);
+            });
+            filters.push({
+                field: "Users",
+                operator: "eq",
+                value: userIDs.toString()
+            });
+        }
+
+        return filters.length === 0 ? {} : filters;
+    },
+
     // Call after chart options have been changed
     refresh: function () {
-        var chart = ErgoscoreBarChart.controls.chart;
+        var chart = Ergoscores.controls.chart;
         var baseUnitInputs = $("input:radio[name=baseUnit]");
 
         chart.options.categoryAxis.baseUnit = baseUnitInputs.filter(":checked").val();
@@ -180,37 +290,37 @@ var ErgoscoreBarChart = {
     },
 
     startChange: function () {
-        var start = ErgoscoreBarChart.controls.startDatePicker.value();
-        var end = ErgoscoreBarChart.controls.endDatePicker.value();
+        var start = Ergoscores.controls.startDatePicker.value();
+        var end = Ergoscores.controls.endDatePicker.value();
         if (start) {
-            ErgoscoreBarChart.controls.endDatePicker.min(start)
+            Ergoscores.controls.endDatePicker.min(start)
         }
         else if (end) {
-            ErgoscoreBarChart.controls.startDatePicker.max(end);
+            Ergoscores.controls.startDatePicker.max(end);
         }
         else {
             end = new Date();
-            ErgoscoreBarChart.controls.startDatePicker.max(end);
-            ErgoscoreBarChart.controls.endDatePicker.min(end);
+            Ergoscores.controls.startDatePicker.max(end);
+            Ergoscores.controls.endDatePicker.min(end);
         }
     },
 
     endChange: function () {
-        var end = ErgoscoreBarChart.controls.endDatePicker.value();
-        var start = ErgoscoreBarChart.controls.startDatePicker.value();
+        var end = Ergoscores.controls.endDatePicker.value();
+        var start = Ergoscores.controls.startDatePicker.value();
     
         if (end) {
-            ErgoscoreBarChart.controls.startDatePicker.max(end)
+            Ergoscores.controls.startDatePicker.max(end)
         }
         else if (start) {
-            ErgoscoreBarChart.controls.endDatePicker.min(start);
+            Ergoscores.controls.endDatePicker.min(start);
         }
         else {
             end = new Date();
-            ErgoscoreBarChart.controls.startDatePicker.max(end);
-            ErgoscoreBarChart.controls.endDatePicker.min(end);
+            Ergoscores.controls.startDatePicker.max(end);
+            Ergoscores.controls.endDatePicker.min(end);
         }
     }
 };
 
-Datasources.bind(ErgoscoreBarChart.datasources);
+Datasources.bind(Ergoscores.datasources);

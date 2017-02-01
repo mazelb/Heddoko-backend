@@ -108,6 +108,8 @@ namespace Heddoko.Controllers
 
         protected bool IsLicenseAdmin => CurrentUser != null && UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.LicenseAdmin);
 
+        protected bool IsAnalyst => CurrentUser != null && UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.Analyst);
+
 
         [DomainRoute("", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]

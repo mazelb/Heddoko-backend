@@ -13,7 +13,7 @@ namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("admin/api/ergoscorerecord")]
-    [AuthAPI(Roles = Constants.Roles.AnalystAndAdmin)]
+    [AuthAPI(Roles = Constants.Roles.LicenseAdminAndAnalystAndAdmin)]
     public class ErgoScoreRecordController : BaseAdminController<ErgoScoreRecord, ErgoScoreRecordAPIModel>
     {
         private const string Users = "Users";
@@ -23,11 +23,11 @@ namespace Heddoko.Controllers
         {
             List<ErgoScoreRecordAPIModel> records = new List<ErgoScoreRecordAPIModel>();
 
-            if (CurrentUser.TeamID.HasValue)
-            {
-                List<int> users = null;
-                List<int?> dates = new List<int?> { null, null };
+            List<int> users = null;
+            List<int?> dates = new List<int?> { null, null };
 
+            if (IsAnalyst || IsLicenseAdmin)
+            {
                 if (request?.Filter != null)
                 {
                     KendoFilterItem usersFilter = request.Filter.Get(Users);
@@ -53,13 +53,22 @@ namespace Heddoko.Controllers
                 }
                 if (users == null)
                 {
-                    users = UoW.UserRepository.GetIdsByTeam(CurrentUser.TeamID.Value).ToList();
-                }
-
+                    if (IsLicenseAdmin && CurrentUser.OrganizationID.HasValue)
+                    {
+                        users = UoW.UserRepository.GetIdsByOrganization(CurrentUser.OrganizationID.Value).ToList();
+                    }
+                    else if (IsAnalyst && CurrentUser.TeamID.HasValue)
+                    {
+                        users = UoW.UserRepository.GetIdsByTeam(CurrentUser.TeamID.Value).ToList();
+                    }
+                }               
+            }
+            if (users != null)
+            {
                 var results = UoW.ErgoScoreRecordRepository.GetFilteredErgoScoreRecords(users.ToArray(), dates.ToArray());
-
                 records.AddRange(results.ToList().Select(Convert));
             }
+
             int count = records.Count();
 
             return new KendoResponse<IEnumerable<ErgoScoreRecordAPIModel>>

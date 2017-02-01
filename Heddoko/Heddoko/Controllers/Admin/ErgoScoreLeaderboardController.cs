@@ -20,17 +20,40 @@ using Heddoko.Helpers.DomainRouting.Http;
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [RoutePrefix("admin/api/teamscore")]
-    [AuthAPI(Roles = Constants.Roles.AnalystAndAdmin)]
-    public class TeamScoreController : BaseAdminController<ErgoScore, ErgoScoreAPIModel>
+    [RoutePrefix("admin/api/ergoscoreLeaderboard")]
+    [AuthAPI(Roles = Constants.Roles.LicenseAdminAndAnalystAndAdmin)]
+    public class ErgoScoreLeaderboardController : BaseAdminController<ErgoScore, ErgoScoreAPIModel>
     {
+        private const string Users = "Users";
+
         public override KendoResponse<IEnumerable<ErgoScoreAPIModel>> Get([FromUri] KendoRequest request)
         {
             List<ErgoScoreAPIModel> scores = new List<ErgoScoreAPIModel>();
+            List<int> users = null;
 
-            if (CurrentUser.TeamID.HasValue)
+            if (request?.Filter != null)
             {
-                List<int> users = UoW.UserRepository.GetIdsByTeam(CurrentUser.TeamID.Value).ToList();
+                KendoFilterItem usersFilter = request.Filter.Get(Users);
+
+                if (!string.IsNullOrEmpty(usersFilter?.Value))
+                {
+                    string[] tempIDs = usersFilter.Value.Split(',');
+                    users = tempIDs.Select(userID => Int32.Parse(userID)).ToList();
+                }
+            }
+
+            else if (IsLicenseAdmin && CurrentUser.OrganizationID.HasValue)
+            {
+                users = UoW.UserRepository.GetIdsByOrganization(CurrentUser.OrganizationID.Value).ToList();
+            }
+            // Analyst
+            else if (IsAnalyst && CurrentUser.TeamID.HasValue)
+            {
+                users = UoW.UserRepository.GetIdsByTeam(CurrentUser.TeamID.Value).ToList();
+            }
+
+            if (users != null)
+            {
                 var results = UoW.ErgoScoreRecordRepository.GetMultipleUserScores(users.ToArray());
 
                 scores.AddRange(results.ToList().Select(Convert));
