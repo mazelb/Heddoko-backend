@@ -15,10 +15,9 @@ var Ergoscores = {
 
     datasources: function() {
         this.ergoscoreBarChart = Ergoscores.getChartDatasource();
-
         this.ergoscoreLeaderboard = Ergoscores.getLeaderboardDatasource();
-
         this.ergoscoreUsersDD = Ergoscores.getDatasourceDD();
+        this.ergoscoreTeams = Ergoscores.getTeamsDatasource();
     },
 
     getChartDatasource: function() {
@@ -107,6 +106,38 @@ var Ergoscores = {
         });
     },
 
+    getTeamsDatasource: function () {
+        return new kendo.data.DataSource({
+            pageSize: KendoDS.pageSize,
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: false,
+            transport: KendoDS.buildTransport("/admin/api/teams"),
+            schema: {
+                data: "response",
+                total: "total",
+                errors: "Errors",
+                model: {
+                    id: "id",
+                    fields: {
+                        id: {
+                            editable: false,
+                            nullable: true
+                        },
+                        name: {
+                            nullable: false,
+                            type: "string",
+                            validation: {
+                                required: true,
+                                maxLengthValidation: Validator.equipment.name.maxLengthValidation
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    },
+
     init: function () {
         var chart = $("#ergoscoreBarChart");
         var grid = $("#ergoscoreLeaderboard");
@@ -128,7 +159,7 @@ var Ergoscores = {
                     categoryField: "date"
                 }],
                 categoryAxis: {
-                    baseUnit: "",
+                    baseUnit: "fit",
                     majorGridLines: {
                         visible: false
                     }
@@ -163,10 +194,13 @@ var Ergoscores = {
 
             this.controls.filterModel = kendo.observable({
                 users: Datasources.ergoscoreUsersDD,
+                teams: Datasources.ergoscoreTeams,
                 usersFilter: [],
+                teamsFilter: [],
                 startDateSelected: this.controls.startDatePicker.value,
                 endDateSelected: this.controls.endDatePicker.value,
-                find: this.onFilter.bind(this)
+                find: this.onFilter.bind(this),
+                onTeamChange: this.onTeamChange.bind(this)
             });
 
             kendo.bind(filter, this.controls.filterModel);
@@ -218,28 +252,97 @@ var Ergoscores = {
         }
     },
 
+    // Build the filter array for the bar chart
     buildChartFilter: function (usersFilter) {
-        usersFilter = this.controls.filterModel.usersFilter;
-        var dateFilter = {
-            start: this.controls.startDatePicker.value(),
-            end: this.controls.endDatePicker.value()
-        };
         var filters = [];
+
+        usersFilter = this.buildUsersFilter();
+        if (usersFilter)
+        {
+            filters.push(usersFilter);
+        }
+
+        var dateFilter = this.buildDateFilter();
+        if (dateFilter)
+        {
+            filters.push(dateFilter);
+        }
+
+        var teamFilter = this.buildTeamFilter();
+        if (teamFilter)
+        {
+            filters.push(teamFilter);
+        }
+
+        return filters.length === 0 ? {} : filters;
+    },
+
+    // Build to filter array for the leaderboard grid
+    buildGridFilter: function(usersFilter) {
+        var filters = [];
+        usersFilter = this.buildUsersFilter();
+        if (usersFilter) {
+            filters.push(usersFilter);
+        }
+        var teamFilter = this.buildTeamFilter();
+        if (teamFilter)
+        {
+            filters.push(teamFilter);
+        }
+
+        return filters.length === 0 ? {} : filters;
+    },
+
+    // build filter item for the team filter
+    buildTeamFilter: function(teamsFilter) {
+        teamsFilter = this.controls.filterModel.teamsFilter;
+        var filter = null;
+
+        if (typeof (teamsFilter) !== "undefined" && teamsFilter.length !== 0 && teamsFilter !== null) {
+            var teamIDs = [];
+            teamsFilter.forEach(function (element) {
+                teamIDs.push(element);
+            });
+            filter = {
+                field: "Teams",
+                operator: "eq",
+                value: teamIDs.toString()
+            };
+        }
+        return filter;
+    },
+
+    // build filter item for the users filter
+    buildUsersFilter: function(usersFilter)
+    {
+        usersFilter = this.controls.filterModel.usersFilter;
+        var filter = null;
 
         if (typeof (usersFilter) !== "undefined" && usersFilter.length !== 0 && usersFilter !== null) {
             var userIDs = [];
             usersFilter.forEach(function (element) {
                 userIDs.push(element);
             });
-            filters.push({
+            filter = {
                 field: "Users",
                 operator: "eq",
                 value: userIDs.toString()
-            });
+            };
         }
+        return filter;
+    },
 
-        if (dateFilter.start != null || dateFilter.end != null)
-        {
+    // build filter item for the date filter
+    buildDateFilter: function(dateFilter) 
+    {
+        var dateFilter = {
+            start: this.controls.startDatePicker.value(),
+            end: this.controls.endDatePicker.value()
+        };
+
+        var filter = null;
+
+        if (dateFilter.start != null || dateFilter.end != null) {
             if (dateFilter.start != null) {
                 dateFilter.start = parseInt((dateFilter.start.getTime() / 1000).toFixed(0));
             }
@@ -250,33 +353,14 @@ var Ergoscores = {
             dates.push(dateFilter.start);
             dates.push(dateFilter.end);
 
-            filters.push({
+            filter = {
                 field: "Dates",
                 operator: "eq",
                 value: dates.toString()
-            });
+            };
         }
 
-        return filters.length === 0 ? {} : filters;
-    },
-
-    buildGridFilter: function(usersFilter) {
-        usersFilter = this.controls.filterModel.usersFilter;
-        var filters = [];
-
-        if (typeof (usersFilter) !== "undefined" && usersFilter.length !== 0 && usersFilter !== null) {
-            var userIDs = [];
-            usersFilter.forEach(function (element) {
-                userIDs.push(element);
-            });
-            filters.push({
-                field: "Users",
-                operator: "eq",
-                value: userIDs.toString()
-            });
-        }
-
-        return filters.length === 0 ? {} : filters;
+        return filter;
     },
 
     // Call after chart options have been changed
@@ -319,6 +403,15 @@ var Ergoscores = {
             end = new Date();
             Ergoscores.controls.startDatePicker.max(end);
             Ergoscores.controls.endDatePicker.min(end);
+        }
+    },
+
+    onTeamChange: function (e) {
+        var filters = []
+        var teamFilter = this.buildTeamFilter();
+        if (teamFilter) {
+            filters.push(teamFilter)
+            Datasources.ergoscoreUsersDD.filter(filters);
         }
     }
 };

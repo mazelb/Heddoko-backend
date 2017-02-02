@@ -35,7 +35,7 @@
                 <div class="col-md-3">
                     <label for="startDate" class="control-label">@i18n.Resources.StartDate</label>
                     <input id="startDate"/>
-                    @if (Model.IsAdmin)
+                    @if (Model.IsLicenseAdmin)
                     {
                         // Team Filter
                         <label for="teamFilter" class="control-label">@i18n.Resources.Teams</label>
@@ -47,7 +47,7 @@
                                 data-text-field="name"
                                 data-option-label="@i18n.Resources.Teams"
                                 data-value-field="id"
-                                data-bind="value: teamsFilter, source: teams"
+                                data-bind="value: teamsFilter, source: teams, events: { change: onTeamChange }"
                                 multiple></select>
                     }
                 </div>
@@ -66,7 +66,7 @@
 
             <div class="baseUnitOptions">
                 <input id="baseUnitAuto" name="baseUnit"
-                       type="radio" value="" checked="checked" autocomplete="off" />
+                       type="radio" value="fit" checked="checked" autocomplete="off" />
                 <label for="baseUnitAuto">Automatic (default)</label>
                 <input id="baseUnitYears" name="baseUnit"
                        type="radio" value="years" autocomplete="off" />

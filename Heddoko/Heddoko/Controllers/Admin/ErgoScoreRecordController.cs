@@ -17,6 +17,7 @@ namespace Heddoko.Controllers
     public class ErgoScoreRecordController : BaseAdminController<ErgoScoreRecord, ErgoScoreRecordAPIModel>
     {
         private const string Users = "Users";
+        private const string Teams = "Teams";
         private const string Dates = "Dates";
 
         public override KendoResponse<IEnumerable<ErgoScoreRecordAPIModel>> Get([FromUri] KendoRequest request)
@@ -31,10 +32,22 @@ namespace Heddoko.Controllers
                 if (request?.Filter != null)
                 {
                     KendoFilterItem usersFilter = request.Filter.Get(Users);
+                    KendoFilterItem teamsFilter = request.Filter.Get(Teams);
                     if (!string.IsNullOrEmpty(usersFilter?.Value))
                     {
                         string[] tempIDs = usersFilter.Value.Split(',');
                         users = tempIDs.Select(userID => Int32.Parse(userID)).ToList();
+                    }
+                    // Don't want to filter by team if we already filter by user 
+                    else if (!string.IsNullOrEmpty(teamsFilter?.Value))
+                    {
+                        users = new List<int>();
+                        string[] tempIDs = teamsFilter.Value.Split(',');
+                        List<int> teams = tempIDs.Select(teamID => Int32.Parse(teamID)).ToList();
+                        foreach (int team in teams)
+                        {
+                            users.AddRange(UoW.UserRepository.GetIdsByTeam(team));
+                        }
                     }
 
                     KendoFilterItem datesFilter = request.Filter.Get(Dates);

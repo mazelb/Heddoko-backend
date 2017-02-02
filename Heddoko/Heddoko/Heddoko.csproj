@@ -661,7 +661,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\ergoscore\ergoscores.js" />
-    <Content Include="Scripts\js\ergoscore\ergoscoreLeaderboard.js" />
     <Content Include="Scripts\js\account\mask.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
