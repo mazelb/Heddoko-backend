@@ -407,12 +407,16 @@ var Ergoscores = {
     },
 
     onTeamChange: function (e) {
-        var filters = []
+        var filters = [];
         var teamFilter = this.buildTeamFilter();
         if (teamFilter) {
             filters.push(teamFilter)
             Datasources.ergoscoreUsersDD.filter(filters);
         }
+        else {
+            Datasources.ergoscoreUsersDD.filter({});
+        }
+
     }
 };
 
