@@ -61,9 +61,9 @@
         {
             @Scripts.Render("~/Bundles/AdminJs")
         }
-        else if (Model.IsAnalyst)
+        else if (Model.IsAnalyst || Model.IsLicenseAdmin)
         {
-            @Scripts.Render("~/Bundles/AnalystJs")
+            @Scripts.Render("~/Bundles/ErgoScoreJs")
         }
     }
 

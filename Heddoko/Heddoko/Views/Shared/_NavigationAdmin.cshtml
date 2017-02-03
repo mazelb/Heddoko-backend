@@ -55,13 +55,15 @@
                     </a>
                 </li>
             }
-            
-            <li class="@Html.IsCurrentActionLink("Index", "Development")" title="@i18n.Resources.Development">
-                <a href="@Url.Action("Index", "Development")">
-                    <i class="fa fa-code"></i>
-                    <span> @i18n.Resources.Development</span>
-                </a>
-            </li>
+            if (Model.IsAnalyst || Model.IsLicenseAdmin)
+            {
+                <li class="@Html.IsCurrentActionLink("Index", "ErgoScore")" title="@i18n.Resources.Development">
+                    <a href="@Url.Action("Index", "ErgoScore")">
+                        <i class="fa fa-industry"></i>
+                        <span> @i18n.Resources.Ergoscore</span>
+                    </a>
+                </li>
+            }
             <li class="@Html.IsCurrentActionLink("Me", "Account")" title="@i18n.Resources.Profile">
                 <a href="@Url.Action("Me", "Account")">
                     <i class="fa fa-user"></i>

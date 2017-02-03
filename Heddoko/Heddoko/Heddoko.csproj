@@ -660,8 +660,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\js\ergoscore\ergoscoreBarChart.js" />
-    <Content Include="Scripts\js\ergoscore\teamScores.js" />
+    <Content Include="Scripts\js\ergoscore\ergoscores.js" />
     <Content Include="Scripts\js\account\mask.js" />
     <Content Include="Scripts\js\admin\ajax.js" />
     <Content Include="Scripts\js\admin\format.js" />
@@ -788,7 +787,7 @@
     <Compile Include="Controllers\Admin\FirmwaresController.cs" />
     <Compile Include="Controllers\Admin\ShirtsOctopiController.cs" />
     <Compile Include="Controllers\Admin\TeamsController.cs" />
-    <Compile Include="Controllers\Admin\TeamScoreController.cs" />
+    <Compile Include="Controllers\Admin\ErgoScoreLeaderboardController.cs" />
     <Compile Include="Controllers\API\ErgoScoreAPIController.cs" />
     <Compile Include="Controllers\API\FirmwareAPIController.cs" />
     <Compile Include="Controllers\API\AssetAPIController.cs" />

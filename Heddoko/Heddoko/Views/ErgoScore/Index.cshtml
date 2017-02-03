@@ -9,17 +9,17 @@
         <h3>@Html.Raw(i18n.Resources.Ergoscore)</h3>
     </div>
     <div class="col-md-2">
-        <div id="ergoscoreGrid">
+        <div id="ergoscoreLeaderboard">
 
         </div>
     </div>
     <div class="col-md-10">
         <div class="row">
-            <div class="ergoscoreChartFilter">
+            <div class="ergoscoreFilter">
                 <div class="col-md-4">
-                    <label for="usersTeamFilter" class="control-label">@i18n.Resources.Users</label>
-                    <select id="usersTeamFilter"
-                            name="teamscores-userFilter"
+                    <label for="usersFilter" class="control-label">@i18n.Resources.Users</label>
+                    <select id="usersFilter"
+                            name="ergoscores-userFilter"
                             class="form-control"
                             data-role="multiselect"
                             data-value-primitive="true"
@@ -28,13 +28,29 @@
                             data-value-field="id"
                             data-bind="value: usersFilter, source: users"
                             multiple></select>
-
+                    <br />
                     <button class="btn btn-primary" data-bind="click: find">@i18n.Resources.Filter</button>
                     
                 </div>
                 <div class="col-md-3">
                     <label for="startDate" class="control-label">@i18n.Resources.StartDate</label>
                     <input id="startDate"/>
+                    @if (Model.IsLicenseAdmin)
+                    {
+                        <br/>
+                        // Team Filter
+                        <label for="teamFilter" class="control-label">@i18n.Resources.Teams</label>
+                        <select id="teamFilter"
+                                name="ergoscores-teamFilter"
+                                class="form-control"
+                                data-role="multiselect"
+                                data-value-primitive="true"
+                                data-text-field="name"
+                                data-option-label="@i18n.Resources.Teams"
+                                data-value-field="id"
+                                data-bind="value: teamsFilter, source: teams, events: { change: onTeamChange }"
+                                multiple></select>
+                    }
                 </div>
                 <div class="col-md-3">
                     <label for="endDate" class="control-label">@i18n.Resources.EndDate</label>
@@ -43,7 +59,7 @@
              </div>
             
         </div>
-        <br /><br />
+        <br />
         <div class="row">
             <div id="ergoscoreBarChart">
 
@@ -51,7 +67,7 @@
 
             <div class="baseUnitOptions">
                 <input id="baseUnitAuto" name="baseUnit"
-                       type="radio" value="" checked="checked" autocomplete="off" />
+                       type="radio" value="fit" checked="checked" autocomplete="off" />
                 <label for="baseUnitAuto">Automatic (default)</label>
                 <input id="baseUnitYears" name="baseUnit"
                        type="radio" value="years" autocomplete="off" />
