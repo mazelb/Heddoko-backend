@@ -55,9 +55,9 @@
                     </a>
                 </li>
             }
-            if (Model.IsAnalyst || Model.IsLicenseAdmin)
+            if (!Model.IsAdmin)
             {
-                <li class="@Html.IsCurrentActionLink("Index", "ErgoScore")" title="@i18n.Resources.Development">
+                <li class="@Html.IsCurrentActionLink("Index", "ErgoScore")" title="@i18n.Resources.Ergoscore">
                     <a href="@Url.Action("Index", "ErgoScore")">
                         <i class="fa fa-industry"></i>
                         <span> @i18n.Resources.Ergoscore</span>

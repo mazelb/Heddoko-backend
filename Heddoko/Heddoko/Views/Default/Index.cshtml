@@ -129,10 +129,21 @@
 
             </div>
             <div class="row">
+                @if (Model.Guide != null && !Model.IsAdmin)
+                {
+                    <div class="col-md-2"></div>
+                }
+                else if (Model.Guide != null || !Model.IsAdmin)
+                {
+                    <div class="col-md-3"></div>
+                }
+                else
+                {
+                    <div class="col-md-4"></div>
+                }
 
                 @if (Model.Guide != null)
                 {
-                    <div class="col-md-3"></div>
                     <div class="col-md-2">
                         <a href="@Model.Guide.Asset.Url" target="_blank" class="btn-dashboard">
                             <i class="fa fa-2x fa-info-circle"></i>
@@ -144,9 +155,8 @@
                         <p class="text-center">@i18n.Resources.Version: @Model.Guide.Version</p>
                     </div>
                 }
-                else if (Model.IsAnalyst || Model.IsLicenseAdmin)
+                @if (!Model.IsAdmin)
                 {
-                    <div class="col-md-3"></div>
                     <div class="col-md-2">
                         <a href="@Url.Action("Index", "Ergoscore")" class="btn-dashboard">
                             <i class="fa fa-2x fa-industry"></i>
@@ -156,10 +166,6 @@
                             <span></span>
                         </a>
                     </div>
-                }
-                else
-                {
-                    <div class="col-md-4"></div>
                 }
 
                 <div class="col-md-2">
@@ -182,18 +188,6 @@
                     </a>
                 </div>
             </div>
-
-            if (!Model.IsAnalyst && Model.HasUserScore)
-            {
-                <div class="row" id="gauge-row">
-                    <div class="col-md-12">
-                        <div id="gauge-container">
-                            <p>ErgoScores</p>
-                            <div id="gauge"></div>
-                        </div>
-                    </div>
-                </div>
-            }
         }
     </div>
 

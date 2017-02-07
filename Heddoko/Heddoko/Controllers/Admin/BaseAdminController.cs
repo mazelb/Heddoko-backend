@@ -110,6 +110,7 @@ namespace Heddoko.Controllers
 
         protected bool IsAnalyst => CurrentUser != null && UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.Analyst);
 
+        protected bool IsWorker => CurrentUser != null && UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.Worker);
 
         [DomainRoute("", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]

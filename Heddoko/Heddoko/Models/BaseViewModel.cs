@@ -42,6 +42,8 @@ namespace Heddoko.Models
 
         public bool IsAnalyst => IsAuth && CurrentUser.RoleName == Constants.Roles.Analyst;
 
+        public bool IsWorker => IsAuth && CurrentUser.RoleName == Constants.Roles.Worker;
+
         public IEnumerable<SelectListItem> ListCountries => _countries ?? (_countries = new List<SelectListItem>
         {
             new SelectListItem

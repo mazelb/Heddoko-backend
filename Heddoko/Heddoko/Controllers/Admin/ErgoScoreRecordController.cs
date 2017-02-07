@@ -13,7 +13,7 @@ namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [RoutePrefix("admin/api/ergoscorerecord")]
-    [AuthAPI(Roles = Constants.Roles.LicenseAdminAndAnalystAndAdmin)]
+    [AuthAPI(Roles = Constants.Roles.All)]
     public class ErgoScoreRecordController : BaseAdminController<ErgoScoreRecord, ErgoScoreRecordAPIModel>
     {
         private const string Users = "Users";
@@ -27,9 +27,7 @@ namespace Heddoko.Controllers
             List<int> users = null;
             List<int?> dates = new List<int?> { null, null };
 
-            if (IsAnalyst || IsLicenseAdmin)
-            {
-                if (request?.Filter != null)
+            if (request?.Filter != null)
                 {
                     KendoFilterItem usersFilter = request.Filter.Get(Users);
                     KendoFilterItem teamsFilter = request.Filter.Get(Teams);
@@ -64,6 +62,9 @@ namespace Heddoko.Controllers
                         }
                     }        
                 }
+
+            if (IsAnalyst || IsLicenseAdmin)
+            {            
                 if (users == null)
                 {
                     if (IsLicenseAdmin && CurrentUser.OrganizationID.HasValue)
@@ -76,6 +77,11 @@ namespace Heddoko.Controllers
                     }
                 }               
             }
+            else if (IsWorker)
+            {
+                users = new List<int>() { CurrentUser.Id };
+            }
+
             if (users != null)
             {
                 var results = UoW.ErgoScoreRecordRepository.GetFilteredErgoScoreRecords(users.ToArray(), dates.ToArray());

@@ -246,9 +246,11 @@ var Ergoscores = {
             this.controls.chart.dataSource.filter(chartFilters);
         }
 
-        var gridFilters = this.buildGridFilter();
-        if (gridFilters) {
-            this.controls.grid.dataSource.filter(gridFilters);
+        if (this.controls.grid != null) {
+            var gridFilters = this.buildGridFilter();
+            if (gridFilters) {
+                this.controls.grid.dataSource.filter(gridFilters);
+            }
         }
     },
 
