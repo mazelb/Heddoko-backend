@@ -9,25 +9,31 @@
         <h3>@Html.Raw(i18n.Resources.Ergoscore)</h3>
     </div>
     <div class="col-md-2">
-        <div id="ergoscoreLeaderboard">
+        @if (!Model.IsWorker)
+        {
+            <div id="ergoscoreLeaderboard">
 
-        </div>
+            </div>
+        }
     </div>
     <div class="col-md-10">
         <div class="row">
             <div class="ergoscoreFilter">
                 <div class="col-md-4">
-                    <label for="usersFilter" class="control-label">@i18n.Resources.Users</label>
-                    <select id="usersFilter"
-                            name="ergoscores-userFilter"
-                            class="form-control"
-                            data-role="multiselect"
-                            data-value-primitive="true"
-                            data-text-field="name"
-                            data-option-label="@i18n.Resources.Users"
-                            data-value-field="id"
-                            data-bind="value: usersFilter, source: users"
-                            multiple></select>
+                    @if (!Model.IsWorker)
+                    {
+                        <label for="usersFilter" class="control-label">@i18n.Resources.Users</label>
+                        <select id="usersFilter"
+                                name="ergoscores-userFilter"
+                                class="form-control"
+                                data-role="multiselect"
+                                data-value-primitive="true"
+                                data-text-field="name"
+                                data-option-label="@i18n.Resources.Users"
+                                data-value-field="id"
+                                data-bind="value: usersFilter, source: users"
+                                multiple></select>
+                    }
                     <br />
                     <button class="btn btn-primary" data-bind="click: find">@i18n.Resources.Filter</button>
                     
