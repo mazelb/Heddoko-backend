@@ -150,47 +150,52 @@ var Ergoscores = {
             this.controls.chart = chart.kendoChart({
                 dataSource: Datasources.ergoscoreBarChart,
                 title: {
-                    text: "Team ErgoScores"
+                    text: "Team ErgoScores",
+                    color: "white"
                 },
                 series: [{
                     type: "column",
                     aggregate: "avg",
                     field: "recordScore",
-                    categoryField: "date"
+                    categoryField: "date",
+                    color: "#3bd6b2"
                 }],
                 categoryAxis: {
                     baseUnit: "fit",
                     majorGridLines: {
                         visible: false
-                    }
+                    },
+                    color: "white"
                 },
                 valueAxis: {
                     line: {
                         visible: false
                     },
                     min: 0,
-                    max: 100 
+                    max: 100,
+                    color: "white"
                 },
                 chartArea: {
-                    height: 600
-                }
+                    height: 600,
+                    background: "#1c242c"
+                },
             }).data("kendoChart");
 
             KendoDS.bind(this.controls.chart, true);
 
             var today = kendo.date.today();
 
-            this.controls.startDatePicker = startDate.kendoDateTimePicker({
+            this.controls.startDatePicker = startDate.kendoDatePicker({
                 value: null,
                 max: today,
                 change: this.startChange
-            }).data("kendoDateTimePicker");
+            }).data("kendoDatePicker");
 
-            this.controls.endDatePicker = endDate.kendoDateTimePicker({
+            this.controls.endDatePicker = endDate.kendoDatePicker({
                 value: null,
                 min: today,
                 change: this.endChange
-            }).data("kendoDateTimePicker");
+            }).data("kendoDatePicker");
 
             this.controls.filterModel = kendo.observable({
                 users: Datasources.ergoscoreUsersDD,
