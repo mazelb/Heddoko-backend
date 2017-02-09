@@ -1,4 +1,11 @@
-﻿$(function () {
+﻿/**
+ * @file allTimeErgoscores.js
+ * @brief Javascript for Ergoscores page.
+ * @author Ben Bailey (ben@heddoko.com)
+ * @date 2/9/2017
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+$(function () {
     Ergoscores.init();
 });
 

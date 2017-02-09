@@ -1,0 +1,16 @@
+﻿/**
+ * @file kendo.heddoko.css
+ * @brief CSS for augmenting Kendo UI.
+ * @author Ben Bailey (ben@heddoko.com)
+ * @date 2/9/2017
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+
+.k-grid{
+    background-color: #1c242c;
+    color: #fff;
+}
+
+.k-alt{
+    background-color: #141a1f;
+}
