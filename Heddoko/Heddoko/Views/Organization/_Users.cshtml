@@ -1,32 +1,4 @@
-﻿<div class="row">
-    <div class="col-md-4">
-        <div class="filters usersFilter">
-            <div>
-                <label for="usersSearch" class="control-label">@i18n.Resources.Search</label>
-                <input id="usersSearch"
-                       class="form-control"
-                       type="text"
-                       placeholder="@i18n.Resources.EnterUser"
-                       data-bind="value: search, events:{ keyup: keyup }" />
-            </div>
-            <div>
-                <label for="usersLicenses" class="control-label">@i18n.Resources.ShowByLicenses</label>
-                <br/>
-                <select id="usersLicenses"
-                        class="campaign-dd"
-                        data-role="dropdownlist"
-                        data-value-primitive="true"
-                        data-text-field="name"
-                        data-value-field="id"
-                        data-option-label="@i18n.Resources.All"
-                        data-bind="value: license, source: licenses"></select>
-            </div>
-            <div class="margin010">
-                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
-            </div>
-        </div>
-    </div>
-</div>
+﻿<br />
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-success usersForm">
@@ -80,10 +52,41 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <div id="usersGrid">
+<div class="heddoko-panel-white">
+    <div class="filters usersFilter">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label for="usersSearch" class="control-label">@i18n.Resources.Search</label>
+                    <input id="usersSearch"
+                            class="form-control"
+                            type="text"
+                            placeholder="@i18n.Resources.EnterUser"
+                            data-bind="value: search, events:{ keyup: keyup }" />
+                </div>
+                <div class="col-md-3">
+                    <label for="usersLicenses" class="control-label">@i18n.Resources.ShowByLicenses</label>
+                    <br />
+                    <select id="usersLicenses"
+                            class="campaign-dd"
+                            data-role="dropdownlist"
+                            data-value-primitive="true"
+                            data-text-field="name"
+                            data-value-field="id"
+                            data-option-label="@i18n.Resources.All"
+                            data-bind="value: license, source: licenses"></select>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" data-bind="click: find" class="hdk-btn" style="margin-top:27px;">@i18n.Resources.Find</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="usersGrid">
 
+            </div>
         </div>
     </div>
 </div>
