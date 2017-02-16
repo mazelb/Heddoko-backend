@@ -1,38 +1,5 @@
-﻿<div class="row">
-    <div class="sensorSetsFilter">
-        <div class="col-md-4">
-            <div class="filters">
-                <div>
-                    <label for="searchSensorSets" class="control-label">@i18n.Resources.Search</label>
-                    <input id="searchSensorSets"
-                           class="form-control"
-                           type="text"
-                           placeholder="@i18n.Resources.Enter @i18n.Resources.SensorSet @i18n.Resources.ID"
-                           data-bind="value: search, events:{ keyup: keyup }" />
-                </div>
-                <div class="margin010">
-                    <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="filters">
-                <div>
-                    <label for="statusFilterSensorSets" class="control-label">@i18n.Resources.FilterStatus</label>
-                    <select id="statusFilterSensorSets"
-                            class="form-control"
-                            name="status-filter-sensorSets"
-                            data-role="dropdownlist"
-                            data-value-primitive="true"
-                            data-text-field="text"
-                            data-option-label="@i18n.Resources.SelectStatus"
-                            data-value-field="value"
-                            data-bind="value: statusFilter, source: statuses"></select>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+﻿<br />
+
 
 <div class="row">
     <div class="col-md-12">
@@ -91,10 +58,48 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div id="sensorSetsGrid">
+<div class="heddoko-panel-white">
+    <div class="row">
+        <div class="sensorSetsFilter">
+            <div class="col-md-4">
+                <div class="filters">
+                    <div>
+                        <label for="searchSensorSets" class="control-label">@i18n.Resources.Search</label>
+                        <input id="searchSensorSets"
+                               class="form-control"
+                               type="text"
+                               placeholder="@i18n.Resources.Enter @i18n.Resources.SensorSet @i18n.Resources.ID"
+                               data-bind="value: search, events:{ keyup: keyup }" />
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="filters">
+                    <div>
+                        <label for="statusFilterSensorSets" class="control-label">@i18n.Resources.FilterStatus</label>
+                        <select id="statusFilterSensorSets"
+                                class="form-control"
+                                name="status-filter-sensorSets"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.SelectStatus"
+                                data-value-field="value"
+                                data-bind="value: statusFilter, source: statuses"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <button type="button" data-bind="click: find" class="hdk-btn" style="margin-top:35px;">@i18n.Resources.Find</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="sensorSetsGrid">
 
+            </div>
         </div>
     </div>
 </div>
