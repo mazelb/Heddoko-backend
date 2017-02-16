@@ -142,6 +142,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Time.
+        /// </summary>
+        public static string AllTime {
+            get {
+                return ResourceManager.GetString("AllTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to already used.
         /// </summary>
         public static string AlreadyUsed {
@@ -165,6 +174,15 @@ namespace i18n {
         public static string Analyst {
             get {
                 return ResourceManager.GetString("Analyst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ANALYZE MOVEMENT DATA.
+        /// </summary>
+        public static string AnalyzeDataTitle {
+            get {
+                return ResourceManager.GetString("AnalyzeDataTitle", resourceCulture);
             }
         }
         
@@ -1042,6 +1060,24 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Day.
+        /// </summary>
+        public static string Day {
+            get {
+                return ResourceManager.GetString("Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string Default {
+            get {
+                return ResourceManager.GetString("Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -1245,6 +1281,15 @@ namespace i18n {
         public static string EndDate {
             get {
                 return ResourceManager.GetString("EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to END DATE.
+        /// </summary>
+        public static string EndDateTitle {
+            get {
+                return ResourceManager.GetString("EndDateTitle", resourceCulture);
             }
         }
         
@@ -1488,6 +1533,24 @@ namespace i18n {
         public static string Ergoscore {
             get {
                 return ResourceManager.GetString("Ergoscore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ERGOSCORE.
+        /// </summary>
+        public static string ErgoscoreTitle {
+            get {
+                return ResourceManager.GetString("ErgoscoreTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ERGOSCORE TRENDS.
+        /// </summary>
+        public static string ErgoscoreTrendsTitle {
+            get {
+                return ResourceManager.GetString("ErgoscoreTrendsTitle", resourceCulture);
             }
         }
         
@@ -2221,6 +2284,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Month.
+        /// </summary>
+        public static string Month {
+            get {
+                return ResourceManager.GetString("Month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jump.
         /// </summary>
         public static string MovementEventType_Jump {
@@ -2253,6 +2325,15 @@ namespace i18n {
         public static string NameOfUser {
             get {
                 return ResourceManager.GetString("NameOfUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NAME.
+        /// </summary>
+        public static string NameTitle {
+            get {
+                return ResourceManager.GetString("NameTitle", resourceCulture);
             }
         }
         
@@ -3580,6 +3661,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to START DATE.
+        /// </summary>
+        public static string StartDateTitle {
+            get {
+                return ResourceManager.GetString("StartDateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {
@@ -3675,6 +3765,15 @@ namespace i18n {
         public static string Teams {
             get {
                 return ResourceManager.GetString("Teams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TEAMS.
+        /// </summary>
+        public static string TeamsTitle {
+            get {
+                return ResourceManager.GetString("TeamsTitle", resourceCulture);
             }
         }
         
@@ -4012,6 +4111,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to USERS.
+        /// </summary>
+        public static string UsersTitle {
+            get {
+                return ResourceManager.GetString("UsersTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The E-mail field is not a valid e-mail address.
         /// </summary>
         public static string ValidateEmailMessage {
@@ -4080,6 +4188,15 @@ namespace i18n {
         public static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Week.
+        /// </summary>
+        public static string Week {
+            get {
+                return ResourceManager.GetString("Week", resourceCulture);
             }
         }
         
@@ -4260,6 +4377,15 @@ namespace i18n {
         public static string WrongUsernameOrPassword {
             get {
                 return ResourceManager.GetString("WrongUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Year.
+        /// </summary>
+        public static string Year {
+            get {
+                return ResourceManager.GetString("Year", resourceCulture);
             }
         }
         

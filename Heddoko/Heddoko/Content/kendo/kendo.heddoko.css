@@ -1,16 +1,32 @@
 ﻿/**
  * @file kendo.heddoko.css
- * @brief CSS for augmenting Kendo UI.
+ * @brief CSS for overriding Kendo UI.
  * @author Ben Bailey (ben@heddoko.com)
  * @date 2/9/2017
  * Copyright Heddoko(TM) 2017,  all rights reserved
 */
 
 .k-grid{
-    background-color: #1c242c;
-    color: #fff;
+    background-color: #E6E6E6;
+    color: #1E2730;
+    border: solid #1E2730 1px;
+}
+
+.k-grid-header{
+    background-color: #E6E6E6;
+    color: #1E2730;
+}
+
+.k-grid-header th.k-header{
+    font-weight: 700;
+    text-align: center;
 }
 
 .k-alt{
-    background-color: #141a1f;
+    background-color: #E6E6E6;
+}
+
+
+.k-button:active:hover {
+    background-color: #3bd6b2;
 }

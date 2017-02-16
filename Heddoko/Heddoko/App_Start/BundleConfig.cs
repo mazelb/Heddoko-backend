@@ -25,7 +25,8 @@ namespace Heddoko
                 "~/Content/font-awesome.min.css",
                 "~/Content/bootstrap.min.css",
                 "~/Content/bootstrap-datepicker3.min.css",
-                "~/Content/css/general.css"
+                "~/Content/css/general.css",
+                "~/Content/bootstrap-heddoko.css"
                 );
 
             bundles.Add(commonStylesBundle);
@@ -58,7 +59,8 @@ namespace Heddoko
                 "~/Content/kendo/kendo.default.min.css",
                 "~/Content/kendo/kendo.default.mobile.min.css",
                 "~/Content/css/backend.css",
-                "~/Content/kendo/kendo.heddoko.css"
+                "~/Content/kendo/kendo.heddoko.css",
+                "~/Content/css/heddoko.css"
                 );
 
             bundles.Add(kendoStylesBundle);

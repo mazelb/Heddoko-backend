@@ -241,6 +241,7 @@
     <Content Include="Content\bootstrap-datepicker3.min.css" />
     <Content Include="Content\bootstrap-datepicker3.standalone.css" />
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Content\bootstrap-heddoko.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -621,7 +622,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\scss\nodes\history-popup.scss" />
-    <Content Include="Content\scss\nodes\linear-gauge.scss" />
     <Content Include="Areas\MvcElmahDashboard\Views\_ViewStart.cshtml" />
     <Content Include="Areas\MvcElmahDashboard\Views\web.config" />
     <Content Include="Areas\MvcElmahDashboard\Views\Shared\_styles.cshtml" />
@@ -642,6 +642,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\scss\nodes\ergoscore.scss" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -713,6 +714,7 @@
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Static\Help.cshtml" />
     <Content Include="Services.licenseheader" />
+    <Content Include="Views\Shared\_LayoutErgoscore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
