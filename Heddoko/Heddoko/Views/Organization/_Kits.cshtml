@@ -1,24 +1,27 @@
-﻿<div class="row">
-    <div class="col-md-4">
-        <div class="filters organizationKitsFilter">
-            <div>
-                <label for="organizationKitsSearch" class="control-label">@i18n.Resources.Search</label>
-                <input id="organizationKitsSearch"
-                       class="form-control"
-                       type="text"
-                       placeholder="@i18n.Resources.Enter @i18n.Resources.ID"
-                       data-bind="value: search, events:{ keyup: keyup }" />
-            </div>
-            <div class="margin010">
-                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
+﻿<br />
+<div class="heddoko-panel-white">
+    <div class="filters organizationKitsFilter">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label for="organizationKitsSearch" class="control-label">@i18n.Resources.Search</label>
+                    <input id="organizationKitsSearch"
+                           class="form-control"
+                           type="text"
+                           placeholder="@i18n.Resources.Enter @i18n.Resources.ID"
+                           data-bind="value: search, events:{ keyup: keyup }" />
+                </div>
+                <div class="col-md-1">
+                    <button type="button" data-bind="click: find" class="hdk-btn" style="margin-top:27px;">@i18n.Resources.Find</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div id="organizationKitsGrid">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="organizationKitsGrid">
 
+            </div>
         </div>
     </div>
 </div>

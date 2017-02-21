@@ -1,0 +1,34 @@
+﻿/**
+ * @file bootstrap-heddoko.css
+ * @brief CSS for overriding bootstrap UI.
+ * @author Ben Bailey (ben@heddoko.com)
+ * @date 2/9/2017
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+
+.heddoko-panel-white {
+    background: #E6E6E6;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;  
+} 
+
+.panel-success {
+    background-color: rgba(91, 112, 125, 0.15);
+    border: 0px;
+}
+
+.panel-success>.panel-heading {
+    background-color: rgba(91, 112, 125, 0.15);
+    border: 0px;
+    color: #e6e6e6;
+}
+
+h3, h4 { 
+    font-weight: 700;
+}
+
+.hdk-blk-header {
+    color: #1e2730;
+}

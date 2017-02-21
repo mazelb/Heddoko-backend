@@ -1,21 +1,6 @@
 ﻿@using DAL.Models
-<div class="row">
-    <div class="col-md-4">
-        <div class="filters pantsOctopiFilter">
-            <div>
-                <label for="searchPantsOctopi" class="control-label">@i18n.Resources.Search</label>
-                <input id="searchPantsOctopi"
-                       class="form-control"
-                       type="text"
-                       placeholder="@i18n.Resources.EnterPantsOctopi"
-                       data-bind="value: search, events:{ keyup: keyup }" />
-            </div>
-            <div class="margin010">
-                <button type="button" data-bind="click: find" class="btn btn-default">@i18n.Resources.Find</button>
-            </div>
-        </div>
-    </div>
-</div>
+<br />
+
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-success pantsOctopiForm">
@@ -86,10 +71,31 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div id="pantsOctopiGrid">
+<div class="heddoko-panel-white">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="filters pantsOctopiFilter">
+                <div>
+                    <label for="searchPantsOctopi" class="control-label">@i18n.Resources.Search</label>
+                    <input id="searchPantsOctopi"
+                           class="form-control"
+                           type="text"
+                           placeholder="@i18n.Resources.EnterPantsOctopi"
+                           data-bind="value: search, events:{ keyup: keyup }" />
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-md-1">
+            <button type="button" data-bind="click: find" class="hdk-btn" style="margin-top:35px;">@i18n.Resources.Find</button>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <div id="pantsOctopiGrid">
+
+            </div>
         </div>
     </div>
 </div>

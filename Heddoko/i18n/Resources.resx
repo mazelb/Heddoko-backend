@@ -1524,4 +1524,46 @@
   <data name="EndDate" xml:space="preserve">
     <value>End Date</value>
   </data>
+  <data name="AllTime" xml:space="preserve">
+    <value>All Time</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="AnalyzeDataTitle" xml:space="preserve">
+    <value>ANALYZE MOVEMENT DATA</value>
+  </data>
+  <data name="UsersTitle" xml:space="preserve">
+    <value>USERS</value>
+  </data>
+  <data name="TeamsTitle" xml:space="preserve">
+    <value>TEAMS</value>
+  </data>
+  <data name="StartDateTitle" xml:space="preserve">
+    <value>START DATE</value>
+  </data>
+  <data name="EndDateTitle" xml:space="preserve">
+    <value>END DATE</value>
+  </data>
+  <data name="NameTitle" xml:space="preserve">
+    <value>NAME</value>
+  </data>
+  <data name="ErgoscoreTitle" xml:space="preserve">
+    <value>ERGOSCORE</value>
+  </data>
+  <data name="ErgoscoreTrendsTitle" xml:space="preserve">
+    <value>ERGOSCORE TRENDS</value>
+  </data>
 </root>

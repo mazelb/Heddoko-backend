@@ -1,94 +1,115 @@
 ﻿@model Heddoko.Models.BaseViewModel
 
 @{
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_LayoutErgoscore.cshtml";
 }
 
 <div class="page">
     <div class="header clearfix">
-        <h3>@Html.Raw(i18n.Resources.Ergoscore)</h3>
+        <h3>@Html.Raw(i18n.Resources.AnalyzeDataTitle)</h3>
     </div>
-    <div class="col-md-2">
-        @if (!Model.IsWorker)
-        {
-            <div id="ergoscoreLeaderboard">
-
-            </div>
-        }
-    </div>
-    <div class="col-md-10">
+    <div class="heddoko-panel-white">
+        <div>
+            <h4 class="hdk-blk-header">@i18n.Resources.ErgoscoreTrendsTitle</h4>
+        </div>
+        <hr class="ergoscore" />
         <div class="row">
-            <div class="ergoscoreFilter">
-                <div class="col-md-4">
-                    @if (!Model.IsWorker)
-                    {
-                        <label for="usersFilter" class="control-label">@i18n.Resources.Users</label>
-                        <select id="usersFilter"
-                                name="ergoscores-userFilter"
-                                class="form-control"
-                                data-role="multiselect"
-                                data-value-primitive="true"
-                                data-text-field="name"
-                                data-option-label="@i18n.Resources.Users"
-                                data-value-field="id"
-                                data-bind="value: usersFilter, source: users"
-                                multiple></select>
-                    }
-                    <br />
-                    <button class="btn btn-primary" data-bind="click: find">@i18n.Resources.Filter</button>
-                    
-                </div>
-                <div class="col-md-3">
-                    <label for="startDate" class="control-label">@i18n.Resources.StartDate</label>
-                    <input id="startDate"/>
+            <div class="col-md-12" style="margin-bottom: 20px;">
+                <div class="ergoscoreFilter">                             
                     @if (Model.IsLicenseAdmin)
                     {
-                        <br/>
-                        // Team Filter
-                        <label for="teamFilter" class="control-label">@i18n.Resources.Teams</label>
-                        <select id="teamFilter"
-                                name="ergoscores-teamFilter"
-                                class="form-control"
-                                data-role="multiselect"
-                                data-value-primitive="true"
-                                data-text-field="name"
-                                data-option-label="@i18n.Resources.Teams"
-                                data-value-field="id"
-                                data-bind="value: teamsFilter, source: teams, events: { change: onTeamChange }"
-                                multiple></select>
+                        <div class="col-md-3">
+                            <label for="teamFilter" class="control-label">@i18n.Resources.TeamsTitle</label>
+                            <select id="teamFilter"
+                                    name="ergoscores-teamFilter"
+                                    class="form-control"
+                                    data-role="multiselect"
+                                    data-value-primitive="true"
+                                    data-text-field="name"
+                                    data-option-label="@i18n.Resources.Teams"
+                                    data-value-field="id"
+                                    data-bind="value: teamsFilter, source: teams, events: { change: onTeamChange }"
+                                    multiple></select>
+                        </div>
                     }
-                </div>
-                <div class="col-md-3">
-                    <label for="endDate" class="control-label">@i18n.Resources.EndDate</label>
-                    <input id="endDate"/>
-                </div>                
-             </div>
-            
+                    @if (!Model.IsWorker)
+                    {
+                        <div class="col-md-3">
+                            <label for="usersFilter" class="control-label">@i18n.Resources.UsersTitle</label>
+                            <select id="usersFilter"
+                                    name="ergoscores-userFilter"
+                                    class="form-control"
+                                    data-role="multiselect"
+                                    data-value-primitive="true"
+                                    data-text-field="name"
+                                    data-option-label="@i18n.Resources.Users"
+                                    data-value-field="id"
+                                    data-bind="value: usersFilter, source: users"
+                                    multiple></select>
+                        </div>
+                    } 
+                    <div class="col-md-2">
+                        <label for="startDate" class="control-label">@i18n.Resources.StartDateTitle</label>
+                        <input id="startDate"/>
+                    
+                    </div>
+                    <div class="col-md-2">
+                        <label for="endDate" class="control-label">@i18n.Resources.EndDateTitle</label>
+                        <input id="endDate"/>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="hdk-btn" style="margin-top: 28px; width: 60%;" data-bind="click: find">@i18n.Resources.Filter</button>
+                    </div>                
+                 </div>
+
+            </div>
         </div>
         <br />
         <div class="row">
-            <div id="ergoscoreBarChart">
+            <div class="col-md-2">
+                @if (!Model.IsWorker)
+                {
+                    <div id="ergoscoreLeaderboard">
 
+                    </div>
+                }
             </div>
+            <div class="col-md-10">
+                <div id="ergoscoreBarChart">
 
-            <div class="baseUnitOptions">
-                <input id="baseUnitAuto" name="baseUnit"
-                       type="radio" value="fit" checked="checked" autocomplete="off" />
-                <label for="baseUnitAuto">Automatic (default)</label>
-                <input id="baseUnitYears" name="baseUnit"
-                       type="radio" value="years" autocomplete="off" />
-                <label for="baseUnitYears">Years</label>
-                <input id="baseUnitMonths" name="baseUnit"
-                       type="radio" value="months" autocomplete="off" />
-                <label for="baseUnitMonths">Months</label>
-                <input id="baseUnitWeeks" name="baseUnit"
-                       type="radio" value="weeks" autocomplete="off" />
-                <label for="baseUnitWeeks">Weeks</label>
-                <input id="baseUnitDays" name="baseUnit"
-                       type="radio" value="days" autocomplete="off" />
-                <label for="baseUnitDays">Days</label>
-            </div>
-        </div>     
+                </div>
+
+                <div class="baseUnitOptions">
+                    <ul class="hdk-base-units">
+                        <li>
+                            <input id="baseUnitAuto" name="baseUnit"
+                                   type="radio" value="fit" checked="checked" autocomplete="off" />
+                            <label for="baseUnitAuto">Automatic (default)</label>
+                        </li>
+                        <li>
+                            <input id="baseUnitYears" name="baseUnit"
+                                    type="radio" value="years" autocomplete="off" />
+                            <label for="baseUnitYears">Years</label>
+                        </li>
+                        <li>
+                            <input id="baseUnitMonths" name="baseUnit"
+                                    type="radio" value="months" autocomplete="off" />
+                            <label for="baseUnitMonths">Months</label>
+                        </li>
+                        <li> 
+                            <input id="baseUnitWeeks" name="baseUnit"
+                                   type="radio" value="weeks" autocomplete="off" />
+                            <label for="baseUnitWeeks">Weeks</label>
+                        </li>
+                        <li>
+                            <input id="baseUnitDays" name="baseUnit"
+                                   type="radio" value="days" autocomplete="off" />
+                            <label for="baseUnitDays">Days</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>     
+        </div>
     </div>
 </div>
 

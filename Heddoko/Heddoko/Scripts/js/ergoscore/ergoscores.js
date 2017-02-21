@@ -1,4 +1,11 @@
-﻿$(function () {
+﻿/**
+ * @file allTimeErgoscores.js
+ * @brief Javascript for Ergoscores page.
+ * @author Ben Bailey (ben@heddoko.com)
+ * @date 2/9/2017
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+$(function () {
     Ergoscores.init();
 });
 
@@ -149,30 +156,40 @@ var Ergoscores = {
         if (chart.length > 0) {
             this.controls.chart = chart.kendoChart({
                 dataSource: Datasources.ergoscoreBarChart,
-                title: {
-                    text: "Team ErgoScores"
-                },
                 series: [{
                     type: "column",
                     aggregate: "avg",
                     field: "recordScore",
-                    categoryField: "date"
+                    categoryField: "date",
+                    color: "#3bd6b2",
+                    border: {
+                        width: 0
+                    },
+                    overlay: {
+                        gradient: "none"
+                    }
                 }],
                 categoryAxis: {
                     baseUnit: "fit",
                     majorGridLines: {
                         visible: false
-                    }
+                    },
+                    color: "#1E2730"
                 },
                 valueAxis: {
                     line: {
                         visible: false
                     },
+                    majorGridLines: {
+                        color: "#fff"
+                    },
                     min: 0,
-                    max: 100 
+                    max: 100,
+                    color: "#1E2730"
                 },
                 chartArea: {
-                    height: 600
+                    height: 500,
+                    background: "#E6E6E6"
                 }
             }).data("kendoChart");
 
@@ -180,17 +197,17 @@ var Ergoscores = {
 
             var today = kendo.date.today();
 
-            this.controls.startDatePicker = startDate.kendoDateTimePicker({
+            this.controls.startDatePicker = startDate.kendoDatePicker({
                 value: null,
                 max: today,
                 change: this.startChange
-            }).data("kendoDateTimePicker");
+            }).data("kendoDatePicker");
 
-            this.controls.endDatePicker = endDate.kendoDateTimePicker({
+            this.controls.endDatePicker = endDate.kendoDatePicker({
                 value: null,
                 min: today,
                 change: this.endChange
-            }).data("kendoDateTimePicker");
+            }).data("kendoDatePicker");
 
             this.controls.filterModel = kendo.observable({
                 users: Datasources.ergoscoreUsersDD,
@@ -217,18 +234,15 @@ var Ergoscores = {
                 scrollable: false,
                 resizeable: true,
                 autoBind: true,
-                pageable: {
-                    refresh: true,
-                    pageSize: [10, 50, 100]
-                },
+                pageable: true,
                 columns: [
                     {
                         field: "name",
-                        title: i18n.Resources.NameOfUser
+                        title: i18n.Resources.NameTitle
                     },
                     {
                         field: "score",
-                        title: i18n.Resources.Ergoscore,
+                        title: i18n.Resources.ErgoscoreTitle,
                         template: function (e) {
                             return Format.ergoscore.score(e.score);
                         }
@@ -418,7 +432,6 @@ var Ergoscores = {
         else {
             Datasources.ergoscoreUsersDD.filter({});
         }
-
     }
 };
 

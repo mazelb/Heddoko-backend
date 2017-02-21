@@ -469,7 +469,21 @@ i18n.Resources = (function () {
   "String": "",
   "NameOfUser": "Name",
   "StartDate": "Start Date",
-  "EndDate": "End Date"
+  "EndDate": "End Date",
+  "AllTime": "All Time",
+  "Year": "Year",
+  "Month": "Month",
+  "Week": "Week",
+  "Day": "Day",
+  "Default": "Default",
+  "AnalyzeDataTitle": "ANALYZE MOVEMENT DATA",
+  "UsersTitle": "USERS",
+  "TeamsTitle": "TEAMS",
+  "StartDateTitle": "START DATE",
+  "EndDateTitle": "END DATE",
+  "NameTitle": "NAME",
+  "ErgoscoreTitle": "ERGOSCORE",
+  "ErgoscoreTrendsTitle": "ERGOSCORE TRENDS"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());
