@@ -55,6 +55,8 @@
                     </a>
                 </li>
             }
+            <!-- Cutting out ErgoScore page from navigation for now
+                TODO: Benb - put ergoscore back on nav bar when data upload is available from app
             if (!Model.IsAdmin)
             {
                 <li class="@Html.IsCurrentActionLink("Index", "ErgoScore")" title="@i18n.Resources.Ergoscore">
@@ -63,7 +65,7 @@
                         <span> @i18n.Resources.Ergoscore</span>
                     </a>
                 </li>
-            }
+            }-->
             <li class="@Html.IsCurrentActionLink("Me", "Account")" title="@i18n.Resources.Profile">
                 <a href="@Url.Action("Me", "Account")">
                     <i class="fa fa-user"></i>

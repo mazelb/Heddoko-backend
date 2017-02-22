@@ -129,21 +129,9 @@
 
             </div>
             <div class="row">
-                @if (Model.Guide != null && !Model.IsAdmin)
-                {
-                    <div class="col-md-2"></div>
-                }
-                else if (Model.Guide != null || !Model.IsAdmin)
-                {
-                    <div class="col-md-3"></div>
-                }
-                else
-                {
-                    <div class="col-md-4"></div>
-                }
-
                 @if (Model.Guide != null)
                 {
+                    <div class="col-md-3"></div>
                     <div class="col-md-2">
                         <a href="@Model.Guide.Asset.Url" target="_blank" class="btn-dashboard">
                             <i class="fa fa-2x fa-info-circle"></i>
@@ -155,7 +143,14 @@
                         <p class="text-center">@i18n.Resources.Version: @Model.Guide.Version</p>
                     </div>
                 }
-                @if (!Model.IsAdmin)
+
+                else
+                {
+                    <div class="col-md-4"></div>
+                }
+                <!-- Remove Ergoscore page from navigation for now
+                    TODO - Benb - Put this back well data upload is available from the app 
+                    if (!Model.IsAdmin)
                 {
                     <div class="col-md-2">
                         <a href="@Url.Action("Index", "Ergoscore")" class="btn-dashboard">
@@ -166,7 +161,7 @@
                             <span></span>
                         </a>
                     </div>
-                }
+                }-->
 
                 <div class="col-md-2">
                     <a href="@Url.Action("Requirements", "Static")" class="btn-dashboard">
