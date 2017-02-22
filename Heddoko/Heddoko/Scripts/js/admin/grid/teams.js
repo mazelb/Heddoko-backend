@@ -181,6 +181,7 @@ var Teams = {
                         }
                     ],
                     save: KendoDS.onSave,
+                    detailInit: this.detailInit,
                     dataBound: this.onDataBound
                 })
                 .data("kendoGrid");
@@ -213,6 +214,85 @@ var Teams = {
 
             $('.chk-show-deleted', this.controls.grid.element).click(this.onShowDeleted.bind(this));
         }
+    },
+
+    detailInit: function(e) {
+        var datasourceItem = Users.getDatasource();
+
+        var grid = $("<div/>")
+            .appendTo(e.detailCell)
+            .kendoGrid({
+                dataSource: datasourceItem,
+                sortable: false,
+                editable: "popup",
+                selectable: false,
+                scrollable: false,
+                resizeable: true,
+                autoBind: false,
+                pageable: {
+                    refresh: true,
+                    pageSizes: [10, 50, 100]
+                },
+                columns: [
+                    {
+                        field: 'username',
+                        title: i18n.Resources.Username,
+                        editor: KendoDS.emptyEditor
+                    },
+                    {
+                        field: 'name',
+                        title: i18n.Resources.Name,
+                        editor: KendoDS.emptyEditor
+                    },
+                    {
+                        field: 'phone',
+                        title: i18n.Resources.Phone,
+                        editor: KendoDS.emptyEditor
+                    },
+                    {
+                        field: 'email',
+                        title: i18n.Resources.Email,
+                        editor: KendoDS.emptyEditor
+                    },
+                    {
+                        field: 'status',
+                        title: i18n.Resources.Status,
+                        editor: Users.statusDDEditor,
+                        template: function (e) {
+                            return Format.user.status(e.status);
+                        }
+                    },
+                    {
+                        command: [
+                            {
+                                name: "edit",
+                                text: i18n.Resources.Edit,
+                                className: "k-grid-edit"
+                            },
+                            {
+                                text: i18n.Resources.ResendActivation,
+                                className: "k-grid-resend",
+                                click: Teams.onResendActivation.bind(this)
+                            }
+                        ],
+                        title: i18n.Resources.Actions,
+                        width: '165px'
+                    }
+                ],
+                save: KendoDS.onSave,
+                edit: function (ed) {
+                    ed.model.set("teamID", e.data.id);
+                },
+                dataBound: this.onDataBound
+            }).data("kendoGrid");
+
+        KendoDS.bind(grid, true);
+
+        datasourceItem.filter({
+            field: "TeamID",
+            operator: "eq",
+            value: parseInt(e.data.id)
+        });
     },
 
     onDataBound: function(e) {
@@ -320,6 +400,24 @@ var Teams = {
         var filters = this.buildFilter();
         if (filters) {
             this.controls.grid.dataSource.filter(filters);
+        }
+    },
+
+    onResendActivation: function (e) {
+        e.preventDefault();
+
+        var item = Users.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+
+        Ajax.post("/admin/api/users/activation/resend",
+       {
+           userId: item.id
+       }).success(this.onResendActivationSuccess);
+    },
+    onResendActivationSuccess: function (e) {
+        if (e) {
+            Notifications.info(i18n.Resources.EmailHasBeenSent);
+        } else {
+            Notifications.error(i18n.Resources.Error);
         }
     },
 

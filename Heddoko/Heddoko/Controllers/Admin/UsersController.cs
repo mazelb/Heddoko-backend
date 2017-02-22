@@ -36,6 +36,7 @@ namespace Heddoko.Controllers
         private const string IsDeleted = "IsDeleted";
         private const string License = "License";
         private const string Used = "Used";
+        private const string TeamID = "TeamID";
 
         public UsersController() { }
 
@@ -99,6 +100,15 @@ namespace Heddoko.Controllers
                     if (!string.IsNullOrEmpty(searchFilter?.Value))
                     {
                         items = UoW.UserRepository.Search(searchFilter.Value, forceOrganization ? CurrentUser.OrganizationID : null, isDeleted, licenseID);
+                    }
+
+                    KendoFilterItem teamFilter = request.Filter.Get(TeamID);
+                    if (teamFilter != null)
+                    {
+                        int tmp = 0;
+                        int.TryParse(teamFilter.Value, out tmp);
+
+                        items = UoW.UserRepository.GetByTeam(tmp);
                     }
 
                     if (items == null

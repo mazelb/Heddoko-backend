@@ -141,7 +141,7 @@ var Users = {
                         },
                         licenseID: {
                             nullable: true,
-                            type: "numer",
+                            type: "number",
                             validation: {
                                 required: true,
                                 min: 0,
@@ -150,7 +150,7 @@ var Users = {
                         },
                         kitID: {
                             nullable: true,
-                            type: "numer",
+                            type: "number",
                             validation: {
                                 required: true,
                                 min: 0,
@@ -168,7 +168,7 @@ var Users = {
                         },
                         teamID: {
                             nullable: true,
-                            type: "numer",
+                            type: "number",
                             validation: {
                                 required: true,
                                 min: 0,
