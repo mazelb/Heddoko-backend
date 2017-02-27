@@ -24,7 +24,7 @@ namespace HeddokoService
     {
         static void Main(string[] args)
         {
-            if (Environment.UserInteractive || args.Contains("-h"))
+            if (Environment.UserInteractive || args.Contains("-h") || args.Contains("-flush"))
             {
 
                 try
