@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * @file DevController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using System.Web.Http;
@@ -8,6 +15,9 @@ using Services;
 using System;
 using System.Threading.Tasks;
 using DAL.Models;
+using Hangfire;
+using Heddoko.Helpers.DomainRouting.Http;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Heddoko.Controllers.API
 {
@@ -16,7 +26,7 @@ namespace Heddoko.Controllers.API
     [AllowAnonymous]
     public class DevController : ApiController
     {
-        [Route("migrate-db")]
+        [DomainRoute("migrate-db", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public IHttpActionResult Migrate()
         {
@@ -24,7 +34,7 @@ namespace Heddoko.Controllers.API
             return Ok();
         }
 
-        [Route("init-db")]
+        [DomainRoute("init-db", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public IHttpActionResult Init()
         {
@@ -32,7 +42,7 @@ namespace Heddoko.Controllers.API
             return Ok();
         }
 
-        [Route("version-db/{version}")]
+        [DomainRoute("version-db/{version}", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public IHttpActionResult Version(string version)
         {
@@ -40,14 +50,14 @@ namespace Heddoko.Controllers.API
             return Ok();
         }
 
-        [Route("pending-db")]
+        [DomainRoute("pending-db", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public IHttpActionResult Pending()
         {
             return Ok(Migrator.GetPending());
         }
 
-        [Route("flush")]
+        [DomainRoute("flush", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public IHttpActionResult Flush()
         {
@@ -55,30 +65,32 @@ namespace Heddoko.Controllers.API
             return Ok();
         }
 
-        [Route("sendadminInvite/{id:int}")]
+        [DomainRoute("sendadminInvite/{id:int}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
-        public IHttpActionResult SendAdminInvite(int id)
+        public async Task<IHttpActionResult> SendAdminInvite(int id)
         {
             UnitOfWork uow = new UnitOfWork(new HDContext());
-
             User user = uow.UserRepository.Get(id);
 
             if (user.OrganizationID.HasValue)
             {
                 user.Status = UserStatusType.Invited;
-                user.InviteToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString());
                 uow.Save();
                 uow.UserRepository.ClearCache(user);
 
                 Organization organization = uow.OrganizationRepository.GetFull(user.OrganizationID.Value);
 
-                Task.Run(() => Mailer.SendInviteAdminEmail(organization));
+                int organizationID = organization.Id;
+                var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+                string inviteToken = await userManager.GenerateInviteTokenAsync(user);
+                userManager.SendInviteAdminEmail(organizationID, inviteToken);
             }
 
             return Ok();
         }
 
-        [Route("seed-images")]
+        [DomainRoute("seed-images", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public IHttpActionResult SeedImages()
         {

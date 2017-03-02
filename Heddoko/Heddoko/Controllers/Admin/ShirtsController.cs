@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file ShirtsController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -20,6 +27,10 @@ namespace Heddoko.Controllers
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
         private const int NoShirtsOctopiID = 0;
+
+        public ShirtsController() { }
+
+        public ShirtsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<ShirtAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -181,7 +192,7 @@ namespace Heddoko.Controllers
         {
             Shirt item = UoW.ShirtRepository.GetFull(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<ShirtAPIModel>
                 {
@@ -198,7 +209,7 @@ namespace Heddoko.Controllers
 
             item.Status = EquipmentStatusType.Trash;
             item.ShirtOctopi = null;
-            UoW.KitRepository.RemoveShirt(item.ID);
+            UoW.KitRepository.RemoveShirt(item.Id);
             UoW.Save();
 
             return new KendoResponse<ShirtAPIModel>
@@ -303,7 +314,7 @@ namespace Heddoko.Controllers
 
             return new ShirtAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 Location = item.Location,
                 QAStatus = item.QAStatus,

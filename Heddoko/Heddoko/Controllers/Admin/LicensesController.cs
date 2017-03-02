@@ -1,13 +1,24 @@
-﻿using System;
+﻿/**
+ * @file LicensesController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using DAL.Models.Enum;
 using Hangfire;
 using Heddoko.Models;
 using i18n;
+using Microsoft.AspNet.Identity;
+using Services;
+using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers
 {
@@ -20,6 +31,9 @@ namespace Heddoko.Controllers
         private const string OrganizationID = "OrganizationID";
         private const string Used = "Used";
 
+        public LicensesController() { }
+
+        public LicensesController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<LicenseAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -27,7 +41,7 @@ namespace Heddoko.Controllers
             int count = 0;
 
             bool isForceOrganization = false;
-            if (CurrentUser.Role == UserRoleType.LicenseAdmin)
+            if (UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.LicenseAdmin))
             {
                 isForceOrganization = true;
 
@@ -149,7 +163,8 @@ namespace Heddoko.Controllers
                 UoW.LicenseRepository.Create(item);
 
                 // Task.Run(() => Mailer.SendInviteAdminEmail(item));
-                BackgroundJob.Enqueue(() => Services.LicenseManager.Check());
+                BackgroundJob.Enqueue(() => LicenseManager.Check());
+                BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseAddedToOrganization(item.Organization.Id, item.Id));
 
                 response = Convert(item);
             }
@@ -220,6 +235,11 @@ namespace Heddoko.Controllers
             item.Status = LicenseStatusType.Deleted;
             UoW.Save();
 
+            if (item.OrganizationID != null)
+            {
+                BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseRemovedFromOrganization(item.OrganizationID.Value, item.Id));
+            }
+
             return new KendoResponse<LicenseAPIModel>
             {
                 Response = Convert(item)
@@ -233,7 +253,7 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            if (!CurrentUser.IsAdmin)
+            if (!IsAdmin)
             {
                 throw new Exception(Resources.WrongObjectAccess);
             }
@@ -277,7 +297,7 @@ namespace Heddoko.Controllers
                 Name = item.Name,
                 ViewID = item.ViewID,
                 IDView = item.IDView,
-                ID = item.ID,
+                ID = item.Id,
                 Amount = (uint)item.Amount,
                 Status = item.Status,
                 OrganizationID = item.OrganizationID,

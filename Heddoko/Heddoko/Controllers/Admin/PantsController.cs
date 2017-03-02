@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file PantsController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -20,6 +27,10 @@ namespace Heddoko.Controllers
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
         private const int NoPantsOctopiID = 0;
+
+        public PantsController() { }
+
+        public PantsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<PantsAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -186,7 +197,7 @@ namespace Heddoko.Controllers
         {
             Pants item = UoW.PantsRepository.GetFull(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<PantsAPIModel>
                 {
@@ -203,7 +214,7 @@ namespace Heddoko.Controllers
 
             item.Status = EquipmentStatusType.Trash;
             item.PantsOctopi = null;
-            UoW.KitRepository.RemovePants(item.ID);
+            UoW.KitRepository.RemovePants(item.Id);
             UoW.Save();
 
             return new KendoResponse<PantsAPIModel>
@@ -305,7 +316,7 @@ namespace Heddoko.Controllers
 
             return new PantsAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 Location = item.Location,
                 QAStatus = item.QAStatus,

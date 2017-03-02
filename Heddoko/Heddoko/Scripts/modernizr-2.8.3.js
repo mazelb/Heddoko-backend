@@ -1,10 +1,10 @@
-/*!
- * Modernizr v2.8.3
- * www.modernizr.com
- *
- * Copyright (c) Faruk Ates, Paul Irish, Alex Sexton
- * Available under the BSD and MIT licenses: www.modernizr.com/license/
- */
+/**
+ * @file modernizr-2.8.3.js
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
 
 /*
  * Modernizr tests which native CSS3 and HTML5 features are available in

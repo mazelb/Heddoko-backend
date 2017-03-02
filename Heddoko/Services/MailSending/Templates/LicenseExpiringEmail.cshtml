@@ -1,0 +1,21 @@
+﻿@model Services.MailSending.Models.LicenseExpiringEmailViewModel
+
+@{
+    Layout = "_LayoutEmail";
+}
+
+Dear @Model.Name,
+<br />
+@if (string.IsNullOrEmpty(Model.OrganizationName))
+{
+    <text>Your lisence @Model.LicenseName is expiring in @Model.Days days at @Model.ExpirationAt.ToString("R")</text>
+}
+else
+{
+    <text>Your lisence @Model.LicenseName for organization @Model.OrganizationName is expiring in @Model.Days days at @Model.ExpirationAt.ToString("R")</text>
+}
+<br />
+<br />
+Looking forward to seeing you again!
+<br />
+- The Heddoko Team

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>  
+<package >  
+  <metadata>
+    <id>DAL</id>
+    <version>$version$</version>
+    <authors>Heddoko</authors>
+    <description>DAL deplopyment package</description>
+  </metadata>
+  <files>
+    <file src="..\..\Heddoko\packages\EntityFramework.6.1.3\tools\migrate.exe" />
+    <file src="*.ps1" />
+  </files>
+</package>  

@@ -1,4 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/**
+ * @file Firmware.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace DAL.Models
@@ -13,7 +21,7 @@ namespace DAL.Models
         public FirmwareStatusType Status { get; set; }
 
         #region NotMapped
-        public string IDView => $"FW{ID.ToString(Constants.PadZero)}";
+        public string IDView => $"FW{Id.ToString(Constants.PadZero)}";
 
         public string Url => Asset?.Url;
 
@@ -28,6 +36,12 @@ namespace DAL.Models
 
         [JsonIgnore]
         public virtual Asset Asset { get; set; }
+
+        [JsonIgnore]
+        public int? RecordID { get; set; }
+
+        [JsonIgnore]
+        public virtual Record Record { get; set; }
 
         #endregion
     }

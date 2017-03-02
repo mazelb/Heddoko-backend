@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * @file PowerboardsController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -23,6 +30,10 @@ namespace Heddoko.Controllers
         private const string Search = "Search";
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
+
+        public PowerboardsController() { }
+
+        public PowerboardsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<PowerboardAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -185,10 +196,10 @@ namespace Heddoko.Controllers
         {
             Powerboard item = UoW.PowerboardRepository.Get(id);
 
-            if (item.ID != CurrentUser.ID)
+            if (item.Id != CurrentUser.Id)
             {
                 item.Status = EquipmentStatusType.Trash;
-                UoW.BrainpackRepository.RemovePowerboard(item.ID);
+                UoW.BrainpackRepository.RemovePowerboard(item.Id);
 
                 UoW.Save();
             }
@@ -273,7 +284,7 @@ namespace Heddoko.Controllers
 
             return new PowerboardAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 Version = item.Version,
                 Location = item.Location,

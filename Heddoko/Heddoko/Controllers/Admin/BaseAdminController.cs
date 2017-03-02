@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file BaseAdminController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -8,77 +15,146 @@ using DAL.Models;
 using Heddoko.Helpers.Auth;
 using Heddoko.Models;
 using i18n;
+using Services;
+using System.Web;
+using Heddoko.Helpers.DomainRouting.Http;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace Heddoko.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [AuthAPI(Roles = Constants.Roles.Admin)]
+    [AuthAPI(Roles = DAL.Constants.Roles.Admin)]
     public abstract class BaseAdminController<T, TM> : ApiController
-        where T : BaseModel
+        where T : class
         where TM : class
     {
-        protected BaseAdminController()
-        {
-            UoW = new UnitOfWork();
-            Mapper.Initialize(cfg =>
-                              {
-                                  cfg.CreateMap<T, TM>();
-                              });
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+        private UnitOfWork _uow;
+        private User _currentUser;
 
-            CurrentUser = Forms.ValidateSession(UoW);
-            if (CurrentUser == null)
+        protected BaseAdminController() : base()
+        {
+            Mapper.Initialize(cfg =>
             {
-                ThrowAccessException();
+                cfg.CreateMap<T, TM>();
+            });
+        }
+
+        protected BaseAdminController(ApplicationUserManager userManager, UnitOfWork uow) : this()
+        {
+            UserManager = userManager;
+            UoW = uow;
+        }
+
+        protected BaseAdminController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, UnitOfWork uow)
+            : this(userManager, uow)
+        {
+            SignInManager = signInManager;
+        }
+
+
+
+        protected ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
             }
         }
 
-        protected UnitOfWork UoW { get; }
+        protected ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
-        protected User CurrentUser { get; private set; }
+        protected UnitOfWork UoW
+        {
+            get
+            {
+                return _uow ?? HttpContext.Current.GetOwinContext().Get<UnitOfWork>();
+            }
+            private set
+            {
+                _uow = value;
+            }
+        }
 
-        [Route("")]
+        protected User CurrentUser
+        {
+            get
+            {
+                if (_currentUser == null)
+                {
+                    _currentUser = UserManager.FindByIdCached(User.Identity.GetUserId<int>());
+                }
+                return _currentUser;
+            }
+        }
+
+        protected bool IsAdmin => CurrentUser != null && UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.Admin);
+
+        protected bool IsLicenseAdmin => CurrentUser != null && UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.LicenseAdmin);
+
+        protected bool IsAnalyst => CurrentUser != null && UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.Analyst);
+
+        protected bool IsWorker => CurrentUser != null && UserManager.IsInRole(CurrentUser.Id, DAL.Constants.Roles.Worker);
+
+        [DomainRoute("", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public virtual KendoResponse<IEnumerable<TM>> Get([FromUri] KendoRequest request)
         {
             throw new NotSupportedException();
         }
 
-        [Route("{id:int}")]
+        [DomainRoute("{id:int}", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public virtual KendoResponse<TM> Get(int id)
         {
             throw new NotSupportedException();
         }
 
-        [Route("history/{id:int}")]
+        [DomainRoute("history/{id:int}", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         public virtual KendoResponse<IEnumerable<HistoryNotes>> History(int id)
         {
             throw new NotSupportedException();
         }
 
-        [Route("")]
+        [DomainRoute("", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public virtual KendoResponse<TM> Post(TM model)
         {
             throw new NotSupportedException();
         }
 
-        [Route("bulk")]
+        [DomainRoute("bulk", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpPatch]
         public virtual KendoResponse<IEnumerable<TM>> Bulk(KendoRequest model)
         {
             throw new NotSupportedException();
         }
 
-        [Route("{id:int?}")]
+        [DomainRoute("{id:int?}", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpPut]
         public virtual KendoResponse<TM> Put(TM model)
         {
             throw new NotSupportedException();
         }
 
-        [Route("{id:int}")]
+        [DomainRoute("{id:int}", DAL.Constants.ConfigKeyName.DashboardSite)]
         [HttpDelete]
         public virtual KendoResponse<TM> Delete(int id)
         {
@@ -93,11 +169,6 @@ namespace Heddoko.Controllers
         protected virtual TM Convert(T item)
         {
             return Mapper.Map<TM>(item);
-        }
-
-        protected void InvalidateCurrentUser()
-        {
-            CurrentUser = Forms.ValidateSession(UoW, true);
         }
 
         protected void ThrowAccessException()

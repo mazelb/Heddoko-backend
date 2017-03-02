@@ -1,7 +1,15 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * @file FirmwareAPIModel.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using DAL.Models;
+using Heddoko.Models.Admin;
 using i18n;
 
 namespace Heddoko.Models
@@ -31,5 +39,7 @@ namespace Heddoko.Models
         public string Url { get; set; }
 
         public string Name => IsEmpty ? $"{Resources.No} {Resources.SoftwareOrFirmware}" : $"{Version}";
+
+        public List<AssetFileAPIModel> Files { get; set; }
     }
 }

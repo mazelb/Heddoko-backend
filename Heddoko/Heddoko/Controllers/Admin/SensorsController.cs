@@ -1,10 +1,18 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * @file SensorsController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
 using Hangfire;
+using Heddoko.Helpers.DomainRouting.Http;
 using Heddoko.Models;
 
 namespace Heddoko.Controllers
@@ -20,6 +28,10 @@ namespace Heddoko.Controllers
         private const string Used = "Used";
         private const string SensorSetID = "SensorSetID";
         private const string LinkField = "idView";
+
+        public SensorsController() { }
+
+        public SensorsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<SensorAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -110,6 +122,8 @@ namespace Heddoko.Controllers
                 {
                     ID = 0
                 });
+
+                count++; //Since we are adding something to the list
             }
 
             itemsDefault.AddRange(items.ToList().Select(Convert));
@@ -209,7 +223,7 @@ namespace Heddoko.Controllers
         {
             Sensor item = UoW.SensorRepository.Get(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<SensorAPIModel>
                 {
@@ -227,7 +241,7 @@ namespace Heddoko.Controllers
             };
         }
 
-        [Route("{id:int}/unlink")]
+        [DomainRoute("{id:int}/unlink", Constants.ConfigKeyName.DashboardSite)]
         public KendoResponse<SensorAPIModel> Unlink(int id)
         {
             Sensor item = UoW.SensorRepository.GetFull(id);
@@ -338,7 +352,7 @@ namespace Heddoko.Controllers
 
             return new SensorAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 Type = item.Type,
                 Version = item.Version,

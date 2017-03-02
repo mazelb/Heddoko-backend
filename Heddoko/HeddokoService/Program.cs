@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file Program.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration.Install;
@@ -7,6 +14,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
+using DAL;
 using Hangfire;
 using Services;
 
@@ -16,7 +24,7 @@ namespace HeddokoService
     {
         static void Main(string[] args)
         {
-            if (Environment.UserInteractive || args.Contains("-h"))
+            if (Environment.UserInteractive || args.Contains("-h") || args.Contains("-flush"))
             {
 
                 try
@@ -73,6 +81,13 @@ namespace HeddokoService
                                 List<string> migros = DatabaseManager.Pending().ToList();
 
                                 migros.ForEach(Console.WriteLine);
+                                break;
+                            case "-flush":
+                                Trace.TraceInformation("FLUSHALL is started");
+
+                                RedisManager.Flush();
+
+                                Trace.TraceInformation("FLUSHALL is stoped");
                                 break;
                         }
                     }

@@ -1,5 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/**
+ * @file AssetAPIController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -7,25 +13,32 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Heddoko.Helpers.DomainRouting.Http;
 using Heddoko.Models;
 using i18n;
 using Newtonsoft.Json;
 using Services;
+using Hangfire;
+using Microsoft.AspNet.Identity;
+using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers.API
 {
     [RoutePrefix("api/v1/assets")]
     public class AssetsAPIController : BaseAPIController
     {
+        public AssetsAPIController() { }
+
+        public AssetsAPIController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
+
         /// <summary>
         ///     Upload files
         /// </summary>
         /// <param name="kitID">The id of kit. optional</param>
         /// <param name="type">The type of upload. required</param>
-        [Route("upload")]
+        [DomainRoute("upload", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
         public async Task<Asset> Upload()
@@ -35,6 +48,15 @@ namespace Heddoko.Controllers.API
             if (!Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            try
+            {
+                UserManager.CheckUserLicense(CurrentUser);
+            }
+            catch (Exception e)
+            {
+                throw new APIException(ErrorAPIType.LicenseIsNotReady, e.Message);
             }
 
             //TODO Moved to CustomMediaTypeFormater
@@ -67,7 +89,8 @@ namespace Heddoko.Controllers.API
                             }
                             break;
                         case "serial":
-                            model.Serial = val;
+                        case "label":
+                            model.Label = val;
                             break;
                         case "type":
                             AssetType typeTmp;
@@ -108,9 +131,9 @@ namespace Heddoko.Controllers.API
             }
 
             if (kit == null
-            && !string.IsNullOrEmpty(model.Serial))
+            && !string.IsNullOrEmpty(model.Label))
             {
-                kit = UoW.KitRepository.Get(model.Serial);
+                kit = UoW.KitRepository.Get(model.Label);
             }
 
             if (kit == null)
@@ -120,9 +143,9 @@ namespace Heddoko.Controllers.API
 
             if (kit.UserID.HasValue)
             {
-                if (CurrentUser.RoleType == UserRoleType.Worker)
+                if (UserManager.IsInRole(CurrentUser.Id, Constants.Roles.Worker))
                 {
-                    if (kit.UserID.Value != CurrentUser.ID)
+                    if (kit.UserID.Value != CurrentUser.Id)
                     {
                         throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} kitID");
                     }
@@ -166,8 +189,16 @@ namespace Heddoko.Controllers.API
 
             foreach (MultipartFileData file in provider.FileData)
             {
-                asset.Name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString();
-                string path = AssetManager.Path($"{CurrentUser.ID}/{DateTime.Now.Ticks.ToString("x")}_{asset.Name}", asset.Type);
+                try
+                {
+                    asset.Name = JsonConvert.DeserializeObject(file.Headers.ContentDisposition.FileName).ToString();
+                }
+                catch (JsonReaderException)
+                {
+                    asset.Name = file.Headers.ContentDisposition.FileName;
+                }
+
+                string path = AssetManager.Path($"{CurrentUser.Id}/{DateTime.Now.Ticks.ToString("x")}_{asset.Name}", asset.Type);
 
                 Azure.Upload(path, DAL.Config.AssetsContainer, file.LocalFileName);
                 File.Delete(file.LocalFileName);
@@ -187,8 +218,8 @@ namespace Heddoko.Controllers.API
         /// <param name="userID">The filter by userID</param>
         /// <param name="take">The amount of take entries</param>
         /// <param name="skip">The amoun of skip entries</param>
-        [Route("list/{take:int}/{skip:int?}")]
-        [Route("list/{userID:int?}/{take:int}/{skip:int?}")]
+        [DomainRoute("list/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
+        [DomainRoute("list/{userID:int?}/{take:int}/{skip:int?}", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
         [AuthAPI(Roles = Constants.Roles.LicenseAdminAndWorkerAndAnalyst)]
         public ListAPIViewModel<Asset> List(int take = 100, int? userID = null, int? skip = 0)
@@ -204,9 +235,9 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.NonAssigned} team");
             }
 
-            if (CurrentUser.Role == UserRoleType.Worker)
+            if (UserManager.IsInRole(CurrentUser.Id, Constants.Roles.Worker))
             {
-                userID = CurrentUser.ID;
+                userID = CurrentUser.Id;
             }
 
             return new ListAPIViewModel<Asset>

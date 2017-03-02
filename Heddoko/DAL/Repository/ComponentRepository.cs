@@ -1,4 +1,11 @@
-﻿using DAL.Models;
+﻿/**
+ * @file ComponentRepository.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using DAL.Models;
 using System.Linq;
 using System.Data.Entity;
 using System.Collections.Generic;
@@ -17,13 +24,13 @@ namespace DAL
         public IEnumerable<Component> All(bool isDeleted)
         {
             return DbSet.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<Component> GetAvailable(int? id = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<Component> Search(string search, bool isDeleted = false)
@@ -31,9 +38,9 @@ namespace DAL
             int? id = search.ParseID();
             return DbSet
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                        .Where(c => (c.ID == id)
+                        .Where(c => (c.Id == id)
                                  || (c.Type.ToString().ToLower().Contains(search.ToLower())))
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public int GetQuantityReadyOfComponent(ComponentsType type)

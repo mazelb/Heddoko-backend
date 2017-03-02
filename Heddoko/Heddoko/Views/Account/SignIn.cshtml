@@ -7,7 +7,7 @@
 <section>
     <div class="main-body">
         <div class="container">
-            @using (Html.BeginForm("SignIn", "Account", FormMethod.Post, new { @class = "auth-form form-uppercase", role = "form" }))
+            @using (Html.BeginForm("SignIn", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "auth-form form-uppercase", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(m => m.ReturnUrl)
@@ -39,7 +39,7 @@
             <div class="alert alert-danger">
                 @Html.Raw(i18n.Resources.Oops)
                 <ul>
-                    @Html.ValidationSummary(true, string.Empty, new { @class = "" })
+                    @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary(true, string.Empty, new { @class = "" }).ToHtmlString()))
                 </ul>
             </div>
             }

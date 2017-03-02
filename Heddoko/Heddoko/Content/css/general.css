@@ -240,6 +240,45 @@ html.web-page {
   .btn-dashboard:hover span:last-child {
     background-color: #3bd6b2; }
 
+/* button info from http://cssgradientbutton.com/ */
+.hdk-btn {
+  border: 0px solid #8A66F4;
+  -webkit-box-shadow: #CCCCCC 0px 1px 0px inset;
+  -moz-box-shadow: #CCCCCC 0px 1px 0px inset;
+  box-shadow: #CCCCCC 0px 1px 0px inset;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: arial, helvetica, sans-serif;
+  padding: 10px 10px 10px 10px;
+  text-decoration: none;
+  display: inline-block;
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  color: #FFFFFF;
+  background-color: #01B1D9;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#01B1D9), to(#04d5a8));
+  background-image: -webkit-linear-gradient(left, #01B1D9, #04d5a8);
+  background-image: -moz-linear-gradient(left, #01B1D9, #04d5a8);
+  background-image: -ms-linear-gradient(left, #01B1D9, #04d5a8);
+  background-image: -o-linear-gradient(left, #01B1D9, #04d5a8);
+  background-image: linear-gradient(to right, #01B1D9, #04d5a8);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#01B1D9, endColorstr=#04d5a8);
+  display: block;
+  margin: 0 auto; }
+
+.hdk-btn:hover {
+  border: 0px solid #9174ED;
+  background-color: #0188a6;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#0188a6), to(#03a381));
+  background-image: -webkit-linear-gradient(left, #0188a6, #03a381);
+  background-image: -moz-linear-gradient(left, #0188a6, #03a381);
+  background-image: -ms-linear-gradient(left, #0188a6, #03a381);
+  background-image: -o-linear-gradient(left, #0188a6, #03a381);
+  background-image: linear-gradient(to right, #0188a6, #03a381);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#0188a6, endColorstr=#03a381); }
+
 .landing-page header {
   background: transparent none repeat scroll 0 0;
   height: 56px;
@@ -823,10 +862,10 @@ html.web-page {
   font-weight: 700;
   margin: 10px 5px; }
 
-.landing-page form .form-uppercase input, .landing-page form .form-username {
+.landing-page form .form-uppercase input, .landing-page form .form-username, .web-page form .form-uppercase input, .web-page form .form-username {
   text-transform: uppercase; }
 
-.landing-page form input[type="email"], .landing-page form input[type="password"], .landing-page form input[type="text"], .landing-page form select {
+.landing-page form input[type="email"], .landing-page form input[type="password"], .landing-page form input[type="text"], .landing-page form select, .web-page form input[type="email"], .web-page form input[type="password"], .web-page form input[type="text"], .web-page form select {
   background-color: rgba(255, 255, 255, 0.7);
   border: none;
   color: #333;
@@ -842,17 +881,17 @@ html.web-page {
   -o-border-radius: 0px;
   border-radius: 0px; }
 
-.landing-page form .input-group select {
+.landing-page form .input-group select, .web-page form .input-group select {
   font-size: 1.1em; }
 
-.landing-page form a {
+.landing-page form a, .web-page form a {
   color: #fff;
   display: inline-block;
   font-style: italic;
   font-weight: 700;
   margin: 10px 5px; }
 
-.landing-page form input[type="submit"] {
+.landing-page form input[type="submit"], .web-page form input[type="submit"] {
   background-color: rgba(59, 214, 178, 0.7);
   border: medium none;
   border-radius: 0;
@@ -862,11 +901,12 @@ html.web-page {
   text-transform: uppercase;
   width: 100%; }
 
-.landing-page form a.emphasize {
+.landing-page form a.emphasize, .web-page form a.emphasize {
   color: #3bd6b2; }
 
 .landing-page form .input-group-addon,
-.landing-page form .form-control {
+.landing-page form .form-control, .web-page form .input-group-addon,
+.web-page form .form-control {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   -ms-border-radius: 0px;
@@ -882,7 +922,16 @@ html.web-page {
 .landing-page form .form-horizontal .form-group-sm select[multiple].form-control,
 .landing-page form .input-group-sm > select[multiple].form-control,
 .landing-page form .input-group-sm > select[multiple].input-group-addon,
-.landing-page form .input-group-sm > .input-group-btn > select[multiple].btn {
+.landing-page form .input-group-sm > .input-group-btn > select[multiple].btn, .web-page form textarea.input-sm,
+.web-page form .form-horizontal .form-group-sm textarea.form-control,
+.web-page form .input-group-sm > textarea.form-control,
+.web-page form .input-group-sm > textarea.input-group-addon,
+.web-page form .input-group-sm > .input-group-btn > textarea.btn,
+.web-page form select[multiple].input-sm,
+.web-page form .form-horizontal .form-group-sm select[multiple].form-control,
+.web-page form .input-group-sm > select[multiple].form-control,
+.web-page form .input-group-sm > select[multiple].input-group-addon,
+.web-page form .input-group-sm > .input-group-btn > select[multiple].btn {
   height: auto; }
 
 .landing-page form textarea.input-lg,
@@ -894,7 +943,16 @@ html.web-page {
 .landing-page form .form-horizontal .form-group-lg select[multiple].form-control,
 .landing-page form .input-group-lg > select[multiple].form-control,
 .landing-page form .input-group-lg > select[multiple].input-group-addon,
-.landing-page form .input-group-lg > .input-group-btn > select[multiple].btn {
+.landing-page form .input-group-lg > .input-group-btn > select[multiple].btn, .web-page form textarea.input-lg,
+.web-page form .form-horizontal .form-group-lg textarea.form-control,
+.web-page form .input-group-lg > textarea.form-control,
+.web-page form .input-group-lg > textarea.input-group-addon,
+.web-page form .input-group-lg > .input-group-btn > textarea.btn,
+.web-page form select[multiple].input-lg,
+.web-page form .form-horizontal .form-group-lg select[multiple].form-control,
+.web-page form .input-group-lg > select[multiple].form-control,
+.web-page form .input-group-lg > select[multiple].input-group-addon,
+.web-page form .input-group-lg > .input-group-btn > select[multiple].btn {
   height: auto; }
 
 @-webkit-keyframes fade-up-enter {

@@ -1,4 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/**
+ * @file Component.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Models
 {
@@ -16,7 +23,7 @@ namespace DAL.Models
         #region NotMapped
         bool ISoftDelete.IsDeleted => Status == EquipmentStatusType.Trash;
 
-        public string IDView => $"CO{ID.ToString(Constants.PadZero)}";
+        public string IDView => $"CO{Id.ToString(Constants.PadZero)}";
 
         #endregion
     }

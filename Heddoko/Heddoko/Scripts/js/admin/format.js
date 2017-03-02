@@ -1,4 +1,11 @@
-﻿var Format = {
+﻿/**
+ * @file format.js
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+var Format = {
     image: function (url) {
         return url ? '<img class="img-grid" src="' + url + '" />' : '&nbsp;';
     },
@@ -155,8 +162,6 @@
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         role: function (item) {
-            item = item != null ? Enums.UserRoleType.array[item].text : "";
-
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         kit: function (item) {
@@ -190,7 +195,7 @@
                 var div = '<div class="">';
                 div += i18n.Resources.ID + ': <b>' + item.pantsOctopi.idView + '</b><br/>';
                 div += i18n.Resources.Size + ': <b>' + Format.equipment.size(item.pantsOctopi.size) + '</b><br/>';
-                div += i18n.Resources.PhysicalLocation + ': <b>' + item.pantsOctopi.location + '</b><br/>';
+                div += i18n.Resources.Label + ': <b>' + item.pantsOctopi.label + '</b><br/>';
                 div += "</div>";
                 return div;
             }
@@ -213,7 +218,7 @@
                 var div = '<div class="">';
                 div += i18n.Resources.ID + ': <b>' + item.shirtsOctopi.idView + '</b><br/>';
                 div += i18n.Resources.Size + ': <b>' + Format.equipment.size(item.shirtsOctopi.size) + '</b><br/>';
-                div += i18n.Resources.PhysicalLocation + ': <b>' + item.shirtsOctopi.location + '</b><br/>';
+                div += i18n.Resources.Label + ': <b>' + item.shirtsOctopi.label + '</b><br/>';
                 div += "</div>";
                 return div;
             }
@@ -246,7 +251,21 @@
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         url: function (item) {
-            return item ? '<a href="' + item + '">' + i18n.Resources.Download + "</a>" : "";
+            if (item.url) {
+                return '<a href="' + item + '">' + i18n.Resources.Download + "</a>";
+            }
+
+            var html = '';
+            if (item.files) {
+                for (var i = 0; i < item.files.length; i++) {
+
+                    var type = Enums.AssetType.array[item.files[i].type].text;
+
+                    html += '<a href="' + item.files[i].url + '">' + i18n.Resources.Download + " " + type + "</a><br/>";
+                }
+            }
+
+            return html;
         },
         version: function (item) {
             if (item.firmware) {
@@ -311,8 +330,8 @@
         brainpack: function (item) {
             if (item.brainpack) {
                 var div = '<div class="">';
+                div += i18n.Resources.Label + ": <b>" + item.brainpack.label + "</b><br/>";
                 div += i18n.Resources.ID + ": <b>" + item.brainpack.idView + "</b><br/>";
-                div += i18n.Resources.Version + ": <b>" + item.brainpack.version + "</b><br/>";
                 div += "</div>";
                 return div;
             }
@@ -322,6 +341,7 @@
             if (item.sensorSet) {
                 var div = '<div class="">';
                 div += i18n.Resources.ID + ": <b>" + item.sensorSet.idView + "</b><br/>";
+                div += i18n.Resources.Label + ": <b>" + item.sensorSet.label + "</b><br/>";
                 //TODO add aditional sensorSet fields if needed
                 div += "</div>";
                 return div;
@@ -332,7 +352,8 @@
             if (item.pants) {
                 var div = '<div class="">';
                 div += i18n.Resources.ID + ": <b>" + item.pants.idView + "</b><br/>";
-                div += i18n.Resources.Size + ': <b>' + Format.equipment.size(item.pants.size) + '</b><br/>';
+                div += i18n.Resources.Label + ': <b>' + item.pants.label + '</b><br/>';
+                div += ': <b>' + Format.equipment.size(item.pants.size) + '</b><br/>';
                 div += "</div>";
                 return div;
             }
@@ -342,7 +363,7 @@
             if (item.shirt) {
                 var div = '<div class="">';
                 div += i18n.Resources.ID + ": <b>" + item.shirt.idView + "</b><br/>";
-                div += i18n.Resources.Size + ': <b>' + Format.equipment.size(item.shirt.size) + '</b><br/>';
+                div += i18n.Resources.Label + ': <b>' + item.shirt.label + '</b><br/>';
                 div += "</div>";
                 return div;
             }
@@ -390,6 +411,19 @@
             item = item != null ? Enums.TeamStatusType.array[item].text : "";
 
             return '<span class="k-grid-showText">' + item + '</span>';
+        }
+    },
+    applications: {
+        enabled: function (item) {
+            item = item ? 'Enabled' : 'Disabled';
+            return '<span class="k-grid-showText">' + item + '</span>';
+        }
+    },
+    ergoscore: {
+        score: function (item) {
+            item = item != null ? item.toFixed(2) : "";
+
+            return item;
         }
     }
 };

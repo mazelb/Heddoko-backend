@@ -1,8 +1,17 @@
-﻿using System;
+﻿/**
+ * @file AuthAttribute.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using i18n;
+using ClaimsPrincipal = System.Security.Claims.ClaimsPrincipal;
+using static DAL.Constants;
 
 namespace Heddoko
 {
@@ -23,6 +32,13 @@ namespace Heddoko
             }
 
             if (filterContext.HttpContext.User == null)
+            {
+                HandleUnauthorizedRequest(filterContext);
+                return;
+            }
+
+            var user = filterContext.HttpContext.User as ClaimsPrincipal;
+            if (user.HasClaim(OpenAPIClaims.ClaimType, OpenAPIClaims.ClaimValue))
             {
                 HandleUnauthorizedRequest(filterContext);
                 return;

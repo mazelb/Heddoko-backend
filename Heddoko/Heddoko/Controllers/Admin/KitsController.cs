@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file KitsController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -7,6 +14,8 @@ using DAL;
 using DAL.Models;
 using Heddoko.Models;
 using i18n;
+using Microsoft.AspNet.Identity;
+using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers
 {
@@ -24,13 +33,16 @@ namespace Heddoko.Controllers
         private const int NoPantsID = 0;
         private const int NoSensorSetID = 0;
 
+        public KitsController() { }
+
+        public KitsController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<KitAPIModel>> Get([FromUri] KendoRequest request)
         {
             IEnumerable<Kit> items = null;
 
             int? organizationID = null;
-            if (CurrentUser.Role == UserRoleType.LicenseAdmin)
+            if (UserManager.IsInRole(CurrentUser.Id, Constants.Roles.LicenseAdmin))
             {
                 if (!CurrentUser.OrganizationID.HasValue)
                 {
@@ -78,7 +90,7 @@ namespace Heddoko.Controllers
                     if (statusInt.HasValue || !string.IsNullOrEmpty(searchFilter?.Value))
                     {
                         items = UoW.KitRepository.Search(searchFilter?.Value, statusInt, isDeleted, organizationID);
-                    }                     
+                    }
                 }
             }
 
@@ -207,7 +219,7 @@ namespace Heddoko.Controllers
         {
             Kit item = UoW.KitRepository.Get(id);
 
-            if (item.ID != CurrentUser.ID)
+            if (item.Id != CurrentUser.Id)
             {
                 item.Status = EquipmentStatusType.Trash;
                 item.OrganizationID = null;
@@ -242,12 +254,12 @@ namespace Heddoko.Controllers
                 return null;
             }
 
-            if (!CurrentUser.IsAdmin)
+            if (!IsAdmin)
             {
                 throw new Exception(Resources.WrongObjectAccess);
             }
 
-            if (CurrentUser.Role == UserRoleType.LicenseAdmin)
+            if (IsLicenseAdmin)
             {
                 //TODO remove that
                 if (model.UserID.HasValue)
@@ -394,7 +406,7 @@ namespace Heddoko.Controllers
 
             return new KitAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 Location = item.Location,
                 Status = item.Status,

@@ -1,0 +1,21 @@
+﻿@model Heddoko.Models.BaseViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="page">
+    <div class="header clearfix">
+        <h3>@Html.Raw(i18n.Resources.ApproveApplication)</h3>
+    </div>
+    @Html.Partial("_FlashMessages", Model.Flash)
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="applicationsApproveGrid">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Body {
+}

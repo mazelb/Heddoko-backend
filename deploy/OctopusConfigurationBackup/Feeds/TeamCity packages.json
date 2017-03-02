@@ -1,0 +1,9 @@
+{
+  "$type": "Octopus.Core.Model.NuGet.NuGetFeed, Octopus.Core",
+  "Id": "feeds-teamcity-packages",
+  "Name": "TeamCity packages",
+  "FeedUri": "http://tc.heddoko.com/httpAuth/app/nuget/v1/FeedService.svc/",
+  "Username": "heddoko.admin",
+  "Password": "GYi3vsIl/n/3NJL4KNAjUg==|AAAAAAAAAAAAAAAAAAAAAA==",
+  "FeedType": "NuGet"
+}

@@ -1,4 +1,11 @@
-﻿$(function () {
+﻿/**
+ * @file usersAdmin.js
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+$(function () {
     UsersAdmin.init();
 });
 
@@ -62,6 +69,20 @@ var UsersAdmin = {
                     template: function (e) {
                         return Format.license.name(e.licenseName);
                     }
+                },{
+                    field: 'kitID',
+                    title: i18n.Resources.Kit,
+                    editor: KendoDS.emptyEditor,
+                    template: function (e) {
+                        return Format.user.kit(e);
+                    }
+                }, {
+                    field: 'teamID',
+                    title: i18n.Resources.Team,
+                    editor: KendoDS.emptyEditor,
+                    template: function (e) {
+                        return Format.user.team(e);
+                    }
                 }, {
                     field: 'status',
                     title: i18n.Resources.Status,
@@ -74,13 +95,17 @@ var UsersAdmin = {
                         name: "edit",
                         text: i18n.Resources.Edit,
                         className: "k-grid-edit"
+                    }, {
+                        text: i18n.Resources.ResendActivation,
+                        className: "k-grid-resend",
+                        click: this.onResendActivation.bind(this)
                     }],
                     title: i18n.Resources.Actions,
                     width: '165px'
                 }
                 ],
                 save: KendoDS.onSave,
-                dataBound: KendoDS.onDataBound
+                dataBound: this.onDataBound
             }).data("kendoGrid");
 
             KendoDS.bind(this.controls.grid, true);
@@ -122,5 +147,35 @@ var UsersAdmin = {
         }
 
         return filters.length == 0 ? {} : filters;
+    },
+    onDataBound: function (e) {
+        KendoDS.onDataBound(e);
+
+        $(".k-grid-resend", UsersAdmin.controls.grid.element)
+          .each(function () {
+              var currentDataItem = UsersAdmin.controls.grid.dataItem($(this).closest("tr"));
+
+              if (currentDataItem.status !== Enums.UserStatusType.enum.Invited) {
+                  $(this).remove();
+              }
+          });
+
+    },
+    onResendActivation: function (e) {
+        e.preventDefault();
+
+        var item = UsersAdmin.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+
+        Ajax.post("/admin/api/users/activation/resend",
+       {
+           userId: item.id
+       }).success(this.onResendActivationSuccess);
+    },
+    onResendActivationSuccess: function(e) {
+        if (e) {
+            Notifications.info(i18n.Resources.EmailHasBeenSent);
+        } else {
+            Notifications.error(i18n.Resources.Error);
+        }
     }
 };

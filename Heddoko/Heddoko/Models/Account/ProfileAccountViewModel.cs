@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file ProfileAccountViewModel.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using DAL.Models;
@@ -50,7 +57,6 @@ namespace Heddoko.Models
         public DateTime? Birthday { get; set; }
 
         [MaxLength(50)]
-        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessageResourceName = "InvalidPhone", ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Mobile", ResourceType = typeof(Resources))]
         public string Phone { get; set; }

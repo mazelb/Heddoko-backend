@@ -12,47 +12,12 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod|AnyCPU'">
     <OutputPath>bin\Prod\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -114,43 +79,115 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Jil, Version=2.14.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Jil.2.14.5\lib\net45\Jil.dll</HintPath>
+    <Reference Include="FileHelpers, Version=3.1.5.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+      <HintPath>..\packages\FileHelpers.3.1.5\lib\net45\FileHelpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jil, Version=2.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jil.2.15.0\lib\net45\Jil.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="JWT, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\JWT.1.3.4\lib\3.5\JWT.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.4.1.18, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.4.1\lib\net45\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.4.1.18, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.4.1\lib\net45\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.4.1.18, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.4.1\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Legacy, Version=2.4.1.18, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.2.4.1\lib\net45\MongoDB.Driver.Legacy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.1.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.1.0\lib\net451\protobuf-net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sigil, Version=4.7.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Sigil.4.7.0\lib\net45\Sigil.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="StackExchange.Redis, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\StackExchange.Redis.1.1.603\lib\net46\StackExchange.Redis.dll</HintPath>
+    <Reference Include="StackExchange.Redis, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.2.0\lib\net46\StackExchange.Redis.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Z.EntityFramework.Plus.EF6, Version=1.3.12.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Z.EntityFramework.Plus.EF6.1.3.12\lib\net45\Z.EntityFramework.Plus.EF6.dll</HintPath>
+    <Reference Include="Z.EntityFramework.Plus.EF6, Version=1.4.23.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Z.EntityFramework.Plus.EF6.1.4.23\lib\net45\Z.EntityFramework.Plus.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ChanelHelper.cs" />
+    <Compile Include="Identity\ApplicationSignInManager.cs" />
+    <Compile Include="Identity\ApplicationUserManager.cs" />
+    <Compile Include="Identity\EmailService.cs" />
+    <Compile Include="Identity\RoleStore.cs" />
+    <Compile Include="Identity\UserClaim.cs" />
+    <Compile Include="Identity\UserLogin.cs" />
+    <Compile Include="Identity\UserRole.cs" />
+    <Compile Include="Identity\UserStore.cs" />
+    <Compile Include="Identity\IdentityRole.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Diagnostics\ColoredConsoleTraceListener.cs" />
@@ -158,11 +195,11 @@
     <Compile Include="HDContext.cs" />
     <Compile Include="Helpers\AssetManager.cs" />
     <Compile Include="Helpers\CustomSqlServerMigrationSqlGenerator.cs" />
-    <Compile Include="Helpers\JwtHelper.cs" />
-    <Compile Include="Helpers\Utility.cs" />
+    <Compile Include="Helpers\JWTHelper.cs" />
     <Compile Include="Helpers\PasswordHasher.cs" />
     <Compile Include="Helpers\RedisManager.cs" />
     <Compile Include="Helpers\StringValueAttribute.cs" />
+    <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Migrations\201604261253470_Init.cs" />
     <Compile Include="Migrations\201604261253470_Init.Designer.cs">
       <DependentUpon>201604261253470_Init.cs</DependentUpon>
@@ -227,9 +264,62 @@
     <Compile Include="Migrations\201609091114388_Team.Designer.cs">
       <DependentUpon>201609091114388_Team.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609201202151_UserIdentity.cs" />
+    <Compile Include="Migrations\201609201202151_UserIdentity.Designer.cs">
+      <DependentUpon>201609201202151_UserIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610130942452_UserOrganization.cs" />
+    <Compile Include="Migrations\201610130942452_UserOrganization.Designer.cs">
+      <DependentUpon>201610130942452_UserOrganization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610200954010_RemoveUserTokens.cs" />
+    <Compile Include="Migrations\201610200954010_RemoveUserTokens.Designer.cs">
+      <DependentUpon>201610200954010_RemoveUserTokens.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611021554468_AddUserDevices.cs" />
+    <Compile Include="Migrations\201611021554468_AddUserDevices.Designer.cs">
+      <DependentUpon>201611021554468_AddUserDevices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611181429315_AddRecord.cs" />
+    <Compile Include="Migrations\201611181429315_AddRecord.Designer.cs">
+      <DependentUpon>201611181429315_AddRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611231355448_AddDefaultRecords.cs" />
+    <Compile Include="Migrations\201611231355448_AddDefaultRecords.Designer.cs">
+      <DependentUpon>201611231355448_AddDefaultRecords.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611231552514_AddRecordToFirmware.cs" />
+    <Compile Include="Migrations\201611231552514_AddRecordToFirmware.Designer.cs">
+      <DependentUpon>201611231552514_AddRecordToFirmware.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612221303570_Application.cs" />
+    <Compile Include="Migrations\201612221303570_Application.Designer.cs">
+      <DependentUpon>201612221303570_Application.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
+    <Compile Include="Models\Application.cs" />
+    <Compile Include="Models\Device.cs" />
+    <Compile Include="Models\Enum\DeviceStatus.cs" />
+    <Compile Include="Models\Enum\DeviceType.cs" />
+    <Compile Include="Models\Enum\ReadStatus.cs" />
+    <Compile Include="Models\ErgoScore.cs" />
+    <Compile Include="Models\Enum\RecordType.cs" />
+    <Compile Include="Models\MongoDocuments\AnalysisFrame.cs" />
+    <Compile Include="Models\MongoDocuments\ErgoScoreRecord.cs" />
+    <Compile Include="Models\MongoDocuments\HourlyScore.cs" />
+    <Compile Include="Models\MongoDocuments\ProcessedFrame.cs" />
+    <Compile Include="Models\MongoDocuments\Proto\AnalysisFrame.cs" />
+    <Compile Include="Models\MongoDocuments\Proto\heddokoPacket.cs" />
+    <Compile Include="Models\MongoDocuments\Notifications\UserEvent.cs" />
+    <Compile Include="Models\Enum\UserEventStatus.cs" />
+    <Compile Include="Models\Enum\UserEventType.cs" />
+    <Compile Include="Models\MongoDocuments\Proto\ProcessedFrame.cs" />
+    <Compile Include="Models\MongoDocuments\Proto\RawPacket.cs" />
+    <Compile Include="Models\MongoDocuments\RawFrame.cs" />
+    <Compile Include="Models\Record.cs" />
+    <Compile Include="Models\Streaming\Channel.cs" />
     <Compile Include="Models\Enum\AssetsProccesingType.cs" />
     <Compile Include="Models\Enum\AssembliesType.cs" />
     <Compile Include="Models\Enum\TeamStatusType.cs" />
@@ -249,8 +339,11 @@
     <Compile Include="Models\Enum\ComponentsType.cs" />
     <Compile Include="Models\Enum\EquipmentQAStatusType.cs" />
     <Compile Include="Models\HistoryNotes.cs" />
+    <Compile Include="Models\Interfaces\IEmailService.cs" />
     <Compile Include="Models\Interfaces\ISoftDelete.cs" />
     <Compile Include="Models\Interfaces\IAuditable.cs" />
+    <Compile Include="Models\Interfaces\IBaseModel.cs" />
+    <Compile Include="Models\Interfaces\ISupportEmailViewModel.cs" />
     <Compile Include="Models\Pants.cs" />
     <Compile Include="Models\PantsOctopi.cs" />
     <Compile Include="Models\ShirtOctopi.cs" />
@@ -294,13 +387,29 @@
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Enum\UserGenderType.cs" />
+    <Compile Include="HDMongoContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AnalysisFrameRepository.cs" />
     <Compile Include="Repository\AssetRepository.cs" />
     <Compile Include="Repository\BaseCacheRepository.cs" />
+    <Compile Include="Repository\ApplicationRepository.cs" />
+    <Compile Include="Repository\Interface\IApplicationRepository.cs" />
+    <Compile Include="Repository\DeviceRepository.cs" />
+    <Compile Include="Repository\ErgoScoreRecordRepository.cs" />
+    <Compile Include="Repository\Interface\IAnalysisFrameRepository.cs" />
+    <Compile Include="Repository\Interface\IDeviceRepository.cs" />
+    <Compile Include="Repository\Interface\IErgoScoreRecordRepository.cs" />
+    <Compile Include="Repository\Interface\IProcessedFrameRepository.cs" />
+    <Compile Include="Repository\Interface\IRawFrameRepository.cs" />
+    <Compile Include="Repository\Interface\IRecordRepository.cs" />
+    <Compile Include="Repository\Interface\IUserActivityRepository.cs" />
+    <Compile Include="Repository\MongoDbRepository.cs" />
+    <Compile Include="Repository\Interface\IMongoDbRepository.cs" />
     <Compile Include="Repository\Interface\IAssemblyCacheRepositoy.cs" />
     <Compile Include="Repository\Interface\IHistoryRepository.cs" />
     <Compile Include="Repository\Interface\ILicenseRepository.cs" />
     <Compile Include="Repository\Interface\IFirmwareRepository.cs" />
+    <Compile Include="Repository\Interface\IStreamConnectionsCacheRepository.cs" />
     <Compile Include="Repository\Interface\ITeamRepository.cs" />
     <Compile Include="Repository\Interface\IShirtOctopiRepository.cs" />
     <Compile Include="Repository\Interface\ISensorSetRepository.cs" />
@@ -314,6 +423,10 @@
     <Compile Include="Repository\Interface\IBrainpackRepository.cs" />
     <Compile Include="Repository\Interface\IShirtRepository.cs" />
     <Compile Include="Repository\LicenseRepository.cs" />
+    <Compile Include="Repository\RawFrameRepository.cs" />
+    <Compile Include="Repository\RecordRepository.cs" />
+    <Compile Include="Repository\StreamConnectionsCacheRepository.cs" />
+    <Compile Include="Repository\ProcessedFrameRepository.cs" />
     <Compile Include="Repository\TeamRepository.cs" />
     <Compile Include="Repository\OrganizationRepository.cs" />
     <Compile Include="Repository\Interface\IOrganizationRepository.cs" />
@@ -337,12 +450,29 @@
     <Compile Include="Repository\Interface\IAssetRepository.cs" />
     <Compile Include="Repository\Interface\IUserRepository.cs" />
     <Compile Include="Repository\AssemblyCacheRepository.cs" />
+    <Compile Include="Repository\UserActivityRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
+    <Compile Include="Models\MongoDocuments\Results.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="App.Dev.config">
+      <DependentUpon>App.config</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="App.Prod.config">
+      <DependentUpon>App.config</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DAL.nuspec" />
+    <None Include="Models\MongoDocuments\Proto\AnalysisFrame.proto" />
+    <None Include="Models\MongoDocuments\Proto\heddokoPacket_V0.3.proto" />
+    <None Include="Models\MongoDocuments\Proto\ProcessedFrame.proto" />
     <None Include="packages.config" />
+    <None Include="Services.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\i18n\i18n.csproj">
@@ -399,8 +529,37 @@
     <EmbeddedResource Include="Migrations\201609091114388_Team.resx">
       <DependentUpon>201609091114388_Team.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609201202151_UserIdentity.resx">
+      <DependentUpon>201609201202151_UserIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610130942452_UserOrganization.resx">
+      <DependentUpon>201610130942452_UserOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610200954010_RemoveUserTokens.resx">
+      <DependentUpon>201610200954010_RemoveUserTokens.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611021554468_AddUserDevices.resx">
+      <DependentUpon>201611021554468_AddUserDevices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611181429315_AddRecord.resx">
+      <DependentUpon>201611181429315_AddRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611231355448_AddDefaultRecords.resx">
+      <DependentUpon>201611231355448_AddDefaultRecords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611231552514_AddRecordToFirmware.resx">
+      <DependentUpon>201611231552514_AddRecordToFirmware.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612221303570_Application.resx">
+      <DependentUpon>201612221303570_Application.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\OctoPack.3.4.7\tools\OctoPack.targets" Condition="Exists('..\packages\OctoPack.3.4.7\tools\OctoPack.targets')" />
+  <Target Name="EnsureOctoPackImported" BeforeTargets="BeforeBuild" Condition="'$(OctoPackImported)' == ''">
+    <Error Condition="!Exists('..\packages\OctoPack.3.4.7\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="You are trying to build with OctoPack, but the NuGet targets file that OctoPack depends on is not available on this computer. This is probably because the OctoPack package has not been committed to source control, or NuGet Package Restore is not enabled. Please enable NuGet Package Restore to download them. For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\OctoPack.3.4.7\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="OctoPack cannot be run because NuGet packages were restored prior to the build running, and the targets file was unavailable when the build started. Please build the project again to include these packages in the build. You may also need to make sure that your build server does not delete packages prior to each build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

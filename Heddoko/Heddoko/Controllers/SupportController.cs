@@ -1,14 +1,30 @@
-﻿using System.Linq;
+﻿/**
+ * @file SupportController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Linq;
 using System.Web.Mvc;
 using DAL;
 using DAL.Models;
+using Hangfire;
 using Heddoko.Models;
 using i18n;
+using Services;
 
 namespace Heddoko.Controllers
 {
     public class SupportController : BaseController
     {
+        public SupportController(): base() { }
+
+        public SupportController(ApplicationUserManager userManager, UnitOfWork uow)
+            : base(userManager, uow)
+        {
+        }
+
         public ActionResult Index()
         {
             SupportIndexViewModel model = new SupportIndexViewModel();
@@ -35,8 +51,8 @@ namespace Heddoko.Controllers
             {
                 ModelState.AddModelError(string.Empty, Resources.WrongAttachmentSize);
             }
-
-            Mailer.SendSupportEmail(model);
+            
+            BackgroundJob.Enqueue(() => EmailManager.SendSupportEmail(model));
 
             BaseViewModel modelStatus = new BaseViewModel();
 

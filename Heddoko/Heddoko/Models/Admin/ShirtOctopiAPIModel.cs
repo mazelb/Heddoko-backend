@@ -1,4 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/**
+ * @file ShirtOctopiAPIModel.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.ComponentModel.DataAnnotations;
 using DAL;
 using DAL.Models;
 using i18n;
@@ -38,7 +45,7 @@ namespace Heddoko.Models
 
         public string IDView { get; set; }
 
-        public string Name => IsEmpty ? $"{Resources.No} {Resources.ShirtsOctopi}" : $"{IDView} - {Size.GetDisplayName()} - {Status.GetDisplayName()}";
+        public string Name => IsEmpty ? $"{Resources.No} {Resources.ShirtsOctopi}" : $"{IDView} - {Size.GetDisplayName()} - {Label}";
 
         public string QAStatusText => QAStatus?.ToStringFlags();
 

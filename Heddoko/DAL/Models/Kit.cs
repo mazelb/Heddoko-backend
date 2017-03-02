@@ -1,5 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/**
+ * @file Kit.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Jil;
 using Newtonsoft.Json;
 
 namespace DAL.Models
@@ -29,7 +37,7 @@ namespace DAL.Models
         #region NotMapped
         bool ISoftDelete.IsDeleted => Status == EquipmentStatusType.Trash;
 
-        public string IDView => $"KI{ID.ToString(Constants.PadZero)}";
+        public string IDView => $"KI{Id.ToString(Constants.PadZero)}";
 
         #endregion
 
@@ -38,18 +46,19 @@ namespace DAL.Models
         public int? OrganizationID { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual Organization Organization { get; set; }
 
         [JsonIgnore]
         public int? UserID { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual User User { get; set; }
 
         [JsonIgnore]
         public int? BrainpackID { get; set; }
 
-        [JsonIgnore]
         public virtual Brainpack Brainpack { get; set; }
 
         [JsonIgnore]

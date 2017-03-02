@@ -1,29 +1,86 @@
-﻿using System;
+﻿/**
+ * @file User.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using DAL.Helpers;
 using Jil;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class User : BaseModel
+    public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>, IBaseModel
     {
-        [Index(IsUnique = true)]
-        [StringLength(255)]
-        public string Email { get; set; }
+        private string _roleName;
 
-        [Index(IsUnique = true)]
-        [StringLength(255)]
-        public string Username { get; set; }
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager, string authenticationType = DefaultAuthenticationTypes.ApplicationCookie)
+        {
+            if (string.IsNullOrEmpty(SecurityStamp))
+            {
+                SecurityStamp = Guid.NewGuid().ToString();
+            }
+            ClaimsIdentity userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
+
+            if (ParentLoggedInUserId.HasValue)
+            {
+                userIdentity.AddClaim(new Claim(Constants.ClaimTypes.ParentLoggedInUser, ParentLoggedInUserId.ToString()));
+            }
+
+            return userIdentity;
+        }
+
+        #region BaseModel
+        [JsonProperty("updatedAt")]
+        public DateTime? Updated { get; set; }
+
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [JsonProperty("createdAt")]
+        public DateTime Created { get; set; }
+        #endregion
+
+        #region IdentityUser
+        [JsonIgnore]
+        public override int AccessFailedCount { get; set; }
+        public override string Email { get; set; }
+        [JsonIgnore]
+        public override bool EmailConfirmed { get; set; }
+        public override int Id { get; set; }
+        [JsonIgnore]
+        public override bool LockoutEnabled { get; set; }
+        [JsonIgnore]
+        public override DateTime? LockoutEndDateUtc { get; set; }
+        [JsonIgnore]
+        public override string PasswordHash { get; set; }
+        public override string PhoneNumber { get; set; }
+        [Obsolete("will be removed after migration to Identity")]
+        public string Phone => PhoneNumber;
+        [JsonIgnore]
+        public override bool PhoneNumberConfirmed { get; set; }
+        [JsonIgnore]
+        public override string SecurityStamp { get; set; }
+        [JsonIgnore]
+        public override bool TwoFactorEnabled { get; set; }
+        public override string UserName { get; set; }
+        #endregion
 
         [StringLength(100)]
+        [Obsolete("will be removed after migration to Identity")]
         [JsonIgnore]
         public string Password { get; set; }
 
         [StringLength(100)]
+        [Obsolete("will be removed after migration to Identity")]
         [JsonIgnore]
         public string Salt { get; set; }
 
@@ -33,37 +90,16 @@ namespace DAL.Models
         [StringLength(255)]
         public string LastName { get; set; }
 
-        [StringLength(255)]
-        public string Phone { get; set; }
-
         [StringLength(20)]
         public string Country { get; set; }
 
         public DateTime? BirthDay { get; set; }
 
         [JsonIgnore]
+        [Obsolete("will be removed after migration to Identity")]
         public UserRoleType Role { get; set; }
 
         public UserStatusType Status { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        public string ConfirmToken { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        public string RememberToken { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        public string ForgotToken { get; set; }
-
-        [StringLength(100)]
-        [JsonIgnore]
-        public string InviteToken { get; set; }
-
-        [JsonIgnore]
-        public DateTime? ForgotExpiration { get; set; }
 
         #region Relations
 
@@ -93,10 +129,13 @@ namespace DAL.Models
         public virtual ICollection<Asset> Assets { get; set; }
 
         [JsonIgnore]
-        [JilDirective(Ignore = true)]
         public virtual ICollection<Kit> Kits { get; set; }
 
+        [JilDirective(Ignore = true)]
         public virtual Kit Kit => Kits?.FirstOrDefault();
+
+        [JsonIgnore]
+        public virtual ICollection<Device> Devices { get; set; }
         #endregion
 
         #region NotMapped
@@ -109,7 +148,7 @@ namespace DAL.Models
 
             LicenseInfo info = new LicenseInfo
             {
-                ID = License.ID,
+                ID = License.Id,
                 ExpiredAt = License.ExpirationAt,
                 Name = License.Name,
                 Status = License.Status,
@@ -154,30 +193,27 @@ namespace DAL.Models
         [JilDirective(Ignore = true)]
         public string LicenseInfoToken { get; set; }
 
-        [JsonIgnore]
-        public List<string> Roles => new List<string>
-                                     {
-                                         Role.GetStringValue(),
-                                         RoleType.GetStringValue()
-                                     };
-
         public UserRoleType RoleType
         {
             get
             {
-                if (License != null
-                    &&
-                    License.IsActive)
+                if (License == null ||
+                    !License.IsActive)
                 {
-                    switch (License.Type)
-                    {
-                        case LicenseType.DataAnalysis:
-                            return UserRoleType.Analyst;
-                        case LicenseType.DataCollection:
-                            return UserRoleType.Worker;
-                    }
+                    return UserRoleType.User;
                 }
-                return Role;
+
+                switch (License.Type)
+                {
+                    case LicenseType.DataAnalysis:
+                        return UserRoleType.Analyst;
+                    case LicenseType.DataCollection:
+                        return UserRoleType.Worker;
+                    case LicenseType.Universal:
+                        return UserRoleType.LicenseUniversal;
+                    default:
+                        return UserRoleType.User;
+                }
             }
         }
 
@@ -185,10 +221,26 @@ namespace DAL.Models
         public bool IsActive => Status == UserStatusType.Active;
 
         [JsonIgnore]
-        public bool IsAdmin => Role == UserRoleType.Admin;
-
-        [JsonIgnore]
         public bool IsBanned => Status == UserStatusType.Banned;
+        [JsonIgnore]
+        public bool IsNotApproved => Status == UserStatusType.Pending;
+
+        [NotMapped]
+        [JsonIgnore]
+        public string RoleName
+        {
+            get
+            {
+                return _roleName ??
+                       (_roleName = Roles.FirstOrDefault(r => r.Role?.Name != Constants.Roles.User)?.Role.Name ?? Constants.Roles.User);
+            }
+            set { _roleName = value; }
+        }
+
+        [NotMapped]
+        [JsonIgnore]
+        [JilDirective(Ignore = true)]
+        public int? ParentLoggedInUserId { get; set; }
 
         #endregion
     }

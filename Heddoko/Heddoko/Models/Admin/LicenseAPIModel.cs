@@ -1,6 +1,14 @@
-﻿using System;
+﻿/**
+ * @file LicenseAPIModel.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.ComponentModel.DataAnnotations;
 using DAL.Models;
+using Heddoko.Helpers.MVC;
 using i18n;
 
 namespace Heddoko.Models
@@ -11,6 +19,7 @@ namespace Heddoko.Models
 
         public uint Amount { get; set; }
 
+        [DisallowEnumValue(typeof(LicenseType), LicenseType.Universal, ErrorMessageResourceName = "IsInvalidMessage", ErrorMessageResourceType = typeof(Resources))]
         public LicenseType Type { get; set; }
 
         [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]

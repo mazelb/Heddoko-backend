@@ -1,4 +1,13 @@
-﻿using Heddoko.Models;
+﻿/**
+ * @file LicenseController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using DAL;
+using Heddoko.Models;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +19,13 @@ namespace Heddoko.Controllers
     [Auth(Roles = DAL.Constants.Roles.Admin)]
     public class LicenseController : BaseController
     {
+        public LicenseController() : base() { }
+
+        public LicenseController(ApplicationUserManager userManager, UnitOfWork uow)
+            : base(userManager, uow)
+        {
+        }
+
         public ActionResult Index()
         {
             BaseViewModel model = new BaseViewModel

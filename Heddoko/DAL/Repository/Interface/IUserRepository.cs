@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * @file IUserRepository.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Collections.Generic;
 using DAL.Models;
 
 namespace DAL
@@ -19,17 +26,17 @@ namespace DAL
 
         User GetByEmail(string email);
 
-        User GetByConfirmToken(string confirmToken);
-
-        User GetByInviteToken(string inviteToken);
-
-        User GetByForgetToken(string forgetToken);
-
         IEnumerable<User> Admins();
 
         IEnumerable<User> All(bool isDeleted = false);
 
         IEnumerable<User> GetByOrganization(int value, bool isDeleted = false, int? licenseID = null);
+
+        IEnumerable<int> GetIdsByOrganization(int organizationID, bool isDeleted = false);
+
+        IEnumerable<User> GetByTeam(int value, bool isDeleted = false);
+
+        IEnumerable<int> GetIdsByTeam(int teamID, bool isDeleted = false);
 
         IEnumerable<User> Search(string search, int? organizationID = null, bool isDeleted = false, int? licenseID = null);
 

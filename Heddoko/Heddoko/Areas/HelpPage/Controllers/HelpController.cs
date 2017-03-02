@@ -1,3 +1,10 @@
+/**
+ * @file HelpController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -10,6 +17,7 @@ namespace Heddoko.Areas.HelpPage.Controllers
     /// <summary>
     /// The controller that will handle requests for the help page.
     /// </summary>
+    [Auth(Roles = DAL.Constants.Roles.Admin)]
     public class HelpController : Controller
     {
         private const string ErrorViewName = "Error";

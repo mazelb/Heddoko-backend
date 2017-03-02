@@ -1,4 +1,11 @@
-﻿using System.Web.Optimization;
+﻿/**
+ * @file BundleConfig.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Web.Optimization;
 
 namespace Heddoko
 {
@@ -18,19 +25,12 @@ namespace Heddoko
                 "~/Content/font-awesome.min.css",
                 "~/Content/bootstrap.min.css",
                 "~/Content/bootstrap-datepicker3.min.css",
-                "~/Content/css/general.css"
+                "~/Content/css/general.css",
+                "~/Content/bootstrap-heddoko.css"
                 );
 
             bundles.Add(commonStylesBundle);
-
-
-            Bundle angularStylesBundle = new Bundle("~/Bundles/AngularCss");
-            angularStylesBundle.Include(
-                "~/Content/css/styles.css"
-                );
-
-            bundles.Add(angularStylesBundle);
-
+            
             ScriptBundle commonScriptsBundle = new ScriptBundle("~/Bundles/CommonJs");
             commonScriptsBundle.Include(
                 "~/Scripts/lodash.min.js",
@@ -43,13 +43,6 @@ namespace Heddoko
                 "~/Scripts/js/account/mask.js"
                 );
             bundles.Add(commonScriptsBundle);
-
-
-            ScriptBundle angularScriptsBundle = new ScriptBundle("~/Bundles/AngularJs");
-            angularScriptsBundle.Include(
-                "~/Scripts/js/scripts.js"
-                );
-            bundles.Add(angularScriptsBundle);
 
             ScriptBundle validateScriptsBundle = new ScriptBundle("~/Bundles/ValidateJs");
             validateScriptsBundle.Include(
@@ -65,7 +58,9 @@ namespace Heddoko
                 "~/Content/kendo/kendo.common.min.css",
                 "~/Content/kendo/kendo.default.min.css",
                 "~/Content/kendo/kendo.default.mobile.min.css",
-                "~/Content/css/backend.css"
+                "~/Content/css/backend.css",
+                "~/Content/kendo/kendo.heddoko.css",
+                "~/Content/css/heddoko.css"
                 );
 
             bundles.Add(kendoStylesBundle);
@@ -83,8 +78,10 @@ namespace Heddoko
                 "~/Scripts/js/admin/grid/kits.js",
                 "~/Scripts/js/admin/grid/organization.js",
                 "~/Scripts/js/admin/grid/organizationKits.js",
-                "~/Scripts/js/admin/grid/teams.js"
-                );
+                "~/Scripts/js/admin/grid/teams.js",
+                "~/Scripts/js/admin/grid/applications.js",             
+                "~/Scripts/js/account/ergoscore.js"           
+            );
 
             bundles.Add(kendoScriptsBundle);
 
@@ -104,10 +101,18 @@ namespace Heddoko
                 "~/Scripts/js/admin/grid/components.js",
                 "~/Scripts/js/admin/grid/sensors.js",
                 "~/Scripts/js/admin/grid/sensorSets.js",
-                "~/Scripts/js/admin/grid/historyPopup.js"
+                "~/Scripts/js/admin/grid/historyPopup.js",
+                "~/Scripts/js/admin/grid/applicationsApprove.js"
             );
 
             bundles.Add(adminScriptsBundle);
+
+            Bundle analystScriptsBundle = new Bundle("~/Bundles/ErgoScoreJs");
+            analystScriptsBundle.Include(
+                "~/Scripts/js/ergoscore/ergoscores.js"
+            );
+
+            bundles.Add(analystScriptsBundle);
 
             bundles.Add(new ScriptBundle("~/Bundles/i18nEn")
                 .Include(

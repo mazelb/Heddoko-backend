@@ -1,10 +1,19 @@
-﻿using System.Net.Http.Formatting;
+﻿/**
+ * @file WebApiConfig.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using Heddoko.Helpers.Error;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Elmah.Contrib.WebApi;
+using Heddoko.Helpers.DomainRouting;
 
 namespace Heddoko
 {
@@ -14,12 +23,18 @@ namespace Heddoko
         {
             config.MapHttpAttributeRoutes(new CustomDirectRouteProvider());
 
+            var mainSiteDomain = Helpers.UrlHelper.GetHost(DAL.Config.DashboardSite);
+
             config.Routes.MapHttpRoute(
                 "AdminDefaultApi",
                 "admin/api/{controller}/{id}",
                 new
                 {
                     id = RouteParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
@@ -29,6 +44,10 @@ namespace Heddoko
                 new
                 {
                     id = RouteParameter.Optional
+                },
+                constraints: new
+                {
+                    domain = new DomainRouteConstraint(mainSiteDomain)
                 }
                 );
 
@@ -42,6 +61,8 @@ namespace Heddoko
             config.Formatters.Remove(config.Formatters.XmlFormatter);
 
             config.Services.Replace(typeof(IExceptionHandler), new ExceptionAPIHandler());
+
+            config.Services.Add(typeof(IExceptionLogger), new ElmahExceptionLogger());
         }
     }
 }

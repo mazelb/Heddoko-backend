@@ -155,15 +155,18 @@
     Enums.LicenseType.array = {};
     @foreach (DAL.Models.LicenseType type in (DAL.Models.LicenseType[])Enum.GetValues(typeof(DAL.Models.LicenseType)))
     {
-        <text>
+        if (type != DAL.Models.LicenseType.Universal)
+        {
+            <text>
 
-    Enums.LicenseType.enum["@type.GetDisplayName()"] = @((int)type);
+                Enums.LicenseType.enum["@type.GetDisplayName()"] = @((int) type);
 
-    Enums.LicenseType.array[@((int)type)] = {
-        "value": @((int)type),
-        "text": "@type.GetDisplayName()"
-    };
-    </text>
+                Enums.LicenseType.array[@((int) type)] = {
+                    "value": @((int) type),
+                    "text": "@type.GetDisplayName()"
+                };
+            </text>
+        }
     }
 
 
@@ -223,7 +226,7 @@
     {
         <text>
 
-    Enums.FirmwareType.enum["@type.GetDisplayName()"] = @((int)type);
+    Enums.FirmwareType.enum["@type.ToString()"] = @((int)type);
 
     Enums.FirmwareType.array[@((int)type)] = {
         "value": @((int)type),
@@ -489,5 +492,33 @@
         "text": "@type.GetDisplayName()"
     };
     </text>
+    }
+
+    Enums.AssetType = {};
+    Enums.AssetType.enum = {};
+    Enums.AssetType.array = {};
+    Enums.AssetType.RecordTypes = {};
+    @foreach (DAL.Models.AssetType type in (DAL.Models.AssetType[])Enum.GetValues(typeof(DAL.Models.AssetType)))
+    {
+
+            <text>
+
+            Enums.AssetType.enum["@type.ToString()"] = @((int) type);
+
+            Enums.AssetType.array[@((int) type)] = {
+                "value": @((int) type),
+                "text": "@type.GetDisplayName()"
+                        };  
+            </text>
+
+    if (type.IsRecordType())
+        {
+            <text>
+            Enums.AssetType.RecordTypes[@((int) type)] = {
+                "value": @((int) type),
+                "text": "@type.GetDisplayName()"
+            };
+    </text>
+        }
     }
 </script>

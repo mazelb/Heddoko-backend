@@ -1,10 +1,19 @@
-﻿using System;
+﻿/**
+ * @file AuthAPIAttribute.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using i18n;
+using System.Security.Claims;
+using static DAL.Constants;
 
 namespace Heddoko
 {
@@ -16,8 +25,20 @@ namespace Heddoko
             {
                 throw new Exception("actionContext");
             }
+            
+            if (SkipAuthorization(context))
+            {
+                return;
+            }
 
             if (context.RequestContext.Principal?.Identity == null || !context.RequestContext.Principal.Identity.IsAuthenticated)
+            {
+                HandleUnauthorizedRequest(context);
+                return;
+            }
+
+            var user = context.RequestContext.Principal as ClaimsPrincipal;
+            if (user.HasClaim(OpenAPIClaims.ClaimType, OpenAPIClaims.ClaimValue))
             {
                 HandleUnauthorizedRequest(context);
                 return;
@@ -59,6 +80,16 @@ namespace Heddoko
             bool isAuthroized = base.IsAuthorized(actionContext);
 
             return isAuthroized;
+        }
+
+        private static bool SkipAuthorization(HttpActionContext actionContext)
+        {
+            if (!actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any())
+            {
+                return actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any();
+            }
+
+            return true;
         }
     }
 }

@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file Utility.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations.Infrastructure;
 using System.Data.Entity.Migrations.Model;
@@ -8,6 +15,7 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
+using DAL.Models;
 using i18n;
 
 namespace DAL
@@ -161,6 +169,19 @@ namespace DAL
             return id;
         }
 
+        public static string GetDisplayName(this string key)
+        {
+            ResourceManager rm = new ResourceManager(typeof(Resources));
+            string resourceDisplayName = rm.GetString(key);
+
+            return string.IsNullOrWhiteSpace(resourceDisplayName) ? key : resourceDisplayName;
+        }
+
+        public static string NormalizeToken(this string value)
+        {
+            return value?.Replace(" ", string.Empty).Replace("<", string.Empty).Replace(">", string.Empty);
+        }
+
         #endregion
 
         #region Enums
@@ -174,9 +195,9 @@ namespace DAL
 
             foreach (object enumValue in values)
             {
-                if (value.HasFlag((Enum) enumValue))
+                if (value.HasFlag((Enum)enumValue))
                 {
-                    result.Add(((Enum) enumValue).ToString().ToLower());
+                    result.Add(((Enum)enumValue).ToString().ToLower());
                 }
             }
 
@@ -191,9 +212,9 @@ namespace DAL
 
             foreach (object enumValue in values)
             {
-                if (value.HasFlag((Enum) enumValue))
+                if (value.HasFlag((Enum)enumValue))
                 {
-                    result.Add(((Enum) enumValue).GetDisplayName());
+                    result.Add(((Enum)enumValue).GetDisplayName());
                 }
             }
 
@@ -253,6 +274,15 @@ namespace DAL
             return attribs != null && attribs.Length > 0 ? attribs[0].StringValue : null;
         }
 
+        public static bool IsRecordType(this AssetType assetType)
+        {
+            return assetType == AssetType.Log ||
+                   assetType == AssetType.Setting ||
+                   assetType == AssetType.ProcessedFrameData ||
+                   assetType == AssetType.AnalysisFrameData ||
+                   assetType == AssetType.RawFrameData;
+        }
+
         #endregion
 
         #region DateTime
@@ -300,6 +330,22 @@ namespace DAL
         public static DateTime ThisMonthEnd(this DateTime date)
         {
             return new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(1).AddDays(-1);
+        }
+
+        public static uint ConvertToUnixTimestamp(this DateTime date)
+        {
+            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime();
+            TimeSpan diff = date - origin;
+            return Convert.ToUInt32(diff.TotalSeconds);
+        }
+
+        #endregion
+
+        #region uint
+        public static DateTime ConvertFromUnixTimestamp(this uint timestamp)
+        {
+            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            return origin.AddSeconds(timestamp).ToLocalTime();
         }
 
         #endregion

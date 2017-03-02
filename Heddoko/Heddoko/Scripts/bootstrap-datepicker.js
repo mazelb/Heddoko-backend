@@ -1,10 +1,11 @@
-/*!
- * Datepicker for Bootstrap v1.6.1 (https://github.com/eternicode/bootstrap-datepicker)
- *
- * Copyright 2012 Stefan Petre
- * Improvements by Andrew Rowls
- * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- */(function(factory){
+/**
+ * @file bootstrap-datepicker.js
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+(function(factory){
     if (typeof define === "function" && define.amd) {
         define(["jquery"], factory);
     } else if (typeof exports === 'object') {

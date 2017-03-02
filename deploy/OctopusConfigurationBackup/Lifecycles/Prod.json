@@ -1,0 +1,29 @@
+{
+  "$type": "Octopus.Core.Model.Lifecycles.Lifecycle, Octopus.Core",
+  "Id": "Lifecycles-41",
+  "Name": "Prod",
+  "Description": null,
+  "Phases": [
+    {
+      "Id": "d814da84-ef02-4510-8057-63ffa99dead6",
+      "Name": "prod",
+      "AutomaticDeploymentTargets": [],
+      "OptionalDeploymentTargets": [
+        "Environments-2"
+      ],
+      "MinimumEnvironmentsBeforePromotion": 0,
+      "ReleaseRetentionPolicy": null,
+      "TentacleRetentionPolicy": null
+    }
+  ],
+  "ReleaseRetentionPolicy": {
+    "Unit": "Items",
+    "QuantityToKeep": 3,
+    "ShouldKeepForever": false
+  },
+  "TentacleRetentionPolicy": {
+    "Unit": "Items",
+    "QuantityToKeep": 3,
+    "ShouldKeepForever": false
+  }
+}

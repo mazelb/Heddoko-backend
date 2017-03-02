@@ -1,4 +1,11 @@
-﻿$(function() {
+﻿/**
+ * @file firmwares.js
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+$(function() {
     Firmwares.init();
 });
 
@@ -9,7 +16,9 @@ var Firmwares = {
         grid: null,
         filterModel: null,
         addModel: null,
-        btnUpload: null
+        btnUpload: null,
+        filesModel: null,
+        file: null
     },
 
     validators: {
@@ -39,6 +48,12 @@ var Firmwares = {
         });
 
         this.firmwareStatusTypes.read();
+
+        this.assetTypes = new kendo.data.DataSource({
+            data: _.values(Enums.AssetType.RecordTypes)
+        });
+
+        this.assetTypes.read();
     },
 
     getDatasourceDD: function(id) {
@@ -117,6 +132,7 @@ var Firmwares = {
     init: function() {
         var control = $('#firmwaresGrid');
         var filter = $('.firmwaresFilter');
+        var file = $('#firmwarefile');
         this.controls.form = $('.firmwaresForm');
 
         if (control.length > 0) {
@@ -170,7 +186,7 @@ var Firmwares = {
                             field: 'url',
                             title: i18n.Resources.Url,
                             template: function(e) {
-                                return Format.firmware.url(e.url);
+                                return Format.firmware.url(e);
                             },
                             editor: KendoDS.emptyEditor
                         }, {
@@ -216,7 +232,11 @@ var Firmwares = {
                 select: this.onSelectUpload.bind(this),
                 upload: this.onUpload.bind(this),
                 success: this.onSuccessUpload.bind(this),
-                model: this.getEmptyModel()
+                model: this.getEmptyModel(),
+                typeChanged: this.onFirmwareTypeChanged.bind(this),
+                isDefaultRecord: function () {
+                    return this.controls.addModel.model.type === Enums.FirmwareType.enum.DefaultRecords;
+                }.bind(this)
             });
 
             kendo.bind(this.controls.form, this.controls.addModel);
@@ -230,6 +250,8 @@ var Firmwares = {
                 .data("kendoValidator");
 
             $('.chk-show-deleted', this.controls.grid.element).click(this.onShowDeleted.bind(this));
+
+            this.controls.file = file.data("kendoUpload");
         }
     },
 
@@ -267,7 +289,7 @@ var Firmwares = {
             });
     },
 
-    ddEditorBrainpack: function(container, options) {
+    ddEditorBrainpacks: function(container, options) {
         $('<input required data-text-field="name" data-value-field="id" data-value-primitive="true" data-bind="value: ' + options.field + '"/>')
             .appendTo(container)
             .kendoDropDownList({
@@ -329,13 +351,47 @@ var Firmwares = {
         };
     },
 
-    onSelectUpload: function(e) {
-        setTimeout(this.onSelectTimeout.bind(this), 1);
+    onFirmwareTypeChanged: function (e) {
+        var isDefaultRecord = this.controls.addModel.isDefaultRecord();
+
+        this.controls.file.setOptions({
+            multiple: isDefaultRecord,
+            template: isDefaultRecord ? kendo.template($('#file-records-template').html()) : null
+        });
+
+        if (isDefaultRecord) {
+            KendoDS.resetUpload();
+        }
+        else if (this.controls.filesModel !== null) {
+            KendoDS.resetUpload();
+            this.controls.filesModel = null;
+        }
+    },
+
+    onSelectUpload: function (e) {
+        if (this.controls.addModel.isDefaultRecord()) {
+            KendoDS.resetUpload();
+        }
+
+        setTimeout(this.onSelectTimeout.bind(this, e), 1);
     },
 
     onSelectTimeout: function(e) {
         this.controls.btnUpload = $(".k-upload-selected", this.controls.form);
         this.controls.btnUpload.hide();
+
+        if (this.controls.addModel.isDefaultRecord()) {
+            var files = e.files.map(function (f) {
+                return { name: f.name, assetType: null };
+            });
+
+            this.controls.filesModel = kendo.observable({
+                files: files,
+                assetTypes: Datasources.assetTypes
+            });
+
+            kendo.bind($('[data-uid="' + e.files[0].uid + '"]'), this.controls.filesModel);
+        }
     },
 
     onShowDeleted: function(e) {
@@ -373,8 +429,16 @@ var Firmwares = {
             e.data = {
                 type: this.controls.addModel.model.type,
                 status: this.controls.addModel.model.status,
-                version: this.controls.addModel.model.version,
+                version: this.controls.addModel.model.version
             };
+
+            if (this.controls.filesModel !== null) {
+                var files = this.controls.filesModel.files.map(function (f) {
+                    return { FileName: f.name, Type: f.assetType };
+                });
+
+                e.data.files = JSON.stringify(files);
+            }
         }
     },
 

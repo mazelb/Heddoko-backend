@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * @file ComponentsController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -16,6 +23,10 @@ namespace Heddoko.Controllers.Admin
     {
         private const string Search = "Search";
         private const string IsDeleted = "IsDeleted";
+
+        public ComponentsController() { }
+
+        public ComponentsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<ComponentsAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -156,7 +167,7 @@ namespace Heddoko.Controllers.Admin
         {
             Component item = UoW.ComponentRepository.GetFull(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<ComponentsAPIModel>
                 {
@@ -198,7 +209,7 @@ namespace Heddoko.Controllers.Admin
 
             return new ComponentsAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 Status = item.Status,
                 Type = item.Type,
                 Quantity = item.Quantity,

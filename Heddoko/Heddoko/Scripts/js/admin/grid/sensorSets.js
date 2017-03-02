@@ -1,4 +1,11 @@
-﻿$(function () {
+﻿/**
+ * @file sensorSets.js
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+$(function () {
     SensorSets.init();
 });
 
@@ -214,7 +221,10 @@ var SensorSets = {
             this.controls.filterModel = kendo.observable({
                 find: this.onFilter.bind(this),
                 search: null,
-                keyup: this.onEnter(this)
+                keyup: this.onEnter(this),
+                statusFilter: null,
+                filterStatus: this.onFilter.bind(this),
+                statuses: Datasources.equipmentStatusTypes
             });
 
             kendo.bind(filter, this.controls.filterModel);
@@ -293,6 +303,11 @@ var SensorSets = {
                     {
                         field: "idView",
                         title: i18n.Resources.ID,
+                        editor: KendoDS.emptyEditor
+                    },
+                    {
+                        field: "label",
+                        title: i18n.Resources.Label,
                         editor: KendoDS.emptyEditor
                     },
                     {
@@ -530,6 +545,7 @@ var SensorSets = {
     buildFilter: function (search) {
         Notifications.clear();
         search = this.controls.filterModel.search;
+        var statusFilter = this.controls.filterModel.statusFilter;
 
         var filters = [];
 
@@ -539,6 +555,14 @@ var SensorSets = {
                 operator: "eq",
                 value: search
             });
+        }
+
+        if (typeof (statusFilter) === "number") {
+            filters.push({
+                field: "Status",
+                operator: "eq",
+                value: statusFilter
+            })
         }
 
         if (this.isDeleted) {

@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file OrganizationsController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,8 +13,13 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Hangfire;
+using Heddoko.Helpers.DomainRouting.Http;
 using Heddoko.Models;
+using Heddoko.Models.Admin;
 using i18n;
+using Microsoft.AspNet.Identity;
+using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers
 {
@@ -20,6 +32,14 @@ namespace Heddoko.Controllers
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
 
+        public OrganizationsController() { }
+
+        public OrganizationsController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
+
+        public OrganizationsController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, UnitOfWork uow)
+            : base(userManager, signInManager, uow)
+        {
+        }
 
         public override KendoResponse<IEnumerable<OrganizationAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -132,7 +152,9 @@ namespace Heddoko.Controllers
                 Bind(item, model);
                 UoW.OrganizationRepository.Create(item);
 
-                Task.Run(() => Mailer.SendInviteAdminEmail(item));
+                int organizationID = item.Id;
+                string inviteToken = UserManager.GenerateInviteToken(item.User.Id);
+                UserManager.SendInviteAdminEmail(organizationID, inviteToken);
 
                 response = Convert(item);
             }
@@ -187,18 +209,23 @@ namespace Heddoko.Controllers
             Organization item = UoW.OrganizationRepository.GetFull(id);
             item.Status = OrganizationStatusType.Deleted;
 
-            List<User> users = UoW.UserRepository.GetByOrganization(item.ID).ToList();
+            List<User> users = UoW.UserRepository.GetByOrganization(item.Id).ToList();
 
             foreach (User user in users)
             {
                 user.Status = UserStatusType.Deleted;
                 user.License = null;
-                if (user.Role == UserRoleType.Worker
-                    ||
-                    user.Role == UserRoleType.Analyst)
+
+                if (UserManager.IsInRole(user.Id, Constants.Roles.Worker))
                 {
-                    user.Role = UserRoleType.User;
+                    UserManager.RemoveFromRole(user.Id, Constants.Roles.Worker);
                 }
+
+                if (UserManager.IsInRole(user.Id, Constants.Roles.Analyst))
+                {
+                    UserManager.RemoveFromRole(user.Id, Constants.Roles.Analyst);
+                }
+
                 UoW.UserRepository.ClearCache(user);
             }
 
@@ -242,29 +269,39 @@ namespace Heddoko.Controllers
                             FirstName = model.User.Firstname?.Trim(),
                             LastName = model.User.Lastname?.Trim(),
                             Email = model.User.Email?.Trim(),
-                            Username = model.User.Username?.ToLower().Trim(),
+                            UserName = model.User.Username?.ToLower().Trim(),
                             Status = UserStatusType.Invited,
+                            //TODO REMOVE THAT AFTER Migration all accounts
                             Role = UserRoleType.LicenseAdmin,
-                            Phone = model.Phone,
-                            InviteToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString())
+                            PhoneNumber = model.Phone
                         };
-                        UoW.UserRepository.Create(user);
+
+                        IdentityResult result = UserManager.Create(user);
+                        if (result.Succeeded)
+                        {
+                            UserManager.AddToRole(user.Id, Constants.Roles.User);
+                            UserManager.AddToRole(user.Id, DAL.Constants.Roles.LicenseAdmin);
+                        }
+                        else
+                        {
+                            throw new Exception(Resources.Wrong);
+                        }
                     }
                     else
                     {
-                        if (user.Role == UserRoleType.Admin)
+                        if (UserManager.IsInRole(user.Id, Constants.Roles.Admin))
                         {
                             throw new Exception(Resources.WrongLicenseAdmin);
                         }
 
-                        user.Role = UserRoleType.LicenseAdmin;
                         user.Status = UserStatusType.Active;
-                        UoW.UserRepository.SetCache(user);
                     }
                 }
 
                 item.User = user;
                 user.Organization = item;
+
+                UoW.UserRepository.ClearCache(user);
             }
 
             item.Name = model.Name;
@@ -281,6 +318,7 @@ namespace Heddoko.Controllers
                 }
             }
 
+
             return item;
         }
 
@@ -293,7 +331,7 @@ namespace Heddoko.Controllers
 
             return new OrganizationAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 Name = item.Name,
                 Phone = item.Phone,
                 Address = item.Address,
@@ -305,7 +343,7 @@ namespace Heddoko.Controllers
                 {
                     Email = item.User.Email,
                     Name = item.User.Name,
-                    Username = item.User.Username
+                    Username = item.User.UserName
                 },
                 DataAnalysisAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataAnalysis
                                                                && c.ExpirationAt >= DateTime.Now
@@ -316,7 +354,7 @@ namespace Heddoko.Controllers
             };
         }
 
-        [Route("change")]
+        [DomainRoute("change", Constants.ConfigKeyName.DashboardSite)]
         [HttpPost]
         public bool Change(OrganizationAdminAPIModel model)
         {
@@ -329,17 +367,19 @@ namespace Heddoko.Controllers
                     &&
                     organization != null)
                 {
-                    if (organization.ID == user.OrganizationID)
+                    if (organization.Id == user.OrganizationID)
                     {
-                        organization.User.Role = organization.User.RoleType;
-
-                        if (organization.User.Role == UserRoleType.LicenseAdmin)
+                        if (UserManager.IsInRole(organization.UserID, Constants.Roles.LicenseAdmin))
                         {
-                            organization.User.Role = UserRoleType.User;
+                            UserManager.RemoveFromRole(organization.UserID, Constants.Roles.LicenseAdmin);
                         }
 
                         organization.User = user;
-                        user.Role = UserRoleType.LicenseAdmin;
+
+                        if (!UserManager.IsInRole(user.Id, Constants.Roles.LicenseAdmin))
+                        {
+                            UserManager.AddToRole(user.Id, Constants.Roles.LicenseAdmin);
+                        }
 
                         UoW.Save();
 
@@ -356,6 +396,66 @@ namespace Heddoko.Controllers
                 };
             }
             return true;
+        }
+
+        [DomainRoute("approve", Constants.ConfigKeyName.DashboardSite)]
+        [HttpPost]
+        public async Task<bool> Approve(OrganizationAdminAPIModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Organization organization = UoW.OrganizationRepository.GetFull(model.OrganizationID);
+
+                if (organization?.User.Status == UserStatusType.Pending)
+                {
+                    organization.User.Status = UserStatusType.Invited;
+
+                    organization.Status = OrganizationStatusType.Active;
+
+                    UoW.Save();
+
+                    UoW.UserRepository.ClearCache(organization.User);
+
+                    int userId = organization.User.Id;
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(userId);
+                    UserManager.SendActivationEmail(userId, code);
+                }
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+            return true;
+        }
+
+        [Route("login")]
+        [HttpPost]
+        public async Task<SinginAPIResponse> SignInAsOrganization(OrganizationAdminAPIModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = UoW.UserRepository.Get(model.UserID);
+                user.ParentLoggedInUserId = CurrentUser.Id;
+
+                await SignInManager.SignInAsync(user, false, false);
+
+                await UserManager.UpdateToIdentityRoles(user);
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+
+            return new SinginAPIResponse
+            {
+                RedirectUrl = Url.Link("Default", new { controller = "Default", action = "Index" })
+            };
         }
     }
 }

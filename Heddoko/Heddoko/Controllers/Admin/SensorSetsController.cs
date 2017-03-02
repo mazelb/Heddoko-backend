@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file SensorSetsController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -15,8 +22,13 @@ namespace Heddoko.Controllers
     public class SensorSetsController : BaseAdminController<SensorSet, SensorSetsAPIModel>
     {
         private const string Search = "Search";
+        private const string Status = "Status";
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
+
+        public SensorSetsController() { }
+
+        public SensorSetsController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<SensorSetsAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -50,9 +62,16 @@ namespace Heddoko.Controllers
                     }
 
                     KendoFilterItem searchFilter = request.Filter.Get(Search);
-                    if (!string.IsNullOrEmpty(searchFilter?.Value))
+                    KendoFilterItem statusFilter = request.Filter.Get(Status);
+                    int? statusInt = null;
+                    int temp;
+                    if (!string.IsNullOrEmpty(statusFilter?.Value) && int.TryParse(statusFilter.Value, out temp))
                     {
-                        items = UoW.SensorSetRepository.Search(searchFilter.Value, isDeleted);
+                        statusInt = temp;
+                    }
+                    if (statusInt.HasValue || !string.IsNullOrEmpty(searchFilter?.Value))
+                    {
+                        items = UoW.SensorSetRepository.Search(searchFilter?.Value, statusInt, isDeleted);
                     }
                 }
             }
@@ -177,15 +196,15 @@ namespace Heddoko.Controllers
         {
             SensorSet item = UoW.SensorSetRepository.Get(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<SensorSetsAPIModel>
                 {
                     Response = Convert(item)
                 };
             }
-            UoW.SensorRepository.RemoveSensorSet(item.ID);
-            UoW.KitRepository.RemoveSensorSet(item.ID);
+            UoW.SensorRepository.RemoveSensorSet(item.Id);
+            UoW.KitRepository.RemoveSensorSet(item.Id);
 
             item.Status = EquipmentStatusType.Trash;
             UoW.Save();
@@ -234,7 +253,7 @@ namespace Heddoko.Controllers
 
                 foreach (int sensor in model.Sensors)
                 {
-                    if (item.Sensors.Any(c => c.ID == sensor))
+                    if (item.Sensors.Any(c => c.Id == sensor))
                     {
                         continue;
                     }
@@ -267,11 +286,11 @@ namespace Heddoko.Controllers
 
             return new SensorSetsAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 QAStatus = item.QAStatus,
                 Kit = item.Kit,
-                KitID = item.Kit?.ID ?? 0,
+                KitID = item.Kit?.Id ?? 0,
                 Status = item.Status,
                 Label = item.Label,
                 Notes = item.Notes,

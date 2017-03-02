@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file Organization.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,7 +31,7 @@ namespace DAL.Models
         public OrganizationStatusType Status { get; set; }
         #region NotMapped
 
-        public string IDView => $"OR{ID.ToString(Constants.PadZero)}";
+        public string IDView => $"OR{Id.ToString(Constants.PadZero)}";
 
         bool ISoftDelete.IsDeleted => Status == OrganizationStatusType.Deleted;
         #endregion
@@ -48,6 +55,7 @@ namespace DAL.Models
 
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual ICollection<Kit> Kits { get; set; }
 
 

@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file Config.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Web;
@@ -9,11 +16,9 @@ namespace Heddoko
     public class Config : DAL.Config
     {
         public static int EmailForgotTokenExpiration => int.Parse(ConfigurationManager.AppSettings["EmailForgotTokenExpiration"]);
-
-        public static string SendgridKey => ConfigurationManager.AppSettings["SendgridKey"];
-
-        public static string MailFrom => ConfigurationManager.AppSettings["MailFrom"];
-
+        
+        public static string CIUploadToken => ConfigurationManager.AppSettings["CIUploadToken"];
+        
         #region Host
 
         private static string Host { get; set; }

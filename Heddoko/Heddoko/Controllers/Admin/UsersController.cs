@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file UsersController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,8 +13,14 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
+using Heddoko.Helpers.DomainRouting.Http;
+using DAL.Models.Enum;
+using Hangfire;
 using Heddoko.Models;
 using i18n;
+using Microsoft.AspNet.Identity;
+using Services;
+using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers
 {
@@ -24,6 +37,9 @@ namespace Heddoko.Controllers
         private const string License = "License";
         private const string Used = "Used";
 
+        public UsersController() { }
+
+        public UsersController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<UserAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -34,7 +50,7 @@ namespace Heddoko.Controllers
             bool isDeleted = false;
             int? licenseID = null;
 
-            if (CurrentUser.Role == UserRoleType.LicenseAdmin)
+            if (IsLicenseAdmin)
             {
                 forceOrganization = true;
 
@@ -44,13 +60,12 @@ namespace Heddoko.Controllers
                 }
             }
 
-
             if (request?.Filter != null)
             {
                 KendoFilterItem adminFilter = request.Filter.Get(Admin);
                 if (adminFilter != null)
                 {
-                    if (CurrentUser.Role == UserRoleType.Admin)
+                    if (IsAdmin)
                     {
                         items = UoW.UserRepository.Admins();
                     }
@@ -99,7 +114,7 @@ namespace Heddoko.Controllers
 
             if (items == null)
             {
-                items = CurrentUser.Role == UserRoleType.Admin ? UoW.UserRepository.All(isDeleted) : UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value, isDeleted, licenseID);
+                items = IsAdmin ? UoW.UserRepository.All(isDeleted) : UoW.UserRepository.GetByOrganization(CurrentUser.OrganizationID.Value, isDeleted, licenseID);
             }
 
             count = items.Count();
@@ -138,9 +153,13 @@ namespace Heddoko.Controllers
             {
                 User item = new User();
                 item = Bind(item, model);
-                if (item.ID == 0)
+                if (item.Id == 0)
                 {
-                    UoW.UserRepository.Create(item);
+                    IdentityResult result = UserManager.Create(item);
+                    if (result.Succeeded)
+                    {
+                        UserManager.AddToRole(item.Id, Constants.Roles.User);
+                    }
                 }
                 else
                 {
@@ -148,7 +167,11 @@ namespace Heddoko.Controllers
                     UoW.UserRepository.ClearCache(item);
                 }
 
-                Task.Run(() => Mailer.SendInviteEmail(item));
+                UserManager.ApplyUserRolesForLicense(item);
+
+                int userID = item.Id;
+                string inviteToken = UserManager.GenerateInviteToken(item.Id);
+                UserManager.SendInviteEmail(userID, inviteToken);
 
                 response = Convert(item);
             }
@@ -189,10 +212,28 @@ namespace Heddoko.Controllers
 
             if (ModelState.IsValid)
             {
+                int? licenseId = item.LicenseID;
                 Bind(item, model);
                 UoW.Save();
 
+                if (licenseId == null)
+                {
+                    if (item.LicenseID != null)
+                    {
+                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseAddedToUser(item.Id, item.LicenseID.Value));
+                    }
+                }
+                else if (item.LicenseID == null)
+                {
+                    BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseRemovedFromUser(item.Id, licenseId.Value));
+                }
+                else if (licenseId != item.LicenseID)
+                {
+                    BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseChangedForUser(item.Id, item.LicenseID.Value));
+                }
+
                 UoW.UserRepository.ClearCache(item);
+                UserManager.ApplyUserRolesForLicense(item);
 
                 response = Convert(item);
             }
@@ -214,7 +255,7 @@ namespace Heddoko.Controllers
         {
             User item = UoW.UserRepository.Get(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<UserAPIModel>
                 {
@@ -225,12 +266,7 @@ namespace Heddoko.Controllers
             item.Status = UserStatusType.Deleted;
             item.License = null;
 
-            if (item.Role == UserRoleType.Worker
-                ||
-                item.Role == UserRoleType.Analyst)
-            {
-                item.Role = UserRoleType.User;
-            }
+            UserManager.RemoveFromRoles(item.Id, Constants.Roles.Worker, Constants.Roles.Analyst);
 
             UoW.Save();
 
@@ -242,7 +278,6 @@ namespace Heddoko.Controllers
             };
         }
 
-
         protected override User Bind(User item, UserAPIModel model)
         {
             if (model == null)
@@ -252,7 +287,7 @@ namespace Heddoko.Controllers
 
             if (item == null
                 ||
-                item.ID == 0)
+                item.Id == 0)
             {
                 User user = null;
                 if (model.ID.HasValue)
@@ -271,13 +306,12 @@ namespace Heddoko.Controllers
                     if (user == null)
                     {
                         item.Email = model.Email?.ToLower().Trim();
-                        item.Username = model.Username?.ToLower().Trim();
+                        item.UserName = model.Username?.ToLower().Trim();
                         item.FirstName = model.Firstname?.Trim();
                         item.LastName = model.Lastname?.Trim();
                         item.Status = UserStatusType.Invited;
                         item.Role = UserRoleType.User;
-                        item.Phone = model.Phone;
-                        item.InviteToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString());
+                        item.PhoneNumber = model.Phone;
                         item.Organization = UoW.OrganizationRepository.Get(CurrentUser.OrganizationID.Value);
                     }
                     else
@@ -292,7 +326,7 @@ namespace Heddoko.Controllers
             }
             else
             {
-                if (CurrentUser.Role != UserRoleType.Admin)
+                if (!UserManager.IsInRole(CurrentUser.Id, Constants.Roles.Admin))
                 {
                     if (item.OrganizationID == null
                         ||
@@ -301,17 +335,43 @@ namespace Heddoko.Controllers
                         throw new Exception(Resources.WrongObjectAccess);
                     }
                 }
+
+                User user = UoW.UserRepository.GetByEmail(model.Email?.ToLower().Trim());
+                if (user != null && user.Id != item.Id)
+                {
+                    throw new Exception(Resources.EmailUsed);
+                }
+
+                item.Email = model.Email?.ToLower().Trim();
+                item.FirstName = model.Firstname?.Trim();
+                item.LastName = model.Lastname?.Trim();
+                item.PhoneNumber = model.Phone;
             }
 
-            if (model.Status.HasValue)
+            if (model.Status.HasValue
+             && item.Status != model.Status)
             {
-                if (item.Status != UserStatusType.Invited)
+                if (item.Status == UserStatusType.Invited)
                 {
-                    if (model.Status.Value != UserStatusType.Invited)
-                    {
-                        item.Status = model.Status.Value;
-                    }
+                    throw new Exception(Resources.CantChangeInvite);
                 }
+
+                if (model.Status == UserStatusType.Invited)
+                {
+                    throw new Exception(Resources.CantSetInvite);
+                }
+
+                if (item.Status == UserStatusType.Pending)
+                {
+                    throw new Exception(Resources.CantChangePending);
+                }
+
+                if (model.Status == UserStatusType.Pending)
+                {
+                    throw new Exception(Resources.CantSetPending);
+                }
+
+                item.Status = model.Status.Value;
             }
 
             if (model.TeamID.HasValue)
@@ -324,12 +384,6 @@ namespace Heddoko.Controllers
                 if (model.LicenseID.Value == NoLicense)
                 {
                     item.License = null;
-                    if (item.Role != UserRoleType.LicenseAdmin
-                        &&
-                        item.Role != UserRoleType.Admin)
-                    {
-                        item.Role = UserRoleType.User;
-                    }
                 }
                 else
                 {
@@ -342,27 +396,9 @@ namespace Heddoko.Controllers
 
                     if (license.Users == null
                         ||
-                        license.Users.Count() < license.Amount)
+                        license.Users.Count < license.Amount)
                     {
                         item.License = license;
-                        if (item.Role == UserRoleType.LicenseAdmin ||
-                            item.Role == UserRoleType.Admin)
-                        {
-                            return item;
-                        }
-
-                        switch (item.License.Type)
-                        {
-                            case LicenseType.DataAnalysis:
-                                item.Role = UserRoleType.Analyst;
-                                break;
-                            case LicenseType.DataCollection:
-                                item.Role = UserRoleType.Worker;
-                                break;
-                            case LicenseType.No:
-                            default:
-                                throw new Exception(Resources.WrongObjectAccess);
-                        }
                     }
                 }
             }
@@ -371,7 +407,7 @@ namespace Heddoko.Controllers
             {
                 if (model.KitID.Value == NoKit)
                 {
-                    UoW.KitRepository.RemoveUser(item.ID);
+                    UoW.KitRepository.RemoveUser(item.Id);
                 }
                 else
                 {
@@ -383,7 +419,7 @@ namespace Heddoko.Controllers
                         throw new Exception(Resources.WrongObjectAccess);
                     }
 
-                    if (kit.User != null)
+                    if (kit.User != null && kit.User.Id != item.Id)
                     {
                         throw new Exception($"{Resources.Kit} {Resources.AlreadyUsed}");
                     }
@@ -404,25 +440,66 @@ namespace Heddoko.Controllers
 
             return new UserAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 Name = item.Name,
                 Email = item.Email,
                 Firstname = item.FirstName,
                 Lastname = item.LastName,
-                Username = item.Username,
-                Role = item.Role,
+                Username = item.UserName,
+                Role = item.RoleName.GetDisplayName(),
                 Status = item.Status,
                 LicenseID = item.LicenseID ?? 0,
-                Phone = item.Phone,
+                Phone = item.PhoneNumber,
                 LicenseName = item.License?.Name,
                 OrganizationName = item.Organization?.Name,
                 LicenseStatus = item.License?.Status,
                 ExpirationAt = item.License?.ExpirationAt,
-                KitID = item.Kit?.ID ?? 0,
+                KitID = item.Kit?.Id ?? 0,
                 Kit = item.Kit,
                 TeamID = item.TeamID ?? 0,
                 Team = item.Team
             };
+        }
+
+        [DomainRoute("activation/resend", Constants.ConfigKeyName.DashboardSite)]
+        [HttpPost]
+        public async Task<bool> ResendActivationEmail(UserAdminAPIModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = UoW.UserRepository.Get(model.UserId);
+
+                if (user?.Status == UserStatusType.Invited)
+                {
+                    bool isNew = string.IsNullOrEmpty(user.PasswordHash);
+
+                    if (isNew)
+                    {
+                        string code = await UserManager.GenerateInviteTokenAsync(user);
+                        if (await UserManager.IsInRoleAsync(user.Id, Constants.Roles.LicenseAdmin))
+                        {
+                            UserManager.SendInviteAdminEmail(user.Organization.Id, code);
+                        }
+                        else
+                        {
+                            UserManager.SendInviteEmail(user.Id, code);
+                        }
+                    }
+                    else
+                    {
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        UserManager.SendActivationEmail(user.Id, code);
+                    }
+                }
+            }
+            else
+            {
+                throw new ModelStateException
+                {
+                    ModelState = ModelState
+                };
+            }
+            return true;
         }
     }
 }

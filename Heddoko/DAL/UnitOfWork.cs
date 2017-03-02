@@ -1,15 +1,33 @@
-﻿using System;
+﻿/**
+ * @file UnitOfWork.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
+using DAL.Repository;
+using DAL.Repository.Interface;
 
 namespace DAL
 {
     public sealed class UnitOfWork : IDisposable
     {
         private readonly HDContext _db;
+        private readonly HDMongoContext _mongodb;
 
-        public UnitOfWork(HDContext context = null)
+        public UnitOfWork(HDContext context = null, HDMongoContext mongoContext = null)
         {
             _db = context ?? new HDContext();
+            _mongodb = mongoContext ?? HDMongoContext.Instance;
         }
+
+        public static UnitOfWork Create()
+        {
+            return new UnitOfWork();
+        }
+
+        public HDContext Context => _db;
 
         public void Save()
         {
@@ -56,6 +74,24 @@ namespace DAL
 
         private ITeamRepository _teamRepository;
 
+        private IStreamConnectionsCacheRepository _streamConnectionsCacheRepository;
+
+        private IProcessedFrameRepository _processedFrameRepository;
+
+        private IApplicationRepository _applicationRepository;
+
+        private IAnalysisFrameRepository _analysisFrameRepository;
+
+        private IRawFrameRepository _rawFrameRepository;
+
+        private IUserActivityRepository _userActivityRepository;
+
+        private IDeviceRepository _deviceRepository;
+
+        private IRecordRepository _recordRepository;
+
+        private IErgoScoreRecordRepository _ergoScoreRecordRepository;
+
         #endregion
 
         #region PublicRepository
@@ -97,6 +133,24 @@ namespace DAL
         public IAssemblyCacheRepository AssemblyCacheRepository => _assemblyCacheRepository ?? (_assemblyCacheRepository = new AssemblyCacheRepository());
 
         public ITeamRepository TeamRepository => _teamRepository ?? (_teamRepository = new TeamRepository(_db));
+
+        public IStreamConnectionsCacheRepository StreamConnectionsCacheRepository => _streamConnectionsCacheRepository ?? (_streamConnectionsCacheRepository = new StreamConnectionsCacheRepository());
+
+        public IProcessedFrameRepository ProcessedFrameRepository => _processedFrameRepository ?? (_processedFrameRepository = new ProcessedFrameRepository(_mongodb));
+
+        public IApplicationRepository ApplicationRepository => _applicationRepository ?? (_applicationRepository = new ApplicationRepository(_db));
+
+        public IAnalysisFrameRepository AnalysisFrameRepository => _analysisFrameRepository ?? (_analysisFrameRepository = new AnalysisFrameRepository(_mongodb));
+
+        public IRawFrameRepository RawFrameRepository => _rawFrameRepository ?? (_rawFrameRepository = new RawFrameRepository(_mongodb));
+
+        public IUserActivityRepository UserActivityRepository => _userActivityRepository ?? (_userActivityRepository = new UserActivityRepository(_mongodb));
+
+        public IDeviceRepository DeviceRepository => _deviceRepository ?? (_deviceRepository = new DeviceRepository(_db));
+
+        public IRecordRepository RecordRepository => _recordRepository ?? (_recordRepository = new RecordRepository(_db));
+
+        public IErgoScoreRecordRepository ErgoScoreRecordRepository => _ergoScoreRecordRepository ?? (_ergoScoreRecordRepository = new ErgoScoreRecordRepository(_mongodb));
 
         #endregion
 

@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file BrainpacksController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -16,10 +23,15 @@ namespace Heddoko.Controllers
     public class BrainpacksController : BaseAdminController<Brainpack, BrainpackAPIModel>
     {
         private const string Search = "Search";
+        private const string Status = "Status";
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
         private const int NoPowerboardID = 0;
         private const int NoDataboardID = 0;
+
+        public BrainpacksController() { }
+
+        public BrainpacksController(ApplicationUserManager userManager, UnitOfWork uow): base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<BrainpackAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -53,9 +65,16 @@ namespace Heddoko.Controllers
                     }
 
                     KendoFilterItem searchFilter = request.Filter.Get(Search);
-                    if (!string.IsNullOrEmpty(searchFilter?.Value))
+                    KendoFilterItem statusFilter = request.Filter.Get(Status);
+                    int? statusInt = null;
+                    int temp;
+                    if (!string.IsNullOrEmpty(statusFilter.Value) && int.TryParse(statusFilter.Value, out temp))
                     {
-                        items = UoW.BrainpackRepository.Search(searchFilter.Value, isDeleted);
+                        statusInt = temp;
+                    }
+                    if (statusInt.HasValue || !string.IsNullOrEmpty(searchFilter?.Value))
+                    {
+                        items = UoW.BrainpackRepository.Search(searchFilter?.Value, statusInt, isDeleted);
                     }
                 }
             }
@@ -182,10 +201,10 @@ namespace Heddoko.Controllers
         {
             Brainpack item = UoW.BrainpackRepository.Get(id);
 
-            if (item.ID != CurrentUser.ID)
+            if (item.Id != CurrentUser.Id)
             {
                 item.Status = EquipmentStatusType.Trash;
-                UoW.KitRepository.RemoveBrainpack(item.ID);
+                UoW.KitRepository.RemoveBrainpack(item.Id);
 
                 UoW.Save();
             }
@@ -323,7 +342,7 @@ namespace Heddoko.Controllers
 
             return new BrainpackAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 IDView = item.IDView,
                 Version = item.Version,
                 Location = item.Location,

@@ -1,0 +1,21 @@
+{
+  "$type": "Octopus.Core.Model.Environments.Machine, Octopus.Core",
+  "Id": "Machines-21",
+  "Name": "HEDDOKO-BACKEND",
+  "Endpoint": {
+    "$type": "Octopus.Core.Model.Environments.Endpoints.PollingTentacleEndpoint, Octopus.Core",
+    "Thumbprint": "06D4CC0CA42CC23D401757638BC664EFC6C896CB",
+    "Uri": "poll://jz43lsrnrgedbr85rnlv/",
+    "UpgradeLocked": false
+  },
+  "IsDisabled": false,
+  "Roles": [
+    "web-server"
+  ],
+  "EnvironmentIds": [
+    "Environments-1"
+  ],
+  "TenantIds": [],
+  "TenantTags": [],
+  "MachinePolicyId": "MachinePolicies-1"
+}

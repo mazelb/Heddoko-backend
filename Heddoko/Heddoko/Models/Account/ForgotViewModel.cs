@@ -1,4 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/**
+ * @file ForgotViewModel.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using i18n;
 
@@ -22,5 +29,8 @@ namespace Heddoko.Models
 
         [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
         public string ForgetToken { get; set; }
+
+        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
+        public int UserId { get; set; }
     }
 }

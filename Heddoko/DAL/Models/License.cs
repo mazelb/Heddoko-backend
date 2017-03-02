@@ -1,6 +1,14 @@
-﻿using System;
+﻿/**
+ * @file License.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using Jil;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 
 namespace DAL.Models
@@ -22,25 +30,31 @@ namespace DAL.Models
 
         [JsonIgnore]
         [JilDirective(Ignore = true)]
+        [BsonIgnore]
         public virtual Organization Organization { get; set; }
 
         [JsonIgnore]
         [JilDirective(Ignore = true)]
+        [BsonIgnore]
         public virtual ICollection<User> Users { get; set; }
 
         #endregion
 
         #region NotMapped
+        [JilDirective(Ignore = true)]
         bool ISoftDelete.IsDeleted => Status == LicenseStatusType.Deleted;
 
-        public string IDView => $"LI{ID.ToString(Constants.PadZero)}";
+        [JilDirective(Ignore = true)]
+        public string IDView => $"LI{Id.ToString(Constants.PadZero)}";
 
-        public string ViewID => $"{OrganizationID}-{ID}";
+        [JilDirective(Ignore = true)]
+        public string ViewID => $"{OrganizationID}-{Id}";
 
-
+        [JilDirective(Ignore = true)]
         public string Name => $"{Type.GetDisplayName()} {IDView} ({ExpirationAt.ToString("dd/MM/yyyy")})";
 
-        public bool IsActive => (Type == LicenseType.DataAnalysis || Type == LicenseType.DataCollection)
+        [JilDirective(Ignore = true)]
+        public bool IsActive => (Type == LicenseType.DataAnalysis || Type == LicenseType.DataCollection || Type == LicenseType.Universal)
                                 && Status == LicenseStatusType.Active
                                 && ExpirationAt >= DateTime.Now;
 

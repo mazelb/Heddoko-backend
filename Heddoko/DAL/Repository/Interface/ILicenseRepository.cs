@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * @file ILicenseRepository.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Collections.Generic;
 using DAL.Models;
 
 namespace DAL
@@ -11,6 +18,8 @@ namespace DAL
 
         IEnumerable<License> GetAvailableByOrganization(int organizationID, int? id = null);
 
-        void Check();
+        IEnumerable<License> Check();
+
+        IEnumerable<License> GetByDaysToExpire(int days);
     }
 }

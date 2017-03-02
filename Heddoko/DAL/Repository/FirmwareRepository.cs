@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * @file FirmwareRepository.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using DAL.Models;
@@ -15,12 +22,14 @@ namespace DAL
         public override Firmware GetFull(int id)
         {
             return DbSet.Include(c => c.Asset)
-                        .FirstOrDefault(c => c.ID == id);
+                        .Include(c => c.Record.Assets)
+                        .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Firmware> All(bool isDeleted)
         {
             return DbSet.Include(c => c.Asset)
+                        .Include(c => c.Record.Assets)
                         .Where(c => isDeleted ? c.Status == FirmwareStatusType.Inactive : c.Status != FirmwareStatusType.Inactive)
                         .OrderByDescending(c => c.Created);
         }
@@ -28,9 +37,10 @@ namespace DAL
         public IEnumerable<Firmware> GetByType(FirmwareType type, int? take = null, int? skip = null)
         {
             IQueryable<Firmware> query = DbSet.Include(c => c.Asset)
-                                  .Where(c => c.Status == FirmwareStatusType.Active)
-                                  .Where(c => c.Type == type)
-                                  .OrderByDescending(c => c.Created);
+                                              .Include(c => c.Record.Assets)
+                                              .Where(c => c.Status == FirmwareStatusType.Active)
+                                              .Where(c => c.Type == type)
+                                              .OrderByDescending(c => c.Created);
 
 
             if (skip.HasValue)
@@ -50,8 +60,9 @@ namespace DAL
         {
             int? id = search.ParseID();
             return DbSet.Include(c => c.Asset)
+                        .Include(c => c.Record.Assets)
                         .Where(c => isDeleted ? c.Status == FirmwareStatusType.Inactive : c.Status != FirmwareStatusType.Inactive)
-                        .Where(c => (c.ID == id)
+                        .Where(c => (c.Id == id)
                                     || c.Version.ToString().ToLower().Contains(search.ToLower()))
                         .OrderByDescending(c => c.Created);
         }
@@ -60,6 +71,7 @@ namespace DAL
         public Firmware LastFirmwareByType(FirmwareType type)
         {
             return DbSet.Include(c => c.Asset)
+                        .Include(c => c.Record.Assets)
                         .OrderByDescending(c => c.Created)
                         .FirstOrDefault(c => c.Type == type);
         }

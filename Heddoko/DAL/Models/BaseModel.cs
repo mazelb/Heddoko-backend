@@ -1,13 +1,20 @@
-﻿using System;
+﻿/**
+ * @file BaseModel.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace DAL.Models
 {
-    public class BaseModel
+    public class BaseModel : IBaseModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("updatedAt")]
         public DateTime? Updated { get; set; }

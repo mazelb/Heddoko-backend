@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * @file HDContext.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -10,10 +17,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using DAL.Models;
 using Z.EntityFramework.Plus;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DAL
 {
-    public class HDContext : DbContext
+    public class HDContext : IdentityDbContext<User, Models.IdentityRole, int, UserLogin, UserRole, UserClaim>
     {
         public HDContext()
             : base(Constants.ConnectionStringName)
@@ -24,8 +32,6 @@ namespace DAL
         public DbSet<AccessToken> AccessTokens { get; set; }
 
         public DbSet<Asset> Assets { get; set; }
-
-        public DbSet<User> Users { get; set; }
 
         public DbSet<Brainpack> Brainpacks { get; set; }
 
@@ -51,8 +57,17 @@ namespace DAL
 
         public DbSet<Firmware> Firmware { get; set; }
 
+        public DbSet<Application> Application { get; set; }
+
         public DbSet<AuditEntry> AuditEntries { get; set; }
+
         public DbSet<AuditEntryProperty> AuditEntryProperties { get; set; }
+
+        public DbSet<Organization> Organizations { get; set; }
+        
+        public DbSet<Device> Devices { get; set; }
+
+        public DbSet<Record> Records { get; set; }
 
         public void DisableChangedAndValidation()
         {
@@ -162,6 +177,12 @@ namespace DAL
             {
                 ((BaseModel)entity.Entity).Updated = DateTime.UtcNow;
             }
+        }
+
+
+        public static HDContext Create()
+        {
+            return new HDContext();
         }
     }
 }

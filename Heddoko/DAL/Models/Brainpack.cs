@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * @file Brainpack.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -9,6 +16,7 @@ namespace DAL.Models
     public class Brainpack : BaseModel, IAuditable, ISoftDelete
     {
         [StringLength(255)]
+        [JsonIgnore]
         public string Location { get; set; }
 
         [StringLength(255)]
@@ -18,15 +26,19 @@ namespace DAL.Models
         [StringLength(255)]
         public string Label { get; set; }
 
+        [JsonIgnore]
         public string Notes { get; set; }
 
+        [JsonIgnore]
         public EquipmentStatusType Status { get; set; }
 
+        [JsonIgnore]
         public BrainpackQAStatusType QAStatus { get; set; }
 
         #region NotMapped
+        [JsonIgnore]
         bool ISoftDelete.IsDeleted => Status == EquipmentStatusType.Trash;
-        public string IDView => $"BP{ID.ToString(Constants.PadZero)}";
+        public string IDView => $"BP{Id.ToString(Constants.PadZero)}";
 
         #endregion
 

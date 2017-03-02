@@ -1,13 +1,21 @@
-﻿using System;
+﻿/**
+ * @file TeamsController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DAL;
 using DAL.Models;
 using Heddoko.Models;
 using i18n;
+using Microsoft.AspNet.Identity;
+using Constants = DAL.Constants;
 
 namespace Heddoko.Controllers
 {
@@ -20,6 +28,9 @@ namespace Heddoko.Controllers
         private const string IsDeleted = "IsDeleted";
         private const string Used = "Used";
 
+        public TeamsController() { }
+
+        public TeamsController(ApplicationUserManager userManager, UnitOfWork uow) : base(userManager, uow) { }
 
         public override KendoResponse<IEnumerable<TeamAPIModel>> Get([FromUri] KendoRequest request)
         {
@@ -30,7 +41,7 @@ namespace Heddoko.Controllers
             bool isDeleted = false;
             bool isUsed = false;
 
-            if (CurrentUser.Role == UserRoleType.LicenseAdmin)
+            if (UserManager.IsInRole(CurrentUser.Id, Constants.Roles.LicenseAdmin))
             {
                 forceOrganization = true;
 
@@ -77,7 +88,7 @@ namespace Heddoko.Controllers
 
             if (items == null)
             {
-                items = CurrentUser.Role == UserRoleType.Admin ? UoW.TeamRepository.All(null, isDeleted) : UoW.TeamRepository.GetByOrganization(CurrentUser.OrganizationID.Value, isDeleted);
+                items = UserManager.IsInRole(CurrentUser.Id, Constants.Roles.Admin) ? UoW.TeamRepository.All(null, isDeleted) : UoW.TeamRepository.GetByOrganization(CurrentUser.OrganizationID.Value, isDeleted);
             }
 
             count = items.Count();
@@ -126,7 +137,7 @@ namespace Heddoko.Controllers
             {
                 Team item = new Team();
                 item = Bind(item, model);
-                if (item.ID == 0)
+                if (item.Id == 0)
                 {
                     UoW.TeamRepository.Create(item);
                 }
@@ -197,7 +208,7 @@ namespace Heddoko.Controllers
         {
             Team item = UoW.TeamRepository.GetFull(id);
 
-            if (item.ID == CurrentUser.ID)
+            if (item.Id == CurrentUser.Id)
             {
                 return new KendoResponse<TeamAPIModel>
                 {
@@ -245,7 +256,7 @@ namespace Heddoko.Controllers
 
             return new TeamAPIModel
             {
-                ID = item.ID,
+                ID = item.Id,
                 Name = item.Name,
                 Status = item.Status,
                 Organization = item.Organization,

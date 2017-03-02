@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * @file Team.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Jil;
@@ -25,6 +32,7 @@ namespace DAL.Models
         public int OrganizationID { get; set; }
 
         [JsonIgnore]
+        [JilDirective(Ignore = true)]
         public virtual Organization Organization { get; set; }
 
         [JsonIgnore]
@@ -33,7 +41,7 @@ namespace DAL.Models
         #endregion
 
         #region NotMapped
-        public string IDView => $"TM{ID.ToString(Constants.PadZero)}";
+        public string IDView => $"TM{Id.ToString(Constants.PadZero)}";
         #endregion
     }
 }

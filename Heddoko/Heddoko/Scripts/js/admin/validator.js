@@ -1,4 +1,11 @@
-﻿var Validator = {
+﻿/**
+ * @file validator.js
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+var Validator = {
     equipment: {
         notes: {
             maxSize: 1024,
@@ -78,6 +85,32 @@
             maxSize: 255,
             maxLengthValidation: function (input) {
                 return Validator.maxLengthValidation(input, 'name', Validator.organization.name.maxSize);
+            }
+        }
+    },
+    user: {
+        firstname: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'firstname', Validator.organization.notes.maxSize);
+            }
+        },
+        lastname: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'lastname', Validator.organization.address.maxSize);
+            }
+        },
+        phone: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'phone', Validator.organization.phone.maxSize);
+            }
+        },
+        email: {
+            maxSize: 255,
+            maxLengthValidation: function (input) {
+                return Validator.maxLengthValidation(input, 'email', Validator.organization.email.maxSize);
             }
         }
     },

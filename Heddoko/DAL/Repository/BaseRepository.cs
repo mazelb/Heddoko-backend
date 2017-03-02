@@ -1,14 +1,22 @@
-﻿using System;
+﻿/**
+ * @file BaseRepository.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using DAL.Models;
 using Z.EntityFramework.Plus;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DAL
 {
-    public class BaseRepository<T> : ICacheRepository<T>, IBaseRepository<T> where T : BaseModel
+    public class BaseRepository<T> : ICacheRepository<T>, IBaseRepository<T> where T : class, IBaseModel
     {
         protected readonly IDbSet<T> DbSet;
 
@@ -18,7 +26,7 @@ namespace DAL
             DbSet = Db.Set<T>();
         }
 
-        private HDContext Db { get; }
+        protected HDContext Db { get; }
         protected string Key { private get; set; }
 
         #region Cache
@@ -31,12 +39,14 @@ namespace DAL
         public T GetCached(string id)
         {
             T item = RedisManager.Get<T>(GetCacheKey(id?.ToLower()));
-            if (item != null
-                &&
-                item.ID > 0)
-            {
-                Attach(item);
-            }
+
+            //BLOCK UPDATING CACHED ITEMS
+            //if (item != null
+            //    &&
+            //    item.Id > 0)
+            //{
+            //    Attach(item);
+            //}
 
             return item;
         }
@@ -48,7 +58,7 @@ namespace DAL
 
         public virtual void ClearCache(T item)
         {
-            ClearCache(item.ID.ToString());
+            ClearCache(item.Id.ToString());
         }
 
         public virtual void ClearCache(string id)
@@ -87,16 +97,16 @@ namespace DAL
                                              .Include(c => c.Properties)
                                              .ToList();
             List<int> ids = logs.Where(c => c.CreatedBy != Constants.SystemUser).Select(c => int.Parse(c.CreatedBy)).ToList();
-            List<User> users = Db.Users.Where(c => ids.Contains(c.ID)).ToList();
+            List<User> users = Db.Users.Where(c => ids.Contains(c.Id)).ToList();
 
             User systemUser = new User();
-            systemUser.Username = Constants.SystemUser;
+            systemUser.UserName = Constants.SystemUser;
 
             users.Add(systemUser);
 
             return logs.SelectMany(c => c.Properties.Where(p => p.PropertyName == Constants.AuditFieldName.Notes)).Select(c => new HistoryNotes()
             {
-                User = users.FirstOrDefault(u => u.Username == c.Parent.CreatedBy || int.Parse(c.Parent.CreatedBy) == u.ID),
+                User = users.FirstOrDefault(u => u.UserName == c.Parent.CreatedBy || int.Parse(c.Parent.CreatedBy) == u.Id),
                 Created = c.Parent.CreatedDate,
                 Notes = c.OldValueFormatted
             }).ToList();
@@ -108,7 +118,7 @@ namespace DAL
 
         public virtual T Get(int id)
         {
-            return DbSet.FirstOrDefault(c => c.ID == id);
+            return DbSet.FirstOrDefault(c => c.Id == id);
         }
 
         public virtual T GetFull(int id)
@@ -178,7 +188,7 @@ namespace DAL
 
         public bool Exists(T entity)
         {
-            return DbSet.Local.Any(e => e.ID == entity.ID);
+            return DbSet.Local.Any(e => e.Id == entity.Id);
         }
 
 

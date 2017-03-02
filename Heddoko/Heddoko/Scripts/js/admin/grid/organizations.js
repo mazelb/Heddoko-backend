@@ -1,4 +1,11 @@
-﻿$(function () {
+﻿/**
+ * @file organizations.js
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+$(function () {
     Organizations.init();
 });
 
@@ -189,6 +196,14 @@ var Organizations = {
                                 text: i18n.Resources.Restore,
                                 className: "k-grid-restore",
                                 click: this.onRestore
+                            }, {
+                                text: i18n.Resources.Approve,
+                                className: "k-grid-approve",
+                                click: this.onApprove.bind(this)
+                            }, {
+                                text: i18n.Resources.Login,
+                                className: "k-grid-login",
+                                click: this.onLoginAsOrganization.bind(this)
                             }
                         ],
                         title: i18n.Resources.Actions,
@@ -401,7 +416,25 @@ var Organizations = {
             .each(function () {
                 var currentDataItem = Organizations.controls.grid.dataItem($(this).closest("tr"));
 
-                if (currentDataItem.status === Enums.OrganizationStatusType.enum.Active) {
+                if (currentDataItem.status !== Enums.OrganizationStatusType.enum.Deleted) {
+                    $(this).remove();
+                }
+            });
+
+        $(".k-grid-approve", Organizations.controls.grid.element)
+          .each(function () {
+              var currentDataItem = Organizations.controls.grid.dataItem($(this).closest("tr"));
+
+              if (currentDataItem.status !== Enums.OrganizationStatusType.enum.Pending) {
+                  $(this).remove();
+              }
+          });
+
+        $(".k-grid-login", Organizations.controls.grid.element)
+            .each(function () {
+                var currentDataItem = Organizations.controls.grid.dataItem($(this).closest("tr"));
+
+                if (currentDataItem.status === Enums.OrganizationStatusType.enum.Deleted) {
                     $(this).remove();
                 }
             });
@@ -412,9 +445,21 @@ var Organizations = {
         this.onFilter();
     },
     onRestore: function (e) {
+        e.preventDefault();
+
         var item = Organizations.controls.grid.dataItem($(e.currentTarget).closest("tr"));
         item.set('status', Enums.OrganizationStatusType.enum.Active);
         Organizations.controls.grid.dataSource.sync();
+    },
+    onApprove: function (e) {
+        e.preventDefault();
+
+        var item = Organizations.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+
+        Ajax.post("/admin/api/organizations/approve",
+       {
+           organizationID: item.id
+       }).success(this.onApproveSuccess);
     },
     onReset: function (e) {
         this.controls.addModel.set('model', this.getEmptyModel());
@@ -507,7 +552,15 @@ var Organizations = {
             userID: userID
         }).success(this.onChangeSuccess);
     },
-    onChangeSuccess: function(e) {
+    onApproveSuccess: function (e) {
+        if (e) {
+            Datasources.organizations.read();
+            Datasources.users.read();
+        } else {
+            Notifications.error(e);
+        }
+    },
+    onChangeSuccess: function (e) {
         if (e) {
             Datasources.organizations.read();
         } else {
@@ -523,8 +576,24 @@ var Organizations = {
             operator: 'eq',
             value: -1
         });
-    }
+    },
+    onLoginAsOrganization: function (e) {
+        e.preventDefault();
 
+        var item = Organizations.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+
+        Ajax.post("/admin/api/organizations/login",
+       {
+           userID: item.userID
+       }).success(this.onLoginAsOrganizationSuccess);
+    },
+    onLoginAsOrganizationSuccess: function (e) {
+        if (e.redirectUrl) {
+            window.location.href = e.redirectUrl;
+        } else {
+            Notifications.error(e);
+        }
+    }
 };
 
 Datasources.bind(Organizations.datasources);

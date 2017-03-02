@@ -1,99 +1,158 @@
-﻿using System;
+﻿/**
+ * @file AccountController.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using DAL;
 using DAL.Models;
-using Heddoko.Helpers.Auth;
+using Heddoko.Helpers.DomainRouting.Mvc;
 using Heddoko.Models;
 using i18n;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace Heddoko.Controllers
 {
+    [Auth(Roles = DAL.Constants.Roles.All)]
     public class AccountController : BaseController
     {
+        public AccountController()
+        { }
+
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, UnitOfWork uow)
+            : base(userManager, signInManager, uow)
+        {
+        }
+
+        [AllowAnonymous]
         public ActionResult SignIn(string returnUrl)
         {
-            Forms.SignOut();
-
-            SignInAccountViewModel model = new SignInAccountViewModel();
-            FlashMessage message = ContextTempData.FlashMessage;
-            if (message != null)
+            SignInAccountViewModel model = new SignInAccountViewModel
             {
-                model.Flash.Add(message);
-            }
-            model.ReturnUrl = returnUrl;
+                ReturnUrl = returnUrl
+            };
             return View(model);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SignIn(SignInAccountViewModel model)
+        public async Task<ActionResult> SignIn(SignInAccountViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                User user = Forms.SignIn(UoW, model.Username, model.Password);
-                if (user != null)
-                {
-                    if (user.IsActive)
-                    {
-                        CurrentUser = Forms.Authorize(user);
-
-                        return RedirectToLocal(model.ReturnUrl);
-                    }
-                    if (user.IsBanned)
-                    {
-                        ModelState.AddModelError(string.Empty, Resources.UserIsBanned);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, Resources.UserIsNotActive);
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, Resources.WrongUsernameOrPassword);
-                }
+                return View(model);
             }
-            return View(model);
+
+            SignInStatus result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, false, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+
+                    User user = await UserManager.FindAsync(model.Username, model.Password);
+
+                    if (!user.IsActive)
+                    {
+                        if (user.IsBanned)
+                        {
+                            ModelState.AddModelError(string.Empty, Resources.UserIsBanned);
+                        }
+                        else if (user.IsNotApproved)
+                        {
+                            ModelState.AddModelError(string.Empty, Resources.UserIsNotApproved);
+                        }
+                        else
+                        {
+                            if (!UserManager.IsEmailConfirmed(user.Id))
+                            {
+                                ModelState.AddModelError(string.Empty, HttpUtility.HtmlDecode(string.Format(Resources.WrongConfirm, Url.Action("ResendActivationEmail", "Account", new { username = model.Username }), model.Username)));
+                            }
+                            else
+                            {
+                                ModelState.AddModelError(string.Empty, Resources.UserIsNotActive);
+                            }
+                        }
+
+                        AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+                        return View(model);
+                    }
+
+                    return await RedirectToLocal(user, model.ReturnUrl);
+                case SignInStatus.LockedOut:
+                    ModelState.AddModelError(string.Empty, Resources.WrongLockedOut);
+                    return View(model);
+                case SignInStatus.RequiresVerification:
+                    ModelState.AddModelError(string.Empty, Resources.RequiresVerification);
+                    return View(model);
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError(string.Empty, Resources.WrongUsernameOrPassword);
+                    return View(model);
+            }
         }
 
-        public ActionResult SignUpOrganization(string token)
+        [AllowAnonymous]
+        public async Task<ActionResult> SignUpOrganization(int userId, string code)
         {
             BaseViewModel model = new BaseViewModel();
 
-            if (!string.IsNullOrEmpty(token?.Trim()))
+            code = code?.Trim();
+
+            if (!string.IsNullOrEmpty(code))
             {
-                User user = UoW.UserRepository.GetByInviteToken(token?.Trim());
+                User user = UoW.UserRepository.GetFull(userId);
                 if (user != null)
                 {
-                    bool isNew = string.IsNullOrEmpty(user.Password);
-
-                    if (isNew)
+                    bool isValidToken = await UserManager.ValidateInviteTokenAsync(user, code);
+                    if (isValidToken)
                     {
-                        SignUpAccountViewModel signup = new SignUpAccountViewModel();
+                        bool isNew = string.IsNullOrEmpty(user.PasswordHash);
 
-                        signup.Organization = user.Organization;
-                        signup.InviteToken = user.InviteToken;
-                        signup.Email = user.Email.ToLower();
-                        signup.Username = user.Username.ToLower();
-                        signup.FirstName = user.FirstName;
-                        signup.LastName = user.LastName;
-                        signup.Phone = user.Phone;
-                        signup.Country = user.Country;
-                        signup.Birthday = user.BirthDay;
-                        signup.OrganizationName = user.Organization.Name;
-                        signup.Address = user.Organization.Address;
+                        if (isNew)
+                        {
+                            SignUpAccountViewModel signup = new SignUpAccountViewModel
+                            {
+                                Organization = user.Organization,
+                                Email = user.Email.ToLower(),
+                                Username = user.UserName.ToLower(),
+                                FirstName = user.FirstName,
+                                LastName = user.LastName,
+                                Phone = user.PhoneNumber,
+                                Country = user.Country,
+                                Birthday = user.BirthDay,
+                                OrganizationName = user.Organization.Name,
+                                Address = user.Organization.Address,
+                                UserId = userId,
+                                InviteToken = code
+                            };
 
-                        return View(signup);
+
+                            return View(signup);
+                        }
+                        user.Status = UserStatusType.Active;
+                        UoW.Save();
+                        UoW.UserRepository.SetCache(user);
+
+                        if (user.Organization.UserID == user.Id)
+                        {
+                            return RedirectToAction("Index", "Organization");
+                        }
                     }
-                    user.Status = UserStatusType.Active;
-                    user.InviteToken = null;
-                    UoW.Save();
-                    UoW.UserRepository.SetCache(user);
-
-                    if (user.Organization.UserID == user.ID)
+                    else
                     {
-                        return RedirectToAction("Index", "Organization");
+                        model.Flash.Add(new FlashMessage
+                        {
+                            Type = FlashMessageType.Error,
+                            Message = Resources.WrongConfirmationToken
+                        });
                     }
                 }
                 else
@@ -101,7 +160,7 @@ namespace Heddoko.Controllers
                     model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Error,
-                        Message = Resources.WrongConfirmationToken
+                        Message = Resources.UserDoesntExist
                     });
                 }
             }
@@ -118,68 +177,83 @@ namespace Heddoko.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SignUpOrganization(SignUpAccountViewModel model)
+        public async Task<ActionResult> SignUpOrganization(SignUpAccountViewModel model)
         {
-            Forms.SignOut();
-
-            User user = UoW.UserRepository.GetByInviteToken(model.InviteToken?.Trim());
+            User user = UoW.UserRepository.GetFull(model.UserId);
 
             if (ModelState.IsValid)
             {
                 if (user != null)
                 {
-                    User userUsed = UoW.UserRepository.GetByUsernameCached(model.Username?.Trim());
+                    bool isValidToken = await UserManager.ValidateInviteTokenAsync(user, model.InviteToken);
 
-                    if (userUsed != null
-                        &&
-                        user.ID != userUsed.ID)
+                    if (!isValidToken)
                     {
-                        ModelState.AddModelError(string.Empty, Resources.UsernameUsed);
+                        ModelState.AddModelError(string.Empty, Resources.WrongConfirmationToken);
                     }
                     else
                     {
-                        user.FirstName = model.FirstName?.Trim();
-                        user.LastName = model.LastName?.Trim();
-                        user.Country = model.Country?.Trim();
-                        user.BirthDay = model.Birthday;
-                        user.Phone = model.Phone;
-                        user.Status = UserStatusType.Active;
-                        user.InviteToken = null;
-                        Passphrase pwd = PasswordHasher.Hash(model.Password?.Trim());
+                        User userUsed = UoW.UserRepository.GetByUsernameCached(model.Username?.Trim());
 
-                        user.Password = pwd.Hash;
-                        user.Salt = pwd.Salt;
-
-                        UoW.Save();
-                        UoW.UserRepository.SetCache(user);
-
-                        BaseViewModel modelStatus = new BaseViewModel();
-
-                        string message = null;
-
-                        if (user.Role == UserRoleType.LicenseAdmin)
+                        if (userUsed != null
+                            &&
+                            user.Id != userUsed.Id)
                         {
-                            message = Resources.UserSignupOrganizationMessage;
+                            ModelState.AddModelError(string.Empty, Resources.UsernameUsed);
                         }
                         else
                         {
-                            if (user.LicenseID.HasValue)
+                            user.FirstName = model.FirstName?.Trim();
+                            user.LastName = model.LastName?.Trim();
+                            user.Country = model.Country?.Trim();
+                            user.BirthDay = model.Birthday;
+                            user.PhoneNumber = model.Phone?.Trim();
+                            user.Status = UserStatusType.Active;
+
+                            IdentityResult result = await UserManager.AddPasswordAsync(user.Id, model.Password?.Trim());
+                            if (!result.Succeeded)
                             {
-                                message = Resources.UserSignupUserOrganizationMessage;
+                                ModelState.AddModelError(string.Empty, Resources.UserIsExists);
                             }
                             else
                             {
-                                message = Resources.UserSignupUserNonLicenseOrganizationMessage;
+                                UoW.Save();
+
+                                await UserManager.SetEmailConfirmedAsync(user, true);
+
+                                UoW.UserRepository.SetCache(user);
+
+                                BaseViewModel modelStatus = new BaseViewModel();
+
+                                string message;
+                                bool isLicenseAdmin = await UserManager.IsInRoleAsync(user.Id, DAL.Constants.Roles.LicenseAdmin);
+                                if (isLicenseAdmin)
+                                {
+                                    message = Resources.UserSignupOrganizationMessage;
+                                }
+                                else
+                                {
+                                    if (user.LicenseID.HasValue)
+                                    {
+                                        message = Resources.UserSignupUserOrganizationMessage;
+                                    }
+                                    else
+                                    {
+                                        message = Resources.UserSignupUserNonLicenseOrganizationMessage;
+                                    }
+                                }
+
+                                modelStatus.Flash.Add(new FlashMessage
+                                {
+                                    Type = FlashMessageType.Success,
+                                    Message = message
+                                });
+
+                                return View("SignUpStatus", modelStatus);
                             }
                         }
-
-                        modelStatus.Flash.Add(new FlashMessage
-                        {
-                            Type = FlashMessageType.Success,
-                            Message = message
-                        });
-                        return View("SignUpStatus", modelStatus);
                     }
                 }
             }
@@ -188,117 +262,126 @@ namespace Heddoko.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public ActionResult SignUp()
         {
-            Forms.SignOut();
-
             SignUpAccountViewModel model = new SignUpAccountViewModel();
             return View(model);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SignUp(SignUpAccountViewModel model)
+        public async Task<ActionResult> SignUp(SignUpAccountViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                Organization organization = UoW.OrganizationRepository.GetByName(model.OrganizationName?.Trim());
-
-                if (organization != null)
-                {
-                    ModelState.AddModelError(string.Empty, Resources.OrganizationNameUsed);
-                }
-                else
-                {
-                    User user = UoW.UserRepository.GetByEmailCached(model.Email?.Trim());
-                    if (user != null)
-                    {
-                        ModelState.AddModelError(string.Empty, Resources.EmailUsed);
-                    }
-                    else
-                    {
-                        user = UoW.UserRepository.GetByUsernameCached(model.Username?.Trim());
-
-                        if (user != null)
-                        {
-                            ModelState.AddModelError(string.Empty, Resources.UsernameUsed);
-                        }
-                        else
-                        {
-                            organization = new Organization();
-                            organization.Name = model.OrganizationName.Trim();
-                            organization.Phone = model.Phone.Trim();
-                            organization.Address = model.Address.Trim();
-                            organization.Status = OrganizationStatusType.Active;
-
-
-                            user = new User();
-                            user.Email = model.Email.ToLower().Trim();
-                            user.Username = model.Username.ToLower().Trim();
-                            user.Role = UserRoleType.LicenseAdmin;
-                            user.FirstName = model.FirstName.Trim();
-                            ;
-                            user.LastName = model.LastName.Trim();
-                            ;
-                            user.Country = model.Country;
-                            user.BirthDay = model.Birthday;
-                            user.Phone = model.Phone.Trim();
-                            ;
-                            user.Status = UserStatusType.NotActive;
-
-                            Passphrase pwd = PasswordHasher.Hash(model.Password);
-
-                            user.Password = pwd.Hash;
-                            user.Salt = pwd.Salt;
-
-                            user.ConfirmToken = PasswordHasher.Md5(DateTime.Now.Ticks.ToString());
-
-                            UoW.UserRepository.Create(user);
-
-                            organization.User = user;
-                            UoW.OrganizationRepository.Create(organization);
-
-                            user.Organization = organization;
-                            UoW.Save();
-
-                            Task.Run(() => Mailer.SendActivationEmail(user));
-                            BaseViewModel modelStatus = new BaseViewModel();
-
-                            modelStatus.Flash.Add(new FlashMessage
-                            {
-                                Type = FlashMessageType.Success,
-                                Message = Resources.UserSignupMessage
-                            });
-                            return View("SignUpStatus", modelStatus);
-                        }
-                    }
-                }
+                return View(model);
             }
+            Organization organization = UoW.OrganizationRepository.GetByName(model.OrganizationName?.Trim());
+
+            if (organization != null)
+            {
+                ModelState.AddModelError(string.Empty, Resources.OrganizationNameUsed);
+                return View(model);
+            }
+
+            User user = UserManager.FindByEmailCached(model.Email?.Trim());
+            if (user != null)
+            {
+                ModelState.AddModelError(string.Empty, Resources.EmailUsed);
+                return View(model);
+            }
+
+            user = UserManager.FindByNameCached(model.Username?.Trim());
+
+            if (user != null)
+            {
+                ModelState.AddModelError(string.Empty, Resources.UsernameUsed);
+                return View(model);
+            }
+
+            organization = new Organization
+            {
+                Name = model.OrganizationName?.Trim(),
+                Phone = model.Phone?.Trim(),
+                Address = model.Address.Trim(),
+                Status = OrganizationStatusType.Pending
+            };
+
+
+            user = new User
+            {
+                Email = model.Email?.ToLower().Trim(),
+                UserName = model.Username?.ToLower().Trim(),
+                //TODO REMOVE THAT AFTER Migration all accounts
+                Role = UserRoleType.LicenseAdmin,
+                FirstName = model.FirstName.Trim(),
+                LastName = model.LastName.Trim(),
+                Country = model.Country,
+                BirthDay = model.Birthday,
+                PhoneNumber = model.Phone?.Trim(),
+                Status = UserStatusType.Pending
+            };
+
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                UserManager.AddToRole(user.Id, DAL.Constants.Roles.LicenseAdmin);
+                organization.User = user;
+                UoW.OrganizationRepository.Create(organization);
+                user.Organization = organization;
+                UoW.Save();
+
+                BaseViewModel modelStatus = new BaseViewModel();
+
+                modelStatus.Flash.Add(new FlashMessage
+                {
+                    Type = FlashMessageType.Success,
+                    Message = Resources.UserSignupMessage
+                });
+
+                return View("SignUpStatus", modelStatus);
+            }
+
+            AddErrors(result);
+
             return View(model);
         }
 
         [Auth]
-        public ActionResult SignOut()
+        public async Task<ActionResult> SignOut()
         {
-            Forms.SignOut();
+            Claim loggedInUserClaim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault(c => c.Type == DAL.Constants.ClaimTypes.ParentLoggedInUser);
+
+            if (loggedInUserClaim != null)
+            {
+                User user = UoW.UserRepository.Get(int.Parse(loggedInUserClaim.Value));
+                await SignInManager.SignInAsync(user, false, false);
+
+                return RedirectToAction("Index", "Default");
+            }
+
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("SignIn", "Account");
         }
 
         [Auth]
         public ActionResult Me()
         {
-            ProfileAccountViewModel model = new ProfileAccountViewModel();
-
-            model.Organization = CurrentUser.Organization;
-            model.Email = CurrentUser.Email;
-            model.Username = CurrentUser.Username.ToLower();
-            model.FirstName = CurrentUser.FirstName;
-            model.LastName = CurrentUser.LastName;
-            model.Phone = CurrentUser.Phone;
-            model.Country = CurrentUser.Country;
-            model.Birthday = CurrentUser.BirthDay;
-            model.OrganizationName = CurrentUser.Organization?.Name;
-            model.Address = CurrentUser.Organization?.Address;
+            ProfileAccountViewModel model = new ProfileAccountViewModel
+            {
+                Organization = CurrentUser.Organization,
+                Email = CurrentUser.Email,
+                Username = CurrentUser.UserName.ToLower(),
+                FirstName = CurrentUser.FirstName,
+                LastName = CurrentUser.LastName,
+                Phone = CurrentUser.PhoneNumber,
+                Country = CurrentUser.Country,
+                Birthday = CurrentUser.BirthDay,
+                OrganizationName = CurrentUser.Organization?.Name,
+                Address = CurrentUser.Organization?.Address
+            };
 
             return View(model);
         }
@@ -306,7 +389,7 @@ namespace Heddoko.Controllers
         [Auth]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Me(ProfileAccountViewModel model)
+        public async Task<ActionResult> Me(ProfileAccountViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -314,29 +397,25 @@ namespace Heddoko.Controllers
 
                 if (userUsed != null
                     &&
-                    CurrentUser.ID != userUsed.ID)
+                    CurrentUser.Id != userUsed.Id)
                 {
                     ModelState.AddModelError(string.Empty, Resources.UsernameUsed);
                 }
                 else
                 {
-                    CurrentUser.FirstName = model.FirstName;
-                    CurrentUser.Username = model.Username?.ToLower();
-                    CurrentUser.LastName = model.LastName;
-                    CurrentUser.Phone = model.Phone;
-                    CurrentUser.Country = model.Country;
-                    CurrentUser.BirthDay = model.Birthday;
+                    User currentUser = UoW.UserRepository.Get(CurrentUser.Id);
+
+                    currentUser.FirstName = model.FirstName?.Trim();
+                    currentUser.UserName = model.Username?.Trim().ToLower();
+                    currentUser.LastName = model.LastName?.Trim();
+                    currentUser.PhoneNumber = model.Phone?.Trim();
+                    currentUser.Country = model.Country?.Trim();
+                    currentUser.BirthDay = model.Birthday;
 
                     if (!string.IsNullOrEmpty(model.NewPassord))
                     {
-                        if (PasswordHasher.Equals(model.OldPassword?.Trim(), CurrentUser.Salt, CurrentUser.Password))
-                        {
-                            Passphrase pwd = PasswordHasher.Hash(model.NewPassord);
-
-                            CurrentUser.Password = pwd.Hash;
-                            CurrentUser.Salt = pwd.Salt;
-                        }
-                        else
+                        IdentityResult result = await UserManager.ChangePasswordAsync(CurrentUser.Id, model.OldPassword, model.NewPassord);
+                        if (!result.Succeeded)
                         {
                             ModelState.AddModelError(string.Empty, Resources.WrongOldPassword);
                             model.Organization = CurrentUser.Organization;
@@ -344,13 +423,13 @@ namespace Heddoko.Controllers
                         }
                     }
 
-
-                    if (CurrentUser.Role == UserRoleType.LicenseAdmin)
+                    if (await UserManager.IsInRoleAsync(CurrentUser.Id, DAL.Constants.Roles.LicenseAdmin))
                     {
-                        CurrentUser.Organization.Address = model.Address;
+                        currentUser.Organization.Address = model.Address;
                     }
+
                     UoW.Save();
-                    UoW.UserRepository.SetCache(CurrentUser);
+                    UoW.UserRepository.SetCache(currentUser);
 
                     model.Flash.Add(new FlashMessage
                     {
@@ -365,47 +444,46 @@ namespace Heddoko.Controllers
             return View(model);
         }
 
-        private ActionResult RedirectToLocal(string returnUrl = null)
+        private async Task<ActionResult> RedirectToLocal(User user, string returnUrl = null)
         {
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
-            if (IsAuth)
+
+            if (await UserManager.IsInRoleAsync(user.Id, DAL.Constants.Roles.Admin))
             {
-                switch (CurrentUser.Role)
-                {
-                    case UserRoleType.Admin:
-                        return RedirectToAction("Index", "License");
-                    case UserRoleType.Analyst:
-                        return RedirectToAction("Index", "Default");
-                    case UserRoleType.LicenseAdmin:
-                        return RedirectToAction("Index", "Organization");
-                    case UserRoleType.User:
-                    default:
-                        return RedirectToAction("Index", "Default");
-                }
+                return RedirectToAction("Index", "License");
             }
-            return RedirectToAction("Signin", "Account");
+
+            if (await UserManager.IsInRoleAsync(user.Id, DAL.Constants.Roles.LicenseAdmin))
+            {
+                return RedirectToAction("Index", "Organization");
+            }
+
+            return RedirectToAction("Index", "Default");
         }
 
-        public ActionResult Confirm(string token)
+        [AllowAnonymous]
+        public async Task<ActionResult> Confirm(int userId, string code)
         {
             BaseViewModel model = new BaseViewModel();
 
-            if (!string.IsNullOrEmpty(token?.Trim()))
+            code = code?.Trim();
+
+            if (!string.IsNullOrEmpty(code))
             {
-                User user = UoW.UserRepository.GetByConfirmToken(token?.Trim());
-                if (user != null)
+                var result = await UserManager.ConfirmEmailAsync(userId, code);
+                if (result.Succeeded)
                 {
+                    User user = UoW.UserRepository.Get(userId);
                     user.Status = UserStatusType.Active;
-                    user.ConfirmToken = null;
 
                     UoW.Save();
-                    UoW.UserRepository.SetCache(user);
 
-                    Task.Run(() => Mailer.SendActivatedEmail(user));
+                    UoW.UserRepository.ClearCache(user);
 
+                    UserManager.SendActivatedEmail(userId);
                     model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Success,
@@ -433,27 +511,30 @@ namespace Heddoko.Controllers
             return View("ConfirmStatus", model);
         }
 
-        public ActionResult Forgot(string token)
+        [AllowAnonymous]
+        public async Task<ActionResult> Forgot(int userId, string code)
         {
             BaseViewModel model = new BaseViewModel();
 
-            if (!string.IsNullOrEmpty(token?.Trim()))
+            code = code?.Trim();
+
+            if (!string.IsNullOrEmpty(code))
             {
-                User user = UoW.UserRepository.GetByForgetToken(token?.Trim());
+                User user = UoW.UserRepository.Get(userId);
                 if (user != null)
                 {
-                    if (user.ForgotExpiration.HasValue
-                        &&
-                        user.ForgotExpiration.Value >= DateTime.Now)
+                    bool isValid = await UserManager.ValidateResetPasswordToken(user, code);
+                    if (isValid)
                     {
-                        ForgotViewModel forgetModel = new ForgotViewModel();
-                        forgetModel.ForgetToken = token?.Trim();
+                        ForgotViewModel forgetModel = new ForgotViewModel { ForgetToken = code };
+
                         return View("Forgot", forgetModel);
                     }
+
                     model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Error,
-                        Message = Resources.ExpiredForgotToken
+                        Message = Resources.WrongForgotToken
                     });
                 }
                 else
@@ -461,7 +542,7 @@ namespace Heddoko.Controllers
                     model.Flash.Add(new FlashMessage
                     {
                         Type = FlashMessageType.Error,
-                        Message = Resources.WrongForgotToken
+                        Message = Resources.UserDoesntExist
                     });
                 }
             }
@@ -478,44 +559,23 @@ namespace Heddoko.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Forgot(ForgotViewModel model)
+        public async Task<ActionResult> Forgot(ForgotViewModel model)
         {
             BaseViewModel baseModel = new BaseViewModel();
 
             if (ModelState.IsValid)
             {
-                User user = UoW.UserRepository.GetByForgetToken(model.ForgetToken?.Trim());
-                if (user != null)
+                IdentityResult result = await UserManager.ResetPasswordAsync(model.UserId, model.ForgetToken, model.Password);
+
+                if (result.Succeeded)
                 {
-                    if (user.ForgotExpiration.HasValue
-                        &&
-                        user.ForgotExpiration.Value >= DateTime.Now)
+                    baseModel.Flash.Add(new FlashMessage
                     {
-                        Passphrase pwd = PasswordHasher.Hash(model.Password?.Trim());
-
-                        user.Password = pwd.Hash;
-                        user.Salt = pwd.Salt;
-                        user.ForgotToken = null;
-                        user.ForgotExpiration = null;
-
-                        UoW.Save();
-                        UoW.UserRepository.SetCache(user);
-
-                        baseModel.Flash.Add(new FlashMessage
-                        {
-                            Type = FlashMessageType.Success,
-                            Message = Resources.PasswordSuccessufullyChanged
-                        });
-                    }
-                    else
-                    {
-                        baseModel.Flash.Add(new FlashMessage
-                        {
-                            Type = FlashMessageType.Error,
-                            Message = Resources.ExpiredForgotToken
-                        });
-                    }
+                        Type = FlashMessageType.Success,
+                        Message = Resources.PasswordSuccessufullyChanged
+                    });
                 }
                 else
                 {
@@ -525,12 +585,15 @@ namespace Heddoko.Controllers
                         Message = Resources.WrongForgotToken
                     });
                 }
+
+
                 return View("ForgotStatus", baseModel);
             }
 
             return View("Forgot", model);
         }
 
+        [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             ForgotPasswordViewModel model = new ForgotPasswordViewModel();
@@ -539,23 +602,30 @@ namespace Heddoko.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             BaseViewModel baseModel = new BaseViewModel();
 
             if (ModelState.IsValid)
             {
-                User user = UoW.UserRepository.GetByEmail(model.Email?.Trim());
+                User user = await UserManager.FindByEmailAsync(model.Email?.Trim());
                 if (user != null)
                 {
-                    user.ForgotExpiration = DateTime.Now.AddHours(Config.EmailForgotTokenExpiration);
-                    user.ForgotToken = PasswordHasher.Md5(user.ForgotExpiration.Value.Ticks.ToString());
+                    if (!user.IsActive && !UserManager.IsEmailConfirmed(user.Id))
+                    {
+                        model.Flash.Add(new FlashMessage
+                        {
+                            Type = FlashMessageType.Error,
+                            Message = HttpUtility.HtmlDecode(string.Format(Resources.WrongConfirm, Url.Action("ResendActivationEmail", "Account", new { username = model.Email?.Trim() }), model.Email))
+                        });
 
-                    UoW.Save();
-                    UoW.UserRepository.SetCache(user);
+                        return View(model);
+                    }
 
-                    Task.Run(() => Mailer.SendForgotPasswordEmail(user));
+                    string resetPasswordToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                    UserManager.SendForgotPasswordEmail(user.Id, resetPasswordToken);
 
                     baseModel.Flash.Add(new FlashMessage
                     {
@@ -578,6 +648,7 @@ namespace Heddoko.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public ActionResult ForgotUsername()
         {
             ForgotPasswordViewModel model = new ForgotPasswordViewModel();
@@ -586,17 +657,29 @@ namespace Heddoko.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ForgotUsername(ForgotPasswordViewModel model)
+        public async Task<ActionResult> ForgotUsername(ForgotPasswordViewModel model)
         {
             BaseViewModel baseModel = new BaseViewModel();
 
             if (ModelState.IsValid)
             {
-                User user = UoW.UserRepository.GetByEmail(model.Email?.Trim());
+                User user = await UserManager.FindByEmailAsync(model.Email?.Trim());
                 if (user != null)
                 {
-                    Task.Run(() => Mailer.SendForgotUsernameEmail(user));
+                    if (!user.IsActive && !UserManager.IsEmailConfirmed(user.Id))
+                    {
+                        model.Flash.Add(new FlashMessage
+                        {
+                            Type = FlashMessageType.Error,
+                            Message = HttpUtility.HtmlDecode(string.Format(Resources.WrongConfirm, Url.Action("ResendActivationEmail", "Account", new { username = model.Email?.Trim() }), model.Email))
+                        });
+
+                        return View(model);
+                    }
+
+                    UserManager.SendForgotUsernameEmail(user.Id);
 
                     baseModel.Flash.Add(new FlashMessage
                     {
@@ -617,6 +700,73 @@ namespace Heddoko.Controllers
             }
 
             return View(model);
+        }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error);
+            }
+        }
+
+
+        [AllowAnonymous]
+        [DomainRoute("activation/resend/{username}", DAL.Constants.ConfigKeyName.DashboardSite)]
+        public async Task<ActionResult> ResendActivationEmail(string username)
+        {
+            BaseViewModel baseModel = new BaseViewModel();
+            User user = await UserManager.FindByNameAsync(username) ?? await UserManager.FindByEmailAsync(username);
+
+            if (user == null)
+            {
+                baseModel.Flash.Add(new FlashMessage
+                {
+                    Type = FlashMessageType.Error,
+                    Message = Resources.UserDoesntExist
+                });
+            }
+            else
+            {
+                if (user.Status != UserStatusType.Invited)
+                {
+                    baseModel.Flash.Add(new FlashMessage
+                    {
+                        Type = FlashMessageType.Error,
+                        Message = Resources.UserIsNotInvited
+                    });
+                }
+                else
+                {
+                    bool isNew = string.IsNullOrEmpty(user.PasswordHash);
+
+                    if (isNew)
+                    {
+                        string code = await UserManager.GenerateInviteTokenAsync(user);
+                        if (await UserManager.IsInRoleAsync(user.Id, DAL.Constants.Roles.LicenseAdmin))
+                        {
+                            UserManager.SendInviteAdminEmail(user.Id, code);
+                        }
+                        else
+                        {
+                            UserManager.SendInviteEmail(user.Id, code);
+                        }
+                    }
+                    else
+                    {
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        UserManager.SendActivationEmail(user.Id, code);
+                    }
+
+                    baseModel.Flash.Add(new FlashMessage
+                    {
+                        Type = FlashMessageType.Success,
+                        Message = Resources.ActivationEmailHasBeenSentCheckEmail
+                    });
+                }
+            }
+
+            return View("ConfirmStatus", baseModel);
         }
     }
 }

@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * @file SensorSetRepository.cs
+ * @brief Functionalities required to operate it.
+ * @author Sergey Slepokurov (sergey@heddoko.com)
+ * @date 11 2016
+ * Copyright Heddoko(TM) 2017,  all rights reserved
+*/
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using DAL.Models;
@@ -15,32 +22,41 @@ namespace DAL
         public IEnumerable<SensorSet> All(bool isDeleted)
         {
             return DbSet.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
         public IEnumerable<SensorSet> GetAvailable(int? id = null)
         {
             return DbSet
-                        .OrderBy(c => c.ID);
+                        .OrderBy(c => c.Id);
         }
 
-        public IEnumerable<SensorSet> Search(string search, bool isDeleted = false)
+        public IEnumerable<SensorSet> Search(string search, int? statusFilter, bool isDeleted = false)
         {
-            int? id = search.ParseID();
-            return DbSet
-                .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
-                .Where(c => (c.ID == id)
-                            || c.Label.ToLower().Contains(search.ToLower())
-                            || c.Notes.ToLower().Contains(search.ToLower()))
-                          //  || c.KitID.ToLower().Contains(search.ToLower()))
-                .OrderBy(c => c.ID);
+            IQueryable<SensorSet> query = DbSet.Include(c => c.Id);
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                int? id = search.ParseID();
+                query = query.Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
+                                .Where(c => (c.Id == id)
+                                    || c.Label.ToLower().Contains(search.ToLower())
+                                    || c.Notes.ToLower().Contains(search.ToLower()));
+            }
+            if (statusFilter.HasValue)
+            {
+                query = query.Where(c => c.Status == (EquipmentStatusType)statusFilter);
+            }
+            query = query.OrderBy(c => c.Id);
+
+            return query;
         }
 
         public override SensorSet GetFull(int id)
         {
             return DbSet.Include(c => c.Kits)
                         .Include(c => c.Sensors)
-                        .FirstOrDefault(c => c.ID == id);
+                        .FirstOrDefault(c => c.Id == id);
         }
     }
 }
