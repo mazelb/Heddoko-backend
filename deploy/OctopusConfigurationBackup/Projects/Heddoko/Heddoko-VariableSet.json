@@ -2,7 +2,7 @@
   "$type": "Octopus.Core.Model.Variables.VariableSet, Octopus.Core",
   "Id": "variableset-Projects-1",
   "OwnerId": "Projects-1",
-  "Version": 23,
+  "Version": 24,
   "Variables": [
     {
       "Id": "f551f9e3-a9fa-0029-6cc9-344af911af67",
@@ -153,6 +153,26 @@
       "Id": "598b1138-acd5-d8c5-f42d-9e2093f4cdd9",
       "Name": "WebSite.SSLThumbprint",
       "Value": "app.heddoko.com 2016/11/28 3:22:31 PM",
+      "Scope": {
+        "Environment": [
+          "Environments-2"
+        ]
+      }
+    },
+    {
+      "Id": "a07498e9-6256-ebca-dae2-3f50b1b59ee6",
+      "Name": "WebSite.HostName.OpenApi",
+      "Value": "api.dev.app.heddoko.com",
+      "Scope": {
+        "Environment": [
+          "Environments-1"
+        ]
+      }
+    },
+    {
+      "Id": "74c951db-95fa-97a2-f3dc-26e6a12cd62a",
+      "Name": "WebSite.HostName.OpenApi",
+      "Value": "api.heddoko.com",
       "Scope": {
         "Environment": [
           "Environments-2"
