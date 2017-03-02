@@ -32,8 +32,7 @@ namespace DAL
 
         public static string WrikeEmail => ConfigurationManager.AppSettings["WrikeEmail"];
 
-        public static string MongoDbConnectionString => ConfigurationManager.ConnectionStrings["MongoDb"]?.ToString();
-
+        #region Push
         public static bool IOSSandbox => bool.Parse(ConfigurationManager.AppSettings["IOSSandbox"]);
 
         public static string IOSCertificate => ConfigurationManager.AppSettings["IOSCertificate"];
@@ -43,6 +42,12 @@ namespace DAL
         public static string GcmSenderId => ConfigurationManager.AppSettings["GcmSenderId"];
 
         public static string GcmSenderAuthToken => ConfigurationManager.AppSettings["GcmSenderAuthToken"];
+        #endregion
+
+        #region Mongo
+        public static string MongoDbConnectionString => ConfigurationManager.ConnectionStrings["MongoDb"]?.ToString();
+        public static string MongoDbName => ConfigurationManager.AppSettings["MongoDbName"];
+        #endregion
 
         #region JWT
 

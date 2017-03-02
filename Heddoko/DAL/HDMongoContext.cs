@@ -20,7 +20,7 @@ namespace DAL
         public static HDMongoContext Instance => LazyContext.Value;
 
         private HDMongoContext()
-            : this(new MongoClient(Config.MongoDbConnectionString), MongoUrl.Create(Config.MongoDbConnectionString).DatabaseName)
+            : this(new MongoClient(Config.MongoDbConnectionString), Config.MongoDbName)
         {
         }
 

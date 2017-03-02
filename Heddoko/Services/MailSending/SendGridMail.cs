@@ -18,7 +18,6 @@ namespace Services.MailSending
 {
     public static class SendGridMail
     {
-        private const string TypeHtml = "text/html";
         private const string Disposition = "attachment";
 
         public static void Send(string subject,
@@ -30,14 +29,19 @@ namespace Services.MailSending
         {
             try
             {
-                SendGridAPIClient sendGrid = new SendGridAPIClient(Config.SendgridKey);
+                SendGridClient client = new SendGridClient(Config.SendgridKey);
 
-                Email from = new Email(mailFrom ?? Config.MailFrom);
-                Email to = new Email(mailTo);
+                EmailAddress from = new EmailAddress(mailFrom ?? Config.MailFrom);
+                EmailAddress to = new EmailAddress(mailTo);
 
-                Content content = new Content(TypeHtml, body);
+                var mail = new SendGridMessage()
+                {
+                    From = from,
+                    Subject = subject,
+                    HtmlContent = body
+                };
 
-                SendGrid.Helpers.Mail.Mail mail = new SendGrid.Helpers.Mail.Mail(from, subject, to, content);
+                mail.AddTo(to);
 
                 if (attachments != null)
                 {
@@ -51,14 +55,7 @@ namespace Services.MailSending
                                 buffer = theReader.ReadBytes(attachment.ContentLength);
                             }
 
-                            mail.AddAttachment(new Attachment()
-                            {
-                                Content = Convert.ToBase64String(buffer),
-                                Filename = attachment.FileName,
-                                Type = attachment.ContentType,
-                                Disposition = Disposition
-                            });
-
+                            mail.AddAttachment(attachment.FileName, Convert.ToBase64String(buffer), attachment.ContentType, Disposition);
                             buffer = null;
                         }
                     }
@@ -79,7 +76,8 @@ namespace Services.MailSending
                     };
                 }
 
-                dynamic response = sendGrid.client.mail.send.post(requestBody: mail.Get()).GetAwaiter().GetResult();
+                dynamic response = client.SendEmailAsync(mail).GetAwaiter().GetResult();
+
                 string result = response.Body.ReadAsStringAsync().Result;
                 if (!string.IsNullOrEmpty(result))
                 {
