@@ -93,7 +93,10 @@ namespace Services
                     DownloadToFile(asset.Image, path);
                     FileParser.AddFileToDb(path, asset.Type, UoW, recordId, record.User.Id);
                     DeleteFile(path);
-                    CreateErgoscoreRecord(recordId, UoW);
+                    if (asset.Type == AssetType.AnalysisFrameData)
+                    {
+                        CreateErgoscoreRecord(recordId, UoW);
+                    }
                 }
                 catch (FileNotFoundException ex)
                 {
