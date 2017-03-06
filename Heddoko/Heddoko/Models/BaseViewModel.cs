@@ -38,7 +38,7 @@ namespace Heddoko.Models
 
         public bool IsAdmin => IsAuth && CurrentUser.RoleName == Constants.Roles.Admin;
 
-        public bool IsLicenseAdmin => IsAuth && CurrentUser.RoleName == Constants.Roles.LicenseAdmin;
+        public bool IsLicenseAdmin => IsAuth && CurrentUser.Role == UserRoleType.LicenseAdmin;
 
         public bool IsAnalyst => IsAuth && CurrentUser.RoleName == Constants.Roles.Analyst;
 
