@@ -62,13 +62,6 @@ var UsersAdmin = {
                     template: function (e) {
                         return Format.user.role(e.role);
                     }
-                }, {
-                    field: 'licenseID',
-                    title: i18n.Resources.License,
-                    editor: KendoDS.emptyEditor,
-                    template: function (e) {
-                        return Format.license.name(e.licenseName);
-                    }
                 },{
                     field: 'kitID',
                     title: i18n.Resources.Kit,
@@ -132,7 +125,7 @@ var UsersAdmin = {
     },
     buildFilter: function (search) {
         Notifications.clear();
-        var search = this.controls.filterModel.search;
+        search = this.controls.filterModel.search;
 
         var filters = [];
 

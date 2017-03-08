@@ -345,11 +345,7 @@ namespace Heddoko.Controllers
                     Name = item.User.Name,
                     Username = item.User.UserName
                 },
-                DataAnalysisAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataAnalysis
-                                                               && c.ExpirationAt >= DateTime.Now
-                                                               && c.Status == LicenseStatusType.Active).Sum(c => c.Amount),
-                DataCollectorAmount = item.Licenses?.Where(c => c.Type == LicenseType.DataCollection
-                                                                && c.ExpirationAt >= DateTime.Now
+                DataCollectorAmount = item.Licenses?.Where(c => c.ExpirationAt >= DateTime.Now
                                                                 && c.Status == LicenseStatusType.Active).Sum(c => c.Amount)
             };
         }

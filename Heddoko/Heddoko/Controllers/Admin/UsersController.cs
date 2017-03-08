@@ -177,7 +177,7 @@ namespace Heddoko.Controllers
                     UoW.UserRepository.ClearCache(item);
                 }
 
-                UserManager.ApplyUserRolesForLicense(item);
+                UserManager.UpdateToIdentityRoles(item);
 
                 int userID = item.Id;
                 string inviteToken = UserManager.GenerateInviteToken(item.Id);
@@ -243,7 +243,7 @@ namespace Heddoko.Controllers
                 }
 
                 UoW.UserRepository.ClearCache(item);
-                UserManager.ApplyUserRolesForLicense(item);
+                UserManager.UpdateToIdentityRoles(item);
 
                 response = Convert(item);
             }
@@ -456,7 +456,7 @@ namespace Heddoko.Controllers
                 Firstname = item.FirstName,
                 Lastname = item.LastName,
                 Username = item.UserName,
-                Role = item.RoleName.GetDisplayName(),
+                Role = item.Role,
                 Status = item.Status,
                 LicenseID = item.LicenseID ?? 0,
                 Phone = item.PhoneNumber,

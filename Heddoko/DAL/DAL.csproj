@@ -296,6 +296,10 @@
     <Compile Include="Migrations\201612221303570_Application.Designer.cs">
       <DependentUpon>201612221303570_Application.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703081946560_LicensesV1.5.cs" />
+    <Compile Include="Migrations\201703081946560_LicensesV1.5.Designer.cs">
+      <DependentUpon>201703081946560_LicensesV1.5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
@@ -552,6 +556,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612221303570_Application.resx">
       <DependentUpon>201612221303570_Application.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703081946560_LicensesV1.5.resx">
+      <DependentUpon>201703081946560_LicensesV1.5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

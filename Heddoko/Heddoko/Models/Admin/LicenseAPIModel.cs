@@ -19,9 +19,6 @@ namespace Heddoko.Models
 
         public uint Amount { get; set; }
 
-        [DisallowEnumValue(typeof(LicenseType), LicenseType.Universal, ErrorMessageResourceName = "IsInvalidMessage", ErrorMessageResourceType = typeof(Resources))]
-        public LicenseType Type { get; set; }
-
         [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
         [CompareToday(CompareEquality.Greater, ErrorMessageResourceName = "WrongExpirationAtDate", ErrorMessageResourceType = typeof(Resources))]
         public DateTime ExpirationAt { get; set; }
@@ -33,6 +30,8 @@ namespace Heddoko.Models
         public string IDView { get; set; }
 
         public int? OrganizationID { get; set; }
+
+        public int? TeamID { get; set; }
 
         public string Name { get; set; }
     }

@@ -96,7 +96,6 @@ namespace DAL.Models
         public DateTime? BirthDay { get; set; }
 
         [JsonIgnore]
-        [Obsolete("will be removed after migration to Identity")]
         public UserRoleType Role { get; set; }
 
         public UserStatusType Status { get; set; }
@@ -152,7 +151,6 @@ namespace DAL.Models
                 ExpiredAt = License.ExpirationAt,
                 Name = License.Name,
                 Status = License.Status,
-                Type = License.Type,
                 ViewID = License.ViewID,
                 IDView = License.IDView
             };
@@ -192,30 +190,6 @@ namespace DAL.Models
         [NotMapped]
         [JilDirective(Ignore = true)]
         public string LicenseInfoToken { get; set; }
-
-        public UserRoleType RoleType
-        {
-            get
-            {
-                if (License == null ||
-                    !License.IsActive)
-                {
-                    return UserRoleType.User;
-                }
-
-                switch (License.Type)
-                {
-                    case LicenseType.DataAnalysis:
-                        return UserRoleType.Analyst;
-                    case LicenseType.DataCollection:
-                        return UserRoleType.Worker;
-                    case LicenseType.Universal:
-                        return UserRoleType.LicenseUniversal;
-                    default:
-                        return UserRoleType.User;
-                }
-            }
-        }
 
         [JsonIgnore]
         public bool IsActive => Status == UserStatusType.Active;

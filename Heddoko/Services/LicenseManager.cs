@@ -20,6 +20,7 @@ namespace Services
     {
         public static void Check()
         {
+            // TODO - Benb - Revisit under new system
             try
             {
                 HDContext context = new HDContext();
@@ -29,10 +30,6 @@ namespace Services
                 uow.Save();
 
                 var manager = new ApplicationUserManager(new UserStore(context));
-                foreach (User user in updatedLicenses.SelectMany(l => l.Users ?? new List<User>()))
-                {
-                    manager.ApplyUserRolesForLicense(user);
-                }
 
                 DateTime today = DateTime.Now.StartOfDay();
 

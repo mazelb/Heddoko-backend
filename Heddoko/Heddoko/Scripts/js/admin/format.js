@@ -162,6 +162,8 @@ var Format = {
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         role: function (item) {
+            item = item != null ? Enums.UserRoleType.array[item].text : "";
+
             return '<span class="k-grid-showText">' + item + '</span>';
         },
         kit: function (item) {

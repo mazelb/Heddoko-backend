@@ -171,10 +171,6 @@ var Organizations = {
                         },
                         editor: KendoDS.textAreaDDEditor
                     }, {
-                        field: 'dataAnalysisAmount',
-                        title: i18n.Resources.DataAnalysisAmount,
-                        editor: KendoDS.emptyEditor
-                    }, {
                         field: 'dataCollectorAmount',
                         title: i18n.Resources.DataCollectorAmount,
                         editor: KendoDS.emptyEditor
@@ -313,13 +309,6 @@ var Organizations = {
                         field: 'idView',
                         title: i18n.Resources.ID,
                         editor: KendoDS.emptyEditor
-                    }, {
-                        field: 'type',
-                        title: i18n.Resources.Type,
-                        template: function (ed) {
-                            return Format.license.type(ed.type);
-                        },
-                        editor: Licenses.typeDDEditor
                     }, {
                         field: 'amount',
                         title: i18n.Resources.Amount

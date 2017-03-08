@@ -131,13 +131,6 @@ namespace DAL
                         await AddToRoleAsync(user.Id, Constants.Roles.LicenseAdmin);
                     }
                     break;
-                case UserRoleType.User:
-                default:
-                    break;
-            }
-
-            switch (user.RoleType)
-            {
                 case UserRoleType.Worker:
                     if (!await IsInRoleAsync(user.Id, Constants.Roles.Worker))
                     {
@@ -150,12 +143,10 @@ namespace DAL
                         await AddToRoleAsync(user.Id, Constants.Roles.Analyst);
                     }
                     break;
+                case UserRoleType.User:
                 default:
                     break;
             }
-
-            ApplyUserRolesForLicense(user);
-
             UoW.UserRepository.ClearCache(user);
         }
 
@@ -232,46 +223,6 @@ namespace DAL
         public void SendActivatedEmail(int userId)
         {
             UserEmailService.Service.SendActivatedEmail(userId);
-        }
-
-        public void ApplyUserRolesForLicense(User user)
-        {
-            if (user.License == null || !user.License.IsActive)
-            {
-                if (this.IsInRole(user.Id, Constants.Roles.Analyst))
-                {
-                    this.RemoveFromRole(user.Id, Constants.Roles.Analyst);
-                }
-
-                if (this.IsInRole(user.Id, Constants.Roles.Worker))
-                {
-                    this.RemoveFromRole(user.Id, Constants.Roles.Worker);
-                }
-
-                if (this.IsInRole(user.Id, Constants.Roles.LicenseUniversal))
-                {
-                    this.RemoveFromRole(user.Id, Constants.Roles.LicenseUniversal);
-                }
-            }
-            else
-            {
-                if (!this.IsInRole(user.Id, Constants.Roles.Admin)
-                    && user.License.IsActive)
-                {
-                    switch (user.License.Type)
-                    {
-                        case LicenseType.DataAnalysis:
-                            this.AddToRole(user.Id, Constants.Roles.Analyst);
-                            break;
-                        case LicenseType.DataCollection:
-                            this.AddToRole(user.Id, Constants.Roles.Worker);
-                            break;
-                        case LicenseType.Universal:
-                            this.AddToRole(user.Id, Constants.Roles.LicenseUniversal);
-                            break;
-                    }
-                }
-            }
         }
 
         public async Task<IdentityResult> SetEmailConfirmedAsync(User user, bool confirmed)

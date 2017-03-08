@@ -239,7 +239,7 @@ namespace DAL.Migrations
             user.LastName = "Universal";
             user.Salt = null;
             user.Password = null;
-            user.Role = UserRoleType.User;
+            user.Role = UserRoleType.LicenseUniversal;
             user.SecurityStamp = Guid.NewGuid().ToString();
 
             if (user.Id == 0)
@@ -264,7 +264,6 @@ namespace DAL.Migrations
             license.Created = now;
             license.ExpirationAt = new DateTime(2020, now.Month, now.Day).EndOfDay();
             license.Status = LicenseStatusType.Active;
-            license.Type = LicenseType.Universal;
 
             if (license.Id == 0)
             {
