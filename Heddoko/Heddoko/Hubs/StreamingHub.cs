@@ -45,11 +45,6 @@ namespace Heddoko.Hubs
                 throw new HubException(Resources.UserIsNotInTeam, new { user = currentUser.UserName });
             }
 
-            if (currentUser.Kit == null)
-            {
-                throw new HubException(Resources.UserDoesntHaveKit, new { user = currentUser.UserName });
-            }
-
             Channel channel = _streamConnectionsService.CreateChannel(ChanelHelper.GetChannelName(currentUser), currentUser);
 
             Clients.Group(channel.Name).GetData(message);

@@ -13,7 +13,7 @@ namespace DAL.Helpers
     {
         public static string GetChannelName(User user)
         {
-            return $"team-{user.TeamID}-{user.Kit?.Id}";
+            return $"team-{user.TeamID}-{user.Id}";
         }
     }
 }

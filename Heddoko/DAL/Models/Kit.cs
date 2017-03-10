@@ -50,13 +50,6 @@ namespace DAL.Models
         public virtual Organization Organization { get; set; }
 
         [JsonIgnore]
-        public int? UserID { get; set; }
-
-        [JsonIgnore]
-        [JilDirective(Ignore = true)]
-        public virtual User User { get; set; }
-
-        [JsonIgnore]
         public int? BrainpackID { get; set; }
 
         public virtual Brainpack Brainpack { get; set; }

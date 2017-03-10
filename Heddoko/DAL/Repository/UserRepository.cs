@@ -80,7 +80,6 @@ namespace DAL
         {
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.License)
-                        .Include(c => c.Kits)
                         .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.Id == id);
         }
@@ -101,8 +100,6 @@ namespace DAL
                         .Include(c => c.Tokens)
                         .Include(c => c.Team)
                         .Include(c => c.License)
-                        .Include(c => c.Kits)
-                        .Include(c => c.Kits.Select(k => k.Brainpack))
                         .Include(c => c.Roles.Select(r => r.Role))
                         .Include(c => c.Devices)
                         .FirstOrDefault(c => c.Id == id);
@@ -153,8 +150,6 @@ namespace DAL
                         .Include(c => c.Tokens)
                         .Include(c => c.Team)
                         .Include(c => c.License)
-                        .Include(c => c.Kits)
-                        .Include(c => c.Kits.Select(k => k.Brainpack))
                         .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
@@ -187,7 +182,6 @@ namespace DAL
         public IEnumerable<User> GetByOrganization(int organizationID, bool isDeleted = false, int? licenseID = null)
         {
             return DbSet.Include(c => c.License)
-                        .Include(c => c.Kits)
                         .Include(c => c.Team)
                         .Include(c => c.Organization)
                         .Include(c => c.Roles.Select(r => r.Role))
@@ -208,7 +202,6 @@ namespace DAL
         public IEnumerable<User> GetByTeam(int teamId, bool isDeleted = false)
         {
             return DbSet.Include(c => c.License)
-                        .Include(c => c.Kits)
                         .Include(c => c.Team)
                         .Include(c => c.Organization)
                         .Include(c => c.Roles.Select(r => r.Role))
@@ -233,7 +226,6 @@ namespace DAL
         {
             return DbSet.Include(c => c.License)
                         .Include(c => c.Organization)
-                        .Include(c => c.Kits)
                         .Include(c => c.Team)
                         .Include(c => c.Roles.Select(r => r.Role))
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
@@ -255,7 +247,6 @@ namespace DAL
         {
             IQueryable<User> query = DbSet.Where(c => c.OrganizationID == organizationID
                                                    && c.TeamID == teamID)
-                                          .Include(c => c.Kits.Select(k => k.Brainpack))
                                           .Include(c => c.Team)
                                           .OrderBy(c => c.FirstName)
                                           .ThenBy(c => c.LastName);

@@ -148,15 +148,6 @@ var Users = {
                                 max: KendoDS.maxInt
                             }
                         },
-                        kitID: {
-                            nullable: true,
-                            type: "number",
-                            validation: {
-                                required: true,
-                                min: 0,
-                                max: KendoDS.maxInt
-                            }
-                        },
                         status: {
                             nullable: false,
                             type: "number",
@@ -245,13 +236,6 @@ var Users = {
                         name += ' ' + Format.license.name(e.licenseName);;
 
                         return name;
-                    }
-                }, {
-                    field: 'kitID',
-                    title: i18n.Resources.Kit,
-                    editor: Kits.ddEditor,
-                    template: function (e) {
-                        return Format.user.kit(e);
                     }
                 }, {
                     field: 'teamID',

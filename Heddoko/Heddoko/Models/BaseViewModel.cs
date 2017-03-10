@@ -36,13 +36,13 @@ namespace Heddoko.Models
 
         public bool IsAuth => CurrentUser != null;
 
-        public bool IsAdmin => IsAuth && CurrentUser.RoleName == Constants.Roles.Admin;
+        public bool IsAdmin => IsAuth && CurrentUser.Role == UserRoleType.ServiceAdmin;
 
-        public bool IsLicenseAdmin => IsAuth && CurrentUser.RoleName == Constants.Roles.LicenseAdmin;
+        public bool IsLicenseAdmin => IsAuth && CurrentUser.Role == UserRoleType.LicenseAdmin;
 
-        public bool IsAnalyst => IsAuth && CurrentUser.RoleName == Constants.Roles.Analyst;
+        public bool IsAnalyst => IsAuth && CurrentUser.Role == UserRoleType.Analyst;
 
-        public bool IsWorker => IsAuth && CurrentUser.RoleName == Constants.Roles.Worker;
+        public bool IsWorker => IsAuth && CurrentUser.Role == UserRoleType.Worker;
 
         public IEnumerable<SelectListItem> ListCountries => _countries ?? (_countries = new List<SelectListItem>
         {

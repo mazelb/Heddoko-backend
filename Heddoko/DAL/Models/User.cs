@@ -128,12 +128,6 @@ namespace DAL.Models
         public virtual ICollection<Asset> Assets { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Kit> Kits { get; set; }
-
-        [JilDirective(Ignore = true)]
-        public virtual Kit Kit => Kits?.FirstOrDefault();
-
-        [JsonIgnore]
         public virtual ICollection<Device> Devices { get; set; }
         #endregion
 

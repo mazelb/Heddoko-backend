@@ -413,31 +413,6 @@ namespace Heddoko.Controllers
                 }
             }
 
-            if (model.KitID.HasValue)
-            {
-                if (model.KitID.Value == NoKit)
-                {
-                    UoW.KitRepository.RemoveUser(item.Id);
-                }
-                else
-                {
-                    Kit kit = UoW.KitRepository.GetFull(model.KitID.Value);
-
-                    if (kit.OrganizationID == null
-                     || kit.OrganizationID.Value != item.OrganizationID.Value)
-                    {
-                        throw new Exception(Resources.WrongObjectAccess);
-                    }
-
-                    if (kit.User != null && kit.User.Id != item.Id)
-                    {
-                        throw new Exception($"{Resources.Kit} {Resources.AlreadyUsed}");
-                    }
-
-                    kit.User = item;
-                }
-            }
-
             return item;
         }
 
@@ -464,8 +439,6 @@ namespace Heddoko.Controllers
                 OrganizationName = item.Organization?.Name,
                 LicenseStatus = item.License?.Status,
                 ExpirationAt = item.License?.ExpirationAt,
-                KitID = item.Kit?.Id ?? 0,
-                Kit = item.Kit,
                 TeamID = item.TeamID ?? 0,
                 Team = item.Team
             };
