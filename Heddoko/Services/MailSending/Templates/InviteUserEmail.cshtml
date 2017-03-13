@@ -5,11 +5,14 @@
     Layout = "_LayoutEmail";
 }
 
-Welcome @Model.FirstName. You're invited to become a member of @Model.OrganizationName on Heddoko
+Hi @Model.FirstName.
+<br />
+Welcome to Heddoko.<br /> 
+You're invited to become a member of @Model.OrganizationName on Heddoko
 <br /><br />
 @if (!string.IsNullOrEmpty(Model.Token)) {
     <text>
-    Click here to activate your account: <a href="@Model.ActivationUrl">@Model.ActivationUrl</a>
+    Click here to activate your account by registering here: <a href="@Model.ActivationUrl">@Model.ActivationUrl</a>
     </text>
 }
 else

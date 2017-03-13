@@ -191,7 +191,7 @@ i18n.Resources = (function () {
   "LicenseUsed": "License already used",
   "LicenseAmountUsed": "Organization can't have less licenses than amount in use",
   "Type": "Type",
-  "UserSignupUserNonLicenseOrganizationMessage": "Your account has been updated. Ask admin of your organization for license!",
+  "UserSignupUserNonLicenseOrganizationMessage": "Thank you for activating your account.  As soon as the administrator of your organization assigns a license to your account, you are ready to go.",
   "UserSignupUserOrganizationMessage": "Your account has been updated. You can now use your account in the Heddoko app!",
   "LicenseType_DataAnalysis": "Data analysis",
   "LicenseType_DataCollection": "Data collection",
@@ -483,7 +483,9 @@ i18n.Resources = (function () {
   "EndDateTitle": "END DATE",
   "NameTitle": "NAME",
   "ErgoscoreTitle": "ERGOSCORE",
-  "ErgoscoreTrendsTitle": "ERGOSCORE TRENDS"
+  "ErgoscoreTrendsTitle": "ERGOSCORE TRENDS",
+  "ChangePasswordOld": "Change Password (Old Password)",
+  "ChangePasswordNew": "Change Password (New Password)"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());
