@@ -10,6 +10,7 @@ $(function () {
 });
 
 var UsersAdmin = {
+    isDeleted: false,
     controls: {
         grid: null,
         filterModel: null,
@@ -35,6 +36,14 @@ var UsersAdmin = {
                     refresh: true,
                     pageSizes: [10, 50, 100]
                 },
+                toolbar:[
+                    {
+                        template:
+                             '<div class="grid-checkbox"><span><input class="chk-show-deleted" type="checkbox"/>' +
+                                i18n.Resources.ShowDeleted +
+                                '</span></div>'
+                    }
+                ],
                 columns: [{
                     field: 'organizationName',
                     title: i18n.Resources.Organization,
@@ -110,6 +119,8 @@ var UsersAdmin = {
 
             KendoDS.bind(this.controls.grid, true);
 
+            $('.chk-show-deleted', this.controls.grid.element).click(this.onShowDeleted.bind(this));
+
             this.controls.filterModel = kendo.observable({
                 find: this.onFilter.bind(this),
                 search: null,
@@ -121,8 +132,13 @@ var UsersAdmin = {
     },
     onEnter: function (e) {
         if (e.keyCode == kendo.keys.ENTER) {
-            this.onFilter(e);
+            this.isDeleted = $(e.currentTarget).prop('checked');
+            this.onFilter();
         }
+    },
+    onShowDeleted: function (e) {
+        this.isDeleted = $(e.currentTarget).prop('checked');
+        this.onFilter();
     },
     onFilter: function (e) {
         var filters = this.buildFilter();
@@ -143,6 +159,14 @@ var UsersAdmin = {
                 field: "Search",
                 operator: "eq",
                 value: search
+            });
+        }
+
+        if (this.isDeleted) {
+            filters.push({
+                field: "IsDeleted",
+                operator: "eq",
+                value: true
             });
         }
 

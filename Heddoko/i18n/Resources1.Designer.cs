@@ -736,6 +736,24 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change Password (New Password).
+        /// </summary>
+        public static string ChangePasswordNew {
+            get {
+                return ResourceManager.GetString("ChangePasswordNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Password (Old Password).
+        /// </summary>
+        public static string ChangePasswordOld {
+            get {
+                return ResourceManager.GetString("ChangePasswordOld", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client.
         /// </summary>
         public static string Client {
@@ -4066,7 +4084,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your account has been updated. Ask admin of your organization for license!.
+        ///   Looks up a localized string similar to Thank you for activating your account.  As soon as the administrator of your organization assigns a license to your account, you are ready to go..
         /// </summary>
         public static string UserSignupUserNonLicenseOrganizationMessage {
             get {

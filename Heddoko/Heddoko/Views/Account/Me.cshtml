@@ -87,7 +87,7 @@
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-lock"></span>
                         </span>
-                        @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.OldPassword).ToString()) })
+                        @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control", placeholder = i18n.Resources.ChangePasswordOld })
                     </div>
                     @Html.ValidationMessageFor(m => m.OldPassword, string.Empty, new { @class = "text-danger" })
                 </div>
@@ -97,7 +97,7 @@
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-lock"></span>
                         </span>
-                        @Html.PasswordFor(m => m.NewPassord, new { @class = "form-control", placeholder = @HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.NewPassord).ToString()) })
+                        @Html.PasswordFor(m => m.NewPassord, new { @class = "form-control", placeholder = i18n.Resources.ChangePasswordNew })
                     </div>
                     @Html.ValidationMessageFor(m => m.NewPassord, string.Empty, new { @class = "text-danger" })
                 </div>
