@@ -6,12 +6,12 @@
   "Phases": [],
   "ReleaseRetentionPolicy": {
     "Unit": "Items",
-    "QuantityToKeep": 0,
-    "ShouldKeepForever": true
+    "QuantityToKeep": 10,
+    "ShouldKeepForever": false
   },
   "TentacleRetentionPolicy": {
     "Unit": "Items",
-    "QuantityToKeep": 0,
-    "ShouldKeepForever": true
+    "QuantityToKeep": 3,
+    "ShouldKeepForever": false
   }
 }

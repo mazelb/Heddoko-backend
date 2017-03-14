@@ -688,7 +688,7 @@
     <value>Type</value>
   </data>
   <data name="UserSignupUserNonLicenseOrganizationMessage" xml:space="preserve">
-    <value>Your account has been updated. Ask admin of your organization for license!</value>
+    <value>Thank you for activating your account.  As soon as the administrator of your organization assigns a license to your account, you are ready to go.</value>
   </data>
   <data name="UserSignupUserOrganizationMessage" xml:space="preserve">
     <value>Your account has been updated. You can now use your account in the Heddoko app!</value>
@@ -1565,5 +1565,11 @@
   </data>
   <data name="ErgoscoreTrendsTitle" xml:space="preserve">
     <value>ERGOSCORE TRENDS</value>
+  </data>
+  <data name="ChangePasswordOld" xml:space="preserve">
+    <value>Change Password (Old Password)</value>
+  </data>
+  <data name="ChangePasswordNew" xml:space="preserve">
+    <value>Change Password (New Password)</value>
   </data>
 </root>

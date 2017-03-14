@@ -1,15 +1,15 @@
 {
   "$type": "Octopus.Core.Model.Lifecycles.Lifecycle, Octopus.Core",
-  "Id": "Lifecycles-21",
-  "Name": "Dev",
-  "Description": "Deploy for dev branch only to dev enviroment",
+  "Id": "Lifecycles-41",
+  "Name": "Prod",
+  "Description": null,
   "Phases": [
     {
-      "Id": "2a434f6a-a354-4e8c-b780-b34a11fbdc26",
-      "Name": "dev",
+      "Id": "d814da84-ef02-4510-8057-63ffa99dead6",
+      "Name": "prod",
       "AutomaticDeploymentTargets": [],
       "OptionalDeploymentTargets": [
-        "Environments-1"
+        "Environments-2"
       ],
       "MinimumEnvironmentsBeforePromotion": 0,
       "ReleaseRetentionPolicy": null,

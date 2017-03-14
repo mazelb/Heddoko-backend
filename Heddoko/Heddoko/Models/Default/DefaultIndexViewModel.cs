@@ -18,9 +18,5 @@ namespace Heddoko.Models
         public Firmware Software { get; set; }
 
         public Firmware Guide { get; set; }
-
-        public double? UserErgoScore { get; set; }
-
-        public bool HasUserScore => UserErgoScore.HasValue && UserErgoScore.Value != 0;
     }
 }

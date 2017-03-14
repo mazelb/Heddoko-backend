@@ -15,6 +15,7 @@ using Services;
 using System;
 using System.Threading.Tasks;
 using DAL.Models;
+using DAL.Models.Enum;
 using Hangfire;
 using Heddoko.Helpers.DomainRouting.Http;
 using Microsoft.AspNet.Identity.Owin;
@@ -26,35 +27,12 @@ namespace Heddoko.Controllers.API
     [AllowAnonymous]
     public class DevController : ApiController
     {
-        [DomainRoute("migrate-db", Constants.ConfigKeyName.DashboardSite)]
-        [HttpPost]
-        public IHttpActionResult Migrate()
-        {
-            Migrator.RunMigrations();
-            return Ok();
-        }
-
-        [DomainRoute("init-db", Constants.ConfigKeyName.DashboardSite)]
-        [HttpPost]
-        public IHttpActionResult Init()
-        {
-            Migrator.InitMigration();
-            return Ok();
-        }
-
-        [DomainRoute("version-db/{version}", Constants.ConfigKeyName.DashboardSite)]
-        [HttpPost]
-        public IHttpActionResult Version(string version)
-        {
-            Migrator.RunMigrations(version?.Trim());
-            return Ok();
-        }
-
-        [DomainRoute("pending-db", Constants.ConfigKeyName.DashboardSite)]
+        [DomainRoute("notification", Constants.ConfigKeyName.DashboardSite)]
         [HttpGet]
-        public IHttpActionResult Pending()
+        public IHttpActionResult Test()
         {
-            return Ok(Migrator.GetPending());
+            PushService.SendDesktopNotification("yo", "token", UserEventType.StreamChannelClosed, "1");
+            return Ok();
         }
 
         [DomainRoute("flush", Constants.ConfigKeyName.DashboardSite)]
