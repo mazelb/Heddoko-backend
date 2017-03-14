@@ -36,7 +36,7 @@ namespace Heddoko.Models
 
         public bool IsAuth => CurrentUser != null;
 
-        public bool IsAdmin => IsAuth && CurrentUser.Role == UserRoleType.ServiceAdmin;
+        public bool IsAdmin => IsAuth && (CurrentUser.Role == UserRoleType.Admin || CurrentUser.Role == UserRoleType.ServiceAdmin);
 
         public bool IsLicenseAdmin => IsAuth && CurrentUser.Role == UserRoleType.LicenseAdmin;
 
