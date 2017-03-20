@@ -76,7 +76,7 @@ namespace Services.MailSending
                     };
                 }
 
-                dynamic response = client.SendEmailAsync(mail).GetAwaiter().GetResult();
+                Response response = client.SendEmailAsync(mail).GetAwaiter().GetResult();
 
                 string result = response.Body.ReadAsStringAsync().Result;
                 if (!string.IsNullOrEmpty(result))
