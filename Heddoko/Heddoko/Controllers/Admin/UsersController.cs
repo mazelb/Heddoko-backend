@@ -103,12 +103,12 @@ namespace Heddoko.Controllers
                     }
 
                     KendoFilterItem teamFilter = request.Filter.Get(TeamID);
-                    if (teamFilter != null)
+                    if (teamFilter != null && CurrentUser.OrganizationID.HasValue)
                     {
                         int tmp = 0;
                         int.TryParse(teamFilter.Value, out tmp);
 
-                        items = UoW.UserRepository.GetByTeam(tmp);
+                        items = UoW.UserRepository.GetByTeam(tmp, CurrentUser.OrganizationID.Value, isDeleted);
                     }
 
                     if (items == null
@@ -176,8 +176,8 @@ namespace Heddoko.Controllers
                     UoW.Save();
                     UoW.UserRepository.ClearCache(item);
                 }
-
-                UserManager.UpdateToIdentityRoles(item);
+        
+                Task.Run(() => UserManager.UpdateToIdentityRoles(item));
 
                 int userID = item.Id;
                 string inviteToken = UserManager.GenerateInviteToken(item.Id);
@@ -243,7 +243,7 @@ namespace Heddoko.Controllers
                 }
 
                 UoW.UserRepository.ClearCache(item);
-                UserManager.UpdateToIdentityRoles(item);
+                Task.Run(() => UserManager.UpdateToIdentityRoles(item));
 
                 response = Convert(item);
             }
@@ -306,7 +306,7 @@ namespace Heddoko.Controllers
                 }
                 else
                 {
-                    user = UoW.UserRepository.GetByEmail(model.Email?.ToLower().Trim()) ?? UoW.UserRepository.GetByUsername(model.Username?.ToLower().Trim());
+                    user = UoW.UserRepository.GetByUsername(model.Username?.ToLower().Trim());
 
                     if (user?.OrganizationID != null)
                     {

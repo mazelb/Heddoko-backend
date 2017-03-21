@@ -34,7 +34,7 @@ namespace DAL
 
         IEnumerable<int> GetIdsByOrganization(int organizationID, bool isDeleted = false);
 
-        IEnumerable<User> GetByTeam(int value, bool isDeleted = false);
+        IEnumerable<User> GetByTeam(int value, int organizationID, bool isDeleted = false);
 
         IEnumerable<int> GetIdsByTeam(int teamID, bool isDeleted = false);
 

@@ -19,17 +19,13 @@ namespace Heddoko.Models
         public string Name { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
-        [EmailAddress(ErrorMessage = null, ErrorMessageResourceName = "ValidateEmailMessage", ErrorMessageResourceType = typeof(Resources))]
         public string Email { get; set; }
 
         public string Username { get; set; }
 
-        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
         [MaxLength(50)]
         public string Firstname { get; set; }
 
-        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
         [MaxLength(50)]
         public string Lastname { get; set; }
 

@@ -25,6 +25,7 @@ namespace DAL
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.Users)
                         .Include(c => c.Users.Select(u => u.Devices))
+                        .Include(c => c.Licenses)
                         .FirstOrDefault(c => c.Id == id);
         }
 
@@ -33,6 +34,7 @@ namespace DAL
             TeamStatusType status = isDeleted ? TeamStatusType.Deleted : TeamStatusType.Active;
 
             return DbSet.Include(c => c.Organization)
+                        .Include(c => c.Licenses)
                         .Where(c => c.Status == status)
                         .Where(c => !organizationID.HasValue || c.OrganizationID == organizationID)
                         .OrderBy(c => c.Name);
@@ -43,6 +45,7 @@ namespace DAL
             TeamStatusType status = isDeleted ? TeamStatusType.Deleted : TeamStatusType.Active;
 
             return DbSet.Include(c => c.Organization)
+                        .Include(c => c.Licenses)
                         .Where(c => c.Status == status)
                         .Where(c => !organizationID.HasValue || c.OrganizationID == organizationID)
                         .Where(c => c.Id.ToString().ToLower().Contains(search.ToLower())
@@ -55,6 +58,7 @@ namespace DAL
             TeamStatusType status = isDeleted ? TeamStatusType.Deleted : TeamStatusType.Active;
 
             return DbSet.Include(c => c.Organization)
+                        .Include(c => c.Licenses)
                         .Where(c => c.Status == status)
                         .Where(c => c.OrganizationID == organizationID)
                         .OrderBy(c => c.Name);

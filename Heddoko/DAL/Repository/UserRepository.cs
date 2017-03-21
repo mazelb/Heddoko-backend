@@ -199,16 +199,29 @@ namespace DAL
                         .Select(c => c.Id);
         }
 
-        public IEnumerable<User> GetByTeam(int teamId, bool isDeleted = false)
+        public IEnumerable<User> GetByTeam(int teamId, int organizationID, bool isDeleted = false)
         {
-            return DbSet.Include(c => c.License)
-                        .Include(c => c.Team)
-                        .Include(c => c.Organization)
-                        .Include(c => c.Roles.Select(r => r.Role))
-                        .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
-                        .Where(c => c.TeamID.Value == teamId)
-                        .OrderBy(c => c.FirstName)
-                        .ThenBy(c => c.LastName);
+            if (teamId != 0)
+            {
+                return DbSet.Include(c => c.License)
+                            .Include(c => c.Team)
+                            .Include(c => c.Organization)
+                            .Include(c => c.Roles.Select(r => r.Role))
+                            .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
+                            .Where(c => c.TeamID.Value == teamId)
+                            .OrderBy(c => c.FirstName)
+                            .ThenBy(c => c.LastName);
+            }
+            else
+                return DbSet.Include(c => c.License)
+                            .Include(c => c.Team)
+                            .Include(c => c.Organization)
+                            .Include(c => c.Roles.Select(r => r.Role))
+                            .Where(c => c.OrganizationID == organizationID)
+                            .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
+                            .Where(c => c.TeamID == null)
+                            .OrderBy(c => c.FirstName)
+                            .ThenBy(c => c.LastName);
         }
 
         public IEnumerable<int> GetIdsByTeam(int teamID, bool isDeleted = false)

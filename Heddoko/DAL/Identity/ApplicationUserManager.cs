@@ -46,8 +46,9 @@ namespace DAL
 
             manager.UserValidator = new UserValidator<User, int>(manager)
             {
+                // TODO - Create custom validator, workers don't require emails, but everyone else doesn't
                 AllowOnlyAlphanumericUserNames = true,
-                RequireUniqueEmail = true
+                RequireUniqueEmail = false // Don't need emails for workers 
             };
 
             manager.PasswordValidator = new PasswordValidator

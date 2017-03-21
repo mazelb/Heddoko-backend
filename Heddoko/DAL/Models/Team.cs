@@ -38,6 +38,10 @@ namespace DAL.Models
         [JsonIgnore]
         [JilDirective(Ignore = true)]
         public virtual ICollection<User> Users { get; set; }
+
+        [JsonIgnore]
+        [JilDirective(Ignore = true)]
+        public virtual ICollection<License> Licenses { get; set; }
         #endregion
 
         #region NotMapped

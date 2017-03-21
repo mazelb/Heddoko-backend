@@ -15,11 +15,14 @@ var Teams = {
         form: null,
         grid: null,
         filterModel: null,
-        addModel: null
+        addModel: null,
+        workerModel: null,
+        teamOptions: null
     },
 
     validators: {
-        modelValidator: null
+        modelValidator: null,
+        workerValidator: null
     },
 
     datasources: function() {
@@ -27,6 +30,8 @@ var Teams = {
         this.teams = Teams.getDatasource();
 
         this.teamsDD = Teams.getDatasourceDD();
+
+        this.teamUsers = Teams.getUsersDatasource();
 
         this.teamStatusTypes = new kendo.data.DataSource({
             data: _.values(Enums.TeamStatusType.array)
@@ -107,14 +112,108 @@ var Teams = {
         });
     },
 
+    getUsersDatasource: function() {
+        return new kendo.data.DataSource({
+            pageSize: KendoDS.pageSize,
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: false,
+            transport: KendoDS.buildTransport('/admin/api/users'),
+            schema: {
+                data: "response",
+                total: "total",
+                errors: "Errors",
+                model: {
+                    id: "id",
+                    fields: {
+                        id: {
+                            editable: false,
+                            nullable: true
+                        },
+                        email: {
+                            nullable: false,
+                            type: "string",
+                            validation: {
+                                required: true,
+                                maxLengthValidation: Validator.user.email.maxLengthValidation
+                            }
+                        },
+                        username: {
+                            nullable: false,
+                            type: "string",
+                            validation: {
+                                required: true
+                            }
+                        },
+                        firstname: {
+                            nullable: false,
+                            type: "string",
+                            validation: {
+                                required: true,
+                                maxLengthValidation: Validator.user.firstname.maxLengthValidation
+                            }
+                        },
+                        lastname: {
+                            nullable: false,
+                            type: "string",
+                            validation: {
+                                required: true,
+                                maxLengthValidation: Validator.user.lastname.maxLengthValidation
+                            }
+                        },
+                        phone: {
+                            nullable: false,
+                            type: "string",
+                            validation: {
+                                required: true,
+                                maxLengthValidation: Validator.user.phone.maxLengthValidation
+                            }
+                        },
+                        licenseID: {
+                            nullable: true,
+                            type: "number",
+                            validation: {
+                                required: true,
+                                min: 0,
+                                max: KendoDS.maxInt
+                            }
+                        },
+                        status: {
+                            nullable: false,
+                            type: "number",
+                            validation: {
+                                required: true,
+                                min: 0,
+                                max: KendoDS.maxInt
+                            }
+                        },
+                        teamID: {
+                            nullable: true,
+                            type: "number",
+                            validation: {
+                                required: true,
+                                min: 0,
+                                max: KendoDS.maxInt
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    },
+
     init: function() {
         var control = $("#teamsGrid");
         var filter = $(".teamsFilter");
+        var options = $(".teamOptions");
+        var worker = $(".workerForm");
         this.controls.form = $(".teamsForm");
+
+        var datasourceItem = Datasources.teamUsers;
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                    dataSource: Datasources.teams,
+                    dataSource: datasourceItem,
                     sortable: false,
                     editable: "popup",
                     selectable: false,
@@ -134,33 +233,42 @@ var Teams = {
                         }
                     ],
                     columns: [
-                        {
-                            field: "idView",
-                            title: i18n.Resources.ID,
-                            editor: KendoDS.emptyEditor
-                        }, {
-                            field: 'name',
-                            title: i18n.Resources.Name
-                        }, {
-                            field: 'address',
-                            title: i18n.Resources.Address,
-                            editor: KendoDS.textAreaDDEditor
-                        },
-                        {
-                            field: "status",
-                            title: i18n.Resources.Status,
-                            template: function(e) {
-                                return Format.team.status(e.status);
-                            },
-                            editor: Teams.statusTypesDDEditor
-                        }, {
-                            field: 'notes',
-                            title: i18n.Resources.Notes,
-                            template: function(e) {
-                                return Format.notes(e.notes);
-                            },
-                            editor: KendoDS.textAreaDDEditor
-                        }, {
+                    {
+                        field: 'username',
+                        title: i18n.Resources.Username,
+                        editor: KendoDS.emptyEditor
+                    },
+                    {
+                        field: 'name',
+                        title: i18n.Resources.Name,
+                        editor: KendoDS.emptyEditor
+                    },
+                    {
+                        field: 'phone',
+                        title: i18n.Resources.Phone,
+                        editor: KendoDS.emptyEditor
+                    },
+                    {
+                        field: 'email',
+                        title: i18n.Resources.Email,
+                        editor: KendoDS.emptyEditor
+                    },
+                    {
+                        field: 'role',
+                        title: i18n.Resources.Role,
+                        editor: KendoDS.emptyEditor,
+                        template: function (e) {
+                            return Format.user.role(e.role);
+                        }
+                    },
+                    {
+                        field: 'status',
+                        title: i18n.Resources.Status,
+                        editor: Users.statusDDEditor,
+                        template: function (e) {
+                            return Format.user.status(e.status);
+                        }
+                    }, {
                             command: [
                                 {
                                     name: "edit",
@@ -181,12 +289,13 @@ var Teams = {
                         }
                     ],
                     save: KendoDS.onSave,
-                    detailInit: this.detailInit,
                     dataBound: this.onDataBound
                 })
                 .data("kendoGrid");
 
             KendoDS.bind(this.controls.grid, true);
+
+            
 
             this.controls.filterModel = kendo.observable({
                 find: this.onFilter.bind(this),
@@ -212,11 +321,40 @@ var Teams = {
                 })
                 .data("kendoValidator");
 
+            this.controls.workerModel = kendo.observable({
+                reset: this.onWorkerReset.bind(this),
+                submit: this.onWorkerAdd.bind(this),
+                model: this.getEmptyWorker()
+            });
+
+            kendo.bind(worker, this.controls.workerModel);
+
+            this.validators.workerValidator = worker.kendoValidator({
+                validateOnBlur: true,
+                rules: {
+                    maxLengthValidationName: Validator.organization.name.maxLengthValidation
+                }
+            }).data("kendoValidator");
+
+            this.controls.teamOptions = kendo.observable({
+                teams: Datasources.teamsDD,
+                options: this.getEmptyOptions,
+                changeTeamShown: this.onTeamChange.bind(this)
+            });
+
+            kendo.bind(options, this.controls.teamOptions);
+
+            datasourceItem.filter({
+                field: "TeamID",
+                operator: "eq",
+                value: parseInt(this.controls.teamOptions.options.teamID)
+            });
+
             $('.chk-show-deleted', this.controls.grid.element).click(this.onShowDeleted.bind(this));
         }
     },
 
-    detailInit: function(e) {
+    /*detailInit: function(e) {
         var datasourceItem = Users.getDatasource();
 
         var grid = $("<div/>")
@@ -293,13 +431,13 @@ var Teams = {
             operator: "eq",
             value: parseInt(e.data.id)
         });
-    },
+    },*/
 
     onDataBound: function(e) {
         KendoDS.onDataBound(e);
 
         var grid = Teams.controls.grid;
-        var enumarable = Enums.TeamStatusType.enum;
+        var enumarable = Enums.UserStatusType.enum;
 
         $(".k-grid-delete", grid.element)
             .each(function() {
@@ -323,7 +461,7 @@ var Teams = {
             .each(function() {
                 var currentDataItem = grid.dataItem($(this).closest("tr"));
 
-                if (currentDataItem.status === enumarable.Active) {
+                if (!(currentDataItem.status === enumarable.Deleted)) {
                     $(this).remove();
                 }
             });
@@ -356,6 +494,20 @@ var Teams = {
         };
     },
 
+    getEmptyOptions: function() {
+        return {
+            teamID: null
+        };
+    },
+
+    getEmptyWorker: function() {
+        return {
+            username: null,
+            email: null,
+            role: 4 //Worker
+        }
+    },
+
     onShowDeleted: function(e) {
         this.isDeleted = $(e.currentTarget).prop("checked");
         this.onFilter();
@@ -378,12 +530,33 @@ var Teams = {
         if (this.validators.addModel.validate()) {
             var obj = this.controls.addModel.get("model");
 
-            this.controls.grid.dataSource.add(obj);
+            /*this.controls.teamOptions.dataSource.add(obj);
             this.controls.grid.dataSource.sync();
             this.controls.grid.dataSource.one("requestEnd",
                 function(ev) {
                     if (ev.type === "create" && !ev.response.Errors) {
                         Datasources.teamsDD.read();
+                        this.onReset();
+                    }
+                }.bind(this));*/
+        }
+    },
+
+    onWorkerReset: function(e) {
+        this.controls.workerModel.set("model", this.getEmptyWorker());
+    },
+
+    onWorkerAdd: function(e) {
+        Notifications.clear();
+        if (this.validators.workerValidator.validate()) {
+            var obj = this.controls.workerModel.get("model");
+            obj.teamID = this.controls.teamOptions.options.teamID;;
+
+            this.controls.grid.dataSource.add(obj);
+            this.controls.grid.dataSource.sync();
+            this.controls.grid.dataSource.one("requestEnd",
+                function (ev) {
+                    if (ev.type === "create" && !ev.response.Errors) {
                         this.onReset();
                     }
                 }.bind(this));
@@ -401,6 +574,12 @@ var Teams = {
         if (filters) {
             this.controls.grid.dataSource.filter(filters);
         }
+    },
+
+    onTeamChange: function(e) {
+        var filters = this.buildFilter();
+
+        Datasources.teamUsers.filter(filters);
     },
 
     onResendActivation: function (e) {
@@ -424,6 +603,7 @@ var Teams = {
     buildFilter: function(search) {
         Notifications.clear();
         search = this.controls.filterModel.search;
+        team = this.controls.teamOptions.options.teamID;
 
         var filters = [];
 
@@ -434,6 +614,12 @@ var Teams = {
                 value: search
             });
         }
+
+        filters.push({
+            field: "TeamID",
+            operator: "eq",
+            value: parseInt(team)
+        });
 
         if (this.isDeleted) {
             filters.push({
