@@ -257,19 +257,6 @@ namespace DAL.Migrations
             }
 
             var now = DateTime.Now;
-            
-            var license = user.License ?? new License { Created = now };
-
-            license.Amount = 1;
-            license.Created = now;
-            license.ExpirationAt = new DateTime(2020, now.Month, now.Day).EndOfDay();
-            license.Status = LicenseStatusType.Active;
-
-            if (license.Id == 0)
-            {
-                unitOfWork.LicenseRepository.Create(license);
-                user.License = license;
-            }
 
             user.Role = UserRoleType.LicenseUniversal;
 

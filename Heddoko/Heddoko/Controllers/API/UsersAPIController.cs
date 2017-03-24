@@ -75,9 +75,7 @@ namespace Heddoko.Controllers.API
         [AuthAPI(Roles = Constants.Roles.All)]
         public User Profile()
         {
-            CurrentUser.AllowLicenseInfoToken();
             User user = UoW.UserRepository.GetFull(CurrentUser.Id);
-            user.AllowLicenseInfoToken();
             return user;
         }
 
@@ -121,20 +119,10 @@ namespace Heddoko.Controllers.API
                 //    throw new APIException(ErrorAPIType.EmailOrPassword, Resources.WrongUsernameOrPassword);
                 //}
 
-                if (user.License == null)
-                {
-                    throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.LicenseIsNotReady);
-                }
-
-                if (user.License.Validate())
+                if (user.Status == UserStatusType.Active)
                 {
                     UoW.Save();
                     UoW.UserRepository.ClearCache(user);
-
-                    if (user.License.Status == LicenseStatusType.Expired && user.License.OrganizationID.HasValue)
-                    {
-                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiredToOrganization(user.License.OrganizationID.Value, user.License.Id));
-                    }
                 }
 
                 try
@@ -148,7 +136,6 @@ namespace Heddoko.Controllers.API
 
                 if (user.AllowToken())
                 {
-                    user.AllowLicenseInfoToken();
                     return user;
                 }
 
@@ -159,8 +146,6 @@ namespace Heddoko.Controllers.API
                 UoW.Save();
                 user.AllowToken();
                 UoW.UserRepository.SetCache(user);
-
-                user.AllowLicenseInfoToken();
 
                 return user;
             }

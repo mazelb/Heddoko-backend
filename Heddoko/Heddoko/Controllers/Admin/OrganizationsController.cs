@@ -214,7 +214,6 @@ namespace Heddoko.Controllers
             foreach (User user in users)
             {
                 user.Status = UserStatusType.Deleted;
-                user.License = null;
 
                 if (UserManager.IsInRole(user.Id, Constants.Roles.Worker))
                 {

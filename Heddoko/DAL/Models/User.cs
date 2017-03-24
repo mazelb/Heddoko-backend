@@ -114,12 +114,6 @@ namespace DAL.Models
         public virtual Organization Organization { get; set; }
 
         [JsonIgnore]
-        public int? LicenseID { get; set; }
-
-        [JsonIgnore]
-        public virtual License License { get; set; }
-
-        [JsonIgnore]
         [JilDirective(Ignore = true)]
         public virtual ICollection<AccessToken> Tokens { get; set; }
 
@@ -132,31 +126,7 @@ namespace DAL.Models
         #endregion
 
         #region NotMapped
-        public bool AllowLicenseInfoToken()
-        {
-            if (License == null)
-            {
-                return false;
-            }
-
-            LicenseInfo info = new LicenseInfo
-            {
-                ID = License.Id,
-                ExpiredAt = License.ExpirationAt,
-                Name = License.Name,
-                Status = License.Status,
-                ViewID = License.ViewID,
-                IDView = License.IDView
-            };
-
-            string json = JsonConvert.SerializeObject(info);
-
-            LicenseInfoToken = JwtHelper.Create(json);
-
-            return true;
-        }
-
-
+    
         public bool AllowToken()
         {
             if (Tokens == null ||
@@ -180,10 +150,6 @@ namespace DAL.Models
         [NotMapped]
         [JilDirective(Ignore = true)]
         public string Token { get; set; }
-
-        [NotMapped]
-        [JilDirective(Ignore = true)]
-        public string LicenseInfoToken { get; set; }
 
         [JsonIgnore]
         public bool IsActive => Status == UserStatusType.Active;

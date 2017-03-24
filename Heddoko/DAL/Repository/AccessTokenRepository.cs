@@ -22,7 +22,6 @@ namespace DAL
         {
             return DbSet.Include(c => c.User)
                         .Include(c => c.User.Roles)
-                        .Include(c => c.User.License)
                         .FirstOrDefault(c => c.Token == token);
         }
     }

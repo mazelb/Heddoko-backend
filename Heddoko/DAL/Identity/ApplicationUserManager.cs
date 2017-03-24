@@ -111,11 +111,6 @@ namespace DAL
                 user.EmailConfirmed = true;
             }
 
-            if (!await IsInRoleAsync(user.Id, Constants.Roles.User))
-            {
-                await AddToRoleAsync(user.Id, Constants.Roles.User);
-            }
-
             await UpdateAsync(user);
 
             switch (user.Role)
@@ -235,22 +230,9 @@ namespace DAL
 
         public void CheckUserLicense(User user)
         {
-            if (!user.License.IsActive)
+            if (!(user.Status == UserStatusType.Active))
             {
-                switch (user.License.Status)
-                {
-                    case LicenseStatusType.Expired:
-                        throw new Exception(Resources.WrongLicenseExpiration);
-                    case LicenseStatusType.Inactive:
-                        throw new Exception(Resources.WrongLicenseActive);
-                    case LicenseStatusType.Deleted:
-                        throw new Exception(Resources.WrongLicenseDeleted);
-                }
-
-                if (user.License.ExpirationAt < DateTime.Now)
-                {
-                    throw new Exception(Resources.WrongLicenseExpiration);
-                }
+                throw new Exception(Resources.UserIsNotActive);
             }
         }
     }

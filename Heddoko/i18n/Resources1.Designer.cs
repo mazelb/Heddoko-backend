@@ -3544,6 +3544,15 @@ namespace i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show users by Team.
+        /// </summary>
+        public static string ShowByTeam {
+            get {
+                return ResourceManager.GetString("ShowByTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show deleted.
         /// </summary>
         public static string ShowDeleted {
@@ -4030,7 +4039,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Analyst.
+        ///   Looks up a localized string similar to Team Manager.
         /// </summary>
         public static string UserRoleType_Analyst {
             get {
@@ -4039,7 +4048,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to License manager.
+        ///   Looks up a localized string similar to Organization Admin.
         /// </summary>
         public static string UserRoleType_LicenseAdmin {
             get {

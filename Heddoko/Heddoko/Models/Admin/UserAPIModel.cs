@@ -33,12 +33,6 @@ namespace Heddoko.Models
 
         public UserStatusType? Status { get; set; }
 
-        public int? LicenseID { get; set; }
-
-        public string LicenseName { get; set; }
-
-        public LicenseStatusType? LicenseStatus { get; set; }
-
         public DateTime? ExpirationAt { get; set; }
 
         [MaxLength(50)]

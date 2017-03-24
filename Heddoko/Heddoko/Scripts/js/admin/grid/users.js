@@ -14,10 +14,12 @@ var Users = {
     controls: {
         grid: null,
         filterModel: null,
-        addModel: null
+        addModel: null,
+        workerModel: null
     },
     validators: {
-        addModel: null
+        addModel: null,
+        workerValidator: null
     },
     datasources: function () {
         //Datasources context
@@ -48,6 +50,14 @@ var Users = {
         this.users = Users.getDatasource();
 
         this.usersDD = Users.getDatasourceDD();
+
+        this.userRoles = new kendo.data.DataSource({
+            data: _.values(_.filter(Enums.UserRoleType.array, function (u) {
+                return u.value != Enums.UserRoleType.enum.Admin && u.value != Enums.UserRoleType.enum.User
+                        && u.value != Enums.UserRoleType.enum.Worker && u.value != Enums.UserRoleType.enum.ServiceAdmin
+                        && u.value != Enums.UserRoleType.enum.LicenseUniversal
+            }))
+        });
     },
 
     getDatasourceDD: function (id) {
@@ -139,15 +149,6 @@ var Users = {
                                 maxLengthValidation: Validator.user.phone.maxLengthValidation
                             }
                         },
-                        licenseID: {
-                            nullable: true,
-                            type: "number",
-                            validation: {
-                                required: true,
-                                min: 0,
-                                max: KendoDS.maxInt
-                            }
-                        },
                         status: {
                             nullable: false,
                             type: "number",
@@ -171,14 +172,19 @@ var Users = {
             }
         });
     },
+
     init: function () {
         var control = $("#usersGrid");
         var filter = $('.usersFilter');
         var model = $('.usersForm');
+        var options = $(".teamOptions");
+        var worker = $(".workerForm");
+
+        var datasourceItem = Datasources.users;
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
-                dataSource: Datasources.users,
+                dataSource: datasourceItem,
                 sortable: false,
                 editable: "popup",
                 selectable: false,
@@ -193,8 +199,8 @@ var Users = {
                     template: '<div class="grid-checkbox"><span><input id="chk-show-deleted" type="checkbox"/>' + i18n.Resources.ShowDeleted + '</span></div>'
                 }],
                 columns: [{
-                    field: 'name',
-                    title: i18n.Resources.Name,
+                    field: 'username',
+                    title: i18n.Resources.Username,
                     editor: KendoDS.emptyEditor
                 }, {
                     field: 'firstname',
@@ -209,10 +215,6 @@ var Users = {
                     title: i18n.Resources.Phone,
                     editor: KendoDS.phoneEditor
                 }, {
-                    field: 'username',
-                    title: i18n.Resources.Username,
-                    editor: KendoDS.emptyEditor
-                }, {
                     field: 'email',
                     title: i18n.Resources.Email,
                     editor: KendoDS.emailEditor
@@ -222,20 +224,6 @@ var Users = {
                     editor: KendoDS.emptyEditor,
                     template: function (e) {
                         return Format.user.role(e.role);
-                    }
-                }, {
-                    field: 'licenseID',
-                    title: i18n.Resources.License,
-                    editor: Licenses.ddEditor,
-                    template: function (e) {
-                        var name = '';
-                        if (e.licenseName) {
-                            name = Format.license.status(e.licenseStatus, e.expirationAt, true);
-                        }
-
-                        name += ' ' + Format.license.name(e.licenseName);;
-
-                        return name;
                     }
                 }, {
                     field: 'teamID',
@@ -280,15 +268,14 @@ var Users = {
 
             KendoDS.bind(this.controls.grid, true);
 
-            var licenses = Licenses.getDatasource();
-
             this.controls.filterModel = kendo.observable({
                 find: this.onFilter.bind(this),
                 search: null,
+                teamID: null,
+                teams: Datasources.teamsDD,
                 keyup: this.onEnter.bind(this),
-                license: null,
-                licenses: licenses,
-                click: this.onFilter.bind(this)
+                click: this.onFilter.bind(this),
+                changeTeamShown: this.onTeamChange.bind(this)
             });
 
             kendo.bind(filter, this.controls.filterModel);
@@ -296,6 +283,8 @@ var Users = {
             this.controls.addModel = kendo.observable({
                 reset: this.onReset.bind(this),
                 submit: this.onAdd.bind(this),
+                teams: Datasources.teamsDD,
+                roles: Datasources.userRoles,
                 model: this.getEmptyModel()
             });
 
@@ -311,16 +300,33 @@ var Users = {
                 }
             }).data("kendoValidator");
 
+            this.controls.workerModel = kendo.observable({
+                reset: this.onWorkerReset.bind(this),
+                submit: this.onWorkerAdd.bind(this),
+                teams: Datasources.teamsDD,
+                model: this.getEmptyWorker.bind(this)
+            });
+
+            kendo.bind(worker, this.controls.workerModel);
+
+            this.validators.workerValidator = worker.kendoValidator({
+                validateOnBlur: true,
+                rules: {
+                    maxLengthValidationName: Validator.organization.name.maxLengthValidation
+                }
+            }).data("kendoValidator");
+
             $('#chk-show-deleted', Users.controls.grid.element).click(this.onShowDeleted.bind(this));
         }
     },
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
+        var enumerable = Enums.UserStatusType.enum;
 
         $(".k-grid-delete", Users.controls.grid.element).each(function () {
             var currentDataItem = Users.controls.grid.dataItem($(this).closest("tr"));
             if (currentDataItem) {
-                if (currentDataItem.status == Enums.UserStatusType.enum.Deleted) {
+                if (currentDataItem.status == enumerable.Deleted) {
                     $(this).remove();
                 }
             }
@@ -329,7 +335,7 @@ var Users = {
         $(".k-grid-edit", Users.controls.grid.element).each(function () {
             var currentDataItem = Users.controls.grid.dataItem($(this).closest("tr"));
             if (currentDataItem) {
-                if (currentDataItem.status == Enums.UserStatusType.enum.Deleted) {
+                if (currentDataItem.status == enumerable.Deleted) {
                     $(this).remove();
                 }
             }
@@ -338,7 +344,7 @@ var Users = {
         $(".k-grid-restore", Users.controls.grid.element).each(function () {
             var currentDataItem = Users.controls.grid.dataItem($(this).closest("tr"));
             if (currentDataItem) {
-                if (currentDataItem.status != Enums.UserStatusType.enum.Deleted) {
+                if (currentDataItem.status != enumerable.Deleted) {
                     $(this).remove();
                 }
             }
@@ -348,7 +354,7 @@ var Users = {
           .each(function () {
               var currentDataItem = Users.controls.grid.dataItem($(this).closest("tr"));
 
-              if (currentDataItem.status !== Enums.UserStatusType.enum.Invited) {
+              if (currentDataItem.status !== enumerable.Invited) {
                   $(this).remove();
               }
           });
@@ -393,7 +399,9 @@ var Users = {
             email: null,
             username: null,
             firstname: null,
-            lastname: null
+            lastname: null,
+            role: null,
+            teamID: null
         };
     },
     onReset: function (e) {
@@ -415,6 +423,36 @@ var Users = {
             }.bind(this));
         }
     },
+    getEmptyOptions: function() {
+        return {
+            teamID: null
+        };
+    },
+    getEmptyWorker: function() {
+        return {
+            username: null,
+            email: null,
+            teamID: null
+        };
+    },
+    onWorkerReset: function(e) {
+        this.controls.workerModel.set("model", this.getEmptyWorker());
+    },
+    onWorkerAdd: function(e) {
+        Notifications.clear();
+        if (this.validators.workerValidator.validate()) {
+            var obj = this.controls.workerModel.get("model");
+
+            this.controls.grid.dataSource.add(obj);
+            this.controls.grid.dataSource.sync();
+            this.controls.grid.dataSource.one("requestEnd",
+                function (ev) {
+                    if (ev.type === "create" && !ev.response.Errors) {
+                        this.onReset();
+                    }
+                }.bind(this));
+        }
+    },
     onEnter: function (e) {
         if (e.keyCode == kendo.keys.ENTER) {
             this.onFilter(e);
@@ -426,10 +464,14 @@ var Users = {
             this.controls.grid.dataSource.filter(filters);
         }
     },
+    onTeamChange: function (e) {
+        var filters = this.buildFilter();
+        Datasources.users.filter(filters);
+    },
     buildFilter: function (search) {
         Notifications.clear();
         var search = this.controls.filterModel.search;
-        var license = this.controls.filterModel.license;
+        var team = this.controls.filterModel.teamID;
 
         var filters = [];
 
@@ -443,13 +485,13 @@ var Users = {
             });
         }
 
-        if (typeof (license) !== "undefined"
-          && license !== ""
-          && license !== null) {
+        if (typeof (team) !== "undefined"
+         && team !== 0
+         && team !== null) {
             filters.push({
-                field: "License",
+                field: "TeamID",
                 operator: "eq",
-                value: license
+                value: parseInt(team)
             });
         }
 

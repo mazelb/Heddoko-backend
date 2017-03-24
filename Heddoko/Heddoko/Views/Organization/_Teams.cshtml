@@ -43,73 +43,24 @@
     </div>
 </div>
 
-<div class="row">   
-    <div class="panel panel-success teamOptions">
-        <!-- Team Dropdown -->
-        <div class="col-sm-4 panel-body">
-            <select class="form-control"
-                    name="teams-team"
-                    data-role="dropdownlist"
-                    data-value-primitive="true"
-                    data-text-field="nameView"
-                    data-option-label="@i18n.Resources.Select @i18n.Resources.Team"
-                    data-value-field="id"
-                    data-bind="value: options.teamID, source: teams, events: { change: changeTeamShown }"></select>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-success workerForm">
-            <div class="panel-heading clearfix">
-                <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.Worker</h3>
-                <div class="btn-group pull-right" role="group">
-                    <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
-                    <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
-                </div>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <input type="text"
-                                required
-                                name="worker-username"
-                                validationMessage="@i18n.Resources.Required"
-                                placeholder="@i18n.Resources.Username"
-                                class="form-control"
-                                data-bind="value: model.username" />
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="email"
-                                name="worker-email"
-                                placeholder="@i18n.Resources.Email"
-                                class="form-control"
-                                data-bind="value: model.email" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="heddoko-panel-white">
-    <!--<div class="filters teamsFilter">
+    <div class="filters teamsFilter">
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-4">
                     <label for="teamsSearch" class="control-label">@i18n.Resources.Search</label>
                     <input id="teamsSearch"
-                            class="form-control"
-                            type="text"
-                            placeholder="@i18n.Resources.EnterUser"
-                            data-bind="value: search, events:{ keyup: keyup }" />
+                           class="form-control"
+                           type="text"
+                           placeholder="@i18n.Resources.EnterUser"
+                           data-bind="value: search, events:{ keyup: keyup }" />
                 </div>
                 <div class="col-md-1">
                     <button type="button" data-bind="click: find" class="hdk-btn" style="margin-top:27px;">@i18n.Resources.Find</button>
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div id="teamsGrid">

@@ -202,11 +202,6 @@ namespace Services.MailSending
 
         public static void SendLicenseExpiringUserEmail(User user, License license)
         {
-            if (user.LicenseID != license.Id)
-            {
-                return;
-            }
-
             var mailModel = new LicenseExpiringEmailViewModel
             {
                 Name = user.Name,

@@ -29,10 +29,23 @@
                                class="form-control"
                                data-bind="value: model.username" />
                     </div>
+                    <div class="col-md-3">
+                        <select class="form-control"
+                                id="newUserTeams"
+                                name="user-team"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="nameView"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.Team"
+                                data-value-field="id"
+                                data-bind="value: model.teamID, source: teams"></select>
+                    </div>
+                </div>
+                <div class="row margin010">
                     <div class="col-sm-3">
                         <input type="text"
                                required
-                               name="user-firtsname"
+                               name="user-firstname"
                                validationMessage="@i18n.Resources.Required"
                                placeholder="@i18n.Resources.Firstname"
                                class="form-control"
@@ -47,11 +60,68 @@
                                class="form-control"
                                data-bind="value: model.lastname" />
                     </div>
+                    <div class="col-md-3">
+                        <select class="form-control"
+                                id="userRole"
+                                name="user-role"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="text"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.Role"
+                                data-value-field="value"
+                                data-bind="value: model.role, source: roles"></select>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success workerForm">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">@i18n.Resources.AddANew @i18n.Resources.Worker</h3>
+                <div class="btn-group pull-right" role="group">
+                    <button type="button" class="btn btn-sm btn-warning" data-bind="click: reset">@i18n.Resources.Reset</button>
+                    <button type="button" class="btn btn-sm btn-success" data-bind="click: submit">@i18n.Resources.Submit</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <input type="text"
+                               required
+                               name="worker-username"
+                               validationMessage="@i18n.Resources.Required"
+                               placeholder="@i18n.Resources.Username"
+                               class="form-control"
+                               data-bind="value: model.username" />
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="email"
+                               name="worker-email"
+                               placeholder="@i18n.Resources.Email"
+                               class="form-control"
+                               data-bind="value: model.email" />
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control"
+                                id="workerTeams"
+                                name="worker-team"
+                                data-role="dropdownlist"
+                                data-value-primitive="true"
+                                data-text-field="nameView"
+                                data-option-label="@i18n.Resources.Select @i18n.Resources.Team"
+                                data-value-field="id"
+                                data-bind="value: model.teamID, source: teams"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="heddoko-panel-white">
     <div class="filters usersFilter">
         <div class="row">
@@ -65,16 +135,16 @@
                             data-bind="value: search, events:{ keyup: keyup }" />
                 </div>
                 <div class="col-md-3">
-                    <label for="usersLicenses" class="control-label">@i18n.Resources.ShowByLicenses</label>
-                    <br />
-                    <select id="usersLicenses"
-                            class="campaign-dd"
+                    <label for="userTeams" class="control-label">@i18n.Resources.ShowByTeam</label>
+                    <select class="form-control"
+                            id="userTeams"
+                            name="teams-team"
                             data-role="dropdownlist"
                             data-value-primitive="true"
-                            data-text-field="name"
-                            data-value-field="id"
+                            data-text-field="nameView"
                             data-option-label="@i18n.Resources.All"
-                            data-bind="value: license, source: licenses"></select>
+                            data-value-field="id"
+                            data-bind="value: teamID, source: teams, events: { change: changeTeamShown }"></select>
                 </div>
                 <div class="col-md-1">
                     <button type="button" data-bind="click: find" class="hdk-btn" style="margin-top:27px;">@i18n.Resources.Find</button>
