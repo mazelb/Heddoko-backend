@@ -178,6 +178,8 @@ namespace DAL
                         break;
                 }
             }
+
+            UoW.UserRepository.ClearCache(user);
         }
 
         public async Task<string> GenerateInviteTokenAsync(User user)

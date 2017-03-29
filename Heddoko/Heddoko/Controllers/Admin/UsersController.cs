@@ -180,7 +180,7 @@ namespace Heddoko.Controllers
 
             if (items == null)
             {
-
+                items = new List<User>();
             }
 
             if (request?.Take != null)
@@ -231,11 +231,8 @@ namespace Heddoko.Controllers
                     UoW.UserRepository.ClearCache(item);
                 }
 
-                if (item.Role != model.Role)
-                {
-                    item.Role = model.Role;
-                    UserManager.UpdateUserIdentityRole(item);
-                }
+                item.Role = model.Role;
+                UserManager.UpdateUserIdentityRole(item);
 
                 if (!item.Email.IsNullOrEmpty())
                 {
