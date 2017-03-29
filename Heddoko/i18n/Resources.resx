@@ -598,7 +598,7 @@
     <value>Status</value>
   </data>
   <data name="UserRoleType_LicenseAdmin" xml:space="preserve">
-    <value>Organization Admin</value>
+    <value>Administrator</value>
   </data>
   <data name="UserRoleType_Analyst" xml:space="preserve">
     <value>Team Manager</value>

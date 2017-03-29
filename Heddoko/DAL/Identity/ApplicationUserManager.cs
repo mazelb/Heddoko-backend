@@ -46,9 +46,8 @@ namespace DAL
 
             manager.UserValidator = new UserValidator<User, int>(manager)
             {
-                // TODO - Create custom validator, workers don't require emails, but everyone else doesn't
                 AllowOnlyAlphanumericUserNames = true,
-                RequireUniqueEmail = false // Don't need emails for workers 
+                RequireUniqueEmail = true
             };
 
             manager.PasswordValidator = new PasswordValidator
@@ -146,6 +145,41 @@ namespace DAL
             UoW.UserRepository.ClearCache(user);
         }
 
+        public void UpdateUserIdentityRole(User user)
+        {
+            if(!this.IsInRole(user.Id, Constants.Roles.Admin))
+            {
+                if(this.IsInRole(user.Id, Constants.Roles.Worker))
+                {
+                    this.RemoveFromRole(user.Id, Constants.Roles.Worker);
+                }
+                else if (this.IsInRole(user.Id, Constants.Roles.Analyst))
+                {
+                    this.RemoveFromRole(user.Id, Constants.Roles.Analyst);
+                }
+                else if (this.IsInRole(user.Id, Constants.Roles.LicenseAdmin))
+                {
+                    this.RemoveFromRole(user.Id, Constants.Roles.LicenseAdmin);
+                }
+
+                switch (user.Role)
+                {
+                    case UserRoleType.LicenseAdmin:
+                        this.AddToRole(user.Id, Constants.Roles.LicenseAdmin);
+                        break;
+                    case UserRoleType.Analyst:
+                        this.AddToRole(user.Id, Constants.Roles.Analyst);
+                        break;
+                    case UserRoleType.Worker:
+                        this.AddToRole(user.Id, Constants.Roles.Worker);
+                        break;
+                    case UserRoleType.LicenseUniversal:
+                        this.AddToRole(user.Id, Constants.Roles.LicenseUniversal);
+                        break;
+                }
+            }
+        }
+
         public async Task<string> GenerateInviteTokenAsync(User user)
         {
             return await UserTokenProvider.GenerateAsync(InviteToken, this, user);
@@ -199,6 +233,11 @@ namespace DAL
         public void SendInviteEmail(int userId, string inviteToken)
         {
             UserEmailService.Service.SendInviteEmail(userId, inviteToken);
+        }
+
+        public void SendPasswordEmail(int userId, string password)
+        {
+            UserEmailService.Service.SendPasswordEmail(userId, password);
         }
 
         public void SendForgotPasswordEmail(int userId, string resetPasswordToken)

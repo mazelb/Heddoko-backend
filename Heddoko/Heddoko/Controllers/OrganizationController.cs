@@ -12,7 +12,7 @@ using Services;
 
 namespace Heddoko.Controllers
 {
-    [Auth(Roles = Constants.Roles.LicenseAdminAndAdmin)]
+    //[Auth(Roles = Constants.Roles.LicenseAdminAndAnalystAndAdmin)]
     public class OrganizationController : BaseController
     {
         public OrganizationController() : base() { }

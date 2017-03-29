@@ -161,7 +161,7 @@ i18n.Resources = (function () {
   "SerialNo": "Serial #",
   "Ship": "Ship",
   "Status": "Status",
-  "UserRoleType_LicenseAdmin": "Organization Admin",
+  "UserRoleType_LicenseAdmin": "Administrator",
   "VerifiedBy": "Verified by",
   "Add": "Add",
   "ComplexEquipment": "Suit",

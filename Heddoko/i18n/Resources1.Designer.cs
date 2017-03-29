@@ -4048,7 +4048,7 @@ namespace i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Organization Admin.
+        ///   Looks up a localized string similar to Administrator.
         /// </summary>
         public static string UserRoleType_LicenseAdmin {
             get {

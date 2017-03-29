@@ -40,6 +40,11 @@ namespace Services.MailSending
             BackgroundJob.Enqueue(() => EmailManager.SendInviteEmail(userId, inviteToken));
         }
 
+        public void SendPasswordEmail(int userId, string password)
+        {
+            BackgroundJob.Enqueue(() => EmailManager.SendForgotPasswordEmail(userId, password));
+        }
+
         public void SendForgotPasswordEmail(int userId, string resetPasswordToken)
         {
             BackgroundJob.Enqueue(() => EmailManager.SendForgotPasswordEmail(userId, resetPasswordToken));

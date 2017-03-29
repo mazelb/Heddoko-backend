@@ -225,6 +225,7 @@ namespace DAL
         public IEnumerable<User> Search(
             string search,
             int? organizationID = null,
+            int? teamID = null,
             bool isDeleted = false)
         {
             return DbSet.Include(c => c.Organization)
@@ -232,6 +233,7 @@ namespace DAL
                         .Include(c => c.Roles.Select(r => r.Role))
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => !organizationID.HasValue || c.OrganizationID.Value == organizationID)
+                        .Where(c => !teamID.HasValue || c.TeamID.Value == teamID)
                         .Where(
                             c =>
                                 (!string.IsNullOrEmpty(c.FirstName) && c.FirstName.ToLower().Contains(search.ToLower()))

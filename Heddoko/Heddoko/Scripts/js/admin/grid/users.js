@@ -14,12 +14,10 @@ var Users = {
     controls: {
         grid: null,
         filterModel: null,
-        addModel: null,
-        workerModel: null
+        addModel: null
     },
     validators: {
-        addModel: null,
-        workerValidator: null
+        addModel: null
     },
     datasources: function () {
         //Datasources context
@@ -54,8 +52,7 @@ var Users = {
         this.userRoles = new kendo.data.DataSource({
             data: _.values(_.filter(Enums.UserRoleType.array, function (u) {
                 return u.value != Enums.UserRoleType.enum.Admin && u.value != Enums.UserRoleType.enum.User
-                        && u.value != Enums.UserRoleType.enum.Worker && u.value != Enums.UserRoleType.enum.ServiceAdmin
-                        && u.value != Enums.UserRoleType.enum.LicenseUniversal
+                        && u.value != Enums.UserRoleType.enum.ServiceAdmin && u.value != Enums.UserRoleType.enum.LicenseUniversal
             }))
         });
     },
@@ -177,8 +174,6 @@ var Users = {
         var control = $("#usersGrid");
         var filter = $('.usersFilter');
         var model = $('.usersForm');
-        var options = $(".teamOptions");
-        var worker = $(".workerForm");
 
         var datasourceItem = Datasources.users;
 
@@ -221,7 +216,7 @@ var Users = {
                 }, {
                     field: 'role',
                     title: i18n.Resources.Role,
-                    editor: KendoDS.emptyEditor,
+                    editor: Users.userRolesDDEditor,
                     template: function (e) {
                         return Format.user.role(e.role);
                     }
@@ -297,22 +292,6 @@ var Users = {
                     maxLengthValidationPhone: Validator.organization.phone.maxLengthValidation,
                     maxLengthValidationAddress: Validator.organization.address.maxLengthValidation,
                     maxLengthValidationNotes: Validator.organization.notes.maxLengthValidation
-                }
-            }).data("kendoValidator");
-
-            this.controls.workerModel = kendo.observable({
-                reset: this.onWorkerReset.bind(this),
-                submit: this.onWorkerAdd.bind(this),
-                teams: Datasources.teamsDD,
-                model: this.getEmptyWorker.bind(this)
-            });
-
-            kendo.bind(worker, this.controls.workerModel);
-
-            this.validators.workerValidator = worker.kendoValidator({
-                validateOnBlur: true,
-                rules: {
-                    maxLengthValidationName: Validator.organization.name.maxLengthValidation
                 }
             }).data("kendoValidator");
 
@@ -394,6 +373,14 @@ var Users = {
             dataSource: Datasources.userStatusTypes
         });
     },
+    userRolesDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value"  data-value-primitive="true" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.userRoles
+        });
+    },
     getEmptyModel: function () {
         return {
             email: null,
@@ -427,32 +414,7 @@ var Users = {
         return {
             teamID: null
         };
-    },
-    getEmptyWorker: function() {
-        return {
-            username: null,
-            email: null,
-            teamID: null
-        };
-    },
-    onWorkerReset: function(e) {
-        this.controls.workerModel.set("model", this.getEmptyWorker());
-    },
-    onWorkerAdd: function(e) {
-        Notifications.clear();
-        if (this.validators.workerValidator.validate()) {
-            var obj = this.controls.workerModel.get("model");
-
-            this.controls.grid.dataSource.add(obj);
-            this.controls.grid.dataSource.sync();
-            this.controls.grid.dataSource.one("requestEnd",
-                function (ev) {
-                    if (ev.type === "create" && !ev.response.Errors) {
-                        this.onReset();
-                    }
-                }.bind(this));
-        }
-    },
+    },   
     onEnter: function (e) {
         if (e.keyCode == kendo.keys.ENTER) {
             this.onFilter(e);

@@ -74,6 +74,23 @@ namespace Services.MailSending
             SendGridMail.Send(subject, body, user.Email);
         }
 
+        public static void SendPasswordEmail(User user, string password)
+        {
+            var mailModel = new SendPasswordEmailViewModel
+            {
+                FirstName = user.FirstName,
+                OrganizationName = user.Organization?.Name,
+                Password = password,
+                Username = user.UserName
+            };
+
+            string subject = Resources.EmailInviteUserSubject;
+
+            string body = razorView.RenderViewToString("SendPasswordEmail", mailModel); 
+
+            SendGridMail.Send(subject, body, user.Email);
+        }
+
         public static void SendForgotPasswordEmail(User user, string resetPasswordToken)
         {
             var mailModel = new ForgotPasswordEmailViewModel
