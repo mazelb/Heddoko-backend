@@ -368,6 +368,28 @@ namespace Heddoko.Controllers.API
                         case "label":
                             model.Label = val;
                             break;
+                        case "brainpackid":
+                            if (!string.IsNullOrEmpty(val))
+                            {
+                                int brainpackID;
+                                if (!int.TryParse(val, out brainpackID))
+                                {
+                                    throw new APIException(ErrorAPIType.BrainpackID, $"{Resources.Wrong} BrainpackID");
+                                }
+                                model.KitID = brainpackID;
+                            }
+                            break;
+                        case "userid":
+                            if (!string.IsNullOrEmpty(val))
+                            {
+                                int userID;
+                                if (!int.TryParse(val, out userID))
+                                {
+                                    throw new APIException(ErrorAPIType.UserNotFound, $"{Resources.Wrong} UserID");
+                                }
+                                model.KitID = userID;
+                            }
+                            break;
                         case "files":
                             model.FileTypes = JsonConvert.DeserializeObject<List<AssetFileAPIViewModel>>(val);
 
@@ -389,7 +411,7 @@ namespace Heddoko.Controllers.API
             {
                 kit = UoW.KitRepository.Get(model.KitID.Value);
             }
-
+            /*
             if (kit == null
                 && !string.IsNullOrEmpty(model.Label))
             {
@@ -410,6 +432,33 @@ namespace Heddoko.Controllers.API
             {
                 throw new APIException(ErrorAPIType.WrongObjectAccess,
                     $"{Resources.WrongObjectAccess} OrganizationID");
+            }*/
+            Brainpack brainpack = null;
+            if (model.BrainpackID.HasValue)
+            {
+                brainpack = UoW.BrainpackRepository.Get(model.BrainpackID.Value);
+            }
+
+            if (brainpack == null
+                && !string.IsNullOrEmpty(model.Label))
+            {
+                kit = UoW.KitRepository.Get(model.Label);
+            }
+
+            if (brainpack == null)
+            {
+                throw new APIException(ErrorAPIType.ObjectNotFound, $"{Resources.NotFound} Brainpack by BrainpackID or Serial");
+            }
+
+            User user = null;
+            if (model.UserID.HasValue)
+            {
+                user = UoW.UserRepository.Get(model.UserID.Value);
+            }
+
+            if (user == null)
+            {
+                throw new APIException(ErrorAPIType.UserNotFound, $"{Resources.NotFound} User by UserID or Serial");
             }
 
             if (provider.FileData.Count < Constants.Records.MinFilesCount || provider.FileData.Count > Constants.Records.MaxFilesCount)
@@ -420,7 +469,8 @@ namespace Heddoko.Controllers.API
             Record record = new Record
             {
                 Kit = kit,
-                User = CurrentUser,
+                Brainpack = brainpack,
+                User = user,
                 Type = RecordType.Record
             };
 
@@ -451,7 +501,8 @@ namespace Heddoko.Controllers.API
                     Proccessing = AssetProccessingType.New,
                     Status = UploadStatusType.New,
                     Kit = kit,
-                    User = CurrentUser,
+                    Brainpack = brainpack,
+                    User = user,
                     Record = record,
                     Name = name
                 };

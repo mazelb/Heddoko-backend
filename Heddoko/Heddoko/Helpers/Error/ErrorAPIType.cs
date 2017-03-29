@@ -29,6 +29,7 @@ namespace Heddoko
         AssetType,
         UserIsNotApproved,
         UserIsNotInTeam,
-        FileData
+        FileData,
+        BrainpackID
     }
 }

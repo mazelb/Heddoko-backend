@@ -15,6 +15,10 @@ namespace Heddoko.Models.API
 
         public string Label { get; set; }
 
+        public int? BrainpackID { get; set; }
+
+        public int? UserID { get; set; }
+
         public List<AssetFileAPIViewModel> FileTypes { get; set; }
     }
 }
