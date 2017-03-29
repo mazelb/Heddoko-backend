@@ -24,6 +24,11 @@ namespace DAL.Models
         [JsonIgnore]
         public virtual Kit Kit { get; set; }
 
+        public int? BrainpackID { get; set; }
+
+        [JsonIgnore]
+        public virtual Brainpack Brainpack { get; set; }
+
         public virtual ICollection<Asset> Assets { get; set; }
     }
 }

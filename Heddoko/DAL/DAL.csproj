@@ -329,6 +329,10 @@
     <Compile Include="Migrations\201703221634408_removeing-licence-from-user.Designer.cs">
       <DependentUpon>201703221634408_removeing-licence-from-user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703291813527_changing_upload.cs" />
+    <Compile Include="Migrations\201703291813527_changing_upload.Designer.cs">
+      <DependentUpon>201703291813527_changing_upload.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Models\Assembly.cs" />
@@ -594,6 +598,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703221634408_removeing-licence-from-user.resx">
       <DependentUpon>201703221634408_removeing-licence-from-user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703291813527_changing_upload.resx">
+      <DependentUpon>201703291813527_changing_upload.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
