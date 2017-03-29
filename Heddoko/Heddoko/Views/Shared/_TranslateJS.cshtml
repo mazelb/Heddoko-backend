@@ -155,7 +155,7 @@
     Enums.LicenseType.array = {};
     @foreach (DAL.Models.LicenseType type in (DAL.Models.LicenseType[])Enum.GetValues(typeof(DAL.Models.LicenseType)))
     {
-        if (type != DAL.Models.LicenseType.Universal)
+        if (type == DAL.Models.LicenseType.DataCollection)
         {
             <text>
 

@@ -96,7 +96,6 @@ namespace DAL.Models
         public DateTime? BirthDay { get; set; }
 
         [JsonIgnore]
-        [Obsolete("will be removed after migration to Identity")]
         public UserRoleType Role { get; set; }
 
         public UserStatusType Status { get; set; }
@@ -115,12 +114,6 @@ namespace DAL.Models
         public virtual Organization Organization { get; set; }
 
         [JsonIgnore]
-        public int? LicenseID { get; set; }
-
-        [JsonIgnore]
-        public virtual License License { get; set; }
-
-        [JsonIgnore]
         [JilDirective(Ignore = true)]
         public virtual ICollection<AccessToken> Tokens { get; set; }
 
@@ -129,42 +122,11 @@ namespace DAL.Models
         public virtual ICollection<Asset> Assets { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Kit> Kits { get; set; }
-
-        [JilDirective(Ignore = true)]
-        public virtual Kit Kit => Kits?.FirstOrDefault();
-
-        [JsonIgnore]
         public virtual ICollection<Device> Devices { get; set; }
         #endregion
 
         #region NotMapped
-        public bool AllowLicenseInfoToken()
-        {
-            if (License == null)
-            {
-                return false;
-            }
-
-            LicenseInfo info = new LicenseInfo
-            {
-                ID = License.Id,
-                ExpiredAt = License.ExpirationAt,
-                Name = License.Name,
-                Status = License.Status,
-                Type = License.Type,
-                ViewID = License.ViewID,
-                IDView = License.IDView
-            };
-
-            string json = JsonConvert.SerializeObject(info);
-
-            LicenseInfoToken = JwtHelper.Create(json);
-
-            return true;
-        }
-
-
+    
         public bool AllowToken()
         {
             if (Tokens == null ||
@@ -188,34 +150,6 @@ namespace DAL.Models
         [NotMapped]
         [JilDirective(Ignore = true)]
         public string Token { get; set; }
-
-        [NotMapped]
-        [JilDirective(Ignore = true)]
-        public string LicenseInfoToken { get; set; }
-
-        public UserRoleType RoleType
-        {
-            get
-            {
-                if (License == null ||
-                    !License.IsActive)
-                {
-                    return UserRoleType.User;
-                }
-
-                switch (License.Type)
-                {
-                    case LicenseType.DataAnalysis:
-                        return UserRoleType.Analyst;
-                    case LicenseType.DataCollection:
-                        return UserRoleType.Worker;
-                    case LicenseType.Universal:
-                        return UserRoleType.LicenseUniversal;
-                    default:
-                        return UserRoleType.User;
-                }
-            }
-        }
 
         [JsonIgnore]
         public bool IsActive => Status == UserStatusType.Active;

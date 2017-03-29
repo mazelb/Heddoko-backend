@@ -141,41 +141,14 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.ObjectNotFound, $"{Resources.NotFound} Kit by KitID or Serial");
             }
 
-            if (kit.UserID.HasValue)
+            if (!kit.OrganizationID.HasValue)
             {
-                if (UserManager.IsInRole(CurrentUser.Id, Constants.Roles.Worker))
-                {
-                    if (kit.UserID.Value != CurrentUser.Id)
-                    {
-                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} kitID");
-                    }
-
-                    if (kit.User.TeamID != CurrentUser.TeamID)
-                    {
-                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} Team");
-                    }
-                }
-                else
-                {
-                    if (!kit.OrganizationID.HasValue)
-                    {
-                        throw new APIException(ErrorAPIType.KitID, $"{Resources.NonAssigned} OrganizationID");
-                    }
-
-                    if (kit.OrganizationID != CurrentUser.OrganizationID)
-                    {
-                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} OrganizationID");
-                    }
-
-                    if (kit.User.TeamID != CurrentUser.TeamID)
-                    {
-                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} Team");
-                    }
-                }
+                throw new APIException(ErrorAPIType.KitID, $"{Resources.NonAssigned} OrganizationID");
             }
-            else
+
+            if (kit.OrganizationID != CurrentUser.OrganizationID)
             {
-                throw new APIException(ErrorAPIType.KitID, $"{Resources.NonAssigned} kitID");
+                throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} OrganizationID");
             }
 
             Asset asset = new Asset
@@ -184,7 +157,7 @@ namespace Heddoko.Controllers.API
                 Proccessing = AssetProccessingType.New,
                 Status = UploadStatusType.New,
                 Kit = kit,
-                User = kit.User
+                User = CurrentUser
             };
 
             foreach (MultipartFileData file in provider.FileData)

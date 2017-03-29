@@ -15,8 +15,6 @@ namespace DAL.Models
 {
     public class License : BaseModel, IAuditable, ISoftDelete
     {
-        public LicenseType Type { get; set; }
-
         public int Amount { get; set; }
 
         public LicenseStatusType Status { get; set; }
@@ -32,6 +30,14 @@ namespace DAL.Models
         [JilDirective(Ignore = true)]
         [BsonIgnore]
         public virtual Organization Organization { get; set; }
+
+        [JsonIgnore]
+        public int? TeamID { get; set; }
+
+        [JsonIgnore]
+        [JilDirective(Ignore = true)]
+        [BsonIgnore]
+        public virtual Team Team { get; set; }
 
         [JsonIgnore]
         [JilDirective(Ignore = true)]
@@ -51,12 +57,10 @@ namespace DAL.Models
         public string ViewID => $"{OrganizationID}-{Id}";
 
         [JilDirective(Ignore = true)]
-        public string Name => $"{Type.GetDisplayName()} {IDView} ({ExpirationAt.ToString("dd/MM/yyyy")})";
+        public string Name => $"{IDView} ({ExpirationAt.ToString("dd/MM/yyyy")})";
 
         [JilDirective(Ignore = true)]
-        public bool IsActive => (Type == LicenseType.DataAnalysis || Type == LicenseType.DataCollection || Type == LicenseType.Universal)
-                                && Status == LicenseStatusType.Active
-                                && ExpirationAt >= DateTime.Now;
+        public bool IsActive => Status == LicenseStatusType.Active && ExpirationAt >= DateTime.Now;
 
         //TODO remove that later
         public bool Validate()

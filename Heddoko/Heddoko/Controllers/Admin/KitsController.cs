@@ -223,7 +223,6 @@ namespace Heddoko.Controllers
             {
                 item.Status = EquipmentStatusType.Trash;
                 item.OrganizationID = null;
-                item.UserID = null;
                 item.SensorSetID = null;
                 item.BrainpackID = null;
                 item.ShirtID = null;
@@ -259,140 +258,129 @@ namespace Heddoko.Controllers
                 throw new Exception(Resources.WrongObjectAccess);
             }
 
-            if (IsLicenseAdmin)
+            if (model.BrainpackID.HasValue
+                    &&
+                    (!item.BrainpackID.HasValue || (model.BrainpackID.Value != item.BrainpackID.Value)))
             {
-                //TODO remove that
-                if (model.UserID.HasValue)
+                if (model.BrainpackID.Value == NoBrainpackID)
                 {
-                    item.User = UoW.UserRepository.Get(model.UserID.Value);
-                }
-            }
-            else
-            {
-                if (model.BrainpackID.HasValue
+                    if (item.Brainpack != null
                         &&
-                        (!item.BrainpackID.HasValue || (model.BrainpackID.Value != item.BrainpackID.Value)))
-                {
-                    if (model.BrainpackID.Value == NoBrainpackID)
+                        item.Brainpack.Status == EquipmentStatusType.InUse)
                     {
-                        if (item.Brainpack != null
-                            &&
-                            item.Brainpack.Status == EquipmentStatusType.InUse)
-                        {
-                            item.Brainpack.Status = EquipmentStatusType.Ready;
-                        }
-                        item.Brainpack = null;
+                        item.Brainpack.Status = EquipmentStatusType.Ready;
                     }
-                    else
-                    {
-                        Brainpack brainpack = UoW.BrainpackRepository.GetFull(model.BrainpackID.Value);
-
-                        if (brainpack.Kit != null)
-                        {
-                            throw new Exception($"{Resources.Brainpack} {Resources.AlreadyUsed}");
-                        }
-
-                        item.Brainpack = brainpack;
-                        brainpack.Status = EquipmentStatusType.InUse;
-                    }
+                    item.Brainpack = null;
                 }
-
-                if (model.SensorSetID.HasValue
-                    &&
-                    (!item.SensorSetID.HasValue || (model.SensorSetID.Value != item.SensorSetID.Value)))
+                else
                 {
-                    if (model.SensorSetID.Value == NoSensorSetID)
-                    {
-                        if (item.SensorSet != null
-                            &&
-                            item.SensorSet.Status == EquipmentStatusType.InUse)
-                        {
-                            item.SensorSet.Status = EquipmentStatusType.Ready;
-                        }
-                        item.SensorSet = null;
-                    }
-                    else
-                    {
-                        SensorSet sensorSet = UoW.SensorSetRepository.GetFull(model.SensorSetID.Value);
+                    Brainpack brainpack = UoW.BrainpackRepository.GetFull(model.BrainpackID.Value);
 
-                        if (sensorSet.Kit != null)
-                        {
-                            throw new Exception($"{Resources.SensorSet} {Resources.AlreadyUsed}");
-                        }
-
-                        item.SensorSet = sensorSet;
-                        sensorSet.Status = EquipmentStatusType.InUse;
+                    if (brainpack.Kit != null)
+                    {
+                        throw new Exception($"{Resources.Brainpack} {Resources.AlreadyUsed}");
                     }
+
+                    item.Brainpack = brainpack;
+                    brainpack.Status = EquipmentStatusType.InUse;
                 }
-
-                if (model.PantsID.HasValue
-                    &&
-                    (!item.PantsID.HasValue || (model.PantsID.Value != item.PantsID.Value)))
-                {
-                    if (model.PantsID.Value == NoPantsID)
-                    {
-                        if (item.Pants != null
-                            &&
-                            item.Pants.Status == EquipmentStatusType.InUse)
-                        {
-                            item.Pants.Status = EquipmentStatusType.Ready;
-                        }
-                        item.Pants = null;
-                    }
-                    else
-                    {
-                        Pants pants = UoW.PantsRepository.GetFull(model.PantsID.Value);
-
-                        if (pants.Kit != null)
-                        {
-                            throw new Exception($"{Resources.Pants} {Resources.AlreadyUsed}");
-                        }
-
-                        item.Pants = pants;
-                        pants.Status = EquipmentStatusType.InUse;
-                    }
-                }
-
-                if (model.ShirtID.HasValue
-                    &&
-                    (!item.ShirtID.HasValue || (model.ShirtID.Value != item.ShirtID.Value)))
-                {
-                    if (model.ShirtID.Value == NoShirtID)
-                    {
-                        if (item.Shirt != null
-                            &&
-                            item.Shirt.Status == EquipmentStatusType.InUse)
-                        {
-                            item.Shirt.Status = EquipmentStatusType.Ready;
-                        }
-                        item.Shirt = null;
-                    }
-                    else
-                    {
-                        Shirt shirt = UoW.ShirtRepository.GetFull(model.ShirtID.Value);
-
-                        if (shirt.Kit.Any())
-                        {
-                            throw new Exception($"{Resources.Shirts} {Resources.AlreadyUsed}");
-                        }
-
-                        item.Shirt = shirt;
-                        shirt.Status = EquipmentStatusType.InUse;
-                    }
-                }
-
-                if (model.OrganizationID.HasValue)
-                {
-                    item.Organization = UoW.OrganizationRepository.Get(model.OrganizationID.Value);
-                }
-
-                item.Status = model.Status;
-                item.Location = model.Location?.Trim(); ;
-                item.QAStatus = model.QAStatus;
-                item.Notes = model.Notes?.Trim();
-                item.Label = model.Label?.Trim();
-                item.Composition = model.Composition;
             }
+
+            if (model.SensorSetID.HasValue
+                &&
+                (!item.SensorSetID.HasValue || (model.SensorSetID.Value != item.SensorSetID.Value)))
+            {
+                if (model.SensorSetID.Value == NoSensorSetID)
+                {
+                    if (item.SensorSet != null
+                        &&
+                        item.SensorSet.Status == EquipmentStatusType.InUse)
+                    {
+                        item.SensorSet.Status = EquipmentStatusType.Ready;
+                    }
+                    item.SensorSet = null;
+                }
+                else
+                {
+                    SensorSet sensorSet = UoW.SensorSetRepository.GetFull(model.SensorSetID.Value);
+
+                    if (sensorSet.Kit != null)
+                    {
+                        throw new Exception($"{Resources.SensorSet} {Resources.AlreadyUsed}");
+                    }
+
+                    item.SensorSet = sensorSet;
+                    sensorSet.Status = EquipmentStatusType.InUse;
+                }
+            }
+
+            if (model.PantsID.HasValue
+                &&
+                (!item.PantsID.HasValue || (model.PantsID.Value != item.PantsID.Value)))
+            {
+                if (model.PantsID.Value == NoPantsID)
+                {
+                    if (item.Pants != null
+                        &&
+                        item.Pants.Status == EquipmentStatusType.InUse)
+                    {
+                        item.Pants.Status = EquipmentStatusType.Ready;
+                    }
+                    item.Pants = null;
+                }
+                else
+                {
+                    Pants pants = UoW.PantsRepository.GetFull(model.PantsID.Value);
+
+                    if (pants.Kit != null)
+                    {
+                        throw new Exception($"{Resources.Pants} {Resources.AlreadyUsed}");
+                    }
+
+                    item.Pants = pants;
+                    pants.Status = EquipmentStatusType.InUse;
+                }
+            }
+
+            if (model.ShirtID.HasValue
+                &&
+                (!item.ShirtID.HasValue || (model.ShirtID.Value != item.ShirtID.Value)))
+            {
+                if (model.ShirtID.Value == NoShirtID)
+                {
+                    if (item.Shirt != null
+                        &&
+                        item.Shirt.Status == EquipmentStatusType.InUse)
+                    {
+                        item.Shirt.Status = EquipmentStatusType.Ready;
+                    }
+                    item.Shirt = null;
+                }
+                else
+                {
+                    Shirt shirt = UoW.ShirtRepository.GetFull(model.ShirtID.Value);
+
+                    if (shirt.Kit.Any())
+                    {
+                        throw new Exception($"{Resources.Shirts} {Resources.AlreadyUsed}");
+                    }
+
+                    item.Shirt = shirt;
+                    shirt.Status = EquipmentStatusType.InUse;
+                }
+            }
+
+            if (model.OrganizationID.HasValue)
+            {
+                item.Organization = UoW.OrganizationRepository.Get(model.OrganizationID.Value);
+            }
+
+            item.Status = model.Status;
+            item.Location = model.Location?.Trim(); ;
+            item.QAStatus = model.QAStatus;
+            item.Notes = model.Notes?.Trim();
+            item.Label = model.Label?.Trim();
+            item.Composition = model.Composition;
 
             return item;
         }
@@ -419,10 +407,8 @@ namespace Heddoko.Controllers
                 Pants = item.Pants,
                 PantsID = item.PantsID ?? 0,
                 OrganizationID = item.OrganizationID ?? 0,
-                User = item.User,
                 BrainpackID = item.BrainpackID ?? 0,
                 Shirt = item.Shirt,
-                UserID = item.ShirtID ?? 0,
                 Label = item.Label,
                 Notes = item.Notes,
                 QAStatus = item.QAStatus

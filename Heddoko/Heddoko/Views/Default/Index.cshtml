@@ -109,7 +109,7 @@
                 {
                     if (Model.Software != null)
                     {
-                        <div class="col-md-5"></div>
+                        <div class="col-md-4"></div>
                         <div class="col-md-2">
                             <a href="@Model.Software.Asset.Url" target="_blank" class="btn-dashboard">
                                 <i class="fa fa-2x fa-download"></i>
@@ -123,8 +123,17 @@
                     }
                     else
                     {
-                        <div class="col-md-6"></div>
+                        <div class="col-md-5"></div>
                     }
+                    <div class="col-md-2">
+                        <a href="@Url.Action("Index", "Organization")" class="btn-dashboard">
+                            <i class="fa fa-2x fa-pencil-square-o"></i>
+                            <span>
+                                @i18n.Resources.Manage @i18n.Resources.Team
+                            </span>
+                            <span></span>
+                        </a>
+                    </div>
                 }
                 
 

@@ -235,7 +235,7 @@ namespace Heddoko.Controllers
                                 }
                                 else
                                 {
-                                    if (user.LicenseID.HasValue)
+                                    if (user.Status == UserStatusType.Active)
                                     {
                                         message = Resources.UserSignupUserOrganizationMessage;
                                     }

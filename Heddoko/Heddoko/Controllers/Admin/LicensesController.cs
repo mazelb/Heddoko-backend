@@ -276,10 +276,20 @@ namespace Heddoko.Controllers
                 }
             }
 
+            if (model.TeamID.HasValue)
+            {
+                if (!item.TeamID.HasValue
+                    ||
+                    (model.TeamID.Value != item.TeamID.Value))
+                {
+                    Team team = UoW.TeamRepository.Get(model.TeamID.Value);
+                    item.Team = team;
+                }
+            }
+
             item.Amount = (int)model.Amount;
             item.Status = model.Status;
             item.ExpirationAt = model.ExpirationAt.EndOfDay();
-            item.Type = model.Type;
             item.Validate();
 
             return item;
@@ -301,8 +311,8 @@ namespace Heddoko.Controllers
                 Amount = (uint)item.Amount,
                 Status = item.Status,
                 OrganizationID = item.OrganizationID,
+                TeamID = item.TeamID,
                 ExpirationAt = item.ExpirationAt,
-                Type = item.Type,
                 Used = item.Users?.Count() ?? 0
             };
         }

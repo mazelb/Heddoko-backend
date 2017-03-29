@@ -5,29 +5,44 @@
 }
 
 <div class="page">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#users">@i18n.Resources.Users</a></li>
-        <li><a data-toggle="tab" href="#teams">@i18n.Resources.Teams</a></li>
-        <li><a data-toggle="tab" href="#licenses">@i18n.Resources.Licenses</a></li>
-        <li><a data-toggle="tab" href="#kits">@i18n.Resources.Kits</a></li>
-    </ul>
-    @Html.Partial("_FlashMessages", Model.Flash)
-    <div class="tab-content">
-        <div id="users" class="tab-pane fade in active">
-            @Html.Partial("_Users")
-        </div>
+    @if (Model.IsLicenseAdmin)
+    {
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#users">@i18n.Resources.Users</a></li>
+            <li><a data-toggle="tab" href="#teams">@i18n.Resources.Teams</a></li>
+            <li><a data-toggle="tab" href="#licenses">@i18n.Resources.Licenses</a></li>
+            <li><a data-toggle="tab" href="#kits">@i18n.Resources.Kits</a></li>
+        </ul>
+        @Html.Partial("_FlashMessages", Model.Flash)
+        <div class="tab-content">
+            <div id="users" class="tab-pane fade in active">
+                @Html.Partial("_Users")
+            </div>
         
-        <div id="teams" class="tab-pane fade">
-            @Html.Partial("_Teams")
-        </div>
+            <div id="teams" class="tab-pane fade">
+                @Html.Partial("_Teams")
+            </div>
 
-        <div id="licenses" class="tab-pane fade">
-            @Html.Partial("_Licenses")
-        </div>
+            <div id="licenses" class="tab-pane fade">
+                @Html.Partial("_Licenses")
+            </div>
 
-        <div id="kits" class="tab-pane fade">
-            @Html.Partial("_Kits")
+            <div id="kits" class="tab-pane fade">
+                @Html.Partial("_Kits")
+            </div>
         </div>
-    </div>
+    }
+    else if (Model.IsAnalyst)
+    {
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#teamUsers">@i18n.Resources.Users</a></li>
+        </ul>
+        @Html.Partial("_FlashMessages", Model.Flash)
+        <div class="tab-content">
+            <div id="users" class="tab-pane fade in active">
+                @Html.Partial("_TeamUsers")
+            </div>
+        </div>
+    }
 </div>
 

@@ -59,7 +59,7 @@ i18n.Resources = (function () {
   "UserIsBanned": "User is banned",
   "Username": "Username",
   "UserRoleType_Admin": "Admin",
-  "UserRoleType_Analyst": "Analyst",
+  "UserRoleType_Analyst": "Team Manager",
   "UserRoleType_User": "User",
   "UserStatusType_Active": "Active",
   "UserStatusType_Banned": "Banned",
@@ -161,7 +161,7 @@ i18n.Resources = (function () {
   "SerialNo": "Serial #",
   "Ship": "Ship",
   "Status": "Status",
-  "UserRoleType_LicenseAdmin": "License manager",
+  "UserRoleType_LicenseAdmin": "Administrator",
   "VerifiedBy": "Verified by",
   "Add": "Add",
   "ComplexEquipment": "Suit",
@@ -485,7 +485,8 @@ i18n.Resources = (function () {
   "ErgoscoreTitle": "ERGOSCORE",
   "ErgoscoreTrendsTitle": "ERGOSCORE TRENDS",
   "ChangePasswordOld": "Change Password (Old Password)",
-  "ChangePasswordNew": "Change Password (New Password)"
+  "ChangePasswordNew": "Change Password (New Password)",
+  "ShowByTeam": "Show users by Team"
 };
 	return $.extend({}, i18n.Resources || {}, strings);
 }());

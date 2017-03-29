@@ -598,7 +598,10 @@
     <value>Status</value>
   </data>
   <data name="UserRoleType_LicenseAdmin" xml:space="preserve">
-    <value>License manager</value>
+    <value>Administrator</value>
+  </data>
+  <data name="UserRoleType_Analyst" xml:space="preserve">
+    <value>Team Manager</value>
   </data>
   <data name="VerifiedBy" xml:space="preserve">
     <value>Verified by</value>
@@ -1571,5 +1574,8 @@
   </data>
   <data name="ChangePasswordNew" xml:space="preserve">
     <value>Change Password (New Password)</value>
+  </data>
+  <data name="ShowByTeam" xml:space="preserve">
+    <value>Show users by Team</value>
   </data>
 </root>

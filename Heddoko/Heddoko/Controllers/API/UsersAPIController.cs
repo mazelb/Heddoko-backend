@@ -75,9 +75,7 @@ namespace Heddoko.Controllers.API
         [AuthAPI(Roles = Constants.Roles.All)]
         public User Profile()
         {
-            CurrentUser.AllowLicenseInfoToken();
             User user = UoW.UserRepository.GetFull(CurrentUser.Id);
-            user.AllowLicenseInfoToken();
             return user;
         }
 
@@ -121,20 +119,10 @@ namespace Heddoko.Controllers.API
                 //    throw new APIException(ErrorAPIType.EmailOrPassword, Resources.WrongUsernameOrPassword);
                 //}
 
-                if (user.License == null)
-                {
-                    throw new APIException(ErrorAPIType.LicenseIsNotReady, Resources.LicenseIsNotReady);
-                }
-
-                if (user.License.Validate())
+                if (user.Status == UserStatusType.Active)
                 {
                     UoW.Save();
                     UoW.UserRepository.ClearCache(user);
-
-                    if (user.License.Status == LicenseStatusType.Expired && user.License.OrganizationID.HasValue)
-                    {
-                        BackgroundJob.Enqueue(() => ActivityService.NotifyLicenseExpiredToOrganization(user.License.OrganizationID.Value, user.License.Id));
-                    }
                 }
 
                 try
@@ -148,7 +136,6 @@ namespace Heddoko.Controllers.API
 
                 if (user.AllowToken())
                 {
-                    user.AllowLicenseInfoToken();
                     return user;
                 }
 
@@ -159,8 +146,6 @@ namespace Heddoko.Controllers.API
                 UoW.Save();
                 user.AllowToken();
                 UoW.UserRepository.SetCache(user);
-
-                user.AllowLicenseInfoToken();
 
                 return user;
             }
@@ -416,42 +401,15 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.ObjectNotFound, $"{Resources.NotFound} Kit by KitID or Serial");
             }
 
-            if (kit.UserID.HasValue)
+            if (!kit.OrganizationID.HasValue)
             {
-                if (UserManager.IsInRole(CurrentUser.Id, Constants.Roles.Worker))
-                {
-                    if (kit.UserID.Value != CurrentUser.Id)
-                    {
-                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} kitID");
-                    }
-
-                    if (kit.User.TeamID != CurrentUser.TeamID)
-                    {
-                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} Team");
-                    }
-                }
-                else
-                {
-                    if (!kit.OrganizationID.HasValue)
-                    {
-                        throw new APIException(ErrorAPIType.KitID, $"{Resources.NonAssigned} OrganizationID");
-                    }
-
-                    if (kit.OrganizationID != CurrentUser.OrganizationID)
-                    {
-                        throw new APIException(ErrorAPIType.WrongObjectAccess,
-                            $"{Resources.WrongObjectAccess} OrganizationID");
-                    }
-
-                    if (kit.User.TeamID != CurrentUser.TeamID)
-                    {
-                        throw new APIException(ErrorAPIType.WrongObjectAccess, $"{Resources.WrongObjectAccess} Team");
-                    }
-                }
+                throw new APIException(ErrorAPIType.KitID, $"{Resources.NonAssigned} OrganizationID");
             }
-            else
+
+            if (kit.OrganizationID != CurrentUser.OrganizationID)
             {
-                throw new APIException(ErrorAPIType.KitID, $"{Resources.NonAssigned} kitID");
+                throw new APIException(ErrorAPIType.WrongObjectAccess,
+                    $"{Resources.WrongObjectAccess} OrganizationID");
             }
 
             if (provider.FileData.Count < Constants.Records.MinFilesCount || provider.FileData.Count > Constants.Records.MaxFilesCount)
@@ -462,7 +420,7 @@ namespace Heddoko.Controllers.API
             Record record = new Record
             {
                 Kit = kit,
-                User = kit.User,
+                User = CurrentUser,
                 Type = RecordType.Record
             };
 
@@ -493,7 +451,7 @@ namespace Heddoko.Controllers.API
                     Proccessing = AssetProccessingType.New,
                     Status = UploadStatusType.New,
                     Kit = kit,
-                    User = kit.User,
+                    User = CurrentUser,
                     Record = record,
                     Name = name
                 };

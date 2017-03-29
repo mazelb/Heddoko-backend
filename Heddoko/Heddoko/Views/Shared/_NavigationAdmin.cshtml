@@ -46,7 +46,7 @@
                     </a>
                 </li>
             }
-            else if (Model.IsLicenseAdmin)
+            else if (Model.IsLicenseAdmin || Model.IsAnalyst)
             {
                 <li class="@Html.IsCurrentActionLink("Index", "Organization")" title="@i18n.Resources.LicenseTitle">
                     <a href="@Url.Action("Index", "Organization")">

@@ -21,6 +21,8 @@ namespace DAL.Models
 
         void SendInviteEmail(int userId, string inviteToken);
 
+        void SendPasswordEmail(int userId, string password);
+
         void SendForgotPasswordEmail(int userId, string resetPasswordToken);
 
         void SendForgotUsernameEmail(int userId);

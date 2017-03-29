@@ -1,15 +1,15 @@
 ﻿/**
  * @file users.js
  * @brief Functionalities required to operate it.
- * @author Sergey Slepokurov (sergey@heddoko.com)
- * @date 11 2016
+ * @author Ben Bailey (ben@heddoko.com)
+ * @date 3 2017
  * Copyright Heddoko(TM) 2017,  all rights reserved
 */
 $(function () {
-    Users.init();
+    UsersTeam.init();
 });
 
-var Users = {
+var UsersTeam = {
     isDeleted: false,
     controls: {
         grid: null,
@@ -20,75 +20,15 @@ var Users = {
         addModel: null
     },
     datasources: function () {
-        //Datasources context
-        this.usersAdminDD = new kendo.data.DataSource({
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/users'),
-            schema: {
-                data: "response",
-                total: "total",
-                errors: "Errors",
-                model: {
-                    id: "id"
-                }
-            },
-            filter: [{
-                field: 'Admin',
-                operator: 'eq',
-                value: false
-            }]
-        });
-
-        this.userStatusTypes = new kendo.data.DataSource({
-            data: _.values(_.filter(Enums.UserStatusType.array, function (u) { return u.value != Enums.UserStatusType.enum.Banned && u.value != Enums.UserStatusType.enum.Deleted }))
-        });
-
-        this.users = Users.getDatasource();
-
-        this.usersDD = Users.getDatasourceDD();
-
-        this.userRoles = new kendo.data.DataSource({
+        this.userTeamRoles = new kendo.data.DataSource({
             data: _.values(_.filter(Enums.UserRoleType.array, function (u) {
                 return u.value != Enums.UserRoleType.enum.Admin && u.value != Enums.UserRoleType.enum.User
                         && u.value != Enums.UserRoleType.enum.ServiceAdmin && u.value != Enums.UserRoleType.enum.LicenseUniversal
+                        && u.value != Enums.UserRoleType.enum.Administrator
             }))
         });
     },
 
-    getDatasourceDD: function (id) {
-        return new kendo.data.DataSource({
-            serverPaging: false,
-            serverFiltering: true,
-            serverSorting: false,
-            transport: KendoDS.buildTransport('/admin/api/users'),
-            schema: {
-                data: "response",
-                total: "total",
-                errors: "Errors",
-                model: {
-                    id: "id"
-                }
-            },
-            filter: [
-                {
-                    field: 'Used',
-                    operator: 'eq',
-                    value: id
-                }
-            ]
-        });
-    },
-
-    ddEditor: function (container, options) {
-        $('<input required data-text-field="name" data-value-field="id"  data-value-primitive="true" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDropDownList({
-            autoBind: true,
-            dataSource: Datasources.usersAdminDD
-        });
-    },
     getDatasource: function () {
         return new kendo.data.DataSource({
             pageSize: KendoDS.pageSize,
@@ -154,15 +94,6 @@ var Users = {
                                 min: 0,
                                 max: KendoDS.maxInt
                             }
-                        },
-                        teamID: {
-                            nullable: true,
-                            type: "number",
-                            validation: {
-                                required: true,
-                                min: 0,
-                                max: KendoDS.maxInt
-                            }
                         }
                     }
                 }
@@ -170,12 +101,21 @@ var Users = {
         });
     },
 
-    init: function () {
-        var control = $("#usersGrid");
-        var filter = $('.usersFilter');
-        var model = $('.usersForm');
+    userTeamRolesDDEditor: function (container, options) {
+        $('<input required data-text-field="text" data-value-field="value"  data-value-primitive="true" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+            autoBind: true,
+            dataSource: Datasources.userTeamRoles
+        });
+    },
 
-        var datasourceItem = Datasources.users;
+    init: function () {
+        var control = $("#usersTeamGrid");
+        var filter = $('.usersTeamFilter');
+        var model = $('.usersTeamForm');
+
+        var datasourceItem = UsersTeam.getDatasource();
 
         if (control.length > 0) {
             this.controls.grid = control.kendoGrid({
@@ -184,7 +124,7 @@ var Users = {
                 editable: "popup",
                 selectable: false,
                 scrollable: false,
-                resizable: true,
+                resizeable: true,
                 autoBind: true,
                 pageable: {
                     refresh: true,
@@ -216,21 +156,14 @@ var Users = {
                 }, {
                     field: 'role',
                     title: i18n.Resources.Role,
-                    editor: Users.userRolesDDEditor,
+                    editor: UsersTeam.userTeamRolesDDEditor,
                     template: function (e) {
                         return Format.user.role(e.role);
                     }
                 }, {
-                    field: 'teamID',
-                    title: i18n.Resources.Team,
-                    editor: Teams.ddEditor,
-                    template: function (e) {
-                        return Format.user.team(e);
-                    }
-                }, {
                     field: 'status',
                     title: i18n.Resources.Status,
-                    editor: Users.statusDDEditor,
+                    editor: UsersTeam.statusDDEditor,
                     template: function (e) {
                         return Format.user.status(e.status);
                     }
@@ -263,47 +196,40 @@ var Users = {
 
             KendoDS.bind(this.controls.grid, true);
 
-            this.controls.filterModel = kendo.observable({
-                find: this.onFilter.bind(this),
-                search: null,
-                teamID: null,
-                teams: Datasources.teamsDD,
-                keyup: this.onEnter.bind(this),
-                click: this.onFilter.bind(this),
-                changeTeamShown: this.onTeamChange.bind(this)
-            });
-
-            kendo.bind(filter, this.controls.filterModel);
-
             this.controls.addModel = kendo.observable({
                 reset: this.onReset.bind(this),
                 submit: this.onAdd.bind(this),
-                teams: Datasources.teamsDD,
-                roles: Datasources.userRoles,
+                roles: Datasources.userTeamRoles,
                 model: this.getEmptyModel()
             });
 
             kendo.bind(model, this.controls.addModel);
 
+            this.controls.filterModel = kendo.observable({
+                find: this.onFilter.bind(this),
+                search: null,
+                keyup: this.onEnter.bind(this),
+                click: this.onFilter.bind(this)
+            });
+
+            kendo.bind(filter, this.controls.filterModel);
+
             this.validators.addModel = model.kendoValidator({
                 validateOnBlur: true,
                 rules: {
-                    maxLengthValidationName: Validator.organization.name.maxLengthValidation,
-                    maxLengthValidationPhone: Validator.organization.phone.maxLengthValidation,
-                    maxLengthValidationAddress: Validator.organization.address.maxLengthValidation,
-                    maxLengthValidationNotes: Validator.organization.notes.maxLengthValidation
+                    maxLengthValidationName: Validator.organization.name.maxLengthValidation
                 }
             }).data("kendoValidator");
 
-            $('#chk-show-deleted', Users.controls.grid.element).click(this.onShowDeleted.bind(this));
+            $('#chk-show-deleted', UsersTeam.controls.grid.element).click(this.onShowDeleted.bind(this));
         }
     },
     onDataBound: function (e) {
         KendoDS.onDataBound(e);
         var enumerable = Enums.UserStatusType.enum;
 
-        $(".k-grid-delete", Users.controls.grid.element).each(function () {
-            var currentDataItem = Users.controls.grid.dataItem($(this).closest("tr"));
+        $(".k-grid-delete", UsersTeam.controls.grid.element).each(function () {
+            var currentDataItem = UsersTeam.controls.grid.dataItem($(this).closest("tr"));
             if (currentDataItem) {
                 if (currentDataItem.status == enumerable.Deleted) {
                     $(this).remove();
@@ -311,8 +237,8 @@ var Users = {
             }
         });
 
-        $(".k-grid-edit", Users.controls.grid.element).each(function () {
-            var currentDataItem = Users.controls.grid.dataItem($(this).closest("tr"));
+        $(".k-grid-edit", UsersTeam.controls.grid.element).each(function () {
+            var currentDataItem = UsersTeam.controls.grid.dataItem($(this).closest("tr"));
             if (currentDataItem) {
                 if (currentDataItem.status == enumerable.Deleted) {
                     $(this).remove();
@@ -320,8 +246,8 @@ var Users = {
             }
         });
 
-        $(".k-grid-restore", Users.controls.grid.element).each(function () {
-            var currentDataItem = Users.controls.grid.dataItem($(this).closest("tr"));
+        $(".k-grid-restore", UsersTeam.controls.grid.element).each(function () {
+            var currentDataItem = UsersTeam.controls.grid.dataItem($(this).closest("tr"));
             if (currentDataItem) {
                 if (currentDataItem.status != enumerable.Deleted) {
                     $(this).remove();
@@ -329,9 +255,9 @@ var Users = {
             }
         });
 
-        $(".k-grid-resend", Users.controls.grid.element)
+        $(".k-grid-resend", UsersTeam.controls.grid.element)
           .each(function () {
-              var currentDataItem = Users.controls.grid.dataItem($(this).closest("tr"));
+              var currentDataItem = UsersTeam.controls.grid.dataItem($(this).closest("tr"));
 
               if (currentDataItem.status !== enumerable.Invited) {
                   $(this).remove();
@@ -344,14 +270,14 @@ var Users = {
         this.onFilter();
     },
     onRestore: function (e) {
-        var item = Users.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        var item = UsersTeam.controls.grid.dataItem($(e.currentTarget).closest("tr"));
         item.set('status', Enums.UserStatusType.enum.Active);
-        Users.controls.grid.dataSource.sync();
+        UsersTeam.controls.grid.dataSource.sync();
     },
     onResendActivation: function (e) {
         e.preventDefault();
 
-        var item = Users.controls.grid.dataItem($(e.currentTarget).closest("tr"));
+        var item = UsersTeam.controls.grid.dataItem($(e.currentTarget).closest("tr"));
 
         Ajax.post("/admin/api/users/activation/resend",
        {
@@ -371,14 +297,6 @@ var Users = {
         .kendoDropDownList({
             autoBind: true,
             dataSource: Datasources.userStatusTypes
-        });
-    },
-    userRolesDDEditor: function (container, options) {
-        $('<input required data-text-field="text" data-value-field="value"  data-value-primitive="true" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDropDownList({
-            autoBind: true,
-            dataSource: Datasources.userRoles
         });
     },
     getEmptyModel: function () {
@@ -410,11 +328,6 @@ var Users = {
             }.bind(this));
         }
     },
-    getEmptyOptions: function() {
-        return {
-            teamID: null
-        };
-    },   
     onEnter: function (e) {
         if (e.keyCode == kendo.keys.ENTER) {
             this.onFilter(e);
@@ -426,14 +339,9 @@ var Users = {
             this.controls.grid.dataSource.filter(filters);
         }
     },
-    onTeamChange: function (e) {
-        var filters = this.buildFilter();
-        Datasources.users.filter(filters);
-    },
     buildFilter: function (search) {
         Notifications.clear();
         var search = this.controls.filterModel.search;
-        var team = this.controls.filterModel.teamID;
 
         var filters = [];
 
@@ -444,16 +352,6 @@ var Users = {
                 field: "Search",
                 operator: "eq",
                 value: search
-            });
-        }
-
-        if (typeof (team) !== "undefined"
-         && team !== 0
-         && team !== null) {
-            filters.push({
-                field: "TeamID",
-                operator: "eq",
-                value: parseInt(team)
             });
         }
 
@@ -468,5 +366,4 @@ var Users = {
         return filters.length == 0 ? {} : filters;
     }
 };
-
-Datasources.bind(Users.datasources);
+Datasources.bind(UsersTeam.datasources);

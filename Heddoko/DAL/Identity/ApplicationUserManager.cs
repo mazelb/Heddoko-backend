@@ -110,11 +110,6 @@ namespace DAL
                 user.EmailConfirmed = true;
             }
 
-            if (!await IsInRoleAsync(user.Id, Constants.Roles.User))
-            {
-                await AddToRoleAsync(user.Id, Constants.Roles.User);
-            }
-
             await UpdateAsync(user);
 
             switch (user.Role)
@@ -131,13 +126,6 @@ namespace DAL
                         await AddToRoleAsync(user.Id, Constants.Roles.LicenseAdmin);
                     }
                     break;
-                case UserRoleType.User:
-                default:
-                    break;
-            }
-
-            switch (user.RoleType)
-            {
                 case UserRoleType.Worker:
                     if (!await IsInRoleAsync(user.Id, Constants.Roles.Worker))
                     {
@@ -150,11 +138,46 @@ namespace DAL
                         await AddToRoleAsync(user.Id, Constants.Roles.Analyst);
                     }
                     break;
+                case UserRoleType.User:
                 default:
                     break;
             }
+            UoW.UserRepository.ClearCache(user);
+        }
 
-            ApplyUserRolesForLicense(user);
+        public void UpdateUserIdentityRole(User user)
+        {
+            if(!this.IsInRole(user.Id, Constants.Roles.Admin))
+            {
+                if(this.IsInRole(user.Id, Constants.Roles.Worker))
+                {
+                    this.RemoveFromRole(user.Id, Constants.Roles.Worker);
+                }
+                else if (this.IsInRole(user.Id, Constants.Roles.Analyst))
+                {
+                    this.RemoveFromRole(user.Id, Constants.Roles.Analyst);
+                }
+                else if (this.IsInRole(user.Id, Constants.Roles.LicenseAdmin))
+                {
+                    this.RemoveFromRole(user.Id, Constants.Roles.LicenseAdmin);
+                }
+
+                switch (user.Role)
+                {
+                    case UserRoleType.LicenseAdmin:
+                        this.AddToRole(user.Id, Constants.Roles.LicenseAdmin);
+                        break;
+                    case UserRoleType.Analyst:
+                        this.AddToRole(user.Id, Constants.Roles.Analyst);
+                        break;
+                    case UserRoleType.Worker:
+                        this.AddToRole(user.Id, Constants.Roles.Worker);
+                        break;
+                    case UserRoleType.LicenseUniversal:
+                        this.AddToRole(user.Id, Constants.Roles.LicenseUniversal);
+                        break;
+                }
+            }
 
             UoW.UserRepository.ClearCache(user);
         }
@@ -214,6 +237,11 @@ namespace DAL
             UserEmailService.Service.SendInviteEmail(userId, inviteToken);
         }
 
+        public void SendPasswordEmail(int userId, string password)
+        {
+            UserEmailService.Service.SendPasswordEmail(userId, password);
+        }
+
         public void SendForgotPasswordEmail(int userId, string resetPasswordToken)
         {
             UserEmailService.Service.SendForgotPasswordEmail(userId, resetPasswordToken);
@@ -234,46 +262,6 @@ namespace DAL
             UserEmailService.Service.SendActivatedEmail(userId);
         }
 
-        public void ApplyUserRolesForLicense(User user)
-        {
-            if (user.License == null || !user.License.IsActive)
-            {
-                if (this.IsInRole(user.Id, Constants.Roles.Analyst))
-                {
-                    this.RemoveFromRole(user.Id, Constants.Roles.Analyst);
-                }
-
-                if (this.IsInRole(user.Id, Constants.Roles.Worker))
-                {
-                    this.RemoveFromRole(user.Id, Constants.Roles.Worker);
-                }
-
-                if (this.IsInRole(user.Id, Constants.Roles.LicenseUniversal))
-                {
-                    this.RemoveFromRole(user.Id, Constants.Roles.LicenseUniversal);
-                }
-            }
-            else
-            {
-                if (!this.IsInRole(user.Id, Constants.Roles.Admin)
-                    && user.License.IsActive)
-                {
-                    switch (user.License.Type)
-                    {
-                        case LicenseType.DataAnalysis:
-                            this.AddToRole(user.Id, Constants.Roles.Analyst);
-                            break;
-                        case LicenseType.DataCollection:
-                            this.AddToRole(user.Id, Constants.Roles.Worker);
-                            break;
-                        case LicenseType.Universal:
-                            this.AddToRole(user.Id, Constants.Roles.LicenseUniversal);
-                            break;
-                    }
-                }
-            }
-        }
-
         public async Task<IdentityResult> SetEmailConfirmedAsync(User user, bool confirmed)
         {
             await UserStore.SetEmailConfirmedAsync(user, confirmed);
@@ -283,22 +271,9 @@ namespace DAL
 
         public void CheckUserLicense(User user)
         {
-            if (!user.License.IsActive)
+            if (!(user.Status == UserStatusType.Active))
             {
-                switch (user.License.Status)
-                {
-                    case LicenseStatusType.Expired:
-                        throw new Exception(Resources.WrongLicenseExpiration);
-                    case LicenseStatusType.Inactive:
-                        throw new Exception(Resources.WrongLicenseActive);
-                    case LicenseStatusType.Deleted:
-                        throw new Exception(Resources.WrongLicenseDeleted);
-                }
-
-                if (user.License.ExpirationAt < DateTime.Now)
-                {
-                    throw new Exception(Resources.WrongLicenseExpiration);
-                }
+                throw new Exception(Resources.UserIsNotActive);
             }
         }
     }

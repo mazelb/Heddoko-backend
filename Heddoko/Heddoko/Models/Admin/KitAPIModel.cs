@@ -61,10 +61,6 @@ namespace Heddoko.Models
 
         public Organization Organization { get; set; }
 
-        public int? UserID { get; set; }
-
-        public User User { get; set; }
-
         public string IDView { get; set; }
 
         public string Name => IsEmpty ? $"{Resources.No} {Resources.Kit}" : $"{IDView}";

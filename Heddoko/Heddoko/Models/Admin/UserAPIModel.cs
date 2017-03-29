@@ -25,23 +25,15 @@ namespace Heddoko.Models
 
         public string Username { get; set; }
 
-        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
         [MaxLength(50)]
         public string Firstname { get; set; }
 
-        [Required(ErrorMessageResourceName = "ValidateRequiredMessage", ErrorMessageResourceType = typeof(Resources))]
         [MaxLength(50)]
         public string Lastname { get; set; }
 
-        public string Role { get; set; }
+        public UserRoleType Role { get; set; }
 
         public UserStatusType? Status { get; set; }
-
-        public int? LicenseID { get; set; }
-
-        public string LicenseName { get; set; }
-
-        public LicenseStatusType? LicenseStatus { get; set; }
 
         public DateTime? ExpirationAt { get; set; }
 
@@ -50,8 +42,6 @@ namespace Heddoko.Models
         public string Phone { get; set; }
 
         public int? KitID { get; set; }
-
-        public Kit Kit { get; set; }
 
         public int? TeamID { get; set; }
 

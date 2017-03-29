@@ -79,8 +79,6 @@ namespace DAL
         public override User Get(int id)
         {
             return DbSet.Include(c => c.Organization)
-                        .Include(c => c.License)
-                        .Include(c => c.Kits)
                         .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.Id == id);
         }
@@ -88,7 +86,6 @@ namespace DAL
         public IEnumerable<User> All(bool isDeleted = false)
         {
             return DbSet.Include(c => c.Organization)
-                        .Include(c => c.License)
                         .Include(c => c.Roles.Select(r => r.Role))
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .OrderBy(c => c.FirstName)
@@ -100,9 +97,6 @@ namespace DAL
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.Tokens)
                         .Include(c => c.Team)
-                        .Include(c => c.License)
-                        .Include(c => c.Kits)
-                        .Include(c => c.Kits.Select(k => k.Brainpack))
                         .Include(c => c.Roles.Select(r => r.Role))
                         .Include(c => c.Devices)
                         .FirstOrDefault(c => c.Id == id);
@@ -113,7 +107,6 @@ namespace DAL
             return DbSet.Include(c => c)
                         .Include(c => c.Roles)
                         .Include(c => c.Roles.Select(r => r.Role))
-                        .Include(c => c.License)
                         .FirstOrDefault(c => c.Tokens.Any(t => t.Token == token));
         }
 
@@ -152,9 +145,6 @@ namespace DAL
             return DbSet.Include(c => c.Organization)
                         .Include(c => c.Tokens)
                         .Include(c => c.Team)
-                        .Include(c => c.License)
-                        .Include(c => c.Kits)
-                        .Include(c => c.Kits.Select(k => k.Brainpack))
                         .Include(c => c.Roles.Select(r => r.Role))
                         .FirstOrDefault(c => c.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
@@ -184,14 +174,11 @@ namespace DAL
                         .ThenBy(c => c.LastName);
         }
 
-        public IEnumerable<User> GetByOrganization(int organizationID, bool isDeleted = false, int? licenseID = null)
+        public IEnumerable<User> GetByOrganization(int organizationID, bool isDeleted = false)
         {
-            return DbSet.Include(c => c.License)
-                        .Include(c => c.Kits)
-                        .Include(c => c.Team)
+            return DbSet.Include(c => c.Team)
                         .Include(c => c.Organization)
                         .Include(c => c.Roles.Select(r => r.Role))
-                        .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
                         .Where(c => c.OrganizationID.Value == organizationID)
                         .OrderBy(c => c.FirstName)
@@ -205,15 +192,14 @@ namespace DAL
                         .Select(c => c.Id);
         }
 
-        public IEnumerable<User> GetByTeam(int teamId, bool isDeleted = false)
+        public IEnumerable<User> GetByTeam(int teamId, int organizationID, bool isDeleted = false)
         {
-            return DbSet.Include(c => c.License)
-                        .Include(c => c.Kits)
-                        .Include(c => c.Team)
+            return DbSet.Include(c => c.Team)
                         .Include(c => c.Organization)
                         .Include(c => c.Roles.Select(r => r.Role))
+                        .Where(c => c.OrganizationID == organizationID)
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
-                        .Where(c => c.TeamID.Value == teamId)
+                        .Where(c => teamId != 0 ? c.TeamID.Value == teamId : c.TeamID == null)
                         .OrderBy(c => c.FirstName)
                         .ThenBy(c => c.LastName);
         }
@@ -228,17 +214,15 @@ namespace DAL
         public IEnumerable<User> Search(
             string search,
             int? organizationID = null,
-            bool isDeleted = false,
-            int? licenseID = null)
+            int? teamID = null,
+            bool isDeleted = false)
         {
-            return DbSet.Include(c => c.License)
-                        .Include(c => c.Organization)
-                        .Include(c => c.Kits)
+            return DbSet.Include(c => c.Organization)
                         .Include(c => c.Team)
                         .Include(c => c.Roles.Select(r => r.Role))
                         .Where(c => isDeleted ? c.Status == UserStatusType.Deleted : c.Status != UserStatusType.Deleted)
-                        .Where(c => !licenseID.HasValue || c.LicenseID == licenseID.Value)
                         .Where(c => !organizationID.HasValue || c.OrganizationID.Value == organizationID)
+                        .Where(c => !teamID.HasValue || c.TeamID.Value == teamID)
                         .Where(
                             c =>
                                 (!string.IsNullOrEmpty(c.FirstName) && c.FirstName.ToLower().Contains(search.ToLower()))
@@ -255,7 +239,6 @@ namespace DAL
         {
             IQueryable<User> query = DbSet.Where(c => c.OrganizationID == organizationID
                                                    && c.TeamID == teamID)
-                                          .Include(c => c.Kits.Select(k => k.Brainpack))
                                           .Include(c => c.Team)
                                           .OrderBy(c => c.FirstName)
                                           .ThenBy(c => c.LastName);

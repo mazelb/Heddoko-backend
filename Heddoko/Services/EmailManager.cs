@@ -42,6 +42,15 @@ namespace Services
         }
 
         [Queue(Constants.HangFireQueue.Email)]
+        public static void SendPasswordEmail(int userId, string password)
+        {
+            UnitOfWork uow = new UnitOfWork();
+            User user = uow.UserRepository.GetFull(userId);
+
+            Mailer.SendPasswordEmail(user, password);
+        }
+
+        [Queue(Constants.HangFireQueue.Email)]
         public static void SendForgotPasswordEmail(int userId, string resetPasswordToken)
         {
             UnitOfWork uow = new UnitOfWork();

@@ -55,11 +55,6 @@ namespace Heddoko.Controllers.API
                 throw new APIException(ErrorAPIType.UserIsNotInTeam, Resources.UserIsNotInTeam);
             }
 
-            if (CurrentUser.Kit == null)
-            {
-                throw new APIException(ErrorAPIType.KitID, Resources.UserDoesntHaveKit);
-            }
-
             _streamConnectionsService.CreateChannel(ChanelHelper.GetChannelName(CurrentUser), CurrentUser);
 
             return true;

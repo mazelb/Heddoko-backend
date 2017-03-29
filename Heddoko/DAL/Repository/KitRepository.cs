@@ -61,14 +61,12 @@ namespace DAL
                         .Include(c => c.SensorSet)
                         .Include(c => c.Pants)
                         .Include(c => c.Shirt)
-                        .Include(c => c.User)
                         .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Kit> GetAvailable(int? id = null, int? organizationID = null)
         {
             return DbSet.Where(c => c.Status != EquipmentStatusType.Trash)
-                        .Where(c => c.User == null || c.UserID == id)
                         .Where(c => !organizationID.HasValue || c.OrganizationID == organizationID)
                         .OrderBy(c => c.Id);
         }
@@ -80,7 +78,6 @@ namespace DAL
                         .Include(c => c.SensorSet)
                         .Include(c => c.Pants)
                         .Include(c => c.Shirt)
-                        .Include(c => c.User)
                         .Where(c => isDeleted ? c.Status == EquipmentStatusType.Trash : c.Status != EquipmentStatusType.Trash)
                         .Where(c => !organizationID.HasValue || c.OrganizationID == organizationID)
                         .OrderBy(c => c.Id);
@@ -93,7 +90,6 @@ namespace DAL
                                          .Include(c => c.SensorSet)
                                          .Include(c => c.Pants)
                                          .Include(c => c.Shirt)
-                                         .Include(c => c.User)
                                          .Where(c => !organizationID.HasValue || c.OrganizationID == organizationID);
 
 
@@ -116,14 +112,6 @@ namespace DAL
             return query;
         }
 
-        public void RemoveUser(int userID)
-        {
-            DbSet.Where(c => c.UserID.Value == userID).Update(c => new Kit()
-            {
-                UserID = null
-            });
-        }
-
         public int GetNumReady()
         {
             return DbSet.Count(c => c.Status == EquipmentStatusType.Ready);
@@ -133,8 +121,7 @@ namespace DAL
         {
             int? id = label.ParseID();
 
-            return DbSet.Include(c => c.User)
-                        .Include(c => c.User.Team)
+            return DbSet.Include(c => c.Organization)
                         .FirstOrDefault(c => (c.Id == id)
                                              || c.Label.ToLower().Contains(label.ToLower())
                                              || c.Brainpack.Label.ToLower().Contains(label.ToLower()));
@@ -142,8 +129,7 @@ namespace DAL
 
         public override Kit Get(int id)
         {
-            return DbSet.Include(c => c.User)
-                        .Include(c => c.User.Team)
+            return DbSet.Include(c => c.Organization)
                         .FirstOrDefault(c => c.Id == id);
         }
     }
