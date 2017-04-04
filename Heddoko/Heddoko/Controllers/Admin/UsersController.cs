@@ -39,7 +39,7 @@ namespace Heddoko.Controllers
         private const string Used = "Used";
         private const string TeamID = "TeamID";
         private const int PasswordLength = 8;
-        private const int PasswordNonNumerics = 1;
+        private const int PasswordNonNumerics = 0;
 
         public UsersController() { }
 
@@ -215,11 +215,19 @@ namespace Heddoko.Controllers
 
             if (ModelState.IsValid)
             {
+                // Analyst can only create users for their own team
+                if (CurrentUser.Role == UserRoleType.Analyst)
+                {
+                    model.TeamID = CurrentUser.TeamID;
+                }
+                string password = "";
                 User item = new User();
                 item = Bind(item, model);
+                item.Status = UserStatusType.Active;
                 if (item.Id == 0)
                 {
-                    IdentityResult result = UserManager.Create(item);
+                    password = Membership.GeneratePassword(PasswordLength, PasswordNonNumerics);
+                    IdentityResult result = UserManager.Create(item, password);
                     if (result.Succeeded)
                     {
                         UserManager.AddToRole(item.Id, item.Role.GetStringValue());
@@ -231,7 +239,6 @@ namespace Heddoko.Controllers
                     UoW.UserRepository.ClearCache(item);
                 }
 
-                item.Role = model.Role;
                 UserManager.UpdateUserIdentityRole(item);
 
                 if (!item.Email.IsNullOrEmpty())
@@ -242,12 +249,8 @@ namespace Heddoko.Controllers
                     //UserManager.SendInviteEmail(userID, inviteToken);
 
                     //Generated Password
-                    string password = Membership.GeneratePassword(PasswordLength, PasswordNonNumerics);
-                    UserManagerExtensions.AddPassword(UserManager, userID, password);
                     UserManager.SendPasswordEmail(userID, password);
-                }
-                item.Status = UserStatusType.Active;
-
+                }            
 
                 response = Convert(item);
             }
