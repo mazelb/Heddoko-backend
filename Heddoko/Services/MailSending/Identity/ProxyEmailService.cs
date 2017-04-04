@@ -42,7 +42,7 @@ namespace Services.MailSending
 
         public void SendPasswordEmail(int userId, string password)
         {
-            BackgroundJob.Enqueue(() => EmailManager.SendForgotPasswordEmail(userId, password));
+            BackgroundJob.Enqueue(() => EmailManager.SendPasswordEmail(userId, password));
         }
 
         public void SendForgotPasswordEmail(int userId, string resetPasswordToken)
