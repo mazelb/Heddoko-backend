@@ -361,7 +361,7 @@ namespace Heddoko.Controllers
                 }
                 else
                 {
-                    user = UoW.UserRepository.GetByUsername(model.Username?.ToLower().Trim());
+                    user = UoW.UserRepository.GetByEmail(model.Email?.ToLower().Trim()) ?? UoW.UserRepository.GetByUsername(model.Username?.ToLower().Trim());
 
                     if (user?.OrganizationID != null)
                     {
